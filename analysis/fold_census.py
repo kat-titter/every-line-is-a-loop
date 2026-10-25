@@ -222,7 +222,7 @@ def main():
                   'five curated models', 'from one to 14 loops', 'remove the brakes of 10 clocks', '(13 models)', '102 loop searches'):
         assert claim in post, claim
     css += ('\n/* the essay reads in one sans; symbols and tiles follow it; its own key table wraps on a phone */\n'
-            '.pt-sym, .tile .sym, .ecard h3, .pt-el .pt-sym { font-family: var(--sans); }\n'
+            '.pt-sym, .tile .sym, .ecard h3, .pt-el .pt-sym, .card h3, .f-panel, .ex-name, details.supp > summary, .text h3 { font-family: var(--sans); }\n'
             '.text table.key td:nth-child(2) { white-space: normal; }\n')
 
     blocks = {
