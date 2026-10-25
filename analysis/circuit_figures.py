@@ -573,6 +573,84 @@ def fig_hypo():
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
+# ================================================================ early is reversible (the switch's two thresholds)
+def sw_steady(L, n=6000):
+    """Steady states of the lac switch at lactose L: x = beta h(L x), found exactly by scanning x for sign changes and
+    refining each root by bisection. Returns the roots, low to high (one or three)."""
+    import bisect  # noqa: F401  (kept local: the module stays dependency-free)
+    g = lambda x: SW['beta'] * sw_h(L * x) - x
+    xs = [SW['beta'] * i / n for i in range(n + 1)]
+    roots = []
+    for a, b in zip(xs, xs[1:]):
+        ga, gb = g(a), g(b)
+        if ga == 0:
+            roots.append(a)
+        elif ga * gb < 0:
+            for _ in range(60):
+                m = (a + b) / 2
+                if g(a) * g(m) <= 0:
+                    b = m
+                else:
+                    a = m
+            roots.append((a + b) / 2)
+    return roots
+
+
+def sw_thresholds(lo=0.1, hi=1.4, steps=2600):
+    """Where the switch commits (the low state vanishes) and where it lets go (the high state vanishes)."""
+    three = [round(lo + (hi - lo) * i / steps, 4) for i in range(steps + 1)]
+    bist = [L for L in three if len(sw_steady(L, 1500)) == 3]
+    return min(bist), max(bist)
+
+
+def fig_window():
+    L_off, L_on = sw_thresholds()
+    assert 0.3 < L_off < 0.4 and 0.75 < L_on < 0.9, (L_off, L_on)
+    Ls = [round(0.005 * i, 3) for i in range(0, 281)]          # 0 to 1.4
+    roots = {L: sw_steady(L, 3000) for L in Ls}
+    W, H = 560, 270
+    x0, x1, y0, y1 = 60, 540, 214, 40
+    X = lambda L: x0 + (x1 - x0) * L / 1.4
+    Y = lambda v: y0 - (y0 - y1) * v / 5.4
+    s = '<g class="ax">' + axes(W, H, x0, x1, y0, y1, 'the push toward disease', 'the switch',
+                                [(L / 1.4, f'{L:g}') for L in (0, 0.5, 1.0)], [(0, 'off'), (5 / 5.4, 'on')]) + '</g>'
+    # the thresholds where the switch commits and where it lets go, measured on the model
+    for L, word in ((L_off, 'lets go'), (L_on, 'commits')):
+        s += f'<line x1="{X(L):.1f}" y1="{y0}" x2="{X(L):.1f}" y2="{y1 - 4}" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 3"/>'
+        s += mono(X(L), y1 - 10, f'{word} {L:.2f}', anchor='middle', fill='var(--ink)')
+    lo = [(L, r[0]) for L, r in roots.items() if L <= L_on]
+    hi = [(L, r[-1]) for L, r in roots.items() if L >= L_off]
+    mid = [(L, r[1]) for L, r in roots.items() if len(r) == 3]
+    pts_ = lambda seg: ' '.join(f'{X(L):.1f},{Y(v):.1f}' for L, v in seg)
+    s += f'<polyline points="{pts_(mid)}" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 3"/>'
+    s += f'<polyline points="{pts_(lo)}" fill="none" stroke="var(--accent-text)" stroke-width="2.2"/>'
+    s += f'<polyline points="{pts_(hi)}" fill="none" stroke="var(--accent-text)" stroke-width="2.2"/>'
+    # the jumps: on where the low state vanishes, off where the high state vanishes
+    s += (f'<path d="M{X(L_on):.1f} {Y(lo[-1][1]) - 6:.1f}V{Y(sw_steady(L_on + 0.01)[-1]) + 10:.1f}" fill="none" stroke="var(--accent-text)" '
+          f'stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#fx-arrow)"/>')
+    s += (f'<path d="M{X(L_off):.1f} {Y(hi[0][1]) + 6:.1f}V{Y(sw_steady(L_off - 0.01)[0]) - 10:.1f}" fill="none" stroke="var(--accent-text)" '
+          f'stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#fx-arrow)"/>')
+    # a treatment pushing back: caught early, before it commits; caught late, after
+    e0, e1 = round(L_on - 0.06, 2), round(L_on - 0.24, 2)
+    ve = sw_steady(e0)[0]
+    s += f'<circle cx="{X(e0):.1f}" cy="{Y(ve):.1f}" r="4.5" fill="var(--paper)" stroke="var(--accent2-text)" stroke-width="2"/>'
+    s += f'<path d="M{X(e0) - 8:.1f} {Y(ve) - 14:.1f}H{X(e1):.1f}" fill="none" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-arrow-rose)"/>'
+    s += mono(X(e1) - 6, Y(ve) - 10, 'early', anchor='end', fill='var(--accent2-text)')
+    l0, l1 = 1.05, L_off - 0.07
+    vl = sw_steady(l0)[-1]
+    s += f'<circle cx="{X(l0):.1f}" cy="{Y(vl):.1f}" r="4.5" fill="var(--paper)" stroke="var(--accent2-text)" stroke-width="2"/>'
+    s += f'<path d="M{X(l0) - 8:.1f} {Y(vl) + 16:.1f}H{X(l1):.1f}" fill="none" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-arrow-rose)"/>'
+    s += mono(X(l0) + 10, Y(vl) + 20, 'late', fill='var(--accent2-text)')
+    fig_window.thresholds = (L_off, L_on)
+    aria = (f'The lac switch read as a disease: as the push rises the switch stays off until {L_on:.2f}, then jumps on; as the push '
+            f'falls it stays on until {L_off:.2f}. Caught early, before it commits, a short push back keeps it off; caught late, '
+            f'the push back must go below {L_off:.2f}.')
+    key = ('<p class="keyrow"><span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H31" stroke="var(--accent-text)" stroke-width="2.2"/></svg>the switch, settled at each push</span>'
+           '<span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H31" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 3"/></svg>the tipping point between them</span>'
+           '<span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M31 6H5" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-arrow-rose)"/></svg>a treatment pushing back</span></p>')
+    return '<div class="pane one">' + pane(s, W, H, aria) + '</div>' + key
+
+
 # ================================================================ shared pieces
 def glyph(word, color='var(--ink)', dashed=False):
     dash = ' stroke-dasharray="3 2"' if dashed else ''
@@ -619,6 +697,7 @@ def defs_html():
             '<marker id="fx-arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker>'
             '<marker id="fx-arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker>'
             '<marker id="fx-bar" viewBox="0 0 3 10" refX="2" refY="5" markerWidth="3" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M1.5 0V10" stroke="var(--accent2-text)" stroke-width="2.2"/></marker>'
+            '<marker id="fx-arrow-rose" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--accent2-text)"/></marker>'
             '<marker id="fx-bar-muted" viewBox="0 0 3 10" refX="2" refY="5" markerWidth="3" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M1.5 0V10" stroke="var(--muted)" stroke-width="2.2"/></marker>'
             '</defs></svg>')
 
@@ -947,7 +1026,7 @@ BLOCKS = {'defs': defs_html, 'frame': fig_frame,
           'switch': lambda: fig_switch()[0], 'switch-ctl': lambda: fig_switch()[1],
           'clock': lambda: fig_clock()[0], 'clock-ctl': lambda: fig_clock()[1],
           'adapter': lambda: fig_adapter()[0], 'adapter-ctl': lambda: fig_adapter()[1],
-          'disease': fig_disease, 'script': script}
+          'disease': fig_disease, 'window': fig_window, 'script': script}
 
 
 def inject(page=PAGE):

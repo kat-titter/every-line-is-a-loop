@@ -53,6 +53,13 @@ NEW_REFS = [
     ('10.1098/rsta.1895.0006', 'Rayleigh (Strutt JW), Ramsay W. Argon, a new constituent of the atmosphere. <i>Philos Trans R Soc Lond A</i> 186:187&#8211;241 (1895). <a href="https://doi.org/10.1098/rsta.1895.0006">doi:10.1098/rsta.1895.0006</a>'),
     ('10.1038/111079a0', 'Coster D, Hevesy G. On the missing element of atomic number 72. <i>Nature</i> 111:79 (1923). <a href="https://doi.org/10.1038/111079a0">doi:10.1038/111079a0</a>'),
     ('10.1021/ja01203a059', 'Marinsky JA, Glendenin LE, Coryell CD. The chemical identification of radioisotopes of neodymium and of element 61. <i>J Am Chem Soc</i> 69(11):2781&#8211;2785 (1947). <a href="https://doi.org/10.1021/ja01203a059">doi:10.1021/ja01203a059</a>'),
+    ('10.1056/NEJMoa1202753', 'Bateman RJ et al. Clinical and biomarker changes in dominantly inherited Alzheimer&#8217;s disease. <i>N Engl J Med</i> 367:795&#8211;804 (2012). <a href="https://doi.org/10.1056/NEJMoa1202753">doi:10.1056/NEJMoa1202753</a>'),
+    ('10.1038/ng1293', 'Lahav G, Rosenfeld N, Sigal A, Geva-Zatorsky N, Levine AJ, Elowitz MB, Alon U. Dynamics of the p53-Mdm2 feedback loop in individual cells. <i>Nat Genet</i> 36:147&#8211;150 (2004). <a href="https://doi.org/10.1038/ng1293">doi:10.1038/ng1293</a>'),
+    ('10.1126/science.1197623', 'Mawuenyega KG et al. Decreased clearance of CNS &#946;-amyloid in Alzheimer&#8217;s disease. <i>Science</i> 330:1774 (2010). <a href="https://doi.org/10.1126/science.1197623">doi:10.1126/science.1197623</a>'),
+    ('10.1126/science.1241224', 'Xie L et al. Sleep drives metabolite clearance from the adult brain. <i>Science</i> 342:373&#8211;377 (2013). <a href="https://doi.org/10.1126/science.1241224">doi:10.1126/science.1241224</a>'),
+    ('10.1056/NEJMoa2212948', 'van Dyck CH et al. Lecanemab in early Alzheimer&#8217;s disease. <i>N Engl J Med</i> 388:9&#8211;21 (2023). <a href="https://doi.org/10.1056/NEJMoa2212948">doi:10.1056/NEJMoa2212948</a>'),
+    ('10.1182/blood.V72.2.567.567', 'Huang ME, Ye YC, Chen SR, Chai JR, Lu JX, Zhao L, Gu LJ, Wang ZY. Use of all-trans retinoic acid in the treatment of acute promyelocytic leukemia. <i>Blood</i> 72(2):567&#8211;572 (1988). <a href="https://doi.org/10.1182/blood.V72.2.567.567">doi:10.1182/blood.V72.2.567.567</a>'),
+    ('10.1016/j.cell.2016.11.052', 'Ocampo A et al. In vivo amelioration of age-associated hallmarks by partial reprogramming. <i>Cell</i> 167(7):1719&#8211;1733.e12 (2016). <a href="https://doi.org/10.1016/j.cell.2016.11.052">doi:10.1016/j.cell.2016.11.052</a>'),
 ]
 # The same work cited through two records (post key -> essay key).
 ALIASES = {}
@@ -61,7 +68,7 @@ ALIASES = {}
 FIG = {'Figure 1. Arrows and loops.': 'Figure 1. Flip the arrows.',
        'Figure 5. The periodic table of loops.': 'Figure 6. The periodic table of loops.',
        'Figure 6. The data.': 'Figure 7. The data.',
-       'Figure 7. The research loop.': 'Figure 12. The research loop.'}
+       'Figure 7. The research loop.': 'Figure 13. The research loop.'}
 
 CSS_WANT = ['.pt-', '.ptable', '.ecard', '.rc-', '.refcard', '.tile', '.tiles', '.cards', '.card', '.summary-cards', '.f-', '.explorer',
             '.ex-', 'ol.ex-list', '#ex-q', '.pick', '.sl-', '.sn', '.sp', '.solo', '.bars', '.grid-fig', '.grid-key', '.rows-grid', '.quad',
