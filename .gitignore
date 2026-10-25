@@ -1,0 +1,8 @@
+.venv/
+shots/
+*.pdf
+.DS_Store
+data/
+run_all.log
+run_all.time
+__pycache__/

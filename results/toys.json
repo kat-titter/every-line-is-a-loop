@@ -1,0 +1,109 @@
+{
+ "enzyme": {
+  "thomas": {
+   "complete": true,
+   "c": 5,
+   "k": 2,
+   "j": 0
+  },
+  "ref24": {
+   "complete": true,
+   "c": 0,
+   "k": 0,
+   "j": 0
+  },
+  "ref24_rank": {
+   "complete": true,
+   "c": 0,
+   "k": 0,
+   "j": 0
+  },
+  "running_totals": {
+   "strict": 0,
+   "loose": [
+    "P"
+   ],
+   "paired": [],
+   "loops": []
+  }
+ },
+ "ring": {
+  "thomas": {
+   "complete": true,
+   "c": 1,
+   "k": 1,
+   "j": 0
+  },
+  "ref24": {
+   "complete": true,
+   "c": 1,
+   "k": 1,
+   "j": 0
+  },
+  "ref24_rank": {
+   "complete": true,
+   "c": 1,
+   "k": 1,
+   "j": 0
+  },
+  "running_totals": {
+   "strict": 0,
+   "loose": [],
+   "paired": [],
+   "loops": [
+    {
+     "nodes": [
+      "A",
+      "B",
+      "C"
+     ],
+     "sign": "-",
+     "integrates": false
+    }
+   ]
+  }
+ },
+ "controller": {
+  "thomas": {
+   "complete": true,
+   "c": 2,
+   "k": 1,
+   "j": 0
+  },
+  "ref24": {
+   "complete": true,
+   "c": 1,
+   "k": 1,
+   "j": 0
+  },
+  "ref24_rank": {
+   "complete": true,
+   "c": 1,
+   "k": 1,
+   "j": 0
+  },
+  "running_totals": {
+   "strict": 0,
+   "loose": [],
+   "paired": [
+    [
+     "z1",
+     "z2",
+     1,
+     -1
+    ]
+   ],
+   "loops": [
+    {
+     "nodes": [
+      "x",
+      "z2",
+      "z1"
+     ],
+     "sign": "-",
+     "integrates": false
+    }
+   ]
+  }
+ }
+}

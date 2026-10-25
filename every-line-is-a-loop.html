@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Every line is a loop: a periodic table for biology</title>
+<meta name="description" content="Chemistry has a periodic table because electrons come in integers. Biology's integers are loops. Sort them by count and sign, put period in the cell, and a table appears with one element that never closes: aging. What it predicts, how to test it, and what it says about cancer, autoimmunity and neurodegeneration.">
+<style>
+  :root {
+    --paper: #ffffff;
+    --ink: #141414;
+    --muted: #6a6a6a;
+    --rule: #dcdcdc;
+    --accent: #a98be0;
+    --accent-text: #7a5fc7;
+    --accent-soft: rgba(169, 139, 224, 0.16);
+    --tint: #f3f3f1;
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #111214;
+      --ink: #ececea;
+      --muted: #9b9b98;
+      --rule: #2d2f33;
+      --accent: #cdb8ff;
+      --accent-text: #cdb8ff;
+      --accent-soft: rgba(205, 184, 255, 0.18);
+      --tint: #1a1c20;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #111214;
+    --ink: #ececea;
+    --muted: #9b9b98;
+    --rule: #2d2f33;
+    --accent: #cdb8ff;
+      --accent-text: #cdb8ff;
+    --accent-soft: rgba(205, 184, 255, 0.18);
+    --tint: #1a1c20;
+    color-scheme: dark;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: inherit; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Inter", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .post {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 72px 20px 96px;
+  }
+  .text { max-width: 640px; }
+  header h1 {
+    font-size: 40px;
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 0 0 8px;
+  }
+  header .sub {
+    font-size: 22px;
+    color: var(--muted);
+    margin: 0 0 20px;
+    font-weight: 400;
+  }
+  header .meta { font-size: 15px; color: var(--muted); margin: 0 0 48px; }
+  .hook { font-size: 20px; line-height: 1.55; margin: 0 0 20px; }
+  .lead { font-size: 20px; line-height: 1.55; margin: 0 0 24px; }
+  .words { font-size: 16px; color: var(--muted); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 14px 0; margin: 0 0 56px; }
+  .words b, .words i { color: var(--ink); }
+  section { margin: 0 0 64px; }
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+  }
+  p { margin: 0 0 20px; }
+  a { color: var(--accent-text); text-decoration: none; }
+  a:hover, a:focus-visible { text-decoration: underline; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cite { color: var(--muted); font-size: 0.85em; vertical-align: 0.15em; }
+  .math {
+    margin: 8px 0 24px;
+    font-family: "Latin Modern Math", "STIX Two Math", "Cambria Math", "Times New Roman", serif;
+    font-size: 24px;
+    text-align: center;
+  }
+  figure.fig { margin: 32px 0 36px; }
+  .symbols { display: flex; flex-wrap: wrap; gap: 18px; margin: 0 0 24px; }
+  .sym { flex: 1 1 180px; display: flex; gap: 10px; align-items: flex-start; }
+  .sym svg { width: 80px; flex: 0 0 80px; }
+  .sym p { margin: 0; font-size: 14.5px; line-height: 1.45; color: var(--muted); }
+  .sym b { color: var(--ink); }
+  figure.fig svg { display: block; width: 100%; height: auto; }
+  figcaption {
+    margin-top: 12px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 640px;
+  }
+  figcaption b { color: var(--ink); font-weight: 600; }
+  .trio { display: flex; flex-wrap: wrap; gap: 20px; }
+  .trio .panel { flex: 1 1 200px; min-width: 200px; max-width: 240px; }
+  .strip .panel { flex: 1 1 120px; min-width: 120px; max-width: 200px; }
+  .strip { justify-content: flex-start; }
+  .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
+  .scroll svg { min-width: 700px; }
+  .narrow svg { max-width: 560px; margin: 0 auto; }
+  .ctl { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 12px auto 0; max-width: 560px; font-size: 14px; color: var(--muted); }
+  .chip {
+    font: 500 14px/1 "Inter", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 8px 14px;
+    cursor: pointer;
+  }
+  .chip.off { color: var(--muted); border-style: dashed; }
+  .chip[disabled] { cursor: default; color: var(--accent-text); border-color: var(--accent); }
+  input[type="range"] { flex: 1; min-width: 160px; accent-color: var(--accent); }
+  details { margin: 0 0 24px; }
+  summary { cursor: pointer; color: var(--muted); font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; margin: 12px 0 8px; }
+  th, td { text-align: left; padding: 8px 10px 8px 0; vertical-align: top; border-bottom: 1px solid var(--rule); }
+  th { font-weight: 600; color: var(--ink); }
+  td { color: var(--ink); }
+  .key td:first-child { font-weight: 600; width: 3.2em; }
+  .prov td:last-child { white-space: nowrap; }
+  ol { padding-left: 1.3em; }
+  ol li { margin: 0 0 12px; }
+  ol.refs li { font-size: 15px; line-height: 1.5; margin: 0 0 10px; color: var(--ink); }
+  ol.refs i { font-style: italic; }
+  .ring { transition: opacity 0.4s; }
+  .ring.off { opacity: 0.3; }
+  .fade { transition: opacity 0.3s; }
+  @media (prefers-reduced-motion: reduce) { .ring, .fade { transition: none; } }
+  @media (max-width: 600px) {
+    body { font-size: 17px; }
+    .post { padding: 48px 18px 72px; }
+    header h1 { font-size: 32px; }
+    header .sub { font-size: 19px; }
+    .lead { font-size: 18px; }
+    h2 { font-size: 21px; }
+    .trio .panel { max-width: none; }
+  }
+  @media print {
+    @page {
+      margin: 16mm 12mm 18mm;
+      @bottom-center { content: counter(page); font: 8.5pt "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #6a6a6a; }
+    }
+    html:root, html:root[data-theme="dark"], html:root:not([data-theme="light"]) {
+      --paper: #ffffff;
+      --ink: #141414;
+      --muted: #6a6a6a;
+      --rule: #dcdcdc;
+      --accent: #a98be0;
+      --accent-text: #7a5fc7;
+      --accent-soft: rgba(169, 139, 224, 0.16);
+      --tint: #f3f3f1;
+      color-scheme: light;
+      padding: 0;
+    }
+    body { font-size: 10.5pt; line-height: 1.5; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .post { max-width: none; padding: 0; }
+    header h1 { font-size: 24pt; }
+    header .sub { font-size: 13pt; margin-bottom: 8pt; }
+    header .meta { font-size: 9pt; margin-bottom: 18pt; }
+    .hook, .lead { font-size: 11.5pt; margin-bottom: 10pt; }
+    .words { font-size: 9.5pt; padding: 8pt 0; margin-bottom: 22pt; }
+    section { margin: 0 0 22pt; }
+    h2 { font-size: 14pt; margin-bottom: 8pt; break-after: avoid; }
+    p { margin-bottom: 8pt; orphans: 3; widows: 3; }
+    .math { font-size: 17pt; margin: 4pt 0 12pt; }
+    .sym p, figcaption, table, summary { font-size: 9pt; }
+    figure.fig { margin: 12pt 0 14pt; break-inside: avoid; }
+    figcaption { margin-top: 6pt; }
+    .symbols, .trio, tr, li { break-inside: avoid; }
+    .scroll { overflow: visible; padding-bottom: 0; }
+    .scroll svg { min-width: 0; }
+    .narrow svg { max-width: 430px; }
+    .strip { justify-content: center; }
+    .strip .panel { max-width: 150px; }
+    figure.fig:has(.strip) { break-after: avoid; margin-bottom: 0; }
+    .ctl, .screen-only { display: none !important; }
+    .ring, .fade { transition: none !important; }
+    summary { list-style: none; font-weight: 600; color: var(--ink); }
+    summary::-webkit-details-marker { display: none; }
+    ol { padding-left: 1.8em; }
+    ol li { margin-bottom: 6pt; }
+    ol.refs { padding-left: 2.4em; }
+    ol.refs li { font-size: 9pt; margin-bottom: 4pt; }
+    :focus-visible { outline: none; }
+  }
+</style>
+</head>
+<body>
+<main class="post">
+
+<header>
+  <h1>Every line is a loop</h1>
+  <p class="sub">A periodic table for biology</p>
+  <p class="meta">Kat Titterton, October 2026. Draft for comment.</p>
+</header>
+
+<div class="text">
+<p class="hook">In 1869 Mendeleev left blank squares in his table and said what would fill them. Gallium turned up six years later, close to the density he had written in the blank. Biology has never had a table that could do that. The question here is why not, and whether the missing ingredient is only that we have been counting the wrong thing.</p>
+<p class="lead">Chemistry has a periodic table because electrons come in integers. Biology's integers are loops: closed paths whose number, sign and nesting can be counted where sequence cannot. Sort loops by those numbers and a table appears that widens like Mendeleev's, with one element that never closes. That element is aging, and followed far enough it is a loop too. Five figures carry the argument; the text says only what they cannot. The payoff is practical: a finite list of hypotheses, one assay that tests them without a parts list, and one vocabulary for cancer, autoimmunity and neurodegeneration.</p>
+<p class="words"><b>Five words.</b> A <i>loop</i> is a closed chain of influence, A acts on B acts on A. Its <i>sign</i> is positive if the chain amplifies and negative if it opposes. Its <i>period</i> is how long one trip round takes. An <i>integrator</i> is a loop that feeds back the running total of an error rather than the error itself. A <i>generator</i> is the simplest machine that could produce a given signal.</p>
+</div>
+
+<section id="integers">
+<div class="text">
+<h2>Biology's integers are loops</h2>
+<p>Chemistry got its table because electrons fill shells in whole numbers; Mendeleev's grid is that counting rule made visible. Biology looks continuous almost everywhere, except in one place: topology. A closed loop carries integers that a sequence never does. Cut nothing, and the linking number of a closed DNA domain is fixed; it splits into twist and writhe <span class="cite">[1]</span>:</p>
+<div class="math"><math display="block"><mrow><mi mathvariant="normal">Lk</mi><mo>=</mo><mi mathvariant="normal">Tw</mi><mo>+</mo><mi mathvariant="normal">Wr</mi></mrow></math></div>
+<div class="symbols">
+  <div class="sym"><svg viewBox="0 0 80 50" aria-hidden="true"><circle cx="30" cy="25" r="14" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="50" cy="25" r="14" fill="none" stroke="var(--accent)" stroke-width="1.5"/><path d="M40 13.5A14 14 0 0 1 44 25" fill="none" stroke="var(--ink)" stroke-width="1.5"/></svg><p><b>Lk</b>, linking number: how many times the two strands pass through each other. A whole number, fixed until a strand is cut.</p></div>
+  <div class="sym"><svg viewBox="0 0 80 50" aria-hidden="true"><line x1="8" y1="25" x2="72" y2="25" stroke="var(--rule)"/><path d="M8 25c8-14 16-14 24 0s16 14 24 0 16-14 16 0" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M8 25c8 14 16 14 24 0s16-14 24 0 16 14 16 0" fill="none" stroke="var(--accent)" stroke-width="1.5"/></svg><p><b>Tw</b>, twist: how the strands wind around the axis of the helix. Continuous.</p></div>
+  <div class="sym"><svg viewBox="0 0 80 50" aria-hidden="true"><path d="M20 25c0-14 40-14 40 0s-40 14-40 0" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M40 11c-14 0-14 28 0 28s14-28 0-28" fill="none" stroke="var(--ink)" stroke-width="1.5"/></svg><p><b>Wr</b>, writhe: how the axis coils over itself. Continuous, and traded against twist, which is why a plasmid can look twisted here and coiled there.</p></div>
+</div>
+<p>Mendeleev sorted by atomic weight and mostly got the order right, with inversions like tellurium before iodine, until Moseley found atomic number underneath. Gene sequence is biology's atomic weight. Loop context is its atomic number. The inversions are real: at the EPHA4 locus, structural variants that leave every gene intact move a domain boundary, a cluster of limb enhancers lands on the wrong promoter, and a limb comes out malformed <span class="cite">[2]</span>.</p>
+<p>So take loops as the elements, ask what numbers they carry, and let the shape of the table follow.</p>
+</div>
+</section>
+
+<section id="valence">
+<div class="text">
+<h2>Sign is valence</h2>
+<p>If loops are the elements, what plays the part of valence, the property that decides how an element behaves? The sign. Thomas conjectured in 1981 that memory, meaning more than one stable state, needs a positive loop, and that a clock, meaning sustained oscillation, needs a negative one. The first rule was proved in general by Soulé in 2003 <span class="cite">[3]</span>; the second, for negative loops of length two or more, by Snoussi and by Gouzé in 1998 <span class="cite">[4]</span>. A third class comes from integral action, a loop that feeds back the accumulated error rather than the current one. It returns exactly to baseline under a sustained input, and chemotaxis in <i>E. coli</i> is built on it <span class="cite">[5]</span>.</p>
+</div>
+
+<figure class="fig">
+<div class="trio">
+  <div class="panel">
+  <svg viewBox="0 0 240 320" role="img" aria-label="Switch: a positive loop; one pulse flips it and it stays" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13">
+    <defs><marker id="m-sw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>
+    <text x="120" y="24" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">Switch</text>
+    <g fill="none" stroke="var(--muted)" stroke-width="1.25">
+      <circle cx="70" cy="95" r="16"/><circle cx="170" cy="95" r="16"/>
+      <path d="M81 84Q120 42 159 84" marker-end="url(#m-sw)"/>
+      <path d="M159 106Q120 148 81 106" marker-end="url(#m-sw)"/>
+    </g>
+    <text x="70" y="99" text-anchor="middle" fill="var(--ink)">x</text>
+    <text x="170" y="99" text-anchor="middle" fill="var(--ink)">y</text>
+    <text x="120" y="54" text-anchor="middle" fill="var(--ink)">+</text>
+    <text x="120" y="152" text-anchor="middle" fill="var(--ink)">+</text>
+    <line x1="16" y1="250" x2="214" y2="250" stroke="var(--rule)"/>
+    <path d="M16 246H70V226H90V246H214" fill="none" stroke="var(--muted)" stroke-width="1.25" stroke-dasharray="4 3"/>
+    <path d="M16 248H72C80 248 86 200 96 198H214" fill="none" stroke="var(--accent)" stroke-width="2"/>
+    <text x="222" y="254" font-size="12" fill="var(--muted)">t</text>
+    <text x="120" y="290" text-anchor="middle" fill="var(--muted)">one pulse, it stays flipped</text>
+  </svg>
+  </div>
+  <div class="panel">
+  <svg viewBox="0 0 240 320" role="img" aria-label="Clock: a delayed negative loop; it never settles" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13">
+    <defs><marker id="m-ck" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>
+    <text x="120" y="24" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">Clock</text>
+    <g fill="none" stroke="var(--muted)" stroke-width="1.25">
+      <circle cx="70" cy="95" r="16"/><circle cx="170" cy="95" r="16"/>
+      <path d="M81 84Q120 42 159 84" marker-end="url(#m-ck)"/>
+      <path d="M159 106Q120 148 81 106" marker-end="url(#m-ck)"/>
+    </g>
+    <text x="70" y="99" text-anchor="middle" fill="var(--ink)">x</text>
+    <text x="170" y="99" text-anchor="middle" fill="var(--ink)">y</text>
+    <text x="120" y="54" text-anchor="middle" fill="var(--ink)">+</text>
+    <text x="120" y="152" text-anchor="middle" fill="var(--ink)">&#8722; delayed</text>
+    <line x1="16" y1="250" x2="214" y2="250" stroke="var(--rule)"/>
+    <path d="M16 222q12 -28 24 0t24 0t24 0t24 0t24 0t24 0t24 0" fill="none" stroke="var(--accent)" stroke-width="2"/>
+    <text x="222" y="254" font-size="12" fill="var(--muted)">t</text>
+    <text x="120" y="290" text-anchor="middle" fill="var(--muted)">the delay sets the period</text>
+  </svg>
+  </div>
+  <div class="panel">
+  <svg viewBox="0 0 240 320" role="img" aria-label="Adapter: an integral negative loop; it returns exactly to baseline" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13">
+    <defs><marker id="m-ad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>
+    <text x="120" y="24" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">Adapter</text>
+    <g fill="none" stroke="var(--muted)" stroke-width="1.25">
+      <circle cx="70" cy="95" r="16"/><circle cx="170" cy="95" r="16"/>
+      <path d="M81 84Q120 42 159 84" marker-end="url(#m-ad)"/>
+      <path d="M159 106Q120 148 81 106" marker-end="url(#m-ad)"/>
+    </g>
+    <text x="70" y="99" text-anchor="middle" fill="var(--ink)">x</text>
+    <text x="170" y="99" text-anchor="middle" fill="var(--ink)" font-family="Times New Roman, serif" font-size="16">&#8747;</text>
+    <text x="120" y="54" text-anchor="middle" fill="var(--ink)">+</text>
+    <text x="120" y="152" text-anchor="middle" fill="var(--ink)">&#8722;</text>
+    <line x1="16" y1="250" x2="214" y2="250" stroke="var(--rule)"/>
+    <path d="M16 246H70V226H214" fill="none" stroke="var(--muted)" stroke-width="1.25" stroke-dasharray="4 3"/>
+    <path d="M16 248H70C74 248 76 196 84 196C96 196 110 248 130 248H214" fill="none" stroke="var(--accent)" stroke-width="2"/>
+    <text x="222" y="254" font-size="12" fill="var(--muted)">t</text>
+    <text x="120" y="290" text-anchor="middle" fill="var(--muted)">returns exactly to baseline</text>
+  </svg>
+  </div>
+</div>
+<figcaption><b>Figure 1. Sign is valence.</b> One pulse flips the switch and it stays; the delayed negative loop never settles; the integral loop returns exactly. Dashed is input, solid is response; traces are schematic, not data.</figcaption>
+</figure>
+
+<div class="text">
+<p>All three classes are readable from a time series alone, with no parts list.</p>
+</div>
+</section>
+
+<section id="table">
+<div class="text">
+<h2>Rows are loop count; period is mass</h2>
+<p>Then what are the rows? A periodic table needs integer axes; continuous quantities belong inside the cells. Biology's integers are the number of independent loops in a circuit (&nu;), how many of them are negative (<i>k</i>), and how many integrate rather than respond (<i>j</i>). Period is continuous, so it goes in the cell, the way atomic mass does. That gives isotopes: a positive loop at milliseconds (a riboswitch) and at hours (the lac operon) are the same element at different rates, and KaiABC, three proteins with a 24-hour cycle that runs in a test tube <span class="cite">[6]</span>, is a heavy isotope of the single negative loop. The environment's real periods, the day, the month, the year, decide which isotopes are abundant, not where the cells sit; chemistry separates its table from nucleosynthesis the same way.</p>
+<p>Row &nu; holds (&nu;+1)&sup2; elements, and the formula is just counting: each of the &nu; loops is positive or negative, so the number of negative ones runs from 0 to &nu;, which is &nu;+1 choices; each loop also either integrates or not, another &nu;+1 choices; multiply. That is <i>n</i>&sup2; with <i>n</i> = &nu;+1, one factor of two short of chemistry's 2<i>n</i>&sup2;, which I take as a sign that nesting order is the missing binary. Element zero, the integrator with no loop at all, is the one entry that never returns.</p>
+</div>
+
+<figure class="fig">
+<div class="scroll">
+<svg viewBox="0 0 700 444" role="img" aria-label="The table by loop count: rows are the number of independent loops, columns within a row are how many are negative, and each cell shows its isotopes on a log-period bar" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">
+  <g id="pt-cells"></g>
+  <g fill="var(--muted)">
+    <text x="60" y="76" text-anchor="end">&nu; = 0</text>
+    <text x="60" y="160" text-anchor="end">&nu; = 1</text>
+    <text x="60" y="244" text-anchor="end">&nu; = 2</text>
+    <text x="60" y="328" text-anchor="end">&nu; = 3</text>
+  </g>
+  <g id="pt-axis" fill="var(--muted)"></g>
+</svg>
+</div>
+<figcaption><b>Figure 2. The table by loop count.</b> Rows are &nu;, the number of independent loops; the columns within a row are how many of them are negative. Each cell holds its isotopes on a log-period bar from microseconds to generations: filled dots respond, hollow dots integrate. Element zero, the counter, is the only entry with no closure. <span class="screen-only">Hover a cell for its occupants. </span>Placements are approximate.</figcaption>
+</figure>
+
+<div class="text">
+<details>
+<summary>Key to the symbols</summary>
+<table class="key">
+<tr><th>Symbol</th><th>Element</th><th>Cell</th><th>Period</th></tr>
+<tr><td>Am</td><td>amyloid growth</td><td>0, counter</td><td>h</td></tr>
+<tr><td>Df</td><td>differentiation</td><td>0, counter</td><td>day</td></tr>
+<tr><td>Dv</td><td>development</td><td>0, counter</td><td>yr</td></tr>
+<tr><td>Ag</td><td>aging</td><td>0, counter</td><td>dec</td></tr>
+<tr><td>Ev</td><td>evolution</td><td>0, counter</td><td>gen</td></tr>
+<tr><td>Al</td><td>allosteric flip</td><td>1, +</td><td>&#181;s</td></tr>
+<tr><td>Rs</td><td>riboswitch</td><td>1, +</td><td>ms</td></tr>
+<tr><td>Ck</td><td>CaMKII autophosphorylation</td><td>1, +</td><td>min</td></tr>
+<tr><td>Lc</td><td>lac operon bistability</td><td>1, +</td><td>h</td></tr>
+<tr><td>Lh</td><td>LH surge</td><td>1, +</td><td>day</td></tr>
+<tr><td>Ch</td><td>chemotaxis adaptation, integrating [5]</td><td>1, &#8722;</td><td>s</td></tr>
+<tr><td>Hg</td><td>Hog1 osmoadaptation, integrating [15]</td><td>1, &#8722;</td><td>min</td></tr>
+<tr><td>Gl</td><td>glucose homeostasis</td><td>1, &#8722;</td><td>min to h</td></tr>
+<tr><td>Hs</td><td>Hes1, p53&#8211;Mdm2 oscillation</td><td>1, &#8722;</td><td>h</td></tr>
+<tr><td>Kc</td><td>KaiABC [6]</td><td>1, &#8722;</td><td>day</td></tr>
+<tr><td>Pc</td><td>Polycomb read&#8211;write memory</td><td>2, + +</td><td>day</td></tr>
+<tr><td>Ap</td><td>action potential, pacemaker</td><td>2, + &#8722;</td><td>ms</td></tr>
+<tr><td>Cc</td><td>cell cycle</td><td>2, + &#8722;</td><td>h</td></tr>
+<tr><td>Sg</td><td>segmentation clock</td><td>2, &#8722; &#8722;</td><td>h</td></tr>
+<tr><td>Cr</td><td>circadian clock</td><td>3, + &#8722; &#8722;</td><td>day</td></tr>
+<tr><td>Pl</td><td>pluripotency core, OCT4/SOX2/NANOG [25]</td><td>3, + + +</td><td>h to day</td></tr>
+<tr><td>Eg</td><td>EGFR and its phosphatases, working memory [27, 28]</td><td>3, + + &#8722;</td><td>min to h</td></tr>
+<tr><td>Nf</td><td>NF-&#954;B with I&#954;B&#945;, I&#954;B&#949; and A20 feedback [29, 30]</td><td>3, &#8722; &#8722; &#8722;</td><td>h</td></tr>
+</table>
+</details>
+<p>The + + + cell was blank in the first draft, and the blank was my ignorance, not nature's. OCT4, SOX2 and NANOG each bind their own gene and each other's, a fully interconnected positive circuit <span class="cite">[25]</span>. The table says what such an element must do: positive feedback on a monotone system yields multiple stable states with hysteresis and cannot oscillate <span class="cite">[26]</span>, so the occupant should be a memory with more than two settings and no clock. That is a stem cell's job description. The same reading fills the other two blanks in row 3.</p>
+<p><b>+ + &#8722;.</b> Two positive loops can hold a state and one negative loop can end it. The receptor for epidermal growth factor, EGFR, is wired this way. It switches itself on; it and PTPRG, an enzyme that strips its activating tags, switch each other off; and a second such enzyme, PTPN2, closes a negative loop that sets how long the signal lasts <span class="cite">[27]</span>. The state it holds is a working memory: a cell keeps pointing toward where a growth signal was for about forty minutes after the signal is gone, and can still turn toward a new one <span class="cite">[28]</span>.</p>
+<p><b>&#8722; &#8722; &#8722;.</b> With no positive loop there is only one state to be in <span class="cite">[3]</span>, so three negative loops can hold a level or keep a beat but cannot remember. NF-&#954;B, the factor that turns on inflammation genes, makes its own three brakes, I&#954;B&#945;, I&#954;B&#949; and A20 <span class="cite">[29, 30]</span>. It pulses in and out of the nucleus, and after each pulse it needs 100 to 200 minutes before it can answer in full again <span class="cite">[29]</span>.</p>
+<p>One caveat belongs on the figure. Rates can cross a bifurcation: a negative loop with too little delay sits still instead of ticking. An element is a circuit plus its regime, and Thomas's rules are necessary, not sufficient.</p>
+<p>The blanks are the point. A table earns the name by its gaps, and this one has two kinds: cells that should fill with search, and a single entry the closure logic cannot reach.</p>
+</div>
+</section>
+
+<section id="models">
+<div class="text">
+<h2>Loops are models</h2>
+<p>Why would nature count loops at all? Because loops hold information, and they hold it because loops are models. Conant and Ashby proved in 1970 that a regulator which is maximally successful and simple must be isomorphic to the system it regulates <span class="cite">[7]</span>. Francis and Wonham made the linear case rigorous in 1976: a controller that robustly cancels a class of disturbances contains a copy of their generator, the simplest machine that could have produced them <span class="cite">[8]</span>. Sontag extended the result to adaptation with signal detection, and named circadian clocks as candidate internal models of the day <span class="cite">[9]</span>. Integral feedback is the model of a constant input, which is why chemotaxis adapts exactly <span class="cite">[5]</span>. An entrained oscillator is a copy of the planet's rotation.</p>
+</div>
+
+<figure class="fig interactive narrow">
+<svg id="reg" viewBox="0 0 380 290" role="img" aria-label="Three periodic signals on the left each have a closed loop inside a dashed regulator on the right; a ramp labelled time maps to a filling gauge with no loop" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">
+  <defs><marker id="m-reg-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-reg-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+  <text x="102" y="52" text-anchor="middle" fill="var(--muted)">world</text>
+  <rect x="215" y="40" width="140" height="240" rx="20" fill="none" stroke="var(--muted)" stroke-width="0.75" stroke-dasharray="4 3"/>
+  <text x="285" y="52" text-anchor="middle" fill="var(--muted)">regulator</text>
+  <text x="182" y="70" text-anchor="middle" font-size="11" fill="var(--muted)">copies</text>
+
+  <text x="20" y="80" dominant-baseline="central" fill="var(--muted)">ms</text>
+  <path id="w-ms" d="M55 80 q3 -12 6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0" fill="none" stroke="var(--ink)" stroke-width="1"/>
+  <line x1="160" y1="80" x2="205" y2="80" stroke="var(--muted)" stroke-width="0.75" marker-end="url(#m-reg-gray)"/>
+  <g id="g-ms" class="ring"><path id="l-ms" d="M293 80 A8 8 0 1 1 289 73" fill="none" stroke="var(--ink)" stroke-width="1" marker-end="url(#m-reg-ink)"/></g>
+
+  <text x="20" y="135" dominant-baseline="central" fill="var(--muted)">day</text>
+  <path id="w-day" d="M55 135 q8 -16 16 0 t16 0 t16 0 t16 0 t16 0 t16 0" fill="none" stroke="var(--ink)" stroke-width="1"/>
+  <line x1="160" y1="135" x2="205" y2="135" stroke="var(--muted)" stroke-width="0.75" marker-end="url(#m-reg-gray)"/>
+  <g id="g-day" class="ring"><path id="l-day" d="M299 135 A14 14 0 1 1 292 123" fill="none" stroke="var(--ink)" stroke-width="1" marker-end="url(#m-reg-ink)"/></g>
+
+  <text x="20" y="190" dominant-baseline="central" fill="var(--muted)">yr</text>
+  <path id="w-yr" d="M55 190 q24 -22 48 0 t48 0" fill="none" stroke="var(--ink)" stroke-width="1"/>
+  <line x1="160" y1="190" x2="205" y2="190" stroke="var(--muted)" stroke-width="0.75" marker-end="url(#m-reg-gray)"/>
+  <g id="g-yr" class="ring"><path id="l-yr" d="M305 190 A20 20 0 1 1 295 173" fill="none" stroke="var(--ink)" stroke-width="1" marker-end="url(#m-reg-ink)"/></g>
+
+  <text x="20" y="245" dominant-baseline="central" fill="var(--accent-text)">time</text>
+  <line x1="55" y1="258" x2="151" y2="232" stroke="var(--accent)" stroke-width="1.25"/>
+  <line x1="160" y1="245" x2="205" y2="245" stroke="var(--muted)" stroke-width="0.75" marker-end="url(#m-reg-gray)"/>
+  <rect x="278" y="225" width="14" height="40" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.25"/>
+  <rect x="278" y="243" width="14" height="22" rx="3" fill="var(--accent)"/>
+  <text x="300" y="249" font-size="11" fill="var(--accent-text)">counter</text>
+</svg>
+<div class="ctl" aria-label="Hold a signal constant">
+  <span>hold constant:</span>
+  <button class="chip" data-k="ms" aria-pressed="false">ms</button>
+  <button class="chip" data-k="day" aria-pressed="false">day</button>
+  <button class="chip" data-k="yr" aria-pressed="false">yr</button>
+  <button class="chip" disabled title="Time has no constant version">time</button>
+</div>
+<figcaption><b>Figure 3. A regulator copies its world.</b> Every periodic signal a regulator must cancel appears inside it as a closed loop; hold one constant and its loop opens, since there is nothing left to model. Time is not periodic. The only copy a bounded system can make of it is a counter, which fills and never returns.</figcaption>
+</figure>
+
+<div class="text">
+<p>This derives the table instead of sorting into it. Rows are periods because the environment's spectrum is discrete: molecular, tidal, daily, lunar, annual, generational. Columns are the generators a loop can copy: a constant, a pair of states, a sinusoid. Nesting is nested models, a day inside a year.</p>
+<p>The open column follows from the same principle, with one detail worth stating exactly. Sontag's theorem assumes the generating system is Poisson-stable, meaning its trajectories keep returning near where they began <span class="cite">[9]</span>. Every periodic signal qualifies. A monotonic signal does not, and its only generators are integrators, which fill without bound. A bounded cell can carry a bounded copy of every recurrent feature of its world, while its copy of time can only be a counter that never resets. Read this way, the epigenetic clock is not damage. It is the internal model of time's arrow, with the one property such a model must have: it does not come back.</p>
+</div>
+</section>
+
+<section id="line">
+<div class="text">
+<h2>Every line is a loop</h2>
+<p>What about the one entry that never closes? A line is a loop you have not followed far enough. Every isotope of element zero in Figure 2 is a loop seen from inside its own period: differentiation is an arc of development, aging an arc of the germline. Line those isotopes up by period and each hands off to a closed loop one period longer, which strings the periods into a helix. That is the shape de Chancourtois gave the first periodic system in 1862, a helix wound on a cylinder, seven years before Mendeleev cut it into rows <span class="cite">[10]</span>.</p>
+</div>
+
+<figure class="fig">
+<div class="trio strip">
+  <div class="panel"><svg viewBox="0 0 120 200" role="img" aria-label="Four loops stacked, each with an open tail leading to the next" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11"><g id="strip-a"></g></svg></div>
+  <div class="panel"><svg viewBox="0 0 120 200" role="img" aria-label="The same loops joined end to start into a helix on a cylinder" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11"><g id="strip-b"></g></svg></div>
+  <div class="panel"><svg viewBox="0 0 120 200" role="img" aria-label="The cylinder bent round so the helix closes on a torus" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11"><g id="strip-c"></g></svg></div>
+</div>
+<figcaption><b>How to read Figure 4.</b> Each period is a loop whose open tail is the next period's loop; join them and the periods form a helix; bend the helix round and the last period hands to the first at the reset.</figcaption>
+</figure>
+
+<figure class="fig interactive narrow">
+<svg id="torus" viewBox="0 0 380 240" role="img" aria-label="One curve winds eight times around a torus, once per period, and closes on itself at a reset point; hidden parts are dashed" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">
+  <g id="t-body"></g>
+  <path id="t-back" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <path id="t-front" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
+  <g id="t-labels" fill="var(--muted)"></g>
+  <circle id="t-reset" class="fade" cx="325" cy="125" r="3.5" fill="var(--accent)" style="opacity:0"/>
+  <text id="t-resetl" class="fade" x="332" y="121" font-weight="600" fill="var(--accent-text)" dominant-baseline="central" style="opacity:0">reset</text>
+</svg>
+<div class="ctl">
+  <label for="t-w">follow it</label>
+  <input id="t-w" type="range" min="2" max="100" value="12" aria-label="How far along the curve to draw">
+</div>
+<figcaption><b>Figure 4. Every line is a loop.</b> <span class="screen-only">Drag. </span>At the start you are holding the line. Each winding is one step on Figure 2's log-period bar; the long way round is the germline, and the curve rejoins itself at the reset. Solid runs over the top of the torus, dashed runs underneath.</figcaption>
+</figure>
+
+<div class="text">
+<p>The helix bites its tail once. Reproduction rejoins the last row to the first, and the reset is measurable: epigenetic age falls to a minimum around gastrulation, the ground zero from which aging is then counted <span class="cite">[11]</span>. Partial reprogramming with OSK restores youthful methylation and vision in old mice <span class="cite">[12]</span>, a chord drawn across the same circle. The germline is the loop and the soma is the arc that does not come back, which is Kirkwood's disposable soma restated as topology <span class="cite">[13]</span>.</p>
+<p>One closure is missing. Lineages never reset, because no generator exists for the gene pool, so evolution stays a line threaded through the hole of the torus. Individuals loop; lineages do not. Biology closes the arrow of time for organisms only, which may be why aging feels programmed from inside and random from above.</p>
+</div>
+</section>
+
+<section id="disease">
+<div class="text">
+<h2>Three diseases, one algebra</h2>
+<p>In loop language a disease is a loop whose generator no longer matches the world, or a loop that has opened. Three of the big ones are the same failure in three tissues: a switch held on while its negative loop is deleted, so a process that should close runs as a counter.</p>
+</div>
+
+<figure class="fig">
+<div class="trio">
+  <div class="panel">
+  <svg viewBox="0 0 240 320" role="img" aria-label="Cancer: a proliferation switch held on with its negative loop lost; the response ramps without return" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13">
+    <defs><marker id="m-ca" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>
+    <text x="120" y="24" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">Cancer</text>
+    <g fill="none" stroke="var(--muted)" stroke-width="1.25">
+      <circle cx="70" cy="95" r="16"/><circle cx="170" cy="95" r="16"/>
+      <path d="M81 84Q120 42 159 84" marker-end="url(#m-ca)"/>
+      <path d="M159 106Q120 148 81 106" stroke-dasharray="3 4" stroke="var(--accent)"/>
+    </g>
+    <text x="70" y="99" text-anchor="middle" fill="var(--ink)">grow</text>
+    <text x="170" y="99" text-anchor="middle" fill="var(--ink)">p53</text>
+    <text x="120" y="54" text-anchor="middle" fill="var(--ink)">+ on</text>
+    <text x="120" y="152" text-anchor="middle" fill="var(--accent-text)">&#8722; lost</text>
+    <line x1="16" y1="250" x2="214" y2="250" stroke="var(--rule)"/>
+    <path d="M16 248H60C100 246 150 215 214 192" fill="none" stroke="var(--accent)" stroke-width="2"/>
+    <text x="222" y="254" font-size="12" fill="var(--muted)">t</text>
+    <text x="120" y="290" text-anchor="middle" fill="var(--muted)">divisions count up, never return</text>
+  </svg>
+  </div>
+  <div class="panel">
+  <svg viewBox="0 0 240 320" role="img" aria-label="Autoimmunity: immune memory switch held on with its regulatory loop lost" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13">
+    <defs><marker id="m-ai" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>
+    <text x="120" y="24" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">Autoimmunity</text>
+    <g fill="none" stroke="var(--muted)" stroke-width="1.25">
+      <circle cx="70" cy="95" r="16"/><circle cx="170" cy="95" r="16"/>
+      <path d="M81 84Q120 42 159 84" marker-end="url(#m-ai)"/>
+      <path d="M159 106Q120 148 81 106" stroke-dasharray="3 4" stroke="var(--accent)"/>
+    </g>
+    <text x="70" y="99" text-anchor="middle" fill="var(--ink)">Teff</text>
+    <text x="170" y="99" text-anchor="middle" fill="var(--ink)">Treg</text>
+    <text x="120" y="54" text-anchor="middle" fill="var(--ink)">+ on</text>
+    <text x="120" y="152" text-anchor="middle" fill="var(--accent-text)">&#8722; lost</text>
+    <line x1="16" y1="250" x2="214" y2="250" stroke="var(--rule)"/>
+    <path d="M16 248H60C100 246 150 215 214 192" fill="none" stroke="var(--accent)" stroke-width="2"/>
+    <text x="222" y="254" font-size="12" fill="var(--muted)">t</text>
+    <text x="120" y="290" text-anchor="middle" fill="var(--muted)">memory with no brake</text>
+  </svg>
+  </div>
+  <div class="panel">
+  <svg viewBox="0 0 240 320" role="img" aria-label="Neurodegeneration: templated aggregation switch with clearance lost and no reset" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13">
+    <defs><marker id="m-nd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>
+    <text x="120" y="24" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">Neurodegeneration</text>
+    <g fill="none" stroke="var(--muted)" stroke-width="1.25">
+      <circle cx="70" cy="95" r="16"/><circle cx="170" cy="95" r="16"/>
+      <path d="M81 84Q120 42 159 84" marker-end="url(#m-nd)"/>
+      <path d="M159 106Q120 148 81 106" stroke-dasharray="3 4" stroke="var(--accent)"/>
+    </g>
+    <text x="70" y="99" text-anchor="middle" fill="var(--ink)">seed</text>
+    <text x="170" y="99" text-anchor="middle" fill="var(--ink)">clear</text>
+    <text x="120" y="54" text-anchor="middle" fill="var(--ink)">+ on</text>
+    <text x="120" y="152" text-anchor="middle" fill="var(--accent-text)">&#8722; lost, no reset</text>
+    <line x1="16" y1="250" x2="214" y2="250" stroke="var(--rule)"/>
+    <path d="M16 248H60C100 246 150 215 214 192" fill="none" stroke="var(--accent)" stroke-width="2"/>
+    <text x="222" y="254" font-size="12" fill="var(--muted)">t</text>
+    <text x="120" y="290" text-anchor="middle" fill="var(--muted)">neurons never divide it away</text>
+  </svg>
+  </div>
+</div>
+<figcaption><b>Figure 5. Three diseases, one algebra.</b> In each, a positive loop is held on and the negative loop that should close it is lost, so the response is a ramp, the signature of element zero. In neurons the division-time reset is missing too.</figcaption>
+</figure>
+
+<div class="text">
+<p><b>Cancer.</b> Tissue growth is a switch held by negative loops: tumour suppressors, contact inhibition, apoptosis, senescence. Two of the hallmarks of cancer are exactly the switch held on and the loops deleted, sustaining proliferative signalling and evading growth suppressors <span class="cite">[17]</span>. The decisive experiment exists. Restoring p53, one negative loop, in established mouse tumours caused regression, by apoptosis in lymphomas and by senescence in sarcomas and liver carcinomas <span class="cite">[18, 19]</span>. Close the loop and the counter stops.</p>
+<p><b>Autoimmunity.</b> Immune memory is a switch; regulatory T cells and checkpoints are its negative loops. Delete the loop genetically and you get IPEX, where FOXP3 mutations remove regulatory T cells and cause fatal multi-organ autoimmunity <span class="cite">[20]</span>. Delete it on purpose and you get the same thing with a different name: checkpoint blockade treats cancer by removing the brakes on T cells, and its immune-related adverse events are autoimmunity in the same patient <span class="cite">[21]</span>. Cancer and autoimmunity are one loop with the sign of the intervention flipped.</p>
+<p><b>Neurodegeneration.</b> Seeded aggregation is a positive loop: a misfolded seed converts healthy protein into more seeds <span class="cite">[22]</span>. Clearance is the negative loop that should close it. Dividing cells also have a reset: yeast mother cells keep the damaged proteins and daughters are born clean <span class="cite">[23]</span>. Neurons never divide, so they have no reset and no dilution by growth; when clearance fails, the aggregation switch runs as a counter for the organism's whole life. That is why these are diseases of late life: their clock is the aging counter itself.</p>
+<p>None of this is new biology. What the table adds is a prediction across all three: the lost loop should appear as a missing resonance in a frequency sweep before pathology does, and the same two interventions, close the negative loop or impose a reset, should work in each.</p>
+</div>
+</section>
+
+<section id="agents">
+<div class="text">
+<h2>What this gives an agent doing science</h2>
+<p>An automated lab needs three things a molecular parts list does not give it: a finite hypothesis space, an assay it can run without hand-built reagents, and rules for throwing models away before fitting them. The table supplies all three.</p>
+<ol>
+<li><b>A hypothesis space it can enumerate.</b> A cell's loop content is a point in (&nu;, <i>k</i>, <i>j</i>) plus a regime, a few hundred cases at most, instead of an open-ended network of molecules.</li>
+<li><b>An assay with no parts list.</b> A frequency sweep: periodic input, label-free time series, fit the transfer function, read off the generators. It needs a pump and a camera, not an antibody, so an agent can run it closed-loop and overnight.</li>
+<li><b>Rejection rules.</b> Thomas's conditions, the nesting rule that no clock runs faster than its sub-loops, and the (&nu;+1)&sup2; bound all discard candidate models before a single parameter is fit.</li>
+<li><b>Borrowed tools.</b> Loop content is system identification, so sixty years of control-theory code applies unchanged.</li>
+<li><b>A different objective.</b> The intervention search runs over loop-closing moves, restore a negative loop, entrain a clock, impose a reset, rather than over parts to inhibit.</li>
+<li><b>A provenance ledger.</b> Every claim here is tagged theorem, derivation or pattern, which is the weighting an agent needs to decide what to trust.</li>
+</ol>
+</div>
+</section>
+
+<section id="tests">
+<div class="text">
+<h2>Experiments that would settle it</h2>
+<p>Six, each with the result that would kill it.</p>
+<ol>
+<li><b>Count the elements.</b> Curate the two- and three-loop circuits in a model database, classify each by dynamical class, and count the classes; mining BioModels for circuit structure has been done for Thomas's positive-loop condition <span class="cite">[24]</span>. Prediction: 9 and 16. More kills the rule; fewer names the quantum number that is dead weight.</li>
+<li><b>Sweep a cell.</b> Drive cells with periodic osmotic or nutrient input in a microfluidic device, record a label-free time series, fit the frequency response, as was done for the yeast osmo-adaptation pathway <span class="cite">[14, 15]</span>. Prediction: the fitted generators land in the table's cells, and the rows are discrete. Resonances that fall between cells, with no circuit behind them, kill the integer axis.</li>
+<li><b>Hunt the forbidden element.</b> Search the same databases for a multi-loop oscillator faster than its own sub-loops. One verified instance kills the nesting rule.</li>
+<li><b>Dig for a niche fossil.</b> Compare the frequency response of lineages evolved for thousands of generations in constant conditions with their ancestors. Prediction: one specific resonance gone, the loop that modelled the feature held constant. General decay with no specific loss kills the model-of-the-world reading.</li>
+<li><b>Watch the reset.</b> Track epigenetic age at single-cell resolution through gastrulation and through partial reprogramming. Prediction: a counter emptied, a monotone fall to a floor, rather than a loop restored, which would oscillate or overshoot.</li>
+<li><b>Find the loop before the disease.</b> In models of each disease in Figure 5, sweep before pathology appears. Prediction: the negative loop is already missing from the response. Then close it, as p53 restoration did <span class="cite">[18, 19]</span>, and the counter should stop. A disease whose sweep looks normal until the end kills the mismatch reading for that disease.</li>
+</ol>
+</div>
+</section>
+
+<section id="limits">
+<div class="text">
+<h2>What it does not do</h2>
+<p>The claims above are not equally secure. Weigh the table with this gradient in mind.</p>
+<table class="prov">
+<tr><th>Claim</th><th>Status</th><th>Rests on</th></tr>
+<tr><td>Sign of a loop fixes its dynamical class</td><td>Theorem for the positive rule; the negative rule proved for circuits of length at least two</td><td>[3, 4]</td></tr>
+<tr><td>Exact adaptation requires integral action</td><td>Theorem, linear systems</td><td>[5]</td></tr>
+<tr><td>A good regulator contains a model of its generator</td><td>Theorem, linear systems; the general version admits trivial models</td><td>[7, 8, 16]</td></tr>
+<tr><td>Recurrent signals get bounded models; time's arrow gets only a counter</td><td>Follows from the theorem's Poisson-stability hypothesis; the epigenetic-clock reading is a pattern</td><td>[9]</td></tr>
+<tr><td>Rows are loop count; period is a cell property; (&nu;+1)&sup2; per row</td><td>Derivation, untested; omits nesting order</td><td>this post</td></tr>
+<tr><td>Isotopes: one circuit, many rates</td><td>Definition; fails where a rate change crosses a bifurcation</td><td>[3, 4]</td></tr>
+<tr><td>Element zero's isotopes are arcs of longer loops</td><td>Pattern, with one measured reset</td><td>[11]</td></tr>
+<tr><td>Helix, torus, germline closure</td><td>Pattern</td><td>[10, 13]</td></tr>
+<tr><td>The + + + cell is a multistate memory with no clock (pluripotency core)</td><td>Prediction from monotone-systems theory; the occupant is established, the count is not</td><td>[25, 26]</td></tr>
+<tr><td>The + + &#8722; cell holds EGFR's working memory; the &#8722; &#8722; &#8722; cell holds NF-&#954;B's pulses</td><td>Pattern; each source names the three loops, which meet at a single node, so the count does not depend on how the loops are chosen; wider module boundaries add loops</td><td>[27&#8211;30]</td></tr>
+<tr><td>Cancer, autoimmunity and neurodegeneration as a lost negative loop</td><td>Restatement of established results; the cross-disease prediction is untested</td><td>[17&#8211;23]</td></tr>
+</table>
+<p>Three holes are visible from here. Space is missing: a Turing pattern is a clock with a wavelength, and the segmentation clock converts time into space, so the real table has period and wavelength as its rows. Mechanism is missing by design: the table says which generators a cell carries, never which molecules carry them, as Mendeleev's grid said nothing about bonds. And the counting rule, the one thing that would turn this from a lens into a foundation, is derived but untested, and it leaves nesting order out.</p>
+<p>The placements in Figure 2 are approximate, drawn from textbook examples, and invite correction.</p>
+</div>
+</section>
+
+<section id="refs">
+<div class="text">
+<h2>References</h2>
+<ol class="refs">
+<li>Fuller FB. The writhing number of a space curve. <i>Proc Natl Acad Sci USA</i> 68(4):815–819 (1971). <a href="https://doi.org/10.1073/pnas.68.4.815">doi:10.1073/pnas.68.4.815</a></li>
+<li>Lupiáñez DG et al. Disruptions of topological chromatin domains cause pathogenic rewiring of gene&#8211;enhancer interactions. <i>Cell</i> 161(5):1012–1025 (2015). <a href="https://doi.org/10.1016/j.cell.2015.04.004">doi:10.1016/j.cell.2015.04.004</a></li>
+<li>Soulé C. Graphic requirements for multistationarity (2003). <a href="https://arxiv.org/abs/q-bio/0403033">arXiv:q-bio/0403033</a></li>
+<li>Kaufman M, Thomas R. Emergence of complex behaviour from simple circuit structures. <i>C R Biologies</i> 326(2):205–214 (2003). <a href="https://doi.org/10.1016/S1631-0691(03)00063-5">doi:10.1016/S1631-0691(03)00063-5</a></li>
+<li>Yi T-M, Huang Y, Simon MI, Doyle J. Robust perfect adaptation in bacterial chemotaxis through integral feedback control. <i>Proc Natl Acad Sci USA</i> 97(9):4649–4653 (2000). <a href="https://doi.org/10.1073/pnas.97.9.4649">doi:10.1073/pnas.97.9.4649</a></li>
+<li>Nakajima M et al. Reconstitution of circadian oscillation of cyanobacterial KaiC phosphorylation in vitro. <i>Science</i> 308:414–415 (2005). <a href="https://doi.org/10.1126/science.1108451">doi:10.1126/science.1108451</a></li>
+<li>Conant RC, Ashby WR. Every good regulator of a system must be a model of that system. <i>Int J Systems Sci</i> 1(2):89–97 (1970). <a href="https://doi.org/10.1080/00207727008920220">doi:10.1080/00207727008920220</a></li>
+<li>Francis BA, Wonham WM. The internal model principle of control theory. <i>Automatica</i> 12:457–465 (1976). <a href="https://doi.org/10.1016/0005-1098(76)90006-6">doi:10.1016/0005-1098(76)90006-6</a></li>
+<li>Sontag ED. Adaptation and regulation with signal detection implies internal model (2003). <a href="https://arxiv.org/abs/q-bio/0309003">arXiv:q-bio/0309003</a></li>
+<li>Béguyer de Chancourtois A-E. Vis tellurique: classement des corps simples ou radicaux (1862). Science Museum Group model, object 1925-647. <a href="https://collection.sciencemuseumgroup.org.uk/objects/co13134">collection record</a></li>
+<li>Kerepesi C, Zhang B, Lee S-G, Trapp A, Gladyshev VN. Epigenetic clocks reveal a rejuvenation event during embryogenesis followed by aging. <i>Science Advances</i> 7 (2021). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8232908/">PMC8232908</a></li>
+<li>Lu Y et al. Reprogramming to recover youthful epigenetic information and restore vision. <i>Nature</i> 588:124–129 (2020). <a href="https://doi.org/10.1038/s41586-020-2975-4">doi:10.1038/s41586-020-2975-4</a></li>
+<li>Kirkwood TBL. Evolution of ageing. <i>Nature</i> 270:301–304 (1977).</li>
+<li>Mettetal JT, Muzzey D, Gómez-Uribe C, van Oudenaarden A. The frequency dependence of osmo-adaptation in <i>Saccharomyces cerevisiae</i>. <i>Science</i> 319(5862):482–484 (2008). <a href="https://doi.org/10.1126/science.1151582">doi:10.1126/science.1151582</a></li>
+<li>Muzzey D, Gómez-Uribe CA, Mettetal JT, van Oudenaarden A. A systems-level analysis of perfect adaptation in yeast osmoregulation. <i>Cell</i> 138(1):160–171 (2009). <a href="https://dspace.mit.edu/handle/1721.1/76690">MIT record</a></li>
+<li>A “good regulator theorem” for embodied agents. University of Hertfordshire and ELSI (2025). <a href="https://arxiv.org/abs/2508.06326">arXiv:2508.06326</a></li>
+<li>Hanahan D, Weinberg RA. Hallmarks of cancer: the next generation. <i>Cell</i> 144(5):646&#8211;674 (2011). <a href="https://doi.org/10.1016/j.cell.2011.02.013">doi:10.1016/j.cell.2011.02.013</a></li>
+<li>Ventura A et al. Restoration of p53 function leads to tumour regression in vivo. <i>Nature</i> 445:661&#8211;665 (2007). <a href="https://doi.org/10.1038/nature05541">doi:10.1038/nature05541</a></li>
+<li>Xue W et al. Senescence and tumour clearance is triggered by p53 restoration in murine liver carcinomas. <i>Nature</i> 445:656&#8211;660 (2007). <a href="https://doi.org/10.1038/nature05529">doi:10.1038/nature05529</a></li>
+<li>Bennett CL et al. The immune dysregulation, polyendocrinopathy, enteropathy, X-linked syndrome (IPEX) is caused by mutations of FOXP3. <i>Nature Genetics</i> 27(1):20&#8211;21 (2001). <a href="https://doi.org/10.1038/83713">doi:10.1038/83713</a></li>
+<li>Postow MA, Sidlow R, Hellmann MD. Immune-related adverse events associated with immune checkpoint blockade. <i>N Engl J Med</i> 378(2):158&#8211;168 (2018). <a href="https://doi.org/10.1056/NEJMra1703481">doi:10.1056/NEJMra1703481</a></li>
+<li>Jucker M, Walker LC. Self-propagation of pathogenic protein aggregates in neurodegenerative diseases. <i>Nature</i> 501:45&#8211;51 (2013). <a href="https://doi.org/10.1038/nature12481">doi:10.1038/nature12481</a></li>
+<li>Aguilaniu H, Gustafsson L, Rigoulet M, Nystr&#246;m T. Asymmetric inheritance of oxidatively damaged proteins during cytokinesis. <i>Science</i> 299:1751&#8211;1753 (2003). <a href="https://www.yeastgenome.org/reference/12610228">PMID 12610228</a></li>
+<li>Graphical requirements for multistationarity in reaction networks and their verification in BioModels (2018). <a href="https://arxiv.org/abs/1809.08891">arXiv:1809.08891</a></li>
+<li>Boyer LA et al. Core transcriptional regulatory circuitry in human embryonic stem cells. <i>Cell</i> 122(6):947&#8211;956 (2005). <a href="https://doi.org/10.1016/j.cell.2005.08.020">doi:10.1016/j.cell.2005.08.020</a></li>
+<li>Angeli D, Sontag ED. Multi-stability in monotone input/output systems. <i>Systems &amp; Control Letters</i> (2004). <a href="https://arxiv.org/abs/q-bio/0309002">arXiv:q-bio/0309002</a></li>
+<li>Stanoev A et al. Interdependence between EGFR and phosphatases spatially established by vesicular dynamics generates a growth factor sensing and responding network. <i>Cell Systems</i> 7(3):295&#8211;309.e11 (2018). <a href="https://doi.org/10.1016/j.cels.2018.06.006">doi:10.1016/j.cels.2018.06.006</a></li>
+<li>Nandan A, Das A, Lott R, Koseska A. Cells use molecular working memory to navigate in changing chemoattractant fields. <i>eLife</i> 11:e76825 (2022). <a href="https://doi.org/10.7554/eLife.76825">doi:10.7554/eLife.76825</a></li>
+<li>Ashall L et al. Pulsatile stimulation determines timing and specificity of NF-&#954;B-dependent transcription. <i>Science</i> 324(5924):242&#8211;246 (2009). <a href="https://doi.org/10.1126/science.1164860">doi:10.1126/science.1164860</a></li>
+<li>Kearns JD, Basak S, Werner SL, Huang CS, Hoffmann A. I&#954;B&#949; provides negative feedback to control NF-&#954;B oscillations, signaling dynamics, and inflammatory gene expression. <i>J Cell Biol</i> 173(5):659&#8211;664 (2006). <a href="https://doi.org/10.1083/jcb.200510155">doi:10.1083/jcb.200510155</a></li>
+</ol>
+</div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  // Figure 2: the table by loop count.
+  var NS = 'http://www.w3.org/2000/svg';
+  var cellsG = document.getElementById('pt-cells');
+  var CW = 140, CH = 70, GX = 12, GY = 14, X0 = 72, Y0 = 36;
+  var cellx = function (k) { return X0 + k * (CW + GX); };
+  var celly = function (v) { return Y0 + v * (CH + GY); };
+  var steps = ['\u00b5s', 'ms', 's', 'min', 'h', 'day', 'yr', 'dec', 'gen'];
+  var tx = function (x, ord) { return x + 10 + ord * 15; };
+  var el = function (tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var a in attrs) e.setAttribute(a, attrs[a]);
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+  var cells = [
+    { v: 0, k: 0, sign: 'no loop', name: 'counter', zero: true, iso: [['Am', 4, 1], ['Df', 5, 1], ['Dv', 6, 1], ['Ag', 7, 1], ['Ev', 8, 1]] },
+    { v: 1, k: 0, sign: '+', name: 'switch', iso: [['Al', 0, 0], ['Rs', 1, 0], ['Ck', 3, 0], ['Lc', 4, 0], ['Lh', 5, 0]] },
+    { v: 1, k: 1, sign: '\u2212', name: 'clock, adapter', iso: [['Ch', 2, 1], ['Hg', 3, 1], ['Gl', 3.5, 0], ['Hs', 4, 0], ['Kc', 5, 0]] },
+    { v: 2, k: 0, sign: '+ +', name: 'memory', iso: [['Pc', 5, 0]] },
+    { v: 2, k: 1, sign: '+ \u2212', name: 'relaxation oscillator', iso: [['Ap', 1, 0], ['Cc', 4, 0]] },
+    { v: 2, k: 2, sign: '\u2212 \u2212', name: 'coupled clocks', iso: [['Sg', 4, 0]] },
+    { v: 3, k: 0, sign: '+ + +', name: 'multistate memory', iso: [['Pl', 4.5, 0]] },
+    { v: 3, k: 1, sign: '+ + \u2212', name: 'working memory', iso: [['Eg', 3.5, 0]] },
+    { v: 3, k: 2, sign: '+ \u2212 \u2212', name: 'circadian', iso: [['Cr', 5, 0]] },
+    { v: 3, k: 3, sign: '\u2212 \u2212 \u2212', name: 'clock, no memory', iso: [['Nf', 4, 0]] }
+  ];
+  cells.forEach(function (c) {
+    var x = cellx(c.k), y = celly(c.v);
+    var g = el('g', {}, cellsG);
+    var occupied = c.iso.length > 0;
+    var box = el('rect', { x: x, y: y, width: CW, height: CH, rx: 8, fill: c.zero ? 'var(--tint)' : (occupied ? 'var(--accent-soft)' : 'none'), stroke: c.zero ? 'var(--muted)' : (occupied ? 'var(--accent)' : 'var(--rule)'), 'stroke-width': occupied && !c.zero ? 1.5 : 1 }, g);
+    if (c.zero) box.setAttribute('stroke-dasharray', '4 3');
+    var sl = el('text', { x: x + 10, y: y + 19, fill: 'var(--muted)', 'font-size': 11.5 }, g);
+    sl.textContent = c.sign;
+    if (c.name) {
+      var nm = el('text', { x: x + 10, y: y + 37, fill: 'var(--ink)', 'font-size': 12.5, 'font-weight': 600 }, g);
+      nm.textContent = c.name;
+    }
+    var track = el('line', { x1: x + 10, y1: y + 55, x2: x + 130, y2: y + 55, stroke: 'var(--rule)', 'stroke-width': 1 }, g);
+    if (!occupied) track.setAttribute('stroke-dasharray', '2 3');
+    if (occupied) {
+      var ords = c.iso.map(function (i) { return i[1]; });
+      var lo = Math.min.apply(null, ords), hi = Math.max.apply(null, ords);
+      if (hi > lo) el('line', { x1: tx(x, lo), y1: y + 55, x2: tx(x, hi), y2: y + 55, stroke: 'var(--accent)', 'stroke-width': 2 }, g);
+      c.iso.forEach(function (i) {
+        el('circle', { cx: tx(x, i[1]), cy: y + 55, r: 3.2, fill: i[2] ? 'var(--paper)' : 'var(--accent)', stroke: 'var(--accent)', 'stroke-width': 1.5 }, g);
+      });
+      var t = el('title', {}, g);
+      t.textContent = c.iso.map(function (i) { var o = Math.round(i[1]); return i[0] + ' (' + (i[1] === o ? steps[o] : steps[Math.floor(i[1])] + ' to ' + steps[Math.ceil(i[1])]) + ')'; }).join(', ');
+    }
+  });
+  var axis = document.getElementById('pt-axis');
+  var ax = X0, ay = 392;
+  el('line', { x1: ax + 10, y1: ay, x2: ax + 130, y2: ay, stroke: 'var(--muted)', 'stroke-width': 1 }, axis);
+  [0, 2, 4, 6, 8].forEach(function (o) {
+    el('line', { x1: tx(ax, o), y1: ay - 3, x2: tx(ax, o), y2: ay + 3, stroke: 'var(--muted)' }, axis);
+    var lab = el('text', { x: tx(ax, o), y: ay + 16, 'text-anchor': 'middle', 'font-size': 11 }, axis);
+    lab.textContent = steps[o];
+  });
+  var axl = el('text', { x: ax + 150, y: ay + 4, 'font-size': 11.5 }, axis);
+  axl.textContent = 'period inside each cell, log scale';
+  var lgy = ay + 34;
+  el('circle', { cx: ax + 15, cy: lgy, r: 3.2, fill: 'var(--accent)', stroke: 'var(--accent)', 'stroke-width': 1.5 }, axis);
+  var l1 = el('text', { x: ax + 24, y: lgy + 4, 'font-size': 11.5 }, axis); l1.textContent = 'responds';
+  el('circle', { cx: ax + 105, cy: lgy, r: 3.2, fill: 'var(--paper)', stroke: 'var(--accent)', 'stroke-width': 1.5 }, axis);
+  var l2 = el('text', { x: ax + 114, y: lgy + 4, 'font-size': 11.5 }, axis); l2.textContent = 'integrates';
+
+  // Figure 3: hold a signal constant.
+  var W = {
+    ms: ['M55 80 q3 -12 6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0 t6 0', 'M55 80 L151 80'],
+    day: ['M55 135 q8 -16 16 0 t16 0 t16 0 t16 0 t16 0 t16 0', 'M55 135 L151 135'],
+    yr: ['M55 190 q24 -22 48 0 t48 0', 'M55 190 L151 190']
+  };
+  var L = {
+    ms: ['M293 80 A8 8 0 1 1 289 73', 'M285 88 A8 8 0 1 1 293 80'],
+    day: ['M299 135 A14 14 0 1 1 292 123', 'M285 149 A14 14 0 1 1 299 135'],
+    yr: ['M305 190 A20 20 0 1 1 295 173', 'M285 210 A20 20 0 1 1 305 190']
+  };
+  document.querySelectorAll('.chip[data-k]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var k = b.getAttribute('data-k');
+      var off = b.classList.toggle('off');
+      b.setAttribute('aria-pressed', off ? 'true' : 'false');
+      document.getElementById('w-' + k).setAttribute('d', W[k][off ? 1 : 0]);
+      var l = document.getElementById('l-' + k);
+      l.setAttribute('d', L[k][off ? 1 : 0]);
+      l.setAttribute('stroke-dasharray', off ? '3 3' : 'none');
+      document.getElementById('g-' + k).classList.toggle('off', off);
+    });
+  });
+
+  // Figure 4: a tilted torus with hidden-line rendering, plus the three-panel reading strip.
+  var A = 0.45, Bz = 0.62; // projection: screen y = A*Y - Bz*Z
+  function torusBody(parent, cx, cy, R, rr, nt, nu, strokeEvery) {
+    var rings = [];
+    for (var i = 0; i < nt; i++) {
+      var t = 2 * Math.PI * i / nt, pts = [], depth = 0;
+      for (var j = 0; j < nu; j++) {
+        var u = 2 * Math.PI * j / nu, rho = R + rr * Math.cos(u);
+        var X = rho * Math.cos(t), Y = rho * Math.sin(t), Z = rr * Math.sin(u);
+        pts.push((cx + X).toFixed(1) + ',' + (cy + A * Y - Bz * Z).toFixed(1));
+        depth += Bz * Y + A * Z;
+      }
+      rings.push({ d: depth, pts: pts.join(' '), i: i });
+    }
+    rings.sort(function (p, q) { return p.d - q.d; });
+    rings.forEach(function (rg) {
+      el('polygon', { points: rg.pts, fill: 'var(--tint)', stroke: 'var(--rule)', 'stroke-opacity': 0.45, 'stroke-width': 0.5, 'stroke-linejoin': 'round' }, parent);
+    });
+  }
+  function torusCurve(cx, cy, R, rr, q, T, N) {
+    var f = '', b = '', last = null;
+    for (var i = 0; i <= N; i++) {
+      var t = T * i / N, u = q * t, rho = R + rr * Math.cos(u);
+      var X = rho * Math.cos(t), Y = rho * Math.sin(t), Z = rr * Math.sin(u);
+      var x = (cx + X).toFixed(1), y = (cy + A * Y - Bz * Z).toFixed(1);
+      var vis = (Bz * Math.cos(u) * Math.sin(t) + A * Math.sin(u)) > 0, p = x + ' ' + y + ' ';
+      if (vis) { f += (last === true ? 'L' : 'M') + p; if (last === false) b += 'L' + p; }
+      else { b += (last === false ? 'L' : 'M') + p; if (last === true) f += 'L' + p; }
+      last = vis;
+    }
+    return { front: f, back: b };
+  }
+  var R = 105, rr = 30, q = 8, cx = 190, cy = 125, N = 1600;
+  torusBody(document.getElementById('t-body'), cx, cy, R, rr, 240, 40, 10);
+  var names = ['\u00b5s', 'ms', 'min', 'h', 'day', 'yr', 'dec', 'gen'];
+  var labelsG = document.getElementById('t-labels');
+  var labels = names.map(function (n, k) {
+    var tk = (k + 0.5) * Math.PI / 4, c = Math.cos(tk), s = Math.sin(tk);
+    var t = el('text', { x: (cx + (R + rr + 22) * c).toFixed(1), y: (cy + A * (R + rr + 22) * s + s * (Bz * rr + 8)).toFixed(1), 'text-anchor': c > 0.3 ? 'start' : (c < -0.3 ? 'end' : 'middle'), 'dominant-baseline': 'central', 'class': 'fade' }, labelsG);
+    t.textContent = n; t.style.opacity = 0;
+    return { el: t, tk: tk };
+  });
+  var F = document.getElementById('t-front'), Bk = document.getElementById('t-back');
+  var D = document.getElementById('t-reset'), RL = document.getElementById('t-resetl'), S = document.getElementById('t-w');
+  function draw() {
+    var w = S.value / 100, T = 2 * Math.PI * w;
+    var c = torusCurve(cx, cy, R, rr, q, T, N);
+    F.setAttribute('d', c.front); Bk.setAttribute('d', c.back);
+    var closed = w >= 0.99;
+    D.style.opacity = closed ? 1 : 0; RL.style.opacity = closed ? 1 : 0;
+    labels.forEach(function (o) { o.el.style.opacity = T >= o.tk ? 1 : 0; });
+  }
+  S.addEventListener('input', draw);
+  draw();
+
+  // Print: Figure 4 in its closed state and the symbol key open; both restored afterwards.
+  var key = document.querySelector('#table details'), held = null;
+  function toPrint() {
+    if (held) return;
+    held = { w: S.value, open: key.open };
+    S.value = 100; draw(); key.open = true;
+  }
+  function fromPrint() {
+    if (!held) return;
+    S.value = held.w; draw(); key.open = held.open; held = null;
+  }
+  window.addEventListener('beforeprint', toPrint);
+  window.addEventListener('afterprint', fromPrint);
+
+  // Reading strip.
+  var sa = document.getElementById('strip-a'), sb = document.getElementById('strip-b'), sc = document.getElementById('strip-c');
+  var mk = el('marker', { id: 'm-strip', viewBox: '0 0 10 10', refX: '8', refY: '5', markerWidth: '5', markerHeight: '5', orient: 'auto-start-reverse' }, el('defs', {}, sa));
+  el('path', { d: 'M2 1L8 5L2 9', fill: 'none', stroke: 'var(--ink)', 'stroke-width': 1.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, mk);
+  for (var i = 0; i < 4; i++) {
+    var y0 = 28 + i * 40;
+    el('path', { d: 'M74 ' + y0 + ' A14 14 0 1 1 67 ' + (y0 - 12), fill: 'none', stroke: 'var(--ink)', 'stroke-width': 1.4, 'marker-end': 'url(#m-strip)' }, sa);
+    if (i < 3) el('path', { d: 'M74 ' + y0 + ' C 84 ' + (y0 + 10) + ' 84 ' + (y0 + 30) + ' 74 ' + (y0 + 40), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.2, 'stroke-dasharray': '3 3' }, sa);
+    else el('path', { d: 'M74 ' + y0 + ' C 84 ' + (y0 + 10) + ' 84 ' + (y0 + 22) + ' 78 ' + (y0 + 26), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.2, 'stroke-dasharray': '3 3' }, sa);
+  }
+  var la = el('text', { x: 60, y: 192, 'text-anchor': 'middle', fill: 'var(--muted)' }, sa); la.textContent = 'each period is a loop';
+  // helix on a cylinder
+  var hcx = 60, top = 26, bot = 160, rx = 30, ry = 9;
+  el('ellipse', { cx: hcx, cy: top, rx: rx, ry: ry, fill: 'var(--tint)', stroke: 'var(--rule)' }, sb);
+  el('line', { x1: hcx - rx, y1: top, x2: hcx - rx, y2: bot, stroke: 'var(--rule)' }, sb);
+  el('line', { x1: hcx + rx, y1: top, x2: hcx + rx, y2: bot, stroke: 'var(--rule)' }, sb);
+  el('path', { d: 'M' + (hcx - rx) + ' ' + bot + ' A' + rx + ' ' + ry + ' 0 0 0 ' + (hcx + rx) + ' ' + bot, fill: 'none', stroke: 'var(--rule)' }, sb);
+  var hf = '', hb = '', hl = null, turns = 4, M = 600;
+  for (var k = 0; k <= M; k++) {
+    var th = 2 * Math.PI * turns * k / M;
+    var hx = (hcx + rx * Math.cos(th)).toFixed(1), hy = (top + (bot - top) * k / M + ry * Math.sin(th)).toFixed(1);
+    var hv = Math.sin(th) >= 0, hp = hx + ' ' + hy + ' ';
+    if (hv) { hf += (hl === true ? 'L' : 'M') + hp; if (hl === false) hb += 'L' + hp; }
+    else { hb += (hl === false ? 'L' : 'M') + hp; if (hl === true) hf += 'L' + hp; }
+    hl = hv;
+  }
+  el('path', { d: hb, fill: 'none', stroke: 'var(--muted)', 'stroke-width': 1, 'stroke-dasharray': '3 3' }, sb);
+  el('path', { d: hf, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 1.4 }, sb);
+  var lb = el('text', { x: 60, y: 192, 'text-anchor': 'middle', fill: 'var(--muted)' }, sb); lb.textContent = 'joined end to start';
+  // small torus
+  torusBody(sc, 60, 96, 34, 11, 160, 32, 8);
+  var cc = torusCurve(60, 96, 34, 11, 4, 2 * Math.PI, 1200);
+  el('path', { d: cc.back, fill: 'none', stroke: 'var(--muted)', 'stroke-width': 1, 'stroke-dasharray': '2 2' }, sc);
+  el('path', { d: cc.front, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 1.4 }, sc);
+  el('circle', { cx: 60 + 34 + 11, cy: 96, r: 2.8, fill: 'var(--accent)' }, sc);
+  var lc = el('text', { x: 60, y: 192, 'text-anchor': 'middle', fill: 'var(--muted)' }, sc); lc.textContent = 'bent round: it closes';
+})();
+</script>
+</body>
+</html>
