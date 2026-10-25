@@ -616,8 +616,8 @@ def fig_window():
                                 [(L / 1.4, f'{L:g}') for L in (0, 0.5, 1.0)], [(0, 'off'), (5 / 5.4, 'on')]) + '</g>'
     # the thresholds where the switch commits and where it lets go, measured on the model
     for L, word in ((L_off, 'lets go'), (L_on, 'commits')):
-        s += f'<line x1="{X(L):.1f}" y1="{y0}" x2="{X(L):.1f}" y2="{y1 - 4}" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 3"/>'
-        s += mono(X(L), y1 - 10, f'{word} {L:.2f}', anchor='middle', fill='var(--ink)')
+        s += f'<line x1="{X(L):.1f}" y1="{y0}" x2="{X(L):.1f}" y2="{y1 - 20}" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 3"/>'
+        s += mono(X(L), y1 - 26, f'{word} {L:.2f}', anchor='middle', fill='var(--ink)')   # a row of its own, above the axis title
     lo = [(L, r[0]) for L, r in roots.items() if L <= L_on]
     hi = [(L, r[-1]) for L, r in roots.items() if L >= L_off]
     mid = [(L, r[1]) for L, r in roots.items() if len(r) == 3]
