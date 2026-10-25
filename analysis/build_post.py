@@ -1,4 +1,6 @@
-"""Build count-the-elements.html, the companion post for the counting experiment, from results/.
+"""Build build/count-the-elements.html, the census, from results/. Since 2026-10-25 the census is one chapter of the
+essay: fold_census.py takes this build's pieces into every-line-is-a-loop.html, and the public count-the-elements.html
+is a redirect. The build folder is not committed.
 
 Usage: python analysis/build_post.py
 Reads results/tables_traj.json, results/tables_random.json, results/toys.json, results/r31_structure_traj.jsonl
@@ -193,14 +195,14 @@ def cap(s):
 # One stylesheet for this page. Tokens first: four colours (ink = content; muted gray = secondary, axes, not found;
 # lavender = amplify in strokes and text, found in fills, and links; amber = brake) with the surfaces they sit on,
 # one serif for reading, one sans for labels, figures and UI, monospace for code only, and the golden-ratio scales.
-LIGHT = ('--paper: #ffffff; --ink: #141414; --muted: #6a6a6a; --rule: #dcdcdc; '
-         '--accent: #a98be0; --accent-text: #6f52c0; --accent-soft: rgba(169, 139, 224, 0.16); --accent-tint: #efe9fb; '
-         '--accent2: #e39a5a; --accent2-text: #a4521a; --accent2-soft: rgba(227, 154, 90, 0.18); --orb2-lo: #b8622a; '
-         '--plate: #f9f8fd; --tint: #f2f0f6; --lift: rgba(48, 32, 92, 0.2); --orb-hi: #ffffff; --orb-lo: #7a5fc7; color-scheme: light;')
-DARK = ('--paper: #111214; --ink: #ececea; --muted: #9b9b98; --rule: #2d2f33; '
-        '--accent: #cdb8ff; --accent-text: #cdb8ff; --accent-soft: rgba(205, 184, 255, 0.18); --accent-tint: #2b2737; '
-        '--accent2: #f2b57c; --accent2-text: #f2b57c; --accent2-soft: rgba(242, 181, 124, 0.2); --orb2-lo: #c97a3e; '
-        '--plate: #18171e; --tint: #1d1c23; --lift: rgba(0, 0, 0, 0.6); --orb-hi: #f6f1ff; --orb-lo: #8a6fd6; color-scheme: dark;')
+LIGHT = ('--paper: #ffffff; --ink: #1c2226; --muted: #68727a; --rule: #dfe4e6; '
+         '--accent: #6cb39a; --accent-text: #277a60; --accent-soft: rgba(108, 179, 154, 0.16); --accent-tint: #e8f3ee; '
+         '--accent2: #d891aa; --accent2-text: #ad3a6b; --accent2-soft: rgba(216, 145, 170, 0.18); --orb2-lo: #ad3a6b; '
+         '--plate: #f5f7f8; --tint: #eaeeef; --lift: rgba(34, 52, 48, 0.16); --orb-hi: #ffffff; --orb-lo: #2f8a6c; color-scheme: light;')
+DARK = ('--paper: #111416; --ink: #e9edee; --muted: #9aa4a8; --rule: #2a3134; '
+        '--accent: #7fcbb0; --accent-text: #8fd6bb; --accent-soft: rgba(127, 203, 176, 0.18); --accent-tint: #1b2a25; '
+        '--accent2: #e6a0bb; --accent2-text: #efb0c7; --accent2-soft: rgba(230, 160, 187, 0.2); --orb2-lo: #c0608b; '
+        '--plate: #171b1d; --tint: #1d2225; --lift: rgba(0, 0, 0, 0.6); --orb-hi: #f2fbf7; --orb-lo: #3f9c7e; color-scheme: dark;')
 STYLE = r'''
 :root {
   %LIGHT%
@@ -1501,10 +1503,11 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
     page = number_refs(page)
     dashes = page.count('—') + page.count('&#8212;') + page.count('&mdash;')
     print('em dashes', dashes, '(a voice when sparing, a habit when frequent)')
+    pathlib.Path(out_path).parent.mkdir(exist_ok=True)
     pathlib.Path(out_path).write_text(page, encoding='utf-8')
     return out_path
 
 
 if __name__ == '__main__':
     print(build(R / 'tables_traj.json', R / 'tables_random.json', R / 'toys.json', R / 'r31_structure_traj.jsonl', R / 'r31_dynamics.jsonl',
-                ROOT / 'count-the-elements.html'))
+                ROOT / 'build' / 'count-the-elements.html'))

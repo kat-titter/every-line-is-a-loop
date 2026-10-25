@@ -6,3 +6,4 @@ data/
 run_all.log
 run_all.time
 __pycache__/
+build/
