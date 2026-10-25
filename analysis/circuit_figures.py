@@ -635,7 +635,7 @@ def fig_window():
     ve = sw_steady(e0)[0]
     s += f'<circle cx="{X(e0):.1f}" cy="{Y(ve):.1f}" r="4.5" fill="var(--paper)" stroke="var(--accent2-text)" stroke-width="2"/>'
     s += f'<path d="M{X(e0) - 8:.1f} {Y(ve) - 14:.1f}H{X(e1):.1f}" fill="none" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-arrow-rose)"/>'
-    s += mono(X(e1) - 6, Y(ve) - 10, 'early', anchor='end', fill='var(--accent2-text)')
+    s += mono((X(e0) - 8 + X(e1)) / 2, Y(ve) - 30, 'early', anchor='middle', fill='var(--accent2-text)')   # above its arrow and the tipping curve
     l0, l1 = 1.05, L_off - 0.07
     vl = sw_steady(l0)[-1]
     s += f'<circle cx="{X(l0):.1f}" cy="{Y(vl):.1f}" r="4.5" fill="var(--paper)" stroke="var(--accent2-text)" stroke-width="2"/>'
