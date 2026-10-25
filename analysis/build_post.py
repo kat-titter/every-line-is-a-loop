@@ -196,13 +196,13 @@ def cap(s):
 # lavender = amplify in strokes and text, found in fills, and links; amber = brake) with the surfaces they sit on,
 # one serif for reading, one sans for labels, figures and UI, monospace for code only, and the golden-ratio scales.
 LIGHT = ('--paper: #ffffff; --ink: #1c2226; --muted: #68727a; --rule: #dfe4e6; '
-         '--accent: #6cb39a; --accent-text: #277a60; --accent-soft: rgba(108, 179, 154, 0.16); --accent-tint: #e8f3ee; '
+         '--accent: #c6ef6b; --accent-text: #4a7a0c; --accent-soft: rgba(198, 239, 107, 0.30); --accent-tint: #f1fbd6; '
          '--accent2: #d891aa; --accent2-text: #ad3a6b; --accent2-soft: rgba(216, 145, 170, 0.18); --orb2-lo: #ad3a6b; '
-         '--plate: #f5f7f8; --tint: #eaeeef; --lift: rgba(34, 52, 48, 0.16); --orb-hi: #ffffff; --orb-lo: #2f8a6c; color-scheme: light;')
+         '--plate: #f5f7f8; --tint: #eaeeef; --lift: rgba(34, 52, 48, 0.16); --orb-hi: #ffffff; --orb-lo: #6f9c1a; color-scheme: light;')
 DARK = ('--paper: #111416; --ink: #e9edee; --muted: #9aa4a8; --rule: #2a3134; '
-        '--accent: #7fcbb0; --accent-text: #8fd6bb; --accent-soft: rgba(127, 203, 176, 0.18); --accent-tint: #1b2a25; '
+        '--accent: #c6ef6b; --accent-text: #cdf27a; --accent-soft: rgba(198, 239, 107, 0.20); --accent-tint: #222b14; '
         '--accent2: #e6a0bb; --accent2-text: #efb0c7; --accent2-soft: rgba(230, 160, 187, 0.2); --orb2-lo: #c0608b; '
-        '--plate: #171b1d; --tint: #1d2225; --lift: rgba(0, 0, 0, 0.6); --orb-hi: #f2fbf7; --orb-lo: #3f9c7e; color-scheme: dark;')
+        '--plate: #171b1d; --tint: #1d2225; --lift: rgba(0, 0, 0, 0.6); --orb-hi: #f6ffe0; --orb-lo: #7fae25; color-scheme: dark;')
 STYLE = r'''
 :root {
   %LIGHT%

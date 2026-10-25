@@ -608,8 +608,8 @@ def fig_window():
     assert 0.3 < L_off < 0.4 and 0.75 < L_on < 0.9, (L_off, L_on)
     Ls = [round(0.005 * i, 3) for i in range(0, 281)]          # 0 to 1.4
     roots = {L: sw_steady(L, 3000) for L in Ls}
-    W, H = 560, 270
-    x0, x1, y0, y1 = 60, 540, 214, 40
+    W, H = 380, 270                                  # drawn narrow so its 12 px labels stay near 11 px on a phone
+    x0, x1, y0, y1 = 52, 364, 214, 40
     X = lambda L: x0 + (x1 - x0) * L / 1.4
     Y = lambda v: y0 - (y0 - y1) * v / 5.4
     s = '<g class="ax">' + axes(W, H, x0, x1, y0, y1, 'the push toward disease', 'the switch',
@@ -648,7 +648,7 @@ def fig_window():
     key = ('<p class="keyrow"><span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H31" stroke="var(--accent-text)" stroke-width="2.2"/></svg>the switch, settled at each push</span>'
            '<span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H31" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 3"/></svg>the tipping point between them</span>'
            '<span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M31 6H5" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-arrow-rose)"/></svg>a treatment pushing back</span></p>')
-    return '<div class="pane one">' + pane(s, W, H, aria) + '</div>' + key
+    return '<div class="pane one window">' + pane(s, W, H, aria) + '</div>' + key
 
 
 # ================================================================ shared pieces
