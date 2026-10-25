@@ -8,6 +8,7 @@ between the essay's <!-- gen:NAME --> markers.
 
 Usage: python3 analysis/fold_census.py        (rebuilds build/count-the-elements.html first when it is missing)
 """
+import html as html_lib
 import pathlib
 import re
 import subprocess
@@ -151,6 +152,85 @@ def extract_css(css):
     return '\n'.join(kept)
 
 
+def mono(x, y, t, anchor='start', fill='var(--muted)', size=12):
+    return f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-size="{size}" fill="{fill}" style="font-family: var(--code)">{t}</text>'
+
+
+def dot_row(y, label, slots, filled, right, x0=64, step=12, r=4.2):
+    """One row of the table as dots: every element a ring, the ones accounted for filled."""
+    s = mono(0, y + 4, label)
+    for i in range(slots):
+        cx = x0 + i * step
+        s += (f'<circle cx="{cx}" cy="{y}" r="{r}" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.2"/>' if i < filled
+              else f'<circle cx="{cx}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/>')
+    s += mono(x0 + 16 * step + 6, y + 4, right, fill='var(--ink)')   # one column for every row's count
+    return s
+
+
+def scorecard(post):
+    """The census's three claims and its surprise, each drawn: verdict, claim, the evidence as dots. The numbers are
+    read from the census build's own scorecard and its fly-clock sentence, so they cannot drift from results/."""
+    txt = html_lib.unescape(re.sub(r'<[^>]+>', ' ', post))
+    txt = re.sub(r'\s+', ' ', txt)
+    m1 = re.search(r'Two loops: (\d+) kinds, (\d+) elements\. Three loops: (\d+) kinds, (\d+) elements\.', txt)
+    m2 = re.search(r'no clock without a brake, in (\d+) models', txt)
+    m3 = re.search(r'At two loops a strict detector fills (\d+) of (\d+) elements, a loose one (\d+)\.', txt)
+    m4 = re.search(r'Five models of one clock land in four places', txt)
+    assert m1 and m2 and m3 and m4, (m1, m2, m3, m4)
+    k2, e2, k3, e3 = map(int, m1.groups())
+    n = int(m2.group(1))
+    st, e, lo = map(int, m3.groups())
+    # the five fly-clock models, as the census places them: 1 loop (-), 2 (+ -), 2 (- -) twice, 14
+    fly = [(1, '\u2212'), (2, '+\u2212'), (2, '\u2212\u2212'), (2, '\u2212\u2212'), (14, '')]
+    assert 'Goldbeter&#8217;s 1995 model has one loop' in post and 'has 14.' in post
+    W = 330
+
+    def svg(inner, h, aria):
+        return f'<svg viewBox="0 0 {W} {h}" role="img" aria-label="{aria}">{inner}</svg>'
+    ev1 = svg(dot_row(12, '2 loops', e2, k2, f'{k2} kinds') + dot_row(36, '3 loops', e3, k3, f'{k3} kinds'), 46,
+              f'Two loops: {k2} kinds of behaviour across {e2} elements. Three loops: {k3} kinds across {e3} elements.')
+    cols, step = 48, 4.6
+    grid = ''.join(f'<circle cx="{4 + (i % cols) * step:.1f}" cy="{4 + (i // cols) * step:.1f}" r="1.5" fill="var(--accent)"/>' for i in range(n))
+    rows = -(-n // cols)
+    ev2 = svg(grid + mono(4, 4 + rows * step + 12, f'{n} models, 0 break a rule', fill='var(--ink)'), int(4 + rows * step + 18),
+              f'{n} models, none with memory but no amplifying loop or a clock but no brake')
+    ev3 = svg(dot_row(12, 'strict', e, st, f'{st} of {e}') + dot_row(36, 'loose', e, lo, f'{lo} of {e}'), 46,
+              f'At two loops a strict running-total detector fills {st} of {e} elements, a loose one {lo}.')
+    ax0, ax1 = 20, 262
+    X = lambda loops: ax0 + (ax1 - ax0) * (loops - 1) / 13
+    ax = f'<line x1="{ax0}" y1="40" x2="{ax1}" y2="40" stroke="var(--muted)" stroke-width="1.4"/>'
+    ax += ''.join(f'<line x1="{X(v):.1f}" y1="37" x2="{X(v):.1f}" y2="43" stroke="var(--muted)" stroke-width="1.4"/>' + mono(X(v), 56, str(v), anchor='middle') for v in (1, 2, 14))
+    stack, dots = {}, ''
+    for loops, sign in fly:
+        key = (loops, sign)
+        stack.setdefault(loops, [])
+        if key not in stack[loops]:
+            stack[loops].append(key)
+        i = stack[loops].index(key)
+        same = sum(1 for k in fly[:fly.index((loops, sign)) + 1] if k == key)
+    placed = {}
+    for loops, sign in fly:
+        col = stack[loops].index((loops, sign))
+        n_here = placed.get((loops, sign), 0)
+        placed[(loops, sign)] = n_here + 1
+        cx = X(loops) + col * 22 + n_here * 9
+        dots += f'<circle cx="{cx:.1f}" cy="28" r="4.2" fill="var(--ink)"/>'
+        if n_here == 0 and sign:
+            dots += mono(cx + n_here * 4.5, 14, sign, anchor='start' if loops == 2 else 'middle', fill='var(--ink)')
+    ev4 = svg(ax + dots + mono(ax1 + 12, 44, 'loops'), 60, 'Five models of the fruit fly clock: one at 1 loop with one brake, one at 2 loops with one amplifying loop and one brake, two at 2 loops with two brakes, one at 14 loops: four places.')
+    rows_html = [
+        ('<span class="v">~ softly</span>', 'No more kinds of behaviour than elements', ev1),
+        ('<span class="v ok">&#10003; holds</span>', 'Loops forbid some behaviours', ev2),
+        ('<span class="v">? open</span>', 'Every element can exist', ev3),
+        ('<span class="v">! surprise</span>', 'One circuit, one address', ev4),
+    ]
+    out = '<div class="pane one score">' + ''.join(
+        f'<div class="sc-row">{v}<span class="sc-c">{c}</span><span class="sc-e">{e}</span></div>' for v, c, e in rows_html) + '</div>'
+    out += ('<p class="keyrow"><span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="4.2" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/></svg>an element of the row</span>'
+            '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="4.2" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.2"/></svg>accounted for</span></p>')
+    return out
+
+
 def main():
     if not BUILD.exists():
         BUILD.parent.mkdir(exist_ok=True)
@@ -232,7 +312,7 @@ def main():
         'orbitals': TF.fig_orbitals(),
         'ptable': clean(inner(ptable)),
         'data': clean(inner(datafig)),
-        'cards': clean(cards),
+        'cards': '<figure class="fig" id="fig-score">\n' + scorecard(post) + '\n<figcaption><b>The scorecard.</b> Each row of dots is one row of the table.</figcaption>\n</figure>',
         'next': clean(inner(nextfig)),
         'morph': LM.fig_morph(),
         'supp': clean(supp),
