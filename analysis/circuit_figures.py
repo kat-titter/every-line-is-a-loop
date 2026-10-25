@@ -557,29 +557,27 @@ def fig_frame():
 
 # ================================================================ three diseases, one algebra
 def fig_disease():
-    w, h = 230, 236
-
-    def panel(title, a_name, b_name, foot, aria):
-        A, B = (60, 70, 62, 26), (170, 70, 62, 26)
-        s = label(115, 22, title, size=13, extra=' font-weight="600"')
-        s += edge(A, B, 'act', 'x', curve=-22).replace('class="fx" ', '')
-        s += (f'<path d="M150 90 Q115 122 80 90" fill="none" stroke="var(--accent2)" stroke-width="2.2" stroke-dasharray="4 4" marker-end="url(#fx-bar)"/>')
-        s += pill(*A[:2], A[2], a_name) + pill(*B[:2], B[2], b_name)
-        s += label(115, 44, '+ held on', size=12, fill='var(--accent-text)')
-        s += label(115, 134, MINUS + ' lost', size=12, fill='var(--accent2-text)')
-        s += f'<line x1="20" y1="196" x2="210" y2="196" stroke="var(--muted)" stroke-width="1.4"/>'
-        s += '<path d="M20 194 H60 C100 192 150 164 210 142" fill="none" stroke="var(--accent-text)" stroke-width="2.2"/>'
-        s += mono(210, 212, 'time', anchor='end')
-        s += label(115, 230, foot, fill='var(--muted)', size=12)
-        return f'<div>{pane(s, w, h, aria)}</div>'
-    return ('<div class="trio-f trio-d">'
-            + panel('Cancer', 'grow', 'p53', 'divisions count up and never return',
-                    'Cancer: a growth switch held on, its brake p53 lost; divisions ramp without return')
-            + panel('Autoimmunity', 'T eff', 'T reg', 'a memory with no brake',
-                    'Autoimmunity: effector T cells held on, regulatory T cells lost; the response ramps')
-            + panel('Neurodegeneration', 'seed', 'clear', 'and neurons never divide it away',
-                    'Neurodegeneration: seeded aggregation held on, clearance lost, no reset; the response ramps')
-            + '</div>')
+    """One panel for three diseases, drawn tall so it reads on a phone: the same amplifying loop held on, the same
+    brake lost, the same ramp; the three tissues' names stand in rows inside the two nodes."""
+    w, h = 350, 340
+    A, B = (175, 74, 200, 66), (175, 196, 200, 66)
+    s = ''
+    # the loop runs down the left (held on) and back up the right (lost)
+    s += f'<path d="M{A[0] - 70} {A[1] + 36}C{A[0] - 150} {A[1] + 70} {B[0] - 150} {B[1] - 70} {B[0] - 70} {B[1] - 36}" fill="none" stroke="var(--accent-text)" stroke-width="2.2" marker-end="url(#fx-arrow)"/>'
+    s += f'<path d="M{B[0] + 70} {B[1] - 36}C{B[0] + 150} {B[1] - 70} {A[0] + 150} {A[1] + 70} {A[0] + 70} {A[1] + 36}" fill="none" stroke="var(--accent2)" stroke-width="2.2" stroke-dasharray="4 4" marker-end="url(#fx-bar)"/>'
+    s += label(118, 141, '+ held on', size=12, fill='var(--accent-text)')
+    s += label(232, 141, MINUS + ' lost', size=12, fill='var(--accent2-text)')
+    for (x, y, pw, ph), names in ((A, ('grow', 'effector T cells', 'seed')), (B, ('p53', 'regulatory T cells', 'clearance'))):
+        s += (f'<rect x="{x - pw / 2}" y="{y - ph / 2}" width="{pw}" height="{ph}" rx="{ph / 2 - 8}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4" {LIFT}/>')
+        for i, nm in enumerate(names):
+            s += label(x, y - 14 + 18 * i + 4, nm, size=12, extra=' font-weight="600"')
+    s += mono(175, 22, 'rows: cancer, autoimmunity, neurodegeneration', anchor='middle', fill='var(--muted)')
+    s += '<line x1="30" y1="300" x2="320" y2="300" stroke="var(--muted)" stroke-width="1.4"/>'
+    s += '<path d="M30 298 H110 C180 294 250 266 320 240" fill="none" stroke="var(--accent-text)" stroke-width="2.2"/>'
+    s += mono(320, 318, 'time', anchor='end')
+    s += mono(30, 318, 'counts up, never returns')
+    return ('<div class="pane one tall">' + pane(s, w, h, 'Three diseases as one circuit: an amplifying loop (growth, effector T cells, seeded aggregation) held on, '
+            'its brake (p53, regulatory T cells, clearance) lost, and the response a ramp that never returns') + '</div>')
 
 
 # ================================================================ hero: three live traces
@@ -813,7 +811,7 @@ def script():
 
 
 # ================================================================ injection
-BLOCKS = {'defs': defs_html, 'hero': hero, 'frame': fig_frame, 'switch': fig_switch, 'clock': fig_clock,
+BLOCKS = {'defs': defs_html, 'frame': fig_frame, 'switch': fig_switch, 'clock': fig_clock,
           'adapter': fig_adapter, 'disease': fig_disease, 'script': script}
 
 

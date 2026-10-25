@@ -57,9 +57,9 @@ ALIASES = {}
 
 # Figure numbers in the merged page for the figures that come from the census build.
 FIG = {'Figure 1. Arrows and loops.': 'Figure 1. Flip the arrows.',
-       'Figure 5. The periodic table of loops.': 'Figure 7. The periodic table of loops.',
-       'Figure 6. The data.': 'Figure 8. The data.',
-       'Figure 7. The research loop.': 'Figure 13. The research loop.'}
+       'Figure 5. The periodic table of loops.': 'Figure 6. The periodic table of loops.',
+       'Figure 6. The data.': 'Figure 7. The data.',
+       'Figure 7. The research loop.': 'Figure 11. The research loop.'}
 
 CSS_WANT = ['.pt-', '.ptable', '.ecard', '.rc-', '.refcard', '.tile', '.tiles', '.cards', '.card', '.summary-cards', '.f-', '.explorer',
             '.ex-', 'ol.ex-list', '#ex-q', '.pick', '.sl-', '.sn', '.sp', '.solo', '.bars', '.grid-fig', '.grid-key', '.rows-grid', '.quad',
@@ -201,10 +201,10 @@ def main():
     toy = block(theory, '<figure class="fig">', '</figure>')
     assert 'lt-ring' in toy
     table_sec = post[post.index('<section id="table">'):post.index('<section id="data">')]
-    rowsgrid = div_block(table_sec, '<div class="grid-fig">')
     ptable = block(table_sec, '<figure class="fig">', '</figure>', table_sec.index('Figure 5. The periodic table') - 60000)
     ptable = table_sec[table_sec.rfind('<figure class="fig">', 0, table_sec.index('Figure 5. The periodic table')):table_sec.index('</figure>', table_sec.index('Figure 5. The periodic table')) + 9]
     assert 'pt-card' in ptable and 'ptable' in ptable
+    ptable = ptable.replace(div_block(ptable, '<div class="pt-keybox">'), '')   # the explainer tile: the cards explain each real tile
     data_sec = post[post.index('<section id="data">'):post.index('<section id="results">')]
     datafig = block(data_sec, '<figure class="fig">', '</figure>')
     assert 'ex-q' in datafig and 'funnel' in datafig
@@ -226,7 +226,6 @@ def main():
         'css-census': '<style>\n' + css + '\n</style>',
         'elcard': elcard,
         'toy': clean(inner(toy)[inner(toy).index('<div class="pair interactive">'):]),   # the ring and its plot; the gauges stay in the build
-        'rowsgrid': clean(rowsgrid),
         'orbitals': TF.fig_orbitals(),
         'ptable': clean(inner(ptable)),
         'data': clean(inner(datafig)),
