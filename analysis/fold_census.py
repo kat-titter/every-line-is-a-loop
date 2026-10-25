@@ -9,6 +9,7 @@ between the essay's <!-- gen:NAME --> markers.
 Usage: python3 analysis/fold_census.py        (rebuilds build/count-the-elements.html first when it is missing)
 """
 import html as html_lib
+import json
 import pathlib
 import re
 import subprocess
@@ -231,6 +232,61 @@ def scorecard(post):
     return out
 
 
+def nesting_figure():
+    """Figure 13: the nesting guess, tested three ways, drawn from results/nesting.json (analysis/nesting.py)."""
+    res = json.loads((ROOT / 'results' / 'nesting.json').read_text())
+    cnt = {r['loops']: r for r in res['count']}
+    toy = res['toy']
+    tick_a, tick_b = toy['amplify fast']['keeps time'], toy['brake fast']['keeps time']
+    draws = toy['settings']['draws']
+    assert tick_b == 0 and toy['pairs'].get('keeps time | settles') == tick_a, toy['pairs']
+    cen = res['census']['transit_time']
+    ta, na = cen['table']['amplifying']['keeps time'], cen['table']['amplifying']['does not']
+    tb, nb = cen['table']['braking']['keeps time'], cen['table']['braking']['does not']
+    W = 340
+
+    def svg(inner, h, aria):
+        return f'<svg viewBox="0 0 {W} {h}" role="img" aria-label="{aria}">{inner}</svg>'
+
+    def dots(y, label, slots, filled, right, x0, step, r):
+        s_ = mono(0, y + 4, label)
+        for i in range(slots):
+            cx = x0 + i * step
+            s_ += (f'<circle cx="{cx:.1f}" cy="{y}" r="{r}" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/>' if i < filled
+                   else f'<circle cx="{cx:.1f}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/>')
+        return s_ + mono(W - 2, y + 4, right, anchor='end', fill='var(--ink)')
+    # 1. count: what doubling needs (outline) against what nesting order gives (filled), per row of the table
+    x0, unit = 64, 3.0
+    bars = ''
+    for i, nu in enumerate((1, 2, 3)):
+        y = 6 + i * 22
+        need, got = cnt[nu]['chemistry_2n2'], cnt[nu]['types_ordered']
+        bars += mono(0, y + 9, f'{nu} loop' + ('s' if nu > 1 else ''))
+        bars += f'<rect x="{x0}" y="{y}" width="{need * unit:.1f}" height="6" rx="1.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/>'
+        bars += f'<rect x="{x0}" y="{y + 8}" width="{got * unit:.1f}" height="6" rx="1.5" fill="var(--ink)"/>'
+        bars += mono(x0 + max(need, got) * unit + 6, y + 12, f'{need} vs {got}', fill='var(--ink)')
+    ev1 = svg(bars, 72, 'Elements per row if every one doubled, against arrangements when loops are ordered fast to slow: '
+              + ', '.join(f"{cnt[n]['chemistry_2n2']} against {cnt[n]['types_ordered']} for {n} loops" for n in (1, 2, 3)))
+    ev2 = svg(dots(12, 'amplifier fast', tick_a, tick_a, str(tick_a), 112, 6.6, 2.5) + dots(32, 'brake fast', tick_a, tick_b, str(tick_b), 112, 6.6, 2.5), 42,
+              f'Of {draws} random draws, {tick_a} keep time with the amplifying loop fast; swap the speeds and {tick_b} do.')
+    ev3 = svg(dots(12, 'amplifier faster', ta + na, ta, f'{ta} of {ta + na}', 130, 9.5, 3.6)
+              + dots(32, 'brake faster', tb + nb, tb, f'{tb} of {tb + nb}', 130, 9.5, 3.6), 42,
+              f'Real two-loop circuits: {ta} of {ta + na} keep time where the amplifying loop is faster, {tb} of {tb + nb} where the brake is.')
+    rows_html = [
+        ('<span class="v">&#10007; no</span>', 'Nesting order is the missing factor of two', ev1),
+        ('<span class="v ok">&#10003; yes</span>', 'Which loop is fast decides whether it ticks', ev2),
+        ('<span class="v">~ leans</span>', 'Real clocks run their amplifier faster', ev3),
+    ]
+    out = '<div class="pane one score">' + ''.join(
+        f'<div class="sc-row">{v}<span class="sc-c">{c}</span><span class="sc-e">{e}</span></div>' for v, c, e in rows_html) + '</div>'
+    out += ('<p class="keyrow">'
+            '<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/></svg>what doubling needs</span>'
+            '<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--ink)"/></svg>what nesting order gives</span>'
+            '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/></svg>a draw or a model</span>'
+            '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/></svg>keeps time</span></p>')
+    return out, {'tick_a': tick_a, 'draws': draws, 'ta': ta, 'na': na, 'tb': tb, 'nb': nb, 'p': cen['fisher_one_sided_p']}
+
+
 def main():
     if not BUILD.exists():
         BUILD.parent.mkdir(exist_ok=True)
@@ -313,7 +369,8 @@ def main():
         'ptable': clean(inner(ptable)),
         'data': clean(inner(datafig)),
         'cards': '<figure class="fig" id="fig-score">\n' + scorecard(post) + '\n<figcaption><b>The scorecard.</b> Each row of dots is one row of the table.</figcaption>\n</figure>',
-        'next': clean(inner(nextfig)),
+        'next': clean(inner(nextfig)).replace('test nesting order as a fourth count.', 'look for a binary that touches every row, since nesting order, tested below, does not.'),
+        'nesting': nesting_figure()[0],
         'morph': LM.fig_morph(),
         'supp': clean(supp),
         'refs-extra': '\n'.join(f'<li>{li}</li>' for k, li in extras),

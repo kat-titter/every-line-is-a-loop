@@ -72,3 +72,7 @@ so a rerun gives identical files apart from the timing field `seconds`.
 - Running totals, strict reading: a variable whose own value appears in none of the rate laws that
   change it.
 - Loop searches stop after 5,000,000 steps or 20,000 loops; such models count as "search unfinished".
+
+## nesting.py
+
+Tests the essay's guess that the loop table's missing factor of two is nesting order, three ways: a count of what nesting order adds per row, a toy circuit run with its amplifying loop fast and then with its brake fast, and the 42 curated two-loop models that mix one amplifying loop and one brake, each loop timed in the model's own Jacobian at the census's five moments. Writes `results/nesting.json`; `fold_census.py` draws Figure 13 from it. Seeded, single-threaded, about five minutes.

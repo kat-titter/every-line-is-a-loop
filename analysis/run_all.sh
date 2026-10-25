@@ -1,5 +1,5 @@
 #!/bin/sh
-# Rebuild every number in the counting experiment from the raw SBML.
+# Rebuild every number in the essay's census, and the essay itself, from the raw SBML.
 #   sh analysis/run_all.sh [JOBS]
 # Takes about two hours on a 10-core laptop. Outputs go to results/.
 set -eu
@@ -19,5 +19,8 @@ $PY analysis/tabulate.py results/r31_structure_traj.jsonl results/r31_dynamics.j
 $PY analysis/tabulate.py results/r31_structure_random.jsonl results/r31_dynamics.jsonl results/tables_random.json results/r31_integrators.jsonl > /dev/null
 $PY analysis/report_tables.py results/tables_traj.json results/tables_random.json > results/tables.md
 $PY analysis/toys.py results/toys.json > /dev/null
+$PY analysis/nesting.py > /dev/null
 $PY analysis/build_post.py
-echo "done: results/tables.md and count-the-elements.html"
+$PY analysis/circuit_figures.py > /dev/null
+$PY analysis/fold_census.py
+echo "done: results/tables.md and every-line-is-a-loop.html"
