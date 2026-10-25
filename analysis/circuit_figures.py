@@ -151,10 +151,38 @@ def check_adapter():
     return dip, tr[-1][2], lk[-1][2]
 
 
+HY = {'s': 0.2, 'T': 3.0, 'Tmax': 12.0, 't0': 1.0, 'end': 24.0, 'dt': 0.01, 'sweep': 9.0}
+
+
+def hy_run(T, strength=HY['s'], end=HY['end'], dt=HY['dt'], every=5):
+    """A pulse of the given strength and length; its running total feeds the lac switch in place of lactose.
+    Samples: (t, pulse, dose, x)."""
+    x, y, I = SW['beta'] * SW['basal'], 0.0, 0.0
+    out = []
+    for i in range(int(end / dt) + 1):
+        t = i * dt
+        on = HY['t0'] <= t < HY['t0'] + T
+        if i % every == 0:
+            out.append((t, strength if on else 0.0, I, x))
+        I += dt * (strength if on else 0.0)
+        x, y = sw_step(x, y, I, dt)
+    return out
+
+
+def check_hypo():
+    short = hy_run(3.0)[-1]
+    long_ = hy_run(6.0)[-1]
+    twice = hy_run(3.0, strength=0.4)[-1]
+    assert short[3] < 0.6 and long_[3] > 3.0, (short, long_)
+    assert abs(twice[2] - long_[2]) < 1e-9 and abs(twice[3] - long_[3]) < 0.05, (twice, long_)
+    return short[2], long_[2]
+
+
 def check_all():
     print('switch: flips on at L =', *('%.2f' % v for v in check_switch()))
     print('clock: period at D = %g h is %.1f h; no delay settles' % (CK['D'], check_clock()))
     print('adapter: dips to %.2f, returns to %.3f; with a leak %.3f' % check_adapter())
+    print('hypothetical switch: dose %.2f stays off, dose %.2f flips; the same dose at twice the strength flips the same' % check_hypo())
 
 
 # ================================================================ drawing helpers
@@ -490,6 +518,61 @@ def fig_adapter():
     return f'<div class="deep">{panes}</div>{ctl}{chain}'
 
 
+# ================================================================ the hypothetical element (Sw∫)
+def circuit_hypo():
+    A, B, S = (110, 190, 70, 28), (260, 190, 70, 28), (185, 90, 110, 28)
+    s = '<path d="M30 96 L118 94" fill="none" stroke="var(--muted)" stroke-width="1.4" marker-end="url(#fx-arrow-muted)" class="fx" data-k="in"/>'
+    s = s.replace('class="fx" data-k="in"', '')   # the input arrow carries dots too, drawn muted
+    s = '<path class="fx" data-k="in" d="M30 96 L118 94" fill="none" stroke="var(--muted)" stroke-width="1.4" marker-end="url(#fx-arrow-muted)"/>'
+    s += label(30, 82, 'a pulse', anchor='start', fill='var(--muted)', size=12)
+    s += edge(S, A, 'act', 'sum', curve=-10)
+    s += edge(A, B, 'act', 'ab', curve=-24)
+    s += edge(B, A, 'act', 'ba', curve=-24)
+    s += pill(*S[:2], S[2], 'running total &#8747;') + pill(*A[:2], A[2], 'A') + pill(*B[:2], B[2], 'B')
+    s += label(185, 195, '+', size=16, fill='var(--accent-text)', extra=' font-weight="600"')
+    s += mono(20, 276, '1 loop  0 brakes  1 running total', size=12, fill='var(--ink)')
+    return pane(s, PW, PH, 'A hypothetical element: a pulse feeds a running total, and the running total feeds an amplifying '
+                'loop of A and B, the switch of Figure 2 with the total in place of lactose.', ' data-sim="hy"')
+
+
+def recipe_hypo():
+    rows = (('input', 'a pulse of strength 0.2 for T hours'), ('running total', 'dose = 0.2 &#215; T, never forgotten'),
+            ('switch', 'the lac loop of Figure 2, fed the dose'), ('flips when', 'dose passes 0.86, the lac switch\'s own threshold'),
+            ('never matters', 'how strong the pulse was'))
+    s = ''
+    for i, (k, v) in enumerate(rows):
+        y = 44 + i * 46
+        s += mono(20, y, k, fill='var(--muted)') + label(20, y + 18, v, anchor='start', size=12)
+    return pane(s, PW, PH, 'The recipe: a pulse, its running total, the lac switch fed the total; it flips when the dose passes the switch\'s threshold, whatever the pulse\'s strength.')
+
+
+def signal_hypo():
+    tr = hy_run(HY['T'])
+    x0, x1, y0, y1 = SIG['x0'], SIG['x1'], SIG['y0'], SIG['y1']
+    s = '<g class="ax">' + axes(SW_, SH, x0, x1, y0, y1, 'time, h', 'level, relative',
+                                [(i / 4, str(i * 6)) for i in range(5)], [(0, '0'), (2.5 / 5.8, '2.5'), (5 / 5.8, '5')]) + '</g>'
+    s += f'<polyline class="tr-in" points="{pts(tr, x0, x1, y0, y1, 0, HY["end"], 0, 0.5, vi=1)}" fill="none" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="5 4"/>'
+    s += f'<polyline class="tr2" points="{pts(tr, x0, x1, y0, y1, 0, HY["end"], 0, 2.9, vi=2)}" fill="none" stroke="var(--ink)" stroke-width="1.4"/>'
+    s += f'<polyline class="tr" points="{pts(tr, x0, x1, y0, y1, 0, HY["end"], 0, 5.8, vi=3)}" fill="none" stroke="var(--accent-text)" stroke-width="2.2" stroke-linejoin="round"/>'
+    s += f'<circle class="now" cx="{x0}" cy="{y0 - (y0 - y1) * tr[0][3] / 5.8:.1f}" r="4" fill="var(--accent-text)"/>'
+    s += legend([('the switch, A', 'var(--accent-text)', 2.2, ''), ('running total', 'var(--ink)', 1.4, ''), ('the pulse (slider)', 'var(--muted)', 1.4, '5 4')], x0, y0 + 32)
+    return pane(s, SW_, SH, 'A day of the model: the pulse, its running total climbing and holding, and the switch, which flips only '
+                'if the total passes the threshold.', ' data-chart="hy" preserveAspectRatio="none"')
+
+
+def fig_hypo():
+    lo, hi = check_hypo()
+    panes = (pane_html('circuit', 'circuit', 'hy-r1', f'dose  {HY["s"] * HY["T"]:.2f}', circuit_hypo())
+             + pane_html('circuit', 'recipe', 'hy-r2', 'Sw&#8747;, element 2', recipe_hypo())
+             + pane_html('signal', 'signal', 'hy-r3', 'switch  off', signal_hypo()))
+    ctl = ('<div class="ctl ctl-2"><label for="hy-T">pulse length</label>'
+           f'<input id="hy-T" type="range" min="0" max="{int(HY["Tmax"] * 10)}" value="{int(HY["T"] * 10)}" aria-label="Length of the input pulse, in hours" style="--p: {HY["T"] / HY["Tmax"] * 100:.0f}%">'
+           f'<output for="hy-T" id="hy-Tv">{HY["T"]:.1f} h</output>'
+           '<button type="button" class="chip tog" id="hy-x2" aria-pressed="false">twice the strength, half the length</button></div>')
+    chain = chain_html('1 loop, 0 brakes, &#8747;', 'adds up, commits', 'commits after a dose', brakes=0, integ=True, fn='remember')
+    return f'<div class="deep">{panes}</div>{ctl}{chain}'
+
+
 # ================================================================ shared pieces
 def glyph(word, color='var(--ink)', dashed=False):
     dash = ' stroke-dasharray="3 2"' if dashed else ''
@@ -614,7 +697,7 @@ def hero():
 
 # ================================================================ the script
 def script():
-    P = {'sw': SW, 'ck': CK, 'ad': AD, 'sig': SIG}
+    P = {'sw': SW, 'ck': CK, 'ad': AD, 'hy': HY, 'swp': {k: SW[k] for k in ('beta', 'basal', 'n', 'tx', 'ty')}, 'sig': SIG}
     return '<script>\n(function () {\n  var P = ' + json.dumps(P) + ''';
   var NS = 'http://www.w3.org/2000/svg';
   var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -803,8 +886,41 @@ def script():
     return { tick: function (dtWall) { advance(dtWall * Q.speed); paint(dtWall); }, readouts: readouts, chart: chart, box: el.closest('figure') };
   })();
 
-  // ---- one loop for all three; a figure runs only while it is on screen
-  var sims = [sw, ck, ad].filter(Boolean), last = null, frame = 0;
+  // ---- the hypothetical element: a pulse's running total feeds the lac switch; recomputed on input, swept by a playhead
+  var hy = (function () {
+    var Q = P.hy, W = P.swp, el = $('hy-T'); if (!el) return null;
+    var chart = new Chart(document.querySelector('svg[data-chart="hy"]'), Q.end, 5.8, 2.9, 0.5);
+    var flux = new Flux(document.querySelector('svg[data-sim="hy"]'));
+    var tog = $('hy-x2'), twice = false, run = [], ph = 0, T = Q.T;
+    function h(y) { var p = Math.pow(y, W.n); return W.basal + (1 - W.basal) * p / (1 + p); }
+    function compute() {
+      var str = twice ? 2 * Q.s : Q.s, len = twice ? T / 2 : T, x = W.beta * W.basal, y = 0, I = 0, N = Math.round(Q.end / Q.dt);
+      run = []; chart.buf = [];
+      for (var i = 0; i <= N; i++) {
+        var t = i * Q.dt, on = t >= Q.t0 && t < Q.t0 + len, u = on ? str : 0;
+        if (i % 5 === 0) { run.push([t, u, I, x]); chart.push(t, x, I, u); }
+        I += Q.dt * u; var hx = h(y); x += Q.dt * (W.beta * hx - x) / W.tx; y += Q.dt * (I * x - y) / W.ty;
+      }
+      chart.draw(0, true);
+      var dose = str * len, last = run[run.length - 1];
+      $('hy-r1').textContent = 'dose  ' + dose.toFixed(2);
+      $('hy-r3').textContent = 'switch  ' + (last[3] > 2 ? 'on' : 'off');
+    }
+    function at(t) { return run[clamp(Math.round(t / Q.dt / 5), 0, run.length - 1)]; }
+    function paint(dtWall) {
+      var r = at(ph);
+      flux.draw({ 'in': r[1] / 0.4, sum: Math.min(1, r[2] / 1.2), ab: r[3] / 5, ba: r[3] / 5 }, {}, dtWall);
+      if (chart.now) { chart.now.setAttribute('cx', (chart.x0 + (chart.x1 - chart.x0) * ph / Q.end).toFixed(1)); chart.now.setAttribute('cy', (chart.y0 - (chart.y0 - chart.y1) * r[3] / 5.8).toFixed(1)); }
+    }
+    function readouts() {}
+    el.addEventListener('input', function () { T = el.value / 10; $('hy-Tv').textContent = T.toFixed(1) + ' h'; setP(el); compute(); paint(0); });
+    tog.addEventListener('click', function () { twice = !twice; tog.setAttribute('aria-pressed', twice ? 'true' : 'false'); compute(); paint(0); });
+    compute(); ph = RM ? Q.end : 0; paint(0);
+    return { tick: function (dtWall) { ph = (ph + dtWall * Q.end / Q.sweep) % Q.end; paint(dtWall); }, readouts: readouts, chart: chart, box: el.closest('figure') };
+  })();
+
+  // ---- one loop for all four; a figure runs only while it is on screen
+  var sims = [sw, ck, ad, hy].filter(Boolean), last = null, frame = 0;
   sims.forEach(function (s) { s.on = !('IntersectionObserver' in window); });
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) { es.forEach(function (e) { sims.forEach(function (s) { if (s.box === e.target) s.on = e.isIntersecting; }); }); }, { rootMargin: '80px' });
@@ -816,15 +932,17 @@ def script():
     requestAnimationFrame(loop);
   }
   if (!RM) requestAnimationFrame(loop);
-  var ro = 'ResizeObserver' in window ? new ResizeObserver(function () { sims.forEach(function (s) { s.chart.fit(); s.chart.draw(s.chart.buf.length ? s.chart.buf[s.chart.buf.length - 1][0] : 0, s === ck); }); }) : null;
+  var ro = 'ResizeObserver' in window ? new ResizeObserver(function () { sims.forEach(function (s) { s.chart.fit(); s.chart.draw(s.chart.buf.length ? s.chart.buf[s.chart.buf.length - 1][0] : 0, s.fixed); }); }) : null;
   if (ro) sims.forEach(function (s) { ro.observe(s.chart.svg); });
+  // charts drawn once over a fixed window keep their whole trace on a refit
+  sims.forEach(function (s) { s.fixed = (s === ck || s === hy); });
   document.querySelectorAll('.ctl input[type=range]').forEach(setP);
 })();
 </script>'''
 
 
 # ================================================================ injection
-BLOCKS = {'defs': defs_html, 'frame': fig_frame, 'switch': fig_switch, 'clock': fig_clock,
+BLOCKS = {'defs': defs_html, 'frame': fig_frame, 'hypo': fig_hypo, 'switch': fig_switch, 'clock': fig_clock,
           'adapter': fig_adapter, 'disease': fig_disease, 'script': script}
 
 

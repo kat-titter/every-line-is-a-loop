@@ -59,7 +59,7 @@ ALIASES = {}
 FIG = {'Figure 1. Arrows and loops.': 'Figure 1. Flip the arrows.',
        'Figure 5. The periodic table of loops.': 'Figure 6. The periodic table of loops.',
        'Figure 6. The data.': 'Figure 7. The data.',
-       'Figure 7. The research loop.': 'Figure 11. The research loop.'}
+       'Figure 7. The research loop.': 'Figure 12. The research loop.'}
 
 CSS_WANT = ['.pt-', '.ptable', '.ecard', '.rc-', '.refcard', '.tile', '.tiles', '.cards', '.card', '.summary-cards', '.f-', '.explorer',
             '.ex-', 'ol.ex-list', '#ex-q', '.pick', '.sl-', '.sn', '.sp', '.solo', '.bars', '.grid-fig', '.grid-key', '.rows-grid', '.quad',
@@ -208,6 +208,9 @@ def main():
     data_sec = post[post.index('<section id="data">'):post.index('<section id="results">')]
     datafig = block(data_sec, '<figure class="fig">', '</figure>')
     assert 'ex-q' in datafig and 'funnel' in datafig
+    # the explorer opens on one worked search, the repressilator; the chips and the box lead to the rest
+    k = datafig.index('  draw();\n})();', datafig.index('var R = [{'))
+    datafig = datafig[:k] + "  q.value = 'repressilator'; draw();\n})();" + datafig[k + len('  draw();\n})();'):]
     results_sec = post[post.index('<section id="results">'):post.index('<section id="gaps">')]
     cards = div_block(results_sec, '<div class="summary-cards">')
     next_sec = post[post.index('<section id="next">'):post.index('<section id="limits">')]
