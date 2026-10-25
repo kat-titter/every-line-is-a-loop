@@ -350,7 +350,7 @@ def fig_switch():
     ctl = ('<div class="ctl"><label for="sw-L">lactose outside</label>'
            f'<input id="sw-L" type="range" min="0" max="150" value="{int(SW["L0"] * 100)}" aria-label="Lactose outside the cell" style="--p: {SW["L0"] / 1.5 * 100:.0f}%">'
            f'<output for="sw-L" id="sw-Lv">{SW["L0"]:.2f}</output></div>')
-    chain = chain_html('1 loop, 0 brakes', 'holds two states', 'commits to a food', brakes=0)
+    chain = chain_html('1 loop, 0 brakes', 'holds two states', 'commits to a food', brakes=0, fn='remember')
     return f'<div class="deep">{panes}</div>{ctl}{chain}'
 
 
@@ -415,7 +415,7 @@ def fig_clock():
     ctl = ('<div class="ctl"><label for="ck-D">the extra wait</label>'
            f'<input id="ck-D" type="range" min="0" max="{int(CK["Dmax"] * 10)}" value="{int(CK["D"] * 10)}" aria-label="Extra delay before PER:CRY acts, in hours" style="--p: 75%">'
            f'<output for="ck-D" id="ck-Dv">{CK["D"]:.1f} h</output></div>')
-    chain = chain_html('1 loop, 1 brake', 'keeps time', 'anticipates the day', brakes=1)
+    chain = chain_html('1 loop, 1 brake', 'keeps time', 'anticipates the day', brakes=1, fn='time')
     return f'<div class="deep">{panes}</div>{ctl}{chain}'
 
 
@@ -486,7 +486,7 @@ def fig_adapter():
            f'<input id="ad-L" type="range" min="0" max="{int(AD["Lmax"] * 10)}" value="{int(AD["step"] * 10)}" aria-label="Attractant outside the cell" style="--p: 50%">'
            f'<output for="ad-L" id="ad-Lv">{AD["step"]:.1f}</output>'
            '<button type="button" class="chip tog" id="ad-leak" aria-pressed="false">let the count leak</button></div>')
-    chain = chain_html('1 loop, 1 brake, &#8747;', 'adapts exactly', 'steers up a gradient', brakes=1, integ=True)
+    chain = chain_html('1 loop, 1 brake, &#8747;', 'adapts exactly', 'steers up a gradient', brakes=1, integ=True, fn='steer')
     return f'<div class="deep">{panes}</div>{ctl}{chain}'
 
 
@@ -506,13 +506,26 @@ def shape_glyph(brakes, integ=False):
             f'<text x="19" y="13.5" font-size="12" font-weight="600" fill="{color}">{sign}</text>{extra}</svg>')
 
 
-def chain_html(shape, pattern, function, brakes=0, integ=False):
+FN_ICON = {
+    'remember': '<path d="M8 4V28" stroke="{c}" stroke-width="1.8" stroke-linecap="round"/><path d="M8 5L24 10L8 15Z" fill="{c}"/>',
+    'time': '<circle cx="16" cy="16" r="11" fill="none" stroke="{c}" stroke-width="1.8"/><path d="M16 16V8M16 16L22 16" stroke="{c}" stroke-width="1.8" stroke-linecap="round"/>',
+    'steer': '<circle cx="16" cy="16" r="11" fill="none" stroke="{c}" stroke-width="1.8"/><path d="M16 6L19.5 16L16 26L12.5 16Z" fill="none" stroke="{c}" stroke-width="1.4" stroke-linejoin="round"/><path d="M16 6L19.5 16H12.5Z" fill="{c}"/>',
+}
+
+
+def fn_icon(kind, size=20, color='var(--ink)'):
+    """A function's icon: a flag planted (remember), a clock face (keep time), a compass needle (steer)."""
+    return (f'<svg class="gl gl-f" width="{size}" height="{size}" viewBox="0 0 32 32" aria-hidden="true">'
+            + FN_ICON[kind].replace('{c}', color) + '</svg>')
+
+
+def chain_html(shape, pattern, function, brakes=0, integ=False, fn='remember'):
     return ('<div class="chain" aria-label="Shape, pattern, function">'
             f'<span class="ch"><span class="ch-k">shape</span><span class="ch-v">{shape_glyph(brakes, integ)}{shape}</span></span>'
             '<span class="ch-a" aria-hidden="true">&#8594;</span>'
             f'<span class="ch"><span class="ch-k">pattern</span><span class="ch-v">{glyph(pattern)}{pattern}</span></span>'
             '<span class="ch-a" aria-hidden="true">&#8594;</span>'
-            f'<span class="ch"><span class="ch-k">function</span><span class="ch-v">{function}</span></span></div>')
+            f'<span class="ch"><span class="ch-k">function</span><span class="ch-v">{fn_icon(fn)}{function}</span></span></div>')
 
 
 def defs_html():
@@ -541,11 +554,11 @@ def fig_frame():
     b = (f'<path d="{IA.trace_path("keeps time", 60, 50)}" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" transform="translate(-60 -50) scale(1) translate(60 50)"/>')
     b = (f'<g transform="translate(40 32) scale(4.8 3.2)"><path d="{IA.TRACE["keeps time"]}" fill="none" stroke="var(--ink)" stroke-width="0.6" stroke-linecap="round"/></g>')
     b += mono(115, 128, 'pattern', anchor='middle', fill='var(--ink)', size=12)
-    c = ('<rect x="62" y="22" width="106" height="72" rx="30" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
-         + label(115, 54, 'keep time', size=12.5, extra=' font-weight="600"') + label(115, 72, 'remember', size=12.5, extra=' font-weight="600"'))
-    c = ('<rect x="62" y="20" width="106" height="76" rx="32" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
-         + label(115, 50, 'remember', size=12, extra=' font-weight="600"') + label(115, 66, 'keep time', size=12, extra=' font-weight="600"')
-         + label(115, 82, 'steer', size=12, extra=' font-weight="600"'))
+    c = ''
+    for i, (kind, word) in enumerate((('remember', 'remember'), ('time', 'keep time'), ('steer', 'steer'))):
+        x = 40 + i * 75
+        c += f'<g transform="translate({x - 16} 30)">' + FN_ICON[kind].replace('{c}', 'var(--ink)') + '</g>'
+        c += label(x, 84, word, size=12, extra=' font-weight="600"')
     c += mono(115, 128, 'function', anchor='middle', fill='var(--ink)', size=12)
     return ('<div class="trio-f">' + p(a, 'Shape: two molecules in a loop, one arrow activates, one represses')
             + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(b, 'Pattern: the level traces a wave in time')
