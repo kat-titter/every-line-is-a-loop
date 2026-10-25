@@ -379,7 +379,7 @@ def fig_switch():
            f'<input id="sw-L" type="range" min="0" max="150" value="{int(SW["L0"] * 100)}" aria-label="Lactose outside the cell" style="--p: {SW["L0"] / 1.5 * 100:.0f}%">'
            f'<output for="sw-L" id="sw-Lv">{SW["L0"]:.2f}</output></div>')
     chain = chain_html('1 loop, 0 brakes', 'holds two states', 'commits to a food', brakes=0, fn='remember')
-    return f'<div class="deep">{panes}</div>{ctl}{chain}'
+    return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
 # ================================================================ the clock (the circadian loop)
@@ -444,7 +444,7 @@ def fig_clock():
            f'<input id="ck-D" type="range" min="0" max="{int(CK["Dmax"] * 10)}" value="{int(CK["D"] * 10)}" aria-label="Extra delay before PER:CRY acts, in hours" style="--p: 75%">'
            f'<output for="ck-D" id="ck-Dv">{CK["D"]:.1f} h</output></div>')
     chain = chain_html('1 loop, 1 brake', 'keeps time', 'anticipates the day', brakes=1, fn='time')
-    return f'<div class="deep">{panes}</div>{ctl}{chain}'
+    return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
 # ================================================================ the adapter (chemotaxis)
@@ -515,7 +515,7 @@ def fig_adapter():
            f'<output for="ad-L" id="ad-Lv">{AD["step"]:.1f}</output>'
            '<button type="button" class="chip tog" id="ad-leak" aria-pressed="false">let the count leak</button></div>')
     chain = chain_html('1 loop, 1 brake, &#8747;', 'adapts exactly', 'steers up a gradient', brakes=1, integ=True, fn='steer')
-    return f'<div class="deep">{panes}</div>{ctl}{chain}'
+    return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
 # ================================================================ the hypothetical element (Sw∫)
@@ -570,7 +570,7 @@ def fig_hypo():
            f'<output for="hy-T" id="hy-Tv">{HY["T"]:.1f} h</output>'
            '<button type="button" class="chip tog" id="hy-x2" aria-pressed="false">twice the strength, half the length</button></div>')
     chain = chain_html('1 loop, 0 brakes, &#8747;', 'adds up, commits', 'commits after a dose', brakes=0, integ=True, fn='remember')
-    return f'<div class="deep">{panes}</div>{ctl}{chain}'
+    return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
 # ================================================================ shared pieces
@@ -942,8 +942,12 @@ def script():
 
 
 # ================================================================ injection
-BLOCKS = {'defs': defs_html, 'frame': fig_frame, 'hypo': fig_hypo, 'switch': fig_switch, 'clock': fig_clock,
-          'adapter': fig_adapter, 'disease': fig_disease, 'script': script}
+BLOCKS = {'defs': defs_html, 'frame': fig_frame,
+          'hypo': lambda: fig_hypo()[0], 'hypo-ctl': lambda: fig_hypo()[1],
+          'switch': lambda: fig_switch()[0], 'switch-ctl': lambda: fig_switch()[1],
+          'clock': lambda: fig_clock()[0], 'clock-ctl': lambda: fig_clock()[1],
+          'adapter': lambda: fig_adapter()[0], 'adapter-ctl': lambda: fig_adapter()[1],
+          'disease': fig_disease, 'script': script}
 
 
 def inject(page=PAGE):
