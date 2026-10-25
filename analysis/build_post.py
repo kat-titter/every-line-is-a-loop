@@ -122,12 +122,17 @@ REF_POPOVER_JS = """<script>
     var first = card.querySelector('a'); if (first) first.focus();
   }
   document.addEventListener('click', function (e) {
+    var s = e.target.closest('.rc-a a[href^="#r"]'); if (s) { var d = document.getElementById('refs-d'); if (d) d.open = true; close(); }
     var a = e.target.closest('.cite a');
     if (a) { e.preventDefault(); if (opener === a && !card.hidden) close(); else open(a); return; }
     if (!card.hidden && !card.contains(e.target)) close();
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
   [].forEach.call(document.querySelectorAll('.cite a'), function (a) { a.setAttribute('aria-haspopup', 'dialog'); a.setAttribute('aria-expanded', 'false'); });
+  // a link into a closed supplement opens it (older browsers do not open a details on fragment navigation), and print shows them all
+  function openTarget() { var t = location.hash && document.getElementById(location.hash.slice(1)), d = t && t.closest('details'); if (d) d.open = true; }
+  openTarget(); addEventListener('hashchange', openTarget);
+  addEventListener('beforeprint', function () { [].forEach.call(document.querySelectorAll('details.supp'), function (d) { d.open = true; }); });
 })();
 </script>"""
 
@@ -153,7 +158,7 @@ def rows_grid():
         x0 = x + max(0, (slot - w) / 2) if n == 1 else x
         for j in range(m):
             for k in range(m):
-                out.append(f'<rect x="{x0 + k * (c + g):.0f}" y="{22 + j * (c + g)}" width="{c}" height="{c}" rx="3" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>')
+                out.append(f'<rect x="{x0 + k * (c + g):.0f}" y="{22 + j * (c + g)}" width="{c}" height="{c}" rx="3" fill="var(--tint)" stroke="var(--muted)" stroke-width="1"/>')
         mid = x0 + w / 2
         out.append(f'<text x="{mid:.1f}" y="{22 + 4 * (c + g) + 14}" text-anchor="middle" fill="var(--ink)" font-weight="600">{m} &#215; {m} = {m * m}</text>')
         out.append(f'<text x="{mid:.1f}" y="{22 + 4 * (c + g) + 31}" text-anchor="middle" fill="var(--muted)">{LOOPS[n]}</text>')
@@ -170,6 +175,11 @@ def signs(nu, k):
     return ' '.join(['+'] * (nu - k) + [MINUS] * k)
 
 
+def signs_html(nu, k):
+    """The sign pattern with each glyph in its colour: lavender amplifies, amber brakes."""
+    return ' '.join(['<span class="sp">+</span>'] * (nu - k) + ['<span class="sn">' + MINUS + '</span>'] * k)
+
+
 def listing(items):
     items = list(items)
     return items[0] if len(items) == 1 else ', '.join(items[:-1]) + ' and ' + items[-1]
@@ -180,7 +190,8 @@ def cap(s):
 
 
 # ---------------------------------------------------------------- page style
-# One stylesheet for this page. Tokens first: three colours (ink, muted gray, lavender) with the surfaces they sit on,
+# One stylesheet for this page. Tokens first: four colours (ink = content; muted gray = secondary, axes, not found;
+# lavender = amplify in strokes and text, found in fills, and links; amber = brake) with the surfaces they sit on,
 # one serif for reading, one sans for labels, figures and UI, monospace for code only, and the golden-ratio scales.
 LIGHT = ('--paper: #ffffff; --ink: #141414; --muted: #6a6a6a; --rule: #dcdcdc; '
          '--accent: #a98be0; --accent-text: #6f52c0; --accent-soft: rgba(169, 139, 224, 0.16); --accent-tint: #efe9fb; '
@@ -207,7 +218,7 @@ STYLE = r'''
 /* base */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 400 var(--t3)/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 var(--t3)/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
 a { color: var(--accent-text); text-decoration: none; }
 a:hover, a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -218,10 +229,11 @@ svg, svg text { font-family: var(--sans); }
 code, pre { font-family: var(--code); font-size: 0.86em; }
 pre { margin: var(--s3) 0; padding: var(--s4); background: var(--tint); border-radius: var(--s3); line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
 pre code { font-size: inherit; }
-.cite { font: 400 max(12px, 0.72em)/1 var(--sans); color: var(--muted); vertical-align: 0.3em; white-space: nowrap; }
+.cite { font: 400 var(--t1)/1 var(--sans); color: var(--muted); vertical-align: 0.3em; white-space: nowrap; }
 .cite a { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--muted); }
 .cite a:hover, .cite a:focus-visible, .cite a[aria-expanded="true"] { color: var(--accent-text); border-bottom-color: var(--accent-text); text-decoration: none; }
-.refcard { width: 320px; max-width: calc(100vw - 16px); pointer-events: auto; }
+.cite a { position: relative; } .cite a::after { content: ""; position: absolute; inset: -6px -3px; } .cite a:only-child::after { left: -9px; right: -9px; }
+.ecard.refcard { width: 320px; max-width: calc(100vw - 16px); pointer-events: auto; }
 .refcard[hidden] { display: none; }
 .rc-k { font: 500 12px/1.5 var(--sans); letter-spacing: 0.04em; color: var(--muted); }
 .rc-t { font: 400 14px/1.5 var(--sans); color: var(--ink); margin: 3px 0 8px; }
@@ -236,102 +248,119 @@ pre code { font-size: inherit; }
 section { margin: var(--s8) 0 0; }
 
 /* masthead */
-.mast { margin: 0 0 var(--s6); }
+.mast { margin: 0 0 var(--s5); }
 .eyebrow { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s2) var(--s5); margin: 0 0 var(--s5); font: 500 var(--t1)/1.4 var(--sans); letter-spacing: 0.04em; color: var(--muted); }
-.eyebrow .field { color: var(--accent-text); letter-spacing: 0.1em; text-transform: uppercase; margin-right: var(--s5); }
-.mast h1 { font: 400 var(--title)/1.04 var(--serif); letter-spacing: -0.02em; margin: 0 0 var(--s5); }
-.mast .sub { font: 400 var(--t5)/1.4 var(--serif); color: var(--muted); margin: 0 0 var(--s5); }
-.mast .meta { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s5); font: 400 var(--t2)/1.5 var(--sans); color: var(--muted); margin: 0 0 var(--s4); }
-.mast .links { display: flex; flex-wrap: wrap; gap: var(--s3); }
-.mast .links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s5); font: 500 var(--t1)/1 var(--sans); letter-spacing: 0.04em; border: 1px solid var(--accent); border-radius: 999px; }
+.eyebrow .field { color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-right: 0; }
+.mast h1 { font: 400 var(--title)/1.04 var(--serif); letter-spacing: -0.02em; margin: 0 0 var(--s4); }
+.mast .sub { font: 400 var(--t5)/1.3 var(--serif); color: var(--muted); margin: 0 0 var(--s6); }
+.mast .meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s1) var(--s5); font: 400 var(--t2)/1.5 var(--sans); color: var(--muted); margin: 0; }
+.mast .links { display: contents; }
+.mast .meta a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s3); margin: -11.5px calc(-1 * var(--s3)); font: 500 var(--t2)/1.5 var(--sans); }
 
 /* reading text */
-.text > p, .text li { font: 400 var(--t4)/1.62 var(--serif); }
-.text > p.lede { font-size: var(--t5); line-height: 1.5; }
-.text > p.coda { font-size: var(--t5); line-height: 1.4; margin: var(--s6) 0 0; }
+.text > p, .text li { font: 400 var(--t4)/1.6 var(--serif); }
+.text > p.lede { font-size: var(--t5); line-height: 1.6; }
+.text > p.coda { font-size: var(--t5); line-height: 1.6; margin: var(--s6) 0 0; }
 .text ul { padding-left: var(--s5); margin: 0 0 var(--s5); }
 .text li { margin: 0 0 var(--s3); }
-.text li::marker { color: var(--accent-text); }
-.text ul.hyp { list-style: none; padding: 0; }
-.text ul.hyp li { position: relative; padding-left: var(--s6); }
-.text ul.hyp li > b:first-child { position: absolute; left: 0; top: 0.3em; font: 600 var(--t2)/1.4 var(--sans); color: var(--accent-text); }
-h2 { font: 400 var(--t6)/1.18 var(--serif); letter-spacing: -0.01em; margin: 0 0 var(--s5); }
+.text li::marker { color: var(--muted); }
+h2 { font: 400 var(--t6)/1.15 var(--serif); letter-spacing: -0.01em; margin: 0 0 var(--s5); }
 .text h3 { font: 400 var(--t5)/1.3 var(--serif); margin: var(--s6) 0 var(--s3); }
-.kicker { font: 500 var(--t1)/1.4 var(--sans); letter-spacing: 0.04em; color: var(--accent-text); margin: 0 0 var(--s3); }
-.kicker .n { color: var(--muted); margin-right: var(--s3); }
+.text > p.kicker { font: 500 var(--t1)/1.4 var(--sans); letter-spacing: 0.1em; color: var(--muted); margin: 0 0 var(--s3); }
+.text > p.kicker .n { color: var(--muted); margin-right: var(--s3); }
 math[display="block"] { display: block; margin: var(--s4) 0 var(--s5); font-size: var(--t5); }
 
 /* summary and scorecard */
-.abstract { background: var(--plate); border: 1px solid var(--accent-soft); border-radius: var(--s5); padding: var(--s5) var(--s5) var(--s3); margin: 0 0 var(--s5); }
-.abstract > p:not(.label) { font: 400 var(--t3)/1.6 var(--serif); }
+.abstract { margin: 0 0 var(--s6); }
+.abstract > p:not(.label) { font: 400 var(--t4)/1.6 var(--serif); }
+.abstract > p:last-child { margin-bottom: 0; }
 .grid-fig { margin: 0 0 var(--s5); }
 .grid-fig svg { display: block; max-width: 100%; height: auto; }
-.grid-key { font: 400 12.5px/1.4 var(--sans); color: var(--muted); margin: var(--s1) 0 0; }
+.grid-key { font: 400 var(--t1)/1.4 var(--sans); color: var(--muted); margin: var(--s1) 0 0; }
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--s4); }
-.card { background: var(--paper); border: 1px solid var(--accent-soft); border-radius: var(--s4); padding: var(--s4) var(--s5); box-shadow: var(--raise); }
+/* each card is a subgrid of four rows (label, title, found, verdict), so the rows line up across neighbours */
+.card { background: var(--paper); border: 1px solid var(--accent-soft); border-radius: var(--s4); padding: var(--s4) var(--s5); box-shadow: var(--raise); display: grid; grid-template-rows: subgrid; grid-row: span 4; row-gap: 0; }
 .card .k { font: 500 var(--t1)/1.4 var(--sans); letter-spacing: 0.04em; color: var(--muted); margin: 0 0 var(--s1); }
 .card h3 { font: 400 var(--t4)/1.3 var(--serif); margin: 0 0 var(--s4); }
-.card dl { display: grid; grid-template-columns: auto 1fr; gap: var(--s2) var(--s4); margin: 0; font: 400 var(--t2)/1.45 var(--sans); }
-.card dt { font: 500 var(--t1)/1.7 var(--sans); color: var(--muted); }
+.card dl { display: grid; grid-template-columns: auto 1fr; gap: var(--s2) var(--s4); margin: 0; font: 400 var(--t2)/1.5 var(--sans); }
+.card dt { font: 500 var(--t1)/1.75 var(--sans); color: var(--muted); }
 .card dd { margin: 0; }
-.card .v { margin: var(--s4) 0 0; font: 400 var(--t2)/1.45 var(--sans); color: var(--muted); }
-.chip { display: inline-block; font: 600 var(--t1)/1.4 var(--sans); color: var(--accent-text); border: 1px solid var(--accent); border-radius: 999px; padding: var(--s1) var(--s3); margin: 0 var(--s3) var(--s1) 0; }
+.card .v { display: grid; grid-template-columns: auto 1fr; gap: var(--s3); align-items: baseline; margin: var(--s4) 0 0; font: 400 var(--t2)/1.5 var(--sans); color: var(--muted); }
+.card .v .chip { margin: 0; }
+.chip { display: inline-block; font: 600 var(--t1)/1.4 var(--sans); color: var(--ink); border: 1px solid var(--rule); border-radius: 999px; padding: var(--s1) var(--s3); }
+.chip > span { font-size: 1.1em; }
 
 /* figures: lavender plates; nodes, cells and cards lift off them */
 figure.fig { background: var(--plate); border: 1px solid var(--accent-soft); border-radius: var(--s5); padding: var(--s6) var(--s5) var(--s5); margin: var(--s6) 0 var(--s7); }
 figure.fig svg { display: block; width: 100%; height: auto; }
-figure.fig figcaption { max-width: var(--measure); margin: var(--s5) var(--s2) 0; font: 400 var(--t2)/1.5 var(--sans); color: var(--muted); }
+figure.fig figcaption { max-width: var(--measure); margin: var(--s5) 0 0; font: 400 var(--t2)/1.5 var(--sans); color: var(--muted); }
 figure.fig figcaption b { color: var(--ink); }
 figure.fig svg circle[fill="var(--paper)"][stroke], figure.fig svg rect[fill="var(--accent-soft)"] { filter: url(#fx-lift); }
 figure.fig svg rect[fill="var(--accent-soft)"] { fill: var(--accent-tint); }
 .interactive + .interactive { margin-top: var(--s5); }
-.pair { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s4) var(--s5); }
-.pair > div { flex: 1 1 280px; max-width: 360px; }
-.bio { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s4) var(--s5); }
-.bio > div { flex: 1 1 250px; max-width: 300px; }
-.bio-key { padding: var(--s4) var(--s4) 0; font: 400 13px/1.5 var(--sans); color: var(--ink); }
-.bio-key > div { display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: var(--s3); margin: 0 0 var(--s3); }
+/* panels share the text column's left edge; two to a row at the page width, one on a phone */
+.pair { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--s4) var(--s5); }
+.pair > div { flex: 1 1 280px; max-width: none; }
+.quad { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s4) var(--s5); align-items: start; }
+.bio { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--s4) var(--s5); }
+.bio > div { flex: 1 1 250px; max-width: none; }
+.bio-key { padding: var(--s4) var(--s4) 0; font: 400 var(--t2)/1.5 var(--sans); color: var(--muted); }
+.bio-key > div { display: grid; grid-template-columns: 34px 1fr; align-items: center; gap: var(--s3); margin: 0 0 var(--s3); }
 .bio-key .bk-g { display: inline-flex; align-items: center; justify-content: center; }
 .bio-key .bk-int { font: italic 400 22px/1 var(--serif); color: var(--ink); }
 .sp { color: var(--accent-text); } .sn { color: var(--accent2-text); }
 .bio svg { display: block; width: 100%; height: auto; }
-.solo { max-width: 460px; margin: 0 auto; }
+.solo { max-width: 348.5px; margin: 0; }   /* one pair slot wide, so its 330 viewBox renders at the pair's scale */
 .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .wide svg { min-width: 720px; }
-.bars svg { max-width: 520px; margin: 0 auto; }
+.bars svg { max-width: 520px; margin: 0; }
 .fig-narrow { display: none; }
 .fig-narrow svg { max-width: 440px; margin: 0 auto; }
-table { border-collapse: collapse; width: 100%; margin: var(--s4) 0 var(--s3); font: 400 var(--t2)/1.45 var(--sans); }
+table { border-collapse: collapse; width: 100%; margin: var(--s4) 0 var(--s3); font: 400 var(--t2)/1.5 var(--sans); }
 th, td { text-align: left; vertical-align: top; padding: var(--s3) var(--s4) var(--s3) 0; border-bottom: 1px solid var(--rule); hyphens: auto; }
 th { font-weight: 600; }
 table.key td:nth-child(2) { white-space: nowrap; }
 .nowrap { white-space: nowrap; }
 
-/* controls */
-.ctl { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--s4); min-height: 44px; margin: var(--s2) auto 0; }
-.ctl label, .ctl output { font: 500 var(--t1)/1.4 var(--sans); color: var(--muted); min-width: 64px; }
-.ctl input[type=range] { width: min(240px, 60vw); height: 44px; margin: 0; accent-color: var(--accent); }
+/* controls: one 44 px row, label | track | value; the track is drawn with the page's tokens, filled to --p */
+.ctl { display: grid; grid-template-columns: auto 1fr auto; gap: var(--s4); align-items: center; max-width: 420px; margin: var(--s2) 0 0; }
+.ctl label, .ctl output { font: 500 var(--t1)/1.4 var(--sans); color: var(--muted); min-width: 0; }
+.ctl output { min-width: 3.5ch; text-align: right; }
+.ctl input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 44px; margin: 0; background: transparent; }
+.ctl input[type=range]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(var(--accent), var(--accent)) 0 0 / var(--p, 50%) 100% no-repeat var(--tint); }
+.ctl input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; margin-top: -8px; border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); box-shadow: var(--raise); }
+.ctl input[type=range]::-moz-range-track { height: 4px; border-radius: 2px; background: var(--tint); }
+.ctl input[type=range]::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--accent); }
+.ctl input[type=range]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); box-shadow: var(--raise); }
 .arr, .sl-node { cursor: pointer; }
-.arr:focus, .sl-node:focus { outline: none; }
-.arr:focus-visible circle, .arr:hover circle { stroke-width: 2.5; }
-.sl-node:focus-visible circle { stroke-width: 3; }
+.sl-node circle { transition: stroke-width .15s ease, stroke .15s ease; }
+.arr circle { transition: stroke .15s ease; }   /* the badge ring is the arrow's only focus mark, so its width changes at once */
+.arr:focus, .sl-node:focus:not(:focus-visible) { outline: none; }
+.arr:hover .badge, .arr:focus-visible .badge { stroke: var(--ink); stroke-width: 2; }
+.sl-node:hover circle, .sl-node:focus-visible circle { stroke: var(--ink); stroke-width: 2; }
+.sl-node:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
 .sl-wrap .solo { max-width: 380px; }
 
-/* Figure 4: the census funnel and the model explorer */
-#funnel { max-width: var(--measure); margin: 0 auto; }
-.f-row { display: grid; grid-template-columns: 64px 1fr; grid-template-areas: "n bar" ". t"; gap: var(--s1) var(--s4); width: 100%; min-height: 48px; padding: var(--s3) var(--s4); margin: 0 0 var(--s2); text-align: left; font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: var(--s4); box-shadow: var(--raise); cursor: pointer; }
-.f-row[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-tint); }
+/* Figure 6: the census funnel and the model explorer. Pressable things rest flat and tint on hover and when pressed. */
+#funnel { max-width: var(--measure); margin: 0; }
+.f-row { display: grid; grid-template-columns: 64px 1fr; grid-template-areas: "n bar" ". t"; gap: var(--s1) var(--s4); width: 100%; min-height: 48px; padding: var(--s3) var(--s4); margin: 0 0 var(--s2); text-align: left; font: inherit; color: var(--ink); background: transparent; border: 0; border-radius: var(--s4); box-shadow: none; cursor: pointer; transition: background-color .15s ease; }
+.f-row:hover, .f-row:focus-visible { background: var(--accent-soft); }
+.f-row[aria-pressed="true"] { background: var(--accent-tint); }
 .f-n { grid-area: n; align-self: center; font: 600 var(--t3)/1 var(--sans); font-variant-numeric: tabular-nums; }
 .f-bar { grid-area: bar; align-self: center; height: var(--s4); background: var(--tint); border-radius: var(--s3); overflow: hidden; }
-.f-bar span { display: block; height: 100%; border-radius: var(--s3); background: linear-gradient(90deg, var(--accent), var(--orb-lo)); }
+.f-bar span { display: block; height: 100%; border-radius: var(--s3); background: var(--accent); }
 .f-t { grid-area: t; font-size: var(--t2); }
-.f-panel { max-width: var(--measure); margin: var(--s4) auto 0; padding: var(--s4) var(--s5); background: var(--paper); border-radius: var(--s4); box-shadow: var(--raise); }
-.f-panel > p:not(.label) { font: 400 var(--t2)/1.55 var(--sans); margin: 0 0 var(--s3); }
-.explorer { max-width: var(--measure); margin: var(--s5) auto 0; }
+/* the panels are stacked in one grid cell and one is shown, so the figure keeps its height */
+.f-panel { max-width: var(--measure); margin: var(--s4) 0 0; padding: var(--s4) var(--s5); background: var(--paper); border-radius: var(--s4); box-shadow: var(--raise); display: grid; }
+.f-panel > div { grid-area: 1 / 1; visibility: hidden; }
+.f-panel > div.on { visibility: visible; }
+.f-panel p:not(.label) { font: 400 var(--t2)/1.5 var(--sans); margin: 0 0 var(--s3); }
+.explorer { max-width: var(--measure); margin: var(--s5) 0 0; }
 .ex-lab, .ex-count { display: block; font: 500 var(--t1)/1.4 var(--sans); color: var(--muted); margin: 0 0 var(--s2); }
-#ex-q { width: 100%; min-height: 44px; padding: var(--s3) var(--s4); font: 400 var(--t3) var(--sans); color: var(--ink); background: var(--paper); border: 1px solid var(--muted); border-radius: var(--s4); box-shadow: var(--raise); }
+#ex-q { width: 100%; min-height: 44px; padding: var(--s3) var(--s4); font: 400 var(--t3) var(--sans); color: var(--ink); background: var(--paper); border: 1px solid var(--muted); border-radius: var(--s4); box-shadow: none; }
 .ex-picks { display: flex; flex-wrap: wrap; gap: var(--s2); margin: var(--s3) 0; }
-.pick { min-height: 44px; padding: 0 var(--s4); font: 500 var(--t2) var(--sans); color: var(--accent-text); background: var(--paper); border: 1px solid var(--accent); border-radius: 999px; box-shadow: var(--raise); cursor: pointer; }
+.pick { min-height: 44px; padding: 0 var(--s4); font: 500 var(--t2) var(--sans); color: var(--accent-text); background: var(--paper); border: 1px solid var(--accent); border-radius: 999px; box-shadow: none; cursor: pointer; transition: background-color .15s ease; }
+.pick:hover, .pick[aria-pressed="true"] { background: var(--accent-tint); }
 ol.ex-list { list-style: none; padding: 0; margin: 0; }
 ol.ex-list li { padding: var(--s3) 0; border-bottom: 1px solid var(--rule); }
 .ex-name { display: block; font-size: var(--t2); }
@@ -339,120 +368,148 @@ ol.ex-list li { padding: var(--s3) 0; border-bottom: 1px solid var(--rule); }
 .ex-meta span + span { margin-left: var(--s4); }
 
 /* hero: the spiral, one turn per row */
-figure.hero { margin: var(--s3) 0 var(--s6); }
+figure.hero { margin: 0 0 var(--s5); }
 .hero-stage { position: relative; background: radial-gradient(ellipse 46% 52% at 50% 56%, var(--accent-soft), transparent 72%); }
 #hero-svg { display: block; width: 100%; height: auto; touch-action: pan-y; cursor: grab; }
+#hero-svg.over { cursor: pointer; }
 #hero-svg:active { cursor: grabbing; }
 #hero-svg:focus { outline: none; }
 #hero-svg:focus-visible { outline: 2px solid var(--accent); outline-offset: var(--s2); border-radius: var(--s4); }
-.hero-key { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--s3) var(--s6); margin: var(--s3) auto 0; font: 400 var(--t2)/1.5 var(--sans); color: var(--muted); }
-.hero-key b { flex-basis: 100%; text-align: center; color: var(--ink); }
+.hero-key { display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: center; gap: var(--s3) var(--s6); margin: var(--s3) auto 0; font: 400 var(--t2)/1.5 var(--sans); color: var(--muted); }
 .hero-key .key { display: inline-flex; align-items: center; gap: var(--s3); }
 .hero-key svg { flex: 0 0 auto; }
 
 /* element cards, shared by the hero and the periodic table */
-.ecard { position: absolute; z-index: 3; width: 272px; padding: var(--s4) 16px; background: var(--paper); border: 1px solid var(--accent-soft); border-radius: var(--s4);
+.ecard { position: absolute; z-index: 3; width: 272px; padding: var(--s4); background: var(--paper); border: 1px solid var(--accent-soft); border-radius: var(--s4);
          box-shadow: 0 1px 2px var(--lift), 0 8px 21px -8px var(--lift); pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(3px);
          transition: opacity 0.14s ease, transform 0.14s ease, visibility 0.14s; }
 .ecard.on { opacity: 1; visibility: visible; transform: none; }
+.ecard.on.pinned { pointer-events: auto; }   /* a hover card is click-through; a pinned card is a reading surface */
+/* two tiers: a hover card peeks (name, circuit, what it does); a pinned card reads in full (traces, models, examples) */
+.ecard:not(.pinned) .ec-tr, .ecard:not(.pinned) .ec-h, .ecard:not(.pinned) .ec-h ~ * { display: none; }
 .ecard p { margin: 0; }
-.ecard svg, figure.fig .ecard svg, figure.fig .pt-el svg { display: inline-block; width: auto; height: auto; max-width: none; }
+.ecard svg, figure.fig .ecard svg, figure.fig .pt-el svg, figure.fig .pt-legend svg { display: inline-block; width: auto; height: auto; max-width: none; }
+.pt-legend svg { vertical-align: -2px; margin-right: var(--s1); }
 .ecard .ec-top { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s3); }
 .ecard .ec-k { font: 500 var(--t1)/1.5 var(--sans); letter-spacing: 0.04em; color: var(--muted); }
 .ecard .ec-s { font: 500 var(--t1)/1.5 var(--sans); color: var(--accent-text); }
 .ecard .ec-blank, .ecard .ec-candidate { color: var(--muted); }
-.ecard .ec-t { font: 400 20px/1.25 var(--serif); color: var(--ink); margin: var(--s1) 0 var(--s2); }
-.ecard .ec-sym { font: 600 20px/1 var(--sans); margin-right: var(--s3); }
+.ecard .ec-t { font: 400 var(--t4)/1.3 var(--serif); color: var(--ink); margin: var(--s1) 0 var(--s2); }
+.ecard .ec-sym { font: 600 var(--t4)/1 var(--sans); margin-right: var(--s3); }
 .ecard .ec-glyph { margin: 0 0 var(--s2); line-height: 0; }
-.ecard .ec-key { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s4); font: 400 11.5px/1.5 var(--sans); color: var(--muted); margin: var(--s1) 0 0; }
-.ecard .ec-d { font: 400 14.5px/1.45 var(--serif); color: var(--ink); margin: 0 0 var(--s3); }
+.ecard .ec-key { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s4); font: 400 var(--t1)/1.5 var(--sans); color: var(--muted); margin: var(--s1) 0 0; }
+.ecard .ec-d { font: 400 var(--t2)/1.5 var(--serif); color: var(--ink); margin: 0 0 var(--s3); }
 .ecard .ec-tr { list-style: none; margin: 0; padding: 0; }
-.ecard .ec-tr li { display: grid; grid-template-columns: 32px 1fr auto; align-items: center; gap: var(--s3); font: 400 13px/1.7 var(--sans); color: var(--ink); margin: 0; }
+.ecard .ec-tr li { display: grid; grid-template-columns: 32px 1fr auto; align-items: center; gap: var(--s3); font: 400 var(--t2)/1.5 var(--sans); color: var(--ink); margin: 0; }
 .ecard .ec-tr li i { font-style: normal; font-size: var(--t1); color: var(--muted); }
 .ecard .ec-tr b { font-variant-numeric: tabular-nums; }
-.ecard .ec-h { font: 500 11.5px/1.4 var(--sans); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: var(--s3) 0 var(--s1); padding-top: var(--s3); border-top: 1px solid var(--rule); }
-.ecard .ec-x { font: italic 400 var(--t2)/1.45 var(--serif); color: var(--ink); }
-.ecard .ec-l { font: 400 13px/1.45 var(--sans); color: var(--ink); }
+.ecard .ec-h { font: 500 var(--t1)/1.4 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: var(--s3) 0 var(--s1); padding-top: var(--s3); border-top: 1px solid var(--rule); }
+.ecard .ec-x { font: italic 400 var(--t2)/1.5 var(--serif); color: var(--ink); }
+.ecard .ec-l { font: 400 var(--t2)/1.5 var(--sans); color: var(--ink); }
 
 /* Figure 3: the periodic table of loops */
 .ptable { position: relative; --tile: 64px; }
-.pt-axes { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s1) var(--s6); font: 400 12.5px/1.5 var(--sans); color: var(--muted); margin: 0 0 var(--s4); }
+.pt-axes { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--s1) var(--s6); font: 400 var(--t1)/1.5 var(--sans); color: var(--muted); margin: 0 0 var(--s4); }
 .pt-blocks { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: var(--s5); }
-.pt-h { font: 400 12.5px/1.4 var(--sans); color: var(--muted); margin: 0 0 var(--s2); }
+.pt-h { font: 400 var(--t1)/1.4 var(--sans); color: var(--muted); margin: 0 0 var(--s2); }
 .pt-h b { color: var(--ink); margin-right: var(--s2); }
 .pt-grid { display: grid; gap: var(--s2); }
-.pt-el { position: relative; width: var(--tile); height: 84px; padding: 0; margin: 0; font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--accent); border-radius: var(--s3); cursor: pointer; }
+/* a tile's border says how it is known (muted: this census; ink: experiments; dashed: a looser reading or nothing yet); the tint says found */
+.pt-el { position: relative; width: var(--tile); height: 84px; padding: 0; margin: 0; font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--muted); border-radius: var(--s3); cursor: pointer; }
 .pt-el.pt-found { background: var(--accent-tint); box-shadow: 0 1px 2px var(--lift), 0 4px 13px -8px var(--lift); }
-.pt-el.pt-known { border-width: 2px; }
-.pt-el.pt-candidate { border-style: dashed; }
+.pt-el.pt-known { border: 2px solid var(--ink); }
+.pt-el.pt-candidate { border: 1px dashed var(--muted); }
 .pt-el.pt-blank { border: 1px dashed var(--muted); background: transparent; }
 .pt-el:hover, .pt-el:focus-visible, .pt-el[aria-pressed="true"] { outline: 2px solid var(--ink); outline-offset: 1px; }
-.pt-n { position: absolute; left: var(--s2); top: var(--s1); font: 500 10.5px/1.2 var(--sans); color: var(--muted); }
+.pt-n { position: absolute; left: var(--s2); top: var(--s1); font: 500 11px/1.2 var(--sans); color: var(--muted); }
 .pt-found .pt-n { color: var(--ink); }
-.pt-sig { position: absolute; right: var(--s2); top: var(--s1); font: 600 10.5px/1.2 var(--sans); color: var(--ink); }
+.pt-sig { position: absolute; right: var(--s2); top: var(--s1); font: 600 11px/1.2 var(--sans); color: var(--ink); }
 .pt-sym { position: absolute; left: 0; right: 0; top: 19px; font: 600 var(--t4)/1 var(--sans); text-align: center; color: var(--ink); letter-spacing: -0.01em; }
 .sy-i { font-family: var(--serif); font-style: italic; font-weight: 400; margin-left: 1px; }
-.sy-i sup { font: 600 10px/0 var(--sans); font-style: normal; }
+.sy-i sup { font: 600 11px/0 var(--sans); font-style: normal; }
 .pt-tr { position: absolute; left: 50%; top: 45px; transform: translateX(-50%); line-height: 0; }
 .pt-c { position: absolute; left: 0; right: 0; bottom: 4px; font: 600 11px/1 var(--sans); text-align: center; color: var(--ink); }
 .pt-blank .pt-c, .pt-candidate .pt-c, .pt-blank .pt-sym { color: var(--muted); }
 .pt-keybox { align-self: flex-start; }
 .pt-anat { position: relative; width: 340px; max-width: 100%; height: 128px; }
 .pt-el.pt-big { position: absolute; left: 0; top: 0; cursor: default; transform: scale(1.5); transform-origin: 0 0; }
-.pt-el.pt-big:hover { outline: none; }
+.pt-el.pt-big { pointer-events: none; }   /* the sample in the key is a picture, not a button */
 .pt-a { position: absolute; left: 112px; right: 0; font: 400 var(--t1)/1.35 var(--sans); color: var(--muted); white-space: nowrap; }
 .pt-a::before { content: ""; position: absolute; left: -13px; top: 0.65em; width: var(--s3); border-top: 1px solid var(--muted); }
-.pt-gap { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s2) var(--s6); font: 400 var(--t2)/1.5 var(--sans); margin: var(--s5) 0 0; }
-.pt-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s3) var(--s5); font: 400 13px/1.5 var(--sans); color: var(--muted); margin: var(--s4) 0 0; }
-.pt-key { display: inline-block; width: 18px; height: 14px; margin-right: var(--s3); vertical-align: -2px; border: 1px solid var(--accent); border-radius: 3px; background: var(--paper); }
+.pt-gap { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--s2) var(--s6); font: 400 var(--t2)/1.5 var(--sans); margin: var(--s5) 0 0; }
+.pt-legend { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--s3) var(--s5); font: 400 var(--t1)/1.5 var(--sans); color: var(--muted); margin: var(--s4) 0 0; }
+.pt-key { display: inline-block; width: 18px; height: 14px; margin-right: var(--s3); vertical-align: -2px; border: 1px solid var(--muted); border-radius: 3px; background: var(--paper); }
 .pt-key.pt-found { background: var(--accent-tint); }
-.pt-key.pt-known { border-width: 2px; }
-.pt-key.pt-candidate { border-style: dashed; }
+.pt-key.pt-known { border: 2px solid var(--ink); }
+.pt-key.pt-candidate { border: 1px dashed var(--muted); }
 .pt-key.pt-blank { border: 1px dashed var(--muted); background: transparent; }
 
 /* Supplement A: element tiles beside carbon */
 .tiles { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s4); }
-.tile { position: relative; width: 128px; height: 150px; background: var(--paper); border: 1px solid var(--muted); border-radius: 6px; }
-.tile.chem { background: var(--tint); }
-.tile .z { position: absolute; left: var(--s3); top: 6px; font-size: 13px; }
-.tile .cnt { position: absolute; right: var(--s3); top: 6px; font-size: 13px; color: var(--muted); letter-spacing: 0.04em; }
-.tile .sym { position: absolute; left: 0; right: 0; top: 30px; height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 26px; line-height: 1; }
-.tile .rings { display: flex; gap: 4px; height: var(--s4); margin-top: 4px; }
+.tile { position: relative; width: 128px; height: 150px; background: var(--paper); border: 1px solid var(--muted); border-radius: var(--s2); }
+.tile.chem { background: var(--paper); border-top: 3px solid var(--ink); }
+.tile .z { position: absolute; left: var(--s3); top: var(--s2); font-size: var(--t1); }
+.tile .cnt { position: absolute; right: var(--s3); top: var(--s2); font-size: var(--t1); color: var(--muted); letter-spacing: 0.04em; }
+.tile .sym { position: absolute; left: 0; right: 0; top: 30px; height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: var(--t5); line-height: 1; }
+.tile .rings { display: flex; gap: var(--s2); height: var(--s4); margin-top: var(--s2); }
 .tile .ring { display: inline-block; width: 7px; height: 7px; border: 1.5px solid var(--muted); border-radius: 50%; }
-.tile .nm { position: absolute; left: 4px; right: 4px; top: 84px; text-align: center; font-size: var(--t2); }
-.tile .ms { position: absolute; left: 4px; right: 4px; top: 105px; text-align: center; font-size: 13px; color: var(--muted); }
-.tile .ex { position: absolute; left: 4px; right: 4px; top: 125px; text-align: center; font-size: var(--t1); color: var(--muted); }
+.tile .nm { position: absolute; left: var(--s2); right: var(--s2); top: 84px; text-align: center; font-size: var(--t2); }
+.tile .ms { position: absolute; left: var(--s2); right: var(--s2); top: 105px; text-align: center; font-size: var(--t1); color: var(--muted); }
+.tile .ex { position: absolute; left: var(--s2); right: var(--s2); top: 125px; text-align: center; font-size: var(--t1); color: var(--muted); }
 
 /* Supplements B and D: numbered steps through the code */
-ol.steps { list-style: none; counter-reset: step; padding: 0; margin: 0 auto; max-width: var(--measure); }
-ol.steps > li { counter-increment: step; position: relative; padding: 0 0 var(--s5) 40px; font: 400 var(--t3)/1.55 var(--sans); }
+ol.steps { list-style: none; counter-reset: step; padding: 0; margin: 0; max-width: var(--measure); }
+ol.steps > li { counter-increment: step; position: relative; padding: 0 0 var(--s5) var(--s6); font: 400 var(--t3)/1.5 var(--sans); }
 ol.steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 26px; height: 26px; border: 1.5px solid var(--accent); border-radius: 50%; background: var(--paper); font: 500 var(--t2)/23px var(--sans); text-align: center; }
-ol.steps .out { display: block; margin-top: var(--s2); color: var(--accent-text); }
+ol.steps .out { display: block; margin-top: var(--s2); color: var(--muted); }
 
 /* supplements, methods and references */
 details.supp { border-top: 1px solid var(--rule); }
 details.supp[open] { padding-bottom: var(--s6); }
-details.supp > summary { display: flex; align-items: center; gap: var(--s4); min-height: 55px; padding: var(--s4) 0; font: 400 var(--t4)/1.35 var(--serif); cursor: pointer; list-style: none; }
+details.supp:last-of-type { border-bottom: 1px solid var(--rule); }
+details.supp > summary { display: flex; align-items: center; gap: var(--s4); min-height: 55px; padding: var(--s4) 0; font: 400 var(--t4)/1.3 var(--serif); cursor: pointer; list-style: none; }
 details.supp > summary::-webkit-details-marker { display: none; }
-details.supp > summary::before { content: "+"; flex: 0 0 var(--s5); font: 400 var(--t5)/1 var(--sans); color: var(--accent-text); text-align: center; }
-details.supp[open] > summary::before { content: "\2212"; }
+details.supp > summary::before { content: "\203A"; flex: 0 0 var(--s5); font: 400 var(--t5)/1 var(--sans); color: var(--muted); text-align: center; transition: transform 0.14s ease; }
+details.supp[open] > summary::before { transform: rotate(90deg); }
+details.supp > summary:hover { color: var(--accent-text); }
 #methods > p, #methods li { font-size: var(--t3); line-height: 1.6; }
 ol.refs { padding-left: var(--s5); margin: 0; }
 .text ol.refs li { font: 400 var(--t2)/1.5 var(--sans); margin: 0 0 var(--s3); }
+.end { margin-top: var(--s7); }
+.end .meta { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s5); font: 400 var(--t2)/1.5 var(--sans); color: var(--muted); }
+.end a { display: inline-flex; align-items: center; min-height: 44px; }
 
-@media (min-width: 860px) { figure.fig { margin-left: calc(-1 * var(--s6)); margin-right: calc(-1 * var(--s6)); } }
+/* a plate's negative margin equals its padding plus its border, so figure content shares the text column's left edge */
+@media (min-width: 860px) {
+  figure.fig { margin-left: calc(-1 * var(--s6) - 1px); margin-right: calc(-1 * var(--s6) - 1px); padding: var(--s6) var(--s6) var(--s5); }
+  /* Figure 5: the four blocks in one row, the key in the slot under the first three */
+  .pt-blocks { display: grid; grid-template-columns: auto auto auto auto; grid-template-areas: "a b c d" "key key key d"; gap: var(--s4); justify-content: start; align-items: start; }
+  .pt-block:nth-child(1) { grid-area: a; } .pt-block:nth-child(2) { grid-area: b; } .pt-block:nth-child(3) { grid-area: c; } .pt-keybox { grid-area: key; } .pt-block:nth-child(5) { grid-area: d; }
+}
+@media (min-width: 701px) and (max-width: 859px) {
+  figure.fig { margin-left: calc(-1 * var(--s5) - 1px); margin-right: calc(-1 * var(--s5) - 1px); padding: var(--s6) var(--s5) var(--s5); }
+}
+@media (min-width: 701px) {
+  .sl-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); align-items: start; }
+  .sl-wrap .solo, .sl-wrap .f-panel { max-width: none; margin: 0; }
+  .ptable .ecard.pinned { max-height: calc(100% + var(--s5)); overflow: auto; }
+}
 @media (max-width: 700px) {
   .post { padding: var(--s6) var(--s5) var(--s7); }
   section { margin-top: var(--s7); }
-  figure.fig { margin-left: calc(-1 * var(--s4)); margin-right: calc(-1 * var(--s4)); padding: var(--s5) var(--s4) var(--s4); border-radius: var(--s4); }
-  h2 { font-size: 26px; }
-  .text > p, .text li { font-size: 18px; }
+  figure.fig { margin-left: calc(-1 * var(--s4) - 1px); margin-right: calc(-1 * var(--s4) - 1px); padding: var(--s5) var(--s4) var(--s4); border-radius: var(--s4); }
   .text > p.lede, .text > p.coda, .mast .sub { font-size: var(--t4); }
+  .mast .meta { gap: var(--s5); }   /* the links' 44 px hit boxes clear the byline row above */
+  .quad { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero-key { gap: var(--s2) var(--s5); }
   .fig-wide { display: none; }
   .fig-narrow { display: block; }
+  .pt-keybox { order: -1; }
+  /* element cards become a fixed sheet: at the bottom, or at the top when the tapped tile is in the lower half */
+  .ptable .ecard, .hero-card { position: fixed; left: var(--s4); right: var(--s4); top: auto; bottom: var(--s4); width: auto; max-height: 42vh; overflow: auto; pointer-events: auto; }
+  .ptable .ecard.up, .hero-card.up { top: var(--s4); bottom: auto; }
 }
-@media (prefers-reduced-motion: reduce) { .ecard { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .ecard, .f-row, .pick, .sl-node circle, .arr circle, details.supp > summary::before { transition: none; } }
 @media print {
   html:root, html:root[data-theme="dark"], html:root:not([data-theme="light"]) { %LIGHT% }
   .post { max-width: none; padding: 0; }
@@ -464,16 +521,15 @@ ol.refs { padding-left: var(--s5); margin: 0; }
 
 
 # ---------------------------------------------------------------- figures
-SVG = 'font-family="Inter, Helvetica, Arial, sans-serif"'
+SVG = ''   # the stylesheet gives every svg the page's sans
 DASH_EMPTY = ' stroke-dasharray="3 3"'   # an empty square
 DASH_CLOCK = ' stroke-dasharray="3 2"'   # a clock whose only brake the filters remove
-DEFS = ('<defs><marker id="{p}a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">'
-        '<path d="M0 0L10 5L0 10z" fill="{c}"/></marker><marker id="{p}i" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">'
-        '<path d="M8 0V10" stroke="{c}" stroke-width="2.4"/></marker></defs>')
+# Arrowheads and bars come from the page's hidden <defs> (fx-arrow, fx-bar and their muted and ink copies), so every
+# figure draws them at one size and in the meaning-carrying colour.
 
 
-def node(x, y, t, r=19):
-    return (f'<circle cx="{x}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.25"/>'
+def node(x, y, t, r=22):   # one node style across the story and method figures
+    return (f'<circle cx="{x}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
             f'<text x="{x}" y="{y + 5}" text-anchor="middle" fill="var(--ink)">{t}</text>')
 
 
@@ -484,24 +540,24 @@ def line(x1, y1, x2, y2, mk, cls):
 def fig_method(toys):
     e, g = toys['enzyme'], toys['ring']
     assert e['thomas']['c'] == 5 and e[MAIN]['c'] == 0 and g[MAIN]['c'] == 1 and g[MAIN]['k'] == 1, toys
-    st = ('<style>.f1g{stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}.f1k{stroke:var(--muted);stroke-width:1.2}'
-          '.f1l{stroke:var(--accent);stroke-width:2.2}</style>')
+    st = ('<style>.f1g{stroke:var(--muted);stroke-width:1.4;stroke-dasharray:4 3}.f1k{stroke:var(--muted);stroke-width:1.4}'
+          '.f1l{stroke:var(--accent2-text);stroke-width:2.2}</style>')
     enzyme = f'''<svg viewBox="0 0 330 270" role="img" aria-label="Enzyme E binds substrate S to make the pair ES, which releases product P. Five loops appear among E, S and ES, drawn dashed because none passes the filters." {SVG} font-size="14">
-  {DEFS.format(p='ea', c='var(--muted)')}{st}
+  {st}
   <text x="165" y="26" text-anchor="middle" font-weight="600" fill="var(--ink)">An enzyme at work</text>
-  {line(70, 89, 70, 171, 'eai', 'f1g')}{line(54, 171, 54, 89, 'eai', 'f1g')}
-  {line(81, 78, 142, 120, 'eaa', 'f1g')}{line(146, 134, 85, 92, 'eaa', 'f1g')}
-  {line(81, 202, 142, 160, 'eaa', 'f1g')}{line(146, 146, 85, 188, 'eaa', 'f1g')}
-  {line(181, 140, 244, 140, 'eaa', 'f1k')}
-  {node(62, 70, 'E')}{node(62, 190, 'S')}{node(162, 140, 'ES', 21)}{node(266, 140, 'P')}
+  {line(70, 89, 70, 169, 'fx-bar-muted', 'f1g')}{line(54, 171, 54, 91, 'fx-bar-muted', 'f1g')}
+  {line(81, 78, 142, 120, 'fx-arrow-muted', 'f1g')}{line(146, 134, 85, 92, 'fx-arrow-muted', 'f1g')}
+  {line(81, 202, 142, 160, 'fx-arrow-muted', 'f1g')}{line(146, 146, 85, 188, 'fx-arrow-muted', 'f1g')}
+  {line(181, 140, 244, 140, 'fx-arrow-muted', 'f1k')}
+  {node(62, 70, 'E')}{node(62, 190, 'S')}{node(162, 140, 'ES')}{node(266, 140, 'P')}
   <text x="165" y="250" text-anchor="middle" fill="var(--muted)">{e['thomas']['c']} loops, none left after the filters</text>
 </svg>'''
     ring = f'''<svg viewBox="0 0 330 270" role="img" aria-label="Three genes, lacI, tetR and cI, each switching off the next in a ring: one braking loop." {SVG} font-size="14">
-  {DEFS.format(p='ra', c='var(--accent)')}{st}
+  {st}
   <text x="165" y="26" text-anchor="middle" font-weight="600" fill="var(--ink)">The repressilator</text>
-  {line(180, 84, 224, 165, 'rai', 'f1l')}{line(212, 190, 120, 190, 'rai', 'f1l')}{line(104, 166, 148, 87, 'rai', 'f1l')}
-  {node(165, 64, 'lacI', 24)}{node(238, 190, 'tetR', 24)}{node(92, 190, 'cI', 24)}
-  <text x="165" y="250" text-anchor="middle" fill="var(--accent-text)">1 braking loop: a clock</text>
+  {line(180, 84, 224, 165, 'fx-bar', 'f1l')}{line(212, 190, 120, 190, 'fx-bar', 'f1l')}{line(104, 166, 148, 87, 'fx-bar', 'f1l')}
+  {node(165, 64, 'lacI')}{node(238, 190, 'tetR')}{node(92, 190, 'cI')}
+  <text x="165" y="250" text-anchor="middle" fill="var(--ink)">1 braking loop: a clock</text>
 </svg>'''
     return f'<div class="pair"><div>{enzyme}</div><div>{ring}</div></div>'
 
@@ -659,6 +715,13 @@ def loops_word(p):
     return 'none' if c == 0 else signs(c, k)
 
 
+def loops_html(p):
+    """loops_word with each sign in its colour, so both columns of the answer key paint a sign one way."""
+    if p is None or p[0] == 0:
+        return loops_word(p)
+    return signs_html(*p)
+
+
 def fig_answer_key(struct, dyn):
     rows, agree, misses = [], 0, []
     for mid, name, want in TEXTBOOK:
@@ -668,8 +731,8 @@ def fig_answer_key(struct, dyn):
         agree += ok
         if not ok:
             misses.append(mid)
-        rows.append(f'<tr><td>{name}</td><td>{"none" if want == 0 else signs(*want)}</td>'
-                    f'<td>{loops_word(got)}{"" if ok else "&#160;&#10007;"}</td><td>{what_it_does(dyn.get(mid))}</td></tr>')
+        rows.append(f'<tr><td>{name}</td><td>{"none" if want == 0 else signs_html(*want)}</td>'
+                    f'<td>{loops_html(got)}{"" if ok else "&#160;&#10007;"}</td><td>{what_it_does(dyn.get(mid))}</td></tr>')
     table = ('<div class="scroll"><table class="key"><tr><th>Circuit</th><th>Its name implies</th><th>Census counts</th>'
              '<th>At published settings</th></tr>' + ''.join(rows) + '</table></div>')
     return table, agree, misses
@@ -1016,21 +1079,22 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
         ('refine', 'Found the grain problem and the detector problem, fixed a counting bug, added a paired detector.',
          'Benchmark running-total detectors on models with known answers, and decide whether braking loops should be filtered.'),
     ])
-    def card(label, title, test, found, mark, verdict, note):
-        return (f'<div class="card"><p class="k">{label}</p><h3>{title}</h3><dl><dt>test</dt><dd>{test}</dd><dt>found</dt><dd>{found}</dd></dl>'
+    def card(label, title, found, mark, verdict, note):
+        # label, title, what was found, verdict: the title says the test, so the found line carries what it needs of it
+        return (f'<div class="card"><p class="k">{label}</p><h3>{title}</h3><dl><dt>found</dt><dd>{found}</dd></dl>'
                 f'<p class="v"><span class="chip"><span aria-hidden="true">{mark}</span> {verdict}</span>{note}</p></div>')
     assert '(1, 1)' not in r1['essay']['cells'] and '(1, 1)' not in r1['essay_pair']['cells']
     scorecard = '<div class="cards">' + ''.join([
-        card('claim 1', 'No more kinds of behaviour than elements', 'Sort circuits by what they do.',
+        card('claim 1', 'No more kinds of behaviour than elements',
              f'Two loops: {fine[2]} kinds, {pred[2]} elements. Three loops: {fine[3]} kinds, {pred[3]} elements.', '&#126;', 'holds, softly',
              'Each model ran at one setting of its rates.'),
-        card('claim 2', 'Loops forbid some behaviours', 'Find a memory with no amplifying loop, or a clock with no braking one.',
-             f'None, in {autonomous} models.', '&#10003;', 'holds', 'Both rules are theorems, so this checks the code.'),
-        card('claim 3', 'Every element can exist', 'See which elements circuits fill.',
+        card('claim 2', 'Loops forbid some behaviours',
+             f'No memory without an amplifying loop, no clock without a brake, in {autonomous} models.', '&#10003;', 'holds', 'Both rules are theorems, so this checks the code.'),
+        card('claim 3', 'Every element can exist',
              f'Every mix of amplifying and braking loops. At two loops a strict detector fills {r2["essay"]["occupied"]} of {pred[2]} elements, a loose one {near2}.', '?', 'untested',
              'No detector reads running totals reliably yet.'),
-        card('surprise', 'One circuit, one address', f'Place {WORD[len(FLY_CLOCK)]} models of one clock.',
-             f'The fly&#8217;s day clock lands in {WORD[fly_places]} places.', '!', 'depends on the drawing', ''),
+        card('surprise', 'One circuit, one address',
+             f'{cap(WORD[len(FLY_CLOCK)])} models of one clock land in {WORD[fly_places]} places.', '!', 'depends on the drawing', ''),
     ]) + '</div>'
     key_table, key_agree, key_misses = fig_answer_key(struct, dyn)
     assert key_agree == 5 and key_misses == ['BIOMD0000000310', 'BIOMD0000000307'], (key_agree, key_misses)
@@ -1039,7 +1103,7 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
     assert key_does['BIOMD0000000311'] == 'holds two states' and all(key_does[m] in ('settles', 'rings, then settles') for m in ('BIOMD0000000306', 'BIOMD0000000307', 'BIOMD0000000308')), key_does
     no_arrows = len(excl.get('gave no arrows at the states read', []))
     # the audit story quotes the first run (before the backtracking fix) against this one
-    assert small == 175 and r3['essay']['occupied'] == 5, 'update the audit sentences (results and Supplement B)'
+    assert small == 175 and r3['essay']['occupied'] == 5, 'update the audit sentence in Supplement B'
     if over:
         test_verdict = (f'At {listing(LOOPS[nu] for nu in over)} that is more kinds of behaviour than elements, which by the essay&#8217;s own terms kills the rule, '
                         f'at least with behaviour sorted this finely.')
@@ -1065,15 +1129,19 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <filter id="fx-lift" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="1.6" stdDeviation="2.2" style="flood-color: var(--lift)"/></filter>
 <radialGradient id="fx-orb" cx="36%" cy="30%" r="72%"><stop offset="0" style="stop-color: var(--orb-hi)"/><stop offset="0.5" style="stop-color: var(--accent)"/><stop offset="1" style="stop-color: var(--orb-lo)"/></radialGradient>
+<marker id="fx-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--accent-text)"/></marker>
+<marker id="fx-arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker>
+<marker id="fx-arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker>
+<marker id="fx-bar" viewBox="0 0 3 10" refX="2" refY="5" markerWidth="3" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M1.5 0V10" stroke="var(--accent2-text)" stroke-width="2.2"/></marker>
+<marker id="fx-bar-muted" viewBox="0 0 3 10" refX="2" refY="5" markerWidth="3" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M1.5 0V10" stroke="var(--muted)" stroke-width="2.2"/></marker>
 </defs></svg>
 {IA.element_card_js()}
-<main class="post">
+<main class="post" id="top">
 <header class="mast">
-<p class="eyebrow"><span><span class="field">Cell and systems biology</span><span>an essay</span></span><span>October 2026</span></p>
+<p class="eyebrow"><span><span class="field">Cell and systems biology</span></span><span>October 2026</span></p>
 <h1>Every line is a loop.<br>Let’s count them.</h1>
 <p class="sub">A new periodic table for network biology</p>
-<p class="meta"><span>Kat Titterton</span><span>Macrofluidics</span><span>%READTIME% min read</span><span>draft for comment</span></p>
-<nav class="links" aria-label="Code, data and supplement"><a href="{code_link}">code</a><a href="{data_link}">data</a><a href="#supplement">supplement</a></nav>
+<div class="meta"><span>Kat Titterton</span><span>Macrofluidics</span><span>%READTIME% min read</span><span>draft</span><nav class="links" aria-label="Code, data and supplement"><a href="{code_link}">code</a><a href="{data_link}">data</a><a href="#supplement">supplement</a></nav></div>
 </header>
 {hero_html}
 <!--main-->
@@ -1099,28 +1167,28 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 <p class="kicker"><span class="n">2</span>what a loop can do</p>
 <h2>Flip the arrows and watch</h2>
 <p>A <b>model</b> of a circuit is a set of equations: for each molecule, how fast it is made and removed. Draw an <b>arrow</b> from one molecule to another when the first changes how fast the second is made or removed. The arrow <b>amplifies</b> (+, drawn &#8594;) if more of the first means more of the second, and <b>brakes</b> (&#8722;, drawn &#8867;) if it means less. A <b>loop</b> is a path of arrows that comes back to where it began. A microphone pointed at its own speaker is an amplifying loop; a thermostat is a braking one. Biologists call them positive and negative feedback.</p>
-<p>Now play. The ring below is the repressilator&#8217;s wiring, simulated live: TetR, LacI and cI, each acting on the next. Flip its arrows between amplify and brake, and count the brakes each time it ticks.</p>
+<p>Now play. Flip the repressilator&#8217;s arrows below and count the brakes each time it ticks.</p>
 </div>
 <figure class="fig">
 {IA.gauges()}
 {IA.loop_toy()}
-<figcaption><b>Figure 1. Arrows and loops.</b> Top: what an arrow does. Bottom: the repressilator&#8217;s ring, simulated from two starts. Flip an arrow to change it.</figcaption>
+<figcaption><b>Figure 1. Arrows and loops.</b></figcaption>
 </figure>
 <div class="text">
 <p>With one brake or three, it ticks. With none or two, it settles into one of two states: a switch. Signs multiply round a loop, so two brakes cancel like a double negative, and a loop brakes only when it holds an odd number of them. René Thomas proposed the rule decades ago, holding two states needs an amplifying loop and keeping a rhythm needs a braking one {cite('kaufman')}, and it is now a theorem {cite('soule', 'snoussi', 'gouze')}. The idea behind the proof is the one you just saw: to hold two states, a push must feed back on itself and grow; to keep swinging, something must eventually push back.</p>
 <p>Cells build both kinds. The clock in your own cells is a braking loop: the proteins CLOCK and BMAL1 switch on the <i>Per</i> and <i>Cry</i> genes, the PER and CRY proteins build up, move into the nucleus and switch CLOCK and BMAL1 off, and the round trip takes about a day {cite('takahashi')}. The lac operon of <i>E. coli</i> is an amplifying loop made of two brakes: lactose disables the repressor LacI, LacI blocks the lac genes, and one of those genes makes the pump that brings lactose in. Two brakes cancel, and cells can hold either state, on or off {cite('ozbudak')}.</p>
-<p>A loop can do a third thing. Slide the hill below and watch two cruise controls. One sags as the road steepens. The other gets back to 60, exactly, every time.</p>
+<p>A loop can do a third thing. Drag the hill below and watch two cruise controls. One sags as the road steepens. The other gets back to 60, exactly, every time.</p>
 </div>
 <figure class="fig">
 {IA.cruise()}
-<figcaption><b>Figure 2. A running total on a hill.</b> Drag the hill. The simple controller falls short; the one that adds up its shortfall always returns to 60.</figcaption>
+<figcaption><b>Figure 2. A running total on a hill.</b></figcaption>
 </figure>
 <div class="text">
 <p>The one that recovers keeps a <b>running total</b> of its shortfall and pushes until the total stops growing. A molecule can do the same if its rate of change doesn&#8217;t depend on its own level, so it adds up what flows in and out. Put one inside a braking loop and a cell returns exactly to its set point after a push. Bacteria steer this way: the receptor that senses an attractant carries methyl groups, one enzyme adds them steadily and another, switched on by the receptor&#8217;s activity, removes them, so the methyl count is a running total and the cell returns exactly to its resting behaviour {cite('barkai', 'yi')}. Yeast handle salt the same way {cite('muzzey')}, and a running total can be built from two molecules that destroy each other {cite('briat')}.</p>
 </div>
 <figure class="fig">
 {BF.fig_real_circuits()}
-<figcaption><b>Figure 3. The three counts in real cells.</b> The circadian clock, one braking loop; the lac operon, two brakes that cancel into an amplifying loop; chemotaxis, where the methyl groups on a receptor keep the running total. Lavender amplifies, amber brakes.</figcaption>
+<figcaption><b>Figure 3. The three counts in real cells.</b></figcaption>
 </figure>
 <div class="text">
 <p>So a circuit has three counts: how many loops, how many of them brake, and how many keep a running total. That is the whole idea of the table.</p>
@@ -1140,14 +1208,14 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 <figure class="fig">
 {TF.fig_orbitals()}
 {TF.fig_spirals()}
-<figcaption><b>Figure 4. The same arithmetic as the atom.</b> Top: a shell of {pred[3]} orbitals and a row of {pred[3]} elements split alike. Bottom: both tables as loops; group 1 and the noble gases share rays, as do the loop table&#8217;s memories and clocks.</figcaption>
+<figcaption><b>Figure 4. The same arithmetic as the atom.</b></figcaption>
 </figure>
 <div class="text">
-<p>Others had sorted circuits by their loops before: oscillators {cite('novak')}, the named small circuits {cite('tyson')}, the wiring patterns that recur across organisms {cite('milo', 'alon')}. The table puts the three counts together, much as Ahnert and colleagues built a periodic table for protein complexes {cite('ahnert')}. Here it is. Point at an element to read it.</p>
+<p>Others had sorted circuits by their loops before: oscillators {cite('novak')}, the named small circuits {cite('tyson')}, the wiring patterns that recur across organisms {cite('milo', 'alon')}. The table puts the three counts together, much as Ahnert and colleagues built a periodic table for protein complexes {cite('ahnert')}. Here it is. Tap an element to read it.</p>
 </div>
 <figure class="fig">
 {ptable_html}
-<figcaption><b>Figure 5. The periodic table of loops.</b> Each tile draws what its element does, with a dashed trace where that is still a prediction.</figcaption>
+<figcaption><b>Figure 5. The periodic table of loops.</b></figcaption>
 </figure>
 <div class="text">
 <p>If this is a real periodic table, three things should be true: circuits with a given number of loops do no more kinds of things than their row has elements; no circuit does what its loops forbid, no switch without an amplifying loop and no clock without a brake; and every element can be built, so each blank is a prediction. The second is the theorem above; the other two are open. To test them, count real circuits.</p>
@@ -1158,12 +1226,12 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 <div class="text">
 <p class="kicker"><span class="n">4</span>the census</p>
 <h2>Counting real circuits</h2>
-<p><b>BioModels</b> is a public library of the mathematical models behind published papers, founded in 2005 {cite('biomodels')}, each one checked against its paper and stored in a standard format {cite('lenovere', 'hucka')}: the cell cycle, the fruit fly&#8217;s day clock, calcium spikes and more. The census took the {census} models of the 2017 release, the one Baudier, Fages and Soliman analysed, so the counts can be compared {cite('baudier')}. It drew each model&#8217;s arrows, listed its loops, dropped the loops that chemistry makes for free (binding a partner and letting go is out and back, not round; Supplement B), and placed the circuit on the table. Click a step to see what it kept, then search the models yourself.</p>
+<p><b>BioModels</b> is a public library of the mathematical models behind published papers, founded in 2005 {cite('biomodels')}, each one checked against its paper and stored in a standard format {cite('lenovere', 'hucka')}: the cell cycle, the fruit fly&#8217;s day clock, calcium spikes and more. The census took the {census} models of the 2017 release, the one Baudier, Fages and Soliman analysed, so the counts can be compared {cite('baudier')}. It drew each model&#8217;s arrows, listed its loops, dropped the ones chemistry makes for free (<a href="#supp-b">Supplement B</a>), and placed each circuit on the table. Click a step for what it kept and why, then search the models yourself.</p>
 </div>
 <figure class="fig">
 {funnel_html}
 {explorer_html}
-<figcaption><b>Figure 6. The data.</b> Top: each step of the census and the models it keeps. Bottom: every readable model, searchable by name.</figcaption>
+<figcaption><b>Figure 6. The data.</b></figcaption>
 </figure>
 </section>
 
@@ -1171,10 +1239,10 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 <div class="text">
 <p class="kicker"><span class="n">5</span>what the table says</p>
 <h2>One band full, one band empty</h2>
-<p>Of the {usable} models the census could read, {small} have one to three loops, few enough to place. Look back at Figure 5 before reading on, and notice where the blanks are.</p>
+<p>Of the {usable} models the census could read, {small} have one to three loops, few enough to place.</p>
 <p>They fall in one band. Every element without a running total is filled, all {found_top[1]} of them, and familiar circuits sit where their biology puts them: the repressilator under one brake, the trp operon under two. Of the {found_rest[1]} elements with a running total, {found_rest[0]} are filled, by {rest_models} models between them. The table is fullest where biology already had words for what it saw, switches and clocks, and emptiest where the words arrived last.</p>
-<p>The three tests are scored below; the weak one is the third, where a strict reading of the equations fills {r2['essay']['occupied']} of {pred[2]} elements at two loops, a looser one fills {near2}, and even in yeast, where experiments pinned the running total down {cite('muzzey')}, neither finds it cleanly.</p>
-<p>One surprise. The fruit fly&#8217;s day clock has {WORD[len(FLY_CLOCK)]} curated models, all built from the same proteins, and they land in {WORD[fly_places]} different places, from {WORD.get(fp_min, fp_min)} to {WORD.get(fp_max, fp_max)} loops. Measure a coastline with a shorter ruler and it gets longer; a loop count grows the same way as a model gains detail (Supplement C). And one correction: an audit of the first run found a bug that had hidden loops in 42 models; fixing it moved the count from 179 to {small} (Supplement B).</p>
+<p>The three tests are scored below; the weak one is the third: no reading of the equations finds the running total cleanly, not even in yeast, where experiments pinned it down {cite('muzzey')}.</p>
+<p>One surprise. The fruit fly&#8217;s day clock has {WORD[len(FLY_CLOCK)]} curated models, all built from the same proteins, and they land in {WORD[fly_places]} different places, from {WORD.get(fp_min, fp_min)} to {WORD.get(fp_max, fp_max)} loops. Measure a coastline with a shorter ruler and it gets longer; a loop count grows the same way as a model gains detail (<a href="#supp-c">Supplement C</a>).</p>
 </div>
 <div class="summary-cards">
 {scorecard}
@@ -1186,9 +1254,14 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 <p class="kicker"><span class="n">6</span>the empty band</p>
 <h2>What the gaps say</h2>
 <p>Mendeleev&#8217;s gaps came with predictions, and so do these. Element {sw_num} ({sw_sym}) is a switch that keeps a running total. It should add up a signal and commit once the total is high enough: a switch that flips on how long something lasted rather than how strong it was. It is this table&#8217;s eka-aluminium, and nothing in the census sits there yet.</p>
-<p>Why is the band empty? Three readings, each with its own test. The equations may hide them: the strict and the loose reading disagree across most of the band, and the circuits where experiments found a running total, chemotaxis and yeast osmotic stress {cite('yi', 'muzzey')}, are too tangled for this census to place; if so, better readings, tested on models with known answers, will fill the band. Nobody may have modelled them yet: running totals entered the field&#8217;s vocabulary in 2000 {cite('yi')} and were built as synthetic parts by 2019 {cite('briat', 'aoki')}, while the release counted here dates from 2017; if so, newer releases will fill the band. Or cells rarely build them small: an exact running total needs special chemistry, such as two molecules that destroy each other {cite('briat')}, so cells may keep theirs inside larger networks; if so, computer-built circuits will find these elements working {cite('ma')} while models of real cells keep them rare.</p>
-<p>What does an empty band say about the hypothesis itself? Taken at face value, that the table is two thirds proven and one third promised. Loops and brakes are real axes: circuits spread across every combination of them. Running totals are, so far, an axis with almost no one on it. Mendeleev&#8217;s table carried predictions that never came true as well {cite('scerri')}, and if this band stays empty after better readings and newer releases, the honest move is his: retire the axis, and each row shrinks from (loops + 1)<sup>2</sup> elements to loops + 1, which is 2, 3 and 4. If the band fills, the square count stands. Either outcome is a result.</p>
-<p>The census can&#8217;t yet tell these apart, but it does say where to look: models with a known running total, reduced to a few loops; releases after 2017; other collections such as <a href="https://cellcollective.org">Cell Collective</a> and the <a href="https://models.physiomeproject.org">Physiome Model Repository</a>; and decisions that hinge on how long a signal lasts, where {sw_sym} should live.</p>
+<p>Why is the band empty? Three readings, each with its own test.</p>
+<ul>
+<li><b>Hidden.</b> The strict and the loose reading disagree across most of the band, and the circuits where experiments found a running total, chemotaxis and yeast osmotic stress {cite('yi', 'muzzey')}, are too tangled for this census to place; if so, better readings, tested on models with known answers, will fill the band.</li>
+<li><b>Unmodelled.</b> Running totals entered the field&#8217;s vocabulary in 2000 {cite('yi')} and were built as synthetic parts by 2019 {cite('briat', 'aoki')}, while the release counted here dates from 2017; if so, newer releases will fill the band.</li>
+<li><b>Rare.</b> An exact running total needs special chemistry, such as two molecules that destroy each other {cite('briat')}, so cells may keep theirs inside larger networks; if so, computer-built circuits will find these elements working {cite('ma')} while models of real cells keep them rare.</li>
+</ul>
+<p>What does an empty band say about the hypothesis itself? That the table is two thirds proven and one third promised. Loops and brakes are real axes: circuits spread across every combination of them. Running totals are, so far, an axis with almost no one on it. Mendeleev&#8217;s table carried predictions that never came true as well {cite('scerri')}, and if this band stays empty after better readings and newer releases, the honest move is his: retire the axis, and each row shrinks from (loops + 1)<sup>2</sup> elements to loops + 1, which is 2, 3 and 4. If the band fills, the square count stands. Either outcome is a result.</p>
+<p>The census can&#8217;t yet tell these apart. Where else to look: <a href="https://cellcollective.org">Cell Collective</a>, the <a href="https://models.physiomeproject.org">Physiome Model Repository</a>, and decisions that hinge on how long a signal lasts, where {sw_sym} should live.</p>
 </div>
 </section>
 
@@ -1200,14 +1273,13 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 </div>
 <figure class="fig">
 {science_html}
-<figcaption><b>Figure 7. The research loop.</b> What this round did at each stage, and what the next round should do.</figcaption>
+<figcaption><b>Figure 7. The research loop.</b></figcaption>
 </figure>
 <div class="text">
-<p>First, a count that holds still. Proton number doesn&#8217;t depend on how you draw an atom; loop number depends on how you draw a circuit, so the table needs a count taken on a reduced model, with fast binding steps merged. If it works, the {WORD[len(FLY_CLOCK)]} fly-clock models should land in one element. Then the first claim gets a proper test by building every small circuit on a computer and running it across its rates {cite('ma', 'li')}, and the blanks become predictions: the running-total circuit built in bacteria in 2019 {cite('briat', 'aoki', 'lillacci')} belongs in element {ad_num}, the adapter ({ad_sym}).</p>
-<p>Then the part chemistry&#8217;s table is remembered for. Mendeleev&#8217;s eka-silicon became germanium, and germanium became the first transistor {cite('bardeen')}. His eka-manganese, element 43, was made before it was found, in 1937 {cite('perrier')}; as technetium it became the workhorse of medical imaging. A table that predicts elements ends up predicting materials and medicines.</p>
-<p>For cells, the same three gifts. For the field, a shared address: a model says which element it is, a reader asks whether its behaviour matches, and circuits built from different molecules in different organisms can turn out to be the same element, as the fly&#8217;s clock and ours are at their coarsest drawing, one braking loop through transcription.</p>
+<p>Proton number doesn&#8217;t depend on how you draw an atom; loop number depends on how you draw a circuit. If a count on a reduced model holds still, the {WORD[len(FLY_CLOCK)]} fly-clock models should land in one element. Then the first claim gets its test, every small circuit built on a computer and run across its rates {cite('ma', 'li')}, and the blanks become predictions: the running-total circuit built in bacteria in 2019 {cite('briat', 'aoki', 'lillacci')} belongs in element {ad_num}, the adapter ({ad_sym}).</p>
+<p>Chemistry&#8217;s table went on to predict materials and medicines: eka-silicon became germanium and the first transistor {cite('bardeen')}; element 43 was made before it was found {cite('perrier')}. For cells, the same three gifts. For the field, a shared address: a model says which element it is, a reader asks whether its behaviour matches, and circuits built from different molecules in different organisms can turn out to be the same element, as the fly&#8217;s clock and ours are at their coarsest drawing, one braking loop through transcription.</p>
 <p>For medicine, a diagnosis by element. The earlier essay reads three diseases as one algebra: a tumour as a brake lost, an autoimmune disease as a brake missing, a prion-like disease as an amplifying loop with no brake at all. The table turns that into a target, which loop to put back rather than which molecule to hit, and the clinic already has cases. Restore p53, a brake, and established tumours in mice regress {cite('ventura', 'xue')}. Remove a brake on T cells, as checkpoint blockade does, and they attack tumours and the body alike {cite('postow')}: the price the table puts on a lost brake. An element also says what to measure in a patient: a clock by its period, a switch by its threshold, a running total by its drift.</p>
-<p>For technology, design by position, as a chemist who needs a reactive metal looks in the first column. A sensor that must reset exactly comes from {ad_sym}, where the circuit built in bacteria is the first part in the box and the closed-loop insulin pump is the same element built outside the cell. A timer that commits after a dose comes from {sw_sym}, which nobody has built. Wire a toggle switch to a running total and drive it with pulses of different lengths; if it flips on the total rather than the peak, {sw_sym} is made before it is found, as element 43 was.</p>
+<p>For technology, design by position, as a chemist who needs a reactive metal looks in the first column. A sensor that must reset exactly comes from {ad_sym}, where the circuit built in bacteria is the first part in the box and the closed-loop insulin pump is the same element built outside the cell. A timer that commits after a dose comes from {sw_sym}, which nobody has built. Wire a toggle switch to a running total and drive it with pulses of different lengths; if it flips on the total rather than the peak, {sw_sym} is made before it is found.</p>
 </div>
 </section>
 
@@ -1239,7 +1311,7 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 <div class="text">
 <p class="kicker"><span class="n">S</span>supplement</p>
 <h2>Want more depth?</h2>
-<p>Four supplements hold the rest of the evidence, with every figure and equation. Open any of them.</p>
+<p>Four supplements and the references hold the rest of the evidence, with every figure and equation. Open any of them.</p>
 </div>
 
 <details class="supp" id="supp-a">
@@ -1257,7 +1329,7 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 <figcaption><b>Figure S4. From circuit to model.</b> The repressilator as a circuit, a diagram, equations and a run.</figcaption>
 </figure>
 <div class="text">
-<p>Chemistry makes loops that regulate nothing. Binding and unbinding go out and back, like a two-way street, not round, like a roundabout. The filters of Baudier, Fages and Soliman {cite('baudier')}, built on Soliman’s condition {cite('soliman')}, remove them. They proved that dropping these loops loses no amplifying loop that could hold two states; the proof covers amplifying loops only (Supplement D).</p>
+<p>Chemistry makes loops that regulate nothing. Binding and unbinding go out and back, like a two-way street, not round, like a roundabout. The filters of Baudier, Fages and Soliman {cite('baudier')}, built on Soliman’s condition {cite('soliman')}, remove them. They proved that dropping these loops loses no amplifying loop that could hold two states; the proof covers amplifying loops only (<a href="#supp-d">Supplement D</a>).</p>
 </div>
 <figure class="fig">
 {SF.fig_street()}
@@ -1297,7 +1369,7 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 </div>
 <figure class="fig">
 {coast_html}
-<figcaption><b>Figure S10. The coastline problem.</b> Slide the ruler: the measured length keeps growing, as a loop count does with model detail.</figcaption>
+<figcaption><b>Figure S10. The coastline problem.</b> Drag the ruler: the measured length keeps growing, as a loop count does with model detail.</figcaption>
 </figure>
 </details>
 
@@ -1308,7 +1380,7 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 </div>
 <figure class="fig">
 {pipeline_html}
-<figcaption><b>Figure S11. The data pipeline.</b> One script per step; the coloured line is what comes out.</figcaption>
+<figcaption><b>Figure S11. The data pipeline.</b> One script per step; the last line of each step is what comes out.</figcaption>
 </figure>
 <div class="text">
 <h3>Models into equations</h3>
@@ -1406,17 +1478,17 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 <p>Two full runs from the raw download, in separate folders, gave identical files apart from the recorded timings. <code>build_post.py</code> writes this page from the results and refuses to build if a sentence no longer matches the data.</p>
 </div>
 </details>
+
+<details class="supp" id="refs-d">
+<summary>References, {len(REFS)}</summary>
+<div class="text">
+<ol class="refs">%REFS%</ol>
+</div>
+</details>
 </section>
 
-<section id="refs">
-<div class="text">
-<h2>References</h2>
-<ol class="refs">
-%REFS%
+<footer class="end"><p class="meta"><a href="{REPO_URL}/issues">comment on GitHub</a><a href="#top">back to top</a></p></footer>
 {REF_POPOVER_JS}
-</ol>
-</div>
-</section>
 </main>
 </body>
 </html>

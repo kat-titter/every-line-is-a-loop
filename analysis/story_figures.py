@@ -1,29 +1,24 @@
 """Small explanatory figures for count-the-elements.html: what a model is, a line closing into a loop, what
 amplify and brake mean, the count-the-brakes rule, cruise control (a running total), a two-way street versus
 a roundabout (the loops the filters remove), and a coastline measured with two rulers (why a loop count
-depends on the drawing). Three colours only: ink, muted gray, lavender accent."""
+depends on the drawing). Four colours: ink = content; muted gray = secondary, axes, not found; lavender = amplify in
+strokes and text, found in fills; amber = brake. Arrowheads and bars are the page's shared markers (fx-arrow, fx-bar,
+fx-arrow-muted, fx-arrow-ink), so every figure draws them at one size."""
 import math
 
-SVG = 'font-family="Inter, Helvetica, Arial, sans-serif"'
+SVG = ''   # the stylesheet gives every svg the page's sans
 MINUS = '&#8722;'
 
 
-def _defs(p):
-    return (f'<defs><marker id="{p}a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">'
-            f'<path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker>'
-            f'<marker id="{p}i" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">'
-            f'<path d="M8 0V10" stroke="var(--accent)" stroke-width="2.4"/></marker>'
-            f'<marker id="{p}m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">'
-            f'<path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>')
-
-
-def _node(x, y, t, r=17, fs=13):
-    return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.25"/>'
+def _node(x, y, t, r=22, fs=14):
+    return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
             f'<text x="{x:.1f}" y="{y + fs * 0.36:.1f}" text-anchor="middle" font-size="{fs}" fill="var(--ink)">{t}</text>')
 
 
-def _edge(x1, y1, x2, y2, r1, r2, mk, color='var(--accent)', w=2, curve=0):
-    """Arrow from circle 1 to circle 2, trimmed to their rims; curve bends it sideways."""
+def _edge(x1, y1, x2, y2, r1, r2, mk, color=None, w=2.2, curve=0):
+    """Arrow from circle 1 to circle 2, trimmed to their rims; curve bends it sideways. The stroke takes the
+    marker's meaning: amber for a bar (represses), lavender for an arrow (activates), unless a colour is given."""
+    color = color or ('var(--accent2-text)' if mk == 'fx-bar' else 'var(--accent-text)')
     dx, dy = x2 - x1, y2 - y1
     L = math.hypot(dx, dy)
     ux, uy = dx / L, dy / L
@@ -48,11 +43,11 @@ def _wrap(panels, cls='quad'):
 def fig_model():
     tri = [(100, 70), (148, 150), (52, 150)]
     names = ['lacI', 'tetR', 'cI']
-    cell = ('<rect x="14" y="40" width="172" height="148" rx="44" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.3"/>'
-            + ''.join(_node(x, y, t, 21, 14) for (x, y), t in zip(tri, names)))
+    cell = ('<rect x="14" y="40" width="172" height="148" rx="44" fill="var(--tint)" stroke="var(--muted)" stroke-width="1.4"/>'
+            + ''.join(_node(x, y, t) for (x, y), t in zip(tri, names)))
     p1 = _panel(200, 230, 'A circuit: three genes inside a cell', cell + '<text x="100" y="218" text-anchor="middle" fill="var(--muted)">three genes in a cell</text>', 'a circuit')
-    arrows = ''.join(_edge(*tri[i], *tri[(i + 1) % 3], 21, 21, 'mdi') for i in range(3))
-    p2 = _panel(200, 230, 'A diagram: each gene switches off the next', _defs('md') + arrows + ''.join(_node(x, y, t, 21, 14) for (x, y), t in zip(tri, names))
+    arrows = ''.join(_edge(*tri[i], *tri[(i + 1) % 3], 22, 22, 'fx-bar') for i in range(3))
+    p2 = _panel(200, 230, 'A diagram: each gene switches off the next', arrows + ''.join(_node(x, y, t) for (x, y), t in zip(tri, names))
                 + '<text x="100" y="218" text-anchor="middle" fill="var(--muted)">who slows whom</text>', 'a diagram')
     eq = ('<text x="100" y="78" text-anchor="middle" font-size="14" fill="var(--ink)">change in tetR</text>'
           '<text x="100" y="104" text-anchor="middle" font-size="14" fill="var(--ink)">= made &#8722; removed</text>'
@@ -71,13 +66,12 @@ def fig_model():
 
 # ---------------------------------------------------------------- a line becomes a loop
 def fig_line_loop():
-    d = _defs('ll')
-    line = d + ''.join(_node(x, 90, t) for x, t in ((55, 'A'), (165, 'B'), (275, 'C')))
-    line += _edge(55, 90, 165, 90, 17, 17, 'llm', 'var(--muted)') + _edge(165, 90, 275, 90, 17, 17, 'llm', 'var(--muted)')
+    line = ''.join(_node(x, 90, t) for x, t in ((55, 'A'), (165, 'B'), (275, 'C')))
+    line += _edge(55, 90, 165, 90, 22, 22, 'fx-arrow-muted', 'var(--muted)') + _edge(165, 90, 275, 90, 22, 22, 'fx-arrow-muted', 'var(--muted)')
     a = _panel(330, 170, 'A line: A acts on B, B acts on C, and nothing comes back', line + '<text x="165" y="150" text-anchor="middle" fill="var(--muted)">cause, then effect</text>', 'a line')
     pts = [(165, 50), (225, 120), (105, 120)]
-    loop = _defs('lk') + _edge(*pts[0], *pts[1], 17, 17, 'lkm', 'var(--muted)', curve=-10) + _edge(*pts[1], *pts[2], 17, 17, 'lkm', 'var(--muted)', curve=-10)
-    loop += _edge(*pts[2], *pts[0], 17, 17, 'lka', 'var(--accent)', 2.4, curve=-10)
+    loop = _edge(*pts[0], *pts[1], 22, 22, 'fx-arrow-muted', 'var(--muted)', curve=-10) + _edge(*pts[1], *pts[2], 22, 22, 'fx-arrow-muted', 'var(--muted)', curve=-10)
+    loop += _edge(*pts[2], *pts[0], 22, 22, 'fx-arrow', curve=-10)
     loop += ''.join(_node(x, y, t) for (x, y), t in zip(pts, 'ABC'))
     b = _panel(330, 170, 'A loop: C acts back on A, so the effect returns to its cause', loop + '<text x="165" y="160" text-anchor="middle" fill="var(--muted)">the effect comes back</text>', 'a loop')
     return f'<div class="pair"><div>{a}</div><div>{b}</div></div>'
@@ -85,18 +79,17 @@ def fig_line_loop():
 
 # ---------------------------------------------------------------- amplify and brake
 def _gauges(x, ha, hb, mk, label, title):
-    inner = _defs(mk[:2]) + _node(95, 66, 'A') + _node(235, 66, 'B') + _edge(95, 66, 235, 66, 17, 17, mk)
+    inner = _node(95, 66, 'A') + _node(235, 66, 'B') + _edge(95, 66, 235, 66, 22, 22, mk)
     for gx, h, t in ((95, ha, 'A'), (235, hb, 'B')):
-        inner += (f'<rect x="{gx - 14}" y="100" width="28" height="64" rx="4" fill="none" stroke="var(--muted)"/>'
-                  f'<rect x="{gx - 14}" y="{164 - h}" width="28" height="{h}" rx="4" fill="var(--accent)"/>'
-                  f'<text x="{gx}" y="184" text-anchor="middle" font-size="12.5" fill="var(--muted)">level of {t}</text>')
+        inner += (f'<rect x="{gx - 14}" y="100" width="28" height="64" rx="4" fill="none" stroke="var(--muted)" stroke-width="1.4"/>'
+                  f'<rect x="{gx - 14}" y="{164 - h}" width="28" height="{h}" rx="4" fill="var(--muted)"/>')
     inner += f'<text x="165" y="212" text-anchor="middle" fill="var(--ink)">{label}</text>'
     return _panel(330, 224, f'{title}: {label}', inner, title)
 
 
 def fig_arrows():
-    a = _gauges(0, 56, 52, 'gaa', 'more A, more B', 'amplify (+)')
-    b = _gauges(0, 56, 12, 'gbi', 'more A, less B', f'brake ({MINUS})')
+    a = _gauges(0, 56, 52, 'fx-arrow', 'more A, more B', 'amplify (+)')
+    b = _gauges(0, 56, 12, 'fx-bar', 'more A, less B', f'brake ({MINUS})')
     return f'<div class="pair"><div>{a}</div><div>{b}</div></div>'
 
 
@@ -105,14 +98,13 @@ def fig_parity():
     panels = []
     for k in range(4):
         pts = [(100, 62), (152, 148), (48, 148)]
-        inner = _defs(f'p{k}')
+        inner = ''
         for i in range(3):
-            mk = f'p{k}i' if i < k else f'p{k}a'
-            inner += _edge(*pts[i], *pts[(i + 1) % 3], 17, 17, mk)
+            inner += _edge(*pts[i], *pts[(i + 1) % 3], 22, 22, 'fx-bar' if i < k else 'fx-arrow')
         inner += ''.join(_node(x, y, '') for x, y in pts)
         verdict = 'brakes' if k % 2 else 'amplifies'
         inner += (f'<text x="100" y="196" text-anchor="middle" fill="var(--muted)">{k} brake{"" if k == 1 else "s"}</text>'
-                  f'<text x="100" y="218" text-anchor="middle" font-weight="600" fill="var(--accent-text)">loop {verdict}</text>')
+                  f'<text x="100" y="218" text-anchor="middle" font-weight="600" fill="var(--ink)">loop {verdict}</text>')
         panels.append(_panel(200, 230, f'A loop with {k} brakes {verdict}', inner, ['no brakes', 'one brake', 'two brakes', 'three brakes'][k]))
     return _wrap(panels)
 
@@ -150,12 +142,12 @@ def fig_cruise():
         inner += f'<text x="{X(t):.1f}" y="{y1 + 18}" text-anchor="middle" font-size="12.5" fill="var(--muted)">{t}</text>'
     inner += (f'<text x="{(x0 + x1) / 2}" y="{y1 + 38}" text-anchor="middle" font-size="12.5" fill="var(--muted)">seconds (the hill starts at 10)</text>'
               f'<text x="{x0 - 8}" y="{y0 - 10}" text-anchor="end" font-size="12.5" fill="var(--muted)">speed</text>')
-    for name, color, w in (('simple', 'var(--muted)', 1.8), ('total', 'var(--accent)', 2.4)):
+    for name, color, w in (('simple', 'var(--muted)', 1.4), ('total', 'var(--ink)', 2.2)):
         pts = ' '.join(f'{X(t):.1f},{Y(v):.1f}' for t, v in tr[name])
         inner += f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="{w}"/>'
     ends = {k: tr[k][-1][1] for k in tr}
-    inner += (f'<text x="{x1}" y="{Y(ends["simple"]) + 18:.1f}" text-anchor="end" font-size="13" fill="var(--muted)">simple: settles short</text>'
-              f'<text x="{x1}" y="{Y(60) - 8:.1f}" text-anchor="end" font-size="13" fill="var(--accent-text)">running total: back to 60</text>')
+    inner += (f'<text x="{x1}" y="{Y(ends["simple"]) + 18:.1f}" text-anchor="end" font-size="14" fill="var(--muted)">simple: settles short</text>'
+              f'<text x="{x1}" y="{Y(60) - 8:.1f}" text-anchor="end" font-size="14" font-weight="600" fill="var(--ink)">running total: back to 60</text>')
     svg = (f'<svg viewBox="0 0 330 240" role="img" aria-label="Cruise control on a hill: a simple controller settles a little under the set speed; one that keeps a running total of the shortfall returns exactly to it" {SVG} font-size="14">{inner}</svg>')
     assert abs(ends['total'] - 60) < 0.05 and 57 < ends['simple'] < 59.5, ends
     return f'<div class="solo">{svg}</div>', ends
@@ -163,20 +155,19 @@ def fig_cruise():
 
 # ---------------------------------------------------------------- two-way street and roundabout
 def fig_street():
-    d = _defs('st')
-    road = ('<rect x="70" y="72" width="190" height="44" rx="6" fill="var(--tint)" stroke="var(--muted)"/>'
-            '<line x1="80" y1="94" x2="250" y2="94" stroke="var(--muted)" stroke-dasharray="10 8"/>')
-    road += (f'<line x1="96" y1="83" x2="232" y2="83" stroke="var(--accent)" stroke-width="2" marker-end="url(#sta)"/>'
-             f'<line x1="234" y1="105" x2="98" y2="105" stroke="var(--accent)" stroke-width="2" marker-end="url(#sta)"/>')
-    road += _node(46, 94, 'E', 17) + _node(284, 94, 'ES', 19)
-    a = _panel(330, 190, 'A two-way street between E and ES: out and back, not a loop', d + road + '<text x="165" y="168" text-anchor="middle" fill="var(--muted)">out and back: filtered out</text>', 'a two-way street')
-    ring = '<circle cx="165" cy="98" r="48" fill="none" stroke="var(--tint)" stroke-width="22"/><circle cx="165" cy="98" r="48" fill="none" stroke="var(--muted)" stroke-width="1"/>'
+    road = ('<rect x="70" y="72" width="190" height="44" rx="6" fill="var(--tint)" stroke="var(--muted)" stroke-width="1.4"/>'
+            '<line x1="80" y1="94" x2="250" y2="94" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="10 8"/>')
+    road += (f'<line x1="96" y1="83" x2="232" y2="83" stroke="var(--muted)" stroke-width="2.2" marker-end="url(#fx-arrow-muted)"/>'
+             f'<line x1="234" y1="105" x2="98" y2="105" stroke="var(--muted)" stroke-width="2.2" marker-end="url(#fx-arrow-muted)"/>')
+    road += _node(46, 94, 'E') + _node(284, 94, 'ES')
+    a = _panel(330, 190, 'A two-way street between E and ES: out and back, not a loop', road + '<text x="165" y="168" text-anchor="middle" fill="var(--muted)">out and back: filtered out</text>', 'a two-way street')
+    ring = '<circle cx="165" cy="98" r="48" fill="none" stroke="var(--tint)" stroke-width="22"/><circle cx="165" cy="98" r="48" fill="none" stroke="var(--muted)" stroke-width="1.4"/>'
     for a0 in (20, 140, 260):
         a1 = a0 + 95
         x0_, y0_ = 165 + 48 * math.sin(math.radians(a0)), 98 - 48 * math.cos(math.radians(a0))
         x1_, y1_ = 165 + 48 * math.sin(math.radians(a1)), 98 - 48 * math.cos(math.radians(a1))
-        ring += f'<path d="M{x0_:.1f} {y0_:.1f}A48 48 0 0 1 {x1_:.1f} {y1_:.1f}" fill="none" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#sta)"/>'
-    b = _panel(330, 190, 'A roundabout: traffic goes all the way round, a real loop', d + ring + '<text x="165" y="168" text-anchor="middle" fill="var(--muted)">all the way round: kept</text>', 'a roundabout')
+        ring += f'<path d="M{x0_:.1f} {y0_:.1f}A48 48 0 0 1 {x1_:.1f} {y1_:.1f}" fill="none" stroke="var(--ink)" stroke-width="2.2" marker-end="url(#fx-arrow-ink)"/>'
+    b = _panel(330, 190, 'A roundabout: traffic goes all the way round, a real loop', ring + '<text x="165" y="168" text-anchor="middle" fill="var(--muted)">all the way round: kept</text>', 'a roundabout')
     return f'<div class="pair"><div>{a}</div><div>{b}</div></div>'
 
 

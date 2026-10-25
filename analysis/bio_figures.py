@@ -3,12 +3,14 @@ circadian clock), an amplifying loop made of two brakes (the lac operon) and a r
 chemotaxis), plus a key. Conventions: DNA as a double helix with the gene banded and a bent promoter arrow; membranes as
 lipid bilayers; proteins with shape (dimers as paired lobes, LacI as a tetramer, LacY as a helix bundle, the receptor
 as a transmembrane dimer with a ligand bulb); methyl and phosphate groups as small lettered circles; activation as an
-arrow, repression as a bar; lavender for amplify, amber for brake. Plain SVG, 11 px minimum text, local gradients and
-the page's shared lift shadow for depth.
+arrow, repression as a bar; lavender for amplify, amber for brake. Plain SVG, 11 px minimum text, local gradients,
+the page's shared arrowheads (fx-arrow, fx-bar, fx-arrow-ink) and its shared lift shadow for depth.
 """
 import math
 
-SVG = 'font-family="Inter, Helvetica, Arial, sans-serif"'
+import interactive as IA
+
+SVG = ''   # the stylesheet gives every svg the page's sans
 W, H = 300, 280
 LIFT = 'filter="url(#fx-lift)"'
 
@@ -18,9 +20,6 @@ def defs(p):
         return (f'<radialGradient id="{p}{i}" cx="36%" cy="30%" r="72%"><stop offset="0" style="stop-color: {hi}"/>'
                 f'<stop offset="0.55" style="stop-color: {mid}"/><stop offset="1" style="stop-color: {lo}"/></radialGradient>')
     return ('<defs>'
-            f'<marker id="{p}a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent-text)"/></marker>'
-            f'<marker id="{p}i" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M8 0V10" stroke="var(--accent2-text)" stroke-width="2.2"/></marker>'
-            f'<marker id="{p}k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker>'
             + grad('ga', 'var(--orb-hi)', 'var(--accent)', 'var(--orb-lo)')
             + grad('gb', 'var(--orb-hi)', 'var(--accent2)', 'var(--orb2-lo)')
             + grad('gg', 'var(--paper)', 'var(--rule)', 'var(--muted)')
@@ -35,12 +34,12 @@ def head(title, sub):
             f'<text x="{W / 2}" y="28" text-anchor="middle" font-size="11" fill="var(--muted)">{sub}</text>')
 
 
-def act(d, p, width=1.6):
-    return f'<path d="{d}" fill="none" stroke="var(--accent-text)" stroke-width="{width}" marker-end="url(#{p}a)"/>'
+def act(d, p, width=2.2):
+    return f'<path d="{d}" fill="none" stroke="var(--accent-text)" stroke-width="{width}" marker-end="url(#fx-arrow)"/>'
 
 
-def rep(d, p, width=1.6):
-    return f'<path d="{d}" fill="none" stroke="var(--accent2-text)" stroke-width="{width}" marker-end="url(#{p}i)"/>'
+def rep(d, p, width=2.2):
+    return f'<path d="{d}" fill="none" stroke="var(--accent2-text)" stroke-width="{width}" marker-end="url(#fx-bar)"/>'
 
 
 def label(x, y, t, anchor='middle', fill='var(--ink)', size=11, extra=''):
@@ -74,8 +73,8 @@ def helix(x0, x1, y, amp=7, period=32):
 
 def gene(x, y, w, p):
     """A banded gene region under the helix, with the bent promoter arrow at its start."""
-    return (f'<rect x="{x}" y="{y - 12}" width="{w}" height="24" rx="4" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>'
-            f'<path d="M{x - 6} {y - 12}V{y - 24}H{x + 4}" fill="none" stroke="var(--ink)" stroke-width="1.2" marker-end="url(#{p}k)"/>')
+    return (f'<rect x="{x}" y="{y - 12}" width="{w}" height="24" rx="4" fill="var(--tint)" stroke="var(--muted)" stroke-width="1"/>'
+            f'<path d="M{x - 6} {y - 12}V{y - 24}H{x + 4}" fill="none" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#fx-arrow-ink)"/>')
 
 
 def bilayer(x, y, w, p):
@@ -85,7 +84,7 @@ def bilayer(x, y, w, p):
 
 def tagged(x, y, t, r=9):
     """A small lettered circle: Me for a methyl group, P for a phosphate."""
-    return (f'<circle cx="{x}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.1"/>'
+    return (f'<circle cx="{x}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.4"/>'
             + label(x, y + 4, t, size=11))
 
 
@@ -97,14 +96,14 @@ def sugar(x, y):
     return hexagon(x, y) + hexagon(x + 6.3, y)
 
 
-SERIF = ' font-family="Iowan Old Style, Charter, Georgia, serif" font-style="italic"'
+SERIF = ' style="font-family: var(--serif)" font-style="italic"'   # an inline style beats the stylesheet's sans; a presentation attribute would lose to it
 
 
 def panel_clock():
     p = 'bfc'
     s = head('braking loop', 'the circadian clock')
-    s += '<ellipse cx="150" cy="152" rx="118" ry="82" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.1"/>'
-    s += '<ellipse cx="150" cy="152" rx="113" ry="77" fill="none" stroke="var(--muted)" stroke-width="1.1"/>'
+    s += '<ellipse cx="150" cy="152" rx="118" ry="82" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
+    s += '<ellipse cx="150" cy="152" rx="113" ry="77" fill="none" stroke="var(--muted)" stroke-width="1.4"/>'
     s += label(150, 218, 'nucleus', fill='var(--muted)')
     s += gene(160, 152, 66, p) + helix(60, 240, 152)
     s += label(193, 181, '<tspan font-style="italic">Per, Cry</tspan>')
@@ -122,7 +121,9 @@ def panel_clock():
     s += label(189, 272, 'PER:CRY')
     # back into the nucleus, where they switch CLOCK:BMAL1 off
     s += rep('M164 244 C90 240 70 180 98 136', p)
-    s += label(14, 272, '1 brake: period &#8776; 24 h', anchor='start', fill='var(--muted)')
+    # the verdict carries the tile's trace glyph for 'keeps time', 8 px before the words
+    s += (f'<path d="{IA.trace_path("keeps time", 8, 260)}" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round"/>'
+          + label(48, 272, '1 brake: period &#8776; 24 h', anchor='start', fill='var(--muted)'))
     return (f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="The circadian clock: in the nucleus, CLOCK and BMAL1 switch on the Per and Cry genes; '
             f'the mRNA leaves, PER and CRY are made in the cytoplasm, return and switch CLOCK and BMAL1 off. One braking loop, about a day round." {SVG}>'
             f'{defs(p)}{s}</svg>')
@@ -131,7 +132,7 @@ def panel_clock():
 def panel_lac():
     p = 'bfl'
     s = head('amplifying loop', 'the lac operon')
-    s += '<rect x="16" y="58" width="268" height="210" rx="48" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.1"/>'
+    s += '<rect x="16" y="58" width="268" height="210" rx="48" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
     s += bilayer(70, 51, 160, p)
     # LacY, a helix bundle through the membrane, pumping lactose in
     s += ''.join(f'<rect x="{x}" y="44" width="4.2" height="28" rx="2" fill="url(#{p}ga)"/>' for x in (140, 146, 152, 158, 164))
@@ -149,7 +150,7 @@ def panel_lac():
     s += label(206, 254, '<tspan font-style="italic">lacZYA</tspan>')
     s += rep('M118 176 L157 216', p)
     s += act('M212 212 C236 150 200 96 172 70', p)
-    s += label(190, 150, '(&#8722;)(&#8722;) = (+)', fill='var(--muted)', extra=SERIF)
+    s += label(176, 150, '(&#8722;)(&#8722;) = (+)', fill='var(--muted)', extra=SERIF)   # clear of the LacY arc on its right (x 216 at this height)
     return (f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="The lac operon: lactose disables the repressor LacI, LacI blocks the lac genes at the operator, '
             f'and one of those genes makes LacY, the pump that brings lactose in. Two brakes in one loop cancel: an amplifying loop." {SVG}>{defs(p)}{s}</svg>')
 
@@ -159,9 +160,9 @@ def panel_chemotaxis():
     s = head('running total', 'chemotaxis')
     s += bilayer(20, 60, 260, p)
     # the receptor, a dimer through the membrane with a ligand-binding bulb outside
-    s += ''.join(f'<rect x="{x}" y="44" width="9" height="122" rx="4" fill="url(#{p}gg)" stroke="var(--accent)" stroke-width="0.8"/>' for x in (138, 151))
+    s += ''.join(f'<rect x="{x}" y="44" width="9" height="122" rx="4" fill="url(#{p}gg)" stroke="var(--muted)" stroke-width="0.8"/>' for x in (138, 151))
     s += lobe(142, 38, 7, 6, p, 'g') + lobe(156, 38, 7, 6, p, 'g')
-    s += ''.join(f'<circle cx="{x}" cy="{y}" r="2.6" fill="var(--accent)"/>' for x, y in ((198, 30), (208, 24), (218, 30)))
+    s += ''.join(f'<circle cx="{x}" cy="{y}" r="2.6" fill="var(--muted)"/>' for x, y in ((198, 30), (208, 24), (218, 30)))
     s += label(214, 48, 'attractant', anchor='start', fill='var(--muted)')
     # methyl groups on the receptor: the running total. CheR adds them steadily; CheB, switched on by CheA, removes them
     s += ''.join(tagged(126, y, 'Me') for y in (92, 112, 132))
@@ -184,16 +185,16 @@ def panel_chemotaxis():
 
 
 def key():
-    arrow = '<svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H26" stroke="var(--accent-text)" stroke-width="1.6"/><path d="M24 1L32 6L24 11z" fill="var(--accent-text)"/></svg>'
-    bar = '<svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H28" stroke="var(--accent2-text)" stroke-width="1.6"/><path d="M30 1V11" stroke="var(--accent2-text)" stroke-width="2.2"/></svg>'
+    arrow = '<svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H31" stroke="var(--accent-text)" stroke-width="2.2" marker-end="url(#fx-arrow)"/></svg>'
+    bar = '<svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H30" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-bar)"/></svg>'
     dna = '<svg width="34" height="14" viewBox="0 0 34 14" aria-hidden="true">' + helix(2, 32, 7, amp=4, period=16) + '</svg>'
     mem = ('<svg width="34" height="14" viewBox="0 0 34 14" aria-hidden="true"><defs><pattern id="bfkbl" width="6" height="14" patternUnits="userSpaceOnUse">'
            '<circle cx="3" cy="2.6" r="2.2" fill="var(--muted)"/><circle cx="3" cy="11.4" r="2.2" fill="var(--muted)"/>'
            '<path d="M1.9 4.8V9.2M4.1 4.8V9.2" stroke="var(--muted)" stroke-width="0.7"/></pattern></defs><rect width="34" height="14" fill="url(#bfkbl)"/></svg>')
     me = ('<svg width="40" height="20" viewBox="0 0 40 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.1"/>'
-          '<text x="10" y="14" text-anchor="middle" font-size="11" fill="var(--ink)">Me</text><circle cx="31" cy="10" r="8" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.1"/>'
-          '<text x="31" y="14" text-anchor="middle" font-size="11" fill="var(--ink)">P</text></svg>')
-    rows = [(arrow, 'activates: an amplifying arrow'), (bar, 'represses: a braking arrow'), (dna, 'DNA, a gene banded, its promoter arrow'),
+          '<text x="10" y="14" text-anchor="middle" font-size="13" fill="var(--ink)">Me</text><circle cx="31" cy="10" r="8" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.1"/>'
+          '<text x="31" y="14" text-anchor="middle" font-size="13" fill="var(--ink)">P</text></svg>')
+    rows = [(arrow, 'activates, amplifies'), (bar, 'represses, brakes'), (dna, 'DNA, a gene banded, its promoter arrow'),
             (mem, 'lipid bilayer'), (me, 'methyl group, phosphate'), ('<span class="bk-int">&#8747;</span>', 'a running total: the integral of what flows in')]
     return ('<div class="bio-key"><p class="pt-h"><b>how to read</b></p>'
             + ''.join(f'<div><span class="bk-g">{g}</span><span>{t}</span></div>' for g, t in rows) + '</div>')

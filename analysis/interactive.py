@@ -11,7 +11,7 @@ coast:     a coastline measured with rulers of 2 to 64 steps.
 import json
 import math
 
-SVG = 'font-family="Inter, Helvetica, Arial, sans-serif"'
+SVG = ''   # the stylesheet gives every svg the page's sans; a presentation attribute here would name a font the page never loads
 MINUS = '−'
 
 
@@ -66,8 +66,8 @@ def loop_toy():
     check_ring()
     pts = [(165, 58), (240, 178), (90, 178)]
     names = ['TetR', 'LacI', 'cI']  # the repressilator's three repressors
-    nodes = ''.join(f'<circle cx="{x}" cy="{y}" r="22" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.25"/>'
-                    f'<text x="{x}" y="{y + 5}" text-anchor="middle" font-size="15" fill="var(--ink)">{t}</text>' for (x, y), t in zip(pts, names))
+    nodes = ''.join(f'<circle cx="{x}" cy="{y}" r="22" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
+                    f'<text x="{x}" y="{y + 5}" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">{t}</text>' for (x, y), t in zip(pts, names))
     arrows = ''
     for i in range(3):
         (x1, y1), (x2, y2) = pts[i], pts[(i + 1) % 3]
@@ -75,26 +75,25 @@ def loop_toy():
         ux, uy = (x2 - x1) / L, (y2 - y1) / L
         sx, sy, ex, ey = x1 + ux * 25, y1 + uy * 25, x2 - ux * 28, y2 - uy * 28
         mx, my = (sx + ex) / 2, (sy + ey) / 2
+        # the shaft and its sign badge first, then the invisible 44 px hit shapes on top (transparent fill still takes pointer events)
         arrows += (f'<g class="arr" data-i="{i}" role="button" tabindex="0" aria-label="arrow from {names[i]} to {names[(i + 1) % 3]}">'
+                   f'<line class="shaft" x1="{sx:.1f}" y1="{sy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="var(--accent-text)" stroke-width="2.2" marker-end="url(#fx-arrow)"/>'
+                   f'<circle class="badge" cx="{mx - uy * 18:.1f}" cy="{my + ux * 18:.1f}" r="12" fill="var(--paper)" stroke="var(--accent-text)" stroke-width="1.4"/>'
+                   f'<text x="{mx - uy * 18:.1f}" y="{my + ux * 18 + 5:.1f}" text-anchor="middle" font-size="14" font-weight="600" fill="var(--accent-text)">+</text>'
                    f'<line x1="{sx:.1f}" y1="{sy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="transparent" stroke-width="44"/>'
-                   f'<circle cx="{mx - uy * 18:.1f}" cy="{my + ux * 18:.1f}" r="22" fill="transparent"/>'
-                   f'<line x1="{sx:.1f}" y1="{sy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="var(--accent)" stroke-width="2.4" marker-end="url(#lt-a)"/>'
-                   f'<circle cx="{mx - uy * 18:.1f}" cy="{my + ux * 18:.1f}" r="12" fill="var(--paper)" stroke="var(--accent)"/>'
-                   f'<text x="{mx - uy * 18:.1f}" y="{my + ux * 18 + 5:.1f}" text-anchor="middle" font-size="15" font-weight="600" fill="var(--accent-text)">+</text></g>')
-    defs = ('<defs><marker id="lt-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">'
-            '<path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker><marker id="lt-i" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">'
-            '<path d="M8 0V10" stroke="var(--accent2)" stroke-width="2.4"/></marker></defs>')
-    ring = (f'<svg id="lt-ring" viewBox="0 0 330 230" role="img" aria-label="A ring of three genes; click an arrow to flip it" {SVG}>{defs}{arrows}{nodes}'
-            '<text id="lt-verdict" x="165" y="222" text-anchor="middle" font-size="15" font-weight="600" fill="var(--accent-text)"></text></svg>')
+                   f'<circle cx="{mx - uy * 18:.1f}" cy="{my + ux * 18:.1f}" r="22" fill="transparent"/></g>')
+    ring = (f'<svg id="lt-ring" viewBox="0 0 330 230" role="img" aria-label="A ring of three genes; click an arrow to flip it" {SVG}>{arrows}{nodes}'
+            '<text id="lt-verdict" x="165" y="222" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)"></text></svg>')
     plot = (f'<svg id="lt-plot" viewBox="0 0 330 230" role="img" aria-label="Level of X over time from two starts" {SVG}>'
-            '<line x1="44" y1="190" x2="316" y2="190" stroke="var(--muted)"/><line x1="44" y1="30" x2="44" y2="190" stroke="var(--muted)"/>'
+            '<line x1="44" y1="190" x2="316" y2="190" stroke="var(--muted)" stroke-width="1.4"/><line x1="44" y1="30" x2="44" y2="190" stroke="var(--muted)" stroke-width="1.4"/>'
             '<text x="38" y="36" text-anchor="end" font-size="12.5" fill="var(--muted)">high</text>'
             '<text x="38" y="190" text-anchor="end" font-size="12.5" fill="var(--muted)">low</text>'
-            '<text x="180" y="210" text-anchor="middle" font-size="12.5" fill="var(--muted)">time</text>'
+            '<text x="316" y="206" text-anchor="end" font-size="12.5" fill="var(--muted)">time</text>'
             '<text x="44" y="18" font-size="12.5" fill="var(--muted)">level of TetR, from two starts</text>'
-            '<polyline id="lt-a0" fill="none" stroke="var(--accent)" stroke-width="2.2"/>'
-            '<polyline id="lt-a1" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-dasharray="5 4"/>'
-            '<text id="lt-out" x="180" y="226" text-anchor="middle" font-size="13" fill="var(--ink)"></text></svg>')
+            '<polyline id="lt-a0" fill="none" stroke="var(--ink)" stroke-width="2.2"/>'
+            '<polyline id="lt-a1" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-dasharray="5 4"/>'
+            '<g id="lt-glyph"></g>'
+            '<text id="lt-out" x="100" y="226" text-anchor="start" font-size="14" font-weight="600" fill="var(--ink)"></text></svg>')
     js = '''<script>
 (function () {
   var P = ''' + json.dumps(TOY) + ''';
@@ -125,10 +124,10 @@ def loop_toy():
   function draw() {
     var k = 0;
     [].forEach.call(ring.querySelectorAll('.arr'), function (g) {
-      var s = signs[+g.dataset.i], lines = g.querySelectorAll('line');
-      lines[1].setAttribute('marker-end', s > 0 ? 'url(#lt-a)' : 'url(#lt-i)');
-      lines[1].setAttribute('stroke', s > 0 ? 'var(--accent)' : 'var(--accent2)');
-      g.querySelectorAll('circle')[1].setAttribute('stroke', s > 0 ? 'var(--accent)' : 'var(--accent2)');
+      var s = signs[+g.dataset.i], shaft = g.querySelector('.shaft');
+      shaft.setAttribute('marker-end', s > 0 ? 'url(#fx-arrow)' : 'url(#fx-bar)');
+      shaft.setAttribute('stroke', s > 0 ? 'var(--accent-text)' : 'var(--accent2-text)');
+      g.querySelector('.badge').setAttribute('stroke', s > 0 ? 'var(--accent-text)' : 'var(--accent2-text)');
       g.querySelector('text').setAttribute('fill', s > 0 ? 'var(--accent-text)' : 'var(--accent2-text)');
       g.querySelector('text').textContent = s > 0 ? '+' : '\\u2212';
       g.setAttribute('aria-pressed', String(s < 0));
@@ -142,7 +141,10 @@ def loop_toy():
     });
     var swing = function (t) { var l = late(t); return Math.max.apply(null, l) - Math.min.apply(null, l); };
     var still = swing(runs[0]) < 0.01 && swing(runs[1]) < 0.01;
-    document.getElementById('lt-out').textContent = still ? (Math.abs(runs[0][runs[0].length - 1] - runs[1][runs[1].length - 1]) > 1 ? 'two starts, two end states: a switch' : 'both settle: one state') : 'keeps swinging: a clock';
+    // the verdict in the table's words, with the tile's trace glyph before it
+    var word = still ? (Math.abs(runs[0][runs[0].length - 1] - runs[1][runs[1].length - 1]) > 1 ? 'holds two states' : 'settles') : 'keeps time';
+    document.getElementById('lt-out').textContent = word + {'holds two states': ': a switch', 'settles': ': one state', 'keeps time': ': a clock'}[word];
+    document.getElementById('lt-glyph').innerHTML = '<path d="' + ElCard.tracePath(word, 60, 212) + '" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round"/>';
   }
   function flip(g) { var i = +g.dataset.i; signs[i] = -signs[i]; draw(); }
   ring.addEventListener('click', function (e) { var g = e.target.closest('.arr'); if (g) flip(g); });
@@ -170,17 +172,19 @@ def cruise_curves(hill, ki):
 def cruise():
     a, b = cruise_curves(0.6, 0.0), cruise_curves(0.6, 0.06)
     assert abs(b[-1] - 60) < 0.05 and 57 < a[-1] < 59.5
+    # authored 330 wide; the script widens the viewBox to the container so the text renders at its authored size
     plot = (f'<svg id="cc-plot" viewBox="0 0 330 240" role="img" aria-label="Speed over time on a hill, with a simple controller and with a running total" {SVG}>'
-            '<line x1="56" y1="186" x2="312" y2="186" stroke="var(--muted)"/><line x1="56" y1="34" x2="56" y2="186" stroke="var(--muted)"/>'
-            '<line x1="56" y1="55.7" x2="312" y2="55.7" stroke="var(--muted)" stroke-dasharray="4 4"/>'
+            '<line id="cc-x" x1="56" y1="186" x2="312" y2="186" stroke="var(--muted)" stroke-width="1.4"/><line x1="56" y1="34" x2="56" y2="186" stroke="var(--muted)" stroke-width="1.4"/>'
+            '<line id="cc-set" x1="56" y1="55.7" x2="312" y2="55.7" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="4 4"/>'
             '<text x="48" y="59.7" text-anchor="end" font-size="12.5" fill="var(--muted)">60</text>'
             '<text x="48" y="190" text-anchor="end" font-size="12.5" fill="var(--muted)">48</text>'
             '<text x="48" y="24" text-anchor="end" font-size="12.5" fill="var(--muted)">speed</text>'
-            '<text x="184" y="208" text-anchor="middle" font-size="12.5" fill="var(--muted)">80 seconds; the hill starts at 10</text>'
-            '<polyline id="cc-s" fill="none" stroke="var(--muted)" stroke-width="1.8"/>'
-            '<polyline id="cc-t" fill="none" stroke="var(--accent)" stroke-width="2.4"/>'
-            '<text id="cc-ls" x="312" y="150" text-anchor="end" font-size="13" fill="var(--muted)"></text>'
-            '<text id="cc-lt" x="312" y="46" text-anchor="end" font-size="13" fill="var(--accent-text)">running total: back to 60</text></svg>')
+            '<text id="cc-xl" x="184" y="208" text-anchor="middle" font-size="12.5" fill="var(--muted)">80 seconds; the hill starts at 10</text>'
+            '<polyline id="cc-s" fill="none" stroke="var(--muted)" stroke-width="1.4"/>'
+            '<polyline id="cc-t" fill="none" stroke="var(--ink)" stroke-width="2.2"/>'
+            '<text id="cc-ls" x="312" y="150" text-anchor="end" font-size="14" fill="var(--muted)"></text>'
+            '<g id="cc-glyph"></g>'
+            '<text id="cc-lt" x="312" y="46" text-anchor="end" font-size="14" font-weight="600" fill="var(--ink)">running total: back to 60</text></svg>')
     ctl = ('<div class="ctl"><label for="cc-hill">hill</label>'
            '<input id="cc-hill" type="range" min="0" max="1.4" step="0.1" value="0.6" aria-label="steepness of the hill">'
            '<output id="cc-o" for="cc-hill"></output></div>')
@@ -196,12 +200,21 @@ def cruise():
     }
     return tr;
   }
+  var svg = document.getElementById('cc-plot'), W = 0;
   var Y = function (v) { return 186 - 152 * (v - 48) / 14; };   // 48 at the axis, 60 at the dashed line (y = 55.7)
+  function glyph() {
+    // the tile's trace for 'adapts exactly', 8 px before the label
+    var t = document.getElementById('cc-lt');
+    document.getElementById('cc-glyph').innerHTML = '<path d="' + ElCard.tracePath('adapts exactly', W - 18 - t.getComputedTextLength() - 40, 34) +
+      '" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round"/>';
+  }
   function draw() {
-    var hill = +document.getElementById('cc-hill').value;
+    glyph();
+    var el = document.getElementById('cc-hill'), hill = +el.value;
+    el.style.setProperty('--p', ((el.value - el.min) / (el.max - el.min) * 100).toFixed(1) + '%');
     document.getElementById('cc-o').textContent = hill.toFixed(1);
     var s = curve(hill, 0), t = curve(hill, 0.06);
-    var pts = function (tr) { return tr.map(function (v, i) { return (56 + 256 * i / (tr.length - 1)).toFixed(1) + ',' + Math.max(34, Math.min(186, Y(v))).toFixed(1); }).join(' '); };
+    var pts = function (tr) { return tr.map(function (v, i) { return (56 + (W - 74) * i / (tr.length - 1)).toFixed(1) + ',' + Math.max(34, Math.min(186, Y(v))).toFixed(1); }).join(' '); };
     document.getElementById('cc-s').setAttribute('points', pts(s));
     document.getElementById('cc-t').setAttribute('points', pts(t));
     var end = s[s.length - 1];
@@ -209,11 +222,22 @@ def cruise():
     ls.textContent = 'simple: settles at ' + end.toFixed(1);
     ls.setAttribute('y', Math.min(178, Y(end) + 18).toFixed(1));
   }
+  // the plot fills its container: the viewBox widens, the axes and right-anchored labels follow, the text keeps its size
+  function size() {
+    var w = Math.round(svg.parentNode.getBoundingClientRect().width) || 330;
+    if (w === W) return;
+    W = w; svg.setAttribute('viewBox', '0 0 ' + W + ' 240');
+    ['cc-x', 'cc-set'].forEach(function (id) { document.getElementById(id).setAttribute('x2', W - 18); });
+    document.getElementById('cc-xl').setAttribute('x', ((56 + W - 18) / 2).toFixed(1));
+    ['cc-ls', 'cc-lt'].forEach(function (id) { document.getElementById(id).setAttribute('x', W - 18); });
+    draw();
+  }
   document.getElementById('cc-hill').addEventListener('input', draw);
-  draw();
+  if ('ResizeObserver' in window) new ResizeObserver(size).observe(svg.parentNode); else addEventListener('resize', size);
+  size();
 })();
 </script>'''
-    return f'<div class="solo interactive">{plot}{ctl}</div>' + js
+    return f'<div class="interactive">{plot}{ctl}</div>' + js
 
 
 # ---------------------------------------------------------------- coastline
@@ -246,7 +270,7 @@ def coast():
     assert all(L[a] < L[b] for a, b in ((2, 4), (4, 8), (8, 16), (16, 32), (32, 64))), L
     plot = (f'<svg id="co-plot" viewBox="0 0 330 200" role="img" aria-label="A coastline measured with a ruler of adjustable length" {SVG}>'
             '<polyline points="' + ' '.join(f'{x:.1f},{y:.1f}' for x, y in pts) + '" fill="none" stroke="var(--muted)" stroke-width="1.1"/>'
-            '<polyline id="co-r" fill="none" stroke="var(--accent)" stroke-width="2.2"/><g id="co-d"></g>'
+            '<polyline id="co-r" fill="none" stroke="var(--muted)" stroke-width="2.2"/><g id="co-d"></g>'
             '<text id="co-out" x="165" y="190" text-anchor="middle" font-size="13.5" fill="var(--ink)"></text></svg>')
     ctl = ('<div class="ctl"><label for="co-n">ruler</label>'
            '<input id="co-n" type="range" min="1" max="6" step="1" value="2" aria-label="number of ruler steps, from 2 to 64">'
@@ -258,9 +282,10 @@ def coast():
   function len(s) { var L = 0; for (var i = 1; i < s.length; i++) L += Math.hypot(s[i][0] - s[i - 1][0], s[i][1] - s[i - 1][1]); return L; }
   var base = len(sel(2));
   function draw() {
-    var n = Math.pow(2, +document.getElementById('co-n').value), s = sel(n);
+    var el = document.getElementById('co-n'), n = Math.pow(2, +el.value), s = sel(n);
+    el.style.setProperty('--p', ((el.value - el.min) / (el.max - el.min) * 100).toFixed(1) + '%');
     document.getElementById('co-r').setAttribute('points', s.map(function (p) { return p[0] + ',' + p[1]; }).join(' '));
-    document.getElementById('co-d').innerHTML = s.map(function (p) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="2.6" fill="var(--accent)"/>'; }).join('');
+    document.getElementById('co-d').innerHTML = s.map(function (p) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="2.6" fill="var(--muted)"/>'; }).join('');
     document.getElementById('co-o').textContent = n + ' steps';
     document.getElementById('co-out').textContent = 'measured length: ' + (len(s) / base).toFixed(2) + ' \\u00d7 the 2-step length';
   }
@@ -274,27 +299,25 @@ def coast():
 # ---------------------------------------------------------------- amplify and brake, with a slider
 def gauges():
     def panel(pid, title, label, arrow):
-        nodes = ''.join(f'<circle cx="{x}" cy="62" r="18" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.25"/>'
-                        f'<text x="{x}" y="67" text-anchor="middle" font-size="14" fill="var(--ink)">{t}</text>' for x, t in ((95, 'A'), (235, 'B')))
-        col = 'var(--accent)' if arrow == 'ga-a' else 'var(--accent2)'
-        mk = f'<line x1="116" y1="62" x2="209" y2="62" stroke="{col}" stroke-width="2.2" marker-end="url(#{arrow})"/>'
-        bars = ''.join(f'<rect x="{x - 14}" y="96" width="28" height="70" rx="4" fill="none" stroke="var(--muted)"/>'
-                       f'<rect id="{pid}-{t}" x="{x - 14}" y="131" width="28" height="35" rx="4" fill="var(--accent)"/>'
-                       f'<text x="{x}" y="186" text-anchor="middle" font-size="12.5" fill="var(--muted)">level of {t}</text>' for x, t in ((95, 'A'), (235, 'B')))
+        nodes = ''.join(f'<circle cx="{x}" cy="62" r="22" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
+                        f'<text x="{x}" y="67" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">{t}</text>' for x, t in ((95, 'A'), (235, 'B')))
+        col = 'var(--accent-text)' if arrow == 'fx-arrow' else 'var(--accent2-text)'
+        mk = f'<line x1="120" y1="62" x2="210" y2="62" stroke="{col}" stroke-width="2.2" marker-end="url(#{arrow})"/>'
+        bars = ''.join(f'<rect x="{x - 14}" y="96" width="28" height="70" rx="4" fill="none" stroke="var(--muted)" stroke-width="1.4"/>'
+                       f'<rect id="{pid}-{t}" x="{x - 14}" y="131" width="28" height="35" rx="4" fill="var(--muted)"/>' for x, t in ((95, 'A'), (235, 'B')))
         return (f'<svg viewBox="0 0 330 222" role="img" aria-label="{title}: {label}" {SVG}>'
-                '<defs><marker id="ga-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker>'
-                '<marker id="ga-i" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M8 0V10" stroke="var(--accent2)" stroke-width="2.4"/></marker></defs>'
                 f'<text x="165" y="22" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">{title}</text>{mk}{nodes}{bars}'
                 f'<text x="165" y="212" text-anchor="middle" font-size="14" fill="var(--ink)">{label}</text></svg>')
-    a = panel('gp', 'amplify (+)', 'more A, more B', 'ga-a')
-    b = panel('gm', f'brake ({MINUS})', 'more A, less B', 'ga-i')
+    a = panel('gp', 'amplify (+)', 'more A, more B', 'fx-arrow')
+    b = panel('gm', f'brake ({MINUS})', 'more A, less B', 'fx-bar')
     ctl = ('<div class="ctl"><label for="ga-s">level of A</label>'
            '<input id="ga-s" type="range" min="0" max="1" step="0.05" value="0.5" aria-label="level of A"><output id="ga-o" for="ga-s"></output></div>')
     js = '''<script>
 (function () {
   function bar(id, f) { var r = document.getElementById(id), h = 4 + 62 * f; r.setAttribute('height', h.toFixed(1)); r.setAttribute('y', (166 - h).toFixed(1)); }
   function draw() {
-    var a = +document.getElementById('ga-s').value;
+    var el = document.getElementById('ga-s'), a = +el.value;
+    el.style.setProperty('--p', ((el.value - el.min) / (el.max - el.min) * 100).toFixed(1) + '%');
     document.getElementById('ga-o').textContent = Math.round(a * 100) + '%';
     bar('gp-A', a); bar('gm-A', a);
     bar('gp-B', a); bar('gm-B', 1 - a);
@@ -312,22 +335,20 @@ def funnel(stages):
     rows = ''.join(f'<button type="button" class="f-row" data-i="{i}" aria-pressed="{str(i == 0).lower()}">'
                    f'<span class="f-n">{c:,}</span><span class="f-bar"><span style="width:{max(2, 100 * c / tot):.1f}%"></span></span>'
                    f'<span class="f-t">{t}</span></button>' for i, (c, tot, t, _, _) in enumerate(stages))
-    data = [{'what': w, 'why': y} for _, _, _, w, y in stages]
+    # every panel is in the page, stacked in one grid cell; a click shows one, so the figure never changes height
+    on = ' class="on"'
+    panels = ''.join(f'<div{on if i == 0 else ""}><p><b>What.</b> {w}</p><p><b>Why.</b> {y}</p></div>' for i, (_, _, _, w, y) in enumerate(stages))
     js = '''<script>
 (function () {
-  var D = ''' + json.dumps(data) + ''';
   var root = document.getElementById('funnel'), panel = document.getElementById('f-panel');
   function show(i) {
     [].forEach.call(root.querySelectorAll('.f-row'), function (b) { b.setAttribute('aria-pressed', String(+b.dataset.i === i)); });
-    panel.innerHTML = '<p><b>What.</b> ' + D[i].what + '</p><p><b>Why.</b> ' + D[i].why + '</p>';
+    [].forEach.call(panel.children, function (d, j) { d.classList.toggle('on', j === i); });
   }
   root.addEventListener('click', function (e) { var b = e.target.closest('.f-row'); if (b) show(+b.dataset.i); });
-  show(0);
 })();
 </script>'''
-    first = stages[0]
-    return (f'<div class="interactive" id="funnel">{rows}<div class="f-panel" id="f-panel" aria-live="polite">'
-            f'<p><b>What.</b> {first[3]}</p><p><b>Why.</b> {first[4]}</p></div></div>' + js)
+    return (f'<div class="interactive" id="funnel">{rows}<div class="f-panel" id="f-panel" aria-live="polite">{panels}</div></div>' + js)
 
 
 # ---------------------------------------------------------------- explore the census
@@ -344,26 +365,30 @@ def explorer(rows, picks):
     var hit = R.filter(function (r) { return !term || r.name.toLowerCase().indexOf(term) >= 0 || r.id.indexOf(term) >= 0; });
     var cap = term ? 12 : 6;
     count.textContent = hit.length + ' of ' + R.length + ' models' + (hit.length > cap ? ', first ' + cap + ' shown' : '');
-    list.innerHTML = hit.slice(0, cap).map(function (r) {
-      var bits = r.element === null ? [r.loops] : [r.loops, r.pattern, 'element ' + r.element];
-      bits.push(r.does);
-      return '<li><span class="ex-name">' + esc(r.name) + '</span><span class="ex-meta">' + bits.map(function (b) { return '<span>' + esc(b) + '</span>'; }).join('') + '</span></li>';
-    }).join('');
+    [].forEach.call(document.querySelectorAll('.pick'), function (b) { b.setAttribute('aria-pressed', String(b.dataset.q.toLowerCase() === term)); });
+    list.innerHTML = hit.length ? hit.slice(0, cap).map(function (r) {
+      // the sign pattern carries its colours (lavender amplifies, amber brakes); every other bit stays escaped text
+      var pat = esc(r.pattern).replace(/\\+/g, '<span class="sp">+</span>').replace(/\\u2212/g, '<span class="sn">\\u2212</span>');
+      var bits = r.element === null ? [esc(r.loops)] : [esc(r.loops), pat, 'element ' + esc(r.element)];
+      bits.push(esc(r.does));
+      return '<li><span class="ex-name">' + esc(r.name) + '</span><span class="ex-meta">' + bits.map(function (b) { return '<span>' + b + '</span>'; }).join('') + '</span></li>';
+    }).join('') : '<li class="ex-meta">no model named that; try a shorter word or a chip above</li>';
   }
   q.addEventListener('input', draw);
   document.getElementById('ex-picks').addEventListener('click', function (e) { var b = e.target.closest('.pick'); if (b) { q.value = b.dataset.q; draw(); } });
   draw();
 })();
 </script>'''
-    return ('<div class="interactive explorer"><label class="ex-lab" for="ex-q">search 613 models by name</label>'
-            '<input id="ex-q" type="search" placeholder="for example: clock, toggle, calcium" autocomplete="off">'
+    return ('<div class="interactive explorer"><label class="ex-lab" for="ex-q">search by name</label>'
+            '<input id="ex-q" type="search" autocomplete="off">'
             f'<div class="ex-picks" id="ex-picks">{chips}</div><p class="ex-count" id="ex-count" aria-live="polite"></p>'
             '<ol class="ex-list" id="ex-list"></ol></div>' + js)
 
 
 # ---------------------------------------------------------------- science is a loop
 def science_loop(stages):
-    """stages: list of (name, this_round, next_round). Drawn as a loop of nodes; click one to read it."""
+    """stages: list of (name, this_round, next_round). Drawn as a loop of nodes; click one to read what comes next.
+    this_round is kept for the record; the sections above already tell it, so the panel shows only the next round."""
     n = len(stages)
     cx, cy, r = 165, 150, 96
     pts = [(cx + r * math.sin(2 * math.pi * i / n), cy - r * math.cos(2 * math.pi * i / n)) for i in range(n)]
@@ -372,35 +397,33 @@ def science_loop(stages):
         a0, a1 = 360 * i / n + 16, 360 * (i + 1) / n - 16
         x0, y0 = cx + r * math.sin(math.radians(a0)), cy - r * math.cos(math.radians(a0))
         x1, y1 = cx + r * math.sin(math.radians(a1)), cy - r * math.cos(math.radians(a1))
-        arcs += f'<path d="M{x0:.1f} {y0:.1f}A{r} {r} 0 0 1 {x1:.1f} {y1:.1f}" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#sl-a)"/>'
+        arcs += f'<path d="M{x0:.1f} {y0:.1f}A{r} {r} 0 0 1 {x1:.1f} {y1:.1f}" fill="none" stroke="var(--muted)" stroke-width="2.2" marker-end="url(#fx-arrow-muted)"/>'
     nodes = ''.join(f'<g class="sl-node" data-i="{i}" role="button" tabindex="0" aria-label="{name}">'
-                    f'<circle cx="{x:.1f}" cy="{y:.1f}" r="27" fill="var(--paper)" stroke="var(--accent)" stroke-width="1.6"/>'
+                    f'<circle cx="{x:.1f}" cy="{y:.1f}" r="24" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
                     f'<text x="{x:.1f}" y="{y + 4.5:.1f}" text-anchor="middle" font-size="12.5" fill="var(--ink)">{name}</text></g>'
                     for i, ((x, y), (name, _, _)) in enumerate(zip(pts, stages)))
     svg = (f'<svg id="sl" viewBox="0 0 330 300" role="img" aria-label="The research loop: {", ".join(s[0] for s in stages)}, and back again" {SVG}>'
-           '<defs><marker id="sl-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>'
-           f'{arcs}{nodes}<text x="{cx}" y="{cy + 5}" text-anchor="middle" font-size="14" font-weight="600" fill="var(--accent-text)">round two</text></svg>')
-    data = [{'name': a, 'now': b, 'next': c} for a, b, c in stages]
+           f'{arcs}{nodes}<text x="{cx}" y="{cy + 5}" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">round two</text></svg>')
+    # every panel is in the page, stacked in one grid cell; a click shows one, so the figure never changes height
+    on = ' class="on"'
+    panels = ''.join(f'<div{on if i == 0 else ""}><p class="label">{name}</p><p><b>Next.</b> {nxt}</p></div>' for i, (name, _, nxt) in enumerate(stages))
     js = '''<script>
 (function () {
-  var D = ''' + json.dumps(data) + ''';
   var svg = document.getElementById('sl'), panel = document.getElementById('sl-panel');
   function show(i) {
     [].forEach.call(svg.querySelectorAll('.sl-node'), function (g) {
       var on = +g.dataset.i === i, c = g.querySelector('circle');
-      c.setAttribute('fill', on ? 'var(--accent-soft)' : 'var(--paper)'); c.setAttribute('stroke-width', on ? '2.6' : '1.6');
+      c.setAttribute('fill', on ? 'var(--accent-tint)' : 'var(--paper)'); c.setAttribute('stroke', on ? 'var(--ink)' : 'var(--muted)'); c.setAttribute('stroke-width', on ? '2' : '1.4');
       g.setAttribute('aria-pressed', String(on));
     });
-    panel.innerHTML = '<p class="label">' + D[i].name + '</p><p><b>This round.</b> ' + D[i].now + '</p><p><b>Next round.</b> ' + D[i].next + '</p>';
+    [].forEach.call(panel.children, function (d, j) { d.classList.toggle('on', j === i); });
   }
   svg.addEventListener('click', function (e) { var g = e.target.closest('.sl-node'); if (g) show(+g.dataset.i); });
   svg.addEventListener('keydown', function (e) { var g = e.target.closest('.sl-node'); if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); show(+g.dataset.i); } });
   show(0);
 })();
 </script>'''
-    first = stages[0]
-    return (f'<div class="interactive sl-wrap"><div class="solo">{svg}</div><div class="f-panel" id="sl-panel" aria-live="polite">'
-            f'<p class="label">{first[0]}</p><p><b>This round.</b> {first[1]}</p><p><b>Next round.</b> {first[2]}</p></div></div>' + js)
+    return (f'<div class="interactive sl-wrap"><div class="solo">{svg}</div><div class="f-panel" id="sl-panel" aria-live="polite">{panels}</div></div>' + js)
 
 
 # ---------------------------------------------------------------- hero: the loop table as a 3D spiral
@@ -458,7 +481,7 @@ def hero_frame(elements, W, phi):
     proj = [hero_proj(p, phi, S, cx, top) for p in line]
     for (x0, y0, d0, z0), (x1, y1, d1, z1) in zip(proj, proj[1:]):
         f = ((z0 + z1) / 2 / rmax + 1) / 2
-        items.append(((d0 + d1) / 2, f'<line x1="{x0:.1f}" y1="{y0:.1f}" x2="{x1:.1f}" y2="{y1:.1f}" stroke="var(--accent)" '
+        items.append(((d0 + d1) / 2, f'<line x1="{x0:.1f}" y1="{y0:.1f}" x2="{x1:.1f}" y2="{y1:.1f}" stroke="var(--muted)" '
                                      f'stroke-width="{(1.1 + 1.4 * f) * S / 200:.2f}" stroke-linecap="round" opacity="{0.22 + 0.73 * f:.2f}"/>'))
     for el, p in zip(elements, pts):
         x, y, d, z = hero_proj(p, phi, S, cx, top)
@@ -472,10 +495,12 @@ def hero_frame(elements, W, phi):
             body = f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rr:.1f}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2" opacity="{0.5 + 0.5 * f:.2f}"/>'
         items.append((d + 0.001, body))
     items.sort(key=lambda t: t[0])
-    labels = ''.join(f'<text x="{W - 4:.1f}" y="{top + (HERO["apex"] if n == 0 else HERO["hs"] * (n - 0.5)) * math.cos(HERO["tilt"]) * S + 4:.1f}" '
-                     f'text-anchor="end" fill="var(--muted)">{lab}</text>'
+    # each row label sits 21 px beyond its own turn, at the turn's mid height; the hint sits in the stage's bottom-left
+    labels = ''.join(f'<text x="{cx + (HERO["r0"] + HERO["b"] * (n + 0.1)) * S + 21:.1f}" y="{top + (HERO["apex"] if n == 0 else HERO["hs"] * (n - 0.5)) * math.cos(HERO["tilt"]) * S + 4:.1f}" '
+                     f'fill="var(--muted)">{lab}</text>'
                      for n, lab in ((0, 'no loop'), (1, '1 loop'), (2, '2 loops'), (3, '3 loops')))
-    return ''.join(b for _, b in items) + labels, height
+    hint = f'<text x="0" y="{height - 8:.1f}" fill="var(--muted)">drag to turn, tap an element</text>'
+    return ''.join(b for _, b in items) + labels + hint, height
 
 
 TRACE = {
@@ -494,22 +519,42 @@ TRACE = {
 }
 
 
+def trace_path(word, dx, dy):
+    """A trace's path data moved by (dx, dy), for drawing it inside a larger figure. The traces use absolute commands
+    only, so each number shifts by dx (x), dy (y) or, after H and V, by the one that applies."""
+    import re
+
+    def shift(m):
+        c, nums = m.group(1), [float(n) for n in m.group(2).split()]
+        out = [n + dx if c == 'H' else n + dy if c == 'V' else n + (dy if i % 2 else dx) for i, n in enumerate(nums)]
+        return c + ' '.join(f'{n:g}' for n in out)
+    return re.sub(r'([MLQTCHV])([^MLQTCHV]*)', shift, TRACE[word])
+
+
 def trace_svg(word, dashed=False):
     dash = ' stroke-dasharray="3 2.5"' if dashed else ''
+    # ink for an observed trace, muted for a predicted (dashed) one: the trace says what, not which sign
     return (f'<svg width="32" height="16" viewBox="0 0 32 16" aria-hidden="true"><path d="{TRACE.get(word, "M1 8H31")}" fill="none" '
-            f'stroke="var(--accent-text)" stroke-width="1.7" stroke-linecap="round"{dash}/></svg>')
+            f'stroke="{"var(--muted)" if dashed else "var(--ink)"}" stroke-width="1.4" stroke-linecap="round"{dash}/></svg>')
 
 
 def element_card_js():
     """One card renderer shared by the hero and the table: what an element does, drawn.
-    window.ElCard.html(el) builds the card; window.ElCard.place(card, x, y, r, w, h) puts it beside a point."""
+    window.ElCard.html(el) builds the card; window.ElCard.place(card, x, y, r, w, h, avoid, ry) puts it beside a point
+    (r clears it sideways, ry below and above; ry defaults to r)."""
     return """<script>
 window.ElCard = (function () {
   var TRACE = """ + json.dumps(TRACE) + """;
   function esc(x) { return String(x).replace(/[&<>"]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]; }); }
   function trace(w, dashed) {
     return '<svg width="32" height="16" viewBox="0 0 32 16" aria-hidden="true"><path d="' + (TRACE[w] || 'M1 8H31') +
-      '" fill="none" stroke="var(--accent-text)" stroke-width="1.7" stroke-linecap="round"' + (dashed ? ' stroke-dasharray="3 2.5"' : '') + '/></svg>';
+      '" fill="none" stroke="' + (dashed ? 'var(--muted)' : 'var(--ink)') + '" stroke-width="1.4" stroke-linecap="round"' + (dashed ? ' stroke-dasharray="3 2.5"' : '') + '/></svg>';
+  }
+  // a trace's path data moved by (dx, dy), to draw it inside a larger figure (the traces use absolute commands only)
+  function tracePath(w, dx, dy) {
+    return (TRACE[w] || 'M1 8H31').replace(/([MLQTCHV])([^MLQTCHV]*)/g, function (_, c, nums) {
+      return c + nums.trim().split(/[\\s,]+/).map(function (n, i) { n = +n; return +(c === 'H' ? n + dx : c === 'V' ? n + dy : n + (i % 2 ? dy : dx)).toFixed(1); }).join(' ');
+    });
   }
   // the circuit in the field's notation: X, Y, Z are genes or proteins; -> activates, -| represses;
   // a square marked with an integral sign keeps a running total. Each loop pairs the hub X with one partner.
@@ -517,20 +562,16 @@ window.ElCard = (function () {
     var mx = (x1 + x2) / 2, my = (y1 + y2) / 2, dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L;
     var cx = mx + nx * bend, cy = my + ny * bend;
     function toward(px, py, qx, qy, d) { var ux = qx - px, uy = qy - py, l = Math.hypot(ux, uy); return [px + ux / l * d, py + uy / l * d]; }
-    var s = toward(x1, y1, cx, cy, 12.5), e = toward(x2, y2, cx, cy, 13.5), tx = e[0] - cx, ty = e[1] - cy, tl = Math.hypot(tx, ty);
-    tx /= tl; ty /= tl;
-    var head = kind === 'act'
-      ? '<path d="M' + (e[0] + tx * 1.5).toFixed(1) + ' ' + (e[1] + ty * 1.5).toFixed(1) + 'L' + (e[0] - tx * 6 - ty * 3.6).toFixed(1) + ' ' + (e[1] - ty * 6 + tx * 3.6).toFixed(1) +
-        'L' + (e[0] - tx * 6 + ty * 3.6).toFixed(1) + ' ' + (e[1] - ty * 6 - tx * 3.6).toFixed(1) + 'z" fill="var(--accent-text)"/>'
-      : '<path d="M' + (e[0] - ty * 5.5).toFixed(1) + ' ' + (e[1] + tx * 5.5).toFixed(1) + 'L' + (e[0] + ty * 5.5).toFixed(1) + ' ' + (e[1] - tx * 5.5).toFixed(1) + '" stroke="var(--accent2-text)" stroke-width="2"/>';
+    var s = toward(x1, y1, cx, cy, 12.5), e = toward(x2, y2, cx, cy, 13.5);
+    // the head is the page's shared marker: fx-arrow activates, fx-bar represses
     return '<path d="M' + s[0].toFixed(1) + ' ' + s[1].toFixed(1) + 'Q' + cx.toFixed(1) + ' ' + cy.toFixed(1) + ' ' + e[0].toFixed(1) + ' ' + e[1].toFixed(1) +
-      '" fill="none" stroke="' + (kind === 'act' ? 'var(--accent-text)' : 'var(--accent2-text)') + '" stroke-width="1.4"/>' + head;
+      '" fill="none" stroke="' + (kind === 'act' ? 'var(--accent-text)' : 'var(--accent2-text)') + '" stroke-width="1.4" marker-end="url(#' + (kind === 'act' ? 'fx-arrow' : 'fx-bar') + ')"/>';
   }
   function node(x, y, lab, integ) {
     return integ
-      ? '<rect x="' + (x - 11) + '" y="' + (y - 11) + '" width="22" height="22" rx="4" fill="var(--accent-tint)" stroke="var(--ink)" stroke-width="1.3"/>' +
+      ? '<rect x="' + (x - 11) + '" y="' + (y - 11) + '" width="22" height="22" rx="4" fill="var(--accent-tint)" stroke="var(--muted)" stroke-width="1.4"/>' +
         '<text x="' + x + '" y="' + (y + 5) + '" text-anchor="middle" font-size="16" font-style="italic" style="font-family: var(--serif)" fill="var(--ink)">∫</text>'
-      : '<circle cx="' + x + '" cy="' + y + '" r="11" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.3"/>' +
+      : '<circle cx="' + x + '" cy="' + y + '" r="11" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>' +
         '<text x="' + x + '" y="' + (y + 4.5) + '" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">' + lab + '</text>';
   }
   function glyph(n, k, j) {
@@ -568,15 +609,21 @@ window.ElCard = (function () {
     if (e.candidates.length) h += '<p class="ec-h">candidates in this census, loose reading</p><p class="ec-l">' + e.candidates.map(esc).join('; ') + '</p>';
     return h;
   }
-  // beside the point, never over it: right, left, below, above, whichever fits first
-  function place(card, x, y, r, w, h) {
+  // beside the point, never over it: right, left, below, above; among the spots that fit, the one covering the fewest of
+  // the rects in avoid. On a phone the card is a fixed sheet at the bottom, or at the top when the point is in the lower half.
+  function place(card, x, y, r, w, h, avoid, ry) {
+    ry = ry || r;
+    if (matchMedia('(max-width: 700px)').matches) { card.classList.toggle('up', card.parentNode.getBoundingClientRect().top + y > innerHeight / 2); card.style.left = card.style.top = ''; return; }
     var cw = card.offsetWidth, ch = card.offsetHeight;
     var cx = function (v) { return Math.min(Math.max(0, v), Math.max(0, w - cw)); }, cy = function (v) { return Math.min(Math.max(0, v), Math.max(0, h - ch)); };
-    var spots = [[x + r, cy(y - ch / 2)], [x - r - cw, cy(y - ch / 2)], [cx(x - cw / 2), y + r], [cx(x - cw / 2), y - r - ch]];
-    var fit = spots.filter(function (s) { return s[0] >= 0 && s[0] + cw <= w && s[1] >= 0 && s[1] + ch <= h; })[0] || [cx(x - cw / 2), y + r];
+    var spots = [[x + r, cy(y - ch / 2)], [x - r - cw, cy(y - ch / 2)], [cx(x - cw / 2), y + ry], [cx(x - cw / 2), y - ry - ch]];
+    var fitsFn = function (s) { return s[0] >= 0 && s[0] + cw <= w && s[1] >= 0 && s[1] + ch <= h; };
+    var fits = spots.filter(fitsFn); if (!fits.length) fits = [[cx(x - cw / 2), y + ry]];
+    var hits = function (s) { return (avoid || []).filter(function (a) { return a[0] < s[0] + cw && a[0] + a[2] > s[0] && a[1] < s[1] + ch && a[1] + a[3] > s[1]; }).length; };
+    var fit = fits.reduce(function (b, s) { return hits(s) < hits(b) ? s : b; }, fits[0]);
     card.style.left = fit[0] + 'px'; card.style.top = fit[1] + 'px';
   }
-  return {html: html, place: place, trace: trace};
+  return {html: html, place: place, trace: trace, tracePath: tracePath, TRACE: TRACE};
 })();
 </script>"""
 
@@ -598,7 +645,7 @@ def periodic_table(elements, found_top, found_rest):
                              f'<span class="pt-tr" aria-hidden="true">{trace_svg(e["traces"][-1] if e["predicted"] and e["status"] != "found" else e["traces"][0], e["predicted"] and e["status"] != "found")}</span>'
                              f'<span class="pt-c">{bottom}</span></button>')
         head = 'no loop' if n == 0 else f'{n} loop{"s" if n > 1 else ""}'
-        blocks.append(f'<div class="pt-block"><p class="pt-h"><b>{head}</b> <span>{n + 1} &#215; {n + 1} = {(n + 1) ** 2}</span></p>'
+        blocks.append(f'<div class="pt-block"><p class="pt-h"><b>{head}</b></p>'
                       f'<div class="pt-grid" style="grid-template-columns: repeat({n + 1}, var(--tile))">{"".join(tiles)}</div></div>')
     s8 = by[(2, 1, 0)]
     keybox = ('<div class="pt-keybox"><p class="pt-h"><b>how to read a tile</b></p><div class="pt-anat">'
@@ -615,30 +662,40 @@ def periodic_table(elements, found_top, found_rest):
     js = """<script>
 (function () {
   var E = """ + data + """, box = document.getElementById('ptable'), card = document.getElementById('pt-card'), pinned = -1;
+  function unpress() { [].forEach.call(box.querySelectorAll('.pt-el[data-i]'), function (x) { x.setAttribute('aria-pressed', 'false'); }); }
   function show(b) {
     if (!b) { card.classList.remove('on'); return; }
     card.innerHTML = ElCard.html(E[+b.dataset.i]);
     card.classList.add('on');
+    card.classList.toggle('pinned', pinned >= 0);   // a hover card peeks; a pinned card reads in full
+    // the card may use the page margins beside the figure (room) and lands where it covers the fewest tiles
     var br = box.getBoundingClientRect(), r = b.getBoundingClientRect();
-    ElCard.place(card, r.left - br.left + r.width / 2, r.top - br.top + r.height / 2, r.width / 2 + 8, box.clientWidth, Math.max(box.clientHeight, card.offsetHeight));
+    var vw = document.documentElement.clientWidth, room = Math.max(0, Math.min(br.left, vw - br.right) - 8);
+    var avoid = [].map.call(box.querySelectorAll('.pt-el[data-i]'), function (t) { var q = t.getBoundingClientRect(); return [q.left - br.left + room, q.top - br.top, q.width, q.height]; });
+    ElCard.place(card, r.left - br.left + r.width / 2 + room, r.top - br.top + r.height / 2, r.width / 2 + 8, box.clientWidth + 2 * room, Math.max(box.clientHeight, card.offsetHeight), avoid, r.height / 2 + 8);
+    if (card.style.left) card.style.left = (parseFloat(card.style.left) - room) + 'px';
   }
-  box.addEventListener('pointerover', function (ev) { var b = ev.target.closest('.pt-el'); if (b && pinned < 0) show(b); });
+  // only real tiles (data-i) open a card; the sample tile in the key is a picture
+  box.addEventListener('pointerover', function (ev) { var b = ev.target.closest('.pt-el[data-i]'); if (b && pinned < 0) show(b); });
   box.addEventListener('pointerleave', function () { if (pinned < 0) show(null); });
-  box.addEventListener('focusin', function (ev) { var b = ev.target.closest('.pt-el'); if (b) show(b); });
+  box.addEventListener('focusin', function (ev) { var b = ev.target.closest('.pt-el[data-i]'); if (b) show(b); });
   box.addEventListener('click', function (ev) {
-    var b = ev.target.closest('.pt-el');
-    if (!b) { pinned = -1; show(null); return; }
+    if (card.contains(ev.target)) return;
+    var b = ev.target.closest('.pt-el[data-i]');
+    if (!b) { pinned = -1; show(null); unpress(); return; }
     pinned = pinned === +b.dataset.i ? -1 : +b.dataset.i; show(pinned < 0 ? null : b);
-    [].forEach.call(box.querySelectorAll('.pt-el'), function (x) { x.setAttribute('aria-pressed', String(+x.dataset.i === pinned)); });
+    [].forEach.call(box.querySelectorAll('.pt-el[data-i]'), function (x) { x.setAttribute('aria-pressed', String(+x.dataset.i === pinned)); });
   });
-  box.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') { pinned = -1; show(null); } });
+  // Escape anywhere, or a click outside the figure, lets a pinned card go
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && pinned >= 0) { pinned = -1; show(null); unpress(); } });
+  document.addEventListener('click', function (ev) { if (pinned >= 0 && !box.contains(ev.target)) { pinned = -1; show(null); unpress(); } });
 })();
 </script>"""
     tile = lambda cls: f'<span class="pt-key pt-{cls}" aria-hidden="true"></span>'
-    key = (f'<div class="pt-legend"><span>{tile("found")}found in curated models, with how many</span>'
+    key = (f'<div class="pt-legend"><span>{tile("found")}found, with how many</span>'
            f'<span>{tile("known")}known from experiments, not in this census</span>'
-           f'<span>{tile("candidate")}candidates from a looser running-total reading</span>'
-           f'<span>{tile("blank")}not found yet: a prediction</span></div>')
+           f'<span>{tile("candidate")}candidates from a looser reading</span>'
+           f'<span>{tile("blank")}not found yet</span></div>')
     axes = ('<p class="pt-axes"><span>across: loops that brake (k)</span><span>down: loops through a running total (j)</span></p>')
     gaps = (f'<p class="pt-gap"><span><b>{found_top[0]} of {found_top[1]}</b> found with no running total (top rows)</span>'
             f'<span><b>{found_rest[0]} of {found_rest[1]}</b> found with one or more (rows below)</span></p>')
@@ -653,13 +710,13 @@ def hero(elements):
     pts, line = hero_world(elements)
     data = {'el': elements, 'pts': pts, 'line': line, 'H': HERO}
     svg = (f'<svg id="hero-svg" viewBox="0 0 {W} {height:.0f}" role="img" tabindex="0" '
-           f'aria-label="The loop table drawn as a spiral cone, one turn per row of 4, 9 and 16 elements, with the elements that curated models occupy filled and sized by count" '
-           f'font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12"><g id="hero-g">{body}</g></svg>')
+           f'aria-label="The loop table drawn as a spiral cone, one turn per row of 4, 9 and 16 elements, with the elements that curated models occupy filled and sized by count. Drag to turn, tap an element to read it" '
+           f'font-size="12"><g id="hero-g">{body}</g></svg>')
     js = """<script>
 (function () {
   var D = """ + json.dumps(data, separators=(',', ':')) + """;
   var H = D.H, svg = document.getElementById('hero-svg'), g = document.getElementById('hero-g'), card = document.getElementById('hero-card');
-  var W = 0, S, cx, top, height, phi = H.phi, hover = -1, pinned = -1, drag = null, vel = 0, speed = 0, seen = true, last = null, lastMove = 0;
+  var W = 0, S, cx, top, height, phi = H.phi, hover = -1, pinned = -1, drag = null, vel = 0, speed = 0, seen = true, last = null, lastMove = 0, turned = false;
   var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var e = H.tilt, ce = Math.cos(e), se = Math.sin(e), rmax = H.r0 + H.b * 2.92, P = [];
   function layout() {
@@ -675,7 +732,7 @@ def hero(elements):
     for (i = 0; i + 1 < q.length; i++) {
       var f = ((q[i][3] + q[i + 1][3]) / 2 / rmax + 1) / 2;
       items.push([(q[i][2] + q[i + 1][2]) / 2, '<line x1="' + q[i][0].toFixed(1) + '" y1="' + q[i][1].toFixed(1) + '" x2="' + q[i + 1][0].toFixed(1) + '" y2="' + q[i + 1][1].toFixed(1) +
-        '" stroke="var(--accent)" stroke-width="' + ((1.1 + 1.4 * f) * S / 200).toFixed(2) + '" stroke-linecap="round" opacity="' + (0.22 + 0.73 * f).toFixed(2) + '"/>']);
+        '" stroke="var(--muted)" stroke-width="' + ((1.1 + 1.4 * f) * S / 200).toFixed(2) + '" stroke-linecap="round" opacity="' + (0.22 + 0.73 * f).toFixed(2) + '"/>']);
     }
     P = [];
     D.pts.forEach(function (p, j) {
@@ -687,22 +744,24 @@ def hero(elements):
         rr = Math.max(2.6, 3.2 * S / 200) * k;
         body = '<circle cx="' + c[0].toFixed(1) + '" cy="' + c[1].toFixed(1) + '" r="' + rr.toFixed(1) + '" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2" opacity="' + (0.5 + 0.5 * f).toFixed(2) + '"/>';
       }
-      if (j === on) body += '<circle cx="' + c[0].toFixed(1) + '" cy="' + c[1].toFixed(1) + '" r="' + (rr + 4).toFixed(1) + '" fill="none" stroke="var(--ink)" stroke-width="1.6"/>';
+      if (j === on) body += '<circle cx="' + c[0].toFixed(1) + '" cy="' + c[1].toFixed(1) + '" r="' + (rr + 4).toFixed(1) + '" fill="none" stroke="var(--ink)" stroke-width="2"/>';
       P.push([c[0], c[1], rr]);
       items.push([c[2] + 0.001, body]);
     });
     items.sort(function (a, b) { return a[0] - b[0]; });
+    // each row label sits 21 px beyond its own turn; the hint stays until the reader turns the cone or opens a card
     var labs = [[0, 'no loop'], [1, '1 loop'], [2, '2 loops'], [3, '3 loops']].map(function (r) {
       var y = top + (r[0] ? H.hs * (r[0] - 0.5) : H.apex) * ce * S + 4;
-      return '<text x="' + (W - 4).toFixed(1) + '" y="' + y.toFixed(1) + '" text-anchor="end" fill="var(--muted)">' + r[1] + '</text>';
+      return '<text x="' + (cx + (H.r0 + H.b * (r[0] + 0.1)) * S + 21).toFixed(1) + '" y="' + y.toFixed(1) + '" fill="var(--muted)">' + r[1] + '</text>';
     }).join('');
+    if (!turned) labs += '<text x="0" y="' + (height - 8).toFixed(1) + '" fill="var(--muted)">drag to turn, tap an element</text>';
     g.innerHTML = items.map(function (t) { return t[1]; }).join('') + labs;
     if (on >= 0) placeCard(on);
   }
-  function placeCard(j) { var k = svg.getBoundingClientRect().width / W; ElCard.place(card, P[j][0] * k, P[j][1] * k, P[j][2] * k + 13, svg.clientWidth, svg.clientHeight); }
+  function placeCard(j) { var k = svg.getBoundingClientRect().width / W; ElCard.place(card, P[j][0] * k, P[j][1] * k, P[j][2] * k + 13, svg.clientWidth, Math.max(svg.clientHeight, card.offsetHeight)); }
   function say(j) {
     if (j < 0 || !P[j]) { card.classList.remove('on'); return; }
-    card.innerHTML = ElCard.html(D.el[j]); card.classList.add('on'); placeCard(j);
+    card.innerHTML = ElCard.html(D.el[j]); card.classList.add('on'); card.classList.toggle('pinned', pinned >= 0); placeCard(j);
   }
   function size() {
     var w = Math.round(svg.parentNode.getBoundingClientRect().width);
@@ -711,7 +770,7 @@ def hero(elements):
   }
   function pick(ev) {
     var b = svg.getBoundingClientRect(), x = (ev.clientX - b.left) * W / b.width, y = (ev.clientY - b.top) * W / b.width, best = -1, bd = 1e9;
-    P.forEach(function (p, j) { var d = Math.hypot(p[0] - x, p[1] - y); if (d < Math.max(16, p[2] + 7) && d < bd) { bd = d; best = j; } });
+    P.forEach(function (p, j) { var d = Math.hypot(p[0] - x, p[1] - y); if (d < Math.max(22, p[2] + 7) && d < bd) { bd = d; best = j; } });
     return best;
   }
   // drag turns the cone and lets it coast; a tap on an element pins its card; hovering shows it
@@ -720,23 +779,26 @@ def hero(elements):
   svg.addEventListener('pointermove', function (ev) {
     if (drag !== null) {
       var dx = ev.clientX - drag, dt = Math.max(1, ev.timeStamp - lastMove);
-      if (Math.abs(ev.clientX - downX) > 4) moved = true;
+      if (Math.abs(ev.clientX - downX) > 4) { moved = true; turned = true; }
       phi += dx * 0.5; vel = dx * 0.5 / dt; drag = ev.clientX; lastMove = ev.timeStamp; draw(); return;
     }
     if (pinned >= 0) return;
-    var j = pick(ev); if (j !== hover) { hover = j; draw(); say(j); }
+    var j = pick(ev); if (j !== hover) { hover = j; svg.classList.toggle('over', j >= 0); draw(); say(j); }
   });
   svg.addEventListener('pointerup', function (ev) {
     drag = null;
-    if (!moved) { var j = pick(ev); pinned = j === pinned ? -1 : j; hover = -1; draw(); say(pinned); vel = 0; }
+    if (!moved) { var j = pick(ev); pinned = j === pinned ? -1 : j; hover = -1; if (pinned >= 0) turned = true; draw(); say(pinned); vel = 0; }
   });
-  svg.addEventListener('pointerleave', function () { if (drag === null && pinned < 0) { hover = -1; draw(); say(-1); } });
+  svg.addEventListener('pointerleave', function () { svg.classList.remove('over'); if (drag === null && pinned < 0) { hover = -1; draw(); say(-1); } });
   svg.addEventListener('keydown', function (ev) {
-    if (ev.key === 'ArrowLeft' || ev.key === 'ArrowRight') { ev.preventDefault(); phi += ev.key === 'ArrowLeft' ? -12 : 12; draw(); }
+    if (ev.key === 'ArrowLeft' || ev.key === 'ArrowRight') { ev.preventDefault(); turned = true; phi += ev.key === 'ArrowLeft' ? -12 : 12; draw(); }
     else if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') { ev.preventDefault(); pinned = ((pinned < 0 ? (ev.key === 'ArrowDown' ? -1 : 0) : pinned) + (ev.key === 'ArrowDown' ? 1 : D.el.length - 1)) % D.el.length; draw(); say(pinned); }
     else if (ev.key === 'Escape') { pinned = -1; hover = -1; draw(); say(-1); }
   });
-  svg.addEventListener('blur', function () { pinned = -1; hover = -1; draw(); say(-1); });
+  // a pinned card is part of the stage: focus leaving the stage (a tap outside, Tab away) lets it go, a tap on the card keeps it
+  var stage = svg.parentNode;
+  stage.addEventListener('focusout', function (ev) { if (!ev.relatedTarget || !stage.contains(ev.relatedTarget)) { pinned = -1; hover = -1; draw(); say(-1); } });
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && pinned >= 0) { pinned = -1; hover = -1; draw(); say(-1); } });
   if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { seen = es[0].isIntersecting; }).observe(svg);
   function tick(t) {
     var dt = last === null ? 0 : Math.min(50, t - last); last = t;
@@ -755,7 +817,7 @@ def hero(elements):
 </script>"""
     orb = '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="7" fill="url(#fx-orb)"/></svg>'
     ring = '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/></svg>'
-    return (f'<figure class="hero" id="hero"><div class="hero-stage">{svg}<div class="hero-card ecard" id="hero-card" role="status" aria-live="polite"></div></div>'
-            f'<figcaption class="hero-key"><b>The table this post tests, one turn per row of 4, 9 and 16 kinds of circuit</b>'
-            f'<span class="key">{orb}found in real circuits, sized by how many</span>'
-            f'<span class="key">{ring}not found yet</span><span class="key">drag to turn, tap an element to read it</span></figcaption></figure>' + js)
+    return (f'<figure class="hero" id="hero"><div class="hero-stage">{svg}<div class="hero-card ecard" id="hero-card" role="status" aria-live="polite" tabindex="-1"></div></div>'
+            f'<figcaption class="hero-key"><span class="key">one turn per row: 4, 9 and 16 elements</span>'
+            f'<span class="key">{orb}found, sized by how many</span>'
+            f'<span class="key">{ring}not found yet</span></figcaption></figure>' + js)

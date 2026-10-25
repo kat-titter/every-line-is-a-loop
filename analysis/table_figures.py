@@ -10,7 +10,7 @@ order by m = k - j from -l to +l. Element zero, the counter, has no loop and com
 import math
 
 MINUS = '&#8722;'
-SVG = 'font-family="Inter, Helvetica, Arial, sans-serif"'
+SVG = ''   # the stylesheet gives every svg the page's sans
 BLOCKS = 'spdf'
 LOOPS = {0: 'no loop', 1: 'one loop', 2: 'two loops', 3: 'three loops'}
 
@@ -73,16 +73,13 @@ def open_arc(cx, cy, r=9, sw=1.8):
 
 # ---------------------------------------------------------------- two kinds of loop
 def fig_loop_kinds():
-    defs = ('<defs><marker id="lka" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">'
-            '<path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker><marker id="lki" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">'
-            '<path d="M8 0V10" stroke="var(--accent)" stroke-width="2.4"/></marker></defs>')
-
     def panel(title, second, trace, label):
-        nodes = ''.join(f'<circle cx="{x}" cy="78" r="20" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.25"/>'
+        nodes = ''.join(f'<circle cx="{x}" cy="78" r="20" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
                         f'<text x="{x}" y="83" text-anchor="middle" fill="var(--ink)">{t}</text>' for x, t in ((115, 'X'), (215, 'Y')))
-        arcs = (f'<line x1="137" y1="70" x2="191" y2="70" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#lka)"/>'
-                f'<line x1="193" y1="88" x2="139" y2="88" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#{second})"/>')
-        return (f'<svg viewBox="0 0 330 250" role="img" aria-label="{title}: {label}" {SVG} font-size="14">{defs}'
+        back = 'var(--accent2-text)' if second == 'fx-bar' else 'var(--accent-text)'
+        arcs = (f'<line x1="137" y1="70" x2="191" y2="70" stroke="var(--accent-text)" stroke-width="2.2" marker-end="url(#fx-arrow)"/>'
+                f'<line x1="193" y1="88" x2="139" y2="88" stroke="{back}" stroke-width="2.2" marker-end="url(#{second})"/>')
+        return (f'<svg viewBox="0 0 330 250" role="img" aria-label="{title}: {label}" {SVG} font-size="14">'
                 f'<text x="165" y="26" text-anchor="middle" font-weight="600" fill="var(--ink)">{title}</text>{arcs}{nodes}'
                 f'<line x1="50" y1="170" x2="280" y2="170" stroke="var(--rule)"/>{trace}'
                 f'<text x="165" y="238" text-anchor="middle" fill="var(--muted)">{label}</text></svg>')
@@ -90,8 +87,8 @@ def fig_loop_kinds():
               '<path d="M50 172C100 174 120 200 170 204L280 204" fill="none" stroke="var(--ink)" stroke-width="1.6"/>')
     pts = ' '.join(f'{50 + i * 2.3:.1f},{170 - 30 * math.sin(i * 2.3 / 230 * 2 * math.pi * 3.2) * (1 if i else 0):.1f}' for i in range(101))
     clock = f'<polyline points="{pts}" fill="none" stroke="var(--ink)" stroke-width="1.6"/>'
-    a = panel('Amplifying loop', 'lka', switch, 'a nudge grows: a switch')
-    b = panel('Braking loop', 'lki', clock, 'a nudge is undone: a clock, given delay')
+    a = panel('Amplifying loop', 'fx-arrow', switch, 'a nudge grows: a switch')
+    b = panel('Braking loop', 'fx-bar', clock, 'a nudge is undone: a clock, given delay')
     return f'<div class="pair"><div>{a}</div><div>{b}</div></div>'
 
 
@@ -122,7 +119,7 @@ def fig_orbitals():
     rows = ''
     for l, y in zip(range(4), (62, 102, 142, 182)):
         n = 2 * l + 1
-        x0 = 165 - (n * 28 - 4) / 2 + 18
+        x0 = 165 - (n * 28 - 4) / 2 + 10
         rows += f'<text x="{x0 - 16}" y="{y + 17}" text-anchor="end" fill="var(--ink)" font-weight="600">{BLOCKS[l]}</text>'
         for q in range(n):
             rows += (f'<rect x="{x0 + q * 28:.1f}" y="{y}" width="24" height="24" rx="4" fill="{"var(--tint)" if l % 2 else "var(--paper)"}" '
@@ -131,7 +128,7 @@ def fig_orbitals():
             f'<text x="165" y="26" text-anchor="middle" font-weight="600" fill="var(--ink)">Shell 4 of an atom</text>{rows}'
             f'<text x="165" y="236" text-anchor="middle" fill="var(--muted)">1 + 3 + 5 + 7 = 16 orbitals</text></svg>')
     cells = ''
-    x0, y0, c = 117, 72, 36
+    x0, y0, c = 104, 72, 36
     for k in range(4):
         cells += f'<text x="{x0 + k * c + c / 2}" y="{y0 - 8}" text-anchor="middle" fill="var(--muted)">{k}</text>'
     for j in range(4):
@@ -224,12 +221,12 @@ def _shape(x, y, l, s, fill):
     return f'<path d="M{x:.1f} {y - 1.2 * s:.1f}L{x + 1.15 * s:.1f} {y + 0.9 * s:.1f}L{x - 1.15 * s:.1f} {y + 0.9 * s:.1f}z" fill="{fill}"/>'
 
 
-def _legend(y, s):
-    out = []
-    for l in range(4):
-        x = 165 - 96 + l * 64
-        out.append(_shape(x, y - 4, l, s, 'var(--ink)') + f'<text x="{x + 10}" y="{y + 1}" fill="var(--muted)">{BLOCKS[l]}</text>')
-    return ''.join(out)
+def _rays(cx, cy, r0, b, turns, extra):
+    """The two family rays, drawn as the page's dashed muted guides from the centre out past the last turn
+    (to r0 + b (turns + th / 360) + extra, so each ray ends the same distance beyond its last member)."""
+    return ''.join(f'<line x1="{cx}" y1="{cy}" x2="{_pt(cx, cy, r0 + b * (turns + th / 360) + extra, th)[0]:.1f}" '
+                   f'y2="{_pt(cx, cy, r0 + b * (turns + th / 360) + extra, th)[1]:.1f}" '
+                   'stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="4 3"/>' for th in (TH0, TH1))
 
 
 def _spiral(cx, cy, r0, b, turns_from, turns_to, th_start=TH0):
@@ -239,36 +236,35 @@ def _spiral(cx, cy, r0, b, turns_from, turns_to, th_start=TH0):
         r = r0 + b * (t - turns_from * 360) / 360
         pts.append('%.1f,%.1f' % _pt(cx, cy, r, t % 360))
         t += 4
-    return f'<polyline points="{" ".join(pts)}" fill="none" stroke="var(--accent)" stroke-width="1.4"/>'
+    return f'<polyline points="{" ".join(pts)}" fill="none" stroke="var(--muted)" stroke-width="1.4"/>'
 
 
 def fig_spirals():
     periods = [2, 8, 8, 18, 18, 32, 32]
     g1 = ['H', 'Li', 'Na', 'K', 'Rb', 'Cs', 'Fr']
     g18 = ['He', 'Ne', 'Ar', 'Kr', 'Xe', 'Rn', 'Og']
-    cx, cy, r0, b = 165, 170, 22, 15
-    chem = [_spiral(cx, cy, r0, b, 0, 6)]
+    # centres sit right of 165 so that the drawn shapes, which run from 30 to 330 degrees, centre on 165
+    cx, cy, r0, b = 170, 170, 22, 15
+    chem = [_rays(cx, cy, r0, b, 6, 8), _spiral(cx, cy, r0, b, 0, 6)]
     for p, L in enumerate(periods):
         blocks = (['s'] * 2 if L == 2 else ['s'] * 2 + ['f'] * (14 if L == 32 else 0) + ['d'] * (10 if L >= 18 else 0) + ['p'] * 6)
         for i, blk in enumerate(blocks):
             th = TH0 + (TH1 - TH0) * i / (L - 1)
             x, y = _pt(cx, cy, r0 + b * (p + th / 360), th)
-            fam = i == 0 or i == L - 1
-            chem.append(_shape(x, y, BLOCKS.index(blk), 3.6 if fam else 2.9, 'var(--accent)' if fam else 'var(--ink)'))
+            chem.append(_shape(x, y, BLOCKS.index(blk), 2.9, 'var(--ink)'))
     for th, lab, anchor in ((TH0, 'group 1', 'start'), (TH1, 'noble gases', 'end')):
         x, y = _pt(cx, cy, r0 + b * (6 + th / 360) + 16, th)
-        chem.append(f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" fill="var(--accent-text)">{lab}</text>')
+        chem.append(f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" fill="var(--muted)">{lab}</text>')
     for p, (a, z) in enumerate(zip(g1, g18)):
         if p == 0:
             for th, t, anchor, dx in ((TH0, a, 'start', 7), (TH1, z, 'end', -7)):
                 x, y = _pt(cx, cy, r0 + b * (p + th / 360), th)
                 chem.append(f'<text x="{x + dx:.1f}" y="{y + 15:.1f}" text-anchor="{anchor}" font-size="12" fill="var(--muted)">{t}</text>')
-    chem_svg = (f'<svg viewBox="0 0 330 350" role="img" aria-label="The chemical periodic table as a spiral: 118 elements, one turn per period; group 1 and the noble gases line up on two rays" {SVG} font-size="13">'
-                f'<text x="165" y="22" text-anchor="middle" font-weight="600" font-size="14" fill="var(--ink)">Chemistry</text>{"".join(chem)}{_legend(334, 4)}</svg>')
+    chem_svg = (f'<svg viewBox="0 0 330 330" role="img" aria-label="The chemical periodic table as a spiral: 118 elements, one turn per period; group 1 and the noble gases line up on two rays" {SVG} font-size="13">'
+                f'<text x="165" y="22" text-anchor="middle" font-weight="600" font-size="14" fill="var(--ink)">Chemistry</text>{"".join(chem)}</svg>')
 
-    cx, cy, r0, b = 165, 172, 40, 32
-    bio = [f'<line x1="{cx}" y1="{cy}" x2="{_pt(cx, cy, r0 + b * TH0 / 360, TH0)[0]:.1f}" y2="{_pt(cx, cy, r0 + b * TH0 / 360, TH0)[1]:.1f}" stroke="var(--accent)" stroke-width="1.4"/>',
-           _spiral(cx, cy, r0, b, 0, 2)]
+    cx, cy, r0, b = 174, 172, 40, 32
+    bio = [_rays(cx, cy, r0, b, 2, 22), _spiral(cx, cy, r0, b, 0, 2)]
     bio.append(open_arc(cx, cy, 7, 1.8))
     bio.append(f'<text x="{cx}" y="{cy + 24}" text-anchor="middle" font-size="12" fill="var(--muted)">0</text>')
     for nu in (1, 2, 3):
@@ -278,16 +274,20 @@ def fig_spirals():
             th = TH0 + (TH1 - TH0) * i / (L - 1)
             r = r0 + b * (nu - 1 + th / 360)
             x, y = _pt(cx, cy, r, th)
-            fam = i == 0 or i == L - 1
-            bio.append(_shape(x, y, max(e[1], e[2]), 5.2, 'var(--accent)' if fam else 'var(--ink)'))
+            bio.append(_shape(x, y, max(e[1], e[2]), 5.2, 'var(--ink)'))
             lx, ly = _pt(cx, cy, r + 17, th)
-            bio.append(f'<text x="{lx:.1f}" y="{ly + 4:.1f}" text-anchor="middle" font-size="11.5" fill="var(--muted)">{NUMBER[e]}</text>')
+            if i in (0, L - 1):   # the first and last of a row sit on a ray: their numbers step 12 px off it, toward the row
+                a = math.radians(th)
+                lx, ly = lx + (12 if i == 0 else -12) * math.cos(a), ly + (12 if i == 0 else -12) * math.sin(a)
+            bio.append(f'<text x="{lx:.1f}" y="{ly + 4:.1f}" text-anchor="middle" font-size="12.5" fill="var(--muted)">{NUMBER[e]}</text>')
     for th, lab, anchor in ((TH0, 'memories', 'start'), (TH1, 'clocks', 'end')):
         x, y = _pt(cx, cy, r0 + b * (2 + th / 360) + 30, th)
-        bio.append(f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" fill="var(--accent-text)">{lab}</text>')
-    bio_svg = (f'<svg viewBox="0 0 330 350" role="img" aria-label="The loop table as a spiral: element zero at the centre, then one turn per row of 4, 9 and 16 elements; memories and clocks line up on two rays" {SVG} font-size="13">'
-               f'<text x="165" y="22" text-anchor="middle" font-weight="600" font-size="14" fill="var(--ink)">The loop table</text>{"".join(bio)}{_legend(334, 4)}</svg>')
-    return f'<div class="pair"><div>{chem_svg}</div><div>{bio_svg}</div></div>'
+        bio.append(f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" fill="var(--muted)">{lab}</text>')
+    bio_svg = (f'<svg viewBox="0 0 330 330" role="img" aria-label="The loop table as a spiral: element zero at the centre, then one turn per row of 4, 9 and 16 elements; memories and clocks line up on two rays" {SVG} font-size="13">'
+               f'<text x="165" y="22" text-anchor="middle" font-weight="600" font-size="14" fill="var(--ink)">The loop table</text>{"".join(bio)}</svg>')
+    # one legend for both spirals: the block shapes, drawn as in the figure
+    legend = ''.join(f'<span><svg width="14" height="14" viewBox="-7 -7 14 14" aria-hidden="true">{_shape(0, 0, l, 5.2, "var(--ink)")}</svg> {BLOCKS[l]}</span>' for l in range(4))
+    return f'<div class="pair"><div>{chem_svg}</div><div>{bio_svg}</div></div><p class="pt-legend">{legend}</p>'
 
 
 def builder_html():
