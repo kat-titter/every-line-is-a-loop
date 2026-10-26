@@ -378,7 +378,7 @@ def fig_switch():
     ctl = ('<div class="ctl"><label for="sw-L">lactose outside</label>'
            f'<input id="sw-L" type="range" min="0" max="150" value="{int(SW["L0"] * 100)}" aria-label="Lactose outside the cell" style="--p: {SW["L0"] / 1.5 * 100:.0f}%">'
            f'<output for="sw-L" id="sw-Lv">{SW["L0"]:.2f}</output></div>')
-    chain = chain_html('two states', 'strong enough', 'food that lasts', brakes=0, fn='remember', trace='holds two states')
+    chain = chain_html('self-feeding', 'two states, if strong enough', 'remember food that lasts', brakes=0, fn='remember', trace='holds two states')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -443,7 +443,7 @@ def fig_clock():
     ctl = ('<div class="ctl"><label for="ck-D">the extra wait</label>'
            f'<input id="ck-D" type="range" min="0" max="{int(CK["Dmax"] * 10)}" value="{int(CK["D"] * 10)}" aria-label="Extra delay before PER:CRY acts, in hours" style="--p: 75%">'
            f'<output for="ck-D" id="ck-Dv">{CK["D"]:.1f} h</output></div>')
-    chain = chain_html('ticking', 'strong and late', 'the day', brakes=1, fn='time', trace='ticks')
+    chain = chain_html('brake', 'ticks, if strong and late', 'keep the day&#8217;s time', brakes=1, fn='time', trace='ticks')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -514,7 +514,7 @@ def fig_adapter():
            f'<input id="ad-L" type="range" min="0" max="{int(AD["Lmax"] * 10)}" value="{int(AD["step"] * 10)}" aria-label="Food outside the cell" style="--p: 50%">'
            f'<output for="ad-L" id="ad-Lv">{AD["step"]:.1f}</output>'
            '<button type="button" class="chip tog" id="ad-leak" aria-pressed="false">let the total leak</button></div>')
-    chain = chain_html('exact return', 'any strength', 'a steady background', brakes=1, integ=True, fn='steer', trace='adapts exactly')
+    chain = chain_html('brake, running total', 'returns exactly, at any strength', 'steer by change, not level', brakes=1, integ=True, fn='steer', trace='adapts exactly')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -569,7 +569,7 @@ def fig_hypo():
            f'<input id="hy-T" type="range" min="0" max="{int(HY["Tmax"] * 10)}" value="{int(HY["T"] * 10)}" aria-label="Length of the input pulse, in hours" style="--p: {HY["T"] / HY["Tmax"] * 100:.0f}%">'
            f'<output for="hy-T" id="hy-Tv">{HY["T"]:.1f} h</output>'
            '<button type="button" class="chip tog" id="hy-x2" aria-pressed="false">twice the height, half the length</button></div>')
-    chain = chain_html('flip on dose', 'enough dose', 'a signal&#8217;s length', brakes=0, integ=True, fn='remember', trace='adds up, commits')
+    chain = chain_html('self-feeding, running total', 'flips once enough adds up', 'judge a signal by its total', brakes=0, integ=True, fn='remember', trace='adds up, commits')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -680,14 +680,14 @@ def fn_icon(kind, size=20, color='var(--ink)'):
             + FN_ICON[kind].replace('{c}', color) + '</svg>')
 
 
-def chain_html(permits, decides, models, brakes=0, integ=False, fn='remember', trace='holds two states'):
-    """The three laws under each circuit: what its sign permits, what its strength decides, what it models."""
-    return ('<div class="chain" aria-label="What it can do, when it happens, what it copies">'
-            f'<span class="ch"><span class="ch-k">can do</span><span class="ch-v">{shape_glyph(brakes, integ)}{permits}</span></span>'
+def chain_html(shape, behaviour, function, brakes=0, integ=False, fn='remember', trace='holds two states'):
+    """The chain under each circuit: the loop's shape, the behaviour its strength lets through, the function it serves."""
+    return ('<div class="chain" aria-label="Shape, behaviour, function">'
+            f'<span class="ch"><span class="ch-k">shape</span><span class="ch-v">{shape_glyph(brakes, integ)}{shape}</span></span>'
             '<span class="ch-a" aria-hidden="true">&#8594;</span>'
-            f'<span class="ch"><span class="ch-k">happens when</span><span class="ch-v">{glyph(trace)}{decides}</span></span>'
+            f'<span class="ch"><span class="ch-k">behaviour</span><span class="ch-v">{glyph(trace)}{behaviour}</span></span>'
             '<span class="ch-a" aria-hidden="true">&#8594;</span>'
-            f'<span class="ch"><span class="ch-k">copies</span><span class="ch-v">{fn_icon(fn)}{models}</span></span></div>')
+            f'<span class="ch"><span class="ch-k">function</span><span class="ch-v">{fn_icon(fn)}{function}</span></span></div>')
 
 
 def defs_html():
@@ -720,7 +720,7 @@ def fig_frame():
     a += mono(115, 57, MINUS, anchor='middle', fill='var(--accent2-text)', size=14)
     a += label(115, 118, '&#10003; can tick', size=12)
     a += label(115, 136, '&#10007; cannot hold two states', size=12)
-    a += mono(115, lab_y, 'what it can do', anchor='middle', fill='var(--ink)', size=12)
+    a += mono(115, lab_y, 'shape: what it can do', anchor='middle', fill='var(--ink)', size=12)
 
     def trace(word, x, y, sx, sy, color='var(--ink)'):
         # scale the glyph's path numerically (absolute commands only), so measured boxes match what is drawn
@@ -742,7 +742,7 @@ def fig_frame():
     b += trace('rings, then settles', 16, 34, 6.2, 2.4, 'var(--muted)')
     b += mono(16, 92, 'strong enough: ticks', fill='var(--ink)')
     b += trace('ticks', 16, 104, 6.2, 2.4)
-    b += mono(115, lab_y, 'whether it does', anchor='middle', fill='var(--ink)', size=12)
+    b += mono(115, lab_y, 'behaviour: whether it does', anchor='middle', fill='var(--ink)', size=12)
     # the loop models: the wave rides the day and rises before dawn
     x0, x1, day = 16, 214, 66.0
     c = ''
@@ -759,11 +759,68 @@ def fig_frame():
     c += f'<circle cx="{pk:.1f}" cy="41" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.4"/>'
     c += mono(pk, 146, 'peaks before dawn', anchor='middle', fill='var(--ink)')
     c += f'<line x1="{pk:.1f}" y1="47" x2="{pk:.1f}" y2="134" stroke="var(--accent-text)" stroke-width="1.4" stroke-dasharray="2 3"/>'
-    c += mono(115, lab_y, 'what it copies', anchor='middle', fill='var(--ink)', size=12)
-    return ('<div class="trio-f">' + p(a, 'What it can do: a ring of three switch-offs is a brake, so it can tick and cannot hold two states')
-            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(b, 'Whether it does: too weak and the ring settles, strong enough and it ticks')
-            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(c, 'What it copies: the rhythm follows the day and peaks before dawn, a copy rather than a reaction') + '</div>'
+    c += mono(115, lab_y, 'function: what it copies', anchor='middle', fill='var(--ink)', size=12)
+    return ('<div class="trio-f">' + p(a, 'Shape, what it can do: a ring of three switch-offs is a brake, so it can tick and cannot hold two states')
+            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(b, 'Behaviour, whether it does: too weak and the ring settles, strong enough and it ticks')
+            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(c, 'Function, what it copies: the rhythm follows the day and peaks before dawn, a copy rather than a reaction') + '</div>'
             + '<div class="keyrow"><span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H30" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-bar)"/></svg>switches off, a brake</span></div>')
+
+
+# ================================================================ a switch-off is a half-twist (the sign as a shape)
+def band_svg(half_twists, w=230, h=176):
+    """A paper ring with 0, 1 or 2 half-twists, drawn as depth-sorted quads. A ring with two sides is painted lime on
+    one side and gray on the other; the Moebius strip has one side, so it takes one colour (rose, a brake)."""
+    R, hw, tilt, N = 64.0, 19.0, math.radians(57), 144
+    cx, cy = w / 2, 84
+    rose = half_twists % 2 == 1
+    light = (0.0, -0.45, 0.89)
+
+    def P(u, v):
+        th = half_twists * u / 2
+        r = R + v * math.sin(th)
+        x, y, z = r * math.cos(u), r * math.sin(u), v * math.cos(th)
+        return x, y * math.cos(tilt) - z * math.sin(tilt), y * math.sin(tilt) + z * math.cos(tilt)
+
+    quads = []
+    for i in range(N):
+        u0, u1 = 2 * math.pi * i / N, 2 * math.pi * (i + 1) / N
+        a, b, c, d = P(u0, -hw), P(u1, -hw), P(u1, hw), P(u0, hw)
+        e1 = [b[k] - a[k] for k in range(3)]
+        e2 = [d[k] - a[k] for k in range(3)]
+        n = (e1[1] * e2[2] - e1[2] * e2[1], e1[2] * e2[0] - e1[0] * e2[2], e1[0] * e2[1] - e1[1] * e2[0])
+        ln = math.sqrt(sum(t * t for t in n)) or 1.0
+        n = tuple(t / ln for t in n)
+        front = n[2] > 0                       # the camera looks down the z axis
+        shade = abs(sum(n[k] * light[k] for k in range(3)))
+        quads.append(((a[2] + b[2] + c[2] + d[2]) / 4, (a, b, c, d), front, shade))
+    quads.sort(key=lambda q: q[0])
+    out = ''
+    for _, pts4, front, shade in quads:
+        base = 'var(--accent2)' if rose else ('var(--accent)' if front else 'color-mix(in srgb, var(--muted) 42%, var(--paper))')
+        edge_c = 'var(--accent2-text)' if rose else ('var(--accent-text)' if front else 'var(--muted)')
+        dark = int(round(16 * (1 - shade)))
+        fill = f'color-mix(in srgb, {base} {100 - dark}%, #000)'
+        sx = lambda q: f'{cx + q[0]:.1f},{cy - q[1]:.1f}'
+        out += (f'<polygon points="{" ".join(sx(q) for q in pts4)}" style="fill: {fill}; stroke: {fill}" stroke-width="0.9" stroke-linejoin="round"/>'
+                f'<path d="M{sx(pts4[0])}L{sx(pts4[1])}M{sx(pts4[2])}L{sx(pts4[3])}" stroke="{edge_c}" stroke-width="1.2" fill="none"/>')
+    return out
+
+
+def fig_bands():
+    w, h = 230, 176
+    cells = [(0, '0 switch-offs', '+ two sides', 'var(--accent-text)'),
+             (1, '1 switch-off', MINUS + ' one side', 'var(--accent2-text)'),
+             (2, '2 switch-offs', '+ two sides', 'var(--accent-text)')]
+    aria = {0: 'A plain ring: lime outside, gray inside, two sides, like a self-feeding loop',
+            1: 'A Moebius strip: one colour all round, one side, like a brake',
+            2: 'A ring with two half-twists: two sides again, as two switch-offs make a self-feeding loop'}
+    panes = []
+    for k, top, bottom, col in cells:
+        inner = mono(w / 2, 18, top, anchor='middle', fill='var(--ink)') + band_svg(k, w, h)
+        inner += mono(w / 2, h - 12, bottom, anchor='middle', fill=col, size=12)
+        panes.append(f'<div>{pane(inner, w, h, aria[k])}</div>')
+    gap = '<div class="trio-a" aria-hidden="true"></div>'
+    return '<div class="trio-f">' + gap.join(panes) + '</div>'
 
 
 # ================================================================ three diseases, one algebra
@@ -1057,7 +1114,7 @@ def script():
 
 
 # ================================================================ injection
-BLOCKS = {'defs': defs_html, 'frame': fig_frame,
+BLOCKS = {'defs': defs_html, 'frame': fig_frame, 'bands': fig_bands,
           'hypo': lambda: fig_hypo()[0], 'hypo-ctl': lambda: fig_hypo()[1],
           'switch': lambda: fig_switch()[0], 'switch-ctl': lambda: fig_switch()[1],
           'clock': lambda: fig_clock()[0], 'clock-ctl': lambda: fig_clock()[1],
