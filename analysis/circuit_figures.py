@@ -823,6 +823,41 @@ def fig_bands():
     return '<div class="trio-f">' + gap.join(panes) + '</div>'
 
 
+# ================================================================ chemistry's chain: shell, reaction, use
+def atom_svg(name, sym, shells, w=230, h=262, rows=()):
+    """A Bohr picture of one atom (inner shells hollow, the outer shell filled) over its shape, behaviour, function."""
+    cx, cy, r0, dr = w / 2, 92, 16, 14
+    s = mono(cx, 16, name, anchor='middle', fill='var(--ink)')
+    s += f'<circle cx="{cx}" cy="{cy}" r="12" style="fill: var(--plate)" stroke="var(--muted)" stroke-width="1"/>'
+    s += label(cx, cy + 4, sym, size=12)
+    for i, n in enumerate(shells):
+        r = r0 + dr * (i + 1)
+        outer = i == len(shells) - 1
+        s += f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="var(--rule)" stroke-width="1.2"/>'
+        for e in range(n):
+            a = -math.pi / 2 + 2 * math.pi * e / n + (0.0 if outer else math.pi / n)
+            x, y = cx + r * math.cos(a), cy + r * math.sin(a)
+            fill = 'var(--ink)' if outer else 'var(--paper)'
+            s += f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.6" style="fill: {fill}" stroke="var(--ink)" stroke-width="1.2"/>'
+    for j, (k, v) in enumerate(rows):
+        y = 172 + 32 * j
+        s += mono(16, y, k, fill='var(--muted)') + label(16, y + 16, v, anchor='start', size=12)
+    return s
+
+
+def fig_chem():
+    w, h = 230, 262
+    atoms = [('sodium', 'Na', (2, 8, 1), ('1 outer electron', 'gives it away, fizzes in water', 'salt, nerve signals')),
+             ('neon', 'Ne', (2, 8), ('outer shell full', 'reacts with nothing', 'glowing signs')),
+             ('carbon', 'C', (2, 4), ('4 of 8 outer places', 'makes four bonds', 'the backbone of life'))]
+    panes = []
+    for name, sym, shells, (a, b, c) in atoms:
+        inner = atom_svg(name, sym, shells, w, h, (('shape', a), ('behaviour', b), ('function', c)))
+        panes.append(f'<div>{pane(inner, w, h, f"{name.capitalize()}: {a}; {b}; used for {c}")}</div>')
+    gap = '<div class="trio-a" aria-hidden="true"></div>'
+    return '<div class="trio-f">' + gap.join(panes) + '</div>'
+
+
 # ================================================================ three diseases, one algebra
 def fig_disease():
     """One panel for three diseases, drawn tall so it reads on a phone: the same amplifying loop held on, the same
@@ -1114,7 +1149,7 @@ def script():
 
 
 # ================================================================ injection
-BLOCKS = {'defs': defs_html, 'frame': fig_frame, 'bands': fig_bands,
+BLOCKS = {'defs': defs_html, 'frame': fig_frame, 'bands': fig_bands, 'chem': fig_chem,
           'hypo': lambda: fig_hypo()[0], 'hypo-ctl': lambda: fig_hypo()[1],
           'switch': lambda: fig_switch()[0], 'switch-ctl': lambda: fig_switch()[1],
           'clock': lambda: fig_clock()[0], 'clock-ctl': lambda: fig_clock()[1],
