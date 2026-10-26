@@ -1,0 +1,3190 @@
+[
+ {
+  "model": "BIOMD0000000009",
+  "pairs": [
+   {
+    "parameter": "r3a_d3",
+    "variable": "P_KKK_KK",
+    "draws": [
+     {
+      "peak": 0.0282,
+      "final": 0.00176
+     },
+     {
+      "peak": 0.0581,
+      "final": 0.00281
+     },
+     {
+      "peak": 0.0284,
+      "final": 0.0014
+     },
+     {
+      "peak": 0.011,
+      "final": 0.00051
+     },
+     {
+      "peak": 0.0421,
+      "final": 0.0035
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "r3a_a3",
+    "variable": "P_KKK_KK",
+    "draws": [
+     {
+      "peak": 0.0588,
+      "final": 0.00355
+     },
+     {
+      "peak": 0.0844,
+      "final": 0.00368
+     },
+     {
+      "peak": 0.049,
+      "final": 0.00246
+     },
+     {
+      "peak": 0.0188,
+      "final": 0.00109
+     },
+     {
+      "peak": 0.0929,
+      "final": 0.00676
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "r5a_a5",
+    "variable": "P_KKK",
+    "draws": [
+     {
+      "peak": 0.012,
+      "final": 6e-05
+     },
+     {
+      "peak": 0.0084,
+      "final": 0.00078
+     },
+     {
+      "peak": 0.0097,
+      "final": 0.00073
+     },
+     {
+      "peak": 0.0044,
+      "final": 7e-05
+     },
+     {
+      "peak": 0.0091,
+      "final": 0.00068
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Huang1996 - Ultrasensitivity in MAPK cascade",
+  "loops": 20,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000026",
+  "pairs": [
+   {
+    "parameter": "h1",
+    "variable": "Mp_MAPKK",
+    "draws": [
+     {
+      "peak": 0.0777,
+      "final": 0.01797
+     },
+     null,
+     null,
+     null,
+     {
+      "peak": 0.0478,
+      "final": 8e-05
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "h1",
+    "variable": "Mpp_MKP3",
+    "draws": [
+     {
+      "peak": 0.0817,
+      "final": 0.01797
+     },
+     null,
+     null,
+     null,
+     {
+      "peak": 0.0725,
+      "final": 8e-05
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "h1",
+    "variable": "Mp_MKP3_dep",
+    "draws": [
+     {
+      "peak": 0.0658,
+      "final": 0.01461
+     },
+     null,
+     null,
+     null,
+     {
+      "peak": 0.052,
+      "final": 0.00025
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Markevich2004_MAPK_orderedElementary",
+  "loops": 21,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000028",
+  "pairs": [
+   {
+    "parameter": "h1",
+    "variable": "MpT_MEK",
+    "draws": [
+     {
+      "peak": 0.0135,
+      "final": 0.01352
+     },
+     null,
+     {
+      "peak": 0.0612,
+      "final": 0.00271
+     },
+     null,
+     {
+      "peak": 0.0656,
+      "final": 0.00515
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "h1",
+    "variable": "Mpp_MKP3",
+    "draws": [
+     {
+      "peak": 0.0098,
+      "final": 0.0098
+     },
+     null,
+     {
+      "peak": 0.1198,
+      "final": 0.00243
+     },
+     null,
+     {
+      "peak": 0.114,
+      "final": 0.00449
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "h_1",
+    "variable": "MpT_MEK",
+    "draws": [
+     {
+      "peak": 0.0151,
+      "final": 0.01514
+     },
+     null,
+     {
+      "peak": 0.055,
+      "final": 0.00289
+     },
+     null,
+     {
+      "peak": 0.0569,
+      "final": 0.00536
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Markevich2004_MAPK_phosphoRandomElementary",
+  "loops": 196,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000048",
+  "pairs": [
+   {
+    "parameter": "v5_k5f",
+    "variable": "RPLCg",
+    "draws": [
+     {
+      "peak": 0.0208,
+      "final": 0.00021
+     },
+     {
+      "peak": 0.0296,
+      "final": 0.00016
+     },
+     {
+      "peak": 0.0528,
+      "final": 0.00043
+     },
+     {
+      "peak": 0.0288,
+      "final": 0.00015
+     },
+     {
+      "peak": 0.0335,
+      "final": 0.00026
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "v13_k13f",
+    "variable": "RSh",
+    "draws": [
+     {
+      "peak": 0.0046,
+      "final": 0.00114
+     },
+     {
+      "peak": 0.0068,
+      "final": 0.00205
+     },
+     {
+      "peak": 0.0093,
+      "final": 0.0011
+     },
+     {
+      "peak": 0.0144,
+      "final": 0.00234
+     },
+     {
+      "peak": 0.0071,
+      "final": 0.00129
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Kholodenko1999 - EGFR signaling",
+  "loops": null,
+  "running_totals": null
+ },
+ {
+  "model": "BIOMD0000000054",
+  "pairs": [
+   {
+    "parameter": "P",
+    "variable": "I",
+    "draws": [
+     {
+      "peak": 0.2074,
+      "final": 0.00025
+     },
+     {
+      "peak": 0.2101,
+      "final": 0.0342
+     },
+     {
+      "peak": 0.1894,
+      "final": 0.00838
+     },
+     {
+      "peak": 0.1871,
+      "final": 0.0158
+     },
+     {
+      "peak": 0.2059,
+      "final": 0.04551
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "J",
+    "variable": "I",
+    "draws": [
+     {
+      "peak": 0.2074,
+      "final": 0.00025
+     },
+     {
+      "peak": 0.2101,
+      "final": 0.0342
+     },
+     {
+      "peak": 0.1894,
+      "final": 0.00838
+     },
+     {
+      "peak": 0.1871,
+      "final": 0.0158
+     },
+     {
+      "peak": 0.2059,
+      "final": 0.04551
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Ataullahkhanov1996_Adenylate",
+  "loops": 3,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000063",
+  "pairs": [
+   {
+    "parameter": "Vgapd_K5AMP",
+    "variable": "ATP",
+    "draws": [
+     {
+      "peak": 0.0004,
+      "final": 0.00037
+     },
+     {
+      "peak": 0.0003,
+      "final": 0.00028
+     },
+     {
+      "peak": 0.0001,
+      "final": 7e-05
+     },
+     {
+      "peak": 0.001,
+      "final": 0.001
+     },
+     {
+      "peak": 0.0002,
+      "final": 0.00023
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "Vgapd_K5NADH",
+    "variable": "ATP",
+    "draws": [
+     {
+      "peak": 0.0014,
+      "final": 0.00141
+     },
+     {
+      "peak": 0.0011,
+      "final": 0.00114
+     },
+     {
+      "peak": 0.0002,
+      "final": 0.0002
+     },
+     {
+      "peak": 0.0027,
+      "final": 0.00273
+     },
+     {
+      "peak": 0.0007,
+      "final": 0.00065
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "Vgapd_K5NADH",
+    "variable": "G6P",
+    "draws": [
+     {
+      "peak": 0.0006,
+      "final": 0.00056
+     },
+     {
+      "peak": 0.0005,
+      "final": 0.00052
+     },
+     {
+      "peak": 0.0,
+      "final": 4e-05
+     },
+     {
+      "peak": 0.0004,
+      "final": 0.00038
+     },
+     {
+      "peak": 0.0002,
+      "final": 0.0002
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Galazzo1990_FermentationPathwayKinetics",
+  "loops": 15,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000064",
+  "pairs": [
+   {
+    "parameter": "vPDC_KmPDCPYR",
+    "variable": "ACE",
+    "draws": [
+     {
+      "peak": 0.0017,
+      "final": 0.00167
+     },
+     null,
+     {
+      "peak": 0.0002,
+      "final": 0.00018
+     },
+     {
+      "peak": 0.0129,
+      "final": 0.00489
+     },
+     null
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "vPDC_KmPDCPYR",
+    "variable": "NADH",
+    "draws": [
+     {
+      "peak": 0.0017,
+      "final": 0.0017
+     },
+     null,
+     {
+      "peak": 0.0002,
+      "final": 0.00019
+     },
+     {
+      "peak": 0.0122,
+      "final": 0.00517
+     },
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "vPDC_nPDC",
+    "variable": "ACE",
+    "draws": [
+     {
+      "peak": 0.0016,
+      "final": 0.00164
+     },
+     null,
+     {
+      "peak": 0.0001,
+      "final": 9e-05
+     },
+     {
+      "peak": 0.0297,
+      "final": 0.0118
+     },
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Teusink2000_Glycolysis",
+  "loops": 91,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000065",
+  "pairs": [
+   {
+    "parameter": "gamma_M",
+    "variable": "L",
+    "draws": [
+     {
+      "peak": 0.1096,
+      "final": 0.0001
+     },
+     {
+      "peak": 0.1141,
+      "final": 0.00077
+     },
+     {
+      "peak": 0.1048,
+      "final": 9e-05
+     },
+     {
+      "peak": 0.1614,
+      "final": 0.00013
+     },
+     {
+      "peak": 0.0934,
+      "final": 0.07932
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "alpha_M",
+    "variable": "L",
+    "draws": [
+     {
+      "peak": 0.0954,
+      "final": 9e-05
+     },
+     {
+      "peak": 0.0906,
+      "final": 0.00054
+     },
+     {
+      "peak": 0.101,
+      "final": 8e-05
+     },
+     {
+      "peak": 0.1437,
+      "final": 0.00011
+     },
+     {
+      "peak": 0.013,
+      "final": 0.01081
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "K_A",
+    "variable": "L",
+    "draws": [
+     {
+      "peak": 0.0675,
+      "final": 7e-05
+     },
+     {
+      "peak": 0.1131,
+      "final": 0.0007
+     },
+     {
+      "peak": 0.032,
+      "final": 3e-05
+     },
+     {
+      "peak": 0.1189,
+      "final": 0.0001
+     },
+     {
+      "peak": 0.0002,
+      "final": 0.00013
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Yildirim2003_Lac_Operon",
+  "loops": 4,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000070",
+  "pairs": [
+   {
+    "parameter": "vPFK_KAMPv3",
+    "variable": "GlcA6P",
+    "draws": [
+     {
+      "peak": 0.0448,
+      "final": 0.03952
+     },
+     {
+      "peak": 0.072,
+      "final": 0.0628
+     },
+     {
+      "peak": 0.0091,
+      "final": 0.00555
+     },
+     {
+      "peak": 0.0028,
+      "final": 8e-05
+     },
+     {
+      "peak": 0.0192,
+      "final": 0.01922
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "vPFK_KATPv3",
+    "variable": "GlcA6P",
+    "draws": [
+     {
+      "peak": 0.0674,
+      "final": 0.0648
+     },
+     {
+      "peak": 0.1187,
+      "final": 0.1146
+     },
+     {
+      "peak": 0.0168,
+      "final": 0.01123
+     },
+     {
+      "peak": 0.0053,
+      "final": 0.00099
+     },
+     {
+      "peak": 0.0333,
+      "final": 0.03333
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "vMgATP_KdATP",
+    "variable": "GlcA6P",
+    "draws": [
+     {
+      "peak": 0.0642,
+      "final": 0.05624
+     },
+     {
+      "peak": 0.1099,
+      "final": 0.09343
+     },
+     {
+      "peak": 0.0112,
+      "final": 0.00611
+     },
+     {
+      "peak": 0.0031,
+      "final": 0.00315
+     },
+     {
+      "peak": 0.0359,
+      "final": 0.03588
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Holzhutter2004_Erythrocyte_Metabolism",
+  "loops": null,
+  "running_totals": null
+ },
+ {
+  "model": "BIOMD0000000094",
+  "pairs": [
+   {
+    "parameter": "v5_kb",
+    "variable": "IFNRJ2_star_STAT1c",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "v5_kb",
+    "variable": "IFNRJ2_star_SHP2_STAT1c",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "v5_kf",
+    "variable": "IFNRJ2_star_STAT1c",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Yamada2003_JAK_STAT_SOCS1_knockout",
+  "loops": null,
+  "running_totals": null
+ },
+ {
+  "model": "BIOMD0000000103",
+  "pairs": [
+   {
+    "parameter": "k29",
+    "variable": "AC9X",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Legewie2006_apoptosis_NC",
+  "loops": null,
+  "running_totals": null
+ },
+ {
+  "model": "BIOMD0000000115",
+  "pairs": [
+   {
+    "parameter": "alpha",
+    "variable": "y",
+    "draws": [
+     null,
+     null,
+     {
+      "peak": 0.0001,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0004,
+      "final": 0.0
+     },
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Somogyi1990_CaOscillations_SingleCaSpike",
+  "loops": 1,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000159",
+  "pairs": [
+   {
+    "parameter": "psi",
+    "variable": "x",
+    "draws": [
+     {
+      "peak": 0.103,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0964,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0695,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0932,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0863,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "alpha_0",
+    "variable": "x",
+    "draws": [
+     {
+      "peak": 0.0718,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0615,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0411,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0433,
+      "final": 0.0
+     },
+     {
+      "peak": 0.061,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "alpha_0",
+    "variable": "y",
+    "draws": [
+     {
+      "peak": 0.0751,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0644,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0414,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0443,
+      "final": 0.0
+     },
+     {
+      "peak": 0.062,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Zatorsky2006_p53_Model1",
+  "loops": 1,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000169",
+  "pairs": [
+   {
+    "parameter": "k1p_1",
+    "variable": "Y11_1",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "k6_1",
+    "variable": "Y11_1",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Aguda1999_CellCycle",
+  "loops": 16,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000176",
+  "pairs": [
+   {
+    "parameter": "fV_FBA",
+    "variable": "ATP",
+    "draws": [
+     null,
+     null,
+     null,
+     {
+      "peak": 0.0009,
+      "final": 0.00037
+     },
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "fV_FBA",
+    "variable": "ADP",
+    "draws": [
+     null,
+     null,
+     null,
+     {
+      "peak": 0.0026,
+      "final": 0.0011
+     },
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "fV_FBA",
+    "variable": "DHAP",
+    "draws": [
+     null,
+     null,
+     null,
+     {
+      "peak": 0.0032,
+      "final": 0.00188
+     },
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Conant2007_WGD_glycolysis_2A3AB",
+  "loops": 553,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000177",
+  "pairs": [
+   {
+    "parameter": "FBA_Kf16bp_5",
+    "variable": "BPG",
+    "draws": [
+     null,
+     null,
+     {
+      "peak": 0.0004,
+      "final": 0.00037
+     },
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "FBA_Vmax_5",
+    "variable": "GLCi",
+    "draws": [
+     null,
+     null,
+     {
+      "peak": 0.0044,
+      "final": 0.00441
+     },
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "FBA_Vmax_5",
+    "variable": "ATP",
+    "draws": [
+     null,
+     null,
+     {
+      "peak": 0.0008,
+      "final": 0.00076
+     },
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Conant2007_glycolysis_2C",
+  "loops": 797,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000183",
+  "pairs": [
+   {
+    "parameter": "parameter_15",
+    "variable": "species_10",
+    "draws": [
+     {
+      "peak": 0.0478,
+      "final": 0.00208
+     },
+     {
+      "peak": 0.0585,
+      "final": 0.00213
+     },
+     {
+      "peak": 0.0474,
+      "final": 0.0017
+     },
+     {
+      "peak": 0.104,
+      "final": 0.00773
+     },
+     {
+      "peak": 0.0206,
+      "final": 0.00059
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "parameter_15",
+    "variable": "species_13",
+    "draws": [
+     {
+      "peak": 0.0521,
+      "final": 0.00227
+     },
+     {
+      "peak": 0.0585,
+      "final": 0.00213
+     },
+     {
+      "peak": 0.0659,
+      "final": 0.00237
+     },
+     {
+      "peak": 0.104,
+      "final": 0.00773
+     },
+     {
+      "peak": 0.0288,
+      "final": 0.00083
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "parameter_15",
+    "variable": "species_15",
+    "draws": [
+     {
+      "peak": 0.0302,
+      "final": 0.00131
+     },
+     {
+      "peak": 0.0267,
+      "final": 0.00097
+     },
+     {
+      "peak": 0.0262,
+      "final": 0.00094
+     },
+     {
+      "peak": 0.104,
+      "final": 0.00773
+     },
+     {
+      "peak": 0.0155,
+      "final": 0.00045
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Stefan2008 - calmodulin allostery",
+  "loops": null,
+  "running_totals": null
+ },
+ {
+  "model": "BIOMD0000000191",
+  "pairs": [
+   {
+    "parameter": "Arginase_Kmarg",
+    "variable": "ORN",
+    "draws": [
+     {
+      "peak": 0.0714,
+      "final": 0.00167
+     },
+     {
+      "peak": 0.0661,
+      "final": 0.00142
+     },
+     {
+      "peak": 0.0575,
+      "final": 0.00047
+     },
+     {
+      "peak": 0.0711,
+      "final": 0.00057
+     },
+     {
+      "peak": 0.0581,
+      "final": 0.00671
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "Arginase_Vmaxarg",
+    "variable": "ORN",
+    "draws": [
+     {
+      "peak": 0.1049,
+      "final": 0.00053
+     },
+     {
+      "peak": 0.0977,
+      "final": 0.00098
+     },
+     {
+      "peak": 0.0816,
+      "final": 0.00196
+     },
+     {
+      "peak": 0.1208,
+      "final": 0.00054
+     },
+     {
+      "peak": 0.1055,
+      "final": 0.01029
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Monta\u00f1ez2008_Arginine_catabolism",
+  "loops": 4,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000197",
+  "pairs": [
+   {
+    "parameter": "p9",
+    "variable": "x3",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "p11",
+    "variable": "x3",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Bartholome2007_MDCKII",
+  "loops": 0,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000217",
+  "pairs": [
+   {
+    "parameter": "Vgog",
+    "variable": "GLN",
+    "draws": [
+     {
+      "peak": 0.063,
+      "final": 0.063
+     },
+     {
+      "peak": 0.0083,
+      "final": 0.00834
+     },
+     {
+      "peak": 0.0114,
+      "final": 0.01141
+     },
+     {
+      "peak": 0.0008,
+      "final": 0.00074
+     },
+     {
+      "peak": 0.0004,
+      "final": 0.00038
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "Vgog",
+    "variable": "AZGLN",
+    "draws": [
+     {
+      "peak": 0.0426,
+      "final": 0.04258
+     },
+     {
+      "peak": 0.0055,
+      "final": 0.00554
+     },
+     {
+      "peak": 0.0078,
+      "final": 0.00775
+     },
+     {
+      "peak": 0.0005,
+      "final": 0.00055
+     },
+     {
+      "peak": 0.0003,
+      "final": 0.00027
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "Kgogaz",
+    "variable": "GLN",
+    "draws": [
+     {
+      "peak": 0.0373,
+      "final": 0.03731
+     },
+     {
+      "peak": 0.0048,
+      "final": 0.00479
+     },
+     {
+      "peak": 0.0071,
+      "final": 0.00715
+     },
+     {
+      "peak": 0.0005,
+      "final": 0.00041
+     },
+     {
+      "peak": 0.0002,
+      "final": 0.00019
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Bruggeman2005_AmmoniumAssimilation",
+  "loops": 159,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000218",
+  "pairs": [
+   {
+    "parameter": "SDH_Vf_sdh",
+    "variable": "fa",
+    "draws": [
+     {
+      "peak": 0.0533,
+      "final": 0.00115
+     },
+     {
+      "peak": 0.0044,
+      "final": 0.00095
+     },
+     {
+      "peak": 0.0001,
+      "final": 0.00013
+     },
+     null,
+     {
+      "peak": 0.0003,
+      "final": 0.00024
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "SDH_Vf_sdh",
+    "variable": "mal",
+    "draws": [
+     {
+      "peak": 0.0386,
+      "final": 0.00501
+     },
+     {
+      "peak": 0.0051,
+      "final": 0.00291
+     },
+     {
+      "peak": 0.0003,
+      "final": 0.00034
+     },
+     null,
+     {
+      "peak": 0.0009,
+      "final": 0.00085
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Singh2006_TCA_mtu_model2",
+  "loops": 9,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000219",
+  "pairs": [
+   {
+    "parameter": "SDH_Vf_sdh",
+    "variable": "fa",
+    "draws": [
+     null,
+     null,
+     {
+      "peak": 0.0003,
+      "final": 0.00033
+     },
+     {
+      "peak": 0.0001,
+      "final": 0.00011
+     },
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "SDH_Vf_sdh",
+    "variable": "mal",
+    "draws": [
+     null,
+     null,
+     {
+      "peak": 0.0008,
+      "final": 0.00077
+     },
+     {
+      "peak": 0.0003,
+      "final": 0.00026
+     },
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Singh2006_TCA_mtu_model1",
+  "loops": 15,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000232",
+  "pairs": [
+   {
+    "parameter": "At",
+    "variable": "AcCoA",
+    "draws": [
+     {
+      "peak": 0.1285,
+      "final": 0.05684
+     },
+     {
+      "peak": 0.2919,
+      "final": 0.02892
+     },
+     {
+      "peak": 0.2539,
+      "final": 0.25392
+     },
+     {
+      "peak": 0.1945,
+      "final": 0.01695
+     },
+     {
+      "peak": 0.1097,
+      "final": 0.01315
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "At",
+    "variable": "OAA",
+    "draws": [
+     {
+      "peak": 0.136,
+      "final": 0.01326
+     },
+     {
+      "peak": 0.3204,
+      "final": 0.01441
+     },
+     {
+      "peak": 0.2435,
+      "final": 0.10807
+     },
+     {
+      "peak": 0.2073,
+      "final": 0.00809
+     },
+     {
+      "peak": 0.1045,
+      "final": 0.00243
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "v3_k3",
+    "variable": "OAA",
+    "draws": [
+     {
+      "peak": 0.0004,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0181,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0208,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0273,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0001,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Nazaret2009_TCA_RC_ATP",
+  "loops": 41,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000245",
+  "pairs": [
+   {
+    "parameter": "k_1h",
+    "variable": "s_glu",
+    "draws": [
+     {
+      "peak": 0.0147,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0024,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0019,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0138,
+      "final": 0.00175
+     },
+     {
+      "peak": 0.0021,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Lei2001_Yeast_Aerobic_Metabolism",
+  "loops": 286,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000247",
+  "pairs": [
+   {
+    "parameter": "vALD_KeqALD",
+    "variable": "P3G",
+    "draws": [
+     null,
+     null,
+     null,
+     {
+      "peak": 0.0002,
+      "final": 0.00017
+     },
+     {
+      "peak": 0.0003,
+      "final": 0.00028
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "vALD_KeqALD",
+    "variable": "GA3P",
+    "draws": [
+     null,
+     null,
+     null,
+     {
+      "peak": 0.0001,
+      "final": 0.00011
+     },
+     {
+      "peak": 0.0002,
+      "final": 0.00016
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "vALD_VmALD",
+    "variable": "BPG",
+    "draws": [
+     null,
+     null,
+     null,
+     {
+      "peak": 0.0001,
+      "final": 0.00012
+     },
+     {
+      "peak": 0.0003,
+      "final": 0.00033
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Ralser2007_Carbohydrate_Rerouting_ROS",
+  "loops": 3585,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000249",
+  "pairs": [
+   {
+    "parameter": "psi",
+    "variable": "I_1",
+    "draws": [
+     {
+      "peak": 0.0001,
+      "final": 0.00013
+     },
+     {
+      "peak": 0.0003,
+      "final": 0.00025
+     },
+     {
+      "peak": 0.0011,
+      "final": 0.00019
+     },
+     {
+      "peak": 0.0013,
+      "final": 8e-05
+     },
+     {
+      "peak": 0.0103,
+      "final": 0.00069
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "psi",
+    "variable": "I_2",
+    "draws": [
+     {
+      "peak": 0.0001,
+      "final": 6e-05
+     },
+     {
+      "peak": 0.0004,
+      "final": 0.00037
+     },
+     {
+      "peak": 0.0014,
+      "final": 0.00034
+     },
+     {
+      "peak": 0.0018,
+      "final": 0.00022
+     },
+     {
+      "peak": 0.0044,
+      "final": 0.00041
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "psi",
+    "variable": "I_1p",
+    "draws": [
+     {
+      "peak": 0.0026,
+      "final": 0.00253
+     },
+     {
+      "peak": 0.0035,
+      "final": 0.00267
+     },
+     {
+      "peak": 0.0082,
+      "final": 0.00609
+     },
+     {
+      "peak": 0.0057,
+      "final": 0.00565
+     },
+     {
+      "peak": 0.0145,
+      "final": 0.00445
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Restif2006 - Whooping cough",
+  "loops": 13,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000253",
+  "pairs": [
+   {
+    "parameter": "lower_KFru16P2",
+    "variable": "ATP",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0163,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0213,
+      "final": 0.0
+     },
+     null,
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "lower_Vlower",
+    "variable": "HMP",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0296,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0699,
+      "final": 0.0
+     },
+     null,
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "lower_Vlower",
+    "variable": "ATP",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.143,
+      "final": 0.0
+     },
+     {
+      "peak": 0.3565,
+      "final": 0.0
+     },
+     null,
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Teusink1998_Glycolysis_TurboDesign",
+  "loops": 6,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000292",
+  "pairs": [
+   {
+    "parameter": "k1",
+    "variable": "NADPH",
+    "draws": [
+     {
+      "peak": 0.0578,
+      "final": 0.0
+     },
+     {
+      "peak": 0.2329,
+      "final": 0.0
+     },
+     null,
+     {
+      "peak": 0.1388,
+      "final": 0.0
+     },
+     null
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "k1",
+    "variable": "ATP",
+    "draws": [
+     {
+      "peak": 0.0311,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1638,
+      "final": 0.0
+     },
+     null,
+     {
+      "peak": 0.0238,
+      "final": 0.0
+     },
+     null
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "k2",
+    "variable": "ATP",
+    "draws": [
+     {
+      "peak": 0.0248,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0967,
+      "final": 0.0
+     },
+     null,
+     {
+      "peak": 0.0206,
+      "final": 0.0
+     },
+     null
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Rovers1995_Photsynthetic_Oscillations",
+  "loops": 2,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000294",
+  "pairs": [
+   {
+    "parameter": "theta",
+    "variable": "Iv2",
+    "draws": [
+     {
+      "peak": 0.0115,
+      "final": 0.00039
+     },
+     {
+      "peak": 0.0057,
+      "final": 0.00015
+     },
+     {
+      "peak": 0.019,
+      "final": 0.00043
+     },
+     {
+      "peak": 0.0678,
+      "final": 0.00644
+     },
+     {
+      "peak": 0.1443,
+      "final": 0.00172
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "nu",
+    "variable": "Iv2",
+    "draws": [
+     {
+      "peak": 0.0267,
+      "final": 0.00341
+     },
+     {
+      "peak": 0.072,
+      "final": 0.00019
+     },
+     {
+      "peak": 0.0255,
+      "final": 0.00442
+     },
+     {
+      "peak": 0.0411,
+      "final": 0.02088
+     },
+     {
+      "peak": 0.0798,
+      "final": 0.00015
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Restif2007 - Vaccination invasion",
+  "loops": 32,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000325",
+  "pairs": [
+   {
+    "parameter": "KD",
+    "variable": "I",
+    "draws": [
+     {
+      "peak": 0.08,
+      "final": 0.0017
+     },
+     {
+      "peak": 0.0446,
+      "final": 0.00046
+     },
+     {
+      "peak": 0.0424,
+      "final": 0.00095
+     },
+     {
+      "peak": 0.0536,
+      "final": 0.00044
+     },
+     {
+      "peak": 0.0699,
+      "final": 0.00025
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Palini2011_Minimal_2_Feedback_Model",
+  "loops": 3,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000341",
+  "pairs": [
+   {
+    "parameter": "si",
+    "variable": "G",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0606,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0558,
+      "final": 0.0
+     },
+     {
+      "peak": 0.06,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "R0",
+    "variable": "G",
+    "draws": [
+     {
+      "peak": 0.2,
+      "final": 0.2
+     },
+     {
+      "peak": 0.0787,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0652,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1181,
+      "final": 0.0
+     },
+     {
+      "peak": 0.2,
+      "final": 0.2
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "sigma",
+    "variable": "G",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0606,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0558,
+      "final": 0.0
+     },
+     {
+      "peak": 0.06,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Topp2000_BetaCellMass_Diabetes",
+  "loops": 4,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000347",
+  "pairs": [
+   {
+    "parameter": "CISRNADelay",
+    "variable": "CISRNA",
+    "draws": [
+     {
+      "peak": 0.1974,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1902,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1836,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1975,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1978,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "CISRNATurn",
+    "variable": "CISRNA",
+    "draws": [
+     {
+      "peak": 0.1656,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1624,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1593,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1656,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1658,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "SOCS3RNAEqc",
+    "variable": "p2EpoRpJAK2",
+    "draws": [
+     {
+      "peak": 0.0914,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0752,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0751,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0751,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0522,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Bachmann2011_JAK2-STAT5_FeedbackControl",
+  "loops": 238,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000379",
+  "pairs": [
+   {
+    "parameter": "m_1",
+    "variable": "X",
+    "draws": [
+     {
+      "peak": 0.0158,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0103,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0387,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0094,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0421,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "m_1",
+    "variable": "Y",
+    "draws": [
+     {
+      "peak": 0.0102,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0003,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0166,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0011,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0046,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "DallaMan2007_MealModel_GlucoseInsulinSystem",
+  "loops": 12,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000390",
+  "pairs": [
+   {
+    "parameter": "PGA_red_K2",
+    "variable": "Pi",
+    "draws": [
+     {
+      "peak": 0.0994,
+      "final": 0.04169
+     },
+     {
+      "peak": 0.0033,
+      "final": 0.00243
+     },
+     {
+      "peak": 0.0368,
+      "final": 0.03219
+     },
+     {
+      "peak": 0.0069,
+      "final": 0.00362
+     },
+     {
+      "peak": 0.1895,
+      "final": 0.15464
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "RuBP_reg_K2",
+    "variable": "ATP",
+    "draws": [
+     {
+      "peak": 0.0108,
+      "final": 0.00092
+     },
+     {
+      "peak": 0.0057,
+      "final": 0.00337
+     },
+     {
+      "peak": 0.0009,
+      "final": 0.00041
+     },
+     {
+      "peak": 0.0174,
+      "final": 0.0088
+     },
+     {
+      "peak": 0.0014,
+      "final": 8e-05
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Arnold2011_Giersch1990_CalvinCycle",
+  "loops": 33,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000392",
+  "pairs": [
+   {
+    "parameter": "PiT",
+    "variable": "EOP",
+    "draws": [
+     null,
+     null,
+     {
+      "peak": 0.2938,
+      "final": 0.01855
+     },
+     {
+      "peak": 0.8121,
+      "final": 0.01449
+     },
+     {
+      "peak": 0.396,
+      "final": 0.06102
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Arnold2011_Laisk2006_CalvinCycle_Starch_Sucrose",
+  "loops": null,
+  "running_totals": null
+ },
+ {
+  "model": "BIOMD0000000393",
+  "pairs": [
+   {
+    "parameter": "cP",
+    "variable": "GCA",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     {
+      "peak": 0.0142,
+      "final": 0.00195
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "cPc",
+    "variable": "PeP",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     {
+      "peak": 0.2572,
+      "final": 0.0824
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "PGA_K_Kr1",
+    "variable": "PGAc",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     {
+      "peak": 0.0778,
+      "final": 0.06554
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Arnold2011_Zhu2007_CalvinCycle_Starch_Sucrose_Photorespiration",
+  "loops": null,
+  "running_totals": null
+ },
+ {
+  "model": "BIOMD0000000402",
+  "pairs": [
+   {
+    "parameter": "LT",
+    "variable": "C",
+    "draws": [
+     {
+      "peak": 0.1108,
+      "final": 0.0
+     },
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "LT",
+    "variable": "B",
+    "draws": [
+     {
+      "peak": 0.0682,
+      "final": 0.0
+     },
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Ayati2010_BoneRemodelingDynamics_WithTumour",
+  "loops": 3,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000409",
+  "pairs": [
+   {
+    "parameter": "Cdc14T",
+    "variable": "Clb2",
+    "draws": [
+     {
+      "peak": 0.0027,
+      "final": 0.00225
+     },
+     {
+      "peak": 0.0016,
+      "final": 0.00157
+     },
+     {
+      "peak": 0.0012,
+      "final": 0.00121
+     },
+     {
+      "peak": 0.5886,
+      "final": 0.00092
+     },
+     null
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "kaapolo",
+    "variable": "Clb2",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 4e-05
+     },
+     {
+      "peak": 0.0,
+      "final": 1e-05
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0083,
+      "final": 0.00278
+     },
+     null
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "ki",
+    "variable": "Clb2",
+    "draws": [
+     {
+      "peak": 0.0001,
+      "final": 8e-05
+     },
+     {
+      "peak": 0.0003,
+      "final": 0.00035
+     },
+     {
+      "peak": 0.0001,
+      "final": 5e-05
+     },
+     {
+      "peak": 0.0283,
+      "final": 0.0013
+     },
+     null
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Queralt2006_MitoticExit_Cdc55DownregulationBySeparase",
+  "loops": 36,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000413",
+  "pairs": [
+   {
+    "parameter": "ld",
+    "variable": "auxinTIR1",
+    "draws": [
+     {
+      "peak": 0.0108,
+      "final": 0.00067
+     },
+     {
+      "peak": 0.0352,
+      "final": 0.0024
+     },
+     {
+      "peak": 0.0362,
+      "final": 0.0032
+     },
+     {
+      "peak": 0.0364,
+      "final": 0.00277
+     },
+     {
+      "peak": 0.0026,
+      "final": 0.0003
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "la",
+    "variable": "auxinTIR1",
+    "draws": [
+     {
+      "peak": 0.0093,
+      "final": 0.00059
+     },
+     {
+      "peak": 0.0371,
+      "final": 0.00211
+     },
+     {
+      "peak": 0.0422,
+      "final": 0.0029
+     },
+     {
+      "peak": 0.0405,
+      "final": 0.00245
+     },
+     {
+      "peak": 0.0035,
+      "final": 0.00026
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Band2012_DII-Venus_FullModel",
+  "loops": 1,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000428",
+  "pairs": [
+   {
+    "parameter": "PYK_c_PYK_c_KiATP",
+    "variable": "Pyr_c",
+    "draws": [
+     {
+      "peak": 0.0122,
+      "final": 0.0102
+     },
+     {
+      "peak": 0.018,
+      "final": 0.01297
+     },
+     {
+      "peak": 0.0022,
+      "final": 0.00024
+     },
+     {
+      "peak": 0.0033,
+      "final": 0.00331
+     },
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "PYK_c_PYK_c_KmPEP",
+    "variable": "AMP_c",
+    "draws": [
+     {
+      "peak": 0.0102,
+      "final": 0.00816
+     },
+     {
+      "peak": 0.01,
+      "final": 0.007
+     },
+     {
+      "peak": 0.0004,
+      "final": 0.00014
+     },
+     {
+      "peak": 0.0032,
+      "final": 0.00314
+     },
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "ENO_c_ENO_c_Keq",
+    "variable": "Pyr_c",
+    "draws": [
+     {
+      "peak": 0.0107,
+      "final": 0.0089
+     },
+     {
+      "peak": 0.0176,
+      "final": 0.01267
+     },
+     {
+      "peak": 0.0023,
+      "final": 0.00026
+     },
+     {
+      "peak": 0.0028,
+      "final": 0.00281
+     },
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Achcar2012 - Glycolysis in bloodstream form T. brucei",
+  "loops": 781,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000457",
+  "pairs": [
+   {
+    "parameter": "reaction_1_k1",
+    "variable": "species_3",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0137,
+      "final": 0.01373
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "reaction_9_k1",
+    "variable": "species_23",
+    "draws": [
+     {
+      "peak": 0.0037,
+      "final": 0.0037
+     },
+     {
+      "peak": 0.0048,
+      "final": 0.00443
+     },
+     {
+      "peak": 0.0043,
+      "final": 0.0043
+     },
+     {
+      "peak": 0.0026,
+      "final": 0.00262
+     },
+     {
+      "peak": 0.0028,
+      "final": 0.00279
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "reaction_11_k1",
+    "variable": "species_23",
+    "draws": [
+     {
+      "peak": 0.0041,
+      "final": 0.00403
+     },
+     {
+      "peak": 0.005,
+      "final": 0.00466
+     },
+     {
+      "peak": 0.0047,
+      "final": 0.00467
+     },
+     {
+      "peak": 0.0029,
+      "final": 0.00293
+     },
+     {
+      "peak": 0.0031,
+      "final": 0.00305
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Firczuk2013 - Eukaryotic mRNA translation machinery",
+  "loops": null,
+  "running_totals": null
+ },
+ {
+  "model": "BIOMD0000000495",
+  "pairs": [
+   {
+    "parameter": "mw798d0b02_925e_471b_a372_526d681cc370",
+    "variable": "mw8796c919_9251_4970_8f87_0bca9ecfeb5c",
+    "draws": [
+     null,
+     null,
+     {
+      "peak": 0.1128,
+      "final": 0.01857
+     },
+     {
+      "peak": 0.099,
+      "final": 0.00678
+     },
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "mwd3807289_133c_4621_8087_366621f553d3",
+    "variable": "mw8796c919_9251_4970_8f87_0bca9ecfeb5c",
+    "draws": [
+     null,
+     null,
+     {
+      "peak": 0.0466,
+      "final": 0.01023
+     },
+     {
+      "peak": 0.0682,
+      "final": 0.00599
+     },
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "mw231a5907_d1ee_4a43_83ab_abb72f19502c",
+    "variable": "mwee54b5b4_b8c0_41df_8dda_5b160c5e10a5",
+    "draws": [
+     null,
+     null,
+     {
+      "peak": 0.1581,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1069,
+      "final": 0.0
+     },
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Sen2013 - Phospholipid Synthesis in P.knowlesi",
+  "loops": 2,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000503",
+  "pairs": [
+   {
+    "parameter": "ADH_kcat",
+    "variable": "E4P",
+    "draws": [
+     {
+      "peak": 0.0187,
+      "final": 0.00366
+     },
+     {
+      "peak": 0.0622,
+      "final": 0.06222
+     },
+     null,
+     {
+      "peak": 0.0658,
+      "final": 0.0658
+     },
+     {
+      "peak": 0.043,
+      "final": 0.04303
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "ATPase_Katp",
+    "variable": "AcAld",
+    "draws": [
+     {
+      "peak": 0.4425,
+      "final": 0.05071
+     },
+     {
+      "peak": 0.0959,
+      "final": 0.09593
+     },
+     null,
+     {
+      "peak": 0.0633,
+      "final": 0.03448
+     },
+     {
+      "peak": 0.0943,
+      "final": 0.0943
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "PDC_Kpyr_PDC1",
+    "variable": "AcAld",
+    "draws": [
+     {
+      "peak": 0.0382,
+      "final": 1e-05
+     },
+     {
+      "peak": 0.1646,
+      "final": 0.00024
+     },
+     null,
+     {
+      "peak": 0.1421,
+      "final": 1e-05
+     },
+     {
+      "peak": 0.105,
+      "final": 2e-05
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Messiha2013 - combined glycolysis and pentose phosphate pathway model",
+  "loops": null,
+  "running_totals": null
+ },
+ {
+  "model": "BIOMD0000000510",
+  "pairs": [
+   {
+    "parameter": "PYK_c_PYK_c_KiATP",
+    "variable": "AMP_c",
+    "draws": [
+     {
+      "peak": 0.0204,
+      "final": 0.0037
+     },
+     {
+      "peak": 0.003,
+      "final": 0.00183
+     },
+     {
+      "peak": 0.0017,
+      "final": 0.00167
+     },
+     {
+      "peak": 0.003,
+      "final": 0.00263
+     },
+     {
+      "peak": 0.0003,
+      "final": 0.00026
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "PYK_c_PYK_c_Vmax",
+    "variable": "Pyr_c",
+    "draws": [
+     {
+      "peak": 0.1732,
+      "final": 0.17316
+     },
+     {
+      "peak": 0.0022,
+      "final": 0.00137
+     },
+     {
+      "peak": 0.0019,
+      "final": 0.00184
+     },
+     {
+      "peak": 0.018,
+      "final": 0.00773
+     },
+     {
+      "peak": 0.0004,
+      "final": 0.00043
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "PGAM_c_PGAM_c_Vmax",
+    "variable": "PEP_c",
+    "draws": [
+     {
+      "peak": 0.4654,
+      "final": 0.46541
+     },
+     {
+      "peak": 0.0014,
+      "final": 0.00121
+     },
+     {
+      "peak": 0.0016,
+      "final": 0.00154
+     },
+     {
+      "peak": 0.0081,
+      "final": 0.00511
+     },
+     {
+      "peak": 0.0002,
+      "final": 0.00022
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Kerkhoven2013 - Glycolysis and Pentose Phosphate Pathway in T.brucei - MODEL C (with glucosomal ribokinase)",
+  "loops": null,
+  "running_totals": null
+ },
+ {
+  "model": "BIOMD0000000511",
+  "pairs": [
+   {
+    "parameter": "PYK_c_PYK_c_KiATP",
+    "variable": "Pyr_c",
+    "draws": [
+     {
+      "peak": 0.0826,
+      "final": 0.01255
+     },
+     {
+      "peak": 0.005,
+      "final": 0.00202
+     },
+     {
+      "peak": 0.0004,
+      "final": 0.00023
+     },
+     {
+      "peak": 0.0388,
+      "final": 0.03277
+     },
+     {
+      "peak": 0.0003,
+      "final": 0.00026
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "PYK_c_PYK_c_KmPEP",
+    "variable": "Pyr_c",
+    "draws": [
+     {
+      "peak": 0.1311,
+      "final": 0.02155
+     },
+     {
+      "peak": 0.009,
+      "final": 0.00334
+     },
+     {
+      "peak": 0.0008,
+      "final": 0.00047
+     },
+     {
+      "peak": 0.0639,
+      "final": 0.05115
+     },
+     {
+      "peak": 0.0008,
+      "final": 0.00051
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "PGAM_c_PGAM_c_Keq",
+    "variable": "Pyr_c",
+    "draws": [
+     {
+      "peak": 0.1106,
+      "final": 0.01792
+     },
+     {
+      "peak": 0.0068,
+      "final": 0.00281
+     },
+     {
+      "peak": 0.0005,
+      "final": 0.00035
+     },
+     {
+      "peak": 0.0428,
+      "final": 0.04084
+     },
+     {
+      "peak": 0.0005,
+      "final": 0.00042
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Kerkhoven2013 - Glycolysis and Pentose Phosphate Pathway in T.brucei - MODEL D (with ATP:ADP antiporter)",
+  "loops": null,
+  "running_totals": null
+ },
+ {
+  "model": "BIOMD0000000516",
+  "pairs": [
+   {
+    "parameter": "GK_g_GK_g_KmADP",
+    "variable": "AMP_g",
+    "draws": [
+     null,
+     null,
+     null,
+     {
+      "peak": 0.0228,
+      "final": 0.00387
+     },
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "GK_g_GK_g_Vmax",
+    "variable": "ATP_g",
+    "draws": [
+     null,
+     null,
+     null,
+     {
+      "peak": 0.0671,
+      "final": 0.01164
+     },
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "GK_g_GK_g_Vmax",
+    "variable": "AMP_g",
+    "draws": [
+     null,
+     null,
+     null,
+     {
+      "peak": 0.0437,
+      "final": 0.00773
+     },
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Kerkhoven2013 - Glycolysis and Pentose Phosphate Pathway in T.brucei - MODEL D in fructose medium (with ATP:ADP antiporter)",
+  "loops": null,
+  "running_totals": null
+ },
+ {
+  "model": "BIOMD0000000576",
+  "pairs": [
+   {
+    "parameter": "cortisolTransport_k2",
+    "variable": "s40",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "cortisolTransport_k2",
+    "variable": "s39",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "cortisolTransport_k2",
+    "variable": "s114",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Kolodkin2013 - Nuclear receptor-mediated cortisol signalling network",
+  "loops": 2831,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000633",
+  "pairs": [
+   {
+    "parameter": "v0_gp",
+    "variable": "fru16bp",
+    "draws": [
+     {
+      "peak": 0.0001,
+      "final": 0.0
+     },
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "store",
+    "variable": "fru16bp",
+    "draws": [
+     {
+      "peak": 0.0001,
+      "final": 0.0
+     },
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "v0_gs",
+    "variable": "fru16bp",
+    "draws": [
+     {
+      "peak": 0.0001,
+      "final": 0.0
+     },
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Bulik2016 - Regulation of hepatic glucose metabolism",
+  "loops": 73,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000638",
+  "pairs": [
+   {
+    "parameter": "k_off_R_rgs",
+    "variable": "RrgsGt",
+    "draws": [
+     {
+      "peak": 0.0326,
+      "final": 0.00216
+     },
+     {
+      "peak": 0.0208,
+      "final": 0.00149
+     },
+     {
+      "peak": 0.0236,
+      "final": 0.00173
+     },
+     {
+      "peak": 0.0524,
+      "final": 0.00412
+     },
+     {
+      "peak": 0.0349,
+      "final": 0.00201
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "ModelValue_54",
+    "variable": "RrgsGt",
+    "draws": [
+     {
+      "peak": 0.0429,
+      "final": 0.00282
+     },
+     {
+      "peak": 0.0252,
+      "final": 0.00178
+     },
+     {
+      "peak": 0.0318,
+      "final": 0.00228
+     },
+     {
+      "peak": 0.0635,
+      "final": 0.005
+     },
+     {
+      "peak": 0.0457,
+      "final": 0.0026
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "ModelValue_55",
+    "variable": "RrgsGt",
+    "draws": [
+     {
+      "peak": 0.0357,
+      "final": 0.00238
+     },
+     {
+      "peak": 0.0204,
+      "final": 0.00151
+     },
+     {
+      "peak": 0.0252,
+      "final": 0.00193
+     },
+     {
+      "peak": 0.0575,
+      "final": 0.00424
+     },
+     {
+      "peak": 0.0388,
+      "final": 0.0022
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Bush2016 - Extended Carrousel model of GPCR-RGS",
+  "loops": null,
+  "running_totals": null
+ }
+]

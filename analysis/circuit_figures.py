@@ -378,7 +378,7 @@ def fig_switch():
     ctl = ('<div class="ctl"><label for="sw-L">lactose outside</label>'
            f'<input id="sw-L" type="range" min="0" max="150" value="{int(SW["L0"] * 100)}" aria-label="Lactose outside the cell" style="--p: {SW["L0"] / 1.5 * 100:.0f}%">'
            f'<output for="sw-L" id="sw-Lv">{SW["L0"]:.2f}</output></div>')
-    chain = chain_html('1 loop, 0 brakes', 'holds two states', 'commits to a food', brakes=0, fn='remember')
+    chain = chain_html('two states', 'gain above 1', 'a food that lasts', brakes=0, fn='remember', trace='holds two states')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -443,7 +443,7 @@ def fig_clock():
     ctl = ('<div class="ctl"><label for="ck-D">the extra wait</label>'
            f'<input id="ck-D" type="range" min="0" max="{int(CK["Dmax"] * 10)}" value="{int(CK["D"] * 10)}" aria-label="Extra delay before PER:CRY acts, in hours" style="--p: 75%">'
            f'<output for="ck-D" id="ck-Dv">{CK["D"]:.1f} h</output></div>')
-    chain = chain_html('1 loop, 1 brake', 'keeps time', 'anticipates the day', brakes=1, fn='time')
+    chain = chain_html('a rhythm', 'gain and delay', 'the day', brakes=1, fn='time', trace='keeps time')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -514,7 +514,7 @@ def fig_adapter():
            f'<input id="ad-L" type="range" min="0" max="{int(AD["Lmax"] * 10)}" value="{int(AD["step"] * 10)}" aria-label="Attractant outside the cell" style="--p: 50%">'
            f'<output for="ad-L" id="ad-Lv">{AD["step"]:.1f}</output>'
            '<button type="button" class="chip tog" id="ad-leak" aria-pressed="false">let the count leak</button></div>')
-    chain = chain_html('1 loop, 1 brake, &#8747;', 'adapts exactly', 'steers up a gradient', brakes=1, integ=True, fn='steer')
+    chain = chain_html('exact return', 'how fast', 'a steady background', brakes=1, integ=True, fn='steer', trace='adapts exactly')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -569,7 +569,7 @@ def fig_hypo():
            f'<input id="hy-T" type="range" min="0" max="{int(HY["Tmax"] * 10)}" value="{int(HY["T"] * 10)}" aria-label="Length of the input pulse, in hours" style="--p: {HY["T"] / HY["Tmax"] * 100:.0f}%">'
            f'<output for="hy-T" id="hy-Tv">{HY["T"]:.1f} h</output>'
            '<button type="button" class="chip tog" id="hy-x2" aria-pressed="false">twice the strength, half the length</button></div>')
-    chain = chain_html('1 loop, 0 brakes, &#8747;', 'adds up, commits', 'commits after a dose', brakes=0, integ=True, fn='remember')
+    chain = chain_html('commit on dose', 'dose past threshold', 'a signal&#8217;s length', brakes=0, integ=True, fn='remember', trace='adds up, commits')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -680,13 +680,14 @@ def fn_icon(kind, size=20, color='var(--ink)'):
             + FN_ICON[kind].replace('{c}', color) + '</svg>')
 
 
-def chain_html(shape, pattern, function, brakes=0, integ=False, fn='remember'):
-    return ('<div class="chain" aria-label="Shape, pattern, function">'
-            f'<span class="ch"><span class="ch-k">shape</span><span class="ch-v">{shape_glyph(brakes, integ)}{shape}</span></span>'
+def chain_html(permits, decides, models, brakes=0, integ=False, fn='remember', trace='holds two states'):
+    """The three laws under each circuit: what its sign permits, what its strength decides, what it models."""
+    return ('<div class="chain" aria-label="Permit, decide, model">'
+            f'<span class="ch"><span class="ch-k">permits</span><span class="ch-v">{shape_glyph(brakes, integ)}{permits}</span></span>'
             '<span class="ch-a" aria-hidden="true">&#8594;</span>'
-            f'<span class="ch"><span class="ch-k">pattern</span><span class="ch-v">{glyph(pattern)}{pattern}</span></span>'
+            f'<span class="ch"><span class="ch-k">decides</span><span class="ch-v">{glyph(trace)}{decides}</span></span>'
             '<span class="ch-a" aria-hidden="true">&#8594;</span>'
-            f'<span class="ch"><span class="ch-k">function</span><span class="ch-v">{fn_icon(fn)}{function}</span></span></div>')
+            f'<span class="ch"><span class="ch-k">models</span><span class="ch-v">{fn_icon(fn)}{models}</span></span></div>')
 
 
 def defs_html():
@@ -702,32 +703,67 @@ def defs_html():
             '</defs></svg>')
 
 
-# ================================================================ the frame figure (shape, pattern, function)
+# ================================================================ the frame figure (permit, decide, model)
 def fig_frame():
-    """Three small panes: a shape (a loop of two arrows), a pattern (its trace), a function (what the cell gets)."""
-    w, h = 230, 150
+    """One braking loop read three ways: its sign permits a rhythm and forbids two states; its strength decides
+    whether it ticks; what it then does copies the day, rising before dawn."""
+    w, h = 230, 176
+    lab_y = 166
 
     def p(inner, aria):
         return f'<div>{pane(inner, w, h, aria)}</div>'
-    a = (edge((70, 60, 40, 26), (160, 60, 40, 26), 'act', 'x', curve=-22) + edge((160, 60, 40, 26), (70, 60, 40, 26), 'rep', 'x', curve=-22)
-         + pill(70, 60, 40, 'A') + pill(160, 60, 40, 'B'))
+    # sign permits: the repressilator's ring of three brakes
+    X, Y, Z = (115, 24, 34, 26), (156, 82, 34, 26), (74, 82, 34, 26)
+    a = edge(X, Y, 'rep', 'x', curve=14) + edge(Y, Z, 'rep', 'x', curve=14) + edge(Z, X, 'rep', 'x', curve=14)
     a = a.replace('class="fx" ', '')
-    a += mono(115, 128, 'shape', anchor='middle', fill='var(--ink)', size=12)
-    b = (f'<path d="{IA.trace_path("keeps time", 60, 50)}" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" transform="translate(-60 -50) scale(1) translate(60 50)"/>')
-    b = (f'<g transform="translate(40 32) scale(4.8 3.2)"><path d="{IA.TRACE["keeps time"]}" fill="none" stroke="var(--ink)" stroke-width="0.6" stroke-linecap="round"/></g>')
-    b += mono(115, 128, 'pattern', anchor='middle', fill='var(--ink)', size=12)
+    a += pill(*X[:3], 'X') + pill(*Y[:3], 'Y') + pill(*Z[:3], 'Z')
+    a += mono(115, 57, MINUS, anchor='middle', fill='var(--accent2-text)', size=14)
+    a += label(115, 118, '&#10003; can keep time', size=12)
+    a += label(115, 136, '&#10007; cannot hold two states', size=12)
+    a += mono(115, lab_y, 'sign permits', anchor='middle', fill='var(--ink)', size=12)
+
+    def trace(word, x, y, sx, sy, color='var(--ink)'):
+        # scale the glyph's path numerically (absolute commands only), so measured boxes match what is drawn
+        out, cmd, xy = [], '', 0
+        for tok in re.findall(r'[A-Za-z]|-?[0-9.]+', IA.TRACE[word]):
+            if tok.isalpha():
+                cmd, xy = tok, 0
+                out.append(tok)
+                continue
+            v = float(tok)
+            if cmd == 'H' or (cmd != 'V' and xy % 2 == 0):
+                out.append(f'{x + v * sx:.1f}')
+            else:
+                out.append(f'{y + v * sy:.1f}')
+            xy += 1
+        return (f'<path d="{" ".join(out)}" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round"/>')
+    # strength decides: the same ring below and above its threshold
+    b = mono(16, 20, 'below threshold: settles', fill='var(--muted)')
+    b += trace('rings, then settles', 16, 34, 6.2, 2.4, 'var(--muted)')
+    b += mono(16, 92, 'above threshold: ticks', fill='var(--ink)')
+    b += trace('keeps time', 16, 104, 6.2, 2.4)
+    b += mono(115, lab_y, 'strength decides', anchor='middle', fill='var(--ink)', size=12)
+    # the loop models: the wave rides the day and rises before dawn
+    x0, x1, day = 16, 214, 66.0
     c = ''
-    for i, (kind, word) in enumerate((('remember', 'remember'), ('time', 'keep time'), ('steer', 'steer'))):
-        x = 40 + i * 75
-        c += f'<g transform="translate({x - 16} 30)">' + FN_ICON[kind].replace('{c}', 'var(--ink)') + '</g>'
-        c += label(x, 84, word, size=12, extra=' font-weight="600"')
-    c += mono(115, 128, 'function', anchor='middle', fill='var(--ink)', size=12)
-    return ('<div class="trio-f">' + p(a, 'Shape: two molecules in a loop, one arrow activates, one represses')
-            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(b, 'Pattern: the level traces a wave in time')
-            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(c, 'Function: the cell remembers, keeps time or steers') + '</div>'
-            + '<div class="keyrow"><span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H31" stroke="var(--accent-text)" stroke-width="2.2" marker-end="url(#fx-arrow)"/></svg>activates, amplifies</span>'
-            '<span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H30" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-bar)"/></svg>represses, brakes</span>'
-            '<span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H30" stroke="var(--accent2-text)" stroke-width="2.2" stroke-dasharray="4 4" marker-end="url(#fx-bar)"/></svg>a brake that is lost (Figure 7)</span></div>')
+    for k in range(3):
+        c += f'<rect x="{x0 + k * day + day / 2:.1f}" y="22" width="{day / 2:.1f}" height="106" fill="var(--muted)" opacity="0.14"/>'
+    c += mono(x0 + day / 4, 16, 'day', anchor='middle') + mono(x0 + day + 3 * day / 4, 16, 'night', anchor='middle')
+    ptsl = []
+    for q in range(0, int(x1 - x0) + 1, 2):
+        x = x0 + q
+        ph = 2 * math.pi * (q / day)            # the peak sits a little before each dawn (x0 + k*day)
+        ptsl.append(f'{x:.1f} {75 - 34 * math.cos(ph + 0.55):.1f}')
+    c += '<path d="M' + ' L'.join(ptsl) + '" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>'
+    pk = x0 + day - 0.55 / (2 * math.pi) * day
+    c += f'<circle cx="{pk:.1f}" cy="41" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.4"/>'
+    c += mono(pk, 146, 'peaks before dawn', anchor='middle', fill='var(--ink)')
+    c += f'<line x1="{pk:.1f}" y1="47" x2="{pk:.1f}" y2="134" stroke="var(--accent-text)" stroke-width="1.4" stroke-dasharray="2 3"/>'
+    c += mono(115, lab_y, 'the loop models', anchor='middle', fill='var(--ink)', size=12)
+    return ('<div class="trio-f">' + p(a, 'Sign permits: a ring of three repressions brakes, so it can keep time and cannot hold two states')
+            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(b, 'Strength decides: below its threshold gain the ring settles, above it the ring ticks')
+            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(c, 'The loop models: the rhythm follows the day and peaks before dawn, a copy rather than a reaction') + '</div>'
+            + '<div class="keyrow"><span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H30" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-bar)"/></svg>represses, brakes</span></div>')
 
 
 # ================================================================ three diseases, one algebra

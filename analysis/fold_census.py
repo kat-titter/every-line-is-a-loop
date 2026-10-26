@@ -60,15 +60,17 @@ NEW_REFS = [
     ('10.1056/NEJMoa2212948', 'van Dyck CH et al. Lecanemab in early Alzheimer&#8217;s disease. <i>N Engl J Med</i> 388:9&#8211;21 (2023). <a href="https://doi.org/10.1056/NEJMoa2212948">doi:10.1056/NEJMoa2212948</a>'),
     ('10.1182/blood.V72.2.567.567', 'Huang ME, Ye YC, Chen SR, Chai JR, Lu JX, Zhao L, Gu LJ, Wang ZY. Use of all-trans retinoic acid in the treatment of acute promyelocytic leukemia. <i>Blood</i> 72(2):567&#8211;572 (1988). <a href="https://doi.org/10.1182/blood.V72.2.567.567">doi:10.1182/blood.V72.2.567.567</a>'),
     ('10.1016/j.cell.2016.11.052', 'Ocampo A et al. In vivo amelioration of age-associated hallmarks by partial reprogramming. <i>Cell</i> 167(7):1719&#8211;1733.e12 (2016). <a href="https://doi.org/10.1016/j.cell.2016.11.052">doi:10.1016/j.cell.2016.11.052</a>'),
+    ('10.1016/s0092-8240(05)80394-5', 'Thron CD. The secant condition for instability in biochemical feedback control&#8212;I. The role of cooperativity and saturability. <i>Bull Math Biol</i> 53(3):383&#8211;401 (1991). <a href="https://doi.org/10.1016/s0092-8240(05)80394-5">doi:10.1016/s0092-8240(05)80394-5</a>'),
+    ('10.1073/pnas.0308265100', 'Angeli D, Ferrell JE, Sontag ED. Detection of multistability, bifurcations, and hysteresis in a large class of biological positive-feedback systems. <i>Proc Natl Acad Sci USA</i> 101(7):1822&#8211;1827 (2004). <a href="https://doi.org/10.1073/pnas.0308265100">doi:10.1073/pnas.0308265100</a>'),
 ]
 # The same work cited through two records (post key -> essay key).
 ALIASES = {}
 
 # Figure numbers in the merged page for the figures that come from the census build.
 FIG = {'Figure 1. Arrows and loops.': 'Figure 1. Flip the arrows.',
-       'Figure 5. The periodic table of loops.': 'Figure 6. The periodic table of loops.',
-       'Figure 6. The data.': 'Figure 7. The data.',
-       'Figure 7. The research loop.': 'Figure 13. The research loop.'}
+       'Figure 5. The periodic table of loops.': 'Figure 5. The periodic table of loops.',
+       'Figure 6. The data.': 'Figure 6. The data.',
+       'Figure 7. The research loop.': 'Figure 12. The research loop.'}
 
 CSS_WANT = ['.pt-', '.ptable', '.ecard', '.rc-', '.refcard', '.tile', '.tiles', '.cards', '.card', '.summary-cards', '.f-', '.explorer',
             '.ex-', 'ol.ex-list', '#ex-q', '.pick', '.sl-', '.sn', '.sp', '.solo', '.bars', '.grid-fig', '.grid-key', '.rows-grid', '.quad',
@@ -175,68 +177,117 @@ def dot_row(y, label, slots, filled, right, x0=64, step=12, r=4.2):
     return s
 
 
+def truth_numbers():
+    """Every number the scorecard and Supplement E quote, read from results/truth_tests.json and
+    results/robust_return.json (analysis/truth_tests.py, analysis/robust_return.py)."""
+    T = json.loads((ROOT / 'results' / 'truth_tests.json').read_text())
+    R = json.loads((ROOT / 'results' / 'robust_return.json').read_text())
+    ru = T['rules']
+    assert not ru['memory_without_amplifying_loop'] and not ru['clock_without_braking_loop']
+    rings = [r for r in T['gain_brake'] if r['status'] == 'ok' and r.get('G') is not None]
+    clocks = [r for r in rings if r['ticks']]
+    calm = [r for r in rings if not r['ticks']]
+    above = [r for r in clocks if r['G'] > r['threshold']]
+    below = [r for r in calm if r['G'] < r['threshold']]
+    miss = [r for r in clocks if r['G'] <= r['threshold']]
+    toggle = next(r for r in T['gain_amplify'] if r['model'] == 'BIOMD0000000507')
+    tg = sorted(x['G'] for x in toggle['steady_states'])
+    tip = next(x['G'] for x in toggle['steady_states'] if x['unstable'])
+    # the colon-crypt versions add mechanisms rather than detail, so they are not one system drawn twice
+    fams = {f: v for f, v in T['families'].items() if not f.startswith('Smallbone')}
+    does = {f: len({tuple(m['behaviours']) for m in v}) == 1 for f, v in fams.items()}
+    sits = {f: len({(m['loops'], m['brakes'], m['running_totals']) for m in v}) == 1 for f, v in fams.items()}
+    ok = [r for r in T['step'] if r['status'] == 'ok']
+    exact = [r for r in ok if r['exact_returns']]
+    robust = [m for m in R if any(q['robust'] for q in m['pairs'])]
+    band = [m for m in robust if 1 <= (m['loops'] or 0) <= 3]
+    assert all(m['running_totals'] == 0 for m in band)
+    return dict(auto=ru['autonomous'], mem=ru['memory'], clk=ru['clock'], rings=rings, clocks=clocks, calm=calm,
+                above=above, below=below, miss=miss, tip=tip, rest=[g for g in tg if g != tip], fams=fams, does=does,
+                sits=sits, settling=len(ok), exact=len(exact), robust=robust, band=band)
+
+
 def scorecard(post):
-    """The census's three claims and its surprise, each drawn: verdict, claim, the evidence as dots. The numbers are
-    read from the census build's own scorecard and its fly-clock sentence, so they cannot drift from results/."""
-    txt = html_lib.unescape(re.sub(r'<[^>]+>', ' ', post))
-    txt = re.sub(r'\s+', ' ', txt)
-    m1 = re.search(r'Two loops: (\d+) kinds, (\d+) elements\. Three loops: (\d+) kinds, (\d+) elements\.', txt)
-    m2 = re.search(r'no clock without a brake, in (\d+) models', txt)
-    m3 = re.search(r'At two loops a strict detector fills (\d+) of (\d+) elements, a loose one (\d+)\.', txt)
-    m4 = re.search(r'Five models of one clock land in four places', txt)
-    assert m1 and m2 and m3 and m4, (m1, m2, m3, m4)
-    k2, e2, k3, e3 = map(int, m1.groups())
-    n = int(m2.group(1))
-    st, e, lo = map(int, m3.groups())
-    # the five fly-clock models, as the census places them: 1 loop (-), 2 (+ -), 2 (- -) twice, 14
-    fly = [(1, '\u2212'), (2, '+\u2212'), (2, '\u2212\u2212'), (2, '\u2212\u2212'), (14, '')]
-    assert 'Goldbeter&#8217;s 1995 model has one loop' in post and 'has 14.' in post
+    """The laws, tested: verdict, claim, and the evidence as dots, one dot per model or family, filled where the
+    result is as the laws predict."""
+    N = truth_numbers()
     W = 330
 
     def svg(inner, h, aria):
         return f'<svg viewBox="0 0 {W} {h}" role="img" aria-label="{aria}">{inner}</svg>'
-    ev1 = svg(dot_row(12, '2 loops', e2, k2, f'{k2} kinds') + dot_row(36, '3 loops', e3, k3, f'{k3} kinds'), 46,
-              f'Two loops: {k2} kinds of behaviour across {e2} elements. Three loops: {k3} kinds across {e3} elements.')
-    cols, step = 48, 4.6
-    grid = ''.join(f'<circle cx="{4 + (i % cols) * step:.1f}" cy="{4 + (i // cols) * step:.1f}" r="1.5" fill="var(--accent)"/>' for i in range(n))
+
+    def row(y, lab, slots, filled, right, x0=64, step=12, r=4.2):
+        out = mono(0, y + 4, lab)
+        for i in range(slots):
+            cx = x0 + i * step
+            out += (f'<circle cx="{cx}" cy="{y}" r="{r}" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.2"/>' if i < filled
+                    else f'<circle cx="{cx}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/>')
+        return out + mono(x0 + 7 * step + 6, y + 4, right, fill='var(--ink)')
+    n = N['mem'] + N['clk']
+    cols, st = 48, 4.6
+    grid = ''.join(f'<circle cx="{4 + (i % cols) * st:.1f}" cy="{4 + (i // cols) * st:.1f}" r="1.5" fill="var(--accent)"/>' for i in range(n))
     rows = -(-n // cols)
-    ev2 = svg(grid + mono(4, 4 + rows * step + 12, f'{n} models, 0 break a rule', fill='var(--ink)'), int(4 + rows * step + 18),
-              f'{n} models, none with memory but no amplifying loop or a clock but no brake')
-    ev3 = svg(dot_row(12, 'strict', e, st, f'{st} of {e}') + dot_row(36, 'loose', e, lo, f'{lo} of {e}'), 46,
-              f'At two loops a strict running-total detector fills {st} of {e} elements, a loose one {lo}.')
-    ax0, ax1 = 20, 262
-    X = lambda loops: ax0 + (ax1 - ax0) * (loops - 1) / 13
-    ax = f'<line x1="{ax0}" y1="40" x2="{ax1}" y2="40" stroke="var(--muted)" stroke-width="1.4"/>'
-    ax += ''.join(f'<line x1="{X(v):.1f}" y1="37" x2="{X(v):.1f}" y2="43" stroke="var(--muted)" stroke-width="1.4"/>' + mono(X(v), 56, str(v), anchor='middle') for v in (1, 2, 14))
-    stack, dots = {}, ''
-    for loops, sign in fly:
-        key = (loops, sign)
-        stack.setdefault(loops, [])
-        if key not in stack[loops]:
-            stack[loops].append(key)
-        i = stack[loops].index(key)
-        same = sum(1 for k in fly[:fly.index((loops, sign)) + 1] if k == key)
-    placed = {}
-    for loops, sign in fly:
-        col = stack[loops].index((loops, sign))
-        n_here = placed.get((loops, sign), 0)
-        placed[(loops, sign)] = n_here + 1
-        cx = X(loops) + col * 22 + n_here * 9
-        dots += f'<circle cx="{cx:.1f}" cy="28" r="4.2" fill="var(--ink)"/>'
-        if n_here == 0 and sign:
-            dots += mono(cx + n_here * 4.5, 14, sign, anchor='start' if loops == 2 else 'middle', fill='var(--ink)')
-    ev4 = svg(ax + dots + mono(ax1 + 12, 44, 'loops'), 60, 'Five models of the fruit fly clock: one at 1 loop with one brake, one at 2 loops with one amplifying loop and one brake, two at 2 loops with two brakes, one at 14 loops: four places.')
+    ev1 = svg(grid + mono(4, 4 + rows * st + 12, f'{N["mem"]} memories, {N["clk"]} clocks, 0 exceptions', fill='var(--ink)'), int(4 + rows * st + 18),
+              f'All {N["mem"]} models that hold two states have an amplifying loop and all {N["clk"]} that keep time have a braking loop')
+    c, k = len(N['clocks']), len(N['calm'])
+    ev2 = svg(row(12, 'ticks', c, len(N['above']), f'{len(N["above"])} of {c} above') + row(36, 'settles', k, len(N['below']), f'{len(N["below"])} of {k} below'), 46,
+              f'Of {c} one-ring clocks, {len(N["above"])} have gain above the threshold; of {k} one-ring models that settle, {len(N["below"])} are below it')
+    f = len(N['fams'])
+    d, p_ = sum(N['does'].values()), sum(N['sits'].values())
+    ev3 = svg(row(12, 'does', f, d, f'{d} of {f} agree') + row(36, 'place', f, p_, f'{p_} of {f} agree'), 46,
+              f'Across {f} families of models drawing one system, what the models do agrees in {d} and their place on the table in {p_}')
+    b = len(N['band'])
+    ev4 = svg(row(12, 'returns', b, 0, f'{b} found, 0 read'), 22,
+              f'{b} robust exact returns in the one-to-three-loop band, none of them read as running totals from the loops')
     rows_html = [
-        ('<span class="v">~ softly</span>', 'No more kinds of behaviour than elements', ev1),
-        ('<span class="v ok">&#10003; holds</span>', 'Loops forbid some behaviours', ev2),
-        ('<span class="v">? open</span>', 'Every element can exist', ev3),
-        ('<span class="v">! surprise</span>', 'One circuit, one address', ev4),
+        ('<span class="v ok">&#10003; holds</span>', 'The sign permits', ev1),
+        ('<span class="v ok">&#10003; holds</span>', 'Strength decides, on one ring', ev2),
+        ('<span class="v">~ mostly</span>', 'Redrawn, a circuit keeps what it does, not its place', ev3),
+        ('<span class="v">? open</span>', 'Running totals hide from the loop reading', ev4),
     ]
     out = '<div class="pane one score">' + ''.join(
-        f'<div class="sc-row">{v}<span class="sc-c">{c}</span><span class="sc-e">{e}</span></div>' for v, c, e in rows_html) + '</div>'
-    out += ('<p class="keyrow"><span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="4.2" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/></svg>an element of the row</span>'
-            '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="4.2" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.2"/></svg>accounted for</span></p>')
+        f'<div class="sc-row">{v}<span class="sc-c">{c_}</span><span class="sc-e">{e}</span></div>' for v, c_, e in rows_html) + '</div>'
+    out += ('<p class="keyrow"><span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="4.2" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.2"/></svg>as the laws predict</span>'
+            '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="4.2" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/></svg>not, or not yet</span></p>')
     return out
+
+
+def truth_supp(cite):
+    """Supplement E: how the laws were tested, every number from the results files."""
+    N = truth_numbers()
+
+    def g(x):
+        return '&#8734;' if x == float('inf') or x > 1e9 else (f'{x:.0f}' if x >= 100 else f'{x:.2f}' if x < 10 else f'{x:.1f}')
+    tr = ''.join(f'<tr><td>{r["name"].replace("_", " ").replace(" - ", ", ")}, {r["n"]} steps</td><td>{g(r["G"])}</td><td>{g(r["threshold"])}</td>'
+                 f'<td>{"ticks" if r["ticks"] else "settles"}</td></tr>' for r in sorted(N['rings'], key=lambda r: (not r['ticks'], r['name'])))
+    fam = ''.join(f'<tr><td>{name}</td><td>{len(v)}</td><td>{"agree" if N["does"][name] else "differ"}</td><td>{"agree" if N["sits"][name] else "differ"}</td></tr>'
+                  for name, v in N['fams'].items())
+    band = ', '.join(f'{m["name"].replace("_", " ")} ({m["loops"]} loop{"s" if m["loops"] > 1 else ""})' for m in N['band'])
+    G = ('<math display="block"><mi>G</mi><mo>=</mo><mfrac><mrow><munder><mo>&#8719;</mo><mi>ring</mi></munder><mo>|</mo><msub><mi>J</mi><mrow><mi>b</mi><mi>a</mi></mrow></msub><mo>|</mo></mrow>'
+         '<mrow><munder><mo>&#8719;</mo><mi>ring</mi></munder><mo>|</mo><msub><mi>J</mi><mrow><mi>i</mi><mi>i</mi></mrow></msub><mo>|</mo></mrow></mfrac></math>')
+    miss = N['miss'][0]['name'].replace('_', ' ')
+    parts = [
+        '<details class="supp" id="supp-e">',
+        '<summary>E. The laws, tested</summary>',
+        '<div class="text">',
+        '<p><code>truth_tests.py</code> and <code>robust_return.py</code> run four tests on the same release, from the same equations. Every number below is read from their results files when this page is built.</p>',
+        '<h3>The sign permits</h3>',
+        f'<p>Each of the {N["auto"]} models that run on their own was checked against both rules on its own sign graph, read where the model runs, with no filters. The {N["mem"]} that hold two states all have an amplifying loop; the {N["clk"]} that keep time all have a braking loop.</p>',
+        '<h3>Strength decides</h3>',
+        '<p>For a single loop, gain is the product of its arrows&#8217; strengths over the product of its molecules&#8217; own decay rates, read from the Jacobian <i>J</i> at a steady state:</p>',
+        G,
+        f'<p>A braking ring of <i>n</i> steps can leave its steady state only if <i>G</i> &gt; sec(&#960;/<i>n</i>)<sup><i>n</i></sup> {cite(70)}; an amplifying ring&#8217;s steady state is a tipping point exactly when <i>G</i> &gt; 1 {cite(71)}. The test reads <i>G</i> at each model&#8217;s own steady state, found by running it and, for a switch&#8217;s tipping point, by bisection between its two stable states. Loops through one molecule are left out, since their self-effect and their decay share one Jacobian entry. The one-ring models with a measurable gain, the gain each needs, and what each does at published rates:</p>',
+        f'<table class="key" style="overflow-wrap: anywhere"><tr><th>Model</th><th>Gain</th><th>Needs</th><th>Does</th></tr>{tr}</table>',
+        f'<p>The miss, {miss}, holds four loops before the census&#8217;s filters, so it is not a single ring. Gardner&#8217;s toggle has gain {N["tip"]:.2f} at its tipping point and {N["rest"][0]:.3f} and {N["rest"][1]:.2f} at its two stable states. McClean&#8217;s 2007 crosstalk model also holds two states, with five loops before filtering, outside the one-ring result.</p>',
+        '<h3>Redrawn models</h3>',
+        '<p>Five families draw one system at different detail. &#8220;Does&#8221; compares what the models do at published rates; &#8220;place&#8221; compares their element (loops, braking loops, running totals). Smallbone&#8217;s four colon-crypt versions are left out, because each adds mechanisms rather than detail.</p>',
+        f'<table class="key"><tr><th>Family</th><th>Models</th><th>Does</th><th>Place</th></tr>{fam}</table>',
+        '<h3>Step and return</h3>',
+        f'<p>Each global parameter of every settling model (local parameters promoted to global) was raised by 20%. An exact return is a level that moves by more than 5% and comes back to within 0.5% while other levels stay moved by more than 5%. {N["exact"]} of {N["settling"]} models show one. Each hit was rerun under 5 random redraws of all other parameters, each scaled by 10<sup>U(&#8722;0.15, 0.15)</sup>; it counts as robust when it returns in every redraw that settles, at least 3. {len(N["robust"])} models are robust, {len(N["band"])} of them in the one-to-three-loop band: {band}. The census&#8217;s loop reading marks no running total in any of them. A feedforward circuit can also return exactly {cite(50)}, so each needs its wiring traced by hand.</p>',
+        '</div>',
+        '</details>',
+    ]
+    return '\n'.join(parts)
 
 
 def nesting_figure():
@@ -375,8 +426,10 @@ def main():
         'orbitals': TF.fig_orbitals(),
         'ptable': clean(inner(ptable)),
         'data': clean(inner(datafig)),
-        'cards': '<figure class="fig" id="fig-score">\n' + scorecard(post) + '\n<figcaption><b>The scorecard.</b> Each row of dots is one row of the table.</figcaption>\n</figure>',
-        'next': clean(inner(nextfig)).replace('test nesting order as a fourth count.', 'look for a binary that touches every row, since nesting order, tested below, does not.'),
+        'cards': '<figure class="fig" id="fig-score">\n' + scorecard(post) + '\n<figcaption><b>The scorecard.</b> Each dot is one model or one family of models.</figcaption>\n</figure>',
+        'truth': truth_supp(lambda n: f'<span class="cite">[{n}]</span>'),
+        'next': clean(inner(nextfig)).replace('test nesting order as a fourth count.', 'look for a binary that touches every row, since nesting order, tested below, does not.')
+                                     .replace('Benchmark running-total detectors on models with known answers', 'Trace by hand the four exact returns the loop reading missed, benchmark running-total detectors on models with known answers'),
         'nesting': nesting_figure()[0],
         'morph': LM.fig_morph(),
         'supp': clean(supp),

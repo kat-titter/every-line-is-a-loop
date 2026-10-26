@@ -1,0 +1,6172 @@
+{
+ "settings": {
+  "step": 0.2,
+  "moves_more_than": 0.05,
+  "returns_within": 0.005,
+  "others_stay_moved_by": 0.05
+ },
+ "rules": {
+  "autonomous": 392,
+  "memory": 12,
+  "memory_without_amplifying_loop": [],
+  "clock": 101,
+  "clock_without_braking_loop": []
+ },
+ "gain_brake": [
+  {
+   "model": "BIOMD0000000003",
+   "status": "ok",
+   "n": 3,
+   "G": 1606.8998273446928,
+   "why": "",
+   "threshold": 7.999999999999995,
+   "unstable": true,
+   "ticks": true,
+   "name": "Goldbeter1991 - Min Mit Oscil"
+  },
+  {
+   "model": "BIOMD0000000004",
+   "status": "ok",
+   "n": 3,
+   "G": 3020.862634148022,
+   "why": "",
+   "threshold": 7.999999999999995,
+   "unstable": true,
+   "ticks": true,
+   "name": "Goldbeter1991 - Min Mit Oscil, Expl Inact"
+  },
+  {
+   "model": "BIOMD0000000012",
+   "status": "ok",
+   "n": 6,
+   "G": 6.606004570274636,
+   "why": "",
+   "threshold": 2.3703703703703694,
+   "unstable": true,
+   "ticks": true,
+   "name": "Elowitz2000 - Repressilator"
+  },
+  {
+   "model": "BIOMD0000000016",
+   "status": "ok",
+   "n": 5,
+   "G": 1.9329350278823538,
+   "why": "",
+   "threshold": 2.885438199983174,
+   "unstable": true,
+   "ticks": true,
+   "name": "Goldbeter1995_CircClock"
+  },
+  {
+   "model": "BIOMD0000000079",
+   "status": "ok",
+   "n": 3,
+   "G": 577.0648488661786,
+   "why": "",
+   "threshold": 7.999999999999995,
+   "unstable": true,
+   "ticks": true,
+   "name": "Goldbeter2006_weightCycling"
+  },
+  {
+   "model": "BIOMD0000000157",
+   "status": "ok",
+   "n": 3,
+   "G": 3852.267816353355,
+   "why": "",
+   "threshold": 7.999999999999995,
+   "unstable": true,
+   "ticks": true,
+   "name": "Zatorsky2006_p53_Model4"
+  },
+  {
+   "model": "BIOMD0000000323",
+   "status": "ok",
+   "n": 3,
+   "G": 125.00000000706929,
+   "why": "",
+   "threshold": 7.999999999999995,
+   "unstable": true,
+   "ticks": true,
+   "name": "Kim2011_Oscillator_SimpleIII"
+  },
+  {
+   "model": "BIOMD0000000377",
+   "status": "no steady state found",
+   "ticks": true,
+   "name": "Bertram2000_PancreaticBetaCells_Oscillations"
+  },
+  {
+   "model": "BIOMD0000000159",
+   "status": "ok",
+   "n": 3,
+   "G": 0.999999999943344,
+   "why": "",
+   "threshold": 7.999999999999995,
+   "unstable": false,
+   "ticks": false,
+   "name": "Zatorsky2006_p53_Model1"
+  },
+  {
+   "model": "BIOMD0000000279",
+   "status": "ok",
+   "n": 2,
+   "G": 0.9999999997906542,
+   "why": "",
+   "threshold": Infinity,
+   "unstable": false,
+   "ticks": false,
+   "name": "Komarova2005_PTHaction_OsteoclastOsteoblastCoupling"
+  },
+  {
+   "model": "BIOMD0000000308",
+   "status": "ok",
+   "n": 3,
+   "G": null,
+   "why": "an arrow is zero here",
+   "threshold": 7.999999999999995,
+   "unstable": false,
+   "ticks": false,
+   "name": "Tyson2003_NegFB_Oscillator"
+  },
+  {
+   "model": "BIOMD0000000401",
+   "status": "ok",
+   "n": 2,
+   "G": 0.9999999997906542,
+   "why": "",
+   "threshold": Infinity,
+   "unstable": false,
+   "ticks": false,
+   "name": "Ayati2010_BoneRemodelingDynamics_NormalCondition"
+  },
+  {
+   "model": "BIOMD0000000550",
+   "status": "ok",
+   "n": 2,
+   "G": 0.0001377315021380462,
+   "why": "",
+   "threshold": Infinity,
+   "unstable": false,
+   "ticks": false,
+   "name": "Baker2013 - Cytokine Mediated Inflammation in Rheumatoid Arthritis"
+  },
+  {
+   "model": "BIOMD0000000584",
+   "status": "ok",
+   "n": 3,
+   "G": 6.882162503894995,
+   "why": "",
+   "threshold": 7.999999999999995,
+   "unstable": false,
+   "ticks": false,
+   "name": "Mandlik2015 - Tristable genetic circuit of Leishmania"
+  }
+ ],
+ "gain_amplify": [
+  {
+   "model": "BIOMD0000000116",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.040310099780584856,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.045840934817356724,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.036932807021188604,
+     "why": "",
+     "unstable": true
+    }
+   ],
+   "memory": true,
+   "name": "McClean2007_CrossTalk"
+  },
+  {
+   "model": "BIOMD0000000311",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": null,
+     "why": "a loop node has no decay of its own",
+     "unstable": true
+    }
+   ],
+   "memory": true,
+   "name": "Tyson2003_Mutual_Activation"
+  },
+  {
+   "model": "BIOMD0000000507",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.007735812293371508,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.6223858274503378,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.408835559951018,
+     "why": "",
+     "unstable": true
+    }
+   ],
+   "memory": true,
+   "name": "Gardner2000 - genetic toggle switch in E.coli"
+  },
+  {
+   "model": "BIOMD0000000037",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398548655e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398548654e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.6841313985486554e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398548655e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.6841313985486554e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.684131398437718e-08,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Marwan2003 - Genetics, regulatory hierarchy between genes"
+  },
+  {
+   "model": "BIOMD0000000039",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Marhl2000_CaOscillations"
+  },
+  {
+   "model": "BIOMD0000000045",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Borghans1997 - Calcium Oscillation - Model 3"
+  },
+  {
+   "model": "BIOMD0000000080",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Thomsen1989_AdenylateCyclase"
+  },
+  {
+   "model": "BIOMD0000000082",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 4.515147046299779e-15,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Thomsen1988_AdenylateCyclase_Inhibition"
+  },
+  {
+   "model": "BIOMD0000000098",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Goldbeter1990_CalciumSpike_CICR"
+  },
+  {
+   "model": "BIOMD0000000113",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Dupont1992_Ca_dpt_protein_phospho"
+  },
+  {
+   "model": "BIOMD0000000114",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Somogyi1990_CaOscillations"
+  },
+  {
+   "model": "BIOMD0000000115",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": null,
+     "why": "a loop node has no decay of its own",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Somogyi1990_CaOscillations_SingleCaSpike"
+  },
+  {
+   "model": "BIOMD0000000225",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Westermark2003_Pancreatic_GlycOsc_basic"
+  },
+  {
+   "model": "BIOMD0000000236",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Westermark2003_Pancreatic_GlycOsc_extended"
+  },
+  {
+   "model": "BIOMD0000000240",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.008704365908752263,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Veening2008_DegU_Regulation"
+  },
+  {
+   "model": "BIOMD0000000275",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.1237681243312877,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Goldbeter2007_Somitogenesis_Switch"
+  },
+  {
+   "model": "BIOMD0000000307",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Tyson2003_Substrate_Depletion_Osc"
+  },
+  {
+   "model": "BIOMD0000000388",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.889477690932465,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Arnold2011_Zhu2009_CalvinCycle"
+  },
+  {
+   "model": "BIOMD0000000413",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.964054013829542,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Band2012_DII-Venus_FullModel"
+  },
+  {
+   "model": "BIOMD0000000418",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Ratushny2012_SPF"
+  },
+  {
+   "model": "BIOMD0000000420",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Ratushny2012_ASSURE_I"
+  },
+  {
+   "model": "BIOMD0000000421",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Ratushny2012_ASSURE_II"
+  },
+  {
+   "model": "BIOMD0000000425",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Tan2012 - Antibiotic Treatment, Inoculum Effect"
+  },
+  {
+   "model": "BIOMD0000000455",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0000000000000002,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.9999999999999999,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Smallbone2013 - Metabolic Control Analysis - Example 2"
+  },
+  {
+   "model": "BIOMD0000000459",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Liebal2012 - B.subtilis post-transcriptional instability model"
+  },
+  {
+   "model": "BIOMD0000000461",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.11052660601990001,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Liebal2012 - B.subtilis transcription inhibition model"
+  },
+  {
+   "model": "BIOMD0000000462",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Proctor2012 - Role of Amyloid-beta dimers in aggregation formation"
+  },
+  {
+   "model": "BIOMD0000000483",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": null,
+     "why": "a loop node has no decay of its own",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Cao2008 - Network of a toggle switch"
+  },
+  {
+   "model": "BIOMD0000000485",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Cao2013 - Application of ABSIS method in the bistable Schl\u00f6gl model"
+  },
+  {
+   "model": "BIOMD0000000521",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Ribba2012 - Low-grade gliomas, tumour growth inhibition model"
+  },
+  {
+   "model": "BIOMD0000000552",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 6.44829294692606e-41,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Ehrenstein2000 - Positive-Feedback model for the loss of acetylcholine in Alzheimer's disease"
+  },
+  {
+   "model": "BIOMD0000000553",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 6.44829294692606e-41,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Ehrenstein1997 - The choline-leakage hypothesis in Alzheimer's disease"
+  },
+  {
+   "model": "BIOMD0000000614",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Kamihira2000"
+  },
+  {
+   "model": "BIOMD0000000639",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.007157383381433584,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383382194947,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383382203558,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0071573833820813585,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383382088423,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0071573833816576315,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383382113778,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381968929,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383382748011,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381541501,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383382662254,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157558713020898,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381690018,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381688338,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383382202551,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383382200539,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381688676,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157558001576061,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381686665,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381686666,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157602341803767,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383382201545,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007159119918082015,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00715738338220289,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381686666,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381687333,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00715874353338066,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381645602,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383382204223,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381687001,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381687,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381686327,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381687002,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383382202887,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0071573833816876735,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381686664,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007162972118721631,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007164277831050851,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381686666,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381685659,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0071573833811303935,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0071573833822015445,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381687673,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007159341600517212,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007159350921705853,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381687671,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007160978165464889,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381688009,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381643264,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0071573833816866664,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0071642741540467,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007160952708115752,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381689012,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00715738338220054,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381687001,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381685323,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007159511080620514,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007160888093011903,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383382201884,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381686665,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381686666,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007159262302798767,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00715738338168767,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007161666240759346,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007161692738832119,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007157383381687004,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Thiaville2016 - Wild type folate pathway model with proposed PanB reaction"
+  }
+ ],
+ "step": [
+  {
+   "model": "BIOMD0000000002",
+   "status": "ok",
+   "parameters_tried": 34,
+   "exact_returns": [],
+   "name": "Edelstein1996 - EPSP ACh species",
+   "loops": 662,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000009",
+   "status": "ok",
+   "parameters_tried": 31,
+   "exact_returns": [
+    {
+     "parameter": "r3a_d3",
+     "variable": "P_KKK_KK",
+     "peak": 0.07,
+     "final": 0.00217
+    },
+    {
+     "parameter": "r3a_a3",
+     "variable": "P_KKK_KK",
+     "peak": 0.144,
+     "final": 0.00359
+    },
+    {
+     "parameter": "r5a_a5",
+     "variable": "P_KKK",
+     "peak": 0.056,
+     "final": 0.00015
+    },
+    {
+     "parameter": "r5a_a5",
+     "variable": "E2_P_KKK",
+     "peak": 0.056,
+     "final": 0.00014
+    }
+   ],
+   "name": "Huang1996 - Ultrasensitivity in MAPK cascade",
+   "loops": 20,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000011",
+   "status": "ok",
+   "parameters_tried": 30,
+   "exact_returns": [],
+   "name": "Levchenko2000_MAPK_noScaffold",
+   "loops": 20,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000013",
+   "status": "ok",
+   "parameters_tried": 77,
+   "exact_returns": [],
+   "name": "Poolman2004_CalvinCycle",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000014",
+   "status": "ok",
+   "parameters_tried": 220,
+   "exact_returns": [],
+   "name": "Levchenko2000_MAPK_Scaffold",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000015",
+   "status": "ok",
+   "parameters_tried": 107,
+   "exact_returns": [],
+   "name": "Curto1998 - purine metabolism",
+   "loops": 551,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000017",
+   "status": "ok",
+   "parameters_tried": 71,
+   "exact_returns": [],
+   "name": "Hoefnagel2002_PyruvateBranches",
+   "loops": 234,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000020",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "hodgkin-huxley squid-axon 1952",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000023",
+   "status": "ok",
+   "parameters_tried": 54,
+   "exact_returns": [],
+   "name": "Rohwer2001_Sucrose",
+   "loops": 24,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000026",
+   "status": "ok",
+   "parameters_tried": 16,
+   "exact_returns": [
+    {
+     "parameter": "h1",
+     "variable": "Mp_MAPKK",
+     "peak": 0.068,
+     "final": 0.0021
+    },
+    {
+     "parameter": "h1",
+     "variable": "Mpp_MKP3",
+     "peak": 0.08,
+     "final": 0.0021
+    },
+    {
+     "parameter": "h1",
+     "variable": "Mp_MKP3_dep",
+     "peak": 0.062,
+     "final": 0.00212
+    },
+    {
+     "parameter": "h_1",
+     "variable": "Mp_MAPKK",
+     "peak": 0.062,
+     "final": 0.00229
+    },
+    {
+     "parameter": "h_1",
+     "variable": "Mpp_MKP3",
+     "peak": 0.073,
+     "final": 0.00229
+    },
+    {
+     "parameter": "h_1",
+     "variable": "Mp_MKP3_dep",
+     "peak": 0.058,
+     "final": 0.00232
+    },
+    {
+     "parameter": "h2",
+     "variable": "Mp_MKP3",
+     "peak": 0.118,
+     "final": 0.00398
+    }
+   ],
+   "name": "Markevich2004_MAPK_orderedElementary",
+   "loops": 21,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000027",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Markevich2004 - MAPK double phosphorylation,  ordered Michaelis-Menton",
+   "loops": 7,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000028",
+   "status": "ok",
+   "parameters_tried": 27,
+   "exact_returns": [
+    {
+     "parameter": "h1",
+     "variable": "MpT_MEK",
+     "peak": 0.067,
+     "final": 0.00461
+    },
+    {
+     "parameter": "h1",
+     "variable": "Mpp_MKP3",
+     "peak": 0.1,
+     "final": 0.00427
+    },
+    {
+     "parameter": "h_1",
+     "variable": "MpT_MEK",
+     "peak": 0.06,
+     "final": 0.00495
+    },
+    {
+     "parameter": "h_1",
+     "variable": "Mpp_MKP3",
+     "peak": 0.088,
+     "final": 0.00458
+    }
+   ],
+   "name": "Markevich2004_MAPK_phosphoRandomElementary",
+   "loops": 196,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000029",
+   "status": "ok",
+   "parameters_tried": 15,
+   "exact_returns": [],
+   "name": "Markevich2004_MAPK_phosphoRandomMM",
+   "loops": 31,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000030",
+   "status": "ok",
+   "parameters_tried": 32,
+   "exact_returns": [],
+   "name": "Markevich2004_MAPK_AllRandomElementary",
+   "loops": 301,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000031",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Markevich2004_MAPK_orderedMM2kinases",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000033",
+   "status": "ok",
+   "parameters_tried": 48,
+   "exact_returns": [],
+   "name": "Brown2004 - NGF and EGF signaling",
+   "loops": 2,
+   "running_totals": 2
+  },
+  {
+   "model": "BIOMD0000000037",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Marwan2003 - Genetics, regulatory hierarchy between genes",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000038",
+   "status": "ok",
+   "parameters_tried": 20,
+   "exact_returns": [],
+   "name": "Rohwer2000_Phosphotransferase_System",
+   "loops": 10,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000041",
+   "status": "ok",
+   "parameters_tried": 25,
+   "exact_returns": [],
+   "name": "Kongas2007 - Creatine Kinase in energy metabolic signaling in muscle",
+   "loops": 24,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000048",
+   "status": "ok",
+   "parameters_tried": 50,
+   "exact_returns": [
+    {
+     "parameter": "v5_k5f",
+     "variable": "RPLCg",
+     "peak": 0.096,
+     "final": 0.00028
+    },
+    {
+     "parameter": "v13_k13f",
+     "variable": "RSh",
+     "peak": 0.101,
+     "final": 0.00165
+    }
+   ],
+   "name": "Kholodenko1999 - EGFR signaling",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000050",
+   "status": "ok",
+   "parameters_tried": 15,
+   "exact_returns": [],
+   "name": "Martins2003_AmadoriDegradation",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000052",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Brands2002 - Monosaccharide-casein systems",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000054",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [
+    {
+     "parameter": "P",
+     "variable": "I",
+     "peak": 0.226,
+     "final": 0.00379
+    },
+    {
+     "parameter": "J",
+     "variable": "I",
+     "peak": 0.226,
+     "final": 0.00379
+    }
+   ],
+   "name": "Ataullahkhanov1996_Adenylate",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000057",
+   "status": "ok",
+   "parameters_tried": 25,
+   "exact_returns": [],
+   "name": "Sneyd2002_IP3_Receptor",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000060",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Keizer1996_Ryanodine_receptor_adaptation",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000062",
+   "status": "ok",
+   "parameters_tried": 14,
+   "exact_returns": [],
+   "name": "Bhartiya2003_Tryptophan_operon",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000063",
+   "status": "ok",
+   "parameters_tried": 59,
+   "exact_returns": [
+    {
+     "parameter": "Vgapd_K5AMP",
+     "variable": "ATP",
+     "peak": 0.082,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_K5NADH",
+     "variable": "ATP",
+     "peak": 0.32,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_K5NADH",
+     "variable": "G6P",
+     "peak": 0.135,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_NADH",
+     "variable": "ATP",
+     "peak": 0.284,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_NADH",
+     "variable": "G6P",
+     "peak": 0.082,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_NAD",
+     "variable": "Glci",
+     "peak": 0.057,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_NAD",
+     "variable": "ATP",
+     "peak": 0.371,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_NAD",
+     "variable": "G6P",
+     "peak": 0.16,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_K5NAD",
+     "variable": "ATP",
+     "peak": 0.319,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_K5NAD",
+     "variable": "G6P",
+     "peak": 0.09,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_K5G3P",
+     "variable": "ATP",
+     "peak": 0.289,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_K5G3P",
+     "variable": "G6P",
+     "peak": 0.083,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_Vm5",
+     "variable": "Glci",
+     "peak": 0.104,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_Vm5",
+     "variable": "ATP",
+     "peak": 0.603,
+     "final": 0.0
+    },
+    {
+     "parameter": "Vgapd_Vm5",
+     "variable": "G6P",
+     "peak": 0.31,
+     "final": 0.0
+    }
+   ],
+   "name": "Galazzo1990_FermentationPathwayKinetics",
+   "loops": 15,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000064",
+   "status": "ok",
+   "parameters_tried": 85,
+   "exact_returns": [
+    {
+     "parameter": "vPDC_KmPDCPYR",
+     "variable": "ACE",
+     "peak": 0.132,
+     "final": 0.00036
+    },
+    {
+     "parameter": "vPDC_KmPDCPYR",
+     "variable": "NADH",
+     "peak": 0.137,
+     "final": 0.00038
+    },
+    {
+     "parameter": "vPDC_nPDC",
+     "variable": "ACE",
+     "peak": 0.086,
+     "final": 0.00019
+    },
+    {
+     "parameter": "vPDC_nPDC",
+     "variable": "NADH",
+     "peak": 0.071,
+     "final": 0.00021
+    },
+    {
+     "parameter": "vPDC_VmPDC",
+     "variable": "ACE",
+     "peak": 0.245,
+     "final": 0.00053
+    },
+    {
+     "parameter": "vPDC_VmPDC",
+     "variable": "NADH",
+     "peak": 0.178,
+     "final": 0.00056
+    }
+   ],
+   "name": "Teusink2000_Glycolysis",
+   "loops": 91,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000065",
+   "status": "ok",
+   "parameters_tried": 22,
+   "exact_returns": [
+    {
+     "parameter": "gamma_M",
+     "variable": "L",
+     "peak": 0.081,
+     "final": 0.00022
+    },
+    {
+     "parameter": "alpha_M",
+     "variable": "L",
+     "peak": 0.073,
+     "final": 0.00018
+    },
+    {
+     "parameter": "K_A",
+     "variable": "L",
+     "peak": 0.062,
+     "final": 0.00016
+    },
+    {
+     "parameter": "beta_A",
+     "variable": "L",
+     "peak": 0.12,
+     "final": 0.00031
+    }
+   ],
+   "name": "Yildirim2003_Lac_Operon",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000068",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Curien2003_MetThr_synthesis",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000069",
+   "status": "ok",
+   "parameters_tried": 15,
+   "exact_returns": [],
+   "name": "Fuss2006_MitoticActivation",
+   "loops": 15,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000070",
+   "status": "ok",
+   "parameters_tried": 166,
+   "exact_returns": [
+    {
+     "parameter": "vPFK_KAMPv3",
+     "variable": "GlcA6P",
+     "peak": 0.057,
+     "final": 0.0002
+    },
+    {
+     "parameter": "vPFK_KATPv3",
+     "variable": "GlcA6P",
+     "peak": 0.077,
+     "final": 0.00047
+    },
+    {
+     "parameter": "vMgATP_KdATP",
+     "variable": "GlcA6P",
+     "peak": 0.067,
+     "final": 0.00043
+    }
+   ],
+   "name": "Holzhutter2004_Erythrocyte_Metabolism",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000071",
+   "status": "ok",
+   "parameters_tried": 70,
+   "exact_returns": [],
+   "name": "Bakker2001_Glycolysis",
+   "loops": 2282,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000072",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Yi2003_GproteinCycle",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000082",
+   "status": "baseline not steady: unsettled",
+   "name": "Thomsen1988_AdenylateCyclase_Inhibition",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000084",
+   "status": "ok",
+   "parameters_tried": 17,
+   "exact_returns": [],
+   "name": "Hornberg2005_ERKcascade",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000092",
+   "status": "ok",
+   "parameters_tried": 4,
+   "exact_returns": [],
+   "name": "Fuentes2005_ZymogenActivation",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000094",
+   "status": "ok",
+   "parameters_tried": 70,
+   "exact_returns": [
+    {
+     "parameter": "v5_kb",
+     "variable": "IFNRJ2_star_STAT1c",
+     "peak": 0.084,
+     "final": 0.00288
+    },
+    {
+     "parameter": "v5_kb",
+     "variable": "IFNRJ2_star_SHP2_STAT1c",
+     "peak": 0.082,
+     "final": 0.00288
+    },
+    {
+     "parameter": "v5_kf",
+     "variable": "IFNRJ2_star_STAT1c",
+     "peak": 0.131,
+     "final": 0.00359
+    },
+    {
+     "parameter": "v5_kf",
+     "variable": "STAT1c_star_STAT1c_star",
+     "peak": 0.06,
+     "final": 0.00368
+    },
+    {
+     "parameter": "v5_kf",
+     "variable": "STAT1c_STAT1c_star",
+     "peak": 0.052,
+     "final": 0.00173
+    },
+    {
+     "parameter": "v5_kf",
+     "variable": "STAT1c_star_STAT1c_star_PPX",
+     "peak": 0.053,
+     "final": 0.00328
+    },
+    {
+     "parameter": "v5_kf",
+     "variable": "IFNRJ2_star_SHP2_STAT1c",
+     "peak": 0.127,
+     "final": 0.00359
+    },
+    {
+     "parameter": "v6_kf",
+     "variable": "STAT1c_star_STAT1c_star",
+     "peak": 0.062,
+     "final": 0.00368
+    },
+    {
+     "parameter": "v6_kf",
+     "variable": "STAT1c_STAT1c_star",
+     "peak": 0.053,
+     "final": 0.00174
+    },
+    {
+     "parameter": "v6_kf",
+     "variable": "STAT1c_star_STAT1c_star_PPX",
+     "peak": 0.055,
+     "final": 0.00328
+    }
+   ],
+   "name": "Yamada2003_JAK_STAT_SOCS1_knockout",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000102",
+   "status": "ok",
+   "parameters_tried": 41,
+   "exact_returns": [],
+   "name": "Legewie2006_apoptosis_WT",
+   "loops": 868,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000103",
+   "status": "ok",
+   "parameters_tried": 49,
+   "exact_returns": [
+    {
+     "parameter": "k29",
+     "variable": "AC9X",
+     "peak": 0.068,
+     "final": 0.00023
+    }
+   ],
+   "name": "Legewie2006_apoptosis_NC",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000108",
+   "status": "ok",
+   "parameters_tried": 16,
+   "exact_returns": [],
+   "name": "Kowald2006_SOD",
+   "loops": 13,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000115",
+   "status": "ok",
+   "parameters_tried": 7,
+   "exact_returns": [
+    {
+     "parameter": "alpha",
+     "variable": "y",
+     "peak": 0.12,
+     "final": 0.0
+    }
+   ],
+   "name": "Somogyi1990_CaOscillations_SingleCaSpike",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000116",
+   "status": "ok",
+   "parameters_tried": 19,
+   "exact_returns": [],
+   "name": "McClean2007_CrossTalk",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000123",
+   "status": "ok",
+   "parameters_tried": 22,
+   "exact_returns": [],
+   "name": "Fisher2006_NFAT_Activation",
+   "loops": 378,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000147",
+   "status": "ok",
+   "parameters_tried": 69,
+   "exact_returns": [],
+   "name": "ODea2007_IkappaB",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000150",
+   "status": "ok",
+   "parameters_tried": 5,
+   "exact_returns": [],
+   "name": "Morris2002_CellCycle_CDK2Cyclin",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000159",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [
+    {
+     "parameter": "psi",
+     "variable": "x",
+     "peak": 0.188,
+     "final": 0.0
+    },
+    {
+     "parameter": "alpha_0",
+     "variable": "x",
+     "peak": 0.056,
+     "final": 0.0
+    },
+    {
+     "parameter": "alpha_0",
+     "variable": "y",
+     "peak": 0.06,
+     "final": 0.0
+    }
+   ],
+   "name": "Zatorsky2006_p53_Model1",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000163",
+   "status": "baseline not steady: unbounded",
+   "name": "Zi2007_TGFbeta_signaling",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000169",
+   "status": "ok",
+   "parameters_tried": 31,
+   "exact_returns": [
+    {
+     "parameter": "k1p_1",
+     "variable": "Y11_1",
+     "peak": 0.076,
+     "final": 0.0
+    },
+    {
+     "parameter": "k6_1",
+     "variable": "Y11_1",
+     "peak": 0.082,
+     "final": 0.00078
+    }
+   ],
+   "name": "Aguda1999_CellCycle",
+   "loops": 16,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000172",
+   "status": "ok",
+   "parameters_tried": 87,
+   "exact_returns": [],
+   "name": "Pritchard2002_glycolysis",
+   "loops": 553,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000176",
+   "status": "ok",
+   "parameters_tried": 98,
+   "exact_returns": [
+    {
+     "parameter": "fV_FBA",
+     "variable": "ATP",
+     "peak": 0.142,
+     "final": 0.00158
+    },
+    {
+     "parameter": "fV_FBA",
+     "variable": "ADP",
+     "peak": 0.173,
+     "final": 0.00178
+    },
+    {
+     "parameter": "fV_FBA",
+     "variable": "DHAP",
+     "peak": 0.2,
+     "final": 0.00313
+    },
+    {
+     "parameter": "fV_FBA",
+     "variable": "GAP",
+     "peak": 0.2,
+     "final": 0.00313
+    },
+    {
+     "parameter": "fV_FBA",
+     "variable": "P3G",
+     "peak": 0.262,
+     "final": 0.0048
+    },
+    {
+     "parameter": "fV_FBA",
+     "variable": "P2G",
+     "peak": 0.269,
+     "final": 0.00486
+    },
+    {
+     "parameter": "fV_FBA",
+     "variable": "PEP",
+     "peak": 0.341,
+     "final": 0.00387
+    },
+    {
+     "parameter": "fV_FBA",
+     "variable": "AcAld",
+     "peak": 0.067,
+     "final": 0.001
+    },
+    {
+     "parameter": "FBA_Keq_5",
+     "variable": "AMP",
+     "peak": 0.08,
+     "final": 0.00085
+    },
+    {
+     "parameter": "FBA_Keq_5",
+     "variable": "BPG",
+     "peak": 0.087,
+     "final": 0.00128
+    },
+    {
+     "parameter": "FBA_Kf16bp_5",
+     "variable": "AMP",
+     "peak": 0.057,
+     "final": 0.00055
+    },
+    {
+     "parameter": "FBA_Kf16bp_5",
+     "variable": "BPG",
+     "peak": 0.055,
+     "final": 0.00083
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "ATP",
+     "peak": 0.142,
+     "final": 0.00158
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "ADP",
+     "peak": 0.173,
+     "final": 0.00178
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "DHAP",
+     "peak": 0.2,
+     "final": 0.00313
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "GAP",
+     "peak": 0.2,
+     "final": 0.00313
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "P3G",
+     "peak": 0.262,
+     "final": 0.0048
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "P2G",
+     "peak": 0.269,
+     "final": 0.00486
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "PEP",
+     "peak": 0.341,
+     "final": 0.00387
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "AcAld",
+     "peak": 0.067,
+     "final": 0.001
+    },
+    {
+     "parameter": "TPI_k2_6",
+     "variable": "G6P",
+     "peak": 0.052,
+     "final": 0.00019
+    },
+    {
+     "parameter": "TPI_k2_6",
+     "variable": "F6P",
+     "peak": 0.055,
+     "final": 7e-05
+    },
+    {
+     "parameter": "TPI_k1_6",
+     "variable": "G6P",
+     "peak": 0.051,
+     "final": 0.00283
+    },
+    {
+     "parameter": "TPI_k1_6",
+     "variable": "F6P",
+     "peak": 0.054,
+     "final": 0.0027
+    }
+   ],
+   "name": "Conant2007_WGD_glycolysis_2A3AB",
+   "loops": 553,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000177",
+   "status": "ok",
+   "parameters_tried": 93,
+   "exact_returns": [
+    {
+     "parameter": "FBA_Kf16bp_5",
+     "variable": "BPG",
+     "peak": 0.053,
+     "final": 0.00062
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "GLCi",
+     "peak": 0.153,
+     "final": 0.0025
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "ATP",
+     "peak": 0.138,
+     "final": 0.0011
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "AMP",
+     "peak": 0.099,
+     "final": 0.00082
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "DHAP",
+     "peak": 0.076,
+     "final": 0.00086
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "GAP",
+     "peak": 0.076,
+     "final": 0.00086
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "BPG",
+     "peak": 0.218,
+     "final": 0.00195
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "P3G",
+     "peak": 0.135,
+     "final": 0.00139
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "P2G",
+     "peak": 0.137,
+     "final": 0.00141
+    },
+    {
+     "parameter": "FBA_Vmax_5",
+     "variable": "PEP",
+     "peak": 0.089,
+     "final": 0.00091
+    },
+    {
+     "parameter": "AK_k2_15",
+     "variable": "AMP",
+     "peak": 0.07,
+     "final": 0.00444
+    }
+   ],
+   "name": "Conant2007_glycolysis_2C",
+   "loops": 797,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000183",
+   "status": "ok",
+   "parameters_tried": 15,
+   "exact_returns": [
+    {
+     "parameter": "parameter_15",
+     "variable": "species_10",
+     "peak": 0.122,
+     "final": 0.00295
+    },
+    {
+     "parameter": "parameter_15",
+     "variable": "species_13",
+     "peak": 0.122,
+     "final": 0.00295
+    },
+    {
+     "parameter": "parameter_15",
+     "variable": "species_15",
+     "peak": 0.122,
+     "final": 0.00295
+    },
+    {
+     "parameter": "parameter_15",
+     "variable": "species_16",
+     "peak": 0.122,
+     "final": 0.00295
+    },
+    {
+     "parameter": "parameter_15",
+     "variable": "species_19",
+     "peak": 0.122,
+     "final": 0.00293
+    },
+    {
+     "parameter": "parameter_15",
+     "variable": "species_21",
+     "peak": 0.122,
+     "final": 0.00293
+    },
+    {
+     "parameter": "parameter_15",
+     "variable": "species_26",
+     "peak": 0.122,
+     "final": 0.00295
+    },
+    {
+     "parameter": "parameter_16",
+     "variable": "species_10",
+     "peak": 0.135,
+     "final": 0.00247
+    },
+    {
+     "parameter": "parameter_16",
+     "variable": "species_13",
+     "peak": 0.135,
+     "final": 0.00247
+    },
+    {
+     "parameter": "parameter_16",
+     "variable": "species_15",
+     "peak": 0.135,
+     "final": 0.00247
+    },
+    {
+     "parameter": "parameter_16",
+     "variable": "species_16",
+     "peak": 0.135,
+     "final": 0.00247
+    },
+    {
+     "parameter": "parameter_16",
+     "variable": "species_19",
+     "peak": 0.136,
+     "final": 0.00247
+    },
+    {
+     "parameter": "parameter_16",
+     "variable": "species_21",
+     "peak": 0.136,
+     "final": 0.00247
+    },
+    {
+     "parameter": "parameter_16",
+     "variable": "species_26",
+     "peak": 0.135,
+     "final": 0.00247
+    }
+   ],
+   "name": "Stefan2008 - calmodulin allostery",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000190",
+   "status": "ok",
+   "parameters_tried": 50,
+   "exact_returns": [],
+   "name": "Rodriguez-Caso2006_Polyamine_Metabolism",
+   "loops": 223,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000191",
+   "status": "ok",
+   "parameters_tried": 18,
+   "exact_returns": [
+    {
+     "parameter": "Arginase_Kmarg",
+     "variable": "ORN",
+     "peak": 0.066,
+     "final": 0.00018
+    },
+    {
+     "parameter": "Arginase_Vmaxarg",
+     "variable": "ORN",
+     "peak": 0.11,
+     "final": 0.00099
+    }
+   ],
+   "name": "Monta\u00f1ez2008_Arginine_catabolism",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000192",
+   "status": "ok",
+   "parameters_tried": 16,
+   "exact_returns": [],
+   "name": "G\u00f6rlich2003_RanGTP_gradient",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000197",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [
+    {
+     "parameter": "p9",
+     "variable": "x3",
+     "peak": 0.055,
+     "final": 0.00195
+    },
+    {
+     "parameter": "p11",
+     "variable": "x3",
+     "peak": 0.055,
+     "final": 0.00195
+    }
+   ],
+   "name": "Bartholome2007_MDCKII",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000198",
+   "status": "ok",
+   "parameters_tried": 15,
+   "exact_returns": [],
+   "name": "Stone1996 - activation of soluble guanylate cyclase by nitric oxide",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000199",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Santolini2001_nNOS_Mechanism_Regulation",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000200",
+   "status": "ok",
+   "parameters_tried": 47,
+   "exact_returns": [],
+   "name": "Bray1995_chemotaxis_receptorlinkedcomplex",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000203",
+   "status": "ok",
+   "parameters_tried": 32,
+   "exact_returns": [],
+   "name": "Chickarmane2006 - Stem cell switch reversible",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000204",
+   "status": "ok",
+   "parameters_tried": 32,
+   "exact_returns": [],
+   "name": "Chickarmane2006 - Stem cell switch irreversible",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000209",
+   "status": "ok",
+   "parameters_tried": 49,
+   "exact_returns": [],
+   "name": "Chickarmane2008 - Stem cell lineage determination",
+   "loops": 21,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000210",
+   "status": "ok",
+   "parameters_tried": 46,
+   "exact_returns": [],
+   "name": "Chickarmane2008 - Stem cell lineage - NANOG GATA-6 switch",
+   "loops": 9,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000211",
+   "status": "ok",
+   "parameters_tried": 81,
+   "exact_returns": [],
+   "name": "Albert2005_Glycolysis",
+   "loops": 781,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000212",
+   "status": "ok",
+   "parameters_tried": 61,
+   "exact_returns": [],
+   "name": "Curien2009_Aspartate_Metabolism",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000213",
+   "status": "ok",
+   "parameters_tried": 38,
+   "exact_returns": [],
+   "name": "Nijhout2004_Folate_Cycle",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000217",
+   "status": "ok",
+   "parameters_tried": 94,
+   "exact_returns": [
+    {
+     "parameter": "Vgog",
+     "variable": "GLN",
+     "peak": 0.095,
+     "final": 0.00265
+    },
+    {
+     "parameter": "Vgog",
+     "variable": "AZGLN",
+     "peak": 0.085,
+     "final": 0.00184
+    },
+    {
+     "parameter": "Kgogaz",
+     "variable": "GLN",
+     "peak": 0.054,
+     "final": 0.00151
+    },
+    {
+     "parameter": "Vgludem",
+     "variable": "ADP",
+     "peak": 0.075,
+     "final": 0.00482
+    },
+    {
+     "parameter": "Kgludemglu",
+     "variable": "ADP",
+     "peak": 0.066,
+     "final": 0.00184
+    }
+   ],
+   "name": "Bruggeman2005_AmmoniumAssimilation",
+   "loops": 159,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000218",
+   "status": "ok",
+   "parameters_tried": 66,
+   "exact_returns": [
+    {
+     "parameter": "SDH_Vf_sdh",
+     "variable": "fa",
+     "peak": 0.16,
+     "final": 0.0009
+    },
+    {
+     "parameter": "SDH_Vf_sdh",
+     "variable": "mal",
+     "peak": 0.082,
+     "final": 0.00265
+    }
+   ],
+   "name": "Singh2006_TCA_mtu_model2",
+   "loops": 9,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000219",
+   "status": "ok",
+   "parameters_tried": 70,
+   "exact_returns": [
+    {
+     "parameter": "SDH_Vf_sdh",
+     "variable": "fa",
+     "peak": 0.16,
+     "final": 0.00087
+    },
+    {
+     "parameter": "SDH_Vf_sdh",
+     "variable": "mal",
+     "peak": 0.082,
+     "final": 0.00258
+    }
+   ],
+   "name": "Singh2006_TCA_mtu_model1",
+   "loops": 15,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000221",
+   "status": "ok",
+   "parameters_tried": 49,
+   "exact_returns": [],
+   "name": "Singh2006_TCA_Ecoli_acetate",
+   "loops": 9,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000222",
+   "status": "ok",
+   "parameters_tried": 49,
+   "exact_returns": [],
+   "name": "Singh2006_TCA_Ecoli_glucose",
+   "loops": 9,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000228",
+   "status": "ok",
+   "parameters_tried": 40,
+   "exact_returns": [],
+   "name": "Swat2004_Mammalian_G1_S_Transition",
+   "loops": 34,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000232",
+   "status": "ok",
+   "parameters_tried": 24,
+   "exact_returns": [
+    {
+     "parameter": "At",
+     "variable": "AcCoA",
+     "peak": 0.244,
+     "final": 0.00305
+    },
+    {
+     "parameter": "At",
+     "variable": "OAA",
+     "peak": 0.392,
+     "final": 0.0016
+    },
+    {
+     "parameter": "v3_k3",
+     "variable": "OAA",
+     "peak": 0.077,
+     "final": 0.0
+    },
+    {
+     "parameter": "v4_k4",
+     "variable": "AcCoA",
+     "peak": 0.091,
+     "final": 0.0
+    },
+    {
+     "parameter": "v4_k4",
+     "variable": "KG",
+     "peak": 0.124,
+     "final": 0.0
+    },
+    {
+     "parameter": "v4_k4",
+     "variable": "OAA",
+     "peak": 0.081,
+     "final": 0.0
+    },
+    {
+     "parameter": "v5_k5",
+     "variable": "OAA",
+     "peak": 0.092,
+     "final": 0.00417
+    }
+   ],
+   "name": "Nazaret2009_TCA_RC_ATP",
+   "loops": 41,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000233",
+   "status": "ok",
+   "parameters_tried": 4,
+   "exact_returns": [],
+   "name": "Wilhelm2009_BistableReaction",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000240",
+   "status": "ok",
+   "parameters_tried": 20,
+   "exact_returns": [],
+   "name": "Veening2008_DegU_Regulation",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000245",
+   "status": "ok",
+   "parameters_tried": 38,
+   "exact_returns": [
+    {
+     "parameter": "k_1h",
+     "variable": "s_glu",
+     "peak": 0.069,
+     "final": 0.0
+    }
+   ],
+   "name": "Lei2001_Yeast_Aerobic_Metabolism",
+   "loops": 286,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000247",
+   "status": "ok",
+   "parameters_tried": 134,
+   "exact_returns": [
+    {
+     "parameter": "vALD_KeqALD",
+     "variable": "P3G",
+     "peak": 0.073,
+     "final": 0.00476
+    },
+    {
+     "parameter": "vALD_KeqALD",
+     "variable": "GA3P",
+     "peak": 0.053,
+     "final": 0.00302
+    },
+    {
+     "parameter": "vALD_VmALD",
+     "variable": "BPG",
+     "peak": 0.055,
+     "final": 0.00333
+    },
+    {
+     "parameter": "vPDC_KmPDCPYR",
+     "variable": "NADH",
+     "peak": 0.12,
+     "final": 0.0024
+    },
+    {
+     "parameter": "vPDC_KmPDCPYR",
+     "variable": "ACE",
+     "peak": 0.117,
+     "final": 0.0023
+    },
+    {
+     "parameter": "vPDC_nPDC",
+     "variable": "NADH",
+     "peak": 0.104,
+     "final": 0.00229
+    },
+    {
+     "parameter": "vPDC_nPDC",
+     "variable": "ACE",
+     "peak": 0.13,
+     "final": 0.00218
+    },
+    {
+     "parameter": "v6PGL_Km6PGL",
+     "variable": "D6PGluconate",
+     "peak": 0.055,
+     "final": 0.0
+    },
+    {
+     "parameter": "v6PGL_Vm6PGL",
+     "variable": "D6PGluconate",
+     "peak": 0.087,
+     "final": 0.0
+    },
+    {
+     "parameter": "v6PGL_Vm6PGL",
+     "variable": "NADP",
+     "peak": 0.065,
+     "final": 0.0
+    },
+    {
+     "parameter": "vGluDH_KiNADPH",
+     "variable": "NADP",
+     "peak": 0.099,
+     "final": 0.0
+    },
+    {
+     "parameter": "vGluDH_KmGluconate",
+     "variable": "NADP",
+     "peak": 0.107,
+     "final": 0.0
+    },
+    {
+     "parameter": "vGluDH_VmGluDH",
+     "variable": "NADP",
+     "peak": 0.197,
+     "final": 0.0
+    },
+    {
+     "parameter": "vGluDH_VmGluDH",
+     "variable": "Ribulose5P",
+     "peak": 0.069,
+     "final": 0.0
+    },
+    {
+     "parameter": "vGluDH_VmGluDH",
+     "variable": "Ribose5P",
+     "peak": 0.069,
+     "final": 0.0
+    },
+    {
+     "parameter": "vGluDH_VmGluDH",
+     "variable": "Xyl5P",
+     "peak": 0.069,
+     "final": 0.0
+    }
+   ],
+   "name": "Ralser2007_Carbohydrate_Rerouting_ROS",
+   "loops": 3585,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000249",
+   "status": "ok",
+   "parameters_tried": 7,
+   "exact_returns": [
+    {
+     "parameter": "psi",
+     "variable": "I_1",
+     "peak": 0.052,
+     "final": 5e-05
+    },
+    {
+     "parameter": "psi",
+     "variable": "I_2",
+     "peak": 0.052,
+     "final": 5e-05
+    },
+    {
+     "parameter": "psi",
+     "variable": "I_1p",
+     "peak": 0.105,
+     "final": 0.00405
+    },
+    {
+     "parameter": "psi",
+     "variable": "I_2p",
+     "peak": 0.105,
+     "final": 0.00405
+    }
+   ],
+   "name": "Restif2006 - Whooping cough",
+   "loops": 13,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000252",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Hunziker2010_p53_StressSpecificResponse",
+   "loops": 7,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000253",
+   "status": "ok",
+   "parameters_tried": 20,
+   "exact_returns": [
+    {
+     "parameter": "lower_KFru16P2",
+     "variable": "ATP",
+     "peak": 0.087,
+     "final": 0.0
+    },
+    {
+     "parameter": "lower_Vlower",
+     "variable": "HMP",
+     "peak": 0.079,
+     "final": 0.0
+    },
+    {
+     "parameter": "lower_Vlower",
+     "variable": "ATP",
+     "peak": 0.505,
+     "final": 0.0
+    }
+   ],
+   "name": "Teusink1998_Glycolysis_TurboDesign",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000257",
+   "status": "ok",
+   "parameters_tried": 17,
+   "exact_returns": [],
+   "name": "Piedrafita2010_MR_System",
+   "loops": 43,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000258",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Ortega2006 - bistability from double phosphorylation in signal transduction",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000259",
+   "status": "ok",
+   "parameters_tried": 29,
+   "exact_returns": [],
+   "name": "Tiago2010_FeMetabolism_FeDeficient",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000260",
+   "status": "ok",
+   "parameters_tried": 29,
+   "exact_returns": [],
+   "name": "Tiago2010_FeMetabolism_FeAdequate",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000261",
+   "status": "ok",
+   "parameters_tried": 29,
+   "exact_returns": [],
+   "name": "Tiago2010_FeMetabolism_FeLoaded",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000266",
+   "status": "ok",
+   "parameters_tried": 0,
+   "exact_returns": [],
+   "name": "Voit2003_Trehalose_Cycle",
+   "loops": 38,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000267",
+   "status": "ok",
+   "parameters_tried": 3,
+   "exact_returns": [],
+   "name": "Lebeda2008 - BoNT paralysis (3 step model)",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000269",
+   "status": "ok",
+   "parameters_tried": 32,
+   "exact_returns": [],
+   "name": "Liu2010_Hormonal_Crosstalk_Arabidopsis",
+   "loops": 11,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000270",
+   "status": "ok",
+   "parameters_tried": 30,
+   "exact_returns": [],
+   "name": "Schilling2009 - ERK distributive",
+   "loops": 18,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000271",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Becker2010_EpoR_CoreModel",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000275",
+   "status": "ok",
+   "parameters_tried": 19,
+   "exact_returns": [],
+   "name": "Goldbeter2007_Somitogenesis_Switch",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000278",
+   "status": "ok",
+   "parameters_tried": 20,
+   "exact_returns": [],
+   "name": "Lemaire2004 - Role of RANK/RANKL/OPG pathway in bone remodelling process",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000279",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Komarova2005_PTHaction_OsteoclastOsteoblastCoupling",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000282",
+   "status": "ok",
+   "parameters_tried": 3,
+   "exact_returns": [],
+   "name": "Chance1952_Catalase_Mechanism",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000283",
+   "status": "ok",
+   "parameters_tried": 1,
+   "exact_returns": [],
+   "name": "Chance1943_Peroxidase_ES_Kinetics",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000284",
+   "status": "ok",
+   "parameters_tried": 0,
+   "exact_returns": [],
+   "name": "Hofmeyer1986_SeqFb_Proc_AA_Synthesis",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000288",
+   "status": "ok",
+   "parameters_tried": 45,
+   "exact_returns": [],
+   "name": "Wang2009 - PI3K Ras Crosstalk",
+   "loops": 41,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000289",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [],
+   "name": "Alexander2010_Tcell_Regulation_Sys1",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000290",
+   "status": "ok",
+   "parameters_tried": 13,
+   "exact_returns": [],
+   "name": "Alexander2010_Tcell_Regulation_Sys2",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000291",
+   "status": "ok",
+   "parameters_tried": 13,
+   "exact_returns": [],
+   "name": "Nikolaev2005_AlbuminBilirubinAdsorption",
+   "loops": 32,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000292",
+   "status": "ok",
+   "parameters_tried": 5,
+   "exact_returns": [
+    {
+     "parameter": "k1",
+     "variable": "NADPH",
+     "peak": 0.245,
+     "final": 0.0
+    },
+    {
+     "parameter": "k1",
+     "variable": "ATP",
+     "peak": 0.399,
+     "final": 0.0
+    },
+    {
+     "parameter": "k2",
+     "variable": "ATP",
+     "peak": 0.175,
+     "final": 0.0
+    },
+    {
+     "parameter": "N0",
+     "variable": "ATP",
+     "peak": 0.317,
+     "final": 0.0
+    },
+    {
+     "parameter": "N0",
+     "variable": "X",
+     "peak": 0.311,
+     "final": 0.0
+    }
+   ],
+   "name": "Rovers1995_Photsynthetic_Oscillations",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000294",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [
+    {
+     "parameter": "theta",
+     "variable": "Iv2",
+     "peak": 0.132,
+     "final": 0.00057
+    },
+    {
+     "parameter": "nu",
+     "variable": "Iv2",
+     "peak": 0.121,
+     "final": 0.00379
+    }
+   ],
+   "name": "Restif2007 - Vaccination invasion",
+   "loops": 32,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000306",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Tyson2003_Activator_Inhibitor",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000307",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Tyson2003_Substrate_Depletion_Osc",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000308",
+   "status": "ok",
+   "parameters_tried": 13,
+   "exact_returns": [],
+   "name": "Tyson2003_NegFB_Oscillator",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000311",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Tyson2003_Mutual_Activation",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000320",
+   "status": "ok",
+   "parameters_tried": 22,
+   "exact_returns": [],
+   "name": "Grange2001 - PK interaction of L-dopa and benserazide",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000321",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Grange2001 - L Dopa PK model",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000324",
+   "status": "ok",
+   "parameters_tried": 13,
+   "exact_returns": [],
+   "name": "Morris1981_MuscleFibre_Voltage_full",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000325",
+   "status": "ok",
+   "parameters_tried": 15,
+   "exact_returns": [
+    {
+     "parameter": "KD",
+     "variable": "I",
+     "peak": 0.065,
+     "final": 0.00094
+    }
+   ],
+   "name": "Palini2011_Minimal_2_Feedback_Model",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000328",
+   "status": "ok",
+   "parameters_tried": 30,
+   "exact_returns": [],
+   "name": "Bucher2011_Atorvastatin_Metabolism",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000341",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [
+    {
+     "parameter": "si",
+     "variable": "G",
+     "peak": 0.056,
+     "final": 0.0
+    },
+    {
+     "parameter": "R0",
+     "variable": "G",
+     "peak": 0.073,
+     "final": 0.0
+    },
+    {
+     "parameter": "sigma",
+     "variable": "G",
+     "peak": 0.056,
+     "final": 0.0
+    },
+    {
+     "parameter": "sigma",
+     "variable": "I",
+     "peak": 0.071,
+     "final": 0.0
+    },
+    {
+     "parameter": "k",
+     "variable": "G",
+     "peak": 0.061,
+     "final": 0.0
+    },
+    {
+     "parameter": "k",
+     "variable": "I",
+     "peak": 0.068,
+     "final": 0.0
+    }
+   ],
+   "name": "Topp2000_BetaCellMass_Diabetes",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000343",
+   "status": "ok",
+   "parameters_tried": 19,
+   "exact_returns": [],
+   "name": "Brannmark2010_InsulinSignalling_Mifamodel",
+   "loops": 21,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000345",
+   "status": "ok",
+   "parameters_tried": 18,
+   "exact_returns": [],
+   "name": "Koschorreck2008_InsulinClearance",
+   "loops": 239,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000347",
+   "status": "ok",
+   "parameters_tried": 29,
+   "exact_returns": [
+    {
+     "parameter": "CISRNADelay",
+     "variable": "CISRNA",
+     "peak": 0.175,
+     "final": 0.0
+    },
+    {
+     "parameter": "CISRNATurn",
+     "variable": "CISRNA",
+     "peak": 0.155,
+     "final": 0.0
+    },
+    {
+     "parameter": "SOCS3RNAEqc",
+     "variable": "p2EpoRpJAK2",
+     "peak": 0.053,
+     "final": 0.0
+    },
+    {
+     "parameter": "SOCS3RNAEqc",
+     "variable": "p12EpoRpJAK2",
+     "peak": 0.092,
+     "final": 0.0
+    },
+    {
+     "parameter": "SOCS3RNAEqc",
+     "variable": "SOCS3",
+     "peak": 0.153,
+     "final": 0.0
+    }
+   ],
+   "name": "Bachmann2011_JAK2-STAT5_FeedbackControl",
+   "loops": 238,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000356",
+   "status": "baseline not steady: failed",
+   "name": "Nyman2011_M3Hierarachical_InsulinGlucosedynamics",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000357",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [],
+   "name": "Lee2010_ThrombinActivation_OneForm_reduced",
+   "loops": 15,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000358",
+   "status": "ok",
+   "parameters_tried": 13,
+   "exact_returns": [],
+   "name": "Stortelder1997 - Thrombin Generation Amidolytic Activity",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000359",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Panteleev2002_TFPImechanism_schmema3",
+   "loops": 30,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000360",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Panteleev2002_TFPImechanism_schmema2",
+   "loops": 10,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000361",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Panteleev2002_TFPImechanism_schmema1",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000364",
+   "status": "ok",
+   "parameters_tried": 22,
+   "exact_returns": [],
+   "name": "Lee2010_ThrombinActivation_OneForm",
+   "loops": 29,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000366",
+   "status": "ok",
+   "parameters_tried": 13,
+   "exact_returns": [],
+   "name": "Orfao2008_ThrombinGeneration_AmidolyticActivity",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000367",
+   "status": "ok",
+   "parameters_tried": 7,
+   "exact_returns": [],
+   "name": "Muller2008_treshold_minimal",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000368",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Beltrami1995_ThrombinGeneration_C",
+   "loops": 28,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000369",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Beltrami1995_ThrombinGeneration_D",
+   "loops": 16,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000379",
+   "status": "ok",
+   "parameters_tried": 40,
+   "exact_returns": [
+    {
+     "parameter": "m_1",
+     "variable": "X",
+     "peak": 0.064,
+     "final": 0.0
+    },
+    {
+     "parameter": "m_1",
+     "variable": "Y",
+     "peak": 0.605,
+     "final": 0.0
+    }
+   ],
+   "name": "DallaMan2007_MealModel_GlucoseInsulinSystem",
+   "loops": 12,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000380",
+   "status": "ok",
+   "parameters_tried": 45,
+   "exact_returns": [],
+   "name": "Smallbone2011_TrehaloseBiosynthesis",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000383",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Arnold2011_Farquhar1980_RuBisCO-CalvinCycle",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000384",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Arnold2011_Medlyn2002_RuBisCO-CalvinCycle",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000385",
+   "status": "ok",
+   "parameters_tried": 14,
+   "exact_returns": [],
+   "name": "Arnold2011_Schultz2003_RuBisCO-CalvinCycle",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000387",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Arnold2011_Damour2007_RuBisCO-CalvinCycle",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000388",
+   "status": "ok",
+   "parameters_tried": 16,
+   "exact_returns": [],
+   "name": "Arnold2011_Zhu2009_CalvinCycle",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000390",
+   "status": "ok",
+   "parameters_tried": 19,
+   "exact_returns": [
+    {
+     "parameter": "PGA_red_K2",
+     "variable": "Pi",
+     "peak": 0.084,
+     "final": 0.00397
+    },
+    {
+     "parameter": "RuBP_reg_K2",
+     "variable": "ATP",
+     "peak": 0.059,
+     "final": 0.00384
+    }
+   ],
+   "name": "Arnold2011_Giersch1990_CalvinCycle",
+   "loops": 33,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000391",
+   "status": "ok",
+   "parameters_tried": 75,
+   "exact_returns": [],
+   "name": "Arnold2011_Poolman2000_CalvinCycle_Starch",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000392",
+   "status": "ok",
+   "parameters_tried": 133,
+   "exact_returns": [
+    {
+     "parameter": "PiT",
+     "variable": "EOP",
+     "peak": 0.837,
+     "final": 0.00187
+    }
+   ],
+   "name": "Arnold2011_Laisk2006_CalvinCycle_Starch_Sucrose",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000393",
+   "status": "ok",
+   "parameters_tried": 178,
+   "exact_returns": [
+    {
+     "parameter": "cP",
+     "variable": "GCA",
+     "peak": 0.43,
+     "final": 0.00299
+    },
+    {
+     "parameter": "cPc",
+     "variable": "PeP",
+     "peak": 0.403,
+     "final": 0.00381
+    },
+    {
+     "parameter": "PGA_K_Kr1",
+     "variable": "PGAc",
+     "peak": 0.092,
+     "final": 0.00251
+    },
+    {
+     "parameter": "PGA_K_Vm",
+     "variable": "PGAc",
+     "peak": 0.118,
+     "final": 0.00255
+    },
+    {
+     "parameter": "TPT_PGA_Vm",
+     "variable": "PGAc",
+     "peak": 0.075,
+     "final": 0.0025
+    },
+    {
+     "parameter": "GPT_GCEAc_V",
+     "variable": "E4P",
+     "peak": 0.053,
+     "final": 0.0
+    },
+    {
+     "parameter": "GPT_GCEAc_V",
+     "variable": "SBP",
+     "peak": 0.079,
+     "final": 0.0
+    },
+    {
+     "parameter": "GPT_GCEAc_V",
+     "variable": "GCEA",
+     "peak": 0.088,
+     "final": 0.0
+    },
+    {
+     "parameter": "GPT_GCEA_V",
+     "variable": "PGA",
+     "peak": 0.053,
+     "final": 0.0
+    },
+    {
+     "parameter": "GPT_GCEA_V",
+     "variable": "E4P",
+     "peak": 0.069,
+     "final": 0.0
+    },
+    {
+     "parameter": "GPT_GCEA_V",
+     "variable": "SBP",
+     "peak": 0.108,
+     "final": 0.0
+    },
+    {
+     "parameter": "GPT_GCEA_V",
+     "variable": "RuBP",
+     "peak": 0.065,
+     "final": 0.0
+    },
+    {
+     "parameter": "GPT_GCEA_V",
+     "variable": "GCEA",
+     "peak": 0.156,
+     "final": 0.0
+    },
+    {
+     "parameter": "GPT_GCEA_V",
+     "variable": "PGAc",
+     "peak": 0.077,
+     "final": 0.0
+    },
+    {
+     "parameter": "GCEA_K_Kr1",
+     "variable": "E4P",
+     "peak": 0.059,
+     "final": 0.0
+    },
+    {
+     "parameter": "GCEA_K_Kr1",
+     "variable": "SBP",
+     "peak": 0.089,
+     "final": 0.0
+    },
+    {
+     "parameter": "GCEA_K_Ks1",
+     "variable": "PGA",
+     "peak": 0.05,
+     "final": 0.0
+    },
+    {
+     "parameter": "GCEA_K_Ks1",
+     "variable": "E4P",
+     "peak": 0.065,
+     "final": 0.0
+    },
+    {
+     "parameter": "GCEA_K_Ks1",
+     "variable": "SBP",
+     "peak": 0.102,
+     "final": 0.0
+    },
+    {
+     "parameter": "GCEA_K_Ks1",
+     "variable": "RuBP",
+     "peak": 0.061,
+     "final": 0.0
+    },
+    {
+     "parameter": "GCEA_K_Ks1",
+     "variable": "PGAc",
+     "peak": 0.072,
+     "final": 0.0
+    },
+    {
+     "parameter": "GCEA_K_Vm",
+     "variable": "E4P",
+     "peak": 0.063,
+     "final": 0.0
+    },
+    {
+     "parameter": "GCEA_K_Vm",
+     "variable": "SBP",
+     "peak": 0.095,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks2",
+     "variable": "PGA",
+     "peak": 0.135,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks2",
+     "variable": "DPGA",
+     "peak": 0.07,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks2",
+     "variable": "FBP",
+     "peak": 0.075,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks2",
+     "variable": "HeP",
+     "peak": 0.096,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks2",
+     "variable": "E4P",
+     "peak": 0.165,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks2",
+     "variable": "SBP",
+     "peak": 0.271,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks2",
+     "variable": "RuBP",
+     "peak": 0.163,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks2",
+     "variable": "GCA",
+     "peak": 0.133,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks2",
+     "variable": "GCEA",
+     "peak": 0.325,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks2",
+     "variable": "HPRc",
+     "peak": 0.061,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks2",
+     "variable": "GCEAc",
+     "peak": 0.315,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks2",
+     "variable": "PGAc",
+     "peak": 0.184,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks1",
+     "variable": "GCEA",
+     "peak": 0.06,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Ks1",
+     "variable": "GCEAc",
+     "peak": 0.058,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Vm",
+     "variable": "PGA",
+     "peak": 0.071,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Vm",
+     "variable": "DPGA",
+     "peak": 0.077,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Vm",
+     "variable": "TP",
+     "peak": 0.05,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Vm",
+     "variable": "FBP",
+     "peak": 0.077,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Vm",
+     "variable": "HeP",
+     "peak": 0.082,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Vm",
+     "variable": "E4P",
+     "peak": 0.14,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Vm",
+     "variable": "SBP",
+     "peak": 0.219,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Vm",
+     "variable": "GCA",
+     "peak": 0.125,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Vm",
+     "variable": "GCEA",
+     "peak": 0.348,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Vm",
+     "variable": "HPRc",
+     "peak": 0.054,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Vm",
+     "variable": "GCEAc",
+     "peak": 0.334,
+     "final": 0.0
+    },
+    {
+     "parameter": "SERcGOAc_AT_Vm",
+     "variable": "PGAc",
+     "peak": 0.14,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Ks2",
+     "variable": "PGA",
+     "peak": 0.076,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Ks2",
+     "variable": "DPGA",
+     "peak": 0.082,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Ks2",
+     "variable": "TP",
+     "peak": 0.054,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Ks2",
+     "variable": "FBP",
+     "peak": 0.083,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Ks2",
+     "variable": "HeP",
+     "peak": 0.088,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Ks2",
+     "variable": "E4P",
+     "peak": 0.149,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Ks2",
+     "variable": "SBP",
+     "peak": 0.233,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Ks2",
+     "variable": "GCA",
+     "peak": 0.138,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Ks2",
+     "variable": "GCEA",
+     "peak": 0.382,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Ks2",
+     "variable": "HPRc",
+     "peak": 0.059,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Ks2",
+     "variable": "GCEAc",
+     "peak": 0.367,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Ks2",
+     "variable": "PGAc",
+     "peak": 0.151,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Vm",
+     "variable": "PGA",
+     "peak": 0.165,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Vm",
+     "variable": "DPGA",
+     "peak": 0.083,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Vm",
+     "variable": "TP",
+     "peak": 0.054,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Vm",
+     "variable": "FBP",
+     "peak": 0.09,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Vm",
+     "variable": "HeP",
+     "peak": 0.117,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Vm",
+     "variable": "E4P",
+     "peak": 0.202,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Vm",
+     "variable": "SBP",
+     "peak": 0.333,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Vm",
+     "variable": "RuBP",
+     "peak": 0.201,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Vm",
+     "variable": "GCA",
+     "peak": 0.155,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Vm",
+     "variable": "GCEA",
+     "peak": 0.377,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Vm",
+     "variable": "HPRc",
+     "peak": 0.072,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Vm",
+     "variable": "GCEAc",
+     "peak": 0.366,
+     "final": 0.0
+    },
+    {
+     "parameter": "GLUcGOAc_AT_Vm",
+     "variable": "PGAc",
+     "peak": 0.222,
+     "final": 0.0
+    }
+   ],
+   "name": "Arnold2011_Zhu2007_CalvinCycle_Starch_Sucrose_Photorespiration",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000395",
+   "status": "baseline not steady: unsettled",
+   "name": "Sivakumar2011 - Hedgehog Signaling Pathway",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000396",
+   "status": "ok",
+   "parameters_tried": 56,
+   "exact_returns": [],
+   "name": "Sivakumar2011 - Notch Signaling Pathway",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000398",
+   "status": "ok",
+   "parameters_tried": 37,
+   "exact_returns": [],
+   "name": "Sivakumar2011_NeuralStemCellDifferentiation_Crosstalk",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000401",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Ayati2010_BoneRemodelingDynamics_NormalCondition",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000402",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [
+    {
+     "parameter": "LT",
+     "variable": "C",
+     "peak": 0.291,
+     "final": 0.0
+    },
+    {
+     "parameter": "LT",
+     "variable": "B",
+     "peak": 0.137,
+     "final": 0.0
+    }
+   ],
+   "name": "Ayati2010_BoneRemodelingDynamics_WithTumour",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000405",
+   "status": "ok",
+   "parameters_tried": 5,
+   "exact_returns": [],
+   "name": "Cookson2011_EnzymaticQueueingCoupling",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000409",
+   "status": "ok",
+   "parameters_tried": 49,
+   "exact_returns": [
+    {
+     "parameter": "Cdc14T",
+     "variable": "Clb2",
+     "peak": 0.127,
+     "final": 0.00128
+    },
+    {
+     "parameter": "kaapolo",
+     "variable": "Clb2",
+     "peak": 0.904,
+     "final": 0.00477
+    },
+    {
+     "parameter": "ki",
+     "variable": "Clb2",
+     "peak": 0.925,
+     "final": 0.00482
+    }
+   ],
+   "name": "Queralt2006_MitoticExit_Cdc55DownregulationBySeparase",
+   "loops": 36,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000413",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [
+    {
+     "parameter": "ld",
+     "variable": "auxinTIR1",
+     "peak": 0.083,
+     "final": 0.00159
+    },
+    {
+     "parameter": "la",
+     "variable": "auxinTIR1",
+     "peak": 0.084,
+     "final": 0.00141
+    }
+   ],
+   "name": "Band2012_DII-Venus_FullModel",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000415",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Mellor2012_LipooxygenasePathway",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000416",
+   "status": "ok",
+   "parameters_tried": 50,
+   "exact_returns": [],
+   "name": "Muraro2011_Cytokinin-Auxin_CrossRegulation",
+   "loops": 61,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000418",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Ratushny2012_SPF",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000419",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Ratushny2012_SPF_I",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000420",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Ratushny2012_ASSURE_I",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000421",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Ratushny2012_ASSURE_II",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000423",
+   "status": "ok",
+   "parameters_tried": 16,
+   "exact_returns": [],
+   "name": "Nyman2012_InsulinSignalling",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000425",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Tan2012 - Antibiotic Treatment, Inoculum Effect",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000426",
+   "status": "ok",
+   "parameters_tried": 155,
+   "exact_returns": [],
+   "name": "Mosca2012 - Central Carbon Metabolism Regulated by AKT",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000428",
+   "status": "ok",
+   "parameters_tried": 84,
+   "exact_returns": [
+    {
+     "parameter": "PYK_c_PYK_c_KiATP",
+     "variable": "Pyr_c",
+     "peak": 0.058,
+     "final": 0.00324
+    },
+    {
+     "parameter": "PYK_c_PYK_c_KmPEP",
+     "variable": "AMP_c",
+     "peak": 0.084,
+     "final": 0.00095
+    },
+    {
+     "parameter": "ENO_c_ENO_c_Keq",
+     "variable": "Pyr_c",
+     "peak": 0.052,
+     "final": 0.00321
+    },
+    {
+     "parameter": "ENO_c_ENO_c_Vmax",
+     "variable": "Pyr_c",
+     "peak": 0.058,
+     "final": 0.00355
+    },
+    {
+     "parameter": "PGAM_c_PGAM_c_Keq",
+     "variable": "Pyr_c",
+     "peak": 0.069,
+     "final": 0.00433
+    },
+    {
+     "parameter": "PGAM_c_PGAM_c_Vmax",
+     "variable": "_2PGA_c",
+     "peak": 0.19,
+     "final": 0.00183
+    },
+    {
+     "parameter": "PGAM_c_PGAM_c_Vmax",
+     "variable": "ADP_c",
+     "peak": 0.087,
+     "final": 0.001
+    },
+    {
+     "parameter": "PGAM_c_PGAM_c_Vmax",
+     "variable": "AMP_c",
+     "peak": 0.191,
+     "final": 0.00236
+    },
+    {
+     "parameter": "PGAM_c_PGAM_c_Vmax",
+     "variable": "PEP_c",
+     "peak": 0.078,
+     "final": 0.00082
+    }
+   ],
+   "name": "Achcar2012 - Glycolysis in bloodstream form T. brucei",
+   "loops": 781,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000430",
+   "status": "ok",
+   "parameters_tried": 36,
+   "exact_returns": [],
+   "name": "Sarma2012 - Interaction topologies of MAPK cascade (M4_K2_USEQ)",
+   "loops": 322,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000431",
+   "status": "ok",
+   "parameters_tried": 44,
+   "exact_returns": [],
+   "name": "Sarma2012 - Interaction topologies of MAPK cascade (M4_K2_PSEQ)",
+   "loops": 1287,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000432",
+   "status": "ok",
+   "parameters_tried": 26,
+   "exact_returns": [],
+   "name": "Sarma2012 - Interaction topologies of MAPK cascade (M4_K2_QSS_USEQ)",
+   "loops": 78,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000433",
+   "status": "ok",
+   "parameters_tried": 26,
+   "exact_returns": [],
+   "name": "Sarma2012 - Interaction topologies of MAPK cascade (M4_K2_QSS_PSEQ)",
+   "loops": 327,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000435",
+   "status": "ok",
+   "parameters_tried": 18,
+   "exact_returns": [],
+   "name": "deBack2012 - Lineage Specification in Pancreas Development",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000438",
+   "status": "ok",
+   "parameters_tried": 16,
+   "exact_returns": [],
+   "name": "Saeidi2012 - Quorum sensing device that produces GFP",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000444",
+   "status": "ok",
+   "parameters_tried": 47,
+   "exact_returns": [],
+   "name": "Sarma2012 - Oscillations in MAPK cascade (S2n)",
+   "loops": 50,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000447",
+   "status": "ok",
+   "parameters_tried": 23,
+   "exact_returns": [],
+   "name": "Venkatraman2012 - Interplay between PLS and TSP1 in TGF-\u03b21 activation",
+   "loops": 21,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000448",
+   "status": "ok",
+   "parameters_tried": 56,
+   "exact_returns": [],
+   "name": "Br\u00e4nnmark2013 - Insulin signalling in human adipocytes (normal condition)",
+   "loops": 7,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000449",
+   "status": "ok",
+   "parameters_tried": 56,
+   "exact_returns": [],
+   "name": "Br\u00e4nnmark2013 - Insulin signalling in human adipocytes (diabetic condition)",
+   "loops": 7,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000454",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Smallbone2013 - Metabolic Control Analysis - Example 1",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000455",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Smallbone2013 - Metabolic Control Analysis - Example 2",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000456",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [],
+   "name": "Smallbone2013 - Metabolic Control Analysis - Example 3",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000457",
+   "status": "ok",
+   "parameters_tried": 58,
+   "exact_returns": [
+    {
+     "parameter": "reaction_1_k1",
+     "variable": "species_3",
+     "peak": 0.095,
+     "final": 0.00012
+    },
+    {
+     "parameter": "reaction_9_k1",
+     "variable": "species_23",
+     "peak": 0.083,
+     "final": 0.00284
+    },
+    {
+     "parameter": "reaction_11_k1",
+     "variable": "species_23",
+     "peak": 0.09,
+     "final": 0.00282
+    },
+    {
+     "parameter": "reaction_18_k",
+     "variable": "species_57",
+     "peak": 0.054,
+     "final": 0.00276
+    },
+    {
+     "parameter": "reaction_18_k",
+     "variable": "species_60",
+     "peak": 0.054,
+     "final": 0.00282
+    },
+    {
+     "parameter": "reaction_18_k",
+     "variable": "species_61",
+     "peak": 0.054,
+     "final": 0.00276
+    },
+    {
+     "parameter": "reaction_19_k1",
+     "variable": "species_36",
+     "peak": 0.105,
+     "final": 0.00029
+    },
+    {
+     "parameter": "reaction_19_k1",
+     "variable": "species_38",
+     "peak": 0.127,
+     "final": 0.00033
+    },
+    {
+     "parameter": "reaction_20_k1",
+     "variable": "species_38",
+     "peak": 0.158,
+     "final": 0.00034
+    }
+   ],
+   "name": "Firczuk2013 - Eukaryotic mRNA translation machinery",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000458",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Smallbone2013 - Serine biosynthesis",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000461",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Liebal2012 - B.subtilis transcription inhibition model",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000463",
+   "status": "baseline not steady: unbounded",
+   "name": "Heldt2012 - Influenza Virus Replication",
+   "loops": 115,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000469",
+   "status": "ok",
+   "parameters_tried": 2776,
+   "exact_returns": [],
+   "name": "Smallbone2013 - E.coli metabolic model with linlog rate law",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000470",
+   "status": "ok",
+   "parameters_tried": 2795,
+   "exact_returns": [],
+   "name": "Smallbone2013 - E.coli metabolic model with modular rate law",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000471",
+   "status": "ok",
+   "parameters_tried": 2076,
+   "exact_returns": [],
+   "name": "Smallbone2013 - Yeast metabolic model with linlog rate law",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000472",
+   "status": "ok",
+   "parameters_tried": 2092,
+   "exact_returns": [],
+   "name": "Smallbone2013 - Yeast metabolic model with modular rate law",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000473",
+   "status": "ok",
+   "parameters_tried": 2183,
+   "exact_returns": [],
+   "name": "Smallbone2013 - Yeast metabolic model with modular rate law, merged with Pritchard 2002",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000477",
+   "status": "ok",
+   "parameters_tried": 82,
+   "exact_returns": [],
+   "name": "Mol2013 - Immune Signal Transduction in Leishmaniasis",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000483",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Cao2008 - Network of a toggle switch",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000484",
+   "status": "ok",
+   "parameters_tried": 2,
+   "exact_returns": [],
+   "name": "Cao2013 - Application of ABSIS method in birth-death process",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000485",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Cao2013 - Application of ABSIS method in the bistable Schl\u00f6gl model",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000486",
+   "status": "ok",
+   "parameters_tried": 2,
+   "exact_returns": [],
+   "name": "Cao2013 - Application of ABSIS method in the reversible isomerization model",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000487",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Cao2013 - Application of ABSIS in the the enzymatic futile cycle",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000491",
+   "status": "ok",
+   "parameters_tried": 172,
+   "exact_returns": [],
+   "name": "Pathak2013 - MAPK activation in response to various abiotic stresses",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000492",
+   "status": "ok",
+   "parameters_tried": 176,
+   "exact_returns": [],
+   "name": "Pathak2013 - MAPK activation in response to various biotic stresses",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000495",
+   "status": "ok",
+   "parameters_tried": 34,
+   "exact_returns": [
+    {
+     "parameter": "mw798d0b02_925e_471b_a372_526d681cc370",
+     "variable": "mw8796c919_9251_4970_8f87_0bca9ecfeb5c",
+     "peak": 0.078,
+     "final": 0.00469
+    },
+    {
+     "parameter": "mwd3807289_133c_4621_8087_366621f553d3",
+     "variable": "mw8796c919_9251_4970_8f87_0bca9ecfeb5c",
+     "peak": 0.057,
+     "final": 0.00426
+    },
+    {
+     "parameter": "mw231a5907_d1ee_4a43_83ab_abb72f19502c",
+     "variable": "mwee54b5b4_b8c0_41df_8dda_5b160c5e10a5",
+     "peak": 0.102,
+     "final": 0.0
+    }
+   ],
+   "name": "Sen2013 - Phospholipid Synthesis in P.knowlesi",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000499",
+   "status": "ok",
+   "parameters_tried": 20,
+   "exact_returns": [],
+   "name": "Vizan2013 - TGF pathway long term signaling",
+   "loops": 331,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000500",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Begitt2014 - STAT1 cooperative DNA binding - single GAS polymer model",
+   "loops": 554,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000501",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Begitt2014 - STAT1 cooperative DNA binding - double GAS polymer model",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000503",
+   "status": "ok",
+   "parameters_tried": 192,
+   "exact_returns": [
+    {
+     "parameter": "ADH_kcat",
+     "variable": "E4P",
+     "peak": 0.059,
+     "final": 0.00106
+    },
+    {
+     "parameter": "ATPase_Katp",
+     "variable": "AcAld",
+     "peak": 0.059,
+     "final": 0.00319
+    },
+    {
+     "parameter": "PDC_Kpyr_PDC1",
+     "variable": "AcAld",
+     "peak": 0.114,
+     "final": 2e-05
+    },
+    {
+     "parameter": "PDC_kcat_PDC1",
+     "variable": "AcAld",
+     "peak": 0.123,
+     "final": 2e-05
+    },
+    {
+     "parameter": "PYK_L0",
+     "variable": "AcAld",
+     "peak": 0.054,
+     "final": 0.00373
+    },
+    {
+     "parameter": "PYK_Kpep",
+     "variable": "AcAld",
+     "peak": 0.057,
+     "final": 0.00388
+    },
+    {
+     "parameter": "PYK_kcat",
+     "variable": "AcAld",
+     "peak": 0.052,
+     "final": 0.00377
+    }
+   ],
+   "name": "Messiha2013 - combined glycolysis and pentose phosphate pathway model",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000505",
+   "status": "ok",
+   "parameters_tried": 223,
+   "exact_returns": [],
+   "name": "vanEunen2013 - Network dynamics of fatty acid \u03b2-oxidation (steady-state model)",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000507",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Gardner2000 - genetic toggle switch in E.coli",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000510",
+   "status": "ok",
+   "parameters_tried": 156,
+   "exact_returns": [
+    {
+     "parameter": "PYK_c_PYK_c_KiATP",
+     "variable": "AMP_c",
+     "peak": 0.051,
+     "final": 0.00333
+    },
+    {
+     "parameter": "PYK_c_PYK_c_Vmax",
+     "variable": "Pyr_c",
+     "peak": 0.051,
+     "final": 0.00457
+    },
+    {
+     "parameter": "PGAM_c_PGAM_c_Vmax",
+     "variable": "PEP_c",
+     "peak": 0.081,
+     "final": 0.00471
+    },
+    {
+     "parameter": "HXK_g_HXK_g_KmGlc",
+     "variable": "_13BPGA_g",
+     "peak": 0.061,
+     "final": 0.00444
+    },
+    {
+     "parameter": "HXK_g_HXK_g_Vmax",
+     "variable": "_13BPGA_g",
+     "peak": 0.055,
+     "final": 0.00404
+    },
+    {
+     "parameter": "HXK_c_HXK_c_KmGlc",
+     "variable": "AMP_g",
+     "peak": 0.087,
+     "final": 0.00039
+    },
+    {
+     "parameter": "HXK_c_HXK_c_Vmax",
+     "variable": "_13BPGA_g",
+     "peak": 0.056,
+     "final": 0.00029
+    },
+    {
+     "parameter": "HXK_c_HXK_c_Vmax",
+     "variable": "AMP_g",
+     "peak": 0.095,
+     "final": 0.0004
+    },
+    {
+     "parameter": "G6PP_c_G6PP_c_KmGlc6P",
+     "variable": "AMP_g",
+     "peak": 0.062,
+     "final": 1e-05
+    },
+    {
+     "parameter": "G6PP_c_G6PP_c_Vmax",
+     "variable": "AMP_g",
+     "peak": 0.095,
+     "final": 3e-05
+    },
+    {
+     "parameter": "GlcT_g_GlcT_g_k2",
+     "variable": "_13BPGA_g",
+     "peak": 0.063,
+     "final": 0.00457
+    },
+    {
+     "parameter": "GlcT_g_GlcT_g_k1",
+     "variable": "_13BPGA_g",
+     "peak": 0.055,
+     "final": 0.004
+    }
+   ],
+   "name": "Kerkhoven2013 - Glycolysis and Pentose Phosphate Pathway in T.brucei - MODEL C (with glucosomal ribokinase)",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000511",
+   "status": "ok",
+   "parameters_tried": 154,
+   "exact_returns": [
+    {
+     "parameter": "PYK_c_PYK_c_KiATP",
+     "variable": "Pyr_c",
+     "peak": 0.066,
+     "final": 0.00155
+    },
+    {
+     "parameter": "PYK_c_PYK_c_KmPEP",
+     "variable": "Pyr_c",
+     "peak": 0.095,
+     "final": 0.0027
+    },
+    {
+     "parameter": "PGAM_c_PGAM_c_Keq",
+     "variable": "Pyr_c",
+     "peak": 0.083,
+     "final": 0.00212
+    },
+    {
+     "parameter": "PGAM_c_PGAM_c_Vmax",
+     "variable": "_2PGA_c",
+     "peak": 0.082,
+     "final": 0.00191
+    },
+    {
+     "parameter": "PGAM_c_PGAM_c_Vmax",
+     "variable": "ATP_g",
+     "peak": 0.066,
+     "final": 0.00396
+    },
+    {
+     "parameter": "PGAM_c_PGAM_c_Vmax",
+     "variable": "AMP_g",
+     "peak": 0.074,
+     "final": 0.00453
+    },
+    {
+     "parameter": "PGAM_c_PGAM_c_Vmax",
+     "variable": "AMP_c",
+     "peak": 0.096,
+     "final": 0.00276
+    },
+    {
+     "parameter": "ENO_c_ENO_c_Keq",
+     "variable": "Pyr_c",
+     "peak": 0.072,
+     "final": 0.00181
+    },
+    {
+     "parameter": "ENO_c_ENO_c_Vmax",
+     "variable": "Pyr_c",
+     "peak": 0.056,
+     "final": 0.0014
+    },
+    {
+     "parameter": "GlcT_c_GlcT_c_Vmax",
+     "variable": "ADP_g",
+     "peak": 0.19,
+     "final": 0.00315
+    },
+    {
+     "parameter": "ALD_g_ALD_g_KmDHAP",
+     "variable": "ATP_g",
+     "peak": 0.092,
+     "final": 0.00484
+    },
+    {
+     "parameter": "ALD_g_ALD_g_KmDHAP",
+     "variable": "_13BPGA_g",
+     "peak": 0.086,
+     "final": 0.00495
+    },
+    {
+     "parameter": "ALD_g_ALD_g_KmGA3P",
+     "variable": "ATP_g",
+     "peak": 0.052,
+     "final": 0.00277
+    },
+    {
+     "parameter": "ALD_g_ALD_g_KmGA3P",
+     "variable": "AMP_g",
+     "peak": 0.058,
+     "final": 0.00318
+    },
+    {
+     "parameter": "ALD_g_ALD_g_Keq",
+     "variable": "ATP_g",
+     "peak": 0.07,
+     "final": 0.00383
+    },
+    {
+     "parameter": "ALD_g_ALD_g_Keq",
+     "variable": "_13BPGA_g",
+     "peak": 0.066,
+     "final": 0.00391
+    },
+    {
+     "parameter": "ALD_g_ALD_g_Keq",
+     "variable": "AMP_g",
+     "peak": 0.078,
+     "final": 0.00438
+    },
+    {
+     "parameter": "ALD_g_ALD_g_Vmax",
+     "variable": "Gly3P_g",
+     "peak": 0.066,
+     "final": 0.00335
+    },
+    {
+     "parameter": "GAPDH_g_GAPDH_g_Vmax",
+     "variable": "ADP_g",
+     "peak": 0.093,
+     "final": 0.00229
+    }
+   ],
+   "name": "Kerkhoven2013 - Glycolysis and Pentose Phosphate Pathway in T.brucei - MODEL D (with ATP:ADP antiporter)",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000512",
+   "status": "baseline not steady: unbounded",
+   "name": "Benson2014 - FAAH inhibitors for the treatment of osteoarthritic pain",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000513",
+   "status": "ok",
+   "parameters_tried": 90,
+   "exact_returns": [],
+   "name": "Kerkhoven2013 - Glycolysis in T.brucei - MODEL A",
+   "loops": 865,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000515",
+   "status": "ok",
+   "parameters_tried": 181,
+   "exact_returns": [],
+   "name": "Kerkhoven2013 - Glycolysis and Pentose Phosphate Pathway in T.brucei - MODEL C in fructose medium (with glucosomal ribokinase)",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000516",
+   "status": "ok",
+   "parameters_tried": 179,
+   "exact_returns": [
+    {
+     "parameter": "GK_g_GK_g_KmADP",
+     "variable": "AMP_g",
+     "peak": 0.052,
+     "final": 0.00288
+    },
+    {
+     "parameter": "GK_g_GK_g_Vmax",
+     "variable": "ATP_g",
+     "peak": 0.071,
+     "final": 0.00361
+    },
+    {
+     "parameter": "GK_g_GK_g_Vmax",
+     "variable": "AMP_g",
+     "peak": 0.079,
+     "final": 0.00415
+    },
+    {
+     "parameter": "GPO_c_GPO_c_KmGly3P",
+     "variable": "ATP_g",
+     "peak": 0.051,
+     "final": 0.00187
+    },
+    {
+     "parameter": "GPO_c_GPO_c_KmGly3P",
+     "variable": "AMP_g",
+     "peak": 0.057,
+     "final": 0.00214
+    },
+    {
+     "parameter": "GPO_c_GPO_c_Vmax",
+     "variable": "ATP_g",
+     "peak": 0.087,
+     "final": 0.00394
+    },
+    {
+     "parameter": "GPO_c_GPO_c_Vmax",
+     "variable": "AMP_g",
+     "peak": 0.104,
+     "final": 0.00454
+    }
+   ],
+   "name": "Kerkhoven2013 - Glycolysis and Pentose Phosphate Pathway in T.brucei - MODEL D in fructose medium (with ATP:ADP antiporter)",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000517",
+   "status": "ok",
+   "parameters_tried": 14,
+   "exact_returns": [],
+   "name": "Smallbone2013 - Colon Crypt cycle - Version 3",
+   "loops": 40,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000519",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Smallbone2013 - Colon Crypt cycle - Version 1",
+   "loops": 9,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000520",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Smallbone2013 - Colon Crypt cycle - Version 0",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000522",
+   "status": "ok",
+   "parameters_tried": 49,
+   "exact_returns": [],
+   "name": "Muraro2014 - Vascular patterning in Arabidopsis roots",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000525",
+   "status": "ok",
+   "parameters_tried": 14,
+   "exact_returns": [],
+   "name": "Kallenberger2014 - CD95L induced apoptosis initiated by caspase-8, CD95 HeLa cells (cis/trans-cis/trans variant)",
+   "loops": 21,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000526",
+   "status": "ok",
+   "parameters_tried": 14,
+   "exact_returns": [],
+   "name": "Kallenberger2014 - CD95L induced apoptosis initiated by caspase-8, wild-type HeLa cells (cis/trans-cis/trans variant)",
+   "loops": 21,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000530",
+   "status": "ok",
+   "parameters_tried": 17,
+   "exact_returns": [],
+   "name": "Schmitz2014 - RNA triplex formation",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000533",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Steckmann2012 - Amyloid beta-protein fibrillogenesis (kinetics of secondary structure conversion)",
+   "loops": 5,
+   "running_totals": 1
+  },
+  {
+   "model": "BIOMD0000000542",
+   "status": "baseline not steady: unbounded",
+   "name": "Yuraszeck2010 - Vulnerabilities in the Tau Network in Tau Pathophysiology",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000545",
+   "status": "ok",
+   "parameters_tried": 23,
+   "exact_returns": [],
+   "name": "Ouyang2014 - photomorphogenic UV-B signalling network",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000546",
+   "status": "ok",
+   "parameters_tried": 5,
+   "exact_returns": [],
+   "name": "Miao2010 - Innate and adaptive immune responses to primary Influenza A Virus infection",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000550",
+   "status": "ok",
+   "parameters_tried": 5,
+   "exact_returns": [],
+   "name": "Baker2013 - Cytokine Mediated Inflammation in Rheumatoid Arthritis",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000552",
+   "status": "ok",
+   "parameters_tried": 4,
+   "exact_returns": [],
+   "name": "Ehrenstein2000 - Positive-Feedback model for the loss of acetylcholine in Alzheimer's disease",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000553",
+   "status": "ok",
+   "parameters_tried": 4,
+   "exact_returns": [],
+   "name": "Ehrenstein1997 - The choline-leakage hypothesis in Alzheimer's disease",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000569",
+   "status": "ok",
+   "parameters_tried": 42,
+   "exact_returns": [],
+   "name": "Dutta-Roy2015 - Opening of the multiple AMPA receptor conductance states",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000574",
+   "status": "ok",
+   "parameters_tried": 27,
+   "exact_returns": [],
+   "name": "Lai2014 - Hemiconcerted MWC model of intact calmodulin with two targets",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000576",
+   "status": "ok",
+   "parameters_tried": 59,
+   "exact_returns": [
+    {
+     "parameter": "cortisolTransport_k2",
+     "variable": "s40",
+     "peak": 0.059,
+     "final": 0.0
+    },
+    {
+     "parameter": "cortisolTransport_k2",
+     "variable": "s39",
+     "peak": 0.112,
+     "final": 0.0
+    },
+    {
+     "parameter": "cortisolTransport_k2",
+     "variable": "s114",
+     "peak": 0.161,
+     "final": 0.0
+    },
+    {
+     "parameter": "cortisolTransport_k2",
+     "variable": "s165",
+     "peak": 0.143,
+     "final": 0.0
+    },
+    {
+     "parameter": "cortisolTransport_k2",
+     "variable": "s87",
+     "peak": 0.067,
+     "final": 0.0
+    },
+    {
+     "parameter": "cortisolTransport_k2",
+     "variable": "s119",
+     "peak": 0.161,
+     "final": 0.0
+    },
+    {
+     "parameter": "cortisolTransport_k1",
+     "variable": "s40",
+     "peak": 0.051,
+     "final": 0.0
+    },
+    {
+     "parameter": "cortisolTransport_k1",
+     "variable": "s39",
+     "peak": 0.106,
+     "final": 0.0
+    },
+    {
+     "parameter": "cortisolTransport_k1",
+     "variable": "s114",
+     "peak": 0.19,
+     "final": 0.0
+    },
+    {
+     "parameter": "cortisolTransport_k1",
+     "variable": "s165",
+     "peak": 0.162,
+     "final": 0.0
+    },
+    {
+     "parameter": "cortisolTransport_k1",
+     "variable": "s87",
+     "peak": 0.064,
+     "final": 0.0
+    },
+    {
+     "parameter": "cortisolTransport_k1",
+     "variable": "s119",
+     "peak": 0.19,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cortisol_CBG_k2",
+     "variable": "s39",
+     "peak": 0.06,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cortisol_CBG_k2",
+     "variable": "s114",
+     "peak": 0.102,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cortisol_CBG_k2",
+     "variable": "s165",
+     "peak": 0.087,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cortisol_CBG_k2",
+     "variable": "s119",
+     "peak": 0.102,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cortisol_CBG_k2",
+     "variable": "s2",
+     "peak": 0.102,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cortisol_CBG_k2",
+     "variable": "Alb_CortOUT",
+     "peak": 0.101,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cortisol_CBG_k1",
+     "variable": "s39",
+     "peak": 0.063,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cortisol_CBG_k1",
+     "variable": "s114",
+     "peak": 0.094,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cortisol_CBG_k1",
+     "variable": "s165",
+     "peak": 0.083,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cortisol_CBG_k1",
+     "variable": "s119",
+     "peak": 0.094,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cortisol_CBG_k1",
+     "variable": "s2",
+     "peak": 0.094,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cortisol_CBG_k1",
+     "variable": "Alb_CortOUT",
+     "peak": 0.094,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cort_Alb_k2",
+     "variable": "s114",
+     "peak": 0.061,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cort_Alb_k2",
+     "variable": "s165",
+     "peak": 0.053,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cort_Alb_k2",
+     "variable": "s119",
+     "peak": 0.061,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cort_Alb_k2",
+     "variable": "s2",
+     "peak": 0.061,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cort_Alb_k1",
+     "variable": "s114",
+     "peak": 0.062,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cort_Alb_k1",
+     "variable": "s165",
+     "peak": 0.054,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cort_Alb_k1",
+     "variable": "s119",
+     "peak": 0.062,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cort_Alb_k1",
+     "variable": "s2",
+     "peak": 0.062,
+     "final": 0.0
+    },
+    {
+     "parameter": "Cort_Alb_k1",
+     "variable": "CBG",
+     "peak": 0.05,
+     "final": 0.0
+    }
+   ],
+   "name": "Kolodkin2013 - Nuclear receptor-mediated cortisol signalling network",
+   "loops": 2831,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000581",
+   "status": "ok",
+   "parameters_tried": 32,
+   "exact_returns": [],
+   "name": "DallePezze2012 - TSC-independent mTORC2 regulation",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000584",
+   "status": "ok",
+   "parameters_tried": 34,
+   "exact_returns": [],
+   "name": "Mandlik2015 - Tristable genetic circuit of Leishmania",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000588",
+   "status": "baseline not steady: unbounded",
+   "name": "Benson2013 - Identification of key drug targets in nerve growth factor pathway",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000590",
+   "status": "ok",
+   "parameters_tried": 30,
+   "exact_returns": [],
+   "name": "Hermansen2015 - denovo biosynthesis of pyrimidines in yeast",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000594",
+   "status": "ok",
+   "parameters_tried": 16,
+   "exact_returns": [],
+   "name": "Capuani2015 - Binding of Cbl and Gbr2 to EGFR (Multisite Phosphorylation Model - MPM)",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000595",
+   "status": "ok",
+   "parameters_tried": 23,
+   "exact_returns": [],
+   "name": "Capuani2015 - Binding of Cbl and Grb2 to EGFR (Early Activation Model - EAM)",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000596",
+   "status": "ok",
+   "parameters_tried": 54,
+   "exact_returns": [],
+   "name": "Philipson2015 - Innate immune response modulated by NLRX1",
+   "loops": 20,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000602",
+   "status": "ok",
+   "parameters_tried": 105,
+   "exact_returns": [],
+   "name": "Stavrum2013 - Tryptophan Metabolism in Liver",
+   "loops": 211,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000609",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Reddyhoff2015 - Acetaminophen metabolism and toxicity",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000614",
+   "status": "baseline not steady: unsettled",
+   "name": "Kamihira2000",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000619",
+   "status": "ok",
+   "parameters_tried": 31,
+   "exact_returns": [],
+   "name": "Sluka2016  - Acetaminophen PBPK",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000624",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Sluka2016 - Acetaminophen metabolism",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000625",
+   "status": "ok",
+   "parameters_tried": 50,
+   "exact_returns": [],
+   "name": "Leber2016 - Expanded model of Tfh-Tfr differentiation - Helicobacter pylori infection",
+   "loops": 21,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000626",
+   "status": "ok",
+   "parameters_tried": 20,
+   "exact_returns": [],
+   "name": "Ray2013 - Meiotic initiation in S. cerevisiae",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000629",
+   "status": "ok",
+   "parameters_tried": 4,
+   "exact_returns": [],
+   "name": "Haffez2017 - RAR interaction with synthetic analogues",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000630",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Venkatraman2011 - PLS-UPA behaviour in the presence of substrate competition_1_1_1_1",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000633",
+   "status": "ok",
+   "parameters_tried": 235,
+   "exact_returns": [
+    {
+     "parameter": "v0_gp",
+     "variable": "fru16bp",
+     "peak": 0.085,
+     "final": 0.0
+    },
+    {
+     "parameter": "store",
+     "variable": "fru16bp",
+     "peak": 0.069,
+     "final": 0.0
+    },
+    {
+     "parameter": "v0_gs",
+     "variable": "fru16bp",
+     "peak": 0.08,
+     "final": 0.0
+    },
+    {
+     "parameter": "k0_udpglc_gs_phospho",
+     "variable": "fru16bp",
+     "peak": 0.057,
+     "final": 0.0
+    }
+   ],
+   "name": "Bulik2016 - Regulation of hepatic glucose metabolism",
+   "loops": 73,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000637",
+   "status": "ok",
+   "parameters_tried": 18,
+   "exact_returns": [],
+   "name": "Bush2016 - Simplified Carrousel model of GPCR",
+   "loops": 1867,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000638",
+   "status": "ok",
+   "parameters_tried": 24,
+   "exact_returns": [
+    {
+     "parameter": "k_off_R_rgs",
+     "variable": "RrgsGt",
+     "peak": 0.074,
+     "final": 0.00265
+    },
+    {
+     "parameter": "ModelValue_54",
+     "variable": "RrgsGt",
+     "peak": 0.085,
+     "final": 0.00324
+    },
+    {
+     "parameter": "ModelValue_55",
+     "variable": "RrgsGt",
+     "peak": 0.09,
+     "final": 0.00274
+    }
+   ],
+   "name": "Bush2016 - Extended Carrousel model of GPCR-RGS",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000639",
+   "status": "ok",
+   "parameters_tried": 13,
+   "exact_returns": [],
+   "name": "Thiaville2016 - Wild type folate pathway model with proposed PanB reaction",
+   "loops": 1,
+   "running_totals": 0
+  }
+ ],
+ "families": {
+  "fruit fly day clock": [
+   {
+    "model": "BIOMD0000000016",
+    "name": "Goldbeter1995_CircClock",
+    "loops": 1,
+    "brakes": 1,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "oscillating"
+    ],
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000036",
+    "name": "Tyson1999_CircClock",
+    "loops": 2,
+    "brakes": 1,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "oscillating"
+    ],
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000021",
+    "name": "Leloup1999_CircClock",
+    "loops": 2,
+    "brakes": 2,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "oscillating"
+    ],
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000298",
+    "name": "Leloup1999_CircadianRhythms_Drosophila",
+    "loops": 14,
+    "brakes": 4,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "oscillating"
+    ],
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000171",
+    "name": "Leloup1998_CircClock_LD",
+    "loops": 2,
+    "brakes": 2,
+    "running_totals": 0,
+    "forced": true,
+    "behaviours": [
+     "oscillating"
+    ],
+    "exact_return": null
+   }
+  ],
+  "Tyson 1991 cell cycle, 6 and 2 variables": [
+   {
+    "model": "BIOMD0000000005",
+    "name": "Tyson1991 - Cell Cycle 6 var",
+    "loops": 3,
+    "brakes": 2,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "oscillating"
+    ],
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000006",
+    "name": "Tyson1991 - Cell Cycle 2 var",
+    "loops": 2,
+    "brakes": 1,
+    "running_totals": 1,
+    "forced": false,
+    "behaviours": [
+     "oscillating"
+    ],
+    "exact_return": null
+   }
+  ],
+  "Morris-Lecar muscle fibre, full and reduced": [
+   {
+    "model": "BIOMD0000000324",
+    "name": "Morris1981_MuscleFibre_Voltage_full",
+    "loops": 2,
+    "brakes": 1,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "steady"
+    ],
+    "exact_return": false
+   },
+   {
+    "model": "BIOMD0000000280",
+    "name": "Morris1981_MuscleFibre_Voltage_reduced",
+    "loops": 2,
+    "brakes": 1,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "oscillating"
+    ],
+    "exact_return": null
+   }
+  ],
+  "Singh 2006 TCA cycle, two versions": [
+   {
+    "model": "BIOMD0000000219",
+    "name": "Singh2006_TCA_mtu_model1",
+    "loops": 15,
+    "brakes": 7,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "steady"
+    ],
+    "exact_return": true
+   },
+   {
+    "model": "BIOMD0000000218",
+    "name": "Singh2006_TCA_mtu_model2",
+    "loops": 9,
+    "brakes": 5,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "steady"
+    ],
+    "exact_return": true
+   }
+  ],
+  "Smallbone 2013 colon crypt, versions 0 to 3": [
+   {
+    "model": "BIOMD0000000520",
+    "name": "Smallbone2013 - Colon Crypt cycle - Version 0",
+    "loops": 2,
+    "brakes": 0,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "continuum",
+     "steady"
+    ],
+    "exact_return": false
+   },
+   {
+    "model": "BIOMD0000000519",
+    "name": "Smallbone2013 - Colon Crypt cycle - Version 1",
+    "loops": 9,
+    "brakes": 4,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "steady"
+    ],
+    "exact_return": false
+   },
+   {
+    "model": "BIOMD0000000518",
+    "name": "Smallbone2013 - Colon Crypt cycle - Version 2",
+    "loops": 36,
+    "brakes": 17,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "continuum",
+     "oscillating",
+     "steady"
+    ],
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000517",
+    "name": "Smallbone2013 - Colon Crypt cycle - Version 3",
+    "loops": 40,
+    "brakes": 19,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "steady"
+    ],
+    "exact_return": false
+   }
+  ],
+  "Borghans 1997 calcium oscillations, models 1 to 3": [
+   {
+    "model": "BIOMD0000000043",
+    "name": "Borghans1997 - Calcium Oscillation - Model 1",
+    "loops": 2,
+    "brakes": 1,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "oscillating"
+    ],
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000044",
+    "name": "Borghans1997 - Calcium Oscillation - Model 2",
+    "loops": 2,
+    "brakes": 1,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "oscillating"
+    ],
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000045",
+    "name": "Borghans1997 - Calcium Oscillation - Model 3",
+    "loops": 1,
+    "brakes": 0,
+    "running_totals": 0,
+    "forced": false,
+    "behaviours": [
+     "oscillating"
+    ],
+    "exact_return": null
+   }
+  ]
+ }
+}
