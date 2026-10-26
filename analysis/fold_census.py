@@ -70,7 +70,7 @@ ALIASES = {}
 FIG = {'Figure 1. Arrows and loops.': 'Figure 1. Flip the arrows.',
        'Figure 5. The periodic table of loops.': 'Figure 5. The periodic table of loops.',
        'Figure 6. The data.': 'Figure 6. The data.',
-       'Figure 7. The research loop.': 'Figure 12. The research loop.'}
+       'Figure 7. The research loop.': 'Figure 13. The research loop.'}
 
 CSS_WANT = ['.pt-', '.ptable', '.ecard', '.rc-', '.refcard', '.tile', '.tiles', '.cards', '.card', '.summary-cards', '.f-', '.explorer',
             '.ex-', 'ol.ex-list', '#ex-q', '.pick', '.sl-', '.sn', '.sp', '.solo', '.bars', '.grid-fig', '.grid-key', '.rows-grid', '.quad',
