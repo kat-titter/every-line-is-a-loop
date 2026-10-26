@@ -537,7 +537,7 @@ def circuit_hypo():
 
 def recipe_hypo():
     rows = (('input', 'a pulse of strength 0.2 for T hours'), ('running total', 'dose = 0.2 &#215; T, never forgotten'),
-            ('switch', 'the lac loop of Figure 2, fed the dose'), ('flips when', 'dose passes 0.86, the lac switch\'s own threshold'),
+            ('switch', 'the lac loop of Figure 2, fed the dose'), ('flips when', f'dose passes {sw_thresholds()[1]:.2f}, the lac switch\'s own threshold'),
             ('never matters', 'how strong the pulse was'))
     s = ''
     for i, (k, v) in enumerate(rows):

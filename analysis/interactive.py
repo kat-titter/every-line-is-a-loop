@@ -591,7 +591,7 @@ window.ElCard = (function () {
     return '<svg width="140" height="' + H + '" viewBox="0 0 140 ' + H + '" aria-hidden="true">' + out + nodes + '</svg>';
   }
   var STATUS = {found: function (e) { return e.count + (e.count === 1 ? ' curated model' : ' curated models'); },
-                known: function () { return 'known from experiments'; }, candidate: function () { return 'candidates to check'; },
+                known: function () { return 'known from experiments'; }, candidate: function (e) { return e.note || 'candidates to check'; },
                 blank: function () { return 'not found yet'; }};
   function html(e) {
     var h = '<div class="ec-top"><span class="ec-k">element ' + e.num + '</span><span class="ec-s ec-' + e.status + '">' + STATUS[e.status](e) + '</span></div>' +

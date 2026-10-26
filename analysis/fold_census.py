@@ -182,6 +182,9 @@ def truth_numbers():
     results/robust_return.json (analysis/truth_tests.py, analysis/robust_return.py)."""
     T = json.loads((ROOT / 'results' / 'truth_tests.json').read_text())
     R = json.loads((ROOT / 'results' / 'robust_return.json').read_text())
+    S = {json.loads(l)['model']: json.loads(l) for l in (ROOT / 'results' / 'r31_structure_traj.jsonl').open()}
+    D = [json.loads(l) for l in (ROOT / 'results' / 'r31_dynamics.jsonl').open()]
+    run = sum(1 for d in D if d.get('status') == 'ok' and not d.get('forced'))   # run on their own, labelled or not
     ru = T['rules']
     assert not ru['memory_without_amplifying_loop'] and not ru['clock_without_braking_loop']
     rings = [r for r in T['gain_brake'] if r['status'] == 'ok' and r.get('G') is not None]
@@ -190,6 +193,14 @@ def truth_numbers():
     above = [r for r in clocks if r['G'] > r['threshold']]
     below = [r for r in calm if r['G'] < r['threshold']]
     miss = [r for r in clocks if r['G'] <= r['threshold']]
+    # a ring the filters leave may hold more loops as drawn; the threshold is proved for a single ring
+    raw = {r['model']: S[r['model']]['defs']['thomas']['c'] for r in rings}
+    single = [r for r in rings if raw[r['model']] == 1]
+    s_clocks, s_calm = [r for r in single if r['ticks']], [r for r in single if not r['ticks']]
+    s_above = [r for r in s_clocks if r['G'] > r['threshold']]
+    s_below = [r for r in s_calm if r['G'] < r['threshold']]
+    two_step = [r for r in single if r['n'] == 2]
+    assert all(r['threshold'] == float('inf') or r['threshold'] > 1e9 for r in two_step)
     toggle = next(r for r in T['gain_amplify'] if r['model'] == 'BIOMD0000000507')
     tg = sorted(x['G'] for x in toggle['steady_states'])
     tip = next(x['G'] for x in toggle['steady_states'] if x['unstable'])
@@ -202,7 +213,8 @@ def truth_numbers():
     robust = [m for m in R if any(q['robust'] for q in m['pairs'])]
     band = [m for m in robust if 1 <= (m['loops'] or 0) <= 3]
     assert all(m['running_totals'] == 0 for m in band)
-    return dict(auto=ru['autonomous'], mem=ru['memory'], clk=ru['clock'], rings=rings, clocks=clocks, calm=calm,
+    return dict(run=run, auto=ru['autonomous'], mem=ru['memory'], clk=ru['clock'], rings=rings, clocks=clocks, calm=calm, raw=raw,
+                single=single, s_clocks=s_clocks, s_calm=s_calm, s_above=s_above, s_below=s_below, two_step=two_step,
                 above=above, below=below, miss=miss, tip=tip, rest=[g for g in tg if g != tip], fams=fams, does=does,
                 sits=sits, settling=len(ok), exact=len(exact), robust=robust, band=band)
 
@@ -229,9 +241,12 @@ def scorecard(post):
     rows = -(-n // cols)
     ev1 = svg(grid + mono(4, 4 + rows * st + 12, f'{N["mem"]} memories, {N["clk"]} clocks, 0 exceptions', fill='var(--ink)'), int(4 + rows * st + 18),
               f'All {N["mem"]} models that hold two states have an amplifying loop and all {N["clk"]} that keep time have a braking loop')
-    c, k = len(N['clocks']), len(N['calm'])
-    ev2 = svg(row(12, 'ticks', c, len(N['above']), f'{len(N["above"])} of {c} above') + row(36, 'settles', k, len(N['below']), f'{len(N["below"])} of {k} below'), 46,
-              f'Of {c} one-ring clocks, {len(N["above"])} have gain above the threshold; of {k} one-ring models that settle, {len(N["below"])} are below it')
+    c, k = len(N['s_clocks']), len(N['s_calm'])
+    a_, b_ = len(N['s_above']), len(N['s_below'])
+    all_ok = len(N['above']) + len(N['below'])
+    ev2 = svg(row(12, 'ticks', c, a_, f'{a_} of {c} above') + row(36, 'settles', k, b_, f'{b_} of {k} below'), 46,
+              f'Of {c} clocks that are single rings before and after the filters, {a_} have gain above the floor; of {k} such rings that settle, {b_} are below it, '
+              f'{len(N["two_step"])} of them two-step rings that cannot tick at any gain. Counting every ring the filters leave, {all_ok} of {len(N["rings"])}.')
     f = len(N['fams'])
     d, p_ = sum(N['does'].values()), sum(N['sits'].values())
     ev3 = svg(row(12, 'does', f, d, f'{d} of {f} agree') + row(36, 'count', f, p_, f'{p_} of {f} agree'), 46,
@@ -265,20 +280,27 @@ def truth_supp(cite):
     band = ', '.join(f'{m["name"].replace("_", " ")} ({m["loops"]} loop{"s" if m["loops"] > 1 else ""})' for m in N['band'])
     G = ('<math display="block"><mi>G</mi><mo>=</mo><mfrac><mrow><munder><mo>&#8719;</mo><mi>ring</mi></munder><mo>|</mo><msub><mi>J</mi><mrow><mi>b</mi><mi>a</mi></mrow></msub><mo>|</mo></mrow>'
          '<mrow><munder><mo>&#8719;</mo><mi>ring</mi></munder><mo>|</mo><msub><mi>J</mi><mrow><mi>i</mi><mi>i</mi></mrow></msub><mo>|</mo></mrow></mfrac></math>')
-    miss = N['miss'][0]['name'].replace('_', ' ')
+    WORDS = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six'}
+    nm = lambda r: r['name'].replace('_', ' ').replace(' - ', ' ')
+    after = [r for r in N['rings'] if N['raw'][r['model']] > 1]
+    assert set(r['model'] for r in N['miss']) <= set(r['model'] for r in after), 'the miss must be one of the rings only the filters make single'
+    hits = [r for r in after if r not in N['miss']]
+    multi = (f'{WORDS[len(after)].capitalize()} of the {len(N["rings"])} are single rings only after the census&#8217;s filters: the miss, {nm(N["miss"][0])} '
+             f'({N["raw"][N["miss"][0]["model"]]} loops as drawn), and {WORDS[len(hits)]} hits, '
+             + ' and '.join(f'{nm(r)} ({N["raw"][r["model"]]})' for r in hits))
     parts = [
         '<details class="supp" id="supp-e">',
         '<summary>E. The laws, tested</summary>',
         '<div class="text">',
         '<p><code>truth_tests.py</code> and <code>robust_return.py</code> run four tests on the same release, from the same equations. Every number below is read from their results files when this page is built.</p>',
         '<h3>The sign permits</h3>',
-        f'<p>Each of the {N["auto"]} models that run on their own was checked against both rules on its own sign graph, read where the model runs, with no filters. The {N["mem"]} that hold two states all have an amplifying loop; the {N["clk"]} that keep time all have a braking loop.</p>',
+        f'<p>Of the {N["run"]} models that run on their own, the {N["auto"]} that match a behaviour label were checked against both rules on their own sign graphs, read where each model runs, with no filters. The {N["mem"]} that hold two states all have an amplifying loop; the {N["clk"]} that keep time all have a braking loop.</p>',
         '<h3>Strength decides</h3>',
         '<p>For a single loop, gain is the product of its arrows&#8217; strengths over the product of its molecules&#8217; own decay rates, read from the Jacobian <i>J</i> at a steady state:</p>',
         G,
         f'<p>A braking ring of <i>n</i> steps can leave its steady state only if <i>G</i> &gt; sec(&#960;/<i>n</i>)<sup><i>n</i></sup> {cite(70)}; an amplifying ring&#8217;s steady state is a tipping point exactly when <i>G</i> &gt; 1 {cite(71)}. The test reads <i>G</i> at each model&#8217;s own steady state, found by running it and, for a switch&#8217;s tipping point, by bisection between its two stable states. Loops through one molecule are left out, since their self-effect and their decay share one Jacobian entry. The one-ring models with a measurable gain, the gain each needs, and what each does at published rates:</p>',
         f'<table class="key" style="overflow-wrap: anywhere"><tr><th>Model</th><th>Gain</th><th>Needs</th><th>Does</th></tr>{tr}</table>',
-        f'<p>The miss, {miss}, holds four loops before the census&#8217;s filters, so it is not a single ring. Gardner&#8217;s toggle has gain {N["tip"]:.2f} at its tipping point and {N["rest"][0]:.3f} and {N["rest"][1]:.2f} at its two stable states. McClean&#8217;s 2007 crosstalk model also holds two states, with five loops before filtering, outside the one-ring result.</p>',
+        f'<p>{multi}. On the {len(N["single"])} that are single rings before and after, the floor calls all {len(N["s_above"]) + len(N["s_below"])}; {WORDS[len(N["two_step"])]} of them are two-step rings, whose floor is infinite, so they cannot tick at any gain. Gardner&#8217;s toggle has gain {N["tip"]:.2f} at its tipping point and {N["rest"][0]:.3f} and {N["rest"][1]:.2f} at its two stable states. McClean&#8217;s 2007 crosstalk model also holds two states, with five loops before filtering, outside the one-ring result.</p>',
         '<h3>Redrawn models</h3>',
         '<p>Five families draw one system at different detail. &#8220;Does&#8221; compares what the models do at published rates; &#8220;place&#8221; compares their element (loops, braking loops, running totals). Smallbone&#8217;s four colon-crypt versions are left out, because each adds mechanisms rather than detail.</p>',
         f'<table class="key"><tr><th>Family</th><th>Models</th><th>Does</th><th>Place</th></tr>{fam}</table>',
@@ -301,6 +323,8 @@ def nesting_figure():
     cen = res['census']['transit_time']
     ta, na = cen['table']['amplifying']['keeps time'], cen['table']['amplifying']['does not']
     tb, nb = cen['table']['braking']['keeps time'], cen['table']['braking']['does not']
+    alt = res['census']['arrow_strength']['table']   # the other way of timing the loops, reported beside the first
+    xa, xna, xb, xnb = alt['amplifying']['keeps time'], alt['amplifying']['does not'], alt['braking']['keeps time'], alt['braking']['does not']
     W = 340
 
     def svg(inner, h, aria):
@@ -328,12 +352,14 @@ def nesting_figure():
     ev2 = svg(dots(12, 'amplifier fast', tick_a, tick_a, str(tick_a), 112, 6.6, 2.5) + dots(32, 'brake fast', tick_a, tick_b, str(tick_b), 112, 6.6, 2.5), 42,
               f'Of {draws} random draws, {tick_a} keep time with the amplifying loop fast; swap the speeds and {tick_b} do.')
     ev3 = svg(dots(12, 'amplifier faster', ta + na, ta, f'{ta} of {ta + na}', 130, 9.5, 3.6)
-              + dots(32, 'brake faster', tb + nb, tb, f'{tb} of {tb + nb}', 130, 9.5, 3.6), 42,
-              f'Real two-loop circuits: {ta} of {ta + na} keep time where the amplifying loop is faster, {tb} of {tb + nb} where the brake is.')
+              + dots(32, 'brake faster', tb + nb, tb, f'{tb} of {tb + nb}', 130, 9.5, 3.6)
+              + mono(0, 56, f'timed by arrow strength: {xa} of {xa + xna} vs {xb} of {xb + xnb}'), 62,
+              f'Real two-loop circuits, timed by the molecules each loop keeps to itself: {ta} of {ta + na} keep time where the amplifying loop is faster, {tb} of {tb + nb} where the brake is. '
+              f'Timed by arrow strength: {xa} of {xa + xna} against {xb} of {xb + xnb}, no lean.')
     rows_html = [
         ('<span class="v">&#10007; no</span>', 'Nesting order is the missing factor of two', ev1),
         ('<span class="v ok">&#10003; yes</span>', 'Which loop is fast decides whether it ticks', ev2),
-        ('<span class="v">~ leans</span>', 'Real clocks run their amplifier faster', ev3),
+        ('<span class="v">~ leans</span>', 'Real clocks lean toward a faster amplifier, timed one way of two', ev3),
     ]
     out = '<div class="pane one score">' + ''.join(
         f'<div class="sc-row">{v}<span class="sc-c">{c}</span><span class="sc-e">{e}</span></div>' for v, c, e in rows_html) + '</div>'
@@ -342,7 +368,8 @@ def nesting_figure():
             '<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--ink)"/></svg>what nesting order gives</span>'
             '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/></svg>a draw or a model</span>'
             '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/></svg>keeps time</span></p>')
-    return out, {'tick_a': tick_a, 'draws': draws, 'ta': ta, 'na': na, 'tb': tb, 'nb': nb, 'p': cen['fisher_one_sided_p']}
+    return out, {'tick_a': tick_a, 'draws': draws, 'ta': ta, 'na': na, 'tb': tb, 'nb': nb, 'p': cen['fisher_one_sided_p'],
+                  'xa': xa, 'xna': xna, 'xb': xb, 'xnb': xnb, 'xp': res['census']['arrow_strength']['fisher_one_sided_p']}
 
 
 def main():
@@ -412,7 +439,7 @@ def main():
     assert 'id="sl"' in nextfig
     supp = post[post.index('<details class="supp" id="supp-a">'):post.index('<details class="supp" id="refs-d">')]
     css = extract_css(re.search(r'<style>(.*?)</style>', post, re.S).group(1))
-    for claim in ('613 models', '175 have one to three loops', 'all 10 of them', 'Of the 20 elements with a running total, 3 are filled, by 4 models',
+    for claim in ('613 models', '175 have one to three loops', 'all 9 of them', 'Of the 20 elements with a running total, 3 are filled, by 4 models',
                   'five curated models', 'from one to 14 loops', 'remove the brakes of 10 clocks', '(13 models)', '102 loop searches'):
         assert claim in post, claim
     css += ('\n/* the essay reads in one sans; symbols and tiles follow it; its own key table wraps on a phone */\n'
@@ -426,7 +453,7 @@ def main():
         'orbitals': TF.fig_orbitals(),
         'ptable': clean(inner(ptable)),
         'data': clean(inner(datafig)),
-        'cards': '<figure class="fig" id="fig-score">\n' + scorecard(post) + '\n<figcaption><b>The scorecard.</b> Each dot is one model or one family of models.</figcaption>\n</figure>',
+        'cards': '<figure class="fig" id="fig-score">\n' + scorecard(post) + '\n<figcaption><b>The scorecard.</b> The first two findings, then two claims of the table. Each dot is one model or one family of models.</figcaption>\n</figure>',
         'truth': truth_supp(lambda n: f'<span class="cite">[{n}]</span>'),
         'next': clean(inner(nextfig)).replace('test nesting order as a fourth count.', 'look for a binary that touches every row, since nesting order, tested below, does not.')
                                      .replace('Benchmark running-total detectors on models with known answers', 'Trace by hand the four exact returns the loop reading missed, benchmark running-total detectors on models with known answers'),

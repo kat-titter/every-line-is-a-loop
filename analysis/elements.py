@@ -23,7 +23,7 @@ PARENT = {
     (2, 2): ('coupled clocks', 'two clocks', 'Two rhythms that pull on each other.', 'keeps time'),
     (3, 0): ('multistate memory', 'fates', 'Holds one of many stable states, like a cell fate.', 'holds two states'),
     (3, 1): ('working memory', 'working', 'Holds a state for a while, then lets it go.', 'holds, then fades'),
-    (3, 2): ('circadian', 'circadian', 'Keeps a steady, long rhythm, like the day clock.', 'keeps time'),
+    (3, 2): ('mixed clock', 'mixed', 'Keeps time, at any speed, with a self-feeding loop among its brakes.', 'keeps time'),
     (3, 3): ('clock, no memory', 'pulses', 'Rhythm with nothing to hold a state: pulses that reset.', 'keeps time'),
 }
 ADAPTER = ('adapter', 'adapter', 'Responds to a change, then returns exactly to where it was.', 'adapts exactly')
@@ -33,7 +33,7 @@ ADAPTER = ('adapter', 'adapter', 'Responds to a change, then returns exactly to 
 # systematic names until they are confirmed.
 # Each symbol is unique, and none reuses a chemical element's symbol or a code from the essay's example key.
 SYMBOL = {(0, 0): 'Ct', (1, 0): 'Sw', (1, 1): 'Tk', (2, 0): 'Me', (2, 1): 'Ro', (2, 2): 'Tw',
-          (3, 0): 'Mm', (3, 1): 'Wm', (3, 2): 'Ci', (3, 3): 'Ps'}
+          (3, 0): 'Mm', (3, 1): 'Wm', (3, 2): 'Mx', (3, 3): 'Ps'}
 CHEMICAL = set('''H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr
 Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir Pt Au Hg Tl Pb
 Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og'''.split())

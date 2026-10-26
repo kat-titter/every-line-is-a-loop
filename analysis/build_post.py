@@ -992,7 +992,7 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
         (small, census, 'with one to three loops',
          'Placed each in the table by its loops, braking loops and running totals.',
          'These rows hold the 4, 9 and 16 elements that the table&#8217;s predictions are about.'),
-        (autonomous, census, 'that run on their own',
+        (autonomous, census, f'of the {usable} run on their own',
          f'Simulated each from {WORD[starts]} starting states and labelled what it did: settles, keeps time, holds two states, and so on. {th["forced models excluded"]} models driven by an outside schedule were set aside.',
          'The proven rules, and the table&#8217;s claims, are about circuits left to themselves.'),
     ]
@@ -1040,9 +1040,10 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
             if x['does'] not in ('not run', 'never settles'):
                 does[x['does']] = does.get(x['does'], 0) + 1
         census_ex = []
+        shows = {'holds two states': 'holds two states', 'keeps time': 'keeps time', 'fires and resets': 'keeps time'}.get(EL.describe(n_, k_, j_)['traces'][0])
         for x in inside:
             nm = short.get(x['id'])
-            if nm and nm not in census_ex:
+            if nm and nm not in census_ex and x['does'] == shows:
                 census_ex.append(nm)
         def clip(t, w=44):
             t = t.replace('_', ' ')
@@ -1052,18 +1053,24 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
         essay_ex = EL.ESSAY_EXAMPLES.get(e, [])
         status = 'found' if inside else 'known' if essay_ex else 'candidate' if cands else 'blank'
         D_ = EL.describe(n_, k_, j_)
+        note = ''
+        if not n_:
+            # element zero is a counter: a running total with no loop. Every loop-free model sits at its address, but the
+            # census reads running totals only on loops, so none is shown to count and the counter stays a prediction.
+            status, note = 'candidate', f'{len(inside)} curated models with no loop; none shown to count'
+            D_ = dict(D_, predicted=True)
         hero_els.append(dict(D_, num=num, n=n_, k=k_, j=j_, i=row.index(e), L=len(row), count=len(inside), status=status,
-                             statusText={'found': f'found in {len(inside)} curated models', 'known': 'known from experiments',
-                                         'candidate': 'candidates to check', 'blank': 'not found yet'}[status],
+                             statusText=note or {'found': f'found in {len(inside)} curated models', 'known': 'known from experiments',
+                                                 'candidate': 'candidates to check', 'blank': 'not found yet'}[status], **({'note': note} if note else {}),
                              sig=sig, sigShort=''.join('<span class="sp">+</span>' if ch == '+' else '<span class="sn">\u2212</span>' if ch == '\u2212' else ch for ch in sig.replace(' ', '')) if n_ else '', sym=sym, symHtml=sym_html, observed=sorted(does.items(), key=lambda t: -t[1])[:3],
                              examples=census_ex[:3], essay=essay_ex[:3], candidates=cands[:3]))
     assert sum(h['count'] for h in hero_els if h['n']) == small, 'element counts must match the placed models'
-    top_ = [h for h in hero_els if h['j'] == 0]
+    top_ = [h for h in hero_els if h['j'] == 0 and h['n']]   # rows one to three; element zero is a prediction
     rest_ = [h for h in hero_els if h['j'] > 0]
     found_top = (sum(h['status'] == 'found' for h in top_), len(top_))
     found_rest = (sum(h['status'] == 'found' for h in rest_), len(rest_))
     rest_models = sum(h['count'] for h in rest_)
-    assert found_top == (10, 10) and found_rest[1] == 20, (found_top, found_rest)
+    assert found_top == (9, 9) and found_rest[1] == 20, (found_top, found_rest)
     EL.check_unique(TF.ELEMENTS)
     ptable_html = IA.periodic_table(hero_els, found_top, found_rest)
     hero_html = IA.hero(hero_els)
@@ -1111,6 +1118,11 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
                         f'at least with behaviour sorted this finely.')
     else:
         test_verdict = 'Neither two nor three loops shows more kinds of behaviour than it has elements, so by the essay&#8217;s own terms the rule survives.'
+    under = [nu for nu in (2, 3) if fine[nu] < pred[nu]]
+    if under:
+        test_verdict += (f' At {listing(LOOPS[nu] for nu in under)} there are fewer kinds than elements '
+                         f'({", ".join(f"{fine[nu]} of {pred[nu]}" for nu in under)}), which by the same terms marks one of the three counts as dead weight, '
+                         f'most likely the running totals, whose band is nearly empty.')
     if fine[1] > pred[1] and not over:
         test_verdict += (f' One loop shows more than its {pred[1]}, though the essay set its test at two and three loops, '
                          f'and merged into four behaviours it gives {"exactly " if coarse[1] == pred[1] else ""}{coarse[1]}.')
@@ -1242,7 +1254,7 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 <p class="kicker"><span class="n">5</span>what the table says</p>
 <h2>One band full, one band empty</h2>
 <p>Of the {usable} models the census could read, {small} have one to three loops, few enough to place.</p>
-<p>They fall in one band. Every element without a running total is filled, all {found_top[1]} of them, and familiar circuits sit where their biology puts them: the repressilator under one brake, the trp operon under two. Of the {found_rest[1]} elements with a running total, {found_rest[0]} are filled, by {rest_models} models between them. The table is fullest where biology already had words for what it saw, switches and clocks, and emptiest where the words arrived last.</p>
+<p>They fall in one band. Every element of rows one to three without a running total is filled, all {found_top[1]} of them, and familiar circuits sit where their biology puts them: the repressilator under one brake, the trp operon under two. Of the {found_rest[1]} elements with a running total, {found_rest[0]} are filled, by {rest_models} models between them. The table is fullest where biology already had words for what it saw, switches and clocks, and emptiest where the words arrived last.</p>
 <p>The three tests are scored below; the weak one is the third: no reading of the equations finds the running total cleanly, not even in yeast, where experiments pinned it down {cite('muzzey')}.</p>
 <p>One surprise. The fruit fly&#8217;s day clock has {WORD[len(FLY_CLOCK)]} curated models, all built from the same proteins, and they land in {WORD[fly_places]} different places, from {WORD.get(fp_min, fp_min)} to {WORD.get(fp_max, fp_max)} loops. Measure a coastline with a shorter ruler and it gets longer; a loop count grows the same way as a model gains detail (<a href="#supp-c">Supplement C</a>).</p>
 </div>
@@ -1446,10 +1458,10 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 <h3>The proven rules</h3>
 <p>Two of the table&#8217;s rules are theorems, so the census uses them to check itself.</p>
 <p><b>Two states need an amplifying loop.</b> Soul&#233; proved it {cite('soule')}: if a system of smooth rate equations has two separate steady states, then at some state in between, the arrows the census draws (the signed Jacobian) contain an amplifying loop. The idea, roughly: between two stable states lies an unstable one, a hilltop, and a hilltop needs a disturbance that feeds back on itself and grows, which is an amplifying loop. Baudier, Fages and Soliman sharpened the statement for reaction networks: the loop can be taken to be one that survives their filters {cite('baudier')}. The census checks this with their elimination algorithm, which decides whether such a loop exists without listing loops.</p>
-<p><b>A sustained rhythm needs a braking loop.</b> Snoussi and Gouz&#233; proved that a stable oscillation needs a braking loop through at least two molecules {cite('snoussi', 'gouze')}. The idea: to swing, a system must overshoot and turn back, and turning back means some chain of arrows eventually pushes the other way, which multiplies to a brake. The census checks it exactly: a strongly connected piece of the graph has no braking loop just when its molecules split into two camps so that every arrow&#8217;s sign is the product of its ends&#8217; camps,</p>
+<p><b>A sustained rhythm needs a braking loop.</b> Snoussi and Gouz&#233; proved that a stable oscillation needs a braking loop through at least two molecules, in systems whose arrows keep their sign {cite('snoussi', 'gouze')}. The idea: to swing, a system must overshoot and turn back, and turning back means some chain of arrows eventually pushes the other way, which multiplies to a brake. The census checks it exactly: a strongly connected piece of the graph has no braking loop just when its molecules split into two camps so that every arrow&#8217;s sign is the product of its ends&#8217; camps,</p>
 {PM.BALANCE}
 <p>which a single pass of two-colouring decides. Braking self-loops are left out of this check, as the theorem requires.</p>
-<p>What the theorems do not say: they are necessary conditions, not sufficient ones. An amplifying loop does not guarantee two states, and a braking loop does not guarantee a rhythm. They also speak of the signs at some state of the system, which is why the census reads signs where each model actually runs, and again at random states as a check.</p>
+<p>What the theorems do not say: they are necessary conditions, not sufficient ones. An amplifying loop does not guarantee two states, and a braking loop does not guarantee a rhythm. They also speak of the signs at some state of the system, which is why the census reads signs where each model actually runs, and again at random states as a check. The rhythm rule is proved only for arrows that keep their sign, so where the census reads an arrow with both signs its check goes past the proof.</p>
 
 <h3>Counting elements</h3>
 <p>A model with c = &#957; loops goes in element (&#957;, k, j), and row &#957; has (&#957; + 1)<sup>2</sup> elements. Grouping them like orbitals gives each one an address, with layers of 2l + 1:</p>
