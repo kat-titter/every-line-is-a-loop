@@ -532,12 +532,12 @@ def circuit_hypo():
     s += label(185, 195, '+', size=16, fill='var(--accent-text)', extra=' font-weight="600"')
     s += mono(20, 276, '1 loop  0 brakes  1 running total', size=12, fill='var(--ink)')
     return pane(s, PW, PH, 'A hypothetical element: a pulse feeds a running total, and the running total feeds an amplifying '
-                'loop of A and B, the switch of Figure 2 with the total in place of lactose.', ' data-sim="hy"')
+                'loop of A and B, the switch of Figure 3 with the total in place of lactose.', ' data-sim="hy"')
 
 
 def recipe_hypo():
     rows = (('input', 'a pulse of height 0.2 for T hours'), ('running total', 'dose = 0.2 &#215; T, never forgotten'),
-            ('switch', 'the lac loop of Figure 2, fed the dose'), ('flips when', f'dose passes {sw_thresholds()[1]:.2f}, the lac switch\'s own threshold'),
+            ('switch', 'the lac loop of Figure 3, fed the dose'), ('flips when', f'dose passes {sw_thresholds()[1]:.2f}, the lac switch\'s own threshold'),
             ('never matters', 'how high the pulse was'))
     s = ''
     for i, (k, v) in enumerate(rows):
@@ -703,69 +703,6 @@ def defs_html():
             '</defs></svg>')
 
 
-# ================================================================ the frame figure (permit, decide, model)
-def fig_frame():
-    """One braking loop read three ways: its sign permits a rhythm and forbids two states; its strength decides
-    whether it ticks; what it then does copies the day, rising before dawn."""
-    w, h = 230, 176
-    lab_y = 166
-
-    def p(inner, aria):
-        return f'<div>{pane(inner, w, h, aria)}</div>'
-    # sign permits: the repressilator's ring of three brakes
-    X, Y, Z = (115, 24, 34, 26), (156, 82, 34, 26), (74, 82, 34, 26)
-    a = edge(X, Y, 'rep', 'x', curve=14) + edge(Y, Z, 'rep', 'x', curve=14) + edge(Z, X, 'rep', 'x', curve=14)
-    a = a.replace('class="fx" ', '')
-    a += pill(*X[:3], 'X') + pill(*Y[:3], 'Y') + pill(*Z[:3], 'Z')
-    a += mono(115, 57, MINUS, anchor='middle', fill='var(--accent2-text)', size=14)
-    a += label(115, 118, '&#10003; can tick', size=12)
-    a += label(115, 136, '&#10007; cannot hold two states', size=12)
-    a += mono(115, lab_y, 'shape: what it can do', anchor='middle', fill='var(--ink)', size=12)
-
-    def trace(word, x, y, sx, sy, color='var(--ink)'):
-        # scale the glyph's path numerically (absolute commands only), so measured boxes match what is drawn
-        out, cmd, xy = [], '', 0
-        for tok in re.findall(r'[A-Za-z]|-?[0-9.]+', IA.TRACE[word]):
-            if tok.isalpha():
-                cmd, xy = tok, 0
-                out.append(tok)
-                continue
-            v = float(tok)
-            if cmd == 'H' or (cmd != 'V' and xy % 2 == 0):
-                out.append(f'{x + v * sx:.1f}')
-            else:
-                out.append(f'{y + v * sy:.1f}')
-            xy += 1
-        return (f'<path d="{" ".join(out)}" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round"/>')
-    # strength decides: the same ring below and above its threshold
-    b = mono(16, 20, 'too weak: settles', fill='var(--muted)')
-    b += trace('rings, then settles', 16, 34, 6.2, 2.4, 'var(--muted)')
-    b += mono(16, 92, 'strong enough: ticks', fill='var(--ink)')
-    b += trace('ticks', 16, 104, 6.2, 2.4)
-    b += mono(115, lab_y, 'behaviour: whether it does', anchor='middle', fill='var(--ink)', size=12)
-    # the loop models: the wave rides the day and rises before dawn
-    x0, x1, day = 16, 214, 66.0
-    c = ''
-    for k in range(3):
-        c += f'<rect x="{x0 + k * day + day / 2:.1f}" y="22" width="{day / 2:.1f}" height="106" fill="var(--muted)" opacity="0.14"/>'
-    c += mono(x0 + day / 4, 16, 'day', anchor='middle') + mono(x0 + day + 3 * day / 4, 16, 'night', anchor='middle')
-    ptsl = []
-    for q in range(0, int(x1 - x0) + 1, 2):
-        x = x0 + q
-        ph = 2 * math.pi * (q / day)            # the peak sits a little before each dawn (x0 + k*day)
-        ptsl.append(f'{x:.1f} {75 - 34 * math.cos(ph + 0.55):.1f}')
-    c += '<path d="M' + ' L'.join(ptsl) + '" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>'
-    pk = x0 + day - 0.55 / (2 * math.pi) * day
-    c += f'<circle cx="{pk:.1f}" cy="41" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.4"/>'
-    c += mono(pk, 146, 'peaks before dawn', anchor='middle', fill='var(--ink)')
-    c += f'<line x1="{pk:.1f}" y1="47" x2="{pk:.1f}" y2="134" stroke="var(--accent-text)" stroke-width="1.4" stroke-dasharray="2 3"/>'
-    c += mono(115, lab_y, 'function: what it copies', anchor='middle', fill='var(--ink)', size=12)
-    return ('<div class="trio-f">' + p(a, 'Shape, what it can do: a ring of three switch-offs is a brake, so it can tick and cannot hold two states')
-            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(b, 'Behaviour, whether it does: too weak and the ring settles, strong enough and it ticks')
-            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(c, 'Function, what it copies: the rhythm follows the day and peaks before dawn, a copy rather than a reaction') + '</div>'
-            + '<div class="keyrow"><span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H30" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-bar)"/></svg>switches off, a brake</span></div>')
-
-
 # ================================================================ a switch-off is a half-twist (the sign as a shape)
 def band_svg(half_twists, w=230, h=176):
     """A paper ring with 0, 1 or 2 half-twists, drawn as depth-sorted quads. A ring with two sides is painted lime on
@@ -856,6 +793,40 @@ def fig_chem():
         panes.append(f'<div>{pane(inner, w, h, f"{name.capitalize()}: {a}; {b}; used for {c}")}</div>')
     gap = '<div class="trio-a" aria-hidden="true"></div>'
     return '<div class="trio-f">' + gap.join(panes) + '</div>'
+
+
+# ================================================================ the blank band: occupancy under two readings of a running total
+def fig_band():
+    """Rows one to three of the table as k-by-j grids (brakes down, running totals across), filled where the census
+    placed a model, under the strict reading (returns exactly) and the loose one (within a tenth). From
+    results/tables_traj.json, the main definition (reference 24 filters plus rank condition)."""
+    D = json.loads((ROOT / 'results' / 'tables_traj.json').read_text())
+    D = D['defs']['ref24_rank'] if 'defs' in D else D['ref24_rank']
+    w, h, c, gap = 300, 168, 22, 28
+    panes = []
+    for key, title in (('essay', 'strict: returns exactly'), ('essay_near', 'loose: within a tenth')):
+        s = mono(w / 2, 18, title, anchor='middle', fill='var(--ink)')
+        x, filled_all = 14, 0
+        for nu in (1, 2, 3):
+            row = D['rows'][str(nu)][key]
+            cells = {tuple(int(t) for t in k.strip('()').split(',')): v for k, v in row['cells'].items()}
+            filled_all += row['occupied']
+            y0 = 40
+            for k in range(nu + 1):
+                for j in range(nu + 1):
+                    X, Y = x + j * c, y0 + k * c
+                    n = cells.get((k, j), 0)
+                    if n:
+                        s += f'<rect x="{X + 1}" y="{Y + 1}" width="{c - 2}" height="{c - 2}" rx="3" style="fill: var(--accent-tint)" stroke="var(--accent-text)" stroke-width="1.2"/>'
+                        s += f'<text x="{X + c / 2}" y="{Y + c / 2 + 4}" text-anchor="middle" font-size="11" fill="var(--ink)" style="font-family: var(--code)">{n}</text>'
+                    else:
+                        s += f'<rect x="{X + 1}" y="{Y + 1}" width="{c - 2}" height="{c - 2}" rx="3" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 2"/>'
+            s += mono(x + (nu + 1) * c / 2, 150, f'{row["occupied"]} of {row["predicted"]}', anchor='middle', fill='var(--ink)')
+            x += (nu + 1) * c + gap
+        aria = f'{title}: rows one to three filled ' + ', '.join(
+            f'{D["rows"][str(nu)][key]["occupied"]} of {D["rows"][str(nu)][key]["predicted"]}' for nu in (1, 2, 3))
+        panes.append(f'<div>{pane(s, w, h, aria)}</div>')
+    return '<div class="duo-f">' + ''.join(panes) + '</div>'
 
 
 # ================================================================ three diseases, one algebra
@@ -1149,7 +1120,7 @@ def script():
 
 
 # ================================================================ injection
-BLOCKS = {'defs': defs_html, 'frame': fig_frame, 'bands': fig_bands, 'chem': fig_chem,
+BLOCKS = {'defs': defs_html, 'bands': fig_bands, 'band': fig_band, 'chem': fig_chem,
           'hypo': lambda: fig_hypo()[0], 'hypo-ctl': lambda: fig_hypo()[1],
           'switch': lambda: fig_switch()[0], 'switch-ctl': lambda: fig_switch()[1],
           'clock': lambda: fig_clock()[0], 'clock-ctl': lambda: fig_clock()[1],

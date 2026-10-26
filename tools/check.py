@@ -64,6 +64,7 @@ async def shots(out):
                 pg.on('console', lambda m: errs.append('console: ' + m.text) if m.type == 'error' else None)
                 await pg.goto(PAGE.as_uri())
                 await pg.wait_for_timeout(500)
+                await pg.evaluate("document.querySelectorAll('details').forEach(d => { d.open = true; })")   # folded figures too
                 if await pg.locator('button.chip[data-k="day"]').count():
                     await pg.click('button.chip[data-k="day"]')
                 await pg.evaluate("const s=document.getElementById('t-w'); if (s) { s.value=100; s.dispatchEvent(new Event('input')) }")

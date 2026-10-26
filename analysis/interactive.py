@@ -81,7 +81,7 @@ def loop_toy():
                    f'<circle class="badge" cx="{mx - uy * 18:.1f}" cy="{my + ux * 18:.1f}" r="12" fill="var(--paper)" stroke="var(--accent-text)" stroke-width="1.4"/>'
                    f'<text x="{mx - uy * 18:.1f}" y="{my + ux * 18 + 5:.1f}" text-anchor="middle" font-size="14" font-weight="600" fill="var(--accent-text)">+</text>'
                    f'<line x1="{sx:.1f}" y1="{sy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="transparent" stroke-width="44"/>'
-                   f'<circle cx="{mx - uy * 18:.1f}" cy="{my + ux * 18:.1f}" r="22" fill="transparent"/></g>')
+                   f'<circle cx="{mx - uy * 18:.1f}" cy="{my + ux * 18:.1f}" r="22" fill="#fff" fill-opacity="0"/></g>')
     ring = (f'<svg id="lt-ring" viewBox="0 0 330 230" role="img" aria-label="A ring of three genes; click an arrow to flip it" {SVG}>{arrows}{nodes}'
             '<text id="lt-verdict" x="165" y="222" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)"></text></svg>')
     plot = (f'<svg id="lt-plot" viewBox="0 0 330 230" role="img" aria-label="Level of X over time from two starts" {SVG}>'
