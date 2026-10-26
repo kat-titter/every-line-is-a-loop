@@ -532,12 +532,12 @@ def circuit_hypo():
     s += label(185, 195, '+', size=16, fill='var(--accent-text)', extra=' font-weight="600"')
     s += mono(20, 276, '1 loop  0 brakes  1 running total', size=12, fill='var(--ink)')
     return pane(s, PW, PH, 'A hypothetical element: a pulse feeds a running total, and the running total feeds an amplifying '
-                'loop of A and B, the switch of Figure 3 with the total in place of lactose.', ' data-sim="hy"')
+                'loop of A and B, the switch of Figure 4 with the total in place of lactose.', ' data-sim="hy"')
 
 
 def recipe_hypo():
     rows = (('input', 'a pulse of height 0.2 for T hours'), ('running total', 'dose = 0.2 &#215; T, never forgotten'),
-            ('switch', 'the lac loop of Figure 3, fed the dose'), ('flips when', f'dose passes {sw_thresholds()[1]:.2f}, the lac switch\'s own threshold'),
+            ('switch', 'the lac loop of Figure 4, fed the dose'), ('flips when', f'dose passes {sw_thresholds()[1]:.2f}, the lac switch\'s own threshold'),
             ('never matters', 'how high the pulse was'))
     s = ''
     for i, (k, v) in enumerate(rows):
