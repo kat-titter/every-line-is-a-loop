@@ -137,9 +137,9 @@ def fig_orbitals():
             l = max(k, j)
             cells += (f'<rect x="{x0 + k * c}" y="{y0 + j * c}" width="{c - 4}" height="{c - 4}" rx="4" fill="{"var(--tint)" if l % 2 else "var(--paper)"}" stroke="var(--muted)"/>'
                       f'<text x="{x0 + k * c + (c - 4) / 2}" y="{y0 + j * c + (c - 4) / 2 + 5}" text-anchor="middle" fill="var(--ink)">{BLOCKS[l]}</text>')
-    loop = (f'<svg viewBox="0 0 330 250" role="img" aria-label="Row three of the loop table as a square of braking loops by running totals, peeling into L-shaped layers of one, three, five and seven" {SVG} font-size="14">'
+    loop = (f'<svg viewBox="0 0 330 250" role="img" aria-label="Row three of the loop table as a square of brakes by running totals, peeling into L-shaped layers of one, three, five and seven" {SVG} font-size="14">'
             f'<text x="165" y="26" text-anchor="middle" font-weight="600" fill="var(--ink)">Row 3 of the loop table</text>'
-            f'<text x="{x0 + 2 * c - 2}" y="46" text-anchor="middle" fill="var(--muted)">braking loops</text>{cells}'
+            f'<text x="{x0 + 2 * c - 2}" y="46" text-anchor="middle" fill="var(--muted)">brakes</text>{cells}'
             f'<text x="165" y="236" text-anchor="middle" fill="var(--muted)">down: loops keeping a running total</text></svg>')
     return f'<div class="pair"><div>{atom}</div><div>{loop}</div></div>'
 

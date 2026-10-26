@@ -443,7 +443,7 @@ def fig_clock():
     ctl = ('<div class="ctl"><label for="ck-D">the extra wait</label>'
            f'<input id="ck-D" type="range" min="0" max="{int(CK["Dmax"] * 10)}" value="{int(CK["D"] * 10)}" aria-label="Extra delay before PER:CRY acts, in hours" style="--p: 75%">'
            f'<output for="ck-D" id="ck-Dv">{CK["D"]:.1f} h</output></div>')
-    chain = chain_html('a beat', 'strong and late', 'the day', brakes=1, fn='time', trace='keeps time')
+    chain = chain_html('ticking', 'strong and late', 'the day', brakes=1, fn='time', trace='ticks')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -536,14 +536,14 @@ def circuit_hypo():
 
 
 def recipe_hypo():
-    rows = (('input', 'a pulse of strength 0.2 for T hours'), ('running total', 'dose = 0.2 &#215; T, never forgotten'),
+    rows = (('input', 'a pulse of height 0.2 for T hours'), ('running total', 'dose = 0.2 &#215; T, never forgotten'),
             ('switch', 'the lac loop of Figure 2, fed the dose'), ('flips when', f'dose passes {sw_thresholds()[1]:.2f}, the lac switch\'s own threshold'),
-            ('never matters', 'how strong the pulse was'))
+            ('never matters', 'how high the pulse was'))
     s = ''
     for i, (k, v) in enumerate(rows):
         y = 44 + i * 46
         s += mono(20, y, k, fill='var(--muted)') + label(20, y + 18, v, anchor='start', size=12)
-    return pane(s, PW, PH, 'The recipe: a pulse, its running total, the lac switch fed the total; it flips when the dose passes the switch\'s threshold, whatever the pulse\'s strength.')
+    return pane(s, PW, PH, 'The recipe: a pulse, its running total, the lac switch fed the total; it flips when the dose passes the switch\'s threshold, whatever the pulse\'s height.')
 
 
 def signal_hypo():
@@ -568,7 +568,7 @@ def fig_hypo():
     ctl = ('<div class="ctl ctl-2"><label for="hy-T">pulse length</label>'
            f'<input id="hy-T" type="range" min="0" max="{int(HY["Tmax"] * 10)}" value="{int(HY["T"] * 10)}" aria-label="Length of the input pulse, in hours" style="--p: {HY["T"] / HY["Tmax"] * 100:.0f}%">'
            f'<output for="hy-T" id="hy-Tv">{HY["T"]:.1f} h</output>'
-           '<button type="button" class="chip tog" id="hy-x2" aria-pressed="false">twice the strength, half the length</button></div>')
+           '<button type="button" class="chip tog" id="hy-x2" aria-pressed="false">twice the height, half the length</button></div>')
     chain = chain_html('flip on dose', 'enough dose', 'a signal&#8217;s length', brakes=0, integ=True, fn='remember', trace='adds up, commits')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
@@ -718,9 +718,9 @@ def fig_frame():
     a = a.replace('class="fx" ', '')
     a += pill(*X[:3], 'X') + pill(*Y[:3], 'Y') + pill(*Z[:3], 'Z')
     a += mono(115, 57, MINUS, anchor='middle', fill='var(--accent2-text)', size=14)
-    a += label(115, 118, '&#10003; can keep time', size=12)
+    a += label(115, 118, '&#10003; can tick', size=12)
     a += label(115, 136, '&#10007; cannot hold two states', size=12)
-    a += mono(115, lab_y, 'what can happen', anchor='middle', fill='var(--ink)', size=12)
+    a += mono(115, lab_y, 'what it can do', anchor='middle', fill='var(--ink)', size=12)
 
     def trace(word, x, y, sx, sy, color='var(--ink)'):
         # scale the glyph's path numerically (absolute commands only), so measured boxes match what is drawn
@@ -741,7 +741,7 @@ def fig_frame():
     b = mono(16, 20, 'too weak: settles', fill='var(--muted)')
     b += trace('rings, then settles', 16, 34, 6.2, 2.4, 'var(--muted)')
     b += mono(16, 92, 'strong enough: ticks', fill='var(--ink)')
-    b += trace('keeps time', 16, 104, 6.2, 2.4)
+    b += trace('ticks', 16, 104, 6.2, 2.4)
     b += mono(115, lab_y, 'whether it does', anchor='middle', fill='var(--ink)', size=12)
     # the loop models: the wave rides the day and rises before dawn
     x0, x1, day = 16, 214, 66.0
@@ -760,7 +760,7 @@ def fig_frame():
     c += mono(pk, 146, 'peaks before dawn', anchor='middle', fill='var(--ink)')
     c += f'<line x1="{pk:.1f}" y1="47" x2="{pk:.1f}" y2="134" stroke="var(--accent-text)" stroke-width="1.4" stroke-dasharray="2 3"/>'
     c += mono(115, lab_y, 'what it copies', anchor='middle', fill='var(--ink)', size=12)
-    return ('<div class="trio-f">' + p(a, 'What can happen: a ring of three switch-offs is a brake, so it can keep time and cannot hold two states')
+    return ('<div class="trio-f">' + p(a, 'What it can do: a ring of three switch-offs is a brake, so it can tick and cannot hold two states')
             + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(b, 'Whether it does: too weak and the ring settles, strong enough and it ticks')
             + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(c, 'What it copies: the rhythm follows the day and peaks before dawn, a copy rather than a reaction') + '</div>'
             + '<div class="keyrow"><span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H30" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-bar)"/></svg>switches off, a brake</span></div>')
@@ -806,7 +806,7 @@ def hero():
     b = pts(ck, 8, w - 8, h - 8, 10, 0, CK['T'], 0, 1.05, vi=3)
     c = pts(ad, 8, w - 8, h - 8, 10, 0, AD['T0'], 0, 1.05, vi=2)
     return ('<div class="hero-row">' + strip('switch', 'holds two states', a, 'var(--accent-text)', 'flips once, stays')
-            + strip('clock', 'keeps time', b, 'var(--accent2-text)', 'one brake, ticks')
+            + strip('clock', 'ticks', b, 'var(--accent2-text)', 'one brake, ticks')
             + strip('adapter', 'adapts exactly', c, 'var(--accent2-text)', 'returns exactly') + '</div>')
 
 

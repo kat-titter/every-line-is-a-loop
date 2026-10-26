@@ -638,7 +638,7 @@ def fig_table(rows, examples, narrow=False):
 </svg>'''
 
 
-BEHAVIOURS = [('multistable', 'holds two states'), ('oscillating', 'keeps time'), ('damped', 'rings, then settles'),
+BEHAVIOURS = [('multistable', 'holds two states'), ('oscillating', 'ticks'), ('damped', 'rings, then settles'),
               ('steady', 'settles'), ('unbounded', 'grows without limit'), ('continuum', 'settles anywhere')]
 
 
@@ -684,7 +684,7 @@ def fig_behaviour(behav, depletion, narrow=False):
             out.append(f'<text x="{x0 - 16}" y="{y0 + r * dy + 5}" text-anchor="end" fill="var(--muted)">{lab}</text>')
         x = behaviour_panel(out, behav, depletion, x0, y0, dx, dy, (1, 2, 3), y0 - 54)
         W, H = x - 10, y0 + len(BEHAVIOURS) * dy - 14
-    return f'''<svg viewBox="0 0 {W:.0f} {H}" role="img" aria-label="For each pattern of loops, how many models hold two states, keep time, ring then settle, settle, grow without limit, or settle anywhere" {SVG} font-size="14">
+    return f'''<svg viewBox="0 0 {W:.0f} {H}" role="img" aria-label="For each pattern of loops, how many models hold two states, tick, ring then settle, settle, grow without limit, or settle anywhere" {SVG} font-size="14">
   {''.join(out)}
 </svg>'''
 
@@ -695,7 +695,7 @@ TEXTBOOK = [('BIOMD0000000312', 'perfect adapter', 0), ('BIOMD0000000311', 'mutu
             ('BIOMD0000000310', 'mutual inhibition (toggle)', (1, 0)), ('BIOMD0000000309', 'homeostasis by a braking loop', (1, 1)),
             ('BIOMD0000000308', 'braking-loop oscillator', (1, 1)), ('BIOMD0000000306', 'activator&#8211;inhibitor oscillator', (2, 1)),
             ('BIOMD0000000307', 'substrate-depletion oscillator', (2, 1))]
-BEHAVIOUR_WORD = dict([('multistable', 'holds two states'), ('oscillating', 'keeps time'), ('continuum', 'settles anywhere'),
+BEHAVIOUR_WORD = dict([('multistable', 'holds two states'), ('oscillating', 'ticks'), ('continuum', 'settles anywhere'),
                        ('unbounded', 'grows without limit'), ('damped', 'rings, then settles'), ('steady', 'settles')])
 
 
@@ -765,7 +765,7 @@ def fig_pipeline(struct, dyn, starts):
              'Each RNA and protein decays at a rate set by its own level, so none does.'),
         step('Run it.', f'The model is simulated from its own start and {WORD[starts - 1]} others, and each run is labelled.',
              'starts = [x0] + spread_starts(x0, N, STARTS - 1, seed)',
-             f'It keeps time from all {WORD[starts]} starts.'),
+             f'It ticks from all {WORD[starts]} starts.'),
     ]) + '</ol>'
 
 
@@ -819,11 +819,11 @@ def why_excluded(r):
         return 'gave no arrows at the states read'
     e = r.get('error', '')
     if 'delay' in e:
-        return 'use delay equations'
+        return 'use built-in delays'
     if 'not physically stored' in e or 'missing a value' in e or 'is missing' in e:
-        return 'have values roadrunner cannot set'
+        return 'have values the solver cannot set'
     if 'qual' in e.lower() or 'logical' in e.lower() or 'no model' in e.lower() or 'reactions' in e.lower():
-        return 'use logical rules'
+        return 'use on-off rules'
     raise AssertionError(f'unclassified exclusion {r["model"]}: {e[:120]}')
 
 
@@ -933,7 +933,7 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
         if r.get('status') != 'ok':
             excl.setdefault(why_excluded(r), []).append(r['model'])
     assert 'BIOMD0000000310' in excl.get('gave no arrows at the states read', []), 'Tyson mutual inhibition sentence'
-    ex_order = ['use delay equations', 'use logical rules', 'have values roadrunner cannot set', 'ran out of time', 'gave no arrows at the states read']
+    ex_order = ['use built-in delays', 'use on-off rules', 'have values the solver cannot set', 'ran out of time', 'gave no arrows at the states read']
     excl_txt = listing(f'{len(excl[w])} {w}' for w in ex_order if w in excl)
     # signs at random states, quoted only if the proven rules hold there too
     rob = ''
@@ -981,11 +981,11 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
     assert ad_sym == 'Ad', ad_sym
     stages = [
         (census, census, 'curated models in release 31',
-         'Downloaded BioModels release 31 (193 MB) and checked its SHA-256 checksum.',
+         'Downloaded BioModels release 31 (193 MB) and checked its fingerprint (SHA-256).',
          'Anyone who reruns the code gets the same files.'),
         (usable, census, 'read as equations',
-         f'Read each model with libSBML and compiled it with libRoadRunner. {census - usable} could not be used: {excl_txt}.',
-         'The census needs ordinary rate equations that it can differentiate and simulate.'),
+         f'Read each model&#8217;s equations with the standard tools (libSBML, libRoadRunner). {census - usable} could not be used: {excl_txt}.',
+         'The census needs rate equations it can nudge and run.'),
         (complete_n, census, 'with every loop listed',
          f'Read each arrow&#8217;s sign at five moments of the model&#8217;s own run, then listed every loop that survives the filters. For {unfinished} models the search reached its step limit.',
          'Signs read where the model actually runs show the circuit as published; the filters remove loops that chemistry makes for free.'),
@@ -993,7 +993,7 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
          'Placed each in the table by its loops, braking loops and running totals.',
          'These rows hold the 4, 9 and 16 elements that the table&#8217;s predictions are about.'),
         (autonomous, census, f'of the {usable} run on their own',
-         f'Simulated each from {WORD[starts]} starting states and labelled what it did: settles, keeps time, holds two states, and so on. {th["forced models excluded"]} models driven by an outside schedule were set aside.',
+         f'Simulated each from {WORD[starts]} starting states and labelled what it did: settles, ticks, holds two states, and so on. {th["forced models excluded"]} models driven by an outside schedule were set aside.',
          'The proven rules, and the table&#8217;s claims, are about circuits left to themselves.'),
     ]
     funnel_html = IA.funnel(stages)
@@ -1040,7 +1040,7 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
             if x['does'] not in ('not run', 'never settles'):
                 does[x['does']] = does.get(x['does'], 0) + 1
         census_ex = []
-        shows = {'holds two states': 'holds two states', 'keeps time': 'keeps time', 'fires and resets': 'keeps time'}.get(EL.describe(n_, k_, j_)['traces'][0])
+        shows = {'holds two states': 'holds two states', 'ticks': 'ticks', 'fires and resets': 'ticks'}.get(EL.describe(n_, k_, j_)['traces'][0])
         for x in inside:
             nm = short.get(x['id'])
             if nm and nm not in census_ex and x['does'] == shows:
@@ -1447,7 +1447,7 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
 <tr><th>Label</th><th>Rule</th></tr>
 <tr><td>settles</td><td>over the last fifth of the run every variable moves by less than 10<sup>&#8722;5</sup> of its level</td></tr>
 <tr><td>rings, then settles</td><td>settles after crossing its final value at least twice, by more than 10<sup>&#8722;3</sup> of it</td></tr>
-<tr><td>keeps time</td><td>in the second half, at least three peaks, a relative swing above 10<sup>&#8722;3</sup>, the last peak at least 0.9 of the first, and still at least 0.8 of that swing over a further 2T</td></tr>
+<tr><td>ticks</td><td>in the second half, at least three peaks, a relative swing above 10<sup>&#8722;3</sup>, the last peak at least 0.9 of the first, and still at least 0.8 of that swing over a further 2T</td></tr>
 <tr><td>holds two states</td><td>runs settle in two or more states more than 1% apart, but no more than a third as many states as runs, and no state has a zero eigenvalue in the Jacobian restricted to its conserved totals</td></tr>
 <tr><td>settles anywhere</td><td>end states that differ but have a zero eigenvalue, or are too many to be a few separate states: a line of resting states</td></tr>
 <tr><td>grows without limit</td><td>a variable passes 10<sup>6</sup> times its starting scale, or is still climbing at the last horizon</td></tr>

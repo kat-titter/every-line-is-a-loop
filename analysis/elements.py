@@ -17,14 +17,14 @@ loops and at least j - k on amplifying loops; when neither bound bites, the elem
 PARENT = {
     (0, 0): ('counter', 'counter', 'No feedback: a line that adds up or runs down, with nothing to stop it.', 'counts'),
     (1, 0): ('switch', 'switch', 'Holds one of two states; a strong enough pulse flips it.', 'holds two states'),
-    (1, 1): ('clock', 'clock', 'Keeps time, or holds a level steady.', 'keeps time'),
+    (1, 1): ('clock', 'clock', 'Ticks, or holds a level steady.', 'ticks'),
     (2, 0): ('memory', 'memory', 'Holds one of several states and keeps it.', 'holds two states'),
-    (2, 1): ('relaxation oscillator', 'oscillator', 'Builds up, fires and resets: a spike or a beat.', 'fires and resets'),
-    (2, 2): ('coupled clocks', 'two clocks', 'Two rhythms that pull on each other.', 'keeps time'),
+    (2, 1): ('relaxation oscillator', 'oscillator', 'Builds up, fires and resets: a spike or a tick.', 'fires and resets'),
+    (2, 2): ('coupled clocks', 'two clocks', 'Two rhythms that pull on each other.', 'ticks'),
     (3, 0): ('multistate memory', 'fates', 'Holds one of many stable states, like a cell fate.', 'holds two states'),
     (3, 1): ('working memory', 'working', 'Holds a state for a while, then lets it go.', 'holds, then fades'),
-    (3, 2): ('mixed clock', 'mixed', 'Keeps time, at any speed, with a self-feeding loop among its brakes.', 'keeps time'),
-    (3, 3): ('clock, no memory', 'pulses', 'Rhythm with nothing to hold a state: pulses that reset.', 'keeps time'),
+    (3, 2): ('mixed clock', 'mixed', 'Ticks at any speed, with a self-feeding loop among its brakes.', 'ticks'),
+    (3, 3): ('clock, no memory', 'pulses', 'Rhythm with nothing to hold a state: pulses that reset.', 'ticks'),
 }
 ADAPTER = ('adapter', 'adapter', 'Responds to a change, then returns exactly to where it was.', 'adapts exactly')
 
@@ -32,7 +32,7 @@ ADAPTER = ('adapter', 'adapter', 'Responds to a change, then returns exactly to 
 # parent's symbol plus an integral sign per running total (Sw∫, Ro∫²), the way chemistry gives undiscovered elements
 # systematic names until they are confirmed.
 # Each symbol is unique, and none reuses a chemical element's symbol or a code from the essay's example key.
-SYMBOL = {(0, 0): 'Ct', (1, 0): 'Sw', (1, 1): 'Tk', (2, 0): 'Me', (2, 1): 'Ro', (2, 2): 'Tw',
+SYMBOL = {(0, 0): 'Ct', (1, 0): 'Sw', (1, 1): 'Tk', (2, 0): 'Me', (2, 1): 'Ro', (2, 2): 'Cp',
           (3, 0): 'Mm', (3, 1): 'Wm', (3, 2): 'Mx', (3, 3): 'Ps'}
 CHEMICAL = set('''H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr
 Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir Pt Au Hg Tl Pb
@@ -68,7 +68,7 @@ ESSAY_EXAMPLES = {
 
 ADAPT = 'brings it back exactly after a change'
 ACCUM = 'adds up its input and commits once the total is high enough'
-LOOK_ADAPT = 'sensing and homeostasis, where cells return exactly to a set point: chemotaxis, osmotic stress, synthetic integral controllers'
+LOOK_ADAPT = 'sensing, and holding a level steady, where cells return exactly to a set point: chemotaxis, osmotic stress, synthetic running totals'
 LOOK_ACCUM = 'decisions that depend on how long or how strongly a signal lasts, such as commitment points in the cell cycle and in cell fate'
 
 

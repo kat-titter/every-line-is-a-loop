@@ -142,8 +142,8 @@ def loop_toy():
     var swing = function (t) { var l = late(t); return Math.max.apply(null, l) - Math.min.apply(null, l); };
     var still = swing(runs[0]) < 0.01 && swing(runs[1]) < 0.01;
     // the verdict in the table's words, with the tile's trace glyph before it
-    var word = still ? (Math.abs(runs[0][runs[0].length - 1] - runs[1][runs[1].length - 1]) > 1 ? 'holds two states' : 'settles') : 'keeps time';
-    document.getElementById('lt-out').textContent = word + {'holds two states': ': a switch', 'settles': ': one state', 'keeps time': ': a clock'}[word];
+    var word = still ? (Math.abs(runs[0][runs[0].length - 1] - runs[1][runs[1].length - 1]) > 1 ? 'holds two states' : 'settles') : 'ticks';
+    document.getElementById('lt-out').textContent = word + {'holds two states': ': a switch', 'settles': ': one state', 'ticks': ': a clock'}[word];
     document.getElementById('lt-glyph').innerHTML = '<path d="' + ElCard.tracePath(word, 60, 212) + '" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round"/>';
   }
   function flip(g) { var i = +g.dataset.i; signs[i] = -signs[i]; draw(); }
@@ -504,7 +504,7 @@ def hero_frame(elements, W, phi):
 
 
 TRACE = {
-    'keeps time': 'M1 8Q4 1 7 8T13 8T19 8T25 8T31 8',
+    'ticks': 'M1 8Q4 1 7 8T13 8T19 8T25 8T31 8',
     'holds two states': 'M1 8C8 8 10 2.5 31 2.5M1 8C8 8 10 13.5 31 13.5',
     'settles': 'M1 2C7 13 14 12.5 31 12.5',
     'rings, then settles': 'M1 8Q3.5 0 6 8T11 8Q13.5 3.5 16 8T21 8Q23 6.5 25 8L31 8',
@@ -596,7 +596,7 @@ window.ElCard = (function () {
   function html(e) {
     var h = '<div class="ec-top"><span class="ec-k">element ' + e.num + '</span><span class="ec-s ec-' + e.status + '">' + STATUS[e.status](e) + '</span></div>' +
       '<p class="ec-t"><span class="ec-sym">' + e.symHtml + '</span>' + esc(e.name) + '</p><div class="ec-glyph" role="img" aria-label="' + esc(e.sig) + '">' + glyph(e.n, e.k, e.j) +
-      '<p class="ec-key"><span class="sp">\u2192 amplifies</span><span class="sn">\u22a3 brakes</span>' + (e.j ? '<span>\u222b running total</span>' : '') + '</p></div>' +
+      '<p class="ec-key"><span class="sp">\u2192 switches on</span><span class="sn">\u22a3 switches off</span>' + (e.j ? '<span>\u222b running total</span>' : '') + '</p></div>' +
       '<p class="ec-d">' + esc(e.does) + '</p><ul class="ec-tr">' + e.traces.map(function (w, i) {
         var pred = e.predicted && i > 0;
         return '<li>' + trace(w, pred) + '<span>' + esc(w) + (pred ? ' <i>predicted</i>' : '') + '</span></li>';
@@ -652,7 +652,7 @@ def periodic_table(elements, found_top, found_rest):
               f'<span class="pt-el pt-found pt-big" aria-hidden="true"><span class="pt-n">{s8["num"]}</span><span class="pt-sig">{s8["sigShort"]}</span>'
               f'<span class="pt-sym pt-sample">{s8["symHtml"]}</span><span class="pt-tr">{trace_svg(s8["traces"][0])}</span><span class="pt-c">{s8["count"]}</span></span>'
               '<span class="pt-a" style="top: 0">element number</span>'
-              '<span class="pt-a" style="top: 18px"><span class="sp">+</span> amplifies, <span class="sn">&#8722;</span> brakes, &#8747; running total</span>'
+              '<span class="pt-a" style="top: 18px"><span class="sp">+</span> self-feeding, <span class="sn">&#8722;</span> brake, &#8747; running total</span>'
               f'<span class="pt-a" style="top: 42px">symbol: {s8["sym"]}, {s8["name"]}</span>'
               '<span class="pt-a" style="top: 74px">what it does (dashed: predicted)</span>'
               '<span class="pt-a" style="top: 108px">curated models found (? if none yet)</span></div></div>')
@@ -694,7 +694,7 @@ def periodic_table(elements, found_top, found_rest):
     tile = lambda cls: f'<span class="pt-key pt-{cls}" aria-hidden="true"></span>'
     key = (f'<div class="pt-legend"><span>{tile("found")}found, with how many</span>'
            f'<span>{tile("known")}known from experiments, not in this census</span>'
-           f'<span>{tile("candidate")}candidates from a looser reading</span>'
+           f'<span>{tile("candidate")}candidates from a looser test for running totals</span>'
            f'<span>{tile("blank")}not found yet</span></div>')
     axes = ('<p class="pt-axes"><span>across: loops that brake (k)</span><span>down: loops through a running total (j)</span></p>')
     gaps = (f'<p class="pt-gap"><span><b>{found_top[0]} of {found_top[1]}</b> found with no running total (top rows)</span>'

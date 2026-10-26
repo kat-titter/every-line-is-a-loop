@@ -177,6 +177,12 @@ def dot_row(y, label, slots, filled, right, x0=64, step=12, r=4.2):
     return s
 
 
+# The census page says amplifying and braking loops; the essay says self-feeding loops and brakes. Longest first.
+VOCAB = [('an amplifying loop', 'a self-feeding loop'), ('An amplifying loop', 'A self-feeding loop'), ('Amplifying loop', 'Self-feeding loop'),
+         ('amplifying loop', 'self-feeding loop'), ('a braking loop', 'a brake'), ('A braking loop', 'A brake'),
+         ('braking loops', 'brakes'), ('Braking loop', 'Brake'), ('braking loop', 'brake')]
+
+
 def truth_numbers():
     """Every number the scorecard and Supplement E quote, read from results/truth_tests.json and
     results/robust_return.json (analysis/truth_tests.py, analysis/robust_return.py)."""
@@ -240,7 +246,7 @@ def scorecard(post):
     grid = ''.join(f'<circle cx="{4 + (i % cols) * st:.1f}" cy="{4 + (i // cols) * st:.1f}" r="1.5" fill="var(--accent)"/>' for i in range(n))
     rows = -(-n // cols)
     ev1 = svg(grid + mono(4, 4 + rows * st + 12, f'{N["mem"]} memories, {N["clk"]} clocks, 0 exceptions', fill='var(--ink)'), int(4 + rows * st + 18),
-              f'All {N["mem"]} models that hold two states have an amplifying loop and all {N["clk"]} that keep time have a braking loop')
+              f'All {N["mem"]} models that hold two states have a self-feeding loop and all {N["clk"]} that tick have a brake')
     c, k = len(N['s_clocks']), len(N['s_calm'])
     a_, b_ = len(N['s_above']), len(N['s_below'])
     all_ok = len(N['above']) + len(N['below'])
@@ -253,10 +259,10 @@ def scorecard(post):
               f'Across {f} families of models drawing one system, what the models do agrees in {d} and their place on the table in {p_}')
     b = len(N['band'])
     ev4 = svg(row(12, 'returns', b, 0, f'{b} found, 0 read'), 22,
-              f'{b} robust exact returns in the one-to-three-loop band, none of them read as running totals from the loops')
+              f'{b} robust exact returns in rows one to three, none of them read as running totals from the loops')
     rows_html = [
-        ('<span class="v ok">&#10003; holds</span>', 'The kind of loop sets what is possible', ev1),
-        ('<span class="v ok">&#10003; holds</span>', 'Strength decides whether it happens', ev2),
+        ('<span class="v ok">&#10003; holds</span>', 'The kind of loop sets what a circuit can do', ev1),
+        ('<span class="v ok">&#10003; holds</span>', 'Its strength decides whether it does', ev2),
         ('<span class="v">~ mostly</span>', 'Redrawn, a circuit keeps what it does, not its count', ev3),
         ('<span class="v">? open</span>', 'Running totals hide from equation reading', ev4),
     ]
@@ -293,19 +299,19 @@ def truth_supp(cite):
         '<summary>E. The laws, tested</summary>',
         '<div class="text">',
         '<p><code>truth_tests.py</code> and <code>robust_return.py</code> run four tests on the same release, from the same equations. Every number below is read from their results files when this page is built.</p>',
-        '<h3>The sign permits</h3>',
-        f'<p>Of the {N["run"]} models that run on their own, the {N["auto"]} that match a behaviour label were checked against both rules on their own sign graphs, read where each model runs, with no filters. The {N["mem"]} that hold two states all have an amplifying loop; the {N["clk"]} that keep time all have a braking loop.</p>',
-        '<h3>Strength decides</h3>',
+        '<h3>The kind of loop sets what a circuit can do</h3>',
+        f'<p>Of the {N["run"]} models that run on their own, the {N["auto"]} that match a behaviour label were checked against both rules on their own sign graphs, read where each model runs, with no filters. The {N["mem"]} that hold two states all have a self-feeding loop; the {N["clk"]} that tick all have a brake.</p>',
+        '<h3>Its strength decides whether it does</h3>',
         '<p>For a single loop, gain is the product of its arrows&#8217; strengths over the product of its molecules&#8217; own decay rates, read from the Jacobian <i>J</i> at a steady state:</p>',
         G,
-        f'<p>A braking ring of <i>n</i> steps can leave its steady state only if <i>G</i> &gt; sec(&#960;/<i>n</i>)<sup><i>n</i></sup> {cite(70)}; an amplifying ring&#8217;s steady state is a tipping point exactly when <i>G</i> &gt; 1 {cite(71)}. The test reads <i>G</i> at each model&#8217;s own steady state, found by running it and, for a switch&#8217;s tipping point, by bisection between its two stable states. Loops through one molecule are left out, since their self-effect and their decay share one Jacobian entry. The one-ring models with a measurable gain, the gain each needs, and what each does at published rates:</p>',
+        f'<p>A braking ring of <i>n</i> steps can leave its steady state only if <i>G</i> &gt; sec(&#960;/<i>n</i>)<sup><i>n</i></sup> {cite(70)}; a self-feeding ring&#8217;s steady state is a tipping point exactly when <i>G</i> &gt; 1 {cite(71)}. The test reads <i>G</i> at each model&#8217;s own steady state, found by running it and, for a switch&#8217;s tipping point, by bisection between its two stable states. Loops through one molecule are left out, since their self-effect and their decay share one Jacobian entry. The one-ring models with a measurable gain, the gain each needs, and what each does at published rates:</p>',
         f'<table class="key" style="overflow-wrap: anywhere"><tr><th>Model</th><th>Gain</th><th>Needs</th><th>Does</th></tr>{tr}</table>',
         f'<p>{multi}. On the {len(N["single"])} that are single rings before and after, the floor calls all {len(N["s_above"]) + len(N["s_below"])}; {WORDS[len(N["two_step"])]} of them are two-step rings, whose floor is infinite, so they cannot tick at any gain. Gardner&#8217;s toggle has gain {N["tip"]:.2f} at its tipping point and {N["rest"][0]:.3f} and {N["rest"][1]:.2f} at its two stable states. McClean&#8217;s 2007 crosstalk model also holds two states, with five loops before filtering, outside the one-ring result.</p>',
         '<h3>Redrawn models</h3>',
-        '<p>Five families draw one system at different detail. &#8220;Does&#8221; compares what the models do at published rates; &#8220;place&#8221; compares their element (loops, braking loops, running totals). Smallbone&#8217;s four colon-crypt versions are left out, because each adds mechanisms rather than detail.</p>',
+        '<p>Five families draw one system at different detail. &#8220;Does&#8221; compares what the models do at published rates; &#8220;place&#8221; compares their element (loops, brakes, running totals). Smallbone&#8217;s four colon-crypt versions are left out, because each adds mechanisms rather than detail.</p>',
         f'<table class="key"><tr><th>Family</th><th>Models</th><th>Does</th><th>Place</th></tr>{fam}</table>',
         '<h3>Step and return</h3>',
-        f'<p>Each global parameter of every settling model (local parameters promoted to global) was raised by 20%. An exact return is a level that moves by more than 5% and comes back to within 0.5% while other levels stay moved by more than 5%. {N["exact"]} of {N["settling"]} models show one. Each hit was rerun under 5 random redraws of all other parameters, each scaled by 10<sup>U(&#8722;0.15, 0.15)</sup>; it counts as robust when it returns in every redraw that settles, at least 3. {len(N["robust"])} models are robust, {len(N["band"])} of them in the one-to-three-loop band: {band}. The census&#8217;s loop reading marks no running total in any of them. A feedforward circuit can also return exactly {cite(50)}, so each needs its wiring traced by hand.</p>',
+        f'<p>Each global parameter of every settling model (local parameters promoted to global) was raised by 20%. An exact return is a level that moves by more than 5% and comes back to within 0.5% while other levels stay moved by more than 5%. {N["exact"]} of {N["settling"]} models show one. Each hit was rerun under 5 random redraws of all other parameters, each scaled by 10<sup>U(&#8722;0.15, 0.15)</sup>; it counts as robust when it returns in every redraw that settles, at least 3. {len(N["robust"])} models are robust, {len(N["band"])} of them in rows one to three: {band}. The census&#8217;s loop reading marks no running total in any of them. A wiring with no loop around the push can also return exactly {cite(50)}, so each needs its wiring traced by hand.</p>',
         '</div>',
         '</details>',
     ]
@@ -349,25 +355,25 @@ def nesting_figure():
         bars += mono(x0 + max(need, got) * unit + 6, y + 12, f'{need} vs {got}', fill='var(--ink)')
     ev1 = svg(bars, 72, 'Elements per row if every one doubled, against arrangements when loops are ordered fast to slow: '
               + ', '.join(f"{cnt[n]['chemistry_2n2']} against {cnt[n]['types_ordered']} for {n} loops" for n in (1, 2, 3)))
-    ev2 = svg(dots(12, 'amplifier fast', tick_a, tick_a, str(tick_a), 112, 6.6, 2.5) + dots(32, 'brake fast', tick_a, tick_b, str(tick_b), 112, 6.6, 2.5), 42,
-              f'Of {draws} random draws, {tick_a} keep time with the amplifying loop fast; swap the speeds and {tick_b} do.')
-    ev3 = svg(dots(12, 'amplifier faster', ta + na, ta, f'{ta} of {ta + na}', 130, 9.5, 3.6)
-              + dots(32, 'brake faster', tb + nb, tb, f'{tb} of {tb + nb}', 130, 9.5, 3.6)
-              + mono(0, 56, f'timed by arrow strength: {xa} of {xa + xna} vs {xb} of {xb + xnb}'), 62,
-              f'Real two-loop circuits, timed by the molecules each loop keeps to itself: {ta} of {ta + na} keep time where the amplifying loop is faster, {tb} of {tb + nb} where the brake is. '
-              f'Timed by arrow strength: {xa} of {xa + xna} against {xb} of {xb + xnb}, no lean.')
+    ev2 = svg(dots(12, 'self-feeding', tick_a, tick_a, str(tick_a), 112, 6.6, 2.5) + dots(32, 'brake', tick_a, tick_b, str(tick_b), 112, 6.6, 2.5), 42,
+              f'Of {draws} random draws, {tick_a} tick with the self-feeding loop fast; swap the speeds and {tick_b} do.')
+    ev3 = svg(dots(12, 'self-feeding', ta + na, ta, f'{ta} of {ta + na}', 130, 9.5, 3.6)
+              + dots(32, 'brake', tb + nb, tb, f'{tb} of {tb + nb}', 130, 9.5, 3.6)
+              + mono(0, 56, f'timed by their arrows: {xa} of {xa + xna} vs {xb} of {xb + xnb}'), 62,
+              f'Real two-loop circuits, timed by the molecules each loop keeps to itself: {ta} of {ta + na} tick where the self-feeding loop is faster, {tb} of {tb + nb} where the brake is. '
+              f'Timed by their arrows: {xa} of {xa + xna} against {xb} of {xb + xnb}, no lean.')
     rows_html = [
-        ('<span class="v">&#10007; no</span>', 'Nesting order is the missing factor of two', ev1),
-        ('<span class="v ok">&#10003; yes</span>', 'Which loop is fast decides whether it ticks', ev2),
-        ('<span class="v">~ leans</span>', 'Real clocks lean toward a faster amplifier, timed one way of two', ev3),
+        ('<span class="v">&#10007; no</span>', 'Speed order is the missing factor of two', ev1),
+        ('<span class="v ok">&#10003; yes</span>', 'In the toy, which loop is fast decides whether it ticks', ev2),
+        ('<span class="v">~ leans</span>', 'Real models lean toward a fast self-feeding loop, timed one way of two', ev3),
     ]
     out = '<div class="pane one score">' + ''.join(
         f'<div class="sc-row">{v}<span class="sc-c">{c}</span><span class="sc-e">{e}</span></div>' for v, c, e in rows_html) + '</div>'
     out += ('<p class="keyrow">'
             '<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/></svg>what doubling needs</span>'
-            '<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--ink)"/></svg>what nesting order gives</span>'
+            '<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--ink)"/></svg>what speed order gives</span>'
             '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/></svg>a draw or a model</span>'
-            '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/></svg>keeps time</span></p>')
+            '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/></svg>ticks</span></p>')
     return out, {'tick_a': tick_a, 'draws': draws, 'ta': ta, 'na': na, 'tb': tb, 'nb': nb, 'p': cen['fisher_one_sided_p'],
                   'xa': xa, 'xna': xna, 'xb': xb, 'xnb': xnb, 'xp': res['census']['arrow_strength']['fisher_one_sided_p']}
 
@@ -414,6 +420,8 @@ def main():
         return html
 
     def clean(html):
+        for a, b in VOCAB:
+            html = html.replace(a, b)
         return refig(recite(html))
 
     # ---- blocks from the census build
@@ -455,8 +463,9 @@ def main():
         'data': clean(inner(datafig)),
         'cards': '<figure class="fig" id="fig-score">\n' + scorecard(post) + '\n<figcaption><b>The scorecard.</b> The first two findings, then two claims of the table. Each dot is one model or one family of models.</figcaption>\n</figure>',
         'truth': truth_supp(lambda n: f'<span class="cite">[{n}]</span>'),
-        'next': clean(inner(nextfig)).replace('test nesting order as a fourth count.', 'look for a binary that touches every row, since nesting order, tested below, does not.')
-                                     .replace('Benchmark running-total detectors on models with known answers', 'Trace by hand the four exact returns the loop reading missed, benchmark running-total detectors on models with known answers'),
+        'next': clean(inner(nextfig)).replace('; test nesting order as a fourth count.', '. Look for a yes-or-no property of each loop that would double every row; speed order, tested below, does not.')
+                                     .replace('for example antithetic controllers in element 3.', 'for example running totals made of two molecules that destroy each other, in element 3.')
+                                     .replace('Benchmark running-total detectors on models with known answers', 'Trace by hand the four exact returns the loop reading missed, test the ways of reading running totals on models with known answers'),
         'nesting': nesting_figure()[0],
         'morph': LM.fig_morph(),
         'supp': clean(supp),

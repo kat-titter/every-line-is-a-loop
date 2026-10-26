@@ -121,8 +121,8 @@ def panel_clock():
     s += label(189, 272, 'PER:CRY')
     # back into the nucleus, where they switch CLOCK:BMAL1 off
     s += rep('M164 244 C90 240 70 180 98 136', p)
-    # the verdict carries the tile's trace glyph for 'keeps time', 8 px before the words
-    s += (f'<path d="{IA.trace_path("keeps time", 8, 260)}" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round"/>'
+    # the verdict carries the tile's trace glyph for 'ticks', 8 px before the words
+    s += (f'<path d="{IA.trace_path("ticks", 8, 260)}" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round"/>'
           + label(48, 272, '1 brake: period &#8776; 24 h', anchor='start', fill='var(--muted)'))
     return (f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="The circadian clock: in the nucleus, CLOCK and BMAL1 switch on the Per and Cry genes; '
             f'the mRNA leaves, PER and CRY are made in the cytoplasm, return and switch CLOCK and BMAL1 off. One braking loop, about a day round." {SVG}>'

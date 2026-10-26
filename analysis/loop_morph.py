@@ -79,8 +79,10 @@ def bio_layout():
     for th, lab, anchor, dx in ((TH0, 'memories', 'start', 4), (TH1, 'clocks', 'end', -4)):
         x, y = pt(cx, cy, r0 + b * (2 + th / 360) + 36, th)
         labels_s += f'<text x="{x + dx:.1f}" y="{y - 8:.1f}" text-anchor="{anchor}" font-size="12" fill="var(--muted)">{lab}</text>'
-    labels_g = ''.join(f'<text x="{165 - (L - 1) / 2 * gdx - 12:.1f}" y="{y + 4:.1f}" text-anchor="end" font-size="12" fill="var(--muted)" style="font-family: var(--code)">&nu; = {nu}</text>' for nu, L, y in guides)
-    labels_g += '<text x="150" y="44" text-anchor="end" font-size="12" fill="var(--muted)" style="font-family: var(--code)">&nu; = 0</text>'
+    labels_g = ''.join(f'<text x="{165 - (L - 1) / 2 * gdx - 12:.1f}" y="{y + 4:.1f}" text-anchor="end" font-size="12" fill="var(--muted)" style="font-family: var(--code)">{nu}</text>' for nu, L, y in guides)
+    labels_g += '<text x="150" y="44" text-anchor="end" font-size="12" fill="var(--muted)" style="font-family: var(--code)">0</text>'
+    # as chemistry's grid says "period, down": the row number is the loop count
+    labels_g += f'<text x="{165 - 15 / 2 * gdx:.1f}" y="{gy0 + 2 * gdy + 34}" text-anchor="start" font-size="12" fill="var(--muted)" style="font-family: var(--code)">loops, down</text>'
     grid_guides = ''.join(f'<line x1="{165 - (L - 1) / 2 * gdx - 6:.1f}" y1="{y:.1f}" x2="{165 + (L - 1) / 2 * gdx + 6:.1f}" y2="{y:.1f}" stroke="var(--rule)" stroke-width="1"/>' for nu, L, y in guides)
     return marks, grid_guides, labels_g, spiral, labels_s
 
