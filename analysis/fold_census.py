@@ -234,20 +234,20 @@ def scorecard(post):
               f'Of {c} one-ring clocks, {len(N["above"])} have gain above the threshold; of {k} one-ring models that settle, {len(N["below"])} are below it')
     f = len(N['fams'])
     d, p_ = sum(N['does'].values()), sum(N['sits'].values())
-    ev3 = svg(row(12, 'does', f, d, f'{d} of {f} agree') + row(36, 'place', f, p_, f'{p_} of {f} agree'), 46,
+    ev3 = svg(row(12, 'does', f, d, f'{d} of {f} agree') + row(36, 'count', f, p_, f'{p_} of {f} agree'), 46,
               f'Across {f} families of models drawing one system, what the models do agrees in {d} and their place on the table in {p_}')
     b = len(N['band'])
     ev4 = svg(row(12, 'returns', b, 0, f'{b} found, 0 read'), 22,
               f'{b} robust exact returns in the one-to-three-loop band, none of them read as running totals from the loops')
     rows_html = [
-        ('<span class="v ok">&#10003; holds</span>', 'The sign permits', ev1),
-        ('<span class="v ok">&#10003; holds</span>', 'Strength decides, on one ring', ev2),
-        ('<span class="v">~ mostly</span>', 'Redrawn, a circuit keeps what it does, not its place', ev3),
-        ('<span class="v">? open</span>', 'Running totals hide from the loop reading', ev4),
+        ('<span class="v ok">&#10003; holds</span>', 'The kind of loop sets what is possible', ev1),
+        ('<span class="v ok">&#10003; holds</span>', 'Strength decides whether it happens', ev2),
+        ('<span class="v">~ mostly</span>', 'Redrawn, a circuit keeps what it does, not its count', ev3),
+        ('<span class="v">? open</span>', 'Running totals hide from equation reading', ev4),
     ]
     out = '<div class="pane one score">' + ''.join(
         f'<div class="sc-row">{v}<span class="sc-c">{c_}</span><span class="sc-e">{e}</span></div>' for v, c_, e in rows_html) + '</div>'
-    out += ('<p class="keyrow"><span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="4.2" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.2"/></svg>as the laws predict</span>'
+    out += ('<p class="keyrow"><span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="4.2" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.2"/></svg>as predicted</span>'
             '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="4.2" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/></svg>not, or not yet</span></p>')
     return out
 

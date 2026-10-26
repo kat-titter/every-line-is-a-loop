@@ -378,7 +378,7 @@ def fig_switch():
     ctl = ('<div class="ctl"><label for="sw-L">lactose outside</label>'
            f'<input id="sw-L" type="range" min="0" max="150" value="{int(SW["L0"] * 100)}" aria-label="Lactose outside the cell" style="--p: {SW["L0"] / 1.5 * 100:.0f}%">'
            f'<output for="sw-L" id="sw-Lv">{SW["L0"]:.2f}</output></div>')
-    chain = chain_html('two states', 'gain above 1', 'a food that lasts', brakes=0, fn='remember', trace='holds two states')
+    chain = chain_html('two states', 'strong enough', 'food that lasts', brakes=0, fn='remember', trace='holds two states')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -443,7 +443,7 @@ def fig_clock():
     ctl = ('<div class="ctl"><label for="ck-D">the extra wait</label>'
            f'<input id="ck-D" type="range" min="0" max="{int(CK["Dmax"] * 10)}" value="{int(CK["D"] * 10)}" aria-label="Extra delay before PER:CRY acts, in hours" style="--p: 75%">'
            f'<output for="ck-D" id="ck-Dv">{CK["D"]:.1f} h</output></div>')
-    chain = chain_html('a rhythm', 'gain and delay', 'the day', brakes=1, fn='time', trace='keeps time')
+    chain = chain_html('a beat', 'strong and late', 'the day', brakes=1, fn='time', trace='keeps time')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -456,7 +456,7 @@ def cell_adapter():
     s += ''.join(f'<rect x="{x}" y="48" width="9" height="128" rx="4" fill="url(#{p}gg)" stroke="var(--muted)" stroke-width="0.8"/>' for x in (160, 173))
     s += BF.lobe(164, 42, 7, 6, p, 'g') + BF.lobe(178, 42, 7, 6, p, 'g')
     s += '<g class="pool" data-k="L">' + ''.join(f'<circle cx="{x}" cy="{y}" r="2.6" fill="var(--muted)"/>' for x, y in ((214, 30), (226, 22), (238, 32), (250, 24), (262, 34), (224, 40), (246, 42))) + '</g>'
-    s += label(272, 50, 'attractant', anchor='start', fill='var(--muted)', size=12)
+    s += label(272, 50, 'food', anchor='start', fill='var(--muted)', size=12)
     # methyl groups on the receptor: the running total
     s += '<g class="pool" data-k="m">' + ''.join(BF.tagged(148, y, 'Me') for y in (92, 112, 132, 152)) + '</g>'
     s += label(18, 126, 'methyl', anchor='start', fill='var(--muted)', size=12) + label(18, 142, 'groups', anchor='start', fill='var(--muted)', size=12)
@@ -501,20 +501,20 @@ def signal_adapter():
     s += f'<polyline class="tr2" points="{pts(tr, x0, x1, y0, y1, tmin, tmax, 0, 8.4, vi=3)}" fill="none" stroke="var(--accent-text)" stroke-width="1.4"/>'
     s += f'<polyline class="tr" points="{pts(tr, x0, x1, y0, y1, tmin, tmax, 0, 1.15, vi=2)}" fill="none" stroke="var(--accent2-text)" stroke-width="2.2" stroke-linejoin="round"/>'
     s += f'<circle class="now" cx="{x0 + (x1 - x0) * tr[-1][0] / AD["win"]:.1f}" cy="{y0 - (y0 - y1) * tr[-1][2] / 1.15:.1f}" r="4" fill="var(--accent2-text)"/>'
-    s += legend([('activity', 'var(--accent2-text)', 2.2, ''), ('methyl count', 'var(--accent-text)', 1.4, ''), ('attractant (slider)', 'var(--muted)', 1.4, '5 4')], x0, y0 + 32)
-    return pane(s, SW_, SH, 'Strip chart: attractant steps up at 30 s, receptor activity dips and climbs back to its set '
-                'point exactly, while the methyl count ramps to a new level and stays there.', ' data-chart="ad" preserveAspectRatio="none"')
+    s += legend([('activity', 'var(--accent2-text)', 2.2, ''), ('methyl tags', 'var(--accent-text)', 1.4, ''), ('food (slider)', 'var(--muted)', 1.4, '5 4')], x0, y0 + 32)
+    return pane(s, SW_, SH, 'Strip chart: food steps up at 30 s, receptor activity dips and climbs back to its set '
+                'point exactly, while the methyl tags ramp to a new level and stays there.', ' data-chart="ad" preserveAspectRatio="none"')
 
 
 def fig_adapter():
     panes = (pane_html('cell', 'cell', 'ad-r1', 'methyl  2.0', cell_adapter())
              + pane_html('circuit', 'circuit', 'ad-r2', 'shape: 1 loop, 1 brake, &#8747;', circuit_adapter())
              + pane_html('signal', 'signal', 'ad-r3', 'activity  0.333  at set point', signal_adapter()))
-    ctl = ('<div class="ctl ctl-2"><label for="ad-L">attractant</label>'
-           f'<input id="ad-L" type="range" min="0" max="{int(AD["Lmax"] * 10)}" value="{int(AD["step"] * 10)}" aria-label="Attractant outside the cell" style="--p: 50%">'
+    ctl = ('<div class="ctl ctl-2"><label for="ad-L">food outside</label>'
+           f'<input id="ad-L" type="range" min="0" max="{int(AD["Lmax"] * 10)}" value="{int(AD["step"] * 10)}" aria-label="Food outside the cell" style="--p: 50%">'
            f'<output for="ad-L" id="ad-Lv">{AD["step"]:.1f}</output>'
-           '<button type="button" class="chip tog" id="ad-leak" aria-pressed="false">let the count leak</button></div>')
-    chain = chain_html('exact return', 'how fast', 'a steady background', brakes=1, integ=True, fn='steer', trace='adapts exactly')
+           '<button type="button" class="chip tog" id="ad-leak" aria-pressed="false">let the total leak</button></div>')
+    chain = chain_html('exact return', 'any strength', 'a steady background', brakes=1, integ=True, fn='steer', trace='adapts exactly')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -569,7 +569,7 @@ def fig_hypo():
            f'<input id="hy-T" type="range" min="0" max="{int(HY["Tmax"] * 10)}" value="{int(HY["T"] * 10)}" aria-label="Length of the input pulse, in hours" style="--p: {HY["T"] / HY["Tmax"] * 100:.0f}%">'
            f'<output for="hy-T" id="hy-Tv">{HY["T"]:.1f} h</output>'
            '<button type="button" class="chip tog" id="hy-x2" aria-pressed="false">twice the strength, half the length</button></div>')
-    chain = chain_html('commit on dose', 'dose past threshold', 'a signal&#8217;s length', brakes=0, integ=True, fn='remember', trace='adds up, commits')
+    chain = chain_html('flip on dose', 'enough dose', 'a signal&#8217;s length', brakes=0, integ=True, fn='remember', trace='adds up, commits')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -682,12 +682,12 @@ def fn_icon(kind, size=20, color='var(--ink)'):
 
 def chain_html(permits, decides, models, brakes=0, integ=False, fn='remember', trace='holds two states'):
     """The three laws under each circuit: what its sign permits, what its strength decides, what it models."""
-    return ('<div class="chain" aria-label="Permit, decide, model">'
-            f'<span class="ch"><span class="ch-k">permits</span><span class="ch-v">{shape_glyph(brakes, integ)}{permits}</span></span>'
+    return ('<div class="chain" aria-label="What it can do, when it happens, what it copies">'
+            f'<span class="ch"><span class="ch-k">can do</span><span class="ch-v">{shape_glyph(brakes, integ)}{permits}</span></span>'
             '<span class="ch-a" aria-hidden="true">&#8594;</span>'
-            f'<span class="ch"><span class="ch-k">decides</span><span class="ch-v">{glyph(trace)}{decides}</span></span>'
+            f'<span class="ch"><span class="ch-k">happens when</span><span class="ch-v">{glyph(trace)}{decides}</span></span>'
             '<span class="ch-a" aria-hidden="true">&#8594;</span>'
-            f'<span class="ch"><span class="ch-k">models</span><span class="ch-v">{fn_icon(fn)}{models}</span></span></div>')
+            f'<span class="ch"><span class="ch-k">copies</span><span class="ch-v">{fn_icon(fn)}{models}</span></span></div>')
 
 
 def defs_html():
@@ -720,7 +720,7 @@ def fig_frame():
     a += mono(115, 57, MINUS, anchor='middle', fill='var(--accent2-text)', size=14)
     a += label(115, 118, '&#10003; can keep time', size=12)
     a += label(115, 136, '&#10007; cannot hold two states', size=12)
-    a += mono(115, lab_y, 'sign permits', anchor='middle', fill='var(--ink)', size=12)
+    a += mono(115, lab_y, 'what can happen', anchor='middle', fill='var(--ink)', size=12)
 
     def trace(word, x, y, sx, sy, color='var(--ink)'):
         # scale the glyph's path numerically (absolute commands only), so measured boxes match what is drawn
@@ -738,11 +738,11 @@ def fig_frame():
             xy += 1
         return (f'<path d="{" ".join(out)}" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round"/>')
     # strength decides: the same ring below and above its threshold
-    b = mono(16, 20, 'below threshold: settles', fill='var(--muted)')
+    b = mono(16, 20, 'too weak: settles', fill='var(--muted)')
     b += trace('rings, then settles', 16, 34, 6.2, 2.4, 'var(--muted)')
-    b += mono(16, 92, 'above threshold: ticks', fill='var(--ink)')
+    b += mono(16, 92, 'strong enough: ticks', fill='var(--ink)')
     b += trace('keeps time', 16, 104, 6.2, 2.4)
-    b += mono(115, lab_y, 'strength decides', anchor='middle', fill='var(--ink)', size=12)
+    b += mono(115, lab_y, 'whether it does', anchor='middle', fill='var(--ink)', size=12)
     # the loop models: the wave rides the day and rises before dawn
     x0, x1, day = 16, 214, 66.0
     c = ''
@@ -759,11 +759,11 @@ def fig_frame():
     c += f'<circle cx="{pk:.1f}" cy="41" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.4"/>'
     c += mono(pk, 146, 'peaks before dawn', anchor='middle', fill='var(--ink)')
     c += f'<line x1="{pk:.1f}" y1="47" x2="{pk:.1f}" y2="134" stroke="var(--accent-text)" stroke-width="1.4" stroke-dasharray="2 3"/>'
-    c += mono(115, lab_y, 'the loop models', anchor='middle', fill='var(--ink)', size=12)
-    return ('<div class="trio-f">' + p(a, 'Sign permits: a ring of three repressions brakes, so it can keep time and cannot hold two states')
-            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(b, 'Strength decides: below its threshold gain the ring settles, above it the ring ticks')
-            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(c, 'The loop models: the rhythm follows the day and peaks before dawn, a copy rather than a reaction') + '</div>'
-            + '<div class="keyrow"><span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H30" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-bar)"/></svg>represses, brakes</span></div>')
+    c += mono(115, lab_y, 'what it copies', anchor='middle', fill='var(--ink)', size=12)
+    return ('<div class="trio-f">' + p(a, 'What can happen: a ring of three switch-offs is a brake, so it can keep time and cannot hold two states')
+            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(b, 'Whether it does: too weak and the ring settles, strong enough and it ticks')
+            + '<div class="trio-a" aria-hidden="true">&#8594;</div>' + p(c, 'What it copies: the rhythm follows the day and peaks before dawn, a copy rather than a reaction') + '</div>'
+            + '<div class="keyrow"><span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H30" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-bar)"/></svg>switches off, a brake</span></div>')
 
 
 # ================================================================ three diseases, one algebra
