@@ -101,6 +101,9 @@
   .text ul.beats { list-style: none; padding-left: 0; }
   .text ul.beats li { margin: 0 0 var(--s4); }
   .h3-n { font: 500 var(--t3)/1 var(--code); color: var(--muted); margin-right: var(--s3); }
+  .text > p.epigraph { font: italic 400 var(--t4)/1.5 var(--sans); color: var(--ink); margin: 0 0 var(--s5); }
+  .epigraph .by { display: block; font: 500 var(--t2)/1.5 var(--code); font-style: normal; color: var(--muted); margin-top: var(--s1); }
+  .text p > code { font: 400 0.9em/1 var(--code); background: var(--tint); padding: 1px 5px; border-radius: 4px; }
 
   /* figures: a lavender plate; panes lift off it */
   figure.fig { background: linear-gradient(var(--plate), var(--tint)); border: 1px solid var(--rule); border-radius: var(--s5); padding: var(--s5) var(--s6) var(--s5); margin: var(--s6) calc(-1 * var(--s6) - 1px) var(--s7); }
@@ -588,10 +591,11 @@ window.ElCard = (function () {
 <div class="text">
 <p class="kicker"><span class="n">01</span>the blank square</p>
 <h2>What Mendeleev could do that biology cannot</h2>
+<p class="epigraph">On a circle, the beginning and the end are shared.<span class="by">Heraclitus, fragment 103</span></p>
 <p class="lede">In 1869 Dmitri Mendeleev left holes in his table and dared chemistry to fill them. One hole, he said, was a metal below aluminium, density about 6. Six years later gallium turned up. Its discoverer weighed it at 4.7, and Mendeleev, who had never touched the stuff, wrote back: measure again. Purified, it came in at 5.9. <mark>The blank square had been a prediction.</mark></p>
 <p>Biology has never had a table like that. Life, the excuse goes, is too wet and messy for whole numbers. To be candid: the excuse is wrong. Biology's whole numbers are hiding in its loops. Why loops? Start with what a cell is up against.</p>
-<p>A cell's world won't sit still: food comes and goes, days turn, water runs salty and then fresh. To stay itself, a cell has to push back, and engineers have proved what pushing back takes: <mark>a loop that holds steady against the world must copy it</mark>. Copy has a precise meaning here: a part of the circuit that rises and falls in step with the thing it resists. Conant and Ashby put the whole theorem in their title (a rare courtesy): every good regulator of a system must be a model of that system <span class="cite">[7]</span>. Francis and Wonham proved the stronger version. A controller that keeps cancelling a disturbance, even while its own parts drift, must contain a copy of whatever makes the disturbance <span class="cite">[8]</span>.</p>
-<p>So function, in a cell, is a copy. A daily clock rises and falls with the day; it is a copy of the day <span class="cite">[9]</span>. A running total (chapter 02) is a copy of a steady push. And time? The theorem only covers signals that keep coming back <span class="cite">[9]</span>, and time never does. The best a cell can do is a counter that only goes up, like the epigenetic clock: chemical marks that pile up on DNA as we age.</p>
+<p>A cell's world won't sit still: food comes and goes, days turn, water runs salty and then fresh. To stay itself, a cell has to push back, and engineers have proved what pushing back takes: <mark>a loop that holds steady against the world must copy it</mark>. Copy has a precise meaning here: a part of the circuit that rises and falls in step with the thing it resists. Conant and Ashby put the whole theorem in their title (a rare courtesy): every good regulator of a system must be a model of that system <span class="cite">[7]</span>. Francis and Wonham proved the stronger version in 1976. A controller that keeps cancelling a disturbance, even while its own parts drift, must contain a copy of whatever makes the disturbance <span class="cite">[8]</span>.</p>
+<p>So function, in a cell, is a copy. A daily clock rises and falls with the day; it is a copy of the day <span class="cite">[9]</span>. A running total (chapter 02) is a copy of a steady push, the way cruise control remembers the hill. And time? The theorem only covers signals that keep coming back <span class="cite">[9]</span>, and time never does. The best a cell can do is a counter that only goes up, like the epigenetic clock: chemical marks that pile up on DNA as we age.</p>
 </div>
 <figure class="fig interactive narrow">
 <div class="pane one"><svg id="reg" viewBox="0 0 380 290" role="img" aria-label="Three periodic signals on the left each have a closed loop inside a dashed regulator on the right; a ramp labelled time maps to a filling gauge with no loop" font-size="12">
@@ -634,7 +638,7 @@ window.ElCard = (function () {
 </figure>
 <div class="text">
 <p>Now it gets interesting, because copies made of loops can be counted. In 1944 Erwin Schr&ouml;dinger guessed that heredity sits in an aperiodic crystal, a solid that never repeats <span class="cite">[73]</span>. DNA proved him right, near enough. The repeating part lives somewhere else: in the loops.</p>
-<p>Why can loops be counted when so much of biology is smooth? Because a loop is a closed path, and closed paths come in whole numbers. Twist a ribbon, tape it into a ring, and its twist is a whole number; bend it all you like, only scissors change it. A cell's circuit works the same way. Speed a reaction up and the levels slide smoothly, but the number of loops, and whether each feeds itself or pushes back, won't budge until an arrow is added or cut.</p>
+<p>Why can loops be counted when so much of biology is smooth? Because a loop is a closed path, and closed paths come in whole numbers. Twist a ribbon, tape it into a ring, and its twist is a whole number; bend it all you like, only scissors change it. A cell's circuit is that ribbon, drawn in molecules. Speed a reaction up and the levels slide smoothly. The number of loops, and whether each feeds itself or pushes back, won't budge until an arrow is added or cut. Loops are biology's integers.</p>
 
 <details class="fold">
 <summary>the same whole number in DNA, and chromatin's loops</summary>
@@ -654,7 +658,7 @@ window.ElCard = (function () {
 <div class="text">
 <p class="kicker"><span class="n">02</span>shape, behaviour, function</p>
 <h2>What a loop can do, whether it does, and what it copies</h2>
-<p>Loops come in two flavours, and one sign tells them apart. A <b>self-feeding loop</b> squeals: more makes more. A <b>brake</b> pushes back, the way a thermostat cools a room that's warming up: more makes less. Engineers got there first. Maxwell worked out the governors on steam engines in 1868, and Wiener named the whole science after a ship's steersman: cybernetics <span class="cite">[72]</span>.</p>
+<p>Loops come in two flavours, and one sign tells them apart. A <b>self-feeding loop</b> squeals: more makes more. A <b>brake</b> pushes back, the way a thermostat cools a room that's warming up: more makes less. Engineers got there first, with steam. Maxwell worked out the governors on steam engines in 1868, and Wiener named the whole science after a ship's steersman: cybernetics <span class="cite">[72]</span>.</p>
 <p>Figure 1 is the repressilator, three genes Elowitz and Leibler wired into bacteria to build a clock from scratch <span class="cite">[37]</span>. Each arrow is a switch-on or a <b>switch-off</b>: more of one gene, less of the next. Flip them and watch. One or three switch-offs and the ring ticks; none or two and it locks into one of two states. Why? Two switch-offs cancel, like a double negative. So <mark>a loop is a brake only when it has an odd number of switch-offs</mark>.</p>
 <p>That rule is geometry. A switch-off is a half-twist. Give a paper ring one and you get a M&ouml;bius strip: an ant walking it comes home upside down and needs a second lap to come home upright. A nudge sent round a brake does the same. It comes back flipped, pushes the other way, and only a second lap restores it. One tick, two laps.</p>
 </div>
@@ -680,7 +684,7 @@ window.ElCard = (function () {
 <p><span class="k">tested</span>No exception in 392 published models (chapter 04), where the second finding is tested too.</p>
 </div>
 </details>
-<p>One more word. A brake that keeps a <b>running total</b> adds up how far it is from its target and keeps pushing until the gap is zero, not merely small. Cruise control does it, pressing until the needle sits on sixty, not near it; engineers call it integral control <span class="cite">[5]</span>. It is how a circuit comes back exactly.</p>
+<p>One more word, borrowed from your car. A brake that keeps a <b>running total</b> adds up how far it is from its target and keeps pushing until the gap is zero, not merely small. Cruise control does it, pressing until the needle sits on sixty, not near it; engineers call it integral control <span class="cite">[5]</span>. In code it is one line, <code>total += error</code>, run forever. That one line is the whole trick behind coming back exactly.</p>
 </div>
 </section>
 
@@ -705,7 +709,7 @@ window.ElCard = (function () {
 </figure>
 <div class="text">
 <p><span class="beat">behaviour</span>Two states, if the loop is strong enough. Strength has a precise meaning here: the loop's <b>gain</b>, how much a small nudge has grown by the time it has gone once round. Above 1, nudges grow and the circuit tips; below 1, they die away <span class="cite">[71]</span>. In the model the pump switches on near 0.8 and stays on down to 0.4.</p>
-<p><span class="beat">function</span>Memory. Between 0.4 and 0.8 the cell is on or off depending on where it has been, so <mark>the switch remembers food that lasts</mark> <span class="cite">[3]</span>: a decision that sticks, which every committee values and few achieve. Single cells show both states side by side <span class="cite">[32]</span>, and Gardner's team built one from parts <span class="cite">[33]</span>.</p>
+<p><span class="beat">function</span>Memory. Between 0.4 and 0.8 the cell is on or off depending on where it has been, so <mark>the switch remembers food that lasts</mark> <span class="cite">[3]</span>: a decision that sticks, which every committee values and few achieve. Under the microscope, single cells in one tube split into on and off <span class="cite">[32]</span>, and Gardner's team built the same kind of switch from parts in 2000 <span class="cite">[33]</span>.</p>
 <h3 id="clock"><span class="h3-n">2</span>The clock: a thermostat with a long hallway</h3>
 <p>Nearly every cell in your body keeps a daily clock. Jet lag is trillions of them out of step with the sun.</p>
 <p><span class="beat">shape</span>A brake at the end of a long hallway. Two proteins switch on two genes; the proteins those genes make walk back into the nucleus and switch the first two off <span class="cite">[34]</span>. Because that walk takes hours, the brake always arrives late. <mark>The delay is the clock</mark> <span class="cite">[36]</span>.</p>
@@ -722,7 +726,7 @@ window.ElCard = (function () {
 </figure>
 <div class="text">
 <p><span class="beat">behaviour</span>Ticks, if strong and late. Why late? A brake that acts at once just settles, like a good thermostat. One that acts late overshoots, overcorrects, and overshoots again. In the model, nine hours of delay make a 24-hour rhythm; with none, it settles <span class="cite">[4]</span>. The delay doesn't even need genes: three cyanobacterial proteins keep 24-hour time in a test tube of ATP <span class="cite">[6]</span>.</p>
-<p><span class="beat">function</span>Keep the day's time. The clock gets a cell ready for morning before morning comes, and it keeps going in the dark. That's the difference between a copy and a reaction.</p>
+<p><span class="beat">function</span>Keep the day's time. The clock gets a cell ready for morning before morning comes, and it keeps going in the dark. A reaction would wait for the sun; a copy gets there first.</p>
 <details class="fold">
 <summary>the exact threshold</summary>
 <p>A ring of <i>n</i> steps can leave its resting state only if its gain <i>G</i>, the product of how much each arrow passes on over the product of how fast each molecule decays, clears <span class="cite">[70]</span></p>
@@ -730,7 +734,7 @@ window.ElCard = (function () {
 <p>which is 8 for <i>n</i> = 3, 4 for <i>n</i> = 4 and 2.37 for <i>n</i> = 6, falling toward 1 as the ring lengthens. The repressilator, three genes each read as message and then protein, has six steps: it needs 2.37, has 6.6, and ticked in bacteria <span class="cite">[37]</span>.</p>
 </details>
 <h3 id="adapter"><span class="h3-n">3</span>The adapter: steering by a running total</h3>
-<p><i>E. coli</i> steers like Wiener's helmsman: if things are getting better, tumble less. But &#8220;better&#8221; has to mean better than a moment ago, not better than nothing, so its receptor must reset, exactly, whatever the background.</p>
+<p><i>E. coli</i> steers like Wiener's helmsman: if things are getting better, tumble less. &#8220;Better&#8221; has to mean better than a moment ago, not better than nothing, so its receptor must reset, exactly, whatever the background.</p>
 <p><span class="beat">shape</span>A brake with a running total. One enzyme adds small chemical tags (methyl groups) to the receptor at a steady rate; another strips them off when the receptor is active <span class="cite">[35]</span>. The number of tags is the running total: it keeps count of how far the receptor is from where it should be. <mark>That's cruise control, in a cell two thousandths of a millimetre long</mark> <span class="cite">[5]</span>.</p>
 </div>
 <figure class="fig" id="fig-adapter">
@@ -746,7 +750,7 @@ window.ElCard = (function () {
 <div class="text">
 <p><span class="beat">behaviour</span>Returns exactly, at any strength. Step the food up: activity dips, then lands back on the line. Let the total leak and it lands just off the line, because a leaky total forgets part of the error. Yeast do the same sum under osmotic shock <span class="cite">[15]</span>.</p>
 <p><span class="beat">function</span>Steer by change, not level. This one is a theorem: anything that cancels a steady push exactly, whatever its rates, must carry a copy of that push, and a running total is the copy <span class="cite">[5, 8]</span>.</p>
-<p>Three shapes, three behaviours, three jobs. No new chemistry, just arrows closed in different ways. And anything built from countable parts can go in a table.</p>
+<p>Same kinds of molecules, different wiring, three different lives. And anything built from countable parts can go in a table.</p>
 </div>
 </section>
 
@@ -763,7 +767,7 @@ window.ElCard = (function () {
 <figcaption><b>Figure 7. The same chain in chemistry.</b> Filled dots: the outer shell.</figcaption>
 </figure>
 <div class="text">
-<p>Circuits get the same treatment. An <b>element</b> of the loop table is an address of three counts: how many loops a circuit has, how many of them are brakes, and how many keep a running total. Why these three? Each one changes what a circuit can do. Loops and brakes decide between switch and clock; a running total adds exact return. One loop gives 2 &times; 2 = 4 elements (brake or not, total or not), two give 9, three give 16. On top sits element zero, a running total with no loop at all: chapter 01's counter, still a prediction.</p>
+<p>Circuits get the same treatment, one degree of abstraction up: stop drawing molecules, start counting loops. An <b>element</b> of the loop table is an address of three counts: how many loops a circuit has, how many of them are brakes, and how many keep a running total. Why these three? Each one changes what a circuit can do, which is the only good reason to count something. Loops and brakes decide between switch and clock; a running total adds exact return. One loop gives 2 &times; 2 = 4 elements (brake or not, total or not), two give 9, three give 16. On top sits element zero, a running total with no loop at all: chapter 01's counter, still a prediction.</p>
 <p>Circuits have been sorted by wiring before <span class="cite">[31, 36, 43, 44]</span>, and Ahnert's team built a periodic table of protein complexes <span class="cite">[45]</span>. Tap an element to read it:</p>
 </div>
 <figure class="fig" id="fig-ptable">
@@ -804,7 +808,7 @@ window.ElCard = (function () {
 <figcaption><b>Figure 8. The periodic table of loops.</b> Dashed traces are predictions.</figcaption>
 </figure>
 <div class="text">
-<p>One element, three self-feeding loops, sat blank in the first draft. Stem cells fill it: OCT4, SOX2 and NANOG switch each other on <span class="cite">[25]</span>. They can hold several settings <span class="cite">[26]</span> but never tick <span class="cite">[58, 59]</span>. <mark>That's a stem cell's job description.</mark></p>
+<p>One element, three self-feeding loops, sat blank in the first draft. Stem cells fill it: OCT4, SOX2 and NANOG switch each other on <span class="cite">[25]</span>. They can hold several settings <span class="cite">[26]</span>; they can never tick <span class="cite">[58, 59]</span>. <mark>That's a stem cell's job description.</mark></p>
 <details class="fold">
 <summary>the other two blanks of row 3</summary>
 <p><b>+ + &#8722;.</b> Two self-feeding loops can hold a state and one brake can end it. The receptor for epidermal growth factor, EGFR, is wired this way. It switches itself on; it and PTPRG, an enzyme that strips its activating tags, switch each other off; and a second such enzyme, PTPN2, closes a brake that sets how long the signal lasts <span class="cite">[27]</span>. The state it holds is a working memory: a cell keeps pointing toward where a growth signal was for about forty minutes after the signal is gone, and can still turn toward a new one <span class="cite">[28]</span>.</p>
@@ -822,7 +826,7 @@ window.ElCard = (function () {
 </figure>
 </details>
 <h3 id="count">Count the circuits that exist</h3>
-<p>Nice theory. Does biology agree? To check, a census read 613 published cell models from BioModels, a public library where each model is checked against its paper by a curator <span class="cite">[24, 40, 41, 42]</span> (<a href="#supp-b">Supplement B</a>). It found every loop in each model and gave the model its address. All 9 elements without a running total are filled. Of the 20 with one, just 3. <mark>The table is fullest where biology already had words.</mark></p>
+<p>Nice theory. Does biology agree? To check, a census (think of it as a linter for cell biology) read 613 published cell models from BioModels, a public library where each model is checked against its paper by a curator <span class="cite">[24, 40, 41, 42]</span> (<a href="#supp-b">Supplement B</a>). It traced every loop in each model, filed the model at its address, and kept a log anyone can rerun with one command. All 9 elements without a running total are filled. Of the 20 with one, just 3. <mark>The table is fullest where biology already had words.</mark></p>
 <p>Then the harder test, of the three findings themselves (<a href="#supp-e">Supplement E</a>):</p>
 <ul class="beats">
 <li><span class="beat">shape</span><b>The kind of loop sets what a circuit can do.</b> In 392 models whose behaviour could be read, every switch has a self-feeding loop and every clock a brake. No exceptions.</li>
@@ -886,7 +890,7 @@ window.ElCard = (function () {
 <div class="text">
 <p class="kicker"><span class="n">05</span>the missing elements</p>
 <h2>What the missing elements would do, and why they hide</h2>
-<p>Seventeen of the twenty running-total elements are blank. A scandal, or an opportunity. What should live there? Each blank is a known circuit plus a running total, so its behaviour follows from its neighbour's. A brake plus a total comes back exactly: that's proven <span class="cite">[5, 46]</span>. A self-feeding loop plus a total should add up its input and flip once the sum is high enough: that's a guess.</p>
+<p>Seventeen of the twenty running-total elements are blank. A scandal, or an opportunity? Weird is good! What should live there? Each blank is a known circuit plus a running total, so its behaviour follows from its neighbour's. A brake plus a total comes back exactly: that's proven <span class="cite">[5, 46]</span>. A self-feeding loop plus a total should add up its input and flip once the sum is high enough: that's a guess.</p>
 <p>The one to build first is <b>Sw&#8747;</b>, a switch that judges a signal by its total, not its peak: a long gentle push and a short hard one would flip it alike. Feynman's last blackboard read &#8220;What I cannot create, I do not understand.&#8221; So here's one, built:</p>
 </div>
 <figure class="fig" id="fig-hypo">
@@ -917,8 +921,8 @@ window.ElCard = (function () {
 <figcaption><b>Figure 11. The blank follows the reading.</b> One grid per row: brakes down, running totals across. Lime: filled.</figcaption>
 </figure>
 <div class="text">
-<p>Every blank needs a running total. So the gap says one of two things: cells rarely keep exact totals, or the census rarely recognises them. Chemistry has been here. Argon reacts with nothing and hid in plain air until Rayleigh and Ramsay noticed their nitrogen weighed too much <span class="cite">[60]</span>. The census tried the same kind of detective work twice. First it loosened its definition, from &#8220;returns exactly&#8221; to &#8220;returns within a tenth&#8221;, and rows one and two filled completely. Then it pushed every model and held the push: 22 came back exactly, 4 of them small circuits nobody had read as running totals <span class="cite">[50]</span>.</p>
-<p><mark>Most likely cause: a running total is easy to see in a cell and hard to see in an equation.</mark> Bacteria and yeast both come back exactly in experiments, yet the strict reading puts no model in the adapter's element.</p>
+<p>Every blank needs a running total. So the gap says one of two things: cells rarely keep exact totals, or the census rarely recognises them. Chemistry has been here. Argon reacts with nothing and hid in plain air until Rayleigh and Ramsay noticed their nitrogen weighed too much <span class="cite">[60]</span>. The census borrowed that move twice: look again, then push. First it loosened its definition, from &#8220;returns exactly&#8221; to &#8220;returns within a tenth&#8221;, and rows one and two filled completely. Then it pushed every model and held the push: 22 came back exactly, 4 of them small circuits nobody had read as running totals <span class="cite">[50]</span>.</p>
+<p><mark>Most likely cause: a running total is easy to see in a cell and hard to see in an equation.</mark> Bacteria and yeast both come back exactly in experiments, yet the strict reading puts no model in the adapter's element. The cells knew; the equations didn't say.</p>
 <details class="fold">
 <summary>chemistry&#8217;s other reasons, each with its cure</summary>
 <ul>
@@ -951,7 +955,7 @@ window.ElCard = (function () {
 <p><b>Autoimmunity.</b> Immune memory is a switch; regulatory T cells and checkpoints are its brakes. Lose a brake genetically and you get IPEX, where mutations in one gene, FOXP3, cause fatal immune dysregulation <span class="cite">[20]</span>. Delete it on purpose and you get the same thing under a different name: checkpoint blockade treats cancer by removing the brakes on T cells, and its immune-related adverse events are autoimmunity in the same patient <span class="cite">[21]</span>. Read as loops, cancer and autoimmunity are one loop with the sign of the intervention flipped.</p>
 <p><b>Neurodegeneration.</b> Seeded aggregation is a self-feeding loop: a misfolded seed converts healthy protein into more seeds <span class="cite">[22]</span>. Clearance is the brake that should close it. Dividing cells also have a reset: yeast mother cells keep the damaged proteins and daughters are born clean <span class="cite">[23]</span>. Neurons never divide, so they have no reset and no dilution by growth; when clearance fails, the aggregation switch runs as a counter for the organism's whole life. This may be why these are diseases of late life: their clock would be the aging counter itself.</p>
 </details>
-<p>Medicine measures the pile. In inherited Alzheimer's, amyloid shows on scans fifteen years before symptoms <span class="cite">[63]</span>. The loop view says test the brake instead, the way a mechanic tests brakes in the car park, not after the crash. Why would that work? A weakening brake is slow to settle after a small push, long before anything piles up. So a weakening p53 brake should pulse late after DNA damage <span class="cite">[64]</span>. And amyloid, cleared more slowly <span class="cite">[65]</span> by a clearing that sleep speeds in mice <span class="cite">[66]</span>, should flatten its nightly rhythm years before plaques. Both are predictions.</p>
+<p>Medicine measures the pile. In inherited Alzheimer's, amyloid shows on scans fifteen years before symptoms <span class="cite">[63]</span>. The loop view says test the brake instead, the way a mechanic tests brakes in the car park, not after the crash. Why would that work? A weakening brake is slow to settle after a small push, long before anything piles up. So a weakening p53 brake should pulse late after DNA damage <span class="cite">[64]</span>. And amyloid, cleared more slowly <span class="cite">[65]</span> by a clearing that sleep speeds in mice <span class="cite">[66]</span>, should flatten its nightly rhythm years before plaques. Both are predictions, and both could fail.</p>
 <p><mark>Caught early, a disease may need only a nudge; caught late, it needs the brake put back</mark> (Figure 13). The reason is the switch's memory: before it flips, a small push walks it back; after, the push must go far below where it flipped. Restoring p53 did that in mice <span class="cite">[18, 19]</span>. Lecanemab, clearing amyloid after symptoms, only slowed decline <span class="cite">[67]</span>. Retinoic acid sent 23 of 24 patients with acute promyelocytic leukaemia into remission on its own; eight relapsed within months <span class="cite">[68]</span>.</p>
 </div>
 <details class="fold">
@@ -970,7 +974,7 @@ window.ElCard = (function () {
 <div class="text">
 <p class="kicker"><span class="n">07</span>the table is a loop</p>
 <h2>The true shape of a periodic table</h2>
-<p>Here's the twist: the tables are loops too. Lithium, sodium and potassium sit eight places apart and all fizz in water; chemistry repeats itself every row. Mendeleev's grid cuts that repeat and lays it flat. Seven years earlier the geologist de Chancourtois had wound the elements round a cylinder instead, and the look-alikes lined up <span class="cite">[10]</span>.</p>
+<p>Plot twist: the tables are loops too. Lithium, sodium and potassium sit eight places apart and all fizz in water; chemistry repeats itself every row. Mendeleev's grid cuts that repeat and lays it flat. Seven years earlier the geologist de Chancourtois had wound the elements round a cylinder instead, and the look-alikes lined up <span class="cite">[10]</span>.</p>
 </div>
 <figure class="fig" id="fig-morph">
 <p class="lead-in">Chemistry&#8217;s table and the table of loops, as the grids everyone knows; wind the rows:</p>
@@ -1024,7 +1028,7 @@ window.ElCard = (function () {
 </figure>
 <div class="text">
 <p>Wound one turn per row, both tables line their families up on spokes, because each row runs through the same behaviours in the same order. Noble gases share a spoke; so do memories. <mark>A spoke is a behaviour, and the winding puts it there.</mark> Two tables, a century and a half apart, have the same shape.</p>
-<p>A conjecture goes further. One body's aging counter never resets. A family's does: an embryo's epigenetic age drops to a low point early in development <span class="cite">[11]</span>. The line of egg and sperm cells is the loop; the body is the arc that doesn't come back <span class="cite">[13]</span>.</p>
+<p>Now a conjecture, flagged as one. One body's aging counter never resets. A family's does: an embryo's epigenetic age drops to a low point early in development <span class="cite">[11]</span>. The line of egg and sperm cells is the loop; the body is the arc that doesn't come back <span class="cite">[13]</span>.</p>
 </div>
 <details class="fold">
 <summary>the long loop, drawn: aging and the germline</summary>
@@ -1122,7 +1126,7 @@ window.ElCard = (function () {
 </div>
 </details>
 <div class="text">
-<p>To be candid: not every claim here is equally sure. The ledger below grades all 21, from theorem to conjecture. The biggest gaps are space, mechanism, and a test on just one library.</p>
+<p>To err with grace: not every claim here is equally sure, so the ledger below grades all 21, from theorem to conjecture. The biggest gaps: patterns in space, molecules left out on purpose, and a test on just one library, release 31 from 2017.</p>
 <details class="fold">
 <summary>the provenance ledger</summary>
 <p>The census has limits of its own. It read behaviour at published rates, so it undercounts. Its loop filters are proved for self-feeding loops only and remove the brakes of 10 clocks. It misses loops written as formulas (13 models), and 102 of its searches hit their step limit. Its gain test covers single rings only, and its step test one size of step. And BioModels holds what people chose to model, not a sample of biology.</p>
@@ -1151,7 +1155,7 @@ window.ElCard = (function () {
 <tr><td>Aging splits into a counter to reset and brakes to close; short pulses keep identity</td><td><span class="k">conjecture</span>The reset is measured in mice; the reading and the pulse rule are untested</td><td>[11, 12, 69]</td></tr>
 </table>
 </details>
-<p class="lede">Mendeleev's blank square was a prediction because he trusted the pattern over the weights. Biology's pattern is the loop: shape, then behaviour, then function. Its gallium is still out there, a switch that keeps a running total. Heraclitus saw the shape of it: on a circle, the beginning and the end are shared. Which loops run your day, and what are they copying? Count them. Test them. <mark>Every line is a loop; follow yours.</mark></p>
+<p class="lede">Mendeleev's blank square was a prediction because he trusted the pattern over the weights. Biology's pattern is the loop: shape, then behaviour, then function. Its gallium is still out there, a switch that keeps a running total. Heraclitus had the shape of it all along. Which loops run your day? What are they copying, and which are only counting? Count them, test them, follow them. <mark>Every line is a loop.</mark></p>
 </div>
 </section>
 
