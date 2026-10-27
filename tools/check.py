@@ -70,7 +70,7 @@ async def shots(out):
                 await pg.evaluate("const s=document.getElementById('t-w'); if (s) { s.value=100; s.dispatchEvent(new Event('input')) }")
                 await pg.wait_for_timeout(500)
                 f = out / f'shot_{w}_{scheme}.png'
-                await pg.screenshot(path=str(f), full_page=True)
+                await pg.screenshot(path=str(f), full_page=True, timeout=120000)
                 h = hashlib.sha256(f.read_bytes()).hexdigest()[:12]
                 print(f'{f.name}  errors={len(errs)}  sha256={h}')
                 assert not errs, errs

@@ -829,6 +829,45 @@ def fig_band():
     return '<div class="duo-f">' + ''.join(panes) + '</div>'
 
 
+# ================================================================ the atlas: rows by how a circuit answers a push
+ATLAS_GLYPH = {'ticks': IA.TRACE['ticks'], 'remembers': IA.TRACE['holds two states'],
+               'returns exactly': IA.TRACE['adapts exactly'], 'returns partly': 'M1 12H8V3C13 3 17 8 31 8',
+               'rings': IA.TRACE['rings, then settles'], 'follows': 'M1 12H8C11 4 14 4 31 4'}
+ATLAS_RULE = {'ticks': ('-', 'have a brake'), 'remembers': ('+', 'have a self-feeding loop')}
+
+
+def fig_atlas():
+    """One row per answer: how many models give it (one lime square each), how many different wirings (loop
+    addresses) among them, and, where a theorem applies, how many members meet it. An HTML table so it reflows on a
+    phone. From results/fingerprints.json and the census's loop records."""
+    F = json.loads((ROOT / 'results' / 'fingerprints.json').read_text())
+    S = {}
+    for l in open(ROOT / 'results' / 'r31_structure_traj.jsonl'):
+        r = json.loads(l)
+        if 'defs' in r:
+            S[r['model']] = r
+    rows = ['ticks', 'remembers', 'returns exactly', 'returns partly', 'rings', 'follows']
+    ok = [m for m in F['models'] if m.get('status') == 'ok' and m.get('row') in rows]
+    body = ''
+    for r in rows:
+        mem = [m for m in ok if m['row'] == r]
+        addrs = {tuple(m['address']) for m in mem if m.get('address')}
+        glyph = (f'<svg class="gl" width="40" height="20" viewBox="0 0 32 16" aria-hidden="true"><path d="{ATLAS_GLYPH[r]}" '
+                 'fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/></svg>')
+        squares = ''.join('<i></i>' for _ in mem)
+        if r in ATLAS_RULE:
+            sign, word = ATLAS_RULE[r]
+            key = 'plain_negative' if sign == '-' else 'plain_positive'
+            met = sum(1 for m in mem if S.get(m['model'], {}).get(key) or (sign == '+' and S.get(m['model'], {}).get('refined_positive')))
+            rule = f'{met} of {len(mem)} {word}'
+        else:
+            rule = ''
+        body += (f'<tr><th scope="row">{glyph}{r}</th><td class="sq"><span class="squares">{squares}</span>'
+                 f'<span class="n">{len(mem)}</span></td><td class="n">{len(addrs) if addrs else "&#8211;"}</td><td class="rule">{rule}</td></tr>')
+    return ('<table class="atlas"><thead><tr><th scope="col">answer</th><th scope="col">models</th>'
+            '<th scope="col">wirings</th><th scope="col">rule</th></tr></thead><tbody>' + body + '</tbody></table>')
+
+
 # ================================================================ three diseases, one algebra
 def fig_disease():
     """One panel for three diseases, drawn tall so it reads on a phone: the same amplifying loop held on, the same
@@ -1120,7 +1159,7 @@ def script():
 
 
 # ================================================================ injection
-BLOCKS = {'defs': defs_html, 'bands': fig_bands, 'band': fig_band, 'chem': fig_chem,
+BLOCKS = {'defs': defs_html, 'bands': fig_bands, 'band': fig_band, 'atlas': fig_atlas, 'chem': fig_chem,
           'hypo': lambda: fig_hypo()[0], 'hypo-ctl': lambda: fig_hypo()[1],
           'switch': lambda: fig_switch()[0], 'switch-ctl': lambda: fig_switch()[1],
           'clock': lambda: fig_clock()[0], 'clock-ctl': lambda: fig_clock()[1],
