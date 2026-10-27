@@ -102,6 +102,10 @@
   .text ul.beats li { margin: 0 0 var(--s4); }
   .h3-n { font: 500 var(--t3)/1 var(--code); color: var(--muted); margin-right: var(--s3); }
   .text > p.epigraph { font: italic 400 var(--t4)/1.5 var(--sans); color: var(--ink); margin: 0 0 var(--s5); }
+  .coldopen { margin-top: var(--s6); }
+  .coda a { color: inherit; text-decoration: none; }
+  .coda a::after { content: " \21BA"; color: var(--muted); font-style: normal; }
+  .coda a:hover, .coda a:focus-visible { text-decoration: underline; text-decoration-color: var(--muted); }
   .epigraph .by { display: block; font: 500 var(--t2)/1.5 var(--code); font-style: normal; color: var(--muted); margin-top: var(--s1); }
   .text p > code { font: 400 0.9em/1 var(--code); background: var(--tint); padding: 1px 5px; border-radius: 4px; }
 
@@ -515,6 +519,11 @@ window.ElCard = (function () {
   <p class="meta"><span>Kat Titterton</span><span>Macrofluidics</span><span id="readtime">14 min read</span><span class="tag">draft for comment</span><a href="#count">the count</a><a href="https://github.com/kat-titter/every-line-is-a-loop">code</a></p>
 </header>
 
+<div class="text coldopen">
+<p class="epigraph" id="begin">On a circle, the beginning and the end are shared.<span class="by">Heraclitus, fragment 103</span></p>
+<p class="lede">In 1869 Dmitri Mendeleev left holes in his table and dared chemistry to fill them. One hole, he said, was a metal below aluminium, density about 6. Six years later gallium turned up. Its discoverer weighed it at 4.7, and Mendeleev, who had never touched the stuff, wrote back: measure again. Purified, it came in at 5.9. <mark>The blank square had been a prediction.</mark></p>
+</div>
+
 <div class="text">
 <div class="abstract">
 <p class="label">In short</p>
@@ -591,9 +600,7 @@ window.ElCard = (function () {
 <div class="text">
 <p class="kicker"><span class="n">01</span>the blank square</p>
 <h2>What Mendeleev could do that biology cannot</h2>
-<p class="epigraph">On a circle, the beginning and the end are shared.<span class="by">Heraclitus, fragment 103</span></p>
-<p class="lede">In 1869 Dmitri Mendeleev left holes in his table and dared chemistry to fill them. One hole, he said, was a metal below aluminium, density about 6. Six years later gallium turned up. Its discoverer weighed it at 4.7, and Mendeleev, who had never touched the stuff, wrote back: measure again. Purified, it came in at 5.9. <mark>The blank square had been a prediction.</mark></p>
-<p>Biology has never had a table like that. Life, the excuse goes, is too wet and messy for whole numbers. To be candid: the excuse is wrong. Biology's whole numbers are hiding in its loops. Why loops? Start with what a cell is up against.</p>
+<p>Biology has never had a table like Mendeleev's. Life, the excuse goes, is too wet and messy for whole numbers. To be candid: the excuse is wrong. Biology's whole numbers are hiding in its loops. Why loops? Start with what a cell is up against.</p>
 <p>A cell's world won't sit still: food comes and goes, days turn, water runs salty and then fresh. To stay itself, a cell has to push back, and engineers have proved what pushing back takes: <mark>a loop that holds steady against the world must copy it</mark>. Copy has a precise meaning here: a part of the circuit that rises and falls in step with the thing it resists. Conant and Ashby put the whole theorem in their title (a rare courtesy): every good regulator of a system must be a model of that system <span class="cite">[7]</span>. Francis and Wonham proved the stronger version in 1976. A controller that keeps cancelling a disturbance, even while its own parts drift, must contain a copy of whatever makes the disturbance <span class="cite">[8]</span>.</p>
 <p>So function, in a cell, is a copy. A daily clock rises and falls with the day; it is a copy of the day <span class="cite">[9]</span>. A running total (chapter 02) is a copy of a steady push, the way cruise control remembers the hill. And time? The theorem only covers signals that keep coming back <span class="cite">[9]</span>, and time never does. The best a cell can do is a counter that only goes up, like the epigenetic clock: chemical marks that pile up on DNA as we age.</p>
 </div>
@@ -692,7 +699,7 @@ window.ElCard = (function () {
 <div class="text">
 <p class="kicker"><span class="n">03</span>three circuits</p>
 <h2>A switch, a clock and an adapter</h2>
-<p>Three cells, three problems, three loops, each read in the same three steps: the shape of the loop, the behaviour it allows, the function it serves. Every figure runs live; move the slider and the cell answers.</p>
+<p>Lock on, tick, come back exactly. Living cells do all three, each with one loop, read here in the same three steps: the shape of the loop, the behaviour it allows, the function it serves. Every figure runs live; move the slider and the cell answers.</p>
 <h3 id="switch"><span class="h3-n">1</span>The switch: a bacterium decides about lunch</h3>
 <p><i>E. coli</i> has a sweet tooth with standards. Glucose first. Lactose only if it's worth building a pump for, and no dithering once it's built.</p>
 <p><span class="beat">shape</span>A self-feeding loop. Lactose disables a blocker protein; the blocker shuts the genes that make the pump. Two switch-offs in a row make a switch-on, so: more lactose in, more pumps, more lactose in.</p>
@@ -758,7 +765,7 @@ window.ElCard = (function () {
 <div class="text">
 <p class="kicker"><span class="n">04</span>the table</p>
 <h2>Three counts make a periodic table</h2>
-<p>Primo Levi named all 21 chapters of his memoir <i>The Periodic Table</i> after elements, as if each were a character. In chemistry, character comes from shape. An atom's outer shell sets how it reacts, and how it reacts sets what it's for:</p>
+<p>A table, then. Primo Levi named all 21 chapters of his memoir <i>The Periodic Table</i> after elements, as if each were a character. In chemistry, character comes from shape. An atom's outer shell sets how it reacts, and how it reacts sets what it's for:</p>
 </div>
 <figure class="fig" id="fig-chem">
 <!-- gen:chem -->
@@ -890,7 +897,7 @@ window.ElCard = (function () {
 <div class="text">
 <p class="kicker"><span class="n">05</span>the missing elements</p>
 <h2>What the missing elements would do, and why they hide</h2>
-<p>Seventeen of the twenty running-total elements are blank. A scandal, or an opportunity? Weird is good! What should live there? Each blank is a known circuit plus a running total, so its behaviour follows from its neighbour's. A brake plus a total comes back exactly: that's proven <span class="cite">[5, 46]</span>. A self-feeding loop plus a total should add up its input and flip once the sum is high enough: that's a guess.</p>
+<p>That leaves the empty squares. Seventeen of the twenty running-total elements are blank. A scandal, or an opportunity? Weird is good! What should live there? Each blank is a known circuit plus a running total, so its behaviour follows from its neighbour's. A brake plus a total comes back exactly: that's proven <span class="cite">[5, 46]</span>. A self-feeding loop plus a total should add up its input and flip once the sum is high enough: that's a guess.</p>
 <p>The one to build first is <b>Sw&#8747;</b>, a switch that judges a signal by its total, not its peak: a long gentle push and a short hard one would flip it alike. Feynman's last blackboard read &#8220;What I cannot create, I do not understand.&#8221; So here's one, built:</p>
 </div>
 <figure class="fig" id="fig-hypo">
@@ -940,7 +947,7 @@ window.ElCard = (function () {
 <p class="kicker"><span class="n">06</span>when a brake fails</p>
 <h2>A lost brake, and how to catch it early</h2>
 <span id="disease"></span>
-<p>Break a loop's shape and its function goes with it. That's a lot of disease: a self-feeding loop stuck on because its brake is lost or weak. Cancer, autoimmunity and brain degeneration all <mark>keep piling up what should have switched off</mark>.</p>
+<p>An empty square is a loop nobody has found yet. Disease is a loop that broke. Break a loop's shape and its function goes with it. That's a lot of disease: a self-feeding loop stuck on because its brake is lost or weak. Cancer, autoimmunity and brain degeneration all <mark>keep piling up what should have switched off</mark>.</p>
 </div>
 <figure class="fig">
 <!-- gen:disease -->
@@ -956,7 +963,7 @@ window.ElCard = (function () {
 <p><b>Neurodegeneration.</b> Seeded aggregation is a self-feeding loop: a misfolded seed converts healthy protein into more seeds <span class="cite">[22]</span>. Clearance is the brake that should close it. Dividing cells also have a reset: yeast mother cells keep the damaged proteins and daughters are born clean <span class="cite">[23]</span>. Neurons never divide, so they have no reset and no dilution by growth; when clearance fails, the aggregation switch runs as a counter for the organism's whole life. This may be why these are diseases of late life: their clock would be the aging counter itself.</p>
 </details>
 <p>Medicine measures the pile. In inherited Alzheimer's, amyloid shows on scans fifteen years before symptoms <span class="cite">[63]</span>. The loop view says test the brake instead, the way a mechanic tests brakes in the car park, not after the crash. Why would that work? A weakening brake is slow to settle after a small push, long before anything piles up. So a weakening p53 brake should pulse late after DNA damage <span class="cite">[64]</span>. And amyloid, cleared more slowly <span class="cite">[65]</span> by a clearing that sleep speeds in mice <span class="cite">[66]</span>, should flatten its nightly rhythm years before plaques. Both are predictions, and both could fail.</p>
-<p><mark>Caught early, a disease may need only a nudge; caught late, it needs the brake put back</mark> (Figure 13). The reason is the switch's memory: before it flips, a small push walks it back; after, the push must go far below where it flipped. Restoring p53 did that in mice <span class="cite">[18, 19]</span>. Lecanemab, clearing amyloid after symptoms, only slowed decline <span class="cite">[67]</span>. Retinoic acid sent 23 of 24 patients with acute promyelocytic leukaemia into remission on its own; eight relapsed within months <span class="cite">[68]</span>.</p>
+<p><mark>Caught early, a disease may need only a nudge; caught late, it needs the brake put back</mark> (Figure 13). The reason is the switch's memory: before it flips, a small push walks it back; after, the push must go far below where it flipped. Restoring p53 did that in mice <span class="cite">[18, 19]</span>. Lecanemab, clearing amyloid after symptoms, only slowed decline <span class="cite">[67]</span>. Retinoic acid sent 23 of 24 patients with acute promyelocytic leukaemia into remission on its own; eight relapsed within months <span class="cite">[68]</span>. Relapse is a loop too, the unwelcome kind.</p>
 </div>
 <details class="fold">
 <summary>early takes a nudge: the switch read as a disease</summary>
@@ -1155,7 +1162,8 @@ window.ElCard = (function () {
 <tr><td>Aging splits into a counter to reset and brakes to close; short pulses keep identity</td><td><span class="k">conjecture</span>The reset is measured in mice; the reading and the pulse rule are untested</td><td>[11, 12, 69]</td></tr>
 </table>
 </details>
-<p class="lede">Mendeleev's blank square was a prediction because he trusted the pattern over the weights. Biology's pattern is the loop: shape, then behaviour, then function. Its gallium is still out there, a switch that keeps a running total. Heraclitus had the shape of it all along. Which loops run your day? What are they copying, and which are only counting? Count them, test them, follow them. <mark>Every line is a loop.</mark></p>
+<p class="lede">Mendeleev's blank square was a prediction because he trusted the pattern over the weights. Biology's pattern is the loop: shape, then behaviour, then function. Its gallium is still out there, a switch that keeps a running total. Which loops run your day? What are they copying, and which are only counting? Count them, test them, follow them. <mark>Every line is a loop.</mark></p>
+<p class="epigraph coda"><a href="#begin" aria-label="Back to the first line">On a circle, the beginning and the end are shared.</a></p>
 </div>
 </section>
 
