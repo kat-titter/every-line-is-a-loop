@@ -178,7 +178,88 @@ def check_hypo():
     return short[2], long_[2]
 
 
+# Figure 1 (#fig-close, hand-written in the page; first frame baked by tools/bake.py): three molecules, each made at
+# a Hill rate set by the one before and cleared at rate 1. Closed, Z sets X's rate. One push holds X's rate at the top.
+CL = {'a': 10.0, 'n': 3, 'dt': 0.02, 'T': 60.0, 't0': 10.0, 't1': 14.0}
+
+
+def cl_h(v, sign):
+    q = v ** CL['n']
+    return q / (1 + q) if sign > 0 else 1 / (1 + q)
+
+
+def cl_run(signs, closed, push=True, T=CL['T'], dt=CL['dt'], every=10):
+    """The page's sim(), step for step (RK4). signs: +1 switches on, -1 switches off, for X>Y, Y>Z, Z>X.
+    Samples: (t, X, Y, Z)."""
+    a = CL['a']
+    x = [0.0, 0.0, 0.0]
+    x[1] = a * cl_h(x[0], signs[0])
+    x[2] = a * cl_h(x[1], signs[1])
+
+    def f(x, t):
+        u = 1.0 if push and CL['t0'] <= t < CL['t1'] else 0.0
+        fb = cl_h(x[2], signs[2]) if closed else 0.0
+        return [a * max(u, fb) - x[0], a * cl_h(x[0], signs[0]) - x[1], a * cl_h(x[1], signs[1]) - x[2]]
+
+    out = []
+    for i in range(int(round(T / dt)) + 1):
+        t = i * dt
+        if i % every == 0:
+            out.append((t, x[0], x[1], x[2]))
+        k1 = f(x, t)
+        k2 = f([v + dt / 2 * k for v, k in zip(x, k1)], t + dt / 2)
+        k3 = f([v + dt / 2 * k for v, k in zip(x, k2)], t + dt / 2)
+        k4 = f([v + dt * k for v, k in zip(x, k3)], t + dt)
+        x = [v + dt / 6 * (p + 2 * q + 2 * r + s) for v, p, q, r, s in zip(x, k1, k2, k3, k4)]
+    return out
+
+
+def cl_period(tr, after=30.0):
+    """Mean time between upward midline crossings, late in the run, read on the molecule that swings most.
+    None unless all three swing (the smallest swing of a ticking ring here is 0.74, Z's when Y switches it off)."""
+    late = [r for r in tr if r[0] >= after]
+    swing = [max(r[j] for r in late) - min(r[j] for r in late) for j in (1, 2, 3)]
+    if min(swing) < 0.5:
+        return None
+    j = 1 + swing.index(max(swing))
+    mid = (max(r[j] for r in late) + min(r[j] for r in late)) / 2
+    ups = [b[0] for a, b in zip(late, late[1:]) if a[j] < mid <= b[j]]
+    return (ups[-1] - ups[0]) / (len(ups) - 1) if len(ups) > 1 else None
+
+
+def check_close():
+    """All eight arrow patterns: the open line follows, an even number of switch-offs remembers, an odd number
+    ticks, push or no push."""
+    periods = {}
+    for bits in range(8):
+        signs = [-1 if bits >> i & 1 else 1 for i in range(3)]
+        k = signs.count(-1)
+        # open: every level answers the push and comes back to where it was
+        tr = cl_run(signs, closed=False)
+        before, peak, end = tr[int(9.8 / 0.2)], tr[int(14.0 / 0.2)], tr[-1]
+        assert abs(peak[3] - before[3]) > 5, ('line does not answer', signs, before, peak)
+        assert max(abs(e - b) for e, b in zip(end[1:], before[1:])) < 1e-3, ('line does not forget', signs, before, end)
+        # closed
+        tr = cl_run(signs, closed=True)
+        if k % 2 == 0:
+            before, end = tr[int(9.8 / 0.2)], tr[-1]
+            late = [z for t, x, y, z in tr if t >= 45]
+            assert max(late) - min(late) < 1e-3, ('even loop does not rest', signs)
+            assert abs(end[3] - before[3]) > 5, ('even loop does not remember', signs, before, end)
+            assert cl_period(tr) is None, signs
+        else:
+            for push in (True, False):
+                p = cl_period(cl_run(signs, closed=True, push=push))
+                assert p is not None, ('odd loop does not tick', signs, push)
+                periods.setdefault(k, []).append(p)
+    one, three = periods[1], periods[3]
+    assert max(one) - min(one) < 0.1 and abs(sum(one) / len(one) - 3.9) < 0.15, one
+    assert max(three) - min(three) < 0.1 and abs(sum(three) / len(three) - 5.0) < 0.15, three
+    return sum(one) / len(one), sum(three) / len(three)
+
+
 def check_all():
+    print('close the line: all 8 arrow patterns hold (open follows, even remembers, odd ticks); period %.1f with one switch-off, %.1f with three' % check_close())
     print('switch: flips on at L =', *('%.2f' % v for v in check_switch()))
     print('clock: period at D = %g h is %.1f h; no delay settles' % (CK['D'], check_clock()))
     print('adapter: dips to %.2f, returns to %.3f; with a leak %.3f' % check_adapter())
@@ -532,12 +613,12 @@ def circuit_hypo():
     s += label(185, 195, '+', size=16, fill='var(--accent-text)', extra=' font-weight="600"')
     s += mono(20, 276, '1 loop  0 brakes  1 running total', size=12, fill='var(--ink)')
     return pane(s, PW, PH, 'A hypothetical element: a pulse feeds a running total, and the running total feeds an amplifying '
-                'loop of A and B, the switch of Figure 4 with the total in place of lactose.', ' data-sim="hy"')
+                'loop of A and B, the switch of Figure 6 with the total in place of lactose.', ' data-sim="hy"')
 
 
 def recipe_hypo():
     rows = (('input', 'a pulse of height 0.2 for T hours'), ('running total', 'dose = 0.2 &#215; T, never forgotten'),
-            ('switch', 'the lac loop of Figure 4, fed the dose'), ('flips when', f'dose passes {sw_thresholds()[1]:.2f}, the lac switch\'s own threshold'),
+            ('switch', 'the lac loop of Figure 6, fed the dose'), ('flips when', f'dose passes {sw_thresholds()[1]:.2f}, the lac switch\'s own threshold'),
             ('never matters', 'how high the pulse was'))
     s = ''
     for i, (k, v) in enumerate(rows):

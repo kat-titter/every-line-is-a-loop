@@ -1,12 +1,16 @@
 """Fold the census into the essay. The census is still built by build_post.py (into build/, not published); this
-script takes the pieces the one-page essay shows (the loop toy, the row grids, the orbital arithmetic, the periodic
+script takes the pieces the one-page essay shows (the orbital arithmetic, the periodic
 table with its cards, the data figure with the funnel and the explorer, the claims scorecard, the research loop, and
 supplements A to D) from that build, remaps its citations onto the essay's reference list (appending the sources the
 essay did not have, in a fixed order so the numbers stay stable), renumbers its figures, strips its citation cards,
 pulls the stylesheet rules its components need, adds the punchline figure (loop_morph.py) and writes everything
 between the essay's <!-- gen:NAME --> markers.
 
-Usage: python3 analysis/fold_census.py        (rebuilds build/count-the-elements.html first when it is missing)
+The loop toy stays in the census build: since 2026-11-10 the essay's Figure 1 is #fig-close, hand-written in the
+page (model checked by circuit_figures.check_close, first frame baked by tools/bake.py).
+
+Usage: python3 analysis/fold_census.py              (rebuilds build/count-the-elements.html first when it is missing)
+       python3 analysis/fold_census.py --readtime   (only recounts the main read and updates the read time)
 """
 import html as html_lib
 import json
@@ -67,10 +71,10 @@ NEW_REFS = [
 ALIASES = {}
 
 # Figure numbers in the merged page for the figures that come from the census build.
-FIG = {'Figure 1. Arrows and loops.': 'Figure 1. Flip the arrows.',
-       'Figure 5. The periodic table of loops.': 'Figure 5. The periodic table of loops.',
-       'Figure 6. The data.': 'Figure 6. The data.',
-       'Figure 7. The research loop.': 'Figure 13. The research loop.'}
+# The essay's own captions sit outside the gen: markers and are numbered by hand (10, 11 and 19 since 2026-11-10).
+FIG = {'Figure 5. The periodic table of loops.': 'Figure 10. The periodic table of loops.',
+       'Figure 6. The data.': 'Figure 11. The data.',
+       'Figure 7. The research loop.': 'Figure 19. The research loop.'}
 
 CSS_WANT = ['.pt-', '.ptable', '.ecard', '.rc-', '.refcard', '.tile', '.tiles', '.cards', '.card', '.summary-cards', '.f-', '.explorer',
             '.ex-', 'ol.ex-list', '#ex-q', '.pick', '.sl-', '.sn', '.sp', '.solo', '.bars', '.grid-fig', '.grid-key', '.rows-grid', '.quad',
@@ -378,6 +382,17 @@ def nesting_figure():
                   'xa': xa, 'xna': xna, 'xb': xb, 'xnb': xnb, 'xp': res['census']['arrow_strength']['fisher_one_sided_p']}
 
 
+def read_time(essay):
+    """The read time of the main read: no folds, references, masthead, contents, scripts, styles or svg text.
+    Returns the essay with its read time set, the word count and the minutes (230 words a minute)."""
+    main = essay[:essay.index('<section id="refs">')]
+    main = re.sub(r'<details.*?</details>|<script.*?</script>|<style.*?</style>|<svg.*?</svg>|<header.*?</header>|<nav.*?</nav>', '', main, flags=re.S)
+    text = ' '.join(re.findall(r'<(?:p|li|figcaption|h2)(?:\s[^>]*)?>(.*?)</(?:p|li|figcaption|h2)>', main, flags=re.S))
+    words = re.findall(r"[A-Za-z0-9][A-Za-z0-9'\u2019\-]*", html_lib.unescape(re.sub(r'<[^>]+>', ' ', text)))
+    mins = max(1, round(len(words) / 230))
+    return re.sub(r'<span id="readtime">[^<]*</span>', f'<span id="readtime">{mins} min read</span>', essay), len(words), mins
+
+
 def main():
     if not BUILD.exists():
         BUILD.parent.mkdir(exist_ok=True)
@@ -426,9 +441,6 @@ def main():
 
     # ---- blocks from the census build
     elcard = block(post, '<script>\nwindow.ElCard', '</script>')
-    theory = post[post.index('<section id="theory">'):post.index('<section id="table">')]
-    toy = block(theory, '<figure class="fig">', '</figure>')
-    assert 'lt-ring' in toy
     table_sec = post[post.index('<section id="table">'):post.index('<section id="data">')]
     ptable = block(table_sec, '<figure class="fig">', '</figure>', table_sec.index('Figure 5. The periodic table') - 60000)
     ptable = table_sec[table_sec.rfind('<figure class="fig">', 0, table_sec.index('Figure 5. The periodic table')):table_sec.index('</figure>', table_sec.index('Figure 5. The periodic table')) + 9]
@@ -457,7 +469,6 @@ def main():
     blocks = {
         'css-census': '<style>\n' + css + '\n</style>',
         'elcard': elcard,
-        'toy': clean(inner(toy)[inner(toy).index('<div class="pair interactive">'):]),   # the ring and its plot; the gauges stay in the build
         'orbitals': TF.fig_orbitals(),
         'ptable': clean(inner(ptable)),
         'data': clean(inner(datafig)),
@@ -475,16 +486,9 @@ def main():
         pat = re.compile(r'(<!-- gen:' + name + r' -->).*?(<!-- /gen:' + name + r' -->)', re.S)
         assert pat.search(essay), name
         essay = pat.sub(lambda m: m.group(1) + '\n' + body + '\n' + m.group(2), essay, count=1)
-    # the read time of the main read: no folds, references, masthead, scripts, styles or figure text
-    main = essay[:essay.index('<section id="refs">')]
-    main = re.sub(r'<details.*?</details>|<script.*?</script>|<style.*?</style>|<svg.*?</svg>|<header.*?</header>', '', main, flags=re.S)
-    import html as html_lib
-    text = ' '.join(re.findall(r'<(?:p|li|figcaption|h2)(?:\s[^>]*)?>(.*?)</(?:p|li|figcaption|h2)>', main, flags=re.S))
-    words = re.findall(r"[A-Za-z0-9][A-Za-z0-9'\u2019\-]*", html_lib.unescape(re.sub(r'<[^>]+>', ' ', text)))
-    mins = max(1, round(len(words) / 230))
-    essay = re.sub(r'<span id="readtime">[^<]*</span>', f'<span id="readtime">{mins} min read</span>', essay)
+    essay, words, mins = read_time(essay)
     ESSAY.write_text(essay, encoding='utf-8')
-    print('main read', len(words), 'words,', mins, 'min')
+    print('main read', words, 'words,', mins, 'min')
     left = sorted(set(re.findall(r'href="#r\d+"', essay)))
     assert not left, left
     print('folded', ', '.join(blocks), 'into', ESSAY.name, '| references', base, '+', len(extras))
@@ -492,4 +496,9 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    if '--readtime' in sys.argv:
+        essay, words, mins = read_time(ESSAY.read_text(encoding='utf-8'))
+        ESSAY.write_text(essay, encoding='utf-8')
+        print('main read', words, 'words,', mins, 'min')
+    else:
+        main()

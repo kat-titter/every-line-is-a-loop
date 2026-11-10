@@ -33,9 +33,10 @@ shape the numbers; `results/tables.md` holds the tables as Markdown.
   (`table_figures.py`, `story_figures.py`, `bio_figures.py`, `interactive.py`), the element names and predictions
   (`elements.py`), the census builder (`build_post.py`), the fold that places the census in the essay
   (`fold_census.py`), the essay's live circuit figures (`circuit_figures.py`, which checks the switch, clock and
-  adapter models before drawing them) and the punchline figure (`loop_morph.py`).
+  adapter models, and Figure 1's line-into-loop model, before drawing them) and the punchline figure (`loop_morph.py`).
 - `results/`: the census output for release 31 (JSON Lines per model, summary tables).
-- `tools/`: checks run on every build (tag balance and screenshots, reference numbering, figure overlaps).
+- `tools/`: checks run on every build (tag balance and screenshots, reference numbering, figure overlaps), and
+  `bake.py`, which writes Figure 1's first frame into the page so it reads without JavaScript.
 
 ## Licence
 
