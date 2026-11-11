@@ -3,7 +3,7 @@
 One essay proposing and testing a periodic table for the feedback circuits inside cells, with the code and data
 that rebuild every number in it.
 
-**Every line is a loop: a periodic table for biology** (`every-line-is-a-loop.html`). Count a circuit's feedback
+**Every line is a loop: what would a maximally plausible periodic table for biology look like?** (`every-line-is-a-loop.html`). Count a circuit's feedback
 loops, how many of them brake, and how many keep a running total, and a table of 4, 9 and 16 elements appears for
 one, two and three loops. Three real circuits run live on the page. A census of the 640 curated models in BioModels
 release 31 is placed on the table: one band fills, the other stays nearly empty, and the essay reads the empty band
