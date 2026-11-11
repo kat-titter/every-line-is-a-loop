@@ -119,6 +119,7 @@ def check(a):
         f"{cl['models_without']} have no brake",
         f"tick {round(cl['expected_without_by_chance'])} times",
         odds(cl['p_none_by_chance']),
+        f"about {round(math.log2(1 / cl['p_none_by_chance']))} tails in a row",
         f"{sw['models_with_loop']} of the {a['rules']['autonomous']} carry a self-feeding loop and {sw['behaving_with_loop']} switch",
         f"{cl['models_with_loop']} carry a brake and {cl['behaving_with_loop']} tick",
         f"Strict, {dl['strict']['filled']} of 29",
