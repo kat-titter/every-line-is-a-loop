@@ -41,6 +41,10 @@ so a rerun gives identical files apart from the timing field `seconds`.
 - `tabulate.py`: occupancy of each row under four counting rules, the essay's test (kinds of behaviour
   per row), the proven-rule checks, the replication against Baudier et al.'s Table 1, the alternative
   split (amplifying loops after the filters, braking loops as drawn) and the running-total controls.
+- `audit.py`: two audits read from `results/` alone, in about a second: how many failures chance would have sent
+  the proven-rule checks (and how often each rule, run backwards, forecasts its behaviour), and a sweep of the loose
+  running-total cut with the models that fill the elements it adds. Writes `results/audit.json`; `--check` fails
+  if the essay's sentences no longer match.
 - `report_tables.py`: `results/tables.md`, the same numbers as Markdown.
 - `toys.py`: the enzyme and three-gene ring of Figure 1 and a toy antithetic controller, built as SBML and
   counted by `loops.py` and `integrators.py`; it fails if any reading gets a toy wrong.

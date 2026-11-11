@@ -1,0 +1,235 @@
+{
+ "rules": {
+  "autonomous": 392,
+  "switch": {
+   "models_with_loop": 369,
+   "models_without": 23,
+   "behaving": 12,
+   "behaving_with_loop": 12,
+   "behaving_without_loop": 0,
+   "expected_without_by_chance": 0.7040816326530612,
+   "p_none_by_chance": 0.4788856920492652
+  },
+  "clock": {
+   "models_with_loop": 341,
+   "models_without": 51,
+   "behaving": 101,
+   "behaving_with_loop": 101,
+   "behaving_without_loop": 0,
+   "expected_without_by_chance": 13.14030612244898,
+   "p_none_by_chance": 7.158617503213847e-08
+  }
+ },
+ "dial": {
+  "strict": {
+   "rows": {
+    "1": 2,
+    "2": 5,
+    "3": 5
+   },
+   "filled": 12
+  },
+  "sweep": {
+   "0.0": {
+    "rows": {
+     "1": 4,
+     "2": 7,
+     "3": 7
+    },
+    "filled": 18
+   },
+   "0.001": {
+    "rows": {
+     "1": 4,
+     "2": 7,
+     "3": 7
+    },
+    "filled": 18
+   },
+   "0.01": {
+    "rows": {
+     "1": 4,
+     "2": 7,
+     "3": 7
+    },
+    "filled": 18
+   },
+   "0.03": {
+    "rows": {
+     "1": 4,
+     "2": 7,
+     "3": 8
+    },
+    "filled": 19
+   },
+   "0.1": {
+    "rows": {
+     "1": 4,
+     "2": 9,
+     "3": 9
+    },
+    "filled": 22
+   },
+   "0.3": {
+    "rows": {
+     "1": 4,
+     "2": 8,
+     "3": 10
+    },
+    "filled": 22
+   },
+   "1.0": {
+    "rows": {
+     "1": 4,
+     "2": 8,
+     "3": 12
+    },
+    "filled": 24
+   }
+  },
+  "new_at_zero": {
+   "row 1 (0, 1)": [
+    {
+     "model": "BIOMD0000000459",
+     "name": "Liebal2012 - B.subtilis post-transcriptional instability model",
+     "nodes": [
+      "x"
+     ],
+     "behaviours": [
+      "unbounded"
+     ],
+     "voltage": false
+    },
+    {
+     "model": "BIOMD0000000483",
+     "name": "Cao2008 - Network of a toggle switch",
+     "nodes": [
+      "Da",
+      "Db"
+     ],
+     "behaviours": [
+      "steady"
+     ],
+     "voltage": false
+    }
+   ],
+   "row 1 (1, 1)": [
+    {
+     "model": "BIOMD0000000377",
+     "name": "Bertram2000_PancreaticBetaCells_Oscillations",
+     "nodes": [
+      "V"
+     ],
+     "behaviours": [
+      "oscillating"
+     ],
+     "voltage": true
+    },
+    {
+     "model": "BIOMD0000000460",
+     "name": "Liebal2012 - B.subtilis sigB proteolysis model",
+     "nodes": [
+      "x"
+     ],
+     "behaviours": [],
+     "voltage": false
+    }
+   ],
+   "row 2 (0, 1)": [
+    {
+     "model": "BIOMD0000000337",
+     "name": "Pfeiffer2001_ATP-ProducingPathways_CooperationCompetition",
+     "nodes": [
+      "N2"
+     ],
+     "behaviours": [
+      "damped",
+      "steady"
+     ],
+     "voltage": false
+    },
+    {
+     "model": "BIOMD0000000520",
+     "name": "Smallbone2013 - Colon Crypt cycle - Version 0",
+     "nodes": [
+      "N0"
+     ],
+     "behaviours": [
+      "continuum",
+      "steady"
+     ],
+     "voltage": false
+    }
+   ],
+   "row 2 (2, 2)": [
+    {
+     "model": "BIOMD0000000371",
+     "name": "DeVries2000_PancreaticBetaCells_InsulinSecretion",
+     "nodes": [
+      "V_membrane"
+     ],
+     "behaviours": [
+      "oscillating"
+     ],
+     "voltage": true
+    }
+   ],
+   "row 3 (2, 2)": [
+    {
+     "model": "BIOMD0000000374",
+     "name": "Bertram1995_PancreaticBetaCell_CRAC",
+     "nodes": [
+      "V_membrane"
+     ],
+     "behaviours": [
+      "oscillating",
+      "unbounded"
+     ],
+     "voltage": true
+    },
+    {
+     "model": "BIOMD0000000375",
+     "name": "Mears1997_CRAC_PancreaticBetaCells",
+     "nodes": [
+      "V_membrane"
+     ],
+     "behaviours": [
+      "oscillating"
+     ],
+     "voltage": true
+    }
+   ],
+   "row 3 (2, 3)": [
+    {
+     "model": "BIOMD0000000304",
+     "name": "Plant1981_BurstingNerveCells",
+     "nodes": [
+      "V_membrane"
+     ],
+     "behaviours": [
+      "oscillating"
+     ],
+     "voltage": true
+    }
+   ]
+  },
+  "new_cells_at_zero": 6,
+  "models_at_zero": 10,
+  "voltage_models": 5,
+  "voltage_models_oscillate": 5,
+  "cells_on_voltage_alone": 3,
+  "readings_below_one": 4379,
+  "readings_at_zero": 777,
+  "readings_by_half_decade": {
+   "-4.0": 39,
+   "-3.5": 36,
+   "-3.0": 87,
+   "-2.5": 98,
+   "-2.0": 126,
+   "-1.5": 237,
+   "-1.0": 417,
+   "-0.5": 1840,
+   "0.0": 722
+  }
+ }
+}

@@ -23,4 +23,5 @@ $PY analysis/nesting.py > /dev/null
 $PY analysis/build_post.py
 $PY analysis/circuit_figures.py > /dev/null
 $PY analysis/fold_census.py
+$PY analysis/audit.py --check
 echo "done: results/tables.md and every-line-is-a-loop.html"
