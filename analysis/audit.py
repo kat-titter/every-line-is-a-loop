@@ -113,6 +113,7 @@ def check(a):
     s = (ROOT / 'every-line-is-a-loop.html').read_text(encoding='utf-8')
     sw, cl, dl = a['rules']['switch'], a['rules']['clock'], a['dial']
     sweep = dl['sweep']
+    with_reactions = json.load(open(RES / 'tables_traj.json'))['replication']['with reactions']['models']
     want = [
         f"{sw['models_without']} have no self-feeding loop",
         f"{sw['expected_without_by_chance']:.1f} switches",
@@ -125,7 +126,9 @@ def check(a):
         f"Strict, {dl['strict']['filled']} of 29",
         f"reads as zero: {sweep['0.0']['filled']}, and still {sweep['0.01']['filled']} with the dial at a hundredth",
         f"the cut used above, {sweep['0.1']['filled']}; at one, {sweep['1.0']['filled']}",
-        f"The {dl['new_cells_at_zero']} elements that arrive at zero rest on {dl['models_at_zero']} models",
+        f"Those {dl['new_cells_at_zero']} elements rest on {dl['models_at_zero']} models",
+        f"{dl['new_cells_at_zero']} of the {sweep['0.1']['filled'] - dl['strict']['filled']} elements that loosening adds",
+        f"for the {with_reactions} census models that have reactions",
         f"{dl['cells_on_voltage_alone']} of the {dl['new_cells_at_zero']} rest on voltages alone",
         f"{dl['readings_below_one']:,} readings below one",
         f"pile of {dl['readings_at_zero']} that read as zero",
