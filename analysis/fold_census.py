@@ -71,10 +71,10 @@ NEW_REFS = [
 ALIASES = {}
 
 # Figure numbers in the merged page for the figures that come from the census build.
-# The essay's own captions sit outside the gen: markers and are numbered by hand (10, 11 and 19 since 2026-11-10).
+# The essay's own captions sit outside the gen: markers and are numbered by hand (10, 11 and 22 since the question chapter, 2026-11-10; the essay's own caption sits outside gen:next).
 FIG = {'Figure 5. The periodic table of loops.': 'Figure 10. The periodic table of loops.',
        'Figure 6. The data.': 'Figure 11. The data.',
-       'Figure 7. The research loop.': 'Figure 19. The research loop.'}
+       'Figure 7. The research loop.': 'Figure 22. The research loop.'}
 
 CSS_WANT = ['.pt-', '.ptable', '.ecard', '.rc-', '.refcard', '.tile', '.tiles', '.cards', '.card', '.summary-cards', '.f-', '.explorer',
             '.ex-', 'ol.ex-list', '#ex-q', '.pick', '.sl-', '.sn', '.sp', '.solo', '.bars', '.grid-fig', '.grid-key', '.rows-grid', '.quad',

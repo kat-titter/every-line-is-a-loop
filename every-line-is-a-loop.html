@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Every line is a loop: a periodic table for biology</title>
+<title>Every line is a loop: what would a maximally plausible periodic table for biology look like?</title>
 <meta name="description" content="Chemistry has a periodic table because electrons come in whole numbers. A cell's circuits have whole numbers too: loops, brakes and running totals. Count them and a table appears, with one element that never closes.">
 <style>
   :root {
@@ -322,6 +322,137 @@
   }
   @media print { #ff-card { display: none; } .mast .mark { max-width: 100%; } }
 
+  /* ---- chapter 07, the question, merged 2026-11-10 from proto/question.html and proto/context.html, hand-written
+     like the front. Classes are prefixed (q-, cx-). Lime is met, found or holds up; nothing here is rose. */
+  .text ol.q-tests { counter-reset: qt; list-style: none; padding: 0; margin: 0 0 var(--s5); }
+  .text .q-tests li { counter-increment: qt; position: relative; padding-left: var(--s6); margin: 0 0 var(--s4); font-size: var(--t3); line-height: 1.5; }
+  .q-tests li::before { content: counter(qt, decimal-leading-zero); position: absolute; left: 0; top: 0.25em; font: 500 var(--t1)/1.4 var(--code); color: var(--muted); }
+  .text > p.q-idea { font: 400 var(--t3)/1.55 var(--code); color: var(--ink); border-left: 1px solid var(--rule); padding-left: var(--s4); }
+  .q-idea .q-by { display: block; font: 500 var(--t1)/1.5 var(--code); color: var(--muted); margin-top: var(--s2); }
+  .end > p.q-ack { font: 400 var(--t2)/1.5 var(--sans); color: var(--muted); margin: 0 0 var(--s2); }
+
+  /* Figure 17, cancer, neurodegeneration and aging: a small matrix of the essay's own claims, at the end of chapter 06 */
+  table.q-dz { margin: 0; table-layout: fixed; font: 400 var(--t2)/1.45 var(--sans); }
+  table.q-dz thead th { vertical-align: bottom; }
+  table.q-dz thead th:first-child { width: 140px; }
+  table.q-dz thead th:last-child { width: 19%; }
+  table.q-dz tbody th { font: 600 var(--t2)/1.45 var(--sans); letter-spacing: 0; color: var(--ink); }
+  table.q-dz td:last-child, table.q-dz th:last-child { padding-right: 0; }
+  table.q-dz tbody tr:last-child th, table.q-dz tbody tr:last-child td { border-bottom: 0; }
+  table.q-dz .q-h { display: none; }
+  table.q-dz .q-l { display: block; margin-bottom: var(--s2); }
+  table.q-dz .q-st { display: block; font: 600 var(--t1)/1.5 var(--code); color: var(--ink); }
+
+  /* Figure 18, the matrix: one row per table, one column per test, one card for every square */
+  .q-mx { display: grid; grid-template-columns: minmax(0, 236px) repeat(5, minmax(44px, 1fr)); gap: var(--s2) var(--s3); align-items: center; }
+  .q-mx-ch { font: 400 var(--t1)/1.3 var(--sans); color: var(--muted); text-align: center; align-self: end; padding-bottom: var(--s2); }
+  .q-mx-ch b { display: block; font: 500 var(--t1)/1.5 var(--code); color: var(--ink); }
+  .q-mx-rh { text-align: right; padding-right: var(--s3); min-width: 0; font: 400 var(--t2)/1.25 var(--sans); }
+  .q-mx-rh b { font-weight: 600; display: block; }
+  .q-mx-s { font: 400 var(--t1)/1.3 var(--code); color: var(--muted); }
+  .q-mx-e { color: var(--ink); margin-left: var(--s3); }
+  .q-mx-gap { margin-top: var(--s4); }
+  .q-mx-c { -webkit-appearance: none; appearance: none; display: grid; place-items: center; width: 100%; height: 44px; padding: 0; border: 0; border-radius: var(--s3); background: transparent; cursor: pointer; }
+  .q-mx-c:hover, .q-mx-c[aria-expanded="true"] { background: var(--tint); }
+  .q-mx-c:focus-visible { outline: 2px solid var(--ink); outline-offset: 0; }
+  .q-mx-m { display: inline-block; width: 26px; height: 26px; border-radius: 6px; flex: 0 0 auto; vertical-align: middle; }
+  .q-m-f { background: var(--accent); box-shadow: inset 0 0 0 0.75px var(--accent-text); }
+  .q-m-h { background: linear-gradient(90deg, var(--accent) 50%, transparent 50%); box-shadow: inset 0 0 0 0.75px var(--accent-text); }
+  .q-m-e { box-shadow: inset 0 0 0 1.5px var(--muted); opacity: .6; }
+  .q-m-n { background: linear-gradient(var(--muted), var(--muted)) center / 12px 1.5px no-repeat; }
+  .keyrow .q-mx-m { width: 18px; height: 18px; border-radius: 4px; }
+  .keyrow .q-m-n { background-size: 10px 1.5px; }
+  #q-card { position: absolute; z-index: 5; width: 300px; background: var(--paper); color: var(--ink); border: 1px solid var(--rule); border-radius: var(--s4); box-shadow: 0 2px 4px var(--lift), 0 13px 34px -13px var(--lift); padding: var(--s4); font: 400 var(--t2)/1.45 var(--sans); opacity: 0; pointer-events: none; transition: opacity .14s ease; }
+  #q-card.show { opacity: 1; }
+  #q-card b { display: block; font-weight: 600; }
+  #q-card .k { display: block; font: 500 var(--t1)/1.5 var(--code); color: var(--muted); margin-bottom: var(--s3); }
+  #q-card .src { display: block; font: 400 var(--t1)/1.4 var(--code); color: var(--muted); margin-top: var(--s3); }
+  table.q-mx-all { font-size: var(--t2); }
+  table.q-mx-all .q-mx-g th { font: 600 var(--t2)/1.4 var(--sans); letter-spacing: 0; color: var(--ink); padding-top: var(--s5); }
+  table.q-mx-all .q-mx-g th span { font: 400 var(--t1)/1.4 var(--code); color: var(--muted); margin-left: var(--s3); }
+  table.q-mx-all .q-mx-tn { font: 400 var(--t1)/1.6 var(--code); color: var(--muted); white-space: nowrap; }
+  table.q-mx-all .q-mx-m { width: 16px; height: 16px; border-radius: 4px; margin-top: 2px; }
+  table.q-mx-all .q-m-n { background-size: 9px 1.5px; }
+  table.q-mx-all .cite { white-space: normal; vertical-align: baseline; }
+
+  /* Figure 19, the search: a loop and the order of its runs */
+  .q-loop { display: grid; grid-template-columns: minmax(0, 330px) minmax(0, 1fr); gap: var(--s5); align-items: center; }
+  figure.fig .q-svg { display: block; width: 100%; max-width: 330px; height: auto; }
+  .q-run { list-style: none; margin: 0; padding: 0; font: 400 var(--t2)/1.35 var(--sans); }
+  .q-run li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 0 var(--s2); padding: var(--s3) 0; border-top: 1px solid var(--rule); }
+  .q-run li:first-child { border-top: 0; }
+  .q-run .q-n { font: 500 var(--t1)/1.6 var(--code); color: var(--muted); }
+  .q-run .q-r { grid-column: 2; font: 400 var(--t1)/1.5 var(--code); color: var(--muted); }
+  table.q-data td:first-child { font-weight: 500; white-space: nowrap; }
+  table.q-data .q-lic { font: 400 var(--t1)/1.7 var(--code); white-space: nowrap; padding-right: 0; }
+  table.q-data .q-tag { display: block; font: 500 var(--t1)/1.4 var(--code); color: var(--muted); }
+
+  /* the fold "who else has looked": the arguments two by two, then one row per camp */
+  .cx-splits { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5) var(--s6); margin: 0 0 var(--s5); }
+  .cx-split h4 { font: 600 var(--t4)/1.2 var(--sans); letter-spacing: -0.01em; margin: 0 0 var(--s3); }
+  .cx-split p { font: 400 var(--t3)/1.6 var(--sans); margin: 0; }
+  table.cx-mx { width: 100%; border-collapse: collapse; table-layout: fixed; font: 400 var(--t2)/1.5 var(--sans); margin: 0; }
+  table.cx-mx th.cx-c-camp { width: 25%; } table.cx-mx th.cx-c-what { width: 23%; } table.cx-mx th.cx-c-ok { width: 26%; } table.cx-mx th.cx-c-no { width: 26%; }
+  table.cx-mx thead th { font: 500 var(--t1)/1.4 var(--code); letter-spacing: 0.06em; color: var(--muted); vertical-align: bottom; padding: 0 var(--s3) var(--s3); border-bottom: 0; }
+  table.cx-mx thead th:first-child { padding-left: 0; }
+  .cx-sw { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: var(--s2); vertical-align: -0.5px; }
+  .cx-sw-ok { background: var(--accent); box-shadow: inset 0 0 0 0.75px var(--accent-text); }
+  .cx-sw-no { box-shadow: inset 0 0 0 1.5px var(--muted); }
+  table.cx-mx tbody th, table.cx-mx tbody td { vertical-align: top; padding: var(--s4) var(--s3); border-top: 1px solid var(--rule); border-bottom: 0; overflow-wrap: break-word; }
+  table.cx-mx tbody th { font-weight: 400; padding-left: 0; }
+  .cx-camp { display: grid; grid-template-columns: 28px minmax(0, 1fr); column-gap: var(--s3); align-items: start; }
+  figure.fig .cx-camp svg { width: 28px; height: 28px; margin-top: -2px; color: var(--ink); }
+  .cx-name { font: 600 var(--t3)/1.25 var(--sans); display: block; margin: 0 0 var(--s2); }
+  .cx-who, .cx-src { display: block; font: 400 var(--t1)/1.45 var(--sans); color: var(--muted); grid-column: 2; }
+  .cx-who b { font: 500 var(--t1)/1.45 var(--code); color: var(--ink); }
+  .cx-src { font-family: var(--code); margin-top: var(--s2); }
+  .cx-src .cite { vertical-align: baseline; white-space: normal; }
+  .cx-tag { grid-column: 2; justify-self: start; font: 500 var(--t1)/1.6 var(--code); letter-spacing: 0.06em; border: 1px solid var(--rule); border-radius: 999px; padding: 0 var(--s3); color: var(--muted); margin: 0 0 var(--s2); }
+  .cx-where { display: block; color: var(--muted); margin-top: var(--s2); }
+  td.cx-ok > div, td.cx-no > div { border-radius: var(--s3); padding: var(--s3) var(--s4); }
+  td.cx-ok > div { background: var(--accent-tint); } td.cx-no > div { background: var(--tint); }
+  table.cx-mx tbody td.cx-ok, table.cx-mx tbody td.cx-no { padding: var(--s3) var(--s2); }
+  table.cx-mx tbody tr.cx-own th, table.cx-mx tbody tr.cx-own td { border-top: 2px solid var(--ink); }
+
+  /* Supplement B: a long code line wraps on a phone, so the page never scrolls sideways */
+  ol.steps pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+  @media (prefers-reduced-motion: reduce) { #q-card { transition: none; } }
+  @media (max-width: 720px) {
+    .cx-splits { grid-template-columns: 1fr; }
+    table.cx-mx, table.cx-mx tbody, table.cx-mx tr, table.cx-mx th, table.cx-mx td { display: block; width: auto; }
+    table.cx-mx thead { display: none; }
+    table.cx-mx tbody tr { padding: var(--s5) 0; border-top: 1px solid var(--rule); }
+    table.cx-mx tbody tr:first-child { border-top: 0; padding-top: var(--s2); }
+    table.cx-mx tbody tr.cx-own { border-top: 2px solid var(--ink); }
+    table.cx-mx tbody th, table.cx-mx tbody td, table.cx-mx tbody tr.cx-own th, table.cx-mx tbody tr.cx-own td { border-top: 0; padding: 0; margin: 0 0 var(--s4); }
+    table.cx-mx tbody td.cx-ok, table.cx-mx tbody td.cx-no { padding: 0; }
+    table.cx-mx tbody td:last-child { margin-bottom: 0; }
+    table.cx-mx tbody td::before { content: attr(data-l); display: block; font: 500 var(--t1)/1.4 var(--code); letter-spacing: 0.06em; color: var(--muted); margin: 0 0 var(--s2); }
+  }
+  @media (max-width: 640px) {
+    .q-mx { grid-template-columns: minmax(0, 1fr) repeat(5, 46px); gap: var(--s1); }
+    .q-mx-ch { font-size: 11px; }
+    .q-mx-rh { font-size: var(--t1); padding-right: var(--s2); }
+    .q-mx-t { display: none; }
+    .q-mx-e { margin-left: 0; font-size: 11px; }
+    #q-card { position: fixed; left: var(--s4) !important; right: var(--s4); top: auto !important; bottom: var(--s4); width: auto; }
+    #q-card.up { top: var(--s4) !important; bottom: auto; }
+    table.q-mx-all .q-mx-tn { white-space: normal; width: 74px; }
+    table.q-mx-all td { padding-right: var(--s3); }
+    .q-loop { grid-template-columns: 1fr; }
+    table.q-data td:first-child { white-space: normal; }
+    table.q-data .q-lic { white-space: normal; }
+    table.q-dz, table.q-dz tbody, table.q-dz tr, table.q-dz th, table.q-dz td { display: block; }
+    table.q-dz thead { display: none; }
+    table.q-dz tbody tr { border-bottom: 1px solid var(--rule); padding: var(--s3) 0 var(--s4); }
+    table.q-dz tbody tr:last-child { border-bottom: 0; padding-bottom: 0; }
+    table.q-dz tbody th, table.q-dz td { border-bottom: 0; padding: var(--s2) 0; }
+    table.q-dz tbody th { font-size: var(--t3); }
+    table.q-dz .q-h { display: block; font: 500 var(--t1)/1.5 var(--code); letter-spacing: 0.06em; color: var(--muted); }
+  }
+  @media print { #q-card { display: none; } }
+
   @media (prefers-reduced-motion: reduce) { .ring, .fade, .chip, summary::before, .pool > * { transition: none; } }
   @media (max-width: 640px) {
     .post { padding: var(--s5) var(--s4) var(--s7); }
@@ -635,8 +766,8 @@ window.ElCard = (function () {
   <p class="top"><span>Cell and systems biology</span><span>November 2026</span></p>
   <h1>Every line is a loop</h1>
   <svg class="mark" viewBox="0 0 600 34" aria-hidden="true"><path pathLength="100" d="M0 30 H574 A13 13 0 0 0 574 4 A13 13 0 0 0 574 30"/></svg>
-  <p class="sub">A periodic table for biology</p>
-  <p class="meta"><span>Kat Titterton</span><span>Macrofluidics</span><span id="readtime">17 min read</span><span class="tag">draft for comment</span><a href="#count">the count</a><a href="https://github.com/kat-titter/every-line-is-a-loop">code</a></p>
+  <p class="sub">What would a maximally plausible periodic table for biology look like?</p>
+  <p class="meta"><span>Kat Titterton</span><span>Macrofluidics</span><span id="readtime">19 min read</span><span class="tag">draft for comment</span><a href="#count">the count</a><a href="https://github.com/kat-titter/every-line-is-a-loop">code</a></p>
 </header>
 
 <div class="text coldopen">
@@ -666,10 +797,11 @@ window.ElCard = (function () {
 <ol>
 <li><span class="toc-n">05</span><a href="#atlas">the atlas</a></li>
 <li><span class="toc-n">06</span><a href="#models">when a brake fails</a></li>
+<li><span class="toc-n">07</span><a href="#question">the question</a></li>
 </ol>
 <p class="toc-p">Coda</p>
 <ol>
-<li><span class="toc-n">07</span><a href="#line">the table is a loop</a></li>
+<li><span class="toc-n">08</span><a href="#line">the table is a loop</a></li>
 </ol>
 </div>
 </nav>
@@ -964,7 +1096,7 @@ window.ElCard = (function () {
 })();
 </script>
 <!-- /gen:ptable -->
-<figcaption><b>Figure 10. The periodic table of loops.</b> Each band counts loops; moving right adds a brake, moving down a running total (&#8747;). Dashed traces are predictions, and the fold below explains the rest.</figcaption>
+<figcaption><b>Figure 10. The periodic table of loops.</b> Bands count loops; right adds a brake, down a running total (&#8747;). Dashed traces are predictions; the fold below explains more.</figcaption>
 </figure>
 <div class="text">
 <details class="fold">
@@ -996,7 +1128,7 @@ window.ElCard = (function () {
 <p>Nice theory. Does biology agree? To check, a census (think of it as a linter for cell biology) read 613 published cell models from BioModels, a public library where each model is checked against its paper by a curator <span class="cite">[24, 40, 41, 42]</span> (<a href="#supp-b">Supplement B</a>). It traced every loop in each model, filed the model at its address, and kept a log anyone can rerun with one command. All 9 elements without a running total are filled. Of the 20 with one, just 3. <mark>The table is fullest where biology already had words.</mark></p>
 <p>Then the harder test, of the three findings themselves (<a href="#supp-e">Supplement E</a>):</p>
 <ul class="beats">
-<li><span class="beat">shape</span><b>The kind of loop sets what a circuit can do.</b> In 392 models whose behaviour could be read, every switch has a self-feeding loop and every clock a brake. No exceptions. A proved rule can&#8217;t have any, so this mostly checks the census&#8217;s reading of the models (the fold below says how hard a check it was).</li>
+<li><span class="beat">shape</span><b>The kind of loop sets what a circuit can do.</b> In 392 models whose behaviour could be read, every switch has a self-feeding loop and every clock a brake. No exceptions, as a proved rule requires, so this mostly checks the census (the fold below says how hard).</li>
 <li><span class="beat">behaviour</span><b>Its strength decides whether it does.</b> Gain called the behaviour of all 9 circuits made of a single loop. One miss among loops the filters isolate: a 1995 fly clock.</li>
 <li><span class="beat">table</span><b>What a circuit does survives redrawing; its count doesn't.</b> Five models of the same fly clock, drawn at different detail, land at four addresses, and all of them tick.</li>
 </ul>
@@ -1101,7 +1233,7 @@ window.ElCard = (function () {
 <summary>chemistry&#8217;s other reasons, each with its cure</summary>
 <ul>
 <li><b>It falls apart before it is weighed.</b> Technetium decays too fast to survive in the Earth's crust; it was made in a particle accelerator in 1937 before anyone found it in nature <span class="cite">[48]</span>, and promethium turned up in a reactor a decade later <span class="cite">[62]</span>. One kind of exact running total needs unusual chemistry too, two molecules that destroy each other <span class="cite">[46]</span>, first built in bacteria, reported in 2017 and published in 2019 <span class="cite">[52, 47]</span>. Made before found.</li>
-<li><b>It hides among look-alikes.</b> Hafnium sat in zirconium ores, chemically a twin, until Bohr said where to look and Coster and Hevesy found it by its X-ray spectrum in 1923 <span class="cite">[61]</span>, the spectra by which Moseley had just ordered the elements by number rather than weight <span class="cite">[39]</span>. The loop table's version: a loop through a running total draws the same picture as a plain brake. Only how it answers a push that rises and falls at many speeds tells them apart, which is why the assay in chapter 07 needs a pump and a camera rather than a parts list.</li>
+<li><b>It hides among look-alikes.</b> Hafnium sat in zirconium ores, chemically a twin, until Bohr said where to look and Coster and Hevesy found it by its X-ray spectrum in 1923 <span class="cite">[61]</span>, the spectra by which Moseley had just ordered the elements by number rather than weight <span class="cite">[39]</span>. The loop table's version: a loop through a running total draws the same picture as a plain brake. Only how it answers a push that rises and falls at many speeds tells them apart, which is why the assay in chapter 08 needs a pump and a camera rather than a parts list.</li>
 <li><b>It is simply not found yet.</b> Gallium, scandium and germanium filled Mendeleev's squares within fifteen years, and some of his other predictions never came true at all <span class="cite">[38]</span>. The census read release 31, from 2017; running totals entered the field's vocabulary in 2000 <span class="cite">[5]</span> and were built as parts by 2019 <span class="cite">[47]</span>. Newer releases, and computer-built circuits searched for exact adaptation <span class="cite">[50]</span>, may fill the band.</li>
 </ul>
 </details>
@@ -1136,13 +1268,13 @@ window.ElCard = (function () {
 <p>Two checks could have failed. Tyson's sniffer, a textbook adapter wired with no loop at all <span class="cite">[31]</span>, lands in returns exactly: same answer, different wiring, which is the atlas's whole argument in one model. The yeast osmo-stress model, whose real cells come back exactly <span class="cite">[15]</span>, couldn't be read: its solver fails 23 minutes after the salt step, with Hog1 still 13 times its starting level. To be candid, that check is still open.</p>
 <p>This isn't the first catalogue. Tyson, Chen and Nov&aacute;k named sniffers, buzzers, toggles and blinkers <span class="cite">[31]</span>; Ma and colleagues found the wirings that adapt <span class="cite">[50]</span>; Alon catalogued the motifs that recur <span class="cite">[43, 44]</span>. What's new is the order: answers first, measured by pushing, and wirings second, many to each answer. That order makes three predictions that could fail. The alphabet stays this small as BioModels grows. Living cells pushed in a microfluidic chamber <span class="cite">[14, 15]</span> land in the same six rows. And a disease shows up as a fingerprint drifting before anything piles up.</p>
 <details class="fold">
-<summary>other tables biology could have</summary>
+<summary>other numbers a table could use</summary>
 <p>What makes a number good enough to build a table on? It has to stay put however you look at it. Carbon keeps its six protons however badly you draw it, which is why atomic number could anchor chemistry. The loop count moves. Draw the same circuit in finer detail and loops appear, the way a coastline grows when you measure it with a shorter ruler (Supplement C). Other numbers might hold still where loops don&#8217;t, though none has been tried on the census, and each carries its own reasons for hope and for doubt.</p>
 <ul>
-<li><b>How rest gives way.</b> Push a resting nerve cell a little harder each time and, at some push, rest breaks. Izhikevich sorts nerve cells by how it breaks into integrators and resonators, and each kind either always falls back to rest or can keep firing once started <span class="cite">[79]</span>. An integrator banks pushes and fires once enough arrive, sooner the faster they come; a resonator answers best to one rhythm, like a swing that only climbs when you push in time. Engineers should mind a clash of words here. Izhikevich&#8217;s &#8216;integrator&#8217; adds up input until it fires, which makes it a cousin of Sw&#8747;, and it is a different animal from the running total of integral control. Why might this sort stay put? It is read from what a cell does, and chapter 03 found that what a circuit does survives redrawing in 4 of 5 families. Nobody has sorted the census this way, though, and one family in five did change what it does when redrawn.</li>
-<li><b>Deficiency.</b> Could a number be read straight off the chemistry, with no simulation at all? Feinberg&#8217;s deficiency can. Write the chemistry as a recipe, one reaction per step, then count the different sides of the reactions and take away the groups those sides link into and the steps that are really different <span class="cite">[80]</span>. Take a network where the result is zero, every step can be undone by some route, and molecules react at the rate they meet. For each fixed amount of material it has exactly one resting point with every molecule present, and that point is stable at any speeds. Such a network can never switch, and a loop count would never notice. In A &#8652; 2A each A copies itself, which is a loop that feeds itself, and two copies can merge back into one; two sides, one group and one real step give 2 &#8722; 1 &#8722; 1 = 0. The more copies there are, the more often they bump into each other and merge, so the crowd always settles at one size. Deficiency could be computed today for the 540 census models that have reactions. Chemists will see the catch at once: its theorems assume that molecules react at the rate they meet, and many published models, the repressilator among them, use other rate laws.</li>
-<li><b>Proportional, integral, derivative.</b> What does an engineer count that this table doesn&#8217;t? A good driver keeps an eye on how far off the speed is, how long it has been off, and how fast it is changing, and control engineers call those proportional, integral and derivative control. The table counts brakes and running totals, which roughly cover the first two (a brake pushes back harder the further off you are), and has no square for the third, though designs exist for all of them in molecules <span class="cite">[81]</span>. A count for the third would give circuits that answer change itself somewhere to live. Tyson&#8217;s sniffer does exactly that with no loop at all, however, so the count might have to include lines, and then this would stop being a table of loops.</li>
-<li><b>Shape at other scales.</b> Has anyone built a periodic table for biology before? Several people have, at other scales. Taylor drew one for protein folds <span class="cite">[82]</span>, and Ahnert&#8217;s team drew one for protein complexes <span class="cite">[45]</span>. Newman and Bhat went bigger, with a pattern language for animal form in which gene products team up with physics, and two of their physical processes, multistable and oscillatory dynamics, are this essay&#8217;s switch and clock under other names <span class="cite">[83]</span>. The genetic code, meanwhile, was a table all along, its three-letter words spelled from four letters. All of these count physical parts, which don&#8217;t multiply when you squint harder. None was built for circuits, and whether their counts carry over to feedback is untested.</li>
+<li><b>How rest gives way.</b> Push a resting nerve cell a little harder each time and, at some push, rest breaks. Izhikevich sorts nerve cells by how it breaks into integrators and resonators, and each kind either always falls back to rest or can keep firing once started <span class="cite">[145]</span>. An integrator banks pushes and fires once enough arrive, sooner the faster they come; a resonator answers best to one rhythm, like a swing that only climbs when you push in time. Engineers should mind a clash of words here. Izhikevich&#8217;s &#8216;integrator&#8217; adds up input until it fires, which makes it a cousin of Sw&#8747;, and it is a different animal from the running total of integral control. Why might this sort stay put? It is read from what a cell does, and chapter 03 found that what a circuit does survives redrawing in 4 of 5 families. Chapter 07&#8217;s decision landscapes already sort fate choices by the shape of their tipping points <span class="cite">[103]</span>. Nobody has sorted the census this way, though, and one family in five did change what it does when redrawn.</li>
+<li><b>Deficiency.</b> Could a number be read straight off the chemistry, with no simulation at all? Feinberg&#8217;s deficiency can. Write the chemistry as a recipe, one reaction per step, then count the different sides of the reactions and take away the groups those sides link into and the steps that are really different <span class="cite">[146]</span>. Take a network where the result is zero, every step can be undone by some route, and molecules react at the rate they meet. For each fixed amount of material it has exactly one resting point with every molecule present, and that point is stable at any speeds. Such a network can never switch, and a loop count would never notice. In A &#8652; 2A each A copies itself, which is a loop that feeds itself, and two copies can merge back into one; two sides, one group and one real step give 2 &#8722; 1 &#8722; 1 = 0. The more copies there are, the more often they bump into each other and merge, so the crowd always settles at one size. Deficiency could be computed today for the 540 census models that have reactions. Chemists will see the catch at once: its theorems assume that molecules react at the rate they meet, and many published models, the repressilator among them, use other rate laws.</li>
+<li><b>Proportional, integral, derivative.</b> What does an engineer count that this table doesn&#8217;t? A good driver keeps an eye on how far off the speed is, how long it has been off, and how fast it is changing, and control engineers call those proportional, integral and derivative control. The table counts brakes and running totals, which roughly cover the first two (a brake pushes back harder the further off you are), and has no square for the third, though designs exist for all of them in molecules <span class="cite">[147]</span>. A count for the third would give circuits that answer change itself somewhere to live. Tyson&#8217;s sniffer does exactly that with no loop at all, however, so the count might have to include lines, and then this would stop being a table of loops.</li>
+<li><b>Tables others have drawn.</b> Has anyone built a periodic table for biology before? Several people have, at other scales, and chapter 07 holds each one to chemistry&#8217;s tests: folds, complexes, capsids, codons, cell types and niches. One more belongs on that list. Newman and Bhat wrote a pattern language for animal form, in which gene products team up with physics, and two of their physical processes, multistable and oscillatory dynamics, are this essay&#8217;s switch and clock under other names <span class="cite">[148]</span>. None of these was built for circuits, and whether their counts carry over to feedback is untested.</li>
 </ul>
 </details>
 </div>
@@ -1181,11 +1313,376 @@ window.ElCard = (function () {
 <figcaption><b>Figure 16. Early takes a nudge.</b> Before it commits, a short push back keeps the switch off; after, the push must go below where it lets go.</figcaption>
 </figure>
 </details>
+<div class="text">
+<p><b>The table does not solve cancer, neurodegeneration or aging.</b> If a disease shows up as a behaviour drifting before anything piles up, the table moves the test earlier, and says how hard and how long a treatment must push. That drift is a prediction, untested in living cells.</p>
+</div>
+<figure class="fig" id="fig-brakes" aria-label="Cancer, neurodegeneration and aging, each read as a failing loop.">
+<div class="pane one">
+<table class="q-dz"><thead><tr><th></th><th scope="col">which loop fails</th><th scope="col">the test the table predicts</th><th scope="col">what it says about treatment</th><th scope="col">where the evidence stands</th></tr></thead><tbody>
+<tr><th scope="row">cancer</th><td><span class="q-h">which loop fails</span>A growth switch stuck on, its brakes deleted <span class="cite">[17]</span>.</td><td><span class="q-h">the test the table predicts</span>After DNA damage, a weakening p53 brake should pulse late <span class="cite">[64]</span>.</td><td><span class="q-h">what it says about treatment</span>Late, the brake must go back: restoring p53 shrank established tumours in mice <span class="cite">[18, 19]</span>. Retinoic acid alone, in acute promyelocytic leukaemia: 23 of 24 remissions, eight relapses within months <span class="cite">[68]</span>.</td><td><span class="q-h">where the evidence stands</span><span class="q-l"><span class="q-st">shown</span> p53 put back, in mice</span><span class="q-l"><span class="q-st">predicted</span> the late pulse</span></td></tr>
+<tr><th scope="row">neurodegeneration</th><td><span class="q-h">which loop fails</span>A misfolded seed converts healthy protein into more seeds <span class="cite">[22]</span>; amyloid is cleared more slowly <span class="cite">[65]</span>.</td><td><span class="q-h">the test the table predicts</span>Amyloid’s nightly rhythm should flatten years before plaques <span class="cite">[65, 66]</span>.</td><td><span class="q-h">what it says about treatment</span>Late, the push must go far: lecanemab, clearing amyloid after symptoms, only slowed decline <span class="cite">[67]</span>.</td><td><span class="q-h">where the evidence stands</span><span class="q-l"><span class="q-st">shown</span> amyloid on scans fifteen years before symptoms, in inherited Alzheimer’s <span class="cite">[63]</span></span><span class="q-l"><span class="q-st">predicted</span> the flattened rhythm</span></td></tr>
+<tr><th scope="row">aging</th><td><span class="q-h">which loop fails</span>A counter that only goes up. A family’s resets, early in the embryo <span class="cite">[11, 13]</span>.</td><td><span class="q-h">the test the table predicts</span>Reset it and read it: partial reprogramming restored youthful methylation and vision in old mice <span class="cite">[12]</span>.</td><td><span class="q-h">what it says about treatment</span>No brake to put back, only a reset: short cycles eased the signs of aging and lengthened life in mice that age early <span class="cite">[69]</span>.</td><td><span class="q-h">where the evidence stands</span><span class="q-l"><span class="q-st">conjecture</span> aging as a counter</span><span class="q-l"><span class="q-st">shown</span> resets, in mice</span><span class="q-l"><span class="q-st">hypothesis</span> pulses with rests</span></td></tr>
+</tbody></table>
+</div>
+<figcaption><b>Figure 17. Cancer, neurodegeneration and aging, read as loops.</b> Each cell is in the wording of this chapter or of the aging fold in chapter 08.</figcaption>
+</figure>
+<div class="text">
+<p>A table that sets tests for disease should first pass a few itself.</p>
+</div>
+</section>
+
+<section id="question">
+<div class="text">
+<p class="kicker"><span class="n">07</span>the question</p>
+<h2>Hold every table to chemistry&#8217;s tests</h2>
+<p>The essay has now drawn a table with 17 blank squares and an atlas of six answers. How would anyone know that a table is the right one?</p>
+<h3 id="q-tests">What made chemistry&#8217;s table work?</h3>
+<ol class="q-tests">
+<li><b>Whole numbers.</b> An X-ray quantity “increases from atom to atom by equal steps”: each element gets an integer <span class="cite">[39]</span>.</li>
+<li><b>The address predicts.</b> “The magnitude of the atomic weight determines the properties of the element” <span class="cite">[79]</span>.</li>
+<li><b>Blanks are promises.</b> Mendeleev’s 1869 table held question marks at weights 45, 68 and 70 <span class="cite">[79]</span>. Scandium, gallium and germanium weigh 45.0, 69.7 and 72.6 <span class="cite">[80]</span>. How much the hits counted is still debated <span class="cite">[38, 81]</span>.</li>
+<li><b>A theory explains the shape.</b> Rows of 2, 8, 18 and 32 are 2n²; the exclusion principle says why <span class="cite">[82]</span>.</li>
+<li><b>Units survive.</b> In a reaction “the quality and quantity of the elements remain precisely the same” <span class="cite">[83]</span>.</li>
+</ol>
+<p>A formal definition exists already: order plus similarity <span class="cite">[84]</span>.</p>
+<h3 id="q-scales">The same tests, from quarks to stars</h3>
+<p>A particle was found two years after its square was drawn <span class="cite">[85, 86]</span>; a failed star, thirty-two years after it was foretold <span class="cite">[87, 88]</span>.</p>
+</div>
+<figure class="fig" id="fig-matrix" aria-label="Tables from other fields, each scored on chemistry&#8217;s five tests.">
+<div class="pane one">
+<div class="q-mx" role="group" aria-label="Tables from other fields, each scored on five tests">
+<div class="q-mx-corner"></div>
+<div class="q-mx-ch"><b>01</b>whole<br>numbers</div>
+<div class="q-mx-ch"><b>02</b>predicts</div>
+<div class="q-mx-ch"><b>03</b>blanks</div>
+<div class="q-mx-ch"><b>04</b>theory</div>
+<div class="q-mx-ch"><b>05</b>survives</div>
+<div class="q-mx-rh"><b>hadrons</b><span class="q-mx-s"><span class="q-mx-t">Eightfold Way</span></span></div>
+<button type="button" class="q-mx-c" data-t="Eightfold Way" data-k="01 whole numbers" data-v="met" data-d="Mesons and baryons fall into sets of one and eight; each eight splits into a triplet, a singlet and two doublets." data-s="[89]" aria-label="Eightfold Way, whole numbers: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="Eightfold Way" data-k="02 predicts" data-v="met" data-d="Hypercharge says which changes the strong force allows: particles transform only if its total is conserved." data-s="[85]" aria-label="Eightfold Way, predicts: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="Eightfold Way" data-k="03 blanks" data-v="met" data-d="Gell-Mann predicted the omega-minus in 1962. A hyperon with strangeness minus three was observed in 1964." data-s="[85, 86]" aria-label="Eightfold Way, blanks: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="Eightfold Way" data-k="04 theory" data-v="met" data-d="Three kinds of quark, with their antiparticles, generate the whole pattern." data-s="[85]" aria-label="Eightfold Way, theory: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="Eightfold Way" data-k="05 survives" data-v="in part" data-d="Hypercharge is conserved by the strong and electromagnetic interactions only." data-s="[85]" aria-label="Eightfold Way, survives: in part"><i class="q-mx-m q-m-h"></i></button>
+<div class="q-mx-rh"><b>nuclei</b><span class="q-mx-s"><span class="q-mx-t">chart of nuclides</span></span></div>
+<button type="button" class="q-mx-c" data-t="chart of nuclides" data-k="01 whole numbers" data-v="met" data-d="Every nucleus is a number of protons and a number of neutrons, and has its spot on the chart." data-s="[90]" aria-label="chart of nuclides, whole numbers: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="chart of nuclides" data-k="02 predicts" data-v="in part" data-d="Nuclei with 2, 8, 20, 28, 50, 82 or 126 protons or neutrons are especially stable. Away from those numbers, properties come from models with stated uncertainty." data-s="[91, 90]" aria-label="chart of nuclides, predicts: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="chart of nuclides" data-k="03 blanks" data-v="met" data-d="About 3,000 nuclides are known and about 7,000 are predicted to be bound. 100 new ones were found in 2011." data-s="[90]" aria-label="chart of nuclides, blanks: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="chart of nuclides" data-k="04 theory" data-v="met" data-d="A nucleon’s energy depends on whether it spins with or against its orbit: the idea that explained the higher magic numbers." data-s="[91]" aria-label="chart of nuclides, theory: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="chart of nuclides" data-k="05 survives" data-v="not met" data-d="A nuclear reaction, the field’s own operation, turns one nuclide into another. For nuclei lighter than carbon a proton strike means “the original nucleus is permanently destroyed”." data-s="[92]" aria-label="chart of nuclides, survives: not met"><i class="q-mx-m q-m-e"></i></button>
+<div class="q-mx-rh"><b>elements</b><span class="q-mx-s"><span class="q-mx-t">periodic table</span></span></div>
+<button type="button" class="q-mx-c" data-t="periodic table" data-k="01 whole numbers" data-v="met" data-d="Moseley’s X-ray quantity “increases from atom to atom by equal steps”, one step per element." data-s="[39]" aria-label="periodic table, whole numbers: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="periodic table" data-k="02 predicts" data-v="met" data-d="“The magnitude of the atomic weight determines the properties of the element.” The number is Moseley’s now." data-s="[79, 39]" aria-label="periodic table, predicts: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="periodic table" data-k="03 blanks" data-v="met" data-d="Question marks at 45, 68, 70 and 180 in 1869; scandium, gallium, germanium and hafnium weigh 45.0, 69.7, 72.6 and 178.5. A miss in the same paper: tellurium “cannot have the atomic weight 128”, and weighs 127.6. How much the hits counted is debated." data-s="[79, 80, 38, 81]" aria-label="periodic table, blanks: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="periodic table" data-k="04 theory" data-v="met" data-d="Row lengths 2, 8, 18, 32 are 2n². The exclusion principle closes each shell: one electron per set of four quantum numbers." data-s="[82]" aria-label="periodic table, theory: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="periodic table" data-k="05 survives" data-v="met" data-d="In a reaction “the quality and quantity of the elements remain precisely the same”. Nuclear reactions are the exception, and belong to the row above." data-s="[83, 92]" aria-label="periodic table, survives: met"><i class="q-mx-m q-m-f"></i></button>
+<div class="q-mx-rh"><b>crystals</b><span class="q-mx-s"><span class="q-mx-t">230 space groups</span></span></div>
+<button type="button" class="q-mx-c" data-t="230 space groups" data-k="01 whole numbers" data-v="met" data-d="Schoenflies found 230 types of space group in 1891; Fedorov reached the same classes around 1890." data-s="[93]" aria-label="230 space groups, whole numbers: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="230 space groups" data-k="02 predicts" data-v="in part" data-d="Symmetry forbids: a phase with a centre of symmetry is “therefore non-piezoelectric”. Real samples break the rule where their symmetry breaks locally." data-s="[94]" aria-label="230 space groups, predicts: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="230 space groups" data-k="03 blanks" data-v="in part" data-d="A complete list is a promise that nothing else exists. In 1984 an alloy gave sharp diffraction with a symmetry “inconsistent with lattice translations”." data-s="[93, 95]" aria-label="230 space groups, blanks: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="230 space groups" data-k="04 theory" data-v="met" data-d="The list is geometry: both derivations analyse how axes and mirror planes can be arranged in space." data-s="[93]" aria-label="230 space groups, theory: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="230 space groups" data-k="05 survives" data-v="in part" data-d="A crystal keeps its group until a phase transition: perovskites change symmetry class at the Curie temperature." data-s="[94]" aria-label="230 space groups, survives: in part"><i class="q-mx-m q-m-h"></i></button>
+<div class="q-mx-rh"><b>electron bands</b><span class="q-mx-s"><span class="q-mx-t">tenfold table</span></span></div>
+<button type="button" class="q-mx-c" data-t="tenfold table" data-k="01 whole numbers" data-v="met" data-d="Symmetry and dimension pick one of ten classes; a phase within it carries a number in 0, Z or Z2." data-s="[96]" aria-label="tenfold table, whole numbers: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="tenfold table" data-k="02 predicts" data-v="met" data-d="“The interface between two infinite phases with different topological numbers must carry some gapless mode.”" data-s="[96]" aria-label="tenfold table, predicts: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="tenfold table" data-k="03 blanks" data-v="met" data-d="Fu and Kane predicted in 2007 that the alloy Bi1−xSbx is a topological insulator. Its surface states were mapped in 2008." data-s="[97, 98]" aria-label="tenfold table, blanks: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="tenfold table" data-k="04 theory" data-v="met" data-d="The phases are “classified using Bott periodicity”: two complex classes and eight real ones." data-s="[96]" aria-label="tenfold table, theory: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="tenfold table" data-k="05 survives" data-v="met" data-d="Surface modes “remain gapless under arbitrary perturbations” that keep the symmetries, disorder included. With interactions, Kitaev gives a counterexample." data-s="[99, 96]" aria-label="tenfold table, survives: met"><i class="q-mx-m q-m-f"></i></button>
+<div class="q-mx-rh"><b>codons</b><span class="q-mx-s"><span class="q-mx-t">genetic code</span></span></div>
+<button type="button" class="q-mx-c" data-t="genetic code" data-k="01 whole numbers" data-v="met" data-d="Three bases, four letters each: the standard code is one line of 64 letters." data-s="[100]" aria-label="genetic code, whole numbers: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="genetic code" data-k="02 predicts" data-v="met" data-d="A codon names its amino acid or a stop. The arrangement of neighbours is “highly nonrandom”." data-s="[100, 101]" aria-label="genetic code, predicts: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="genetic code" data-k="03 blanks" data-v="not met" data-d="All 64 squares are filled. None is left to promise." data-s="[100]" aria-label="genetic code, blanks: not met"><i class="q-mx-m q-m-e"></i></button>
+<button type="button" class="q-mx-c" data-t="genetic code" data-k="04 theory" data-v="in part" data-d="Three theories and a frozen accident, none settled. The code is “highly robust to translational misreading”, yet “there are numerous more robust codes”." data-s="[101]" aria-label="genetic code, theory: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="genetic code" data-k="05 survives" data-v="in part" data-d="“Nearly universal.” Variants exist: vertebrate mitochondria read UGA as tryptophan, not stop." data-s="[101, 100]" aria-label="genetic code, survives: in part"><i class="q-mx-m q-m-h"></i></button>
+<div class="q-mx-rh"><b>protein complexes</b><span class="q-mx-s"><span class="q-mx-t">Ahnert’s table</span></span></div>
+<button type="button" class="q-mx-c" data-t="Ahnert’s table" data-k="01 whole numbers" data-v="met" data-d="Three kinds of assembly step, combined, “exhaustively enumerate” the possible topologies." data-s="[45]" aria-label="Ahnert’s table, whole numbers: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="Ahnert’s table" data-k="02 predicts" data-v="in part" data-d="A square gives a complex’s architecture. What the complex does is not on the axes." data-s="[45]" aria-label="Ahnert’s table, predicts: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="Ahnert’s table" data-k="03 blanks" data-v="in part" data-d="It predicts “the expected frequencies of quaternary structure topologies, including those not yet observed”. Whether those turned up was not opened here." data-s="[45]" aria-label="Ahnert’s table, blanks: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="Ahnert’s table" data-k="04 theory" data-v="in part" data-d="The three steps are observed rules: “most assembly transitions” fit them, and the table holds “the vast majority” of known structures." data-s="[45]" aria-label="Ahnert’s table, theory: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="Ahnert’s table" data-k="05 survives" data-v="not met" data-d="Its own steps are moves between squares: an assembly transition turns one topology into another." data-s="[45]" aria-label="Ahnert’s table, survives: not met"><i class="q-mx-m q-m-e"></i></button>
+<div class="q-mx-rh"><b>virus shells</b><span class="q-mx-s"><span class="q-mx-t">table of capsids</span></span></div>
+<button type="button" class="q-mx-c" data-t="table of capsids" data-k="01 whole numbers" data-v="met" data-d="A capsid’s size is set by two integers: the hexamers to walk over, in two directions, from one pentamer to the next." data-s="[102]" aria-label="table of capsids, whole numbers: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="table of capsids" data-k="02 predicts" data-v="met" data-d="Complexity, class and size rise along each row, and rigidity and rarity can be read off: the simplest designs are the fittest, “true for all available virus capsids”." data-s="[102]" aria-label="table of capsids, predicts: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="table of capsids" data-k="03 blanks" data-v="not met" data-d="Its authors say the scheme “can not be used to make direct predictions about capsid existence”: a class once argued to be absent has “amply been seen”." data-s="[102]" aria-label="table of capsids, blanks: not met"><i class="q-mx-m q-m-e"></i></button>
+<button type="button" class="q-mx-c" data-t="table of capsids" data-k="04 theory" data-v="met" data-d="Geometry: the constraint that pentamers put on the shapes of the hexamers between them." data-s="[102]" aria-label="table of capsids, theory: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="table of capsids" data-k="05 survives" data-v="not scored" data-d="Nothing opened says whether the two integers hold through a virus’s life. One fact that was: rigid classes cannot buckle, and one class can." data-s="[102]" aria-label="table of capsids, survives: not scored"><i class="q-mx-m q-m-n"></i></button>
+<div class="q-mx-rh"><b>gene circuits</b><span class="q-mx-s"><span class="q-mx-t">loop table</span><span class="q-mx-e">this essay</span></span></div>
+<button type="button" class="q-mx-c" data-t="loop table" data-k="01 whole numbers" data-v="in part" data-d="Loops, brakes and running totals are whole numbers. They are not yet fixed: five models of one fly clock land at four addresses." data-s="chapter 03" aria-label="loop table, whole numbers: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="loop table" data-k="02 predicts" data-v="in part" data-d="The kind of loop sets what a circuit can do: in 392 models every switch has a self-feeding loop and every clock a brake. Whether it does is set by strength, not address." data-s="chapter 03 [3, 4]" aria-label="loop table, predicts: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="loop table" data-k="03 blanks" data-v="in part" data-d="17 of the 20 running-total squares are blank, each with a stated behaviour. None has been looked for in a living cell." data-s="chapter 04" aria-label="loop table, blanks: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="loop table" data-k="04 theory" data-v="in part" data-d="The two sign rules are theorems. They say what a loop permits, not how many squares a row holds." data-s="[3, 4]" aria-label="loop table, theory: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="loop table" data-k="05 survives" data-v="not met" data-d="Redrawn at another level of detail, models keep their square in 1 of 5 families. A lost brake is a different square too." data-s="chapter 03, chapter 06" aria-label="loop table, survives: not met"><i class="q-mx-m q-m-e"></i></button>
+<div class="q-mx-rh"><b>responses</b><span class="q-mx-s"><span class="q-mx-t">atlas</span><span class="q-mx-e">this essay</span></span></div>
+<button type="button" class="q-mx-c" data-t="atlas" data-k="01 whole numbers" data-v="not met" data-d="Six named answers: ticks, remembers, returns exactly, returns partly, rings, follows. Names, not numbers." data-s="chapter 05" aria-label="atlas, whole numbers: not met"><i class="q-mx-m q-m-e"></i></button>
+<button type="button" class="q-mx-c" data-t="atlas" data-k="02 predicts" data-v="in part" data-d="The address is a behaviour, the answer to one push. Whether it foretells the answer to a different push is untested." data-s="chapter 05" aria-label="atlas, predicts: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="atlas" data-k="03 blanks" data-v="not met" data-d="No blank squares: 273 models fill six rows, and “follows” is a catch-all." data-s="chapter 05" aria-label="atlas, blanks: not met"><i class="q-mx-m q-m-e"></i></button>
+<button type="button" class="q-mx-c" data-t="atlas" data-k="04 theory" data-v="in part" data-d="“Mathematics has largely categorized the types of solutions” that gene-network equations allow. The six rows are not yet derived from it." data-s="[103]" aria-label="atlas, theory: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="atlas" data-k="05 survives" data-v="in part" data-d="Redrawn models keep what they do in 4 of 5 families. Not yet tested on living cells." data-s="chapter 03, chapter 05" aria-label="atlas, survives: in part"><i class="q-mx-m q-m-h"></i></button>
+<div class="q-mx-rh"><b>cell types</b><span class="q-mx-s"><span class="q-mx-t">Xia and Yanai’s table</span></span></div>
+<button type="button" class="q-mx-c" data-t="Xia and Yanai’s table" data-k="01 whole numbers" data-v="not met" data-d="Periods are developmental trajectories and groups are stages of differentiation: ordered labels, not counts." data-s="[104]" aria-label="Xia and Yanai’s table, whole numbers: not met"><i class="q-mx-m q-m-e"></i></button>
+<button type="button" class="q-mx-c" data-t="Xia and Yanai’s table" data-k="02 predicts" data-v="in part" data-d="Offered as a hypothesis: a framework “for recognizing relationships between cell types”." data-s="[104]" aria-label="Xia and Yanai’s table, predicts: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="Xia and Yanai’s table" data-k="03 blanks" data-v="in part" data-d="It “could be useful for predicting new cell types and states”. The abstract names none." data-s="[104]" aria-label="Xia and Yanai’s table, blanks: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="Xia and Yanai’s table" data-k="04 theory" data-v="not met" data-d="The field still lacks “a principled, unified, and well-moored system” for organising cell types." data-s="[105]" aria-label="Xia and Yanai’s table, theory: not met"><i class="q-mx-m q-m-e"></i></button>
+<button type="button" class="q-mx-c" data-t="Xia and Yanai’s table" data-k="05 survives" data-v="not met" data-d="A cell crosses the table as it differentiates: the columns are its stages. Critics propose a lineage tree instead." data-s="[104, 105]" aria-label="Xia and Yanai’s table, survives: not met"><i class="q-mx-m q-m-e"></i></button>
+<div class="q-mx-rh"><b>speech sounds</b><span class="q-mx-s"><span class="q-mx-t">phonetic chart</span></span></div>
+<button type="button" class="q-mx-c" data-t="phonetic chart" data-k="01 whole numbers" data-v="in part" data-d="Eleven places of articulation by eight manners, voiced or voiceless: discrete squares, named rather than counted." data-s="[106]" aria-label="phonetic chart, whole numbers: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="phonetic chart" data-k="02 predicts" data-v="in part" data-d="A square is defined by how the sound is made, so the address is a recipe more than a forecast." data-s="[106]" aria-label="phonetic chart, predicts: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="phonetic chart" data-k="03 blanks" data-v="in part" data-d="Shaded squares are “articulations judged impossible”, so an empty white one is a sound that could exist. The labial flap, heard in over sixty languages, joined the chart in 2005: found by fieldwork, not foretold." data-s="[106, 107, 108]" aria-label="phonetic chart, blanks: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="phonetic chart" data-k="04 theory" data-v="met" data-d="Columns run from the lips to the glottis: bilabial, labiodental, dental, on to glottal. The chart’s shape is the mouth’s." data-s="[106]" aria-label="phonetic chart, theory: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="phonetic chart" data-k="05 survives" data-v="not scored" data-d="No source was opened on how sound change moves a sound between squares. One fact that was: the labial flap “appears to have arisen independently in at least two regions”." data-s="[107]" aria-label="phonetic chart, survives: not scored"><i class="q-mx-m q-m-n"></i></button>
+<div class="q-mx-rh"><b>species</b><span class="q-mx-s"><span class="q-mx-t">table of niches</span></span></div>
+<button type="button" class="q-mx-c" data-t="table of niches" data-k="01 whole numbers" data-v="not met" data-d="Species are placed by ordination of more than 50 traits in continuous niche space; a regression tree then cuts categories." data-s="[109]" aria-label="table of niches, whole numbers: not met"><i class="q-mx-m q-m-e"></i></button>
+<button type="button" class="q-mx-c" data-t="table of niches" data-k="02 predicts" data-v="in part" data-d="A position summarises habitat, diet, life history, metabolism and defence. Its authors start from the charge that ecology lacks theories “sufficiently predictive”." data-s="[109, 110]" aria-label="table of niches, predicts: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="table of niches" data-k="03 blanks" data-v="not met" data-d="No blank is named. Whether the scheme is periodic at all “would depend on degrees of niche conservatism and convergence”." data-s="[110]" aria-label="table of niches, blanks: not met"><i class="q-mx-m q-m-e"></i></button>
+<button type="button" class="q-mx-c" data-t="table of niches" data-k="04 theory" data-v="not met" data-d="No theory fixes the axes: they come from data reduction on tables of traits." data-s="[110]" aria-label="table of niches, theory: not met"><i class="q-mx-m q-m-e"></i></button>
+<button type="button" class="q-mx-c" data-t="table of niches" data-k="05 survives" data-v="in part" data-d="Niches recur while species change: 100 convergences between clades and 103 cases of conservatism within them, among 134 lizard species." data-s="[109]" aria-label="table of niches, survives: in part"><i class="q-mx-m q-m-h"></i></button>
+<div class="q-mx-rh"><b>stars</b><span class="q-mx-s"><span class="q-mx-t">Hertzsprung-Russell diagram</span></span></div>
+<button type="button" class="q-mx-c" data-t="Hertzsprung-Russell diagram" data-k="01 whole numbers" data-v="not met" data-d="Two continuous axes: luminosity and effective temperature." data-s="[111]" aria-label="Hertzsprung-Russell diagram, whole numbers: not met"><i class="q-mx-m q-m-e"></i></button>
+<button type="button" class="q-mx-c" data-t="Hertzsprung-Russell diagram" data-k="02 predicts" data-v="in part" data-d="Mass, composition and age fix a star’s place, but the curves cross, so a place “will not always suffice to identify uniquely the state of an individual star”." data-s="[111]" aria-label="Hertzsprung-Russell diagram, predicts: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c" data-t="Hertzsprung-Russell diagram" data-k="03 blanks" data-v="met" data-d="Kumar showed in 1963 “a lower limit to the mass of a main-sequence star” and described what lighter objects would be. A brown dwarf was found in 1995." data-s="[87, 88]" aria-label="Hertzsprung-Russell diagram, blanks: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="Hertzsprung-Russell diagram" data-k="04 theory" data-v="met" data-d="Nuclear burning accounts for “all bright stars of the main sequence, but, of course, not for giants”." data-s="[92]" aria-label="Hertzsprung-Russell diagram, theory: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c" data-t="Hertzsprung-Russell diagram" data-k="05 survives" data-v="not met" data-d="A star moves along “a curve in the Hertzsprung-Russell diagram” during its evolution. Its place is a stage, not an identity." data-s="[111]" aria-label="Hertzsprung-Russell diagram, survives: not met"><i class="q-mx-m q-m-e"></i></button>
+<div class="q-mx-rh q-mx-gap"><b>any smooth system</b><span class="q-mx-s"><span class="q-mx-t">elementary catastrophes</span></span></div>
+<button type="button" class="q-mx-c q-mx-gap" data-t="elementary catastrophes" data-k="01 whole numbers" data-v="met" data-d="Forms are organised by codimension, a whole number." data-s="[112]" aria-label="elementary catastrophes, whole numbers: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c q-mx-gap" data-t="elementary catastrophes" data-k="02 predicts" data-v="in part" data-d="In stem cells a landscape built this way “accurately predicted the proportions of neural and mesodermal cells”. A 1977 review of earlier uses found “no significant contributions to biology and the social sciences”." data-s="[113, 114]" aria-label="elementary catastrophes, predicts: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c q-mx-gap" data-t="elementary catastrophes" data-k="03 blanks" data-v="in part" data-d="A classification theorem: the list is complete, a promise that nothing else turns up, with no blank left to fill." data-s="[115]" aria-label="elementary catastrophes, blanks: in part"><i class="q-mx-m q-m-h"></i></button>
+<button type="button" class="q-mx-c q-mx-gap" data-t="elementary catastrophes" data-k="04 theory" data-v="met" data-d="The table is a theorem: Thom’s classification, proved by Mather." data-s="[115]" aria-label="elementary catastrophes, theory: met"><i class="q-mx-m q-m-f"></i></button>
+<button type="button" class="q-mx-c q-mx-gap" data-t="elementary catastrophes" data-k="05 survives" data-v="met" data-d="Structural stability is its “philosophical background”: a form counts only if small changes leave it standing." data-s="[112]" aria-label="elementary catastrophes, survives: met"><i class="q-mx-m q-m-f"></i></button>
+</div>
+</div>
+<div class="keyrow"><span><i class="q-mx-m q-m-f"></i>met</span><span><i class="q-mx-m q-m-h"></i>in part</span><span><i class="q-mx-m q-m-e"></i>not met</span><span><i class="q-mx-m q-m-n"></i>not scored</span></div>
+<figcaption><b>Figure 18. Chemistry&#8217;s five tests, on other fields&#8217; tables.</b> Rows run from small to large; the last sorts change in any smooth system. Each score is a reading of the sources behind its square.</figcaption>
+</figure>
+<details class="fold" id="q-who">
+<summary>who else has looked: the arguments under every table, and each camp on one scorecard</summary>
+<div class="text">
+<p>Biology already has periodic tables: of protein folds, coiled coils, virus capsids, protein complexes, niches and cell types <span class="cite">[125, 126, 102, 45, 110, 104]</span>. None became <em>the</em> table, and one camp argues that life wants a tree instead. Where a camp stands turns on laws or history, parts or behaviour, atlas or theory, and what AI changes.</p>
+</div>
+<div class="cx-splits">
+  <div class="cx-split">
+    <h4>Laws or history</h4>
+    <p>Is life countable, or too contingent to tabulate? Blount, Lenski and Losos reviewed the replay experiments and found that evolution repeats among close relatives and diverges as history runs deeper <span class="cite">[127]</span>. Zeng, and Domcke and Shendure, draw the consequence for cells: types come from lineage, so file them on a tree <span class="cite">[128, 105]</span>. The other side points at regularities that ignore lineage. West, Brown and Enquist derive the 3/4-power law of metabolic rate from branching networks <span class="cite">[129]</span>. Alon finds good engineering in circuits that evolved by tinkering <span class="cite">[130]</span>. A table is a bet on that side.</p>
+  </div>
+  <div class="cx-split">
+    <h4>Parts or behaviour</h4>
+    <p>Lazebnik asked whether a biologist could fix a radio. Catalogue every component and every connection and it stays broken, because a parts list is not a language an engineer can compute with <span class="cite">[131]</span>. Motif and structure tables sort parts and shapes. Response elements, landscapes and niches sort what a thing does. Rand and colleagues make the case for behaviour: a model that names every gene carries many unmeasured parameters, while mathematics has already sorted the kinds of solution <span class="cite">[103]</span>. Brenner adds a caution. Working back from behaviour to the machine is an inverse problem, and he judged it impossible <span class="cite">[132]</span>.</p>
+  </div>
+  <div class="cx-split">
+    <h4>Atlas or theory</h4>
+    <p>The Human Cell Atlas set out to define every human cell type by its molecular profile <span class="cite">[133]</span>. The Allen atlas of the mouse brain holds 5,322 clusters in four nested levels <span class="cite">[134]</span>. Nurse, citing Brenner, replies that biology is drowning in data and short of ideas <span class="cite">[135]</span>. Jonas and Kording made that an experiment: neuroscience's standard analyses, run on a microprocessor understood at every level, did not recover how it computes, whatever the amount of data <span class="cite">[136]</span>. The atlas builders make their own case, that an open reference map would propel the study of regulatory circuits <span class="cite">[133]</span>.</p>
+  </div>
+  <div class="cx-split">
+    <h4>What AI changes</h4>
+    <p>The bet is that search over abstractions is now cheap, so the question can be put to all public data at once. In chemistry that search passes its control. Atom2Vec, shown only a database of compounds, sorted the main-group elements into the periodic table's own groups <span class="cite">[118]</span>. In cells it has not passed yet. Five foundation models and two other deep models failed to beat deliberately simple baselines at predicting perturbations <span class="cite">[123]</span>, and without fine-tuning Geneformer and scGPT can lose to simpler methods <span class="cite">[137]</span>. Virtual-cell programmes aim to simulate <span class="cite">[138, 139]</span>. No source opened here asks a model for a table with blank squares. That search is a plan.</p>
+  </div>
+</div>
+<div class="text">
+<p><mark>The tables with predicted blanks sort shapes. The catalogues that sort behaviour have no blanks.</mark> The loop table has blanks, and its count changes when a circuit is redrawn. Its atlas of six answers survives redrawing and has no blanks. A table of behaviour whose empty squares say what is missing: that square is still open.</p>
+</div>
+<figure class="fig" id="fig-camps">
+<div class="pane one">
+<table class="cx-mx">
+<thead><tr><th scope="col" class="cx-c-camp">camp</th><th scope="col" class="cx-c-what">tabulates, and where</th><th scope="col" class="cx-c-ok"><span class="cx-sw cx-sw-ok"></span>holds up</th><th scope="col" class="cx-c-no"><span class="cx-sw cx-sw-no"></span>wrong or left out</th></tr></thead>
+<tbody>
+<tr id="cx-row-motif">
+<th scope="row"><div class="cx-camp"><svg viewBox="0 0 28 28"  fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="6" r="2.6"/><circle cx="6" cy="21" r="2.6"/><circle cx="22" cy="21" r="2.6"/><path d="M12.6 8.4 7.4 18.6M15.4 8.4l5.2 10.2M8.8 21h10.4"/></svg><span class="cx-name">Motifs and modules</span><span class="cx-who">Hartwell, Hopfield, Leibler, Murray <b>1999</b></span><span class="cx-who">Milo, Alon and colleagues <b>2002</b>, Weizmann Institute</span><span class="cx-src"><span class="cite">[140, 43, 44]</span></span></div></th>
+<td data-l="tabulates">Wiring patterns more frequent than in shuffled networks; modules as the unit of function.<span class="cx-where">Graph statistics on mapped networks: gene regulation in <i>E. coli</i> and yeast, worm neurons, food webs.</span></td>
+<td class="cx-ok" data-l="holds up"><div>A small set of patterns recurs from bacteria to humans. Countable units exist.</div></td>
+<td class="cx-no" data-l="wrong or left out"><div>Defined by frequency, not a rule: no axes, no blank squares. One behaviour has many wirings (last row).</div></td>
+</tr>
+<tr id="cx-row-resp">
+<th scope="row"><div class="cx-camp"><svg viewBox="0 0 28 28"  fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 23h20M4 23V5"/><path d="M5 20c5 0 6-1 8-6s3-6 10-6"/></svg><span class="cx-name">Response elements</span><span class="cx-who">Tyson, Chen, Novák <b>2003</b>, Virginia Tech and Budapest</span><span class="cx-src"><span class="cite">[31]</span></span></div></th>
+<td data-l="tabulates">Signal-response curves with names: sniffer, buzzer, toggle, blinker.<span class="cx-where">Differential-equation models of signalling pathways.</span></td>
+<td class="cx-ok" data-l="holds up"><div>Sorts by what a pathway does; predictions verified in experiments. Its sniffer adapts with no loop.</div></td>
+<td class="cx-no" data-l="wrong or left out"><div>A named catalogue: no counts, no axes, no blank squares.</div></td>
+</tr>
+<tr id="cx-row-struct">
+<th scope="row"><div class="cx-camp"><svg viewBox="0 0 28 28"  fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3.5 23 8.75v10.5L14 24.5 5 19.25V8.75z"/><circle cx="14" cy="14" r="3"/></svg><span class="cx-name">Structure tables</span><span class="cx-who">Taylor <b>2002</b>, London</span><span class="cx-who">Moutevelis, Woolfson <b>2009</b>, Bristol</span><span class="cx-who">Mannige, Brooks <b>2010</b></span><span class="cx-who">Ahnert, Marsh, Hernández, Robinson, Teichmann <b>2015</b>, Cambridge</span><span class="cx-src"><span class="cite">[125, 126, 102, 45]</span></span></div></th>
+<td data-l="tabulates">Shapes: folds by topology, coiled coils by number of helices, capsids by geometry, complexes by three assembly steps.<span class="cx-where">Solved structures in public databases, plus assembly experiments.</span></td>
+<td class="cx-ok" data-l="holds up"><div>A rule generates the space, so an empty square means something: Ahnert's table predicts how often unseen topologies occur.</div></td>
+<td class="cx-no" data-l="wrong or left out"><div>Shape at rest, nothing a cell does over time. Taylor's catch: a small change to a structure can change its class.</div></td>
+</tr>
+<tr id="cx-row-cells">
+<th scope="row"><div class="cx-camp"><svg viewBox="0 0 28 28"  fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="2.4"/><circle cx="14" cy="7" r="2.4"/><circle cx="21" cy="7" r="2.4"/><circle cx="7" cy="14" r="2.4"/><circle cx="14" cy="14" r="2.4"/><circle cx="7" cy="21" r="2.4"/><circle cx="21" cy="21" r="2.4" stroke-dasharray="2 2.4"/></svg><span class="cx-name">Cell-type tables and atlases</span><span class="cx-who">Human Cell Atlas <b>2017</b>, international</span><span class="cx-who">Xia, Yanai <b>2019</b>, NYU</span><span class="cx-who">Yao, Zeng and colleagues <b>2023</b>, Allen Institute</span><span class="cx-src"><span class="cite">[104, 133, 134]</span></span></div></th>
+<td data-l="tabulates">Cell identity. Rows are paths of differentiation, columns stages, states “isotopes”. Atlases: clusters of expression profiles.<span class="cx-where">Single-cell sequencing by consortium: about 4 million cells sequenced and 4.3 million imaged for one mouse brain.</span></td>
+<td class="cx-ok" data-l="holds up"><div>Open data at scale, on what biologists already count. The table aims to predict missing cell types.</div></td>
+<td class="cx-no" data-l="wrong or left out"><div>Axes are stages of a continuum, not counts. The table is a hypothesis. The atlas came out as four nested levels, closer to a tree.</div></td>
+</tr>
+<tr id="cx-row-land">
+<th scope="row"><div class="cx-camp"><svg viewBox="0 0 28 28"  fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7c2 12 5 14 7.5 14S13 14 14 14s1 7 3.5 7S23 19 25 7"/><circle cx="10.5" cy="17.5" r="1.6" fill="currentColor" stroke="none"/></svg><span class="cx-name">Decision landscapes</span><span class="cx-who">Rand, Raju, Sáez, Corson, Siggia <b>2021</b>, Warwick and Rockefeller</span><span class="cx-who">Sáez, Briscoe and colleagues <b>2022</b>, Crick Institute</span><span class="cx-src"><span class="cite">[103, 113, 141]</span></span></div></th>
+<td data-l="tabulates">The shapes a fate decision can take: valleys and the passes between. Every three-way decision with up to two controls, enumerated.<span class="cx-where">Dynamical-systems mathematics, fitted to stem cells given combinations of signals.</span></td>
+<td class="cx-ok" data-l="holds up"><div>Finite, fitted to data, predicts fate outcomes. Sorts by behaviour, with no gene-by-gene model. Only two ways to make a binary choice.</div></td>
+<td class="cx-no" data-l="wrong or left out"><div>Clocks, by choice: periodic orbits are set aside. No blank squares.</div></td>
+</tr>
+<tr id="cx-row-tree">
+<th scope="row"><div class="cx-camp"><svg viewBox="0 0 28 28"  fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 25V15M14 15 7 9M14 15l7-6M7 9 4 4M7 9l3.5-5M21 9l-3.5-5M21 9l3-5"/></svg><span class="cx-name">Tree, not table</span><span class="cx-who">Zeng <b>2022</b>, Allen Institute</span><span class="cx-who">Domcke, Shendure <b>2023</b>, University of Washington</span><span class="cx-src"><span class="cite">[128, 105, 134]</span></span></div></th>
+<td data-l="tabulates">Nothing. A tree rooted in a consensus lineage, in place of a periodic-table-like grid of cell types.<span class="cx-where">A review and a perspective in <i>Cell</i>. Zeng is senior author of the Allen atlas.</span></td>
+<td class="cx-ok" data-l="holds up"><div>Cell types come from development and evolution, which branch. Today's clustering is ad hoc. A tree is stable and extendable, like species taxonomy.</div></td>
+<td class="cx-no" data-l="wrong or left out"><div>Aimed at tables of identity. A tree says where a cell came from, not what its circuits can do.</div></td>
+</tr>
+<tr id="cx-row-lang">
+<th scope="row"><div class="cx-camp"><svg viewBox="0 0 28 28"  fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 14h5l1.75-5 3.5 10 3.5-10 3.5 10L21 14h5"/></svg><span class="cx-name">No formal language</span><span class="cx-who">Lazebnik <b>2002</b>, Cold Spring Harbor</span><span class="cx-who">Brenner <b>2010</b></span><span class="cx-who">Jonas, Kording <b>2017</b>, Berkeley and Northwestern</span><span class="cx-who">Nurse <b>2021</b></span><span class="cx-src"><span class="cite">[131, 132, 135, 136]</span></span></div></th>
+<td data-l="tabulates">Nothing. A diagnosis: biology draws diagrams no engineer could compute with.<span class="cx-where">Essays, and one experiment on a microprocessor.</span></td>
+<td class="cx-ok" data-l="holds up"><div>More data does not add up to understanding. Test a method on a system whose answer is known.</div></td>
+<td class="cx-no" data-l="wrong or left out"><div>No table. Brenner's warning cuts at behaviour-first tables too: behaviour does not fix the machine.</div></td>
+</tr>
+<tr id="cx-row-niche">
+<th scope="row"><div class="cx-camp"><svg viewBox="0 0 28 28"  fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3.5 24 10.8 20.2 22.5H7.8L4 10.8z"/><path d="M14 9 18.6 12.4 16.8 18h-5.6l-1.8-5.6z"/></svg><span class="cx-name">Niche tables</span><span class="cx-who">Winemiller, Fitzgerald, Bower, Pianka <b>2015</b>, Texas A&amp;M and UT Austin</span><span class="cx-src"><span class="cite">[110]</span></span></div></th>
+<td data-l="tabulates">What species do, on five niche dimensions: habitat, life history, trophic, defence, metabolic.<span class="cx-where">Trait and performance datasets in ecology.</span></td>
+<td class="cx-ok" data-l="holds up"><div>Sorts by function. Makes periodicity measurable: it depends on how often unrelated species converge.</div></td>
+<td class="cx-no" data-l="wrong or left out"><div>Axes are ordinations of continuous traits, not counts. In 2015 its datasets were still to be compiled.</div></td>
+</tr>
+<tr id="cx-row-learn">
+<th scope="row"><div class="cx-camp"><svg viewBox="0 0 28 28"  fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v20h20"/><g fill="currentColor" stroke="none"><circle cx="9" cy="18" r="1.5"/><circle cx="11.5" cy="15" r="1.5"/><circle cx="8.5" cy="13.5" r="1.5"/><circle cx="18" cy="8" r="1.5"/><circle cx="21" cy="10.5" r="1.5"/><circle cx="19" cy="12" r="1.5"/><circle cx="16" cy="19" r="1.5"/></g></svg><span class="cx-name">Learned tables</span><span class="cx-who">Geneformer <b>2023</b>, scGPT <b>2024</b>, ESM-2 <b>2023</b></span><span class="cx-who">AI virtual cell: Bunne, Quake and colleagues <b>2024</b>, Chan Zuckerberg Initiative</span><span class="cx-who">Virtual Cell Challenge <b>2025</b>, Arc Institute</span><span class="cx-src"><span class="cite">[118, 123, 137, 138, 139, 142, 143, 144]</span></span></div></th>
+<td data-l="tabulates">No table on paper: learned coordinates for each cell or protein, from about 30 million cells, over 33 million, or protein sequences.<span class="cx-where">Public single-cell and sequence archives, large compute, an open benchmark.</span></td>
+<td class="cx-ok" data-l="holds up"><div>Puts the question to all public data at once. Chemistry's control passes: Atom2Vec recovered the table's main groups untold.</div></td>
+<td class="cx-no" data-l="wrong or left out"><div>In cells, simple baselines matched or beat the deep models. Coordinates are not a table a person can read. No blank square is named.</div></td>
+</tr>
+<tr id="cx-row-loop" class="cx-own">
+<th scope="row"><div class="cx-camp"><svg viewBox="0 0 28 28"  fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h10.5c5.5 0 9-3.4 9-7.5S18.6 6 15.5 6 10 8.4 10 12s3 8 8 8h8"/></svg><span class="cx-name">The loop table</span><span class="cx-tag">this essay</span><span class="cx-who">Titterton <b>2026</b>, Macrofluidics</span><span class="cx-src">chapters 03 to 05, the ledger</span></div></th>
+<td data-l="tabulates">Circuits, by three whole numbers: loops, brakes, running totals. 29 squares and an element zero.<span class="cx-where">A census of 613 curated models from BioModels, one 2017 release, rerun with one command.</span></td>
+<td class="cx-ok" data-l="holds up"><div>Axes are counts. In 392 models every switch has a self-feeding loop and every clock a brake. A blank says what its occupant would do.</div></td>
+<td class="cx-no" data-l="wrong or left out"><div>17 of 29 squares blank, perhaps the census's reading. Five drawings of one fly clock, four addresses: the count does not survive redrawing, the critics' objection. Loopless adapters sit outside. One library, no living cell. Its own atlas, six answers over 273 models, is the more plausible table; 111 sit in a catch-all row.</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption><b>Who looked, and what each found.</b> Every row was opened on 10 November 2026. The last row is scored on the essay&#8217;s own census and ledger.</figcaption>
+</figure>
+</details>
+<div class="text">
+<details class="fold">
+<summary>every square, with its evidence</summary>
+<table class="q-mx-all">
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">hadrons<span>Eightfold Way</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Mesons and baryons fall into sets of one and eight; each eight splits into a triplet, a singlet and two doublets. <span class="cite">[89]</span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Hypercharge says which changes the strong force allows: particles transform only if its total is conserved. <span class="cite">[85]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Gell-Mann predicted the omega-minus in 1962. A hyperon with strangeness minus three was observed in 1964. <span class="cite">[85, 86]</span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Three kinds of quark, with their antiparticles, generate the whole pattern. <span class="cite">[85]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>Hypercharge is conserved by the strong and electromagnetic interactions only. <span class="cite">[85]</span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">nuclei<span>chart of nuclides</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Every nucleus is a number of protons and a number of neutrons, and has its spot on the chart. <span class="cite">[90]</span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>Nuclei with 2, 8, 20, 28, 50, 82 or 126 protons or neutrons are especially stable. Away from those numbers, properties come from models with stated uncertainty. <span class="cite">[91, 90]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>About 3,000 nuclides are known and about 7,000 are predicted to be bound. 100 new ones were found in 2011. <span class="cite">[90]</span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>A nucleon’s energy depends on whether it spins with or against its orbit: the idea that explained the higher magic numbers. <span class="cite">[91]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>A nuclear reaction, the field’s own operation, turns one nuclide into another. For nuclei lighter than carbon a proton strike means “the original nucleus is permanently destroyed”. <span class="cite">[92]</span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">elements<span>periodic table</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Moseley’s X-ray quantity “increases from atom to atom by equal steps”, one step per element. <span class="cite">[39]</span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>“The magnitude of the atomic weight determines the properties of the element.” The number is Moseley’s now. <span class="cite">[79, 39]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Question marks at 45, 68, 70 and 180 in 1869; scandium, gallium, germanium and hafnium weigh 45.0, 69.7, 72.6 and 178.5. A miss in the same paper: tellurium “cannot have the atomic weight 128”, and weighs 127.6. How much the hits counted is debated. <span class="cite">[79, 80, 38, 81]</span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Row lengths 2, 8, 18, 32 are 2n². The exclusion principle closes each shell: one electron per set of four quantum numbers. <span class="cite">[82]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>In a reaction “the quality and quantity of the elements remain precisely the same”. Nuclear reactions are the exception, and belong to the row above. <span class="cite">[83, 92]</span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">crystals<span>230 space groups</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Schoenflies found 230 types of space group in 1891; Fedorov reached the same classes around 1890. <span class="cite">[93]</span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>Symmetry forbids: a phase with a centre of symmetry is “therefore non-piezoelectric”. Real samples break the rule where their symmetry breaks locally. <span class="cite">[94]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>A complete list is a promise that nothing else exists. In 1984 an alloy gave sharp diffraction with a symmetry “inconsistent with lattice translations”. <span class="cite">[93, 95]</span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>The list is geometry: both derivations analyse how axes and mirror planes can be arranged in space. <span class="cite">[93]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>A crystal keeps its group until a phase transition: perovskites change symmetry class at the Curie temperature. <span class="cite">[94]</span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">electron bands<span>tenfold table</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Symmetry and dimension pick one of ten classes; a phase within it carries a number in 0, Z or Z2. <span class="cite">[96]</span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>“The interface between two infinite phases with different topological numbers must carry some gapless mode.” <span class="cite">[96]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Fu and Kane predicted in 2007 that the alloy Bi1−xSbx is a topological insulator. Its surface states were mapped in 2008. <span class="cite">[97, 98]</span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>The phases are “classified using Bott periodicity”: two complex classes and eight real ones. <span class="cite">[96]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Surface modes “remain gapless under arbitrary perturbations” that keep the symmetries, disorder included. With interactions, Kitaev gives a counterexample. <span class="cite">[99, 96]</span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">codons<span>genetic code</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Three bases, four letters each: the standard code is one line of 64 letters. <span class="cite">[100]</span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>A codon names its amino acid or a stop. The arrangement of neighbours is “highly nonrandom”. <span class="cite">[100, 101]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>All 64 squares are filled. None is left to promise. <span class="cite">[100]</span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>Three theories and a frozen accident, none settled. The code is “highly robust to translational misreading”, yet “there are numerous more robust codes”. <span class="cite">[101]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>“Nearly universal.” Variants exist: vertebrate mitochondria read UGA as tryptophan, not stop. <span class="cite">[101, 100]</span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">protein complexes<span>Ahnert’s table</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Three kinds of assembly step, combined, “exhaustively enumerate” the possible topologies. <span class="cite">[45]</span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>A square gives a complex’s architecture. What the complex does is not on the axes. <span class="cite">[45]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>It predicts “the expected frequencies of quaternary structure topologies, including those not yet observed”. Whether those turned up was not opened here. <span class="cite">[45]</span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>The three steps are observed rules: “most assembly transitions” fit them, and the table holds “the vast majority” of known structures. <span class="cite">[45]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>Its own steps are moves between squares: an assembly transition turns one topology into another. <span class="cite">[45]</span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">virus shells<span>table of capsids</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>A capsid’s size is set by two integers: the hexamers to walk over, in two directions, from one pentamer to the next. <span class="cite">[102]</span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Complexity, class and size rise along each row, and rigidity and rarity can be read off: the simplest designs are the fittest, “true for all available virus capsids”. <span class="cite">[102]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>Its authors say the scheme “can not be used to make direct predictions about capsid existence”: a class once argued to be absent has “amply been seen”. <span class="cite">[102]</span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Geometry: the constraint that pentamers put on the shapes of the hexamers between them. <span class="cite">[102]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-n" role="img" aria-label="not scored"></i></td><td>Nothing opened says whether the two integers hold through a virus’s life. One fact that was: rigid classes cannot buckle, and one class can. <span class="cite">[102]</span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">gene circuits<span>loop table, this essay</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>Loops, brakes and running totals are whole numbers. They are not yet fixed: five models of one fly clock land at four addresses. <span class="cite"><a href="#table">chapter 03</a></span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>The kind of loop sets what a circuit can do: in 392 models every switch has a self-feeding loop and every clock a brake. Whether it does is set by strength, not address. <span class="cite"><a href="#table">chapter 03</a> [3, 4]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>17 of the 20 running-total squares are blank, each with a stated behaviour. None has been looked for in a living cell. <span class="cite"><a href="#hidden">chapter 04</a></span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>The two sign rules are theorems. They say what a loop permits, not how many squares a row holds. <span class="cite">[3, 4]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>Redrawn at another level of detail, models keep their square in 1 of 5 families. A lost brake is a different square too. <span class="cite"><a href="#table">chapter 03</a>, <a href="#models">chapter 06</a></span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">responses<span>atlas, this essay</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>Six named answers: ticks, remembers, returns exactly, returns partly, rings, follows. Names, not numbers. <span class="cite"><a href="#atlas">chapter 05</a></span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>The address is a behaviour, the answer to one push. Whether it foretells the answer to a different push is untested. <span class="cite"><a href="#atlas">chapter 05</a></span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>No blank squares: 273 models fill six rows, and “follows” is a catch-all. <span class="cite"><a href="#atlas">chapter 05</a></span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>“Mathematics has largely categorized the types of solutions” that gene-network equations allow. The six rows are not yet derived from it. <span class="cite">[103]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>Redrawn models keep what they do in 4 of 5 families. Not yet tested on living cells. <span class="cite"><a href="#table">chapter 03</a>, <a href="#atlas">chapter 05</a></span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">cell types<span>Xia and Yanai’s table</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>Periods are developmental trajectories and groups are stages of differentiation: ordered labels, not counts. <span class="cite">[104]</span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>Offered as a hypothesis: a framework “for recognizing relationships between cell types”. <span class="cite">[104]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>It “could be useful for predicting new cell types and states”. The abstract names none. <span class="cite">[104]</span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>The field still lacks “a principled, unified, and well-moored system” for organising cell types. <span class="cite">[105]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>A cell crosses the table as it differentiates: the columns are its stages. Critics propose a lineage tree instead. <span class="cite">[104, 105]</span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">speech sounds<span>phonetic chart</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>Eleven places of articulation by eight manners, voiced or voiceless: discrete squares, named rather than counted. <span class="cite">[106]</span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>A square is defined by how the sound is made, so the address is a recipe more than a forecast. <span class="cite">[106]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>Shaded squares are “articulations judged impossible”, so an empty white one is a sound that could exist. The labial flap, heard in over sixty languages, joined the chart in 2005: found by fieldwork, not foretold. <span class="cite">[106, 107, 108]</span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Columns run from the lips to the glottis: bilabial, labiodental, dental, on to glottal. The chart’s shape is the mouth’s. <span class="cite">[106]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-n" role="img" aria-label="not scored"></i></td><td>No source was opened on how sound change moves a sound between squares. One fact that was: the labial flap “appears to have arisen independently in at least two regions”. <span class="cite">[107]</span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">species<span>table of niches</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>Species are placed by ordination of more than 50 traits in continuous niche space; a regression tree then cuts categories. <span class="cite">[109]</span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>A position summarises habitat, diet, life history, metabolism and defence. Its authors start from the charge that ecology lacks theories “sufficiently predictive”. <span class="cite">[109, 110]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>No blank is named. Whether the scheme is periodic at all “would depend on degrees of niche conservatism and convergence”. <span class="cite">[110]</span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>No theory fixes the axes: they come from data reduction on tables of traits. <span class="cite">[110]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>Niches recur while species change: 100 convergences between clades and 103 cases of conservatism within them, among 134 lizard species. <span class="cite">[109]</span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">stars<span>Hertzsprung-Russell diagram</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>Two continuous axes: luminosity and effective temperature. <span class="cite">[111]</span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>Mass, composition and age fix a star’s place, but the curves cross, so a place “will not always suffice to identify uniquely the state of an individual star”. <span class="cite">[111]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Kumar showed in 1963 “a lower limit to the mass of a main-sequence star” and described what lighter objects would be. A brown dwarf was found in 1995. <span class="cite">[87, 88]</span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Nuclear burning accounts for “all bright stars of the main sequence, but, of course, not for giants”. <span class="cite">[92]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-e" role="img" aria-label="not met"></i></td><td>A star moves along “a curve in the Hertzsprung-Russell diagram” during its evolution. Its place is a stage, not an identity. <span class="cite">[111]</span></td></tr>
+<tr class="q-mx-g"><th colspan="3" scope="colgroup">any smooth system<span>elementary catastrophes</span></th></tr>
+<tr><td class="q-mx-tn">01 whole numbers</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Forms are organised by codimension, a whole number. <span class="cite">[112]</span></td></tr>
+<tr><td class="q-mx-tn">02 predicts</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>In stem cells a landscape built this way “accurately predicted the proportions of neural and mesodermal cells”. A 1977 review of earlier uses found “no significant contributions to biology and the social sciences”. <span class="cite">[113, 114]</span></td></tr>
+<tr><td class="q-mx-tn">03 blanks</td><td><i class="q-mx-m q-m-h" role="img" aria-label="in part"></i></td><td>A classification theorem: the list is complete, a promise that nothing else turns up, with no blank left to fill. <span class="cite">[115]</span></td></tr>
+<tr><td class="q-mx-tn">04 theory</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>The table is a theorem: Thom’s classification, proved by Mather. <span class="cite">[115]</span></td></tr>
+<tr><td class="q-mx-tn">05 survives</td><td><i class="q-mx-m q-m-f" role="img" aria-label="met"></i></td><td>Structural stability is its “philosophical background”: a form counts only if small changes leave it standing. <span class="cite">[112]</span></td></tr>
+</table>
+</details>
+<p>The rows for elements and electron bands are full. <mark>Whole numbers and a theory arrive together</mark> in physics, chemistry and mathematics, and once in biology: virus shells, where the theory is geometry and the table sorts shapes <span class="cite">[102]</span>. For what a cell does, no row has both. The fifth test is optional: a nuclear reaction moves a nucleus to another square <span class="cite">[92]</span>, and the chart still works.</p>
+<h3 id="q-search">A search that could find the table</h3>
+<p class="q-idea">&#8220;get recursively self-improving artificial intelligence to parse available public data for information theories that prove useful abstractions for the whole field.&#8221;<span class="q-by">the idea, as first written down</span></p>
+<p>A narrower loop runs today: a language model proposes and a fixed program scores <span class="cite">[116]</span>. The score: <mark>the fewest coordinates that keep the most information about function</mark> <span class="cite">[117]</span>.</p>
+</div>
+<figure class="fig" id="fig-search" aria-label="The search as a loop, and the order of its runs.">
+<div class="pane one">
+<div class="q-loop">
+<svg class="q-svg" viewBox="0 0 330 236" role="img" aria-label="The search as a loop: propose a table, score it on public data, revise, and round again"><defs><marker id="q-ah" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1L9 5L1 9Z" fill="var(--muted)"/></marker></defs><path d="M188.8 48.0A80 80 0 0 1 230.0 119.4" fill="none" stroke="var(--muted)" stroke-width="2.2" marker-end="url(#q-ah)"/><path d="M191.2 186.6A80 80 0 0 1 108.8 186.6" fill="none" stroke="var(--muted)" stroke-width="2.2" marker-end="url(#q-ah)"/><path d="M70.0 119.4A80 80 0 0 1 111.2 48.0" fill="none" stroke="var(--muted)" stroke-width="2.2" marker-end="url(#q-ah)"/><circle cx="150.0" cy="38.0" r="30" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/><text x="150.0" y="42.5" text-anchor="middle" font-size="12.5" fill="var(--ink)">propose</text><circle cx="219.3" cy="158.0" r="30" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/><text x="219.3" y="162.5" text-anchor="middle" font-size="12.5" fill="var(--ink)">score</text><circle cx="80.7" cy="158.0" r="30" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/><text x="80.7" y="162.5" text-anchor="middle" font-size="12.5" fill="var(--ink)">revise</text><path d="M303.3 158.0H255.3" fill="none" stroke="var(--muted)" stroke-width="2.2" marker-end="url(#q-ah)"/><text class="m" x="326" y="149.0" text-anchor="end" font-size="11.5" fill="var(--muted)">public data</text><text x="150" y="116" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">a table</text><text class="m" x="150" y="133" text-anchor="middle" font-size="11.5" fill="var(--muted)">round n</text><text class="m" x="219.3" y="205.0" text-anchor="middle" font-size="11.5" fill="var(--muted)">bits saved</text><text class="m" x="219.3" y="220.0" text-anchor="middle" font-size="11.5" fill="var(--muted)">blanks hit</text></svg>
+<ol class="q-run" aria-label="Order of runs">
+<li><span class="q-n">01</span><span>chemistry, three squares hidden</span><span class="q-r">must bring them back</span></li>
+<li><span class="q-n">02</span><span>chemistry, labels shuffled</span><span class="q-r">must find nothing</span></li>
+<li><span class="q-n">03</span><span>biology</span><span class="q-r">only after 01 and 02</span></li>
+</ol>
+</div>
+</div>
+<figcaption><b>Figure 19. The search, as a plan.</b> Nothing in it has been run.</figcaption>
+</figure>
+<div class="text">
+<p>The control that can fail comes first. Hide scandium, gallium and germanium from chemistry’s property table <span class="cite">[80]</span>. A search that cannot bring back rows, columns and the hidden squares has no business in biology. Half of this was done in 2018: Atom2Vec, fed only the formulas of known compounds, sorted 34 main-group elements into their columns, with groups III to V merged <span class="cite">[118]</span>. It hid no element.</p>
+<table class="q-data"><thead><tr><th>what</th><th>open data</th><th>licence</th></tr></thead><tbody>
+<tr><td>chemistry’s properties<span class="q-tag">control</span></td><td>PubChem: 118 elements, 17 properties <span class="cite">[80]</span></td><td class="q-lic">public</td></tr>
+<tr><td>circuit models</td><td>BioModels: curated models of biological processes <span class="cite">[40]</span></td><td class="q-lic"><a href="https://www.ebi.ac.uk/biomodels/termsofuse">CC0</a></td></tr>
+<tr><td>cell images</td><td>JUMP Cell Painting: 115,796 compounds <span class="cite">[119]</span></td><td class="q-lic">CC0</td></tr>
+<tr><td>gene expression</td><td>LINCS L1000: 1.3 million profiles <span class="cite">[120]</span></td><td class="q-lic">GEO GSE92742</td></tr>
+<tr><td>gene knockdowns</td><td>genome-scale Perturb-seq: more than 2.5 million cells <span class="cite">[121]</span></td><td class="q-lic">CC BY 4.0</td></tr>
+<tr><td>structures</td><td>Protein Data Bank <span class="cite">[122]</span></td><td class="q-lic">CC0</td></tr>
+</tbody></table>
+<p>In a 2025 benchmark, none of seven deep models of gene perturbation outperformed simple baselines <span class="cite">[123]</span>. A 2026 reply finds they can, on calibrated metrics <span class="cite">[124]</span>. A plain baseline belongs in every score.</p>
+<h3 id="q-stands">Two halves of one table</h3>
+<p>The loop table counts in whole numbers and leaves 17 blank squares. Its numbers move when a model is redrawn, and no blank has been looked for in a living cell. The atlas holds still, in 4 of 5 redrawn families, with no numbers and no blanks.</p>
+<p>Neither row meets a test in full. Joined, they would be the table the question asks for: what a cell does, counted. <b>Two halves, not yet closed into one loop.</b></p>
+</div>
 </section>
 
 <section id="line">
 <div class="text">
-<p class="kicker"><span class="n">07</span>the table is a loop</p>
+<p class="kicker"><span class="n">08</span>the table is a loop</p>
 <h2>The true shape of a periodic table</h2>
 <p>Plot twist: the tables are loops too. Lithium, sodium and potassium sit eight places apart and all fizz in water; chemistry repeats itself every row. Mendeleev's grid cuts that repeat and lays it flat. Seven years earlier the geologist de Chancourtois had wound the elements round a cylinder instead, and the look-alikes lined up <span class="cite">[10]</span>.</p>
 </div>
@@ -1237,13 +1734,13 @@ window.ElCard = (function () {
 })();
 </script>
 <!-- /gen:morph -->
-<figcaption><b>Figure 17. Both tables, wound.</b> One turn per row.</figcaption>
+<figcaption><b>Figure 20. Both tables, wound.</b> One turn per row.</figcaption>
 </figure>
 <div class="text">
 <p>Wound one turn per row, both tables line their families up on spokes, because each row runs through the same behaviours in the same order. Noble gases share a spoke; so do memories. <mark>A spoke is a behaviour, and the winding puts it there.</mark> (A picture, to be clear, not evidence: wind any table sorted by behaviour and its columns line up.) Two tables, a century and a half apart, have the same shape.</p>
 <details class="fold">
 <summary>loops of matter</summary>
-<p>Is every line in biology a loop, then, even outside circuits? The title has an older meaning, more than half a century older. Picture a fountain whose water keeps climbing and falling because a pump keeps pushing; switch the pump off and everything sulks in the basin. Morowitz argued in 1968 that energy flowing through a system, from a source to a sink, does the same to matter and organises it into cycles <span class="cite">[84]</span>. On Earth the pump is the sun, and between sunlight arriving and heat leaving, carbon goes round through leaves, animals and soil and back into the air. Cells run the same trick in miniature. ATP is a rechargeable battery, spent and rebuilt over and over, NADH works the same way, and every pathway that draws on either becomes part of a ring.</p>
+<p>Is every line in biology a loop, then, even outside circuits? The title has an older meaning, more than half a century older. Picture a fountain whose water keeps climbing and falling because a pump keeps pushing; switch the pump off and everything sulks in the basin. Morowitz argued in 1968 that energy flowing through a system, from a source to a sink, does the same to matter and organises it into cycles <span class="cite">[149]</span>. On Earth the pump is the sun, and between sunlight arriving and heat leaving, carbon goes round through leaves, animals and soil and back into the air. Cells run the same trick in miniature. ATP is a rechargeable battery, spent and rebuilt over and over, NADH works the same way, and every pathway that draws on either becomes part of a ring.</p>
 <p>Where does the claim stop? Morowitz framed it for systems in a steady state, and a living cell is steady only on average, the way a city keeps its size while its people come and go. Modellers will also spot a trap. Loops of stuff, such as ATP turning into ADP and back, show up in a circuit diagram as loops that look like feedback and regulate nothing, so the census removes them on purpose with its conserved-pool filter (Supplement D). Fountain water goes round all day and never decides anything; the deciding happens in loops of influence.</p>
 </details>
 <p>Now a conjecture, flagged as one. One body's aging counter never resets. A family's does: an embryo's epigenetic age drops to a low point early in development <span class="cite">[11]</span>. The line of egg and sperm cells is the loop; the body is the arc that doesn't come back <span class="cite">[13]</span>.</p>
@@ -1255,7 +1752,7 @@ window.ElCard = (function () {
   <div class="panel"><svg viewBox="0 0 120 200" role="img" aria-label="Four loops stacked, each with an open tail leading into the next" font-size="11"><g id="strip-a"></g></svg></div>
   <div class="panel"><svg viewBox="0 0 120 200" role="img" aria-label="The same loops joined end to start as a helix on a cylinder" font-size="11"><g id="strip-b"></g></svg></div>
 </div>
-<figcaption><b>How to read Figure 18.</b> Each turn's loose end starts the next, longer turn; joined, they make a spiral.</figcaption>
+<figcaption><b>How to read Figure 21.</b> Each turn's loose end starts the next, longer turn; joined, they make a spiral.</figcaption>
 </figure>
 <figure class="fig interactive narrow">
 <div class="pane one"><svg id="torus" viewBox="0 0 380 240" role="img" aria-label="One curve winds eight times around a torus, once per period, and closes on itself at a reset point; hidden parts are dashed" font-size="12">
@@ -1276,7 +1773,7 @@ window.ElCard = (function () {
   <input id="t-w" type="range" min="2" max="100" value="12" aria-label="How far along the curve to draw" style="--p: 10%">
   <output for="t-w" id="t-wv">12%</output>
 </div>
-<figcaption><b>Figure 18. Every line is a loop.</b> Each winding is one rhythm, from milliseconds to generations; the curve closes where a new life resets the clock.</figcaption>
+<figcaption><b>Figure 21. Every line is a loop.</b> Each winding is one rhythm, from milliseconds to generations; the curve closes where a new life resets the clock.</figcaption>
 </figure>
 <div class="text">
 <p>Growing up is an arc of development, aging an arc of the family line, and each turn hands off to a longer one. The spiral closes once, at reproduction, into a ring like a doughnut.</p>
@@ -1308,13 +1805,13 @@ window.ElCard = (function () {
 })();
 </script>
 <!-- /gen:next -->
-<figcaption><b>Figure 19. The research loop.</b></figcaption>
+<figcaption><b>Figure 22. The research loop.</b></figcaption>
 </figure>
 <figure class="fig" id="fig-nesting">
 <!-- gen:nesting -->
 <div class="pane one score"><div class="sc-row"><span class="v">&#10007; no</span><span class="sc-c">Speed order is the missing factor of two</span><span class="sc-e"><svg viewBox="0 0 340 72" role="img" aria-label="Elements per row if every one doubled, against arrangements when loops are ordered fast to slow: 8 against 4 for 1 loops, 18 against 16 for 2 loops, 32 against 64 for 3 loops"><text x="0" y="15" text-anchor="start" font-size="12" fill="var(--muted)" style="font-family: var(--code)">1 loop</text><rect x="64" y="6" width="24.0" height="6" rx="1.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><rect x="64" y="14" width="12.0" height="6" rx="1.5" fill="var(--ink)"/><text x="94.0" y="18" text-anchor="start" font-size="12" fill="var(--ink)" style="font-family: var(--code)">8 vs 4</text><text x="0" y="37" text-anchor="start" font-size="12" fill="var(--muted)" style="font-family: var(--code)">2 loops</text><rect x="64" y="28" width="54.0" height="6" rx="1.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><rect x="64" y="36" width="48.0" height="6" rx="1.5" fill="var(--ink)"/><text x="124.0" y="40" text-anchor="start" font-size="12" fill="var(--ink)" style="font-family: var(--code)">18 vs 16</text><text x="0" y="59" text-anchor="start" font-size="12" fill="var(--muted)" style="font-family: var(--code)">3 loops</text><rect x="64" y="50" width="96.0" height="6" rx="1.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><rect x="64" y="58" width="192.0" height="6" rx="1.5" fill="var(--ink)"/><text x="262.0" y="62" text-anchor="start" font-size="12" fill="var(--ink)" style="font-family: var(--code)">32 vs 64</text></svg></span></div><div class="sc-row"><span class="v ok">&#10003; yes</span><span class="sc-c">In the toy, which loop is fast decides whether it ticks</span><span class="sc-e"><svg viewBox="0 0 340 42" role="img" aria-label="Of 800 random draws, 32 tick with the self-feeding loop fast; swap the speeds and 0 do."><text x="0" y="16" text-anchor="start" font-size="12" fill="var(--muted)" style="font-family: var(--code)">self-feeding</text><circle cx="112.0" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="118.6" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="125.2" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="131.8" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="138.4" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="145.0" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="151.6" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="158.2" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="164.8" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="171.4" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="178.0" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="184.6" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="191.2" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="197.8" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="204.4" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="211.0" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="217.6" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="224.2" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="230.8" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="237.4" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="244.0" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="250.6" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="257.2" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="263.8" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="270.4" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="277.0" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="283.6" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="290.2" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="296.8" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="303.4" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="310.0" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="316.6" cy="12" r="2.5" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><text x="338" y="16" text-anchor="end" font-size="12" fill="var(--ink)" style="font-family: var(--code)">32</text><text x="0" y="36" text-anchor="start" font-size="12" fill="var(--muted)" style="font-family: var(--code)">brake</text><circle cx="112.0" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="118.6" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="125.2" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="131.8" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="138.4" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="145.0" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="151.6" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="158.2" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="164.8" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="171.4" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="178.0" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="184.6" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="191.2" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="197.8" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="204.4" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="211.0" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="217.6" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="224.2" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="230.8" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="237.4" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="244.0" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="250.6" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="257.2" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="263.8" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="270.4" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="277.0" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="283.6" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="290.2" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="296.8" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="303.4" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="310.0" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="316.6" cy="32" r="2.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><text x="338" y="36" text-anchor="end" font-size="12" fill="var(--ink)" style="font-family: var(--code)">0</text></svg></span></div><div class="sc-row"><span class="v">~ leans</span><span class="sc-c">Real models lean toward a fast self-feeding loop, timed one way of two</span><span class="sc-e"><svg viewBox="0 0 340 62" role="img" aria-label="Real two-loop circuits, timed by the molecules each loop keeps to itself: 11 of 16 tick where the self-feeding loop is faster, 4 of 9 where the brake is. Timed by their arrows: 7 of 12 against 8 of 14, no lean."><text x="0" y="16" text-anchor="start" font-size="12" fill="var(--muted)" style="font-family: var(--code)">self-feeding</text><circle cx="130.0" cy="12" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="139.5" cy="12" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="149.0" cy="12" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="158.5" cy="12" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="168.0" cy="12" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="177.5" cy="12" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="187.0" cy="12" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="196.5" cy="12" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="206.0" cy="12" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="215.5" cy="12" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="225.0" cy="12" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="234.5" cy="12" r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="244.0" cy="12" r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="253.5" cy="12" r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="263.0" cy="12" r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="272.5" cy="12" r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><text x="338" y="16" text-anchor="end" font-size="12" fill="var(--ink)" style="font-family: var(--code)">11 of 16</text><text x="0" y="36" text-anchor="start" font-size="12" fill="var(--muted)" style="font-family: var(--code)">brake</text><circle cx="130.0" cy="32" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="139.5" cy="32" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="149.0" cy="32" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="158.5" cy="32" r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/><circle cx="168.0" cy="32" r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="177.5" cy="32" r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="187.0" cy="32" r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="196.5" cy="32" r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><circle cx="206.0" cy="32" r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><text x="338" y="36" text-anchor="end" font-size="12" fill="var(--ink)" style="font-family: var(--code)">4 of 9</text><text x="0" y="56" text-anchor="start" font-size="12" fill="var(--muted)" style="font-family: var(--code)">timed by their arrows: 7 of 12 vs 8 of 14</text></svg></span></div></div><p class="keyrow"><span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/></svg>what doubling needs</span><span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--ink)"/></svg>what speed order gives</span><span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/></svg>a draw or a model</span><span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/></svg>ticks</span></p>
 <!-- /gen:nesting -->
-<figcaption><b>Figure 20. The guess, tested.</b> One script in the repository runs all three tests from the raw models.</figcaption>
+<figcaption><b>Figure 23. The guess, tested.</b> One script in the repository runs all three tests from the raw models.</figcaption>
 </figure>
 <div class="text">
 <p>Counting rules it out: ordering the loops would make rows of 4, 16 and 64, not 8, 18 and 32. Speed order does matter in the toy, as oscillator theory expects <span class="cite">[36]</span>. In 800 random circuits with one self-feeding loop and one brake, all 32 that tick run the self-feeding loop fast, and swapping the speeds stops every one. Real models only lean that way. Timed by the molecules each loop keeps to itself, 11 of 16 against 4 of 9, too close to rule out chance; timed by their arrows, no lean. <mark>The guess is retired; the speed rule holds in the toy and only leans in real models.</mark></p>
@@ -1335,7 +1832,7 @@ window.ElCard = (function () {
 <ol>
 <li><b>Count the elements.</b> Done here on one release (chapter 03, Supplement C): two loops show 9 kinds of behaviour against 9 elements, three loops 6 against 16. No row shows more, so the rule survives; three loops show fewer, which marks one count as dead weight, most likely the running totals. Next, the same count on newer releases and reduced models, against two yardsticks: random circuits of the same sizes, to see how much of the filling is plain arithmetic, and a score for how much knowing a circuit&#8217;s address tells you about what it does, beyond knowing its loop count alone.</li>
 <li><b>Sweep a cell.</b> In a microfluidic device, feed cells a nutrient or concentration that rises and falls at many speeds, film how they answer, and read off their loops, as was done for the yeast pathway that adapts to concentrated surroundings <span class="cite">[14, 15]</span>. Prediction: the loops read off land on the table's elements, and the rows are whole numbers. Answers that fall between elements, with no circuit behind them, kill the whole-number rows.</li>
-<li><b>Swap the speeds.</b> Slow the self-feeding loop of a two-loop clock below its brake, in a model or in cells. Prediction: it stops, as all 32 toy clocks did. A clock that ticks with its brake the faster loop counts against the rule, and the census already holds four such models (chapter 07).</li>
+<li><b>Swap the speeds.</b> Slow the self-feeding loop of a two-loop clock below its brake, in a model or in cells. Prediction: it stops, as all 32 toy clocks did. A clock that ticks with its brake the faster loop counts against the rule, and the census already holds four such models (chapter 08).</li>
 <li><b>Dig for a niche fossil.</b> Sweep lineages evolved for thousands of generations in constant conditions, and their ancestors. Prediction: one specific answer gone, from the loop that copied the feature held constant. General decay with no specific loss kills the copy reading.</li>
 <li><b>Watch the reset.</b> Track epigenetic age at single-cell resolution through gastrulation and through partial reprogramming. Prediction: a counter emptied, a steady fall to a floor, rather than a loop restored, which would oscillate or overshoot.</li>
 <li><b>Find the loop before the disease.</b> In models of each disease in Figure 15, sweep before pathology appears. Prediction: the brake&#8217;s gain is already falling. Then close it, as p53 restoration did <span class="cite">[18, 19]</span>, and the counter should stop. A disease whose sweep looks normal until the end kills the lost-brake reading for that disease.</li>
@@ -1344,7 +1841,7 @@ window.ElCard = (function () {
 </div>
 </details>
 <div class="text">
-<p>To err with grace: not every claim here is equally sure, so the ledger below grades all 26, from theorem to conjecture. The biggest gaps: patterns in space, molecules left out on purpose, and a test on just one library, release 31 from 2017.</p>
+<p>To err with grace: not every claim here is equally sure, so the ledger below grades all 30, from theorem to conjecture. The biggest gaps: patterns in space, molecules left out on purpose, and a test on just one library, release 31 from 2017.</p>
 <details class="fold">
 <summary>the provenance ledger</summary>
 <p>The census has limits of its own. It read behaviour at published rates, so it undercounts. Its loop filters are proved for self-feeding loops only and remove the brakes of 10 clocks. It misses loops written as formulas (13 models), and 102 of its searches hit their step limit. Its gain test covers single rings only, and its step test one size of step. And BioModels holds what people chose to model, not a sample of biology.</p>
@@ -1361,7 +1858,7 @@ window.ElCard = (function () {
 <tr><td>Elements sorted by what their loops can do; three counts as the address; (<i>n</i>+1)&sup2; elements in the row of <i>n</i> loops</td><td><span class="k">derivation</span>Tested by the census: in rows one to three the elements without running totals are all filled, those with them nearly empty; element zero's counter is not yet shown. Redrawn models keep what they do in 4 of 5 families and their place in 1 of 5, so an element certifies an ability rather than naming a circuit (Supplement E)</td><td>chapter 03</td></tr>
 <tr><td>The same three kinds of loop run machines, cells, wild populations and crowds</td><td><span class="k">pattern</span>An analogy, one case per square of Figure 5: ice and albedo; a bank run as one of two resting states; hare and lynx cycling every 9 to 11 years, the hare braked by its food and several predators, not the lynx alone; a four-year hog cycle. The microphone and cruise control are everyday pictures; two squares are blank</td><td>[74&#8211;78]</td></tr>
 <tr><td>Rates live inside an element: one circuit, many rates</td><td><span class="k">definition</span>A rate change that crosses a threshold changes what the circuit does, not its element, as Figure 7 shows</td><td>[3, 4]</td></tr>
-<tr><td>Circuits sort into a few answers to a push, each built many ways</td><td><span class="k">pattern</span>The atlas: 302 of 392 models read; six answer shapes, one a catch-all; up to 9 wirings per answer; every ticking model has a brake and every remembering one a self-feeding loop; Tyson&#8217;s loop-free adapter returns exactly; the yeast check is inconclusive (chapter 05)</td><td>[31, 15]</td></tr><tr><td>Part of the empty band may be a reading problem</td><td><span class="k">pattern</span>22 robust exact returns, 4 of them in rows one to three, none read as running totals from the loops; a wiring with no loop around the push can also return exactly, so the four need tracing (Supplement E). Against it: the loose reading&#8217;s fill at zero rests on 10 models, half of them oscillating voltages read at one moment (chapter 04)</td><td>[50]</td></tr><tr><td>Other integers could index the table: how rest gives way, deficiency, control&#8217;s three terms</td><td><span class="k">conjecture</span>Each integer is established in its own field; a weakly reversible mass-action network at deficiency zero cannot switch (a theorem); none has been run over this census. A &#8652; 2A, self-feeding at deficiency zero, is a derivation (chapter 05)</td><td>[45, 79&#8211;83]</td></tr>
+<tr><td>Circuits sort into a few answers to a push, each built many ways</td><td><span class="k">pattern</span>The atlas: 302 of 392 models read; six answer shapes, one a catch-all; up to 9 wirings per answer; every ticking model has a brake and every remembering one a self-feeding loop; Tyson&#8217;s loop-free adapter returns exactly; the yeast check is inconclusive (chapter 05)</td><td>[31, 15]</td></tr><tr><td>Part of the empty band may be a reading problem</td><td><span class="k">pattern</span>22 robust exact returns, 4 of them in rows one to three, none read as running totals from the loops; a wiring with no loop around the push can also return exactly, so the four need tracing (Supplement E). Against it: the loose reading&#8217;s fill at zero rests on 10 models, half of them oscillating voltages read at one moment (chapter 04)</td><td>[50]</td></tr><tr><td>Other integers could index the table: how rest gives way, deficiency, control&#8217;s three terms</td><td><span class="k">conjecture</span>Each integer is established in its own field; a weakly reversible mass-action network at deficiency zero cannot switch (a theorem); none has been run over this census. A &#8652; 2A, self-feeding at deficiency zero, is a derivation (chapter 05)</td><td>[103, 145&#8211;148]</td></tr>
 <tr><td>What each hidden element would do</td><td><span class="k">prediction</span>Read from each blank's parent; the adapting half rests on a theorem, the accumulating half is a hypothesis</td><td>[5, 46]</td></tr>
 <tr><td>The + + + element is a multistate memory that cannot tick (pluripotency core)</td><td><span class="k">prediction</span>From the theory of circuits with only self-feeding loops; the occupant is established, the count is not</td><td>[25, 26]</td></tr>
 <tr><td>The + + &#8722; element holds EGFR&#8217;s working memory; the &#8722; &#8722; &#8722; element holds NF-&#954;B&#8217;s pulses</td><td><span class="k">pattern</span>Each source names the three loops, which meet at a single node, so the count does not depend on how the loops are chosen; wider module boundaries add loops</td><td>[27&#8211;30]</td></tr>
@@ -1369,11 +1866,15 @@ window.ElCard = (function () {
 <tr><td>Neurodegeneration as a seeding loop run as a counter</td><td><span class="k">conjecture</span>Seeding and the mother cell's keeping of damage are measured; clearance as the brake and late onset as its clock are a reading</td><td>[22, 23]</td></tr>
 <tr><td>A weakening brake shows in a push test before damage does</td><td><span class="k">prediction</span>Follows from the gain law; p53 pulses, slower amyloid clearance and sleep-driven clearance are measured; the screens are untested</td><td>[63&#8211;66]</td></tr>
 <tr><td>Early takes a nudge; late takes the brake put back</td><td><span class="k">derivation</span>For the switch, from its two thresholds; for disease a hypothesis: p53 restoration reversed established tumours in mice, lecanemab only slowed decline</td><td>[18, 19, 67, 68]</td></tr>
-<tr><td>The missing factor of two is speed order</td><td><span class="k">tested, rejected</span>Order cannot touch rows with fewer than two loops and ordering gives 4, 16, 64, not 8, 18, 32; in the toy it decides whether a mixed circuit ticks (all 32 clocks); real models lean the same way when loops are timed by their own molecules, 11 of 16 against 4 of 9, not significant, and not at all when timed by their arrows</td><td>[36], chapter 07</td></tr>
-<tr><td>Helix, torus, germline closure</td><td><span class="k">conjecture</span>Both tables wind one turn per row (Figure 17), a pattern; the closure rests on one measured reset</td><td>[10, 11, 13]</td></tr>
-<tr><td>Where energy flows, matter cycles; the census filters those loops out</td><td><span class="k">restatement</span>Morowitz&#8217;s argument as usually stated; the filter is the census&#8217;s conserved-pool rule (Supplement D)</td><td>[84]</td></tr>
+<tr><td>The missing factor of two is speed order</td><td><span class="k">tested, rejected</span>Order cannot touch rows with fewer than two loops and ordering gives 4, 16, 64, not 8, 18, 32; in the toy it decides whether a mixed circuit ticks (all 32 clocks); real models lean the same way when loops are timed by their own molecules, 11 of 16 against 4 of 9, not significant, and not at all when timed by their arrows</td><td>[36], chapter 08</td></tr>
+<tr><td>Helix, torus, germline closure</td><td><span class="k">conjecture</span>Both tables wind one turn per row (Figure 20), a pattern; the closure rests on one measured reset</td><td>[10, 11, 13]</td></tr>
+<tr><td>Where energy flows, matter cycles; the census filters those loops out</td><td><span class="k">restatement</span>Morowitz&#8217;s argument as usually stated; the filter is the census&#8217;s conserved-pool rule (Supplement D)</td><td>[149]</td></tr>
 <tr><td>Element zero, run slower, is an arc of a longer loop</td><td><span class="k">conjecture</span>With one measured reset</td><td>[11]</td></tr>
 <tr><td>Aging splits into a counter to reset and brakes to close; short pulses keep identity</td><td><span class="k">conjecture</span>The reset is measured in mice; the reading and the pulse rule are untested</td><td>[11, 12, 69]</td></tr>
+<tr><td>Of the tables scored on chemistry&#8217;s five tests, two meet all five (elements, electron bands); whole numbers and a theory arrive together, and no table of what a cell does has both</td><td><span class="k">pattern</span>One reading of the sources behind 73 scored squares of 75 (Figure 18), each quoted in its fold; the tests and the scores are this essay&#8217;s, with no second scorer</td><td>[3, 4, 38, 39,<br>45, 79&#8211;115]</td></tr>
+<tr><td>No published table of what a cell does names blank squares: the tables with predicted blanks sort shapes</td><td><span class="k">pattern</span>Ten camps read on one scorecard (chapter 07, folded), every source opened on 10 November 2026; one reader, and the last row is the essay scoring itself</td><td>[31, 43&#8211;45,<br>102&#8211;105, 110,<br>113, 118, 123,<br>125&#8211;144]</td></tr>
+<tr><td>The loop table and the atlas are two halves of the table the question asks for</td><td><span class="k">conjecture</span>Scored by the essay on itself: the loop table meets four tests in part and fails the fifth, the atlas meets three in part and fails two; nothing joins them yet</td><td>chapter 07</td></tr>
+<tr><td>A search could find the table: propose, score by bits saved and by held-out blanks, revise</td><td><span class="k">conjecture</span>A plan (Figure 19); nothing has been run. Its control comes first: chemistry with three squares hidden, then with labels shuffled. Atom2Vec recovered the main groups and hid no element</td><td>[80, 116&#8211;118]</td></tr>
 </table>
 </details>
 <p class="lede">Mendeleev's blank square was a prediction because he trusted the pattern over the weights. Biology's pattern is the loop: shape, then behaviour, then function. Its gallium is still out there, a switch that keeps a running total. Which loops run your day? What are they copying, and which are only counting? Count them, test them, follow them. <mark>Every line is a loop.</mark></p>
@@ -1384,7 +1885,7 @@ window.ElCard = (function () {
 
 <section id="supplement">
 <div class="text">
-<p class="kicker"><span class="n">08</span>supplement</p>
+<p class="kicker"><span class="n">09</span>supplement</p>
 <h2>The census in depth</h2>
 <p>Five supplements hold every figure, setting and equation behind the census and the tests of its laws. The code and data are open, and one command rebuilds every number on this page from the raw download in about two hours. Change a definition, rerun, and see where your favourite circuit lands.</p>
 </div>
@@ -1623,7 +2124,7 @@ sg = s * (1 if st > 0 else -1)</pre><span class="out">The code nudges LacI up by
 
 <section id="refs">
 <div class="text">
-<p class="kicker"><span class="n">09</span>references</p>
+<p class="kicker"><span class="n">10</span>references</p>
 <h2>Sources</h2>
 <ol class="refs">
 <li>Fuller FB. The writhing number of a space curve. <i>Proc Natl Acad Sci USA</i> 68(4):815–819 (1971). <a href="https://doi.org/10.1073/pnas.68.4.815">doi:10.1073/pnas.68.4.815</a></li>
@@ -1706,10 +2207,75 @@ sg = s * (1 if st > 0 else -1)</pre><span class="out">The code nudges LacI up by
 <li>Stenseth NC, Falck W, Bj&oslash;rnstad ON, Krebs CJ. Population regulation in snowshoe hare and Canadian lynx: asymmetric food web configurations between hare and lynx. <i>Proc Natl Acad Sci USA</i> 94(10):5147&#8211;5152 (1997). <a href="https://doi.org/10.1073/pnas.94.10.5147">doi:10.1073/pnas.94.10.5147</a></li>
 <li>Harlow AA. The hog cycle and the cobweb theorem. <i>Am J Agric Econ</i> 42(4):842&#8211;853 (1960). <a href="https://doi.org/10.2307/1235116">doi:10.2307/1235116</a></li>
 <li>Wiener N. <i>Cybernetics, or Control and Communication in the Animal and the Machine</i>. MIT Press (first published 1948; second edition 1961, reissued 2019). <a href="https://doi.org/10.7551/mitpress/11810.001.0001">doi:10.7551/mitpress/11810.001.0001</a></li>
+<li>Mendelejeff D. Ueber die Beziehungen der Eigenschaften zu den Atomgewichten der Elemente. <i>Zeitschrift f&#252;r Chemie</i> 12:405&#8211;406 (1869). English translation by C. Giunta, Le Moyne College: <a href="https://web.lemoyne.edu/giunta/mendeleev.html">text</a></li>
+<li>PubChem. Periodic table of elements: 118 elements, 17 properties. National Center for Biotechnology Information. <a href="https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/CSV">data</a>, read 10 November 2026</li>
+<li>Scerri ER. The periodic table and the turn to practice. <i>Stud Hist Philos Sci A</i> 79:87&#8211;93 (2020). <a href="https://doi.org/10.1016/j.shpsa.2019.06.001">doi:10.1016/j.shpsa.2019.06.001</a></li>
+<li>Pauli W. Exclusion principle and quantum mechanics. Nobel Lecture, 13 December 1946. <a href="https://www.nobelprize.org/uploads/2018/06/pauli-lecture.pdf">NobelPrize.org</a></li>
+<li>Lavoisier A-L. <i>Elements of Chemistry</i>, translated by R. Kerr. Edinburgh: William Creech (1790), part I, chapter XIII. <a href="https://www.gutenberg.org/ebooks/30775">Project Gutenberg 30775</a></li>
+<li>Leal W, Restrepo G. Formal structure of periodic system of elements. <i>Proc R Soc A</i> 475(2224):20180581 (2019). <a href="https://doi.org/10.1098/rspa.2018.0581">doi:10.1098/rspa.2018.0581</a></li>
+<li>Waller I. Presentation speech, Nobel Prize in Physics 1969 (M. Gell-Mann). <a href="https://www.nobelprize.org/prizes/physics/1969/ceremony-speech/">NobelPrize.org</a></li>
+<li>Barnes VE et al. Observation of a hyperon with strangeness minus three. <i>Phys Rev Lett</i> 12(8):204&#8211;206 (1964). <a href="https://doi.org/10.1103/PhysRevLett.12.204">doi:10.1103/PhysRevLett.12.204</a></li>
+<li>Kumar SS. The structure of stars of very low mass. <i>Astrophys J</i> 137:1121 (1963). <a href="https://doi.org/10.1086/147589">doi:10.1086/147589</a></li>
+<li>Nakajima T, Oppenheimer BR, Kulkarni SR, Golimowski DA, Matthews K, Durrance ST. Discovery of a cool brown dwarf. <i>Nature</i> 378(6556):463&#8211;465 (1995). <a href="https://doi.org/10.1038/378463a0">doi:10.1038/378463a0</a></li>
+<li>Gell-Mann M. Symmetries of baryons and mesons. <i>Phys Rev</i> 125(3):1067&#8211;1084 (1962). <a href="https://doi.org/10.1103/PhysRev.125.1067">doi:10.1103/PhysRev.125.1067</a></li>
+<li>Erler J, Birge N, Kortelainen M, Nazarewicz W, Olsen E, Perhac AM, Stoitsov M. The limits of the nuclear landscape. <i>Nature</i> 486(7404):509&#8211;512 (2012). <a href="https://doi.org/10.1038/nature11188">doi:10.1038/nature11188</a></li>
+<li>Waller I. Presentation speech, Nobel Prize in Physics 1963 (E. Wigner, M. Goeppert Mayer, J. H. D. Jensen). <a href="https://www.nobelprize.org/prizes/physics/1963/ceremony-speech/">NobelPrize.org</a></li>
+<li>Bethe HA. Energy production in stars. <i>Phys Rev</i> 55(5):434&#8211;456 (1939). <a href="https://doi.org/10.1103/PhysRev.55.434">doi:10.1103/PhysRev.55.434</a></li>
+<li>Strebel R. Burckhardtsche Bestimmung der Raumgruppen II. <i>Elemente der Mathematik</i> 59(1):1&#8211;18 (2004). <a href="https://doi.org/10.1007/s00017-001-0207-y">doi:10.1007/s00017-001-0207-y</a></li>
+<li>Hashemi Zadeh S. Origins of the macroscopic symmetry breaking in centrosymmetric phases of perovskite oxides. Doctoral thesis, EPFL, Lausanne (2017). <a href="https://doi.org/10.5075/epfl-thesis-8026">doi:10.5075/epfl-thesis-8026</a></li>
+<li>Shechtman D, Blech I, Gratias D, Cahn JW. Metallic phase with long-range orientational order and no translational symmetry. <i>Phys Rev Lett</i> 53(20):1951&#8211;1953 (1984). <a href="https://doi.org/10.1103/PhysRevLett.53.1951">doi:10.1103/PhysRevLett.53.1951</a></li>
+<li>Kitaev A. Periodic table for topological insulators and superconductors. <i>AIP Conf Proc</i>, 22&#8211;30 (2009). <a href="https://doi.org/10.1063/1.3149495">doi:10.1063/1.3149495</a></li>
+<li>Fu L, Kane CL. Topological insulators with inversion symmetry. <i>Phys Rev B</i> 76(4):045302 (2007). <a href="https://doi.org/10.1103/PhysRevB.76.045302">doi:10.1103/PhysRevB.76.045302</a></li>
+<li>Hsieh D, Qian D, Wray L, Xia Y, Hor YS, Cava RJ, Hasan MZ. A topological Dirac insulator in a quantum spin Hall phase. <i>Nature</i> 452(7190):970&#8211;974 (2008). <a href="https://doi.org/10.1038/nature06843">doi:10.1038/nature06843</a></li>
+<li>Schnyder AP, Ryu S, Furusaki A, Ludwig AWW. Classification of topological insulators and superconductors in three spatial dimensions. <i>Phys Rev B</i> 78(19):195125 (2008). <a href="https://doi.org/10.1103/PhysRevB.78.195125">doi:10.1103/PhysRevB.78.195125</a></li>
+<li>Elzanowski A, Ostell J. The genetic codes. National Center for Biotechnology Information, updated 23 September 2024. <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi">page</a></li>
+<li>Koonin EV, Novozhilov AS. Origin and evolution of the genetic code: the universal enigma. <i>IUBMB Life</i> 61(2):99&#8211;111 (2009). <a href="https://doi.org/10.1002/iub.146">doi:10.1002/iub.146</a></li>
+<li>Mannige RV, Brooks CL. Periodic table of virus capsids: implications for natural selection and design. <i>PLoS ONE</i> 5(3):e9423 (2010). <a href="https://doi.org/10.1371/journal.pone.0009423">doi:10.1371/journal.pone.0009423</a></li>
+<li>Rand DA, Raju A, S&#225;ez M, Corson F, Siggia ED. Geometry of gene regulatory dynamics. <i>Proc Natl Acad Sci USA</i> 118(38):e2109729118 (2021). <a href="https://doi.org/10.1073/pnas.2109729118">doi:10.1073/pnas.2109729118</a></li>
+<li>Xia B, Yanai I. A periodic table of cell types. <i>Development</i> 146(12):dev169854 (2019). <a href="https://doi.org/10.1242/dev.169854">doi:10.1242/dev.169854</a></li>
+<li>Domcke S, Shendure J. A reference cell tree will serve science better than a reference cell atlas. <i>Cell</i> 186(6):1103&#8211;1114 (2023). <a href="https://doi.org/10.1016/j.cell.2023.02.016">doi:10.1016/j.cell.2023.02.016</a></li>
+<li>International Phonetic Association. The International Phonetic Alphabet, revised to 2015. <a href="https://www.internationalphoneticassociation.org/sites/default/files/IPA_Kiel_2015.pdf">chart</a></li>
+<li>Olson KS, Hajek J. The phonetic status of the labial flap. <i>J Int Phon Assoc</i> 29(2):101&#8211;114 (1999). <a href="https://doi.org/10.1017/S0025100300006484">doi:10.1017/S0025100300006484</a></li>
+<li>International Phonetic Association. The International Phonetic Alphabet and the IPA chart. <a href="https://www.internationalphoneticassociation.org/content/ipa-chart">page</a>, read 10 November 2026</li>
+<li>Pianka ER, Vitt LJ, Pelegrin N, Fitzgerald DB, Winemiller KO. Toward a periodic table of niches, or exploring the lizard niche hypervolume. <i>Am Nat</i> 190(5):601&#8211;616 (2017). <a href="https://doi.org/10.1086/693781">doi:10.1086/693781</a></li>
+<li>Winemiller KO, Fitzgerald DB, Bower LM, Pianka ER. Functional traits, convergent evolution, and periodic tables of niches. <i>Ecol Lett</i> 18(8):737&#8211;751 (2015). <a href="https://doi.org/10.1111/ele.12462">doi:10.1111/ele.12462</a></li>
+<li>Schwarzschild M. Theoretical interpretation of the Hertzsprung-Russell diagram. <i>Symp Int Astron Union</i> 10:79&#8211;81 (1959). <a href="https://doi.org/10.1017/S0074180900177575">doi:10.1017/S0074180900177575</a></li>
+<li>Stewart I. Catastrophe theory in physics. <i>Rep Prog Phys</i> 45(2):185&#8211;221 (1982). <a href="https://doi.org/10.1088/0034-4885/45/2/002">doi:10.1088/0034-4885/45/2/002</a></li>
+<li>S&#225;ez M, Blassberg R, Camacho-Aguilar E, Siggia ED, Rand DA, Briscoe J. Statistically derived geometrical landscapes capture principles of decision-making dynamics during cell fate transitions. <i>Cell Systems</i> 13(1):12&#8211;28.e3 (2022). <a href="https://doi.org/10.1016/j.cels.2021.08.013">doi:10.1016/j.cels.2021.08.013</a></li>
+<li>Zahler RS, Sussmann HJ. Claims and accomplishments of applied catastrophe theory. <i>Nature</i> 269(5631):759&#8211;763 (1977). <a href="https://doi.org/10.1038/269759a0">doi:10.1038/269759a0</a></li>
+<li>Golubitsky M. An introduction to catastrophe theory and its applications. <i>SIAM Review</i> 20(2):352&#8211;387 (1978). <a href="https://doi.org/10.1137/1020043">doi:10.1137/1020043</a></li>
+<li>Romera-Paredes B et al. Mathematical discoveries from program search with large language models. <i>Nature</i> 625(7995):468&#8211;475 (2024). <a href="https://doi.org/10.1038/s41586-023-06924-6">doi:10.1038/s41586-023-06924-6</a></li>
+<li>Tishby N, Pereira FC, Bialek W. The information bottleneck method (2000). <a href="https://arxiv.org/abs/physics/0004057">arXiv:physics/0004057</a></li>
+<li>Zhou Q, Tang P, Liu S, Pan J, Yan Q, Zhang S-C. Learning atoms for materials discovery. <i>Proc Natl Acad Sci USA</i> 115(28):E6411&#8211;E6417 (2018). <a href="https://doi.org/10.1073/pnas.1801181115">doi:10.1073/pnas.1801181115</a></li>
+<li>Chandrasekaran SN et al. JUMP Cell Painting chemical dataset: morphological map of 115,796 compounds in human cells. <i>bioRxiv</i> (2023). <a href="https://doi.org/10.1101/2023.03.23.534023">doi:10.1101/2023.03.23.534023</a>. Data: CC0, <a href="https://registry.opendata.aws/cellpainting-gallery/">Cell Painting Gallery</a></li>
+<li>Subramanian A et al. A next generation connectivity map: L1000 platform and the first 1,000,000 profiles. <i>Cell</i> 171(6):1437&#8211;1452.e17 (2017). <a href="https://doi.org/10.1016/j.cell.2017.10.049">doi:10.1016/j.cell.2017.10.049</a>. Data: GEO accession GSE92742</li>
+<li>Replogle JM et al. Mapping information-rich genotype-phenotype landscapes with genome-scale Perturb-seq. <i>Cell</i> 185(14):2559&#8211;2575.e28 (2022). <a href="https://doi.org/10.1016/j.cell.2022.05.013">doi:10.1016/j.cell.2022.05.013</a>. Data: CC BY 4.0, <a href="https://plus.figshare.com/articles/dataset/20029387">figshare 20029387</a></li>
+<li>Berman HM et al. The Protein Data Bank. <i>Nucleic Acids Res</i> 28(1):235&#8211;242 (2000). <a href="https://doi.org/10.1093/nar/28.1.235">doi:10.1093/nar/28.1.235</a>. Data: CC0, <a href="https://www.rcsb.org/pages/usage-policy">usage policy</a></li>
+<li>Ahlmann-Eltze C, Huber W, Anders S. Deep-learning-based gene perturbation effect prediction does not yet outperform simple linear baselines. <i>Nat Methods</i> 22(8):1657&#8211;1661 (2025). <a href="https://doi.org/10.1038/s41592-025-02772-6">doi:10.1038/s41592-025-02772-6</a></li>
+<li>Miller HE, Mejia GM, Leblanc FJA, Swain B, Wang B, de Lima Camillo LP. Deep learning perturbation models can outperform baselines on calibrated metrics. <i>Nat Biotechnol</i> (2026). <a href="https://doi.org/10.1038/s41587-026-03307-w">doi:10.1038/s41587-026-03307-w</a></li>
+<li>Taylor WR. A ‘periodic table’ for protein structures. <i>Nature</i> 416(6881):657–660 (2002). <a href="https://doi.org/10.1038/416657a">doi:10.1038/416657a</a></li>
+<li>Moutevelis E, Woolfson DN. A Periodic Table of Coiled-Coil Protein Structures. <i>J Mol Biol</i> 385(3):726–732 (2009). <a href="https://doi.org/10.1016/j.jmb.2008.11.028">doi:10.1016/j.jmb.2008.11.028</a></li>
+<li>Blount ZD, Lenski RE, Losos JB. Contingency and determinism in evolution: Replaying life’s tape. <i>Science</i> 362(6415):eaam5979 (2018). <a href="https://doi.org/10.1126/science.aam5979">doi:10.1126/science.aam5979</a></li>
+<li>Zeng H. What is a cell type and how to define it? <i>Cell</i> 185(15):2739–2755 (2022). <a href="https://doi.org/10.1016/j.cell.2022.06.031">doi:10.1016/j.cell.2022.06.031</a></li>
+<li>West GB, Brown JH, Enquist BJ. A General Model for the Origin of Allometric Scaling Laws in Biology. <i>Science</i> 276(5309):122–126 (1997). <a href="https://doi.org/10.1126/science.276.5309.122">doi:10.1126/science.276.5309.122</a></li>
+<li>Alon U. Biological Networks: The Tinkerer as an Engineer. <i>Science</i> 301(5641):1866–1867 (2003). <a href="https://doi.org/10.1126/science.1089072">doi:10.1126/science.1089072</a></li>
+<li>Lazebnik Y. Can a biologist fix a radio?&#8212;Or, what I learned while studying apoptosis. <i>Cancer Cell</i> 2(3):179–182 (2002). <a href="https://doi.org/10.1016/S1535-6108(02)00133-2">doi:10.1016/S1535-6108(02)00133-2</a></li>
+<li>Brenner S. Sequences and consequences. <i>Philos Trans R Soc B</i> 365(1537):207–212 (2010). <a href="https://doi.org/10.1098/rstb.2009.0221">doi:10.1098/rstb.2009.0221</a></li>
+<li>Regev A et al. The Human Cell Atlas. <i>eLife</i> 6:e27041 (2017). <a href="https://doi.org/10.7554/eLife.27041">doi:10.7554/eLife.27041</a></li>
+<li>Yao Z et al. A high-resolution transcriptomic and spatial atlas of cell types in the whole mouse brain. <i>Nature</i> 624(7991):317–332 (2023). <a href="https://doi.org/10.1038/s41586-023-06812-z">doi:10.1038/s41586-023-06812-z</a></li>
+<li>Nurse P. Biology must generate ideas as well as data. <i>Nature</i> 597(7876):305 (2021). <a href="https://doi.org/10.1038/d41586-021-02480-z">doi:10.1038/d41586-021-02480-z</a></li>
+<li>Jonas E, Kording KP. Could a Neuroscientist Understand a Microprocessor? <i>PLoS Comput Biol</i> 13(1):e1005268 (2017). <a href="https://doi.org/10.1371/journal.pcbi.1005268">doi:10.1371/journal.pcbi.1005268</a></li>
+<li>Kedzierska KZ, Crawford L, Amini AP, Lu AX. Zero-shot evaluation reveals limitations of single-cell foundation models. <i>Genome Biol</i> 26(1):101 (2025). <a href="https://doi.org/10.1186/s13059-025-03574-x">doi:10.1186/s13059-025-03574-x</a></li>
+<li>Bunne C et al. How to build the virtual cell with artificial intelligence: Priorities and opportunities. <i>Cell</i> 187(25):7045–7063 (2024). <a href="https://doi.org/10.1016/j.cell.2024.11.015">doi:10.1016/j.cell.2024.11.015</a></li>
+<li>Roohani YH et al. Virtual Cell Challenge: Toward a Turing test for the virtual cell. <i>Cell</i> 188(13):3370–3374 (2025). <a href="https://doi.org/10.1016/j.cell.2025.06.008">doi:10.1016/j.cell.2025.06.008</a></li>
+<li>Hartwell LH, Hopfield JJ, Leibler S, Murray AW. From molecular to modular cell biology. <i>Nature</i> 402(S6761):C47–C52 (1999). <a href="https://doi.org/10.1038/35011540">doi:10.1038/35011540</a></li>
+<li>Sáez M, Briscoe J, Rand DA. Dynamical landscapes of cell fate decisions. <i>Interface Focus</i> 12(4):20220002 (2022). <a href="https://doi.org/10.1098/rsfs.2022.0002">doi:10.1098/rsfs.2022.0002</a></li>
+<li>Theodoris CV et al. Transfer learning enables predictions in network biology. <i>Nature</i> 618(7965):616–624 (2023). <a href="https://doi.org/10.1038/s41586-023-06139-9">doi:10.1038/s41586-023-06139-9</a></li>
+<li>Cui H et al. scGPT: toward building a foundation model for single-cell multi-omics using generative AI. <i>Nat Methods</i> 21(8):1470–1480 (2024). <a href="https://doi.org/10.1038/s41592-024-02201-0">doi:10.1038/s41592-024-02201-0</a></li>
+<li>Lin Z et al. Evolutionary-scale prediction of atomic-level protein structure with a language model. <i>Science</i> 379(6637):1123–1130 (2023). <a href="https://doi.org/10.1126/science.ade2574">doi:10.1126/science.ade2574</a></li>
 <li>Izhikevich EM. Neural excitability, spiking and bursting. <i>Int J Bifurcation Chaos</i> 10(6):1171&#8211;1266 (2000). <a href="https://doi.org/10.1142/S0218127400000840">doi:10.1142/S0218127400000840</a></li>
 <li>Feinberg M. Chemical reaction network structure and the stability of complex isothermal reactors&#8212;I. The deficiency zero and deficiency one theorems. <i>Chem Eng Sci</i> 42(10):2229&#8211;2268 (1987). <a href="https://doi.org/10.1016/0009-2509(87)80099-4">doi:10.1016/0009-2509(87)80099-4</a></li>
 <li>Chevalier M, G&oacute;mez-Schiavon M, Ng AH, El-Samad H. Design and analysis of a proportional-integral-derivative controller with biological molecules. <i>Cell Systems</i> 9(4):338&#8211;353.e10 (2019). <a href="https://doi.org/10.1016/j.cels.2019.08.010">doi:10.1016/j.cels.2019.08.010</a></li>
-<li>Taylor WR. A &#8216;periodic table&#8217; for protein structures. <i>Nature</i> 416(6881):657&#8211;660 (2002). <a href="https://doi.org/10.1038/416657a">doi:10.1038/416657a</a></li>
 <li>Newman SA, Bhat R. Dynamical patterning modules: a &#8216;pattern language&#8217; for development and evolution of multicellular form. <i>Int J Dev Biol</i> 53:693&#8211;705 (2009). <a href="https://doi.org/10.1387/ijdb.072481sn">doi:10.1387/ijdb.072481sn</a></li>
 <li>Morowitz HJ. <i>Energy Flow in Biology</i>. Academic Press (1968).</li>
 </ol>
@@ -1717,6 +2283,7 @@ sg = s * (1 if st > 0 else -1)</pre><span class="out">The code nudges LacI up by
 </section>
 
 <footer class="end text">
+<p class="q-ack">Ed Boyden, as an advisor, planted this question in 2021.</p>
 <p class="meta"><span>Kat Titterton, November 2026</span><a href="#count">the count</a><a href="https://github.com/kat-titter/every-line-is-a-loop">code and figures</a><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">back to the top</a></p>
 </footer>
 
@@ -2001,7 +2568,7 @@ sg = s * (1 if st > 0 else -1)</pre><span class="out">The code nudges LacI up by
     });
   });
 
-  // Figure 18: a tilted torus with hidden-line rendering, plus the three-panel reading strip.
+  // Figure 21: a tilted torus with hidden-line rendering, plus the three-panel reading strip.
   var A = 0.45, Bz = 0.62; // projection: screen y = A*Y - Bz*Z
   function torusBody(parent, cx, cy, R, rr, nt, nu, strokeEvery) {
     var rings = [];
@@ -2058,7 +2625,7 @@ sg = s * (1 if st > 0 else -1)</pre><span class="out">The code nudges LacI up by
   S.addEventListener('input', draw);
   draw();
 
-  // Print: Figure 18 in its closed state and the symbol key open; both restored afterwards.
+  // Print: Figure 21 in its closed state and the symbol key open; both restored afterwards.
   var held = null;
   function toPrint() {
     if (held) return;
@@ -2102,6 +2669,7 @@ sg = s * (1 if st > 0 else -1)</pre><span class="out">The code nudges LacI up by
 })();
 </script>
 <div id="ff-card" role="status" aria-live="polite"></div>
+<div id="q-card" role="status" aria-live="polite"></div>
 <script>
 /* The front, folded in 2026-11-10. Hand-written, like the script above; no generator rewrites it. */
 
@@ -2288,6 +2856,45 @@ sg = s * (1 if st > 0 else -1)</pre><span class="out">The code nudges LacI up by
     c.addEventListener('focus', () => { if (!pinned) show(c); });
     c.addEventListener('blur', () => { if (!pinned) hide(); });
     c.addEventListener('click', ev => { ev.stopPropagation(); if (pinned === c) { pinned = null; hide(); } else { pinned = c; show(c); } });
+  });
+  document.addEventListener('click', () => { pinned = null; hide(); });
+  document.addEventListener('keydown', ev => { if (ev.key === 'Escape') { pinned = null; hide(); } });
+})();
+
+/* One card for every square of Figure 18: peeks on hover or focus, pins on tap, closes on Esc; arrow keys walk the grid. */
+(function () {
+  const card = document.getElementById('q-card'), cells = [...document.querySelectorAll('#fig-matrix .q-mx-c')]; let pinned = null;
+  if (!card || !cells.length) return;
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; e.textContent = text; return e; };
+  function show(c) {
+    card.textContent = '';
+    card.appendChild(el('b', '', c.dataset.t));
+    card.appendChild(el('span', 'k', c.dataset.k + ': ' + c.dataset.v));
+    card.appendChild(document.createTextNode(c.dataset.d));
+    card.appendChild(el('span', 'src', c.dataset.s));
+    cells.forEach(o => o.setAttribute('aria-expanded', o === c));
+    const r = c.getBoundingClientRect();
+    if (!matchMedia('(max-width: 640px)').matches) {
+      const W = 300, x = Math.max(8, Math.min(r.left + scrollX + r.width / 2 - W / 2, scrollX + document.documentElement.clientWidth - W - 8));
+      card.style.left = x + 'px'; card.style.top = (r.bottom + scrollY + 6) + 'px';
+    }
+    /* on a phone the card is a sheet: at the bottom, or at the top when the square sits under it */
+    card.classList.toggle('up', r.bottom > innerHeight - card.offsetHeight - 26);
+    card.classList.add('show');
+  }
+  function hide() { card.classList.remove('show'); cells.forEach(o => o.setAttribute('aria-expanded', false)); }
+  cells.forEach((c, i) => {
+    c.setAttribute('aria-expanded', false);
+    c.addEventListener('mouseenter', () => { if (!pinned) show(c); });
+    c.addEventListener('mouseleave', () => { if (!pinned) hide(); });
+    c.addEventListener('focus', () => { if (!pinned) show(c); });
+    c.addEventListener('blur', () => { if (!pinned) hide(); });
+    c.addEventListener('click', ev => { ev.stopPropagation(); if (pinned === c) { pinned = null; hide(); } else { pinned = c; show(c); } });
+    c.addEventListener('keydown', ev => {
+      const step = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: 5, ArrowUp: -5 }[ev.key];
+      if (!step || !cells[i + step]) return;
+      ev.preventDefault(); pinned = null; cells[i + step].focus();
+    });
   });
   document.addEventListener('click', () => { pinned = null; hide(); });
   document.addEventListener('keydown', ev => { if (ev.key === 'Escape') { pinned = null; hide(); } });
