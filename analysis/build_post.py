@@ -270,7 +270,8 @@ h2 { font: 400 var(--t6)/1.15 var(--serif); letter-spacing: -0.01em; margin: 0 0
 .text h3 { font: 400 var(--t5)/1.3 var(--serif); margin: var(--s6) 0 var(--s3); }
 .text > p.kicker { font: 500 var(--t1)/1.4 var(--sans); letter-spacing: 0.1em; color: var(--muted); margin: 0 0 var(--s3); }
 .text > p.kicker .n { color: var(--muted); margin-right: var(--s3); }
-math[display="block"] { display: block; margin: var(--s4) 0 var(--s5); font-size: var(--t5); }
+math[display="block"] { display: block; display: block math; margin: var(--s4) 0 var(--s5); font-size: var(--t5); }
+@media (max-width: 480px) { math[display="block"] { font-size: var(--t4); } }
 
 /* summary and scorecard */
 .abstract { margin: 0 0 var(--s6); }
@@ -995,6 +996,28 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
         (autonomous, census, f'of the {usable} run on their own',
          f'Simulated each from {WORD[starts]} starting states and labelled what it did: settles, ticks, holds two states, and so on. {th["forced models excluded"]} models driven by an outside schedule were set aside.',
          'The proven rules, and the table&#8217;s claims, are about circuits left to themselves.'),
+    ]
+    # the labelled models, then the hold-out batch, on the same 640-model scale (results/truth_tests.json, holdout_score.json)
+    labelled = json.loads((R / 'truth_tests.json').read_text())['rules']['autonomous']
+    hf = json.loads((R / 'holdout_score.json').read_text())['funnel']
+    ho_six = json.loads((R / 'holdout_score.json').read_text())['six answers']
+    ho_addr = json.loads((R / 'holdout_score.json').read_text())['the address']['n']
+    stages += [
+        (labelled, census, 'of those, match a behaviour label',
+         f'Kept the models whose runs match a label. The other {autonomous - labelled} never settled within 100,000 time units, or the solver failed.',
+         'The two sign rules and the atlas read a behaviour, so they need one.'),
+        (hf['listed'], census, 'held out: curated since 2017',
+         f'Listed and fetched every curated model added after release 31. {hf["read as equations"]} read as equations, {hf["run on their own"]} run on their own.',
+         'The tests were written down before any of these was read, so the batch can catch a rule fitted to release 31.'),
+        (hf['match a behaviour label'], census, 'held out, for the sign rules',
+         'The models with a behaviour label, read exactly as release 31 was read.',
+         'A rule that holds only on the models it was found in is not a rule.'),
+        (ho_six['filed'], census, 'held out, for the atlas',
+         f'{hf["atlas read"]} gave an answer to the pushes that could be read; {hf["atlas read"] - ho_six["filed"]} barely moved; the rest fill the rows.',
+         'The atlas predicts that its alphabet stays small as the library grows.'),
+        (ho_addr, census, 'held out, for the address test',
+         'Filed by the atlas, with one to three loops.',
+         'Whether a square predicts a circuit&#8217;s answer better than the two sign rules alone.'),
     ]
     funnel_html = IA.funnel(stages)
     ex_rows = []

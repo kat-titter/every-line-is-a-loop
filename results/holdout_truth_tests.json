@@ -1,0 +1,5153 @@
+{
+ "settings": {
+  "step": 0.2,
+  "moves_more_than": 0.05,
+  "returns_within": 0.005,
+  "others_stay_moved_by": 0.05
+ },
+ "rules": {
+  "autonomous": 278,
+  "memory": 15,
+  "memory_without_amplifying_loop": [
+   "BIOMD0000000933"
+  ],
+  "clock": 45,
+  "clock_without_braking_loop": [
+   "BIOMD0000000657",
+   "BIOMD0000000777",
+   "BIOMD0000000831",
+   "BIOMD0000001080"
+  ]
+ },
+ "gain_brake": [
+  {
+   "model": "BIOMD0000000933",
+   "status": "ok",
+   "n": 3,
+   "G": 13568.763909923853,
+   "why": "",
+   "threshold": 7.999999999999995,
+   "unstable": true,
+   "ticks": true,
+   "name": "Kosiuk2015-Geometric analysis of the Goldbeter minimal model for the embryonic cell cycle"
+  },
+  {
+   "model": "BIOMD0000000937",
+   "status": "ok",
+   "n": 3,
+   "G": 106.91765406183329,
+   "why": "",
+   "threshold": 7.999999999999995,
+   "unstable": true,
+   "ticks": true,
+   "name": "Ferrel2011 - Autonomous biochemical oscillator in regulation of CDK1, Plk1, and APC in Xenopus Laevis cell cycle"
+  },
+  {
+   "model": "BIOMD0000000944",
+   "status": "ok",
+   "n": 3,
+   "G": 827.0897427457604,
+   "why": "",
+   "threshold": 7.999999999999995,
+   "unstable": true,
+   "ticks": true,
+   "name": "Goldbeter2013-Oscillatory activity of cyclin-dependent kinases in the cell cycle"
+  },
+  {
+   "model": "BIOMD0000000890",
+   "status": "ok",
+   "n": 3,
+   "G": 1.268022400936958,
+   "why": "",
+   "threshold": 7.999999999999995,
+   "unstable": false,
+   "ticks": false,
+   "name": "Bhattacharya2014 - A mathematical model of the sterol regulatory element binding protein 2 cholesterol biosynthesis pathway"
+  },
+  {
+   "model": "BIOMD0000000935",
+   "status": "ok",
+   "n": 2,
+   "G": 29.983442084445713,
+   "why": "",
+   "threshold": Infinity,
+   "unstable": false,
+   "ticks": false,
+   "name": "Ferrel2011 - Cdk1 and APC regulation in cell cycle in Xenopus laevis"
+  }
+ ],
+ "gain_amplify": [
+  {
+   "model": "BIOMD0000000919",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.1649155281047837,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 13.312532594644447,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 4.740380432695126,
+     "why": "",
+     "unstable": true
+    }
+   ],
+   "memory": true,
+   "name": "Ledzewicz2013 - On optimal chemotherapy with a strongly targeted agent for a model of tumor immune system interactions with generalized logistic growth"
+  },
+  {
+   "model": "BIOMD0000001047",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.0016000000018774041,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0016000000028663522,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.729588579658987,
+     "why": "",
+     "unstable": true
+    }
+   ],
+   "memory": true,
+   "name": "Collier1996 - Delta Notch intercellular signalling and lateral inhibition"
+  },
+  {
+   "model": "BIOMD0000000668",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Zhu2015 - Combined gemcitabine and birinapant in pancreatic cancer cells - basic PD model"
+  },
+  {
+   "model": "BIOMD0000000689",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.02134154844364314,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.021341548444913643,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.021341548445635777,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.021341548448552187,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.021341548443849324,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.02134239992181677,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.021341548444254715,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.021341548444255714,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.02134154844273311,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.021341642814494858,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.02134154844425174,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.02134154844425571,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.021341548442730146,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.021341548442738063,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.02134154844273312,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Thiaville2016 - Folate pathway model (PanB overexpression)"
+  },
+  {
+   "model": "BIOMD0000000708",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Liu2017 - Dynamics of Avian Influenza with Logistic Growth"
+  },
+  {
+   "model": "BIOMD0000000726",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.9999999999446749,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Ruan2017 - Transmission dynamics and control of rabies in China"
+  },
+  {
+   "model": "BIOMD0000000755",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": null,
+     "why": "a loop node has no decay of its own",
+     "unstable": false
+    },
+    {
+     "G": null,
+     "why": "a loop node has no decay of its own",
+     "unstable": false
+    },
+    {
+     "G": null,
+     "why": "a loop node has no decay of its own",
+     "unstable": false
+    },
+    {
+     "G": null,
+     "why": "a loop node has no decay of its own",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Hansen2019 - Nine species reduced model of blood coagulation"
+  },
+  {
+   "model": "BIOMD0000000777",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 5.87358129080571e-48,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Chakrabarty2010 - A control theory approach to cancer remission aided by an optimal therapy"
+  },
+  {
+   "model": "BIOMD0000000851",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Ho2019 - Mathematical models of transmission dynamics and vaccine strategies in Hong Kong during the 2017-2018 winter influenza season (Simple)"
+  },
+  {
+   "model": "BIOMD0000000875",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.0009146666832614936,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Nelson2000- HIV-1 general model 1"
+  },
+  {
+   "model": "BIOMD0000000914",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Parra_Guillen2013 -  Mathematical model approach to describe tumour response in mice after vaccine administration_model1"
+  },
+  {
+   "model": "BIOMD0000000957",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Roda2020 - SIR model of COVID-19 spread in Wuhan"
+  },
+  {
+   "model": "BIOMD0000000962",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Zhao2020 - SUQC model of COVID-19 transmission dynamics in Wuhan, Hubei, and China"
+  },
+  {
+   "model": "BIOMD0000000966",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Cui2008 - in vitro transcriptional response of zinc homeostasis system in Escherichia coli"
+  },
+  {
+   "model": "BIOMD0000000974",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.011110846676707435,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0038988030492604305,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0073220055341325415,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.010274002398714807,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0011759384533696776,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.013965907252230242,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.02318435795905404,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.1594180063565364e-05,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.17993940202853556,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007717760715306775,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.2494319101467653,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.11900622137754581,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00750482423202952,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00921642673284216,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.010692423611879767,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.006143391927968467,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.012538380605692248,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.01714760013872823,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.005581218591245406,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0955251248011497,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.009414305347324367,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.13027138016580866,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.06505853520329397,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.005610407236705075,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007086401891404943,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.002537370766390339,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.008932355027424371,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.013541581492827677,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0019751944668744918,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.09191910211267824,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.005808278491958463,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.12666535382720764,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.061452513847297656,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.008798003744784809,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0042489713781381005,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.010643958796416749,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.015253181330360842,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0036867992263171032,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.09363070145720975,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00751988243762077,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.1283769592806872,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.06316411391692499,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.005724972750351046,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.012119954346474667,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.016729173132264682,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0051627980501232264,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.09510670314056759,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00899588248127719,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.1298529565145651,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.06464011104293899,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007570919227617997,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.012180149126281797,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0006137661930739613,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.09055767242311233,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.004446846497848637,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.12530392540742508,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.06009108173019929,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.018575132653799904,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.007008751929647127,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.09695265430571015,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.010841834909901874,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.131698902646515,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.06648606382717938,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.011617978218670182,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.10156188140087472,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.01545105925444694,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.13630813304991737,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.07109529204280789,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.08999549789075924,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.003884677404785391,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.12474175049972656,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.05952891117895145,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0938285825003633,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.2146856567180294,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.14947281134200524,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.1285748319722809,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.06336199027823668,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.18421906271996913,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Carcione2020 - Deterministic SEIR simulation of a COVID-19 outbreak"
+  },
+  {
+   "model": "BIOMD0000000979",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0000000058976015,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Malkov2020 - SEIRS model of COVID-19 transmission with reinfection"
+  },
+  {
+   "model": "BIOMD0000000984",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.0003625470071786621,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.0647105316127385e-05,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00024390655226231583,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 7.850821979113409e-11,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00961844088060527,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00036150288501755277,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.004506853217592666,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00013584635534687209,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0013865945149489172,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00032754834959855674,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0012451772765057919,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0546289892825184e-05,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00020659739968204109,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0003032267799758478,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00018127200599377067,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0049904923373994044,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0003620233749283836,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0024347018841361133,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.000249196786758635,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0008745704659080326,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00034504596305398854,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0008038615212999384,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00018654546175574002,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0001472755986895056,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 2.5323592138935786e-05,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.004834542312341532,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00020607355026719504,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.002278751945354486,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 9.324753459885295e-05,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0007186208248791162,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00018909997308160458,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0006479143612573754,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 3.0595249996052906e-05,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00012195543619390099,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.004931172593589351,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00030270472772673976,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0023753780083747575,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00018987645519587707,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0008152505417129604,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0002857264627250262,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.000744542457121568,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0001272264219197878,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.004809221862665315,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00018075193222741645,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0022534249705790815,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 6.792321702930882e-05,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0006932983219074265,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.000163774215952696,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0006225882845201586,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 5.271333102240925e-06,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00706264667620086,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.004877143366872559,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.005502517826034637,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.004972994834069894,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.005431810413380627,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.004814496411293154,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00024867342491581237,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0008740486922187642,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00034452491621182654,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00018602441818563976,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00232134915337032,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.002946721911164897,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0024172006962904623,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0028760152649077502,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0022587031599568563,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0007612190437036938,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00023169710212652254,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0006905109099477937,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 7.319483982195008e-05,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0008570695607527345,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0013158875684264489,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0006985733453211012,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0007863613255143995,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.00016904732012337052,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 0.0006278616416020568,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Fang2020 - SEIR model of COVID-19 transmission considering government interventions in Wuhan"
+  },
+  {
+   "model": "BIOMD0000001004",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.2035332286741721,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Intosalmi2015 - Th17 core network model"
+  },
+  {
+   "model": "BIOMD0000001016",
+   "status": "ok",
+   "steady_states": [],
+   "memory": false,
+   "name": "Bakshi2020 - Truncated minimal model of alternative pathway of complement system"
+  },
+  {
+   "model": "BIOMD0000001045",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    },
+    {
+     "G": 1.0,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Smith&Moore2004 - The SIR model for the spread of HongKong Flu"
+  },
+  {
+   "model": "BIOMD0000001057",
+   "status": "ok",
+   "steady_states": [
+    {
+     "G": 0.0004954580055243884,
+     "why": "",
+     "unstable": false
+    }
+   ],
+   "memory": false,
+   "name": "Nikolov2020 - p53-miR34 model"
+  }
+ ],
+ "step": [
+  {
+   "model": "BIOMD0000000641",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Jaiswal2017 - Cell cycle arrest",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000642",
+   "status": "ok",
+   "parameters_tried": 17,
+   "exact_returns": [],
+   "name": "Mufudza2012 - Estrogen effect on the dynamics of breast cancer",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000643",
+   "status": "ok",
+   "parameters_tried": 43,
+   "exact_returns": [],
+   "name": "Musante2017 - Switching behaviour of PP2A inhibition by ARPP-16 - mutual inhibitions",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000644",
+   "status": "ok",
+   "parameters_tried": 47,
+   "exact_returns": [],
+   "name": "Musante2017 - Switching behaviour of PP2A inhibition by ARPP-16 - mutual inhibitions and PKA inhibits MAST3",
+   "loops": 10,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000645",
+   "status": "ok",
+   "parameters_tried": 48,
+   "exact_returns": [],
+   "name": "Musante2017 - Switching behaviour of PP2A inhibition by ARPP-16 - mutual inhibitions and PKA inhibits MAST3 and dominant negative effect",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000646",
+   "status": "ok",
+   "parameters_tried": 25,
+   "exact_returns": [],
+   "name": "Barr2016 - All-or-nothing G1/S transition",
+   "loops": 669,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000647",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Kwang2003 - The influence of RKIP on the ERK signaling pathway",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000651",
+   "status": "ok",
+   "parameters_tried": 34,
+   "exact_returns": [],
+   "name": "Nguyen2016 - Feedback regulation in cell signalling: Lessons for cancer therapeutics",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000660",
+   "status": "ok",
+   "parameters_tried": 31,
+   "exact_returns": [],
+   "name": "Barr2017 - Dynamics of p21 in hTert-RPE1 cells",
+   "loops": 295,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000661",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Webb2002 - Fas/FasL mediated tumor T-cell interaction",
+   "loops": 59,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000662",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [],
+   "name": "Moore2004 - Chronic Myeloid Leukemic cells and T-lymphocyte interaction",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000663",
+   "status": "ok",
+   "parameters_tried": 7,
+   "exact_returns": [],
+   "name": "Wodarz2007 - HIV/CD4 T-cell interaction",
+   "loops": 8,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000665",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [
+    {
+     "parameter": "kt",
+     "variable": "Ri_0",
+     "peak": 0.127,
+     "final": 0.0
+    }
+   ],
+   "name": "Fallon2000 - Interleukin-2 dynamics",
+   "loops": 13,
+   "running_totals": 1
+  },
+  {
+   "model": "BIOMD0000000668",
+   "status": "ok",
+   "parameters_tried": 24,
+   "exact_returns": [],
+   "name": "Zhu2015 - Combined gemcitabine and birinapant in pancreatic cancer cells - basic PD model",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000670",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Owen1998 - tumour growth model",
+   "loops": 9,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000680",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Waugh2006 - Diabetic Wound Healing - TGF-B Dynamics",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000684",
+   "status": "ok",
+   "parameters_tried": 13,
+   "exact_returns": [
+    {
+     "parameter": "r",
+     "variable": "S",
+     "peak": 0.186,
+     "final": 6e-05
+    },
+    {
+     "parameter": "epsilon",
+     "variable": "S",
+     "peak": 0.135,
+     "final": 6e-05
+    },
+    {
+     "parameter": "beta_2",
+     "variable": "P_2",
+     "peak": 0.074,
+     "final": 0.00396
+    },
+    {
+     "parameter": "u",
+     "variable": "I_12",
+     "peak": 0.073,
+     "final": 0.00049
+    }
+   ],
+   "name": "Wodarz2003 Immunological Memory",
+   "loops": 39,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000685",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [
+    {
+     "parameter": "eta",
+     "variable": "C",
+     "peak": 0.061,
+     "final": 0.00107
+    },
+    {
+     "parameter": "mu",
+     "variable": "C",
+     "peak": 0.054,
+     "final": 0.00123
+    },
+    {
+     "parameter": "alpha",
+     "variable": "C",
+     "peak": 0.054,
+     "final": 0.00093
+    }
+   ],
+   "name": "Wodarz2003 - Cytotoxic T lymphocyte cross-priming",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000686",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [
+    {
+     "parameter": "lambda",
+     "variable": "x",
+     "peak": 0.197,
+     "final": 0.0
+    }
+   ],
+   "name": "Wodarz2007 - Basic Model of Cytomegalovirus Infection",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000687",
+   "status": "baseline not steady: unbounded",
+   "name": "Wodarz2007 - Cytomegalovirus infection model with cytotoxic T lymphocyte response",
+   "loops": 10,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000688",
+   "status": "baseline not steady: unsettled",
+   "name": "Wodarz2007 - Cytomegalovirus infection model with cytotoxic T lymphocyte and natural killer cell response",
+   "loops": 19,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000689",
+   "status": "ok",
+   "parameters_tried": 13,
+   "exact_returns": [
+    {
+     "parameter": "FolC_k1",
+     "variable": "DHF",
+     "peak": 0.06,
+     "final": 0.0
+    }
+   ],
+   "name": "Thiaville2016 - Folate pathway model (PanB overexpression)",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000692",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Phillips2003 - The Mechanism of Ras GTPase Activation by Neurofibromin",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000697",
+   "status": "ok",
+   "parameters_tried": 20,
+   "exact_returns": [],
+   "name": "Ciliberto2003 - CyclinE / Cdk2 timer in the cell cycle of Xenopus laevis embryo",
+   "loops": 2188,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000700",
+   "status": "ok",
+   "parameters_tried": 55,
+   "exact_returns": [],
+   "name": "Heldt2018 - Proliferation-quiescence decision in response to DNA damage",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000703",
+   "status": "ok",
+   "parameters_tried": 75,
+   "exact_returns": [
+    {
+     "parameter": "Btot_star",
+     "variable": "x",
+     "peak": 0.077,
+     "final": 0.00481
+    }
+   ],
+   "name": "Diedrichs2018 - A data-entrained computational model for testing the regulatory logic of the vertebrate unfolded protein response",
+   "loops": 38,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000707",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [
+    {
+     "parameter": "beta",
+     "variable": "Pathogen_Virus",
+     "peak": 0.145,
+     "final": 0.0
+    },
+    {
+     "parameter": "beta",
+     "variable": "Single_Infected_Th_Cells",
+     "peak": 0.137,
+     "final": 0.0
+    },
+    {
+     "parameter": "k",
+     "variable": "Single_Infected_Th_Cells",
+     "peak": 0.146,
+     "final": 0.0
+    }
+   ],
+   "name": "Revilla2003 - Controlling HIV infection using recombinant viruses",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000712",
+   "status": "baseline not steady: failed",
+   "name": "Manchanda2014 - Effect on Immune System by 4 different Influenza A virus strains",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000714",
+   "status": "ok",
+   "parameters_tried": 21,
+   "exact_returns": [],
+   "name": "Reynolds2006 - Reduced model of the acute inflammatory response",
+   "loops": 11,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000715",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Huo2017 - SEIS epidemic model with the impact of media",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000721",
+   "status": "ok",
+   "parameters_tried": 24,
+   "exact_returns": [],
+   "name": "Graham2013 - Role of osteocytes in targeted bone remodeling",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000726",
+   "status": "ok",
+   "parameters_tried": 16,
+   "exact_returns": [],
+   "name": "Ruan2017 - Transmission dynamics and control of rabies in China",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000732",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [],
+   "name": "Kirschner1998_Immunotherapy_Tumour",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000733",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [],
+   "name": "Moore_2004_Mathematical model for CML and T cell interaction",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000737",
+   "status": "ok",
+   "parameters_tried": 22,
+   "exact_returns": [],
+   "name": "Mouse Iron Distribution - Deficient iron diet (No Tracer)",
+   "loops": 14,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000738",
+   "status": "ok",
+   "parameters_tried": 23,
+   "exact_returns": [
+    {
+     "parameter": "kInRest",
+     "variable": "FeRest",
+     "peak": 0.119,
+     "final": 0.00096
+    },
+    {
+     "parameter": "VRestNTBI",
+     "variable": "FeRest",
+     "peak": 0.057,
+     "final": 0.00055
+    },
+    {
+     "parameter": "vRBCSpleen",
+     "variable": "FeSpleen",
+     "peak": 0.229,
+     "final": 0.0
+    },
+    {
+     "parameter": "vRBCSpleen",
+     "variable": "FeLiver",
+     "peak": 0.116,
+     "final": 0.0
+    },
+    {
+     "parameter": "vRBCSpleen",
+     "variable": "Tf",
+     "peak": 0.103,
+     "final": 0.0
+    },
+    {
+     "parameter": "vRBCSpleen",
+     "variable": "Fe2Tf",
+     "peak": 0.178,
+     "final": 0.0
+    },
+    {
+     "parameter": "vRBCSpleen",
+     "variable": "NTBI",
+     "peak": 0.21,
+     "final": 0.0
+    },
+    {
+     "parameter": "vRBCSpleen",
+     "variable": "FeRest",
+     "peak": 0.102,
+     "final": 0.0
+    },
+    {
+     "parameter": "vRBCSpleen",
+     "variable": "FeBM",
+     "peak": 0.118,
+     "final": 0.0
+    },
+    {
+     "parameter": "kInBM",
+     "variable": "FeLiver",
+     "peak": 0.112,
+     "final": 0.0
+    },
+    {
+     "parameter": "kInBM",
+     "variable": "Tf",
+     "peak": 0.102,
+     "final": 0.0
+    },
+    {
+     "parameter": "kInBM",
+     "variable": "Fe2Tf",
+     "peak": 0.162,
+     "final": 0.0
+    },
+    {
+     "parameter": "kInBM",
+     "variable": "FeRest",
+     "peak": 0.101,
+     "final": 0.0
+    }
+   ],
+   "name": "Mouse Iron Distribution - Rich iron diet (No Tracer)",
+   "loops": 14,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000742",
+   "status": "baseline not steady: unbounded",
+   "name": "Garcia2018basic - cancer and immune cell count basic model",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000743",
+   "status": "ok",
+   "parameters_tried": 31,
+   "exact_returns": [],
+   "name": "Gallaher2018 - Tumor\u2013Immune dynamics in multiple myeloma",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000744",
+   "status": "baseline not steady: unbounded",
+   "name": "Hu2019 - Pancreatic cancer dynamics",
+   "loops": 16,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000746",
+   "status": "baseline not steady: unbounded",
+   "name": "Saad2017 - immune checkpoint and BCG in superficial bladder cancer",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000750",
+   "status": "baseline not steady: unbounded",
+   "name": "Lolas2016 - tumour-induced neoneurogenesis and perineural tumour growth",
+   "loops": 40,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000752",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [
+    {
+     "parameter": "u",
+     "variable": "I",
+     "peak": 0.108,
+     "final": 0.0
+    }
+   ],
+   "name": "Wilkie2013r - immune-induced cancer dormancy and immune evasion-resistance",
+   "loops": 9,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000753",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Figueredo2013/1 - immunointeraction base model",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000754",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Figueredo2013/2 - immunointeraction model with IL2",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000755",
+   "status": "baseline not steady: unsettled",
+   "name": "Hansen2019 - Nine species reduced model of blood coagulation",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000756",
+   "status": "ok",
+   "parameters_tried": 20,
+   "exact_returns": [],
+   "name": "Figueredo2013/3 - immunointeraction full model",
+   "loops": 8,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000757",
+   "status": "baseline not steady: unbounded",
+   "name": "Abernathy2016 - glioblastoma treatment",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000759",
+   "status": "baseline not steady: unbounded",
+   "name": "den Breems2015 - macrophage in cancer",
+   "loops": 38,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000761",
+   "status": "ok",
+   "parameters_tried": 22,
+   "exact_returns": [],
+   "name": "Cappuccio2006 - Cancer immunotherapy by interleukin-21",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000765",
+   "status": "ok",
+   "parameters_tried": 7,
+   "exact_returns": [],
+   "name": "Mager2005 - Quasi-equilibrium pharmacokinetic model for drugs exhibiting target-mediated drug disposition",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000766",
+   "status": "ok",
+   "parameters_tried": 15,
+   "exact_returns": [
+    {
+     "parameter": "hv",
+     "variable": "E",
+     "peak": 0.056,
+     "final": 0.0
+    },
+    {
+     "parameter": "pe",
+     "variable": "E",
+     "peak": 0.063,
+     "final": 0.0
+    },
+    {
+     "parameter": "de",
+     "variable": "E",
+     "peak": 0.062,
+     "final": 0.0
+    }
+   ],
+   "name": "Macnamara2015/1 - virotherapy full model",
+   "loops": 14,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000767",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Macnamara2015/2 - virotherapy virus-free submodel",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000768",
+   "status": "ok",
+   "parameters_tried": 22,
+   "exact_returns": [],
+   "name": "Eftimie2010 - immunity to melanoma",
+   "loops": 27,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000769",
+   "status": "ok",
+   "parameters_tried": 27,
+   "exact_returns": [],
+   "name": "Eftimie2017/2 - interaction of Th and macrophage in melanoma",
+   "loops": 64,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000770",
+   "status": "baseline not steady: unbounded",
+   "name": "Eftimie2017/1 - interaction of Th and macrophage",
+   "loops": 15,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000771",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Bajzer2008 - Modeling of cancer virotherapy with recombinant measles viruses",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000772",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Wang2019 - A mathematical model of oncolytic virotherapy with time delay",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000773",
+   "status": "ok",
+   "parameters_tried": 16,
+   "exact_returns": [
+    {
+     "parameter": "k3",
+     "variable": "S",
+     "peak": 0.092,
+     "final": 0.0
+    },
+    {
+     "parameter": "k3",
+     "variable": "D",
+     "peak": 0.211,
+     "final": 0.0
+    }
+   ],
+   "name": "Wodarz2018/2 - model with transit amplifying cells",
+   "loops": 10,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000774",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Wodarz2018/1 - simple model",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000776",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Monro2008 - chemotherapy resistance",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000779",
+   "status": "ok",
+   "parameters_tried": 34,
+   "exact_returns": [],
+   "name": "dePillis2009 - Mathematical model creation for cancer chemo-immunotherapy",
+   "loops": 10,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000780",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [
+    {
+     "parameter": "a",
+     "variable": "S",
+     "peak": 0.143,
+     "final": 0.0
+    }
+   ],
+   "name": "Wang2016/1 - oncolytic efficacy of M1 virus-SNTM model",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000781",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [
+    {
+     "parameter": "a",
+     "variable": "S",
+     "peak": 0.15,
+     "final": 0.0
+    }
+   ],
+   "name": "Wang2016/2 - oncolytic efficacy of M1 virus-SNT model",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000782",
+   "status": "ok",
+   "parameters_tried": 5,
+   "exact_returns": [
+    {
+     "parameter": "a",
+     "variable": "S",
+     "peak": 0.146,
+     "final": 0.0
+    }
+   ],
+   "name": "Wang2016/3 - oncolytic efficacy of M1 virus-SN model",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000783",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [
+    {
+     "parameter": "alpha",
+     "variable": "x_Tumor_Cells",
+     "peak": 0.338,
+     "final": 0.0
+    },
+    {
+     "parameter": "delta_1",
+     "variable": "y_Effector_Cells",
+     "peak": 0.084,
+     "final": 0.00338
+    },
+    {
+     "parameter": "omega_1",
+     "variable": "y_Effector_Cells",
+     "peak": 0.066,
+     "final": 0.00218
+    }
+   ],
+   "name": "Dong2014 - Mathematical modeling on helper t cells in a tumor immune system",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000784",
+   "status": "ok",
+   "parameters_tried": 14,
+   "exact_returns": [],
+   "name": "Lopez2014 - A Validated Mathematical Model of Tumor Growth Including Tumor-Host Interaction and Cell-Mediated Immune Response",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000785",
+   "status": "ok",
+   "parameters_tried": 3,
+   "exact_returns": [],
+   "name": "Sotolongo-Costa2003 - Behavior of tumors under nonstationary therapy",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000788",
+   "status": "ok",
+   "parameters_tried": 21,
+   "exact_returns": [],
+   "name": "Schropp2019 - Target-Mediated Drug Disposition Model for Bispecific Antibodies",
+   "loops": 68,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000792",
+   "status": "baseline not steady: unbounded",
+   "name": "Hu2019 - Modeling Pancreatic Cancer Dynamics with Immunotherapy",
+   "loops": 13,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000793",
+   "status": "ok",
+   "parameters_tried": 4,
+   "exact_returns": [],
+   "name": "Chen2011/1 - bone marrow invasion absolute model",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000795",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Chen2011/2 - bone marrow invasion relative model",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000796",
+   "status": "ok",
+   "parameters_tried": 22,
+   "exact_returns": [],
+   "name": "Yang2012 - cancer growth with angiogenesis",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000797",
+   "status": "ok",
+   "parameters_tried": 15,
+   "exact_returns": [],
+   "name": "Hu2018 - Dynamics of tumor-CD4+-cytokine-host cells interactions with treatments",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000798",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [],
+   "name": "Sharp2019 - AML",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000799",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Cucuianu2010 - A hypothetical-mathematical model of acute myeloid leukaemia pathogenesis",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000800",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Precup2012 - Mathematical modeling of cell dynamics after allogeneic bone marrow transplantation",
+   "loops": 8,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000802",
+   "status": "ok",
+   "parameters_tried": 7,
+   "exact_returns": [],
+   "name": "Hoffman2018- ADCC against cancer",
+   "loops": 6,
+   "running_totals": 5
+  },
+  {
+   "model": "BIOMD0000000803",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Park2019 - IL7 receptor signaling in T cells",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000804",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [],
+   "name": "Koenders2015 - multiple myeloma",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000805",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [],
+   "name": "Al-Husari2013 - pH and lactate in tumor",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000807",
+   "status": "ok",
+   "parameters_tried": 15,
+   "exact_returns": [],
+   "name": "Fassoni2019 - Oncogenesis encompassing mutations and genetic instability",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000809",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [],
+   "name": "Malinzi2018 - tumour-immune interaction model",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000810",
+   "status": "baseline not steady: unbounded",
+   "name": "Ganguli2018-immuno regulatory mechanisms in tumor microenvironment",
+   "loops": 390,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000811",
+   "status": "ok",
+   "parameters_tried": 50,
+   "exact_returns": [],
+   "name": "He2017 - A mathematical model of pancreatic cancer with two kinds of treatments",
+   "loops": 50,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000812",
+   "status": "ok",
+   "parameters_tried": 13,
+   "exact_returns": [],
+   "name": "Galante2012 - B7-H1 and a Mathematical Model for Cytotoxic T Cell and Tumor Cell Interaction",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000813",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Anderson2015 - Qualitative behavior of systems of tumor-CD4+-cytokine interactions with treatments",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000815",
+   "status": "ok",
+   "parameters_tried": 0,
+   "exact_returns": [],
+   "name": "Chrobak2011 - A mathematical model of induced cancer-adaptive immune system competition",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000821",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Yazdjer2019 - reinforcement learning-based control of tumor growth under anti-angiogenic therapy",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000826",
+   "status": "ok",
+   "parameters_tried": 79,
+   "exact_returns": [],
+   "name": "Shin_2018_EGFR-PYK2-c-Met interaction network_model",
+   "loops": 23,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000827",
+   "status": "ok",
+   "parameters_tried": 14,
+   "exact_returns": [],
+   "name": "Ito2019 - gefitnib resistance of lung adenocarcinoma caused by MET amplification",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000832",
+   "status": "ok",
+   "parameters_tried": 58,
+   "exact_returns": [
+    {
+     "parameter": "V_102",
+     "variable": "Raf1",
+     "peak": 0.151,
+     "final": 3e-05
+    },
+    {
+     "parameter": "V_101",
+     "variable": "Raf1",
+     "peak": 0.175,
+     "final": 2e-05
+    },
+    {
+     "parameter": "Km_102",
+     "variable": "Raf1",
+     "peak": 0.174,
+     "final": 2e-05
+    },
+    {
+     "parameter": "Km_101",
+     "variable": "Raf1",
+     "peak": 0.151,
+     "final": 3e-05
+    }
+   ],
+   "name": "Shin2016 - Unveiling Hidden Dynamics of Hippo Signalling",
+   "loops": 9,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000836",
+   "status": "ok",
+   "parameters_tried": 4,
+   "exact_returns": [],
+   "name": "Radosavljevic2009_BioterroristAttack_PanicProtection_1",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000840",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Caldwell2019 - The Vicodin abuse problem",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000842",
+   "status": "ok",
+   "parameters_tried": 35,
+   "exact_returns": [
+    {
+     "parameter": "k24",
+     "variable": "HRP2",
+     "peak": 0.097,
+     "final": 0.00483
+    }
+   ],
+   "name": "Heitzler2012 - GPCR signalling",
+   "loops": 9,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000843",
+   "status": "ok",
+   "parameters_tried": 33,
+   "exact_returns": [
+    {
+     "parameter": "T_05",
+     "variable": "HSP",
+     "peak": 0.241,
+     "final": 0.0
+    },
+    {
+     "parameter": "T_05",
+     "variable": "HSF",
+     "peak": 0.18,
+     "final": 0.0
+    },
+    {
+     "parameter": "T_05",
+     "variable": "mRNA",
+     "peak": 0.145,
+     "final": 0.0
+    },
+    {
+     "parameter": "ModelValue_27",
+     "variable": "HSP",
+     "peak": 0.133,
+     "final": 0.0
+    },
+    {
+     "parameter": "ModelValue_27",
+     "variable": "HSF",
+     "peak": 0.108,
+     "final": 0.0
+    },
+    {
+     "parameter": "ModelValue_27",
+     "variable": "mRNA",
+     "peak": 0.089,
+     "final": 0.0
+    }
+   ],
+   "name": "Dudziuk2019 - Biologically sound formal model of Hsp70 heat induction",
+   "loops": 7,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000846",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Gulbudak2019.2 - Heterogeneous viral strategies promote coexistence in virus-microbe systems (Chronic)",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000847",
+   "status": "ok",
+   "parameters_tried": 15,
+   "exact_returns": [
+    {
+     "parameter": "a_4",
+     "variable": "X_1",
+     "peak": 0.206,
+     "final": 0.0
+    },
+    {
+     "parameter": "a_4",
+     "variable": "X_2",
+     "peak": 0.358,
+     "final": 0.0
+    },
+    {
+     "parameter": "a_4",
+     "variable": "X_3",
+     "peak": 0.759,
+     "final": 0.0
+    },
+    {
+     "parameter": "K_4",
+     "variable": "X_1",
+     "peak": 0.792,
+     "final": 0.0
+    },
+    {
+     "parameter": "K_4",
+     "variable": "X_2",
+     "peak": 1.375,
+     "final": 0.0
+    },
+    {
+     "parameter": "K_4",
+     "variable": "X_3",
+     "peak": 0.441,
+     "final": 0.0
+    }
+   ],
+   "name": "Adams2019 - The regulatory role of shikimate in plant phenylalanine metabolism",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000848",
+   "status": "ok",
+   "parameters_tried": 28,
+   "exact_returns": [
+    {
+     "parameter": "rho",
+     "variable": "T",
+     "peak": 0.136,
+     "final": 0.0
+    },
+    {
+     "parameter": "psi_1",
+     "variable": "T",
+     "peak": 0.125,
+     "final": 0.0
+    },
+    {
+     "parameter": "p_3",
+     "variable": "T",
+     "peak": 0.183,
+     "final": 0.0
+    },
+    {
+     "parameter": "delta_2",
+     "variable": "T",
+     "peak": 0.203,
+     "final": 0.0
+    },
+    {
+     "parameter": "q_2",
+     "variable": "T",
+     "peak": 0.079,
+     "final": 0.0
+    }
+   ],
+   "name": "FatehiChenar2018 - Mathematical model of immune response to hepatitis B",
+   "loops": 17,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000850",
+   "status": "ok",
+   "parameters_tried": 4,
+   "exact_returns": [
+    {
+     "parameter": "xi",
+     "variable": "V",
+     "peak": 0.161,
+     "final": 0.00232
+    }
+   ],
+   "name": "Jenner2019 - Oncolytic virotherapy for tumours following a Gompertz growth law",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000851",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Ho2019 - Mathematical models of transmission dynamics and vaccine strategies in Hong Kong during the 2017-2018 winter influenza season (Simple)",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000854",
+   "status": "ok",
+   "parameters_tried": 5,
+   "exact_returns": [],
+   "name": "Gray2016 - The Akt switch model",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000855",
+   "status": "ok",
+   "parameters_tried": 25,
+   "exact_returns": [],
+   "name": "Cooper2015 - Modeling the effects of systemic mediators on the inflammatory phase of wound healing",
+   "loops": 20,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000861",
+   "status": "ok",
+   "parameters_tried": 29,
+   "exact_returns": [
+    {
+     "parameter": "CISRNADelay",
+     "variable": "CISRNA",
+     "peak": 0.175,
+     "final": 0.0
+    },
+    {
+     "parameter": "CISRNATurn",
+     "variable": "CISRNA",
+     "peak": 0.155,
+     "final": 0.0
+    },
+    {
+     "parameter": "SOCS3RNAEqc",
+     "variable": "p2EpoRpJAK2",
+     "peak": 0.053,
+     "final": 0.0
+    },
+    {
+     "parameter": "SOCS3RNAEqc",
+     "variable": "p12EpoRpJAK2",
+     "peak": 0.092,
+     "final": 0.0
+    },
+    {
+     "parameter": "SOCS3RNAEqc",
+     "variable": "SOCS3",
+     "peak": 0.153,
+     "final": 0.0
+    }
+   ],
+   "name": "Bachmann2011 - Division of labor by dual feedback regulators controls JAK2/STAT5 signaling over broad ligand range",
+   "loops": 238,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000863",
+   "status": "ok",
+   "parameters_tried": 24,
+   "exact_returns": [],
+   "name": "Kosinsky2018 - Radiation and PD-(L)1 treatment combinations",
+   "loops": 9,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000865",
+   "status": "ok",
+   "parameters_tried": 48,
+   "exact_returns": [],
+   "name": "Nikolaev2019 - Immunobiochemical reconstruction of influenza lung infection-melanoma skin cancer interactions",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000866",
+   "status": "ok",
+   "parameters_tried": 5,
+   "exact_returns": [],
+   "name": "Simon2019 - NIK-dependent p100 processing into p52, Michaelis-Menten, SBML 2v4",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000867",
+   "status": "ok",
+   "parameters_tried": 48,
+   "exact_returns": [],
+   "name": "Coulibaly2019 - Interleukin-15 Signaling in HIF-1a Regulation in Natural Killer Cells",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000868",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Simon2019 - NIK-dependent p100 processing into p52, Mass Action, SBML 2v4",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000869",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Simon2019 - NIK-dependent p100 processing into p52 and IkBd degradation, Michaelis-Menten, SBML 2v4",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000870",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [],
+   "name": "Simon2019 - NIK-dependent p100 processing into p52 and IkBd degradation, mass action, SBML 2v4",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000871",
+   "status": "ok",
+   "parameters_tried": 20,
+   "exact_returns": [],
+   "name": "NIK-dependent p100 processing into p52 with RelB binding and IkBd degradation, mass action, SBML 2v4",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000872",
+   "status": "ok",
+   "parameters_tried": 22,
+   "exact_returns": [],
+   "name": "Verma2016 - HIV and HPV co-infection, T-cell response",
+   "loops": 9,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000874",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [
+    {
+     "parameter": "s",
+     "variable": "T",
+     "peak": 0.068,
+     "final": 0.0
+    },
+    {
+     "parameter": "r",
+     "variable": "T",
+     "peak": 0.059,
+     "final": 0.0
+    },
+    {
+     "parameter": "T_max",
+     "variable": "T",
+     "peak": 0.094,
+     "final": 0.0
+    }
+   ],
+   "name": "Perelson1993 - HIVinfection_CD4Tcells_ModelA",
+   "loops": 8,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000875",
+   "status": "ok",
+   "parameters_tried": 7,
+   "exact_returns": [],
+   "name": "Nelson2000- HIV-1 general model 1",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000877",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [],
+   "name": "Ontah2019 - Dynamic analysis of a tumor treatment model using oncolytic virus and chemotherapy with saturated infection rate",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000881",
+   "status": "ok",
+   "parameters_tried": 22,
+   "exact_returns": [],
+   "name": "Kogan2013 - A mathematical model for the immunotherapeutic control of the TH1 TH2 imbalance in melanoma",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000884",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Cortes2019 - Optimality of the spontaneous prophage induction rate.",
+   "loops": 12,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000885",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Sumana2018 - Mathematical modeling of cancer-immune system, considering the role of antibodies.",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000887",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Lim2014 - HTLV-I infection A dynamic struggle between viral persistence and host immunity",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000888",
+   "status": "ok",
+   "parameters_tried": 4,
+   "exact_returns": [],
+   "name": "Unni2019 - Mathematical Modeling, Analysis, and Simulation of Tumor Dynamics with Drug Interventions",
+   "loops": 19,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000890",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Bhattacharya2014 - A mathematical model of the sterol regulatory element binding protein 2 cholesterol biosynthesis pathway",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000891",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [
+    {
+     "parameter": "r_1",
+     "variable": "u",
+     "peak": 0.276,
+     "final": 0.0
+    },
+    {
+     "parameter": "alpha_2",
+     "variable": "u",
+     "peak": 0.307,
+     "final": 0.0
+    },
+    {
+     "parameter": "k_1",
+     "variable": "u",
+     "peak": 0.188,
+     "final": 0.0
+    }
+   ],
+   "name": "Khajanchi2019 - Stability Analysis of a Mathematical Model forGlioma-Immune Interaction under OptimalTherapy",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000892",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [
+    {
+     "parameter": "r",
+     "variable": "T",
+     "peak": 0.055,
+     "final": 0.0
+    },
+    {
+     "parameter": "k",
+     "variable": "T",
+     "peak": 0.145,
+     "final": 0.0
+    }
+   ],
+   "name": "Sandip2013 - Modeling the dynamics of hepatitis C virus with combined antiviral drug therapy: interferon and ribavirin.",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000894",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [
+    {
+     "parameter": "R",
+     "variable": "z",
+     "peak": 0.2,
+     "final": 0.0
+    },
+    {
+     "parameter": "Dx",
+     "variable": "z",
+     "peak": 0.064,
+     "final": 0.0
+    },
+    {
+     "parameter": "Dz",
+     "variable": "z",
+     "peak": 0.25,
+     "final": 0.0
+    },
+    {
+     "parameter": "mu",
+     "variable": "z",
+     "peak": 0.221,
+     "final": 0.0
+    }
+   ],
+   "name": "Bose2011 - Noise-assisted interactions of tumor and immune cells",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000895",
+   "status": "ok",
+   "parameters_tried": 48,
+   "exact_returns": [
+    {
+     "parameter": "iMr",
+     "variable": "CD4",
+     "peak": 0.075,
+     "final": 0.00358
+    },
+    {
+     "parameter": "iMr",
+     "variable": "Se",
+     "peak": 0.108,
+     "final": 0.00194
+    },
+    {
+     "parameter": "cSeMri",
+     "variable": "CD4",
+     "peak": 0.088,
+     "final": 0.00295
+    },
+    {
+     "parameter": "cSeMri",
+     "variable": "Se",
+     "peak": 0.103,
+     "final": 0.00158
+    },
+    {
+     "parameter": "bMi",
+     "variable": "CD4",
+     "peak": 0.09,
+     "final": 0.0033
+    },
+    {
+     "parameter": "bMi",
+     "variable": "Se",
+     "peak": 0.107,
+     "final": 0.00177
+    }
+   ],
+   "name": "Schokker2013 - A mathematical model representing cellular immune development and response to Salmonella of chicken intestinal tissue",
+   "loops": 61,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000898",
+   "status": "ok",
+   "parameters_tried": 13,
+   "exact_returns": [],
+   "name": "Jiao2018 - Feedback regulation in a stem cell model with acute myeloid leukaemia",
+   "loops": 8,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000899",
+   "status": "ok",
+   "parameters_tried": 15,
+   "exact_returns": [],
+   "name": "Ota2015 - Positive regulation of Rho GTPase activity by RhoGDIs as a result of their direct interaction with GAPs (GDI integrated)",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000902",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Wang2019 - A mathematical model of oncolytic virotherapy with time delay",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000903",
+   "status": "ok",
+   "parameters_tried": 27,
+   "exact_returns": [],
+   "name": "Solis-perez2019 - A fractional mathematical model of breast cancer competition model",
+   "loops": 16,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000905",
+   "status": "ok",
+   "parameters_tried": 15,
+   "exact_returns": [],
+   "name": "Dubey2007 - A mathematical model for the effect of toxicant on the immune system (with toxicant effect) Model2",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000906",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [
+    {
+     "parameter": "beta",
+     "variable": "P",
+     "peak": 0.174,
+     "final": 0.00231
+    },
+    {
+     "parameter": "gamma",
+     "variable": "P",
+     "peak": 0.063,
+     "final": 0.00198
+    },
+    {
+     "parameter": "beta0",
+     "variable": "P",
+     "peak": 0.095,
+     "final": 0.00289
+    }
+   ],
+   "name": "Dubey2007 - A mathematical model for the effect of toxicant on the immune system (without toxicant effect) Model1",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000907",
+   "status": "ok",
+   "parameters_tried": 65,
+   "exact_returns": [],
+   "name": "HeberleRazquinNavas2019 - The PI3K and MAPK/p38 pathways control stress granuleassembly in a hierarchical manner model 3",
+   "loops": 37,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000908",
+   "status": "ok",
+   "parameters_tried": 41,
+   "exact_returns": [],
+   "name": "dePillis2013 - Mathematical modeling of regulatory T cell effects on renal cell carcinoma treatment",
+   "loops": 13,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000909",
+   "status": "ok",
+   "parameters_tried": 16,
+   "exact_returns": [],
+   "name": "dePillis2003 - The dynamics of an optimally controlled tumor model: A case study",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000910",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Isaeva2008 - Modelling of Anti-Tumour Immune Response Immunocorrective Effect of Weak Centimetre Electromagnetic Waves",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000911",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [
+    {
+     "parameter": "s",
+     "variable": "Z",
+     "peak": 0.342,
+     "final": 0.0
+    },
+    {
+     "parameter": "k2",
+     "variable": "Z",
+     "peak": 0.145,
+     "final": 0.0
+    }
+   ],
+   "name": "Merola2008 - An insight into tumor dormancy equilibrium via the analysis of its domain of attraction",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000913",
+   "status": "ok",
+   "parameters_tried": 2,
+   "exact_returns": [],
+   "name": "dePillis2008 - Optimal control of mixed immunotherapy and chemotherapy of tumors",
+   "loops": 10,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000916",
+   "status": "ok",
+   "parameters_tried": 5,
+   "exact_returns": [],
+   "name": "Kraan199_Kinetics of Cortisol Metabolism and Excretion.",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000919",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Ledzewicz2013 - On optimal chemotherapy with a strongly targeted agent for a model of tumor immune system interactions with generalized logistic growth",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000921",
+   "status": "ok",
+   "parameters_tried": 23,
+   "exact_returns": [],
+   "name": "Khajanchi2017 - Uniform Persistence and Global Stability for a Brain Tumor and Immune System Interaction",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000922",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Turner2015-Human/Mosquito ELP Model",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000924",
+   "status": "ok",
+   "parameters_tried": 26,
+   "exact_returns": [],
+   "name": "Smith2011 - Three Stage Innate Immune Response to a Pneumococcal Lung Infection",
+   "loops": 13,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000926",
+   "status": "baseline not steady: unbounded",
+   "name": "Rhodes2019 - Immune-Mediated theory of Metastasis",
+   "loops": 32,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000927",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Grigolon2018-Responses to auxin signals",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000929",
+   "status": "ok",
+   "parameters_tried": 36,
+   "exact_returns": [],
+   "name": "Li2016 - Model for pancreatic cancer patients receiving immunotherapy",
+   "loops": 20,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000930",
+   "status": "baseline not steady: unbounded",
+   "name": "Liu2017 - chemotherapy targeted model of tumor immune system",
+   "loops": 6,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000935",
+   "status": "ok",
+   "parameters_tried": 8,
+   "exact_returns": [],
+   "name": "Ferrel2011 - Cdk1 and APC regulation in cell cycle in Xenopus laevis",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000940",
+   "status": "ok",
+   "parameters_tried": 42,
+   "exact_returns": [],
+   "name": "Tang2019 - Pharmacology modelling of AURKB and ZAK interaction in TNBC",
+   "loops": 17,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000946",
+   "status": "ok",
+   "parameters_tried": 17,
+   "exact_returns": [
+    {
+     "parameter": "B_T",
+     "variable": "L_c",
+     "peak": 0.057,
+     "final": 0.0
+    },
+    {
+     "parameter": "V_n",
+     "variable": "L_c",
+     "peak": 0.054,
+     "final": 0.0
+    }
+   ],
+   "name": "Evans2005 - Compartmental model for antineoplastic drug topotecan in breast cancer cells",
+   "loops": 10,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000949",
+   "status": "ok",
+   "parameters_tried": 0,
+   "exact_returns": [],
+   "name": "Chitnis2008 - Mathematical model of malaria transmission",
+   "loops": 622,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000950",
+   "status": "ok",
+   "parameters_tried": 0,
+   "exact_returns": [],
+   "name": "Chitnis2012 - Model Rift Valley Fever transmission between cattle and mosquitoes (Model 1)",
+   "loops": 540,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000953",
+   "status": "ok",
+   "parameters_tried": 43,
+   "exact_returns": [
+    {
+     "parameter": "ka_polo_p",
+     "variable": "clb2",
+     "peak": 0.904,
+     "final": 0.0048
+    },
+    {
+     "parameter": "ki",
+     "variable": "clb2",
+     "peak": 0.925,
+     "final": 0.00485
+    }
+   ],
+   "name": "Queralt2006 - Initiation of mitotic exit by downregulation of PP2A in budding yeast",
+   "loops": 36,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000954",
+   "status": "ok",
+   "parameters_tried": 51,
+   "exact_returns": [],
+   "name": "Pandey2018-reversible transition between quiescence and proliferation",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000000957",
+   "status": "ok",
+   "parameters_tried": 3,
+   "exact_returns": [],
+   "name": "Roda2020 - SIR model of COVID-19 spread in Wuhan",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000958",
+   "status": "ok",
+   "parameters_tried": 13,
+   "exact_returns": [],
+   "name": "Ndairou2020 - early-stage transmission dynamics of COVID-19 in Wuhan",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000959",
+   "status": "ok",
+   "parameters_tried": 80,
+   "exact_returns": [],
+   "name": "Kok2020 - IFNalpha-induced signaling in Huh7.5 cells",
+   "loops": 40,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000962",
+   "status": "ok",
+   "parameters_tried": 55,
+   "exact_returns": [],
+   "name": "Zhao2020 - SUQC model of COVID-19 transmission dynamics in Wuhan, Hubei, and China",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000967",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [
+    {
+     "parameter": "alpha",
+     "variable": "E",
+     "peak": 0.104,
+     "final": 0.00465
+    },
+    {
+     "parameter": "alpha",
+     "variable": "V",
+     "peak": 0.104,
+     "final": 0.00465
+    }
+   ],
+   "name": "McLean1991 - Behaviour of HIV in the presence of zidovudine",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000968",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Palmer2008 - Negative Feedback in IL-7 mediated Jak-Stat signaling",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000970",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Hou2020 - SEIR model of COVID-19 transmission in Wuhan",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000974",
+   "status": "ok",
+   "parameters_tried": 5,
+   "exact_returns": [],
+   "name": "Carcione2020 - Deterministic SEIR simulation of a COVID-19 outbreak",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000977",
+   "status": "ok",
+   "parameters_tried": 9,
+   "exact_returns": [],
+   "name": "Sarkar2020 - SAIR model of COVID-19 transmission with quarantine measures in India",
+   "loops": 62,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000979",
+   "status": "ok",
+   "parameters_tried": 4,
+   "exact_returns": [
+    {
+     "parameter": "omega",
+     "variable": "Susceptible",
+     "peak": 0.066,
+     "final": 0.0
+    }
+   ],
+   "name": "Malkov2020 - SEIRS model of COVID-19 transmission with reinfection",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000981",
+   "status": "ok",
+   "parameters_tried": 15,
+   "exact_returns": [],
+   "name": "Wan2020 - risk estimation and prediction of the transmission of COVID-19 in maninland China excluding Hubei province",
+   "loops": 548,
+   "running_totals": 445
+  },
+  {
+   "model": "BIOMD0000000984",
+   "status": "ok",
+   "parameters_tried": 4,
+   "exact_returns": [],
+   "name": "Fang2020 - SEIR model of COVID-19 transmission considering government interventions in Wuhan",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000987",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [
+    {
+     "parameter": "lambda_compartment_1",
+     "variable": "FITC_Dextran_three_compartment_model_compartment_2",
+     "peak": 0.079,
+     "final": 0.0
+    },
+    {
+     "parameter": "lambda_compartment_1",
+     "variable": "FITC_Dextran_three_compartment_model_compartment_3",
+     "peak": 0.055,
+     "final": 0.0
+    },
+    {
+     "parameter": "lambda_compartment_2",
+     "variable": "FITC_Dextran_three_compartment_model_compartment_3",
+     "peak": 0.058,
+     "final": 0.0
+    },
+    {
+     "parameter": "lambda_compartment_3",
+     "variable": "FITC_Dextran_nine_compartment_model_compartment_4",
+     "peak": 0.063,
+     "final": 0.0
+    },
+    {
+     "parameter": "lambda_compartment_4",
+     "variable": "FITC_Dextran_nine_compartment_model_compartment_5",
+     "peak": 0.068,
+     "final": 0.0
+    },
+    {
+     "parameter": "lambda_compartment_5",
+     "variable": "FITC_Dextran_nine_compartment_model_compartment_6",
+     "peak": 0.069,
+     "final": 0.0
+    },
+    {
+     "parameter": "lambda_compartment_6",
+     "variable": "FITC_Dextran_nine_compartment_model_compartment_7",
+     "peak": 0.067,
+     "final": 0.0
+    },
+    {
+     "parameter": "lambda_compartment_7",
+     "variable": "FITC_Dextran_nine_compartment_model_compartment_8",
+     "peak": 0.071,
+     "final": 0.0
+    },
+    {
+     "parameter": "lambda_compartment_8",
+     "variable": "FITC_Dextran_nine_compartment_model_compartment_9",
+     "peak": 0.062,
+     "final": 0.0
+    }
+   ],
+   "name": "Aubry1995 - Nine-compartment model of fluid-phase endocytosis kinetics in Dictyostelium discoideum",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000000991",
+   "status": "ok",
+   "parameters_tried": 14,
+   "exact_returns": [],
+   "name": "Okuonghae2020 - SEAIR model of COVID-19 transmission in Lagos, Nigeria",
+   "loops": 7,
+   "running_totals": 4
+  },
+  {
+   "model": "BIOMD0000001004",
+   "status": "ok",
+   "parameters_tried": 17,
+   "exact_returns": [],
+   "name": "Intosalmi2015 - Th17 core network model",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001021",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Lavigne2021 - Non-spatial model of viral infection dynamics and interferon response of well-mixed viral infection",
+   "loops": 7,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001022",
+   "status": "ok",
+   "parameters_tried": 7,
+   "exact_returns": [],
+   "name": "Creemers2021 - Tumor-immune dynamics and implications on immunotherapy responses",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001023",
+   "status": "ok",
+   "parameters_tried": 16,
+   "exact_returns": [],
+   "name": "Alharbi2020 - An ODE-based model of the dynamics of tumor cell progression and its effects on normal cell growth and immune system functionality",
+   "loops": 12,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001031",
+   "status": "ok",
+   "parameters_tried": 3,
+   "exact_returns": [],
+   "name": "Al-Tuwairqi2020 - Dynamics of cancer virotherapy - Phase I treatment",
+   "loops": 2,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001033",
+   "status": "ok",
+   "parameters_tried": 28,
+   "exact_returns": [
+    {
+     "parameter": "beta1",
+     "variable": "Uninfected_M2_macrophages",
+     "peak": 0.085,
+     "final": 0.00242
+    },
+    {
+     "parameter": "delta_i1",
+     "variable": "M1_macrophages",
+     "peak": 0.127,
+     "final": 0.0031
+    },
+    {
+     "parameter": "delta_i1",
+     "variable": "Uninfected_M2_macrophages",
+     "peak": 0.081,
+     "final": 0.00079
+    },
+    {
+     "parameter": "delta_i1",
+     "variable": "Infected_M2_macrophages",
+     "peak": 0.071,
+     "final": 0.00224
+    },
+    {
+     "parameter": "delta_i1",
+     "variable": "Oncolytic_viruses",
+     "peak": 0.174,
+     "final": 0.00303
+    },
+    {
+     "parameter": "d_i",
+     "variable": "Infected_tumour_cells",
+     "peak": 0.144,
+     "final": 0.00351
+    },
+    {
+     "parameter": "d_i",
+     "variable": "M1_macrophages",
+     "peak": 0.111,
+     "final": 0.0038
+    },
+    {
+     "parameter": "d_i",
+     "variable": "Uninfected_M2_macrophages",
+     "peak": 0.061,
+     "final": 0.00053
+    },
+    {
+     "parameter": "d_i",
+     "variable": "Infected_M2_macrophages",
+     "peak": 0.057,
+     "final": 0.00292
+    },
+    {
+     "parameter": "d_i",
+     "variable": "Oncolytic_viruses",
+     "peak": 0.107,
+     "final": 0.00346
+    },
+    {
+     "parameter": "a1_v",
+     "variable": "Uninfected_tumour_cells",
+     "peak": 0.078,
+     "final": 0.0008
+    },
+    {
+     "parameter": "d_e1",
+     "variable": "Uninfected_tumour_cells",
+     "peak": 0.054,
+     "final": 0.00275
+    },
+    {
+     "parameter": "b",
+     "variable": "M1_macrophages",
+     "peak": 0.155,
+     "final": 0.00427
+    },
+    {
+     "parameter": "b",
+     "variable": "Uninfected_M2_macrophages",
+     "peak": 0.101,
+     "final": 0.00097
+    },
+    {
+     "parameter": "b",
+     "variable": "Infected_M2_macrophages",
+     "peak": 0.092,
+     "final": 0.00306
+    },
+    {
+     "parameter": "b",
+     "variable": "Oncolytic_viruses",
+     "peak": 0.224,
+     "final": 0.00403
+    },
+    {
+     "parameter": "omega",
+     "variable": "Uninfected_M2_macrophages",
+     "peak": 0.121,
+     "final": 0.00122
+    },
+    {
+     "parameter": "omega",
+     "variable": "Infected_M2_macrophages",
+     "peak": 0.086,
+     "final": 0.00424
+    }
+   ],
+   "name": "Almuallem2020 - Virus-macrophage-tumour interactions in oncolytic viral therapies",
+   "loops": 75,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001035",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [
+    {
+     "parameter": "r_1",
+     "variable": "uninfected_cancer_cells",
+     "peak": 0.133,
+     "final": 0.0
+    },
+    {
+     "parameter": "d_1",
+     "variable": "uninfected_cancer_cells",
+     "peak": 0.105,
+     "final": 0.0
+    }
+   ],
+   "name": "Al-Tuwairqi2020 - Dynamics of cancer virotherapy with immune response",
+   "loops": 12,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001036",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Cappuccio2007 - Tumor-immune system interactions and determination of the optimal therapeutic protocol in immunotherapy",
+   "loops": 5,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001037",
+   "status": "ok",
+   "parameters_tried": 6,
+   "exact_returns": [],
+   "name": "Alharbi2019 - Tumor-normal model (TNM) of the development of tumor cells and their impact on normal cell dynamics",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001038",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [
+    {
+     "parameter": "alpha1",
+     "variable": "Tumor_cells",
+     "peak": 0.174,
+     "final": 0.0
+    },
+    {
+     "parameter": "alpha2",
+     "variable": "Tumor_cells",
+     "peak": 0.055,
+     "final": 0.0
+    },
+    {
+     "parameter": "beta2",
+     "variable": "Tumor_cells",
+     "peak": 0.068,
+     "final": 0.0
+    },
+    {
+     "parameter": "c2",
+     "variable": "Tumor_cells",
+     "peak": 0.212,
+     "final": 0.0
+    }
+   ],
+   "name": "Alharbi2019 - Tumor-normal-vitamins model (TNVM) of the effects of vitamins on delaying the growth of tumor cells",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001041",
+   "status": "baseline not steady: unbounded",
+   "name": "Kimmel2021 - T cell competition and stochastic extinction events in CAR T cell therapy",
+   "loops": 4,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001042",
+   "status": "baseline not steady: failed",
+   "name": "Makhlouf2020 - No treatment model of the role of CD4 T cells in tumor-immune interactions",
+   "loops": 16,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001045",
+   "status": "ok",
+   "parameters_tried": 2,
+   "exact_returns": [],
+   "name": "Smith&Moore2004 - The SIR model for the spread of HongKong Flu",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001047",
+   "status": "ok",
+   "parameters_tried": 10,
+   "exact_returns": [],
+   "name": "Collier1996 - Delta Notch intercellular signalling and lateral inhibition",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001048",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Siddhartha2002 - Kinetic modelling of cancer therapies",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001052",
+   "status": "ok",
+   "parameters_tried": 16,
+   "exact_returns": [],
+   "name": "Alharbi2020 - Tumor and immune system competition",
+   "loops": 12,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001054",
+   "status": "ok",
+   "parameters_tried": 11,
+   "exact_returns": [],
+   "name": "Pearce2021 - Fibrin Polymerization",
+   "loops": 19,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001055",
+   "status": "ok",
+   "parameters_tried": 26,
+   "exact_returns": [
+    {
+     "parameter": "k1",
+     "variable": "Fructose_6_Phosphate",
+     "peak": 0.066,
+     "final": 0.0
+    },
+    {
+     "parameter": "k1",
+     "variable": "Fructose_1_6_Bisphosphate",
+     "peak": 0.058,
+     "final": 0.0
+    },
+    {
+     "parameter": "k1",
+     "variable": "_3_Phosphoglycerate",
+     "peak": 0.053,
+     "final": 0.0
+    }
+   ],
+   "name": "Jeon2018 - Enzyme clustering in Glucose metabolism",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001056",
+   "status": "ok",
+   "parameters_tried": 7,
+   "exact_returns": [],
+   "name": "Chulian2021 - feedback signalling in B lymphopoeisis",
+   "loops": 7,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001057",
+   "status": "ok",
+   "parameters_tried": 7,
+   "exact_returns": [],
+   "name": "Nikolov2020 - p53-miR34 model",
+   "loops": 1,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001060",
+   "status": "ok",
+   "parameters_tried": 16,
+   "exact_returns": [],
+   "name": "Frank2021 - Macrophage polarization",
+   "loops": 3,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001065",
+   "status": "baseline not steady: unbounded",
+   "name": "vonDassow2000 - Segment Polarity Network model on 1x4 grid of cells",
+   "loops": null,
+   "running_totals": null
+  },
+  {
+   "model": "BIOMD0000001077",
+   "status": "ok",
+   "parameters_tried": 23,
+   "exact_returns": [
+    {
+     "parameter": "CISRNADelay",
+     "variable": "CISRNA",
+     "peak": 0.101,
+     "final": 0.0
+    },
+    {
+     "parameter": "CISRNATurn",
+     "variable": "CISRNA",
+     "peak": 0.098,
+     "final": 0.0
+    },
+    {
+     "parameter": "SHP1ActEpoR",
+     "variable": "EpoRpJAK2",
+     "peak": 0.094,
+     "final": 0.0
+    },
+    {
+     "parameter": "SHP1ActEpoR",
+     "variable": "p1EpoRpJAK2",
+     "peak": 0.242,
+     "final": 0.0
+    },
+    {
+     "parameter": "SHP1ActEpoR",
+     "variable": "p2EpoRpJAK2",
+     "peak": 0.263,
+     "final": 0.0
+    },
+    {
+     "parameter": "SHP1ActEpoR",
+     "variable": "p12EpoRpJAK2",
+     "peak": 0.462,
+     "final": 0.0
+    },
+    {
+     "parameter": "SHP1ActEpoR",
+     "variable": "STAT5",
+     "peak": 0.06,
+     "final": 0.0
+    },
+    {
+     "parameter": "SHP1ActEpoR",
+     "variable": "pSTAT5",
+     "peak": 0.057,
+     "final": 0.0
+    }
+   ],
+   "name": "Adlung2021 - Cell-to-cell variability in JAK2/STAT5 pathway",
+   "loops": 119,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001078",
+   "status": "ok",
+   "parameters_tried": 12,
+   "exact_returns": [],
+   "name": "Hammaren-Geissen2022_PPToP_Model12",
+   "loops": 0,
+   "running_totals": 0
+  },
+  {
+   "model": "BIOMD0000001102",
+   "status": "ok",
+   "parameters_tried": 28,
+   "exact_returns": [],
+   "name": "Burbano2023 - HGFsignaling_in_FattyLiverDisease",
+   "loops": 6,
+   "running_totals": 0
+  }
+ ],
+ "families": {
+  "fruit fly day clock": [
+   {
+    "model": "BIOMD0000000016",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000036",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000021",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000298",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000171",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   }
+  ],
+  "Tyson 1991 cell cycle, 6 and 2 variables": [
+   {
+    "model": "BIOMD0000000005",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000006",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   }
+  ],
+  "Morris-Lecar muscle fibre, full and reduced": [
+   {
+    "model": "BIOMD0000000324",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000280",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   }
+  ],
+  "Singh 2006 TCA cycle, two versions": [
+   {
+    "model": "BIOMD0000000219",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000218",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   }
+  ],
+  "Smallbone 2013 colon crypt, versions 0 to 3": [
+   {
+    "model": "BIOMD0000000520",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000519",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000518",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000517",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   }
+  ],
+  "Borghans 1997 calcium oscillations, models 1 to 3": [
+   {
+    "model": "BIOMD0000000043",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000044",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   },
+   {
+    "model": "BIOMD0000000045",
+    "name": null,
+    "loops": null,
+    "brakes": null,
+    "running_totals": null,
+    "forced": null,
+    "behaviours": null,
+    "exact_return": null
+   }
+  ]
+ }
+}

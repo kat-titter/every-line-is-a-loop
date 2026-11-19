@@ -1,0 +1,3080 @@
+{
+ "read": "2026-11-16",
+ "source": "https://www.biomodels.org/search, curationstatus:\"Manually curated\"",
+ "curated_today": 1096,
+ "sbml_today": 1075,
+ "release31": 640,
+ "release31_missing_today": [],
+ "curated_not_in_release31": 456,
+ "not_sbml": [
+  "BIOMD0000001066",
+  "BIOMD0000001067",
+  "BIOMD0000001068",
+  "BIOMD0000001069",
+  "BIOMD0000001070",
+  "BIOMD0000001071",
+  "BIOMD0000001073",
+  "BIOMD0000001074",
+  "BIOMD0000001075",
+  "BIOMD0000001076",
+  "BIOMD0000001081",
+  "BIOMD0000001082",
+  "BIOMD0000001083",
+  "BIOMD0000001084",
+  "BIOMD0000001085",
+  "BIOMD0000001086",
+  "BIOMD0000001087",
+  "BIOMD0000001088",
+  "BIOMD0000001089",
+  "BIOMD0000001100",
+  "BIOMD0000001101"
+ ],
+ "holdout": [
+  {
+   "id": "BIOMD0000000641",
+   "name": "Jaiswal2017 - Cell cycle arrest",
+   "submitted": "2017-04-03",
+   "file": "BIOMD0000000641_url.xml",
+   "bytes": 43462
+  },
+  {
+   "id": "BIOMD0000000642",
+   "name": "Mufudza2012 - Estrogen effect on the dynamics of breast cancer",
+   "submitted": "2013-04-19",
+   "file": "BIOMD0000000642_url.xml",
+   "bytes": 26459
+  },
+  {
+   "id": "BIOMD0000000643",
+   "name": "Musante2017 - Switching behaviour of PP2A inhibition by ARPP-16 - mutual inhibitions",
+   "submitted": "2017-07-02",
+   "file": "BIOMD0000000643_url.xml",
+   "bytes": 55102
+  },
+  {
+   "id": "BIOMD0000000644",
+   "name": "Musante2017 - Switching behaviour of PP2A inhibition by ARPP-16 - mutual inhibitions and PKA inhibits MAST3",
+   "submitted": "2017-07-02",
+   "file": "BIOMD0000000644_url.xml",
+   "bytes": 57343
+  },
+  {
+   "id": "BIOMD0000000645",
+   "name": "Musante2017 - Switching behaviour of PP2A inhibition by ARPP-16 - mutual inhibitions and PKA inhibits MAST3 and dominant negative effect",
+   "submitted": "2017-07-02",
+   "file": "BIOMD0000000645_url.xml",
+   "bytes": 58376
+  },
+  {
+   "id": "BIOMD0000000646",
+   "name": "Barr2016 - All-or-nothing G1/S transition",
+   "submitted": "2017-08-24",
+   "file": "BIOMD0000000646_url.xml",
+   "bytes": 123423
+  },
+  {
+   "id": "BIOMD0000000647",
+   "name": "Kwang2003 - The influence of RKIP on the ERK signaling pathway",
+   "submitted": "2017-08-25",
+   "file": "BIOMD0000000647_url.xml",
+   "bytes": 56431
+  },
+  {
+   "id": "BIOMD0000000648",
+   "name": "Padala2017- ERK, PI3K/Akt and Wnt signalling network (normal)",
+   "submitted": "2017-08-29",
+   "file": "BIOMD0000000648_url.xml",
+   "bytes": 334921
+  },
+  {
+   "id": "BIOMD0000000650",
+   "name": "Owen1998 - Tumour  treatment model",
+   "submitted": "2017-08-25",
+   "file": "BIOMD0000000650_url.xml",
+   "bytes": 27583
+  },
+  {
+   "id": "BIOMD0000000651",
+   "name": "Nguyen2016 - Feedback regulation in cell signalling: Lessons for cancer therapeutics",
+   "submitted": "2017-08-25",
+   "file": "BIOMD0000000651_url.xml",
+   "bytes": 132870
+  },
+  {
+   "id": "BIOMD0000000652",
+   "name": "Padala2017- ERK, PI3K/Akt and Wnt signalling network (PI3K mutated)",
+   "submitted": "2017-08-29",
+   "file": "BIOMD0000000652_url.xml",
+   "bytes": 331543
+  },
+  {
+   "id": "BIOMD0000000653",
+   "name": "Padala2017- ERK, PI3K/Akt and Wnt signalling network (bRaf mutated)",
+   "submitted": "2017-08-29",
+   "file": "BIOMD0000000653_url.xml",
+   "bytes": 329790
+  },
+  {
+   "id": "BIOMD0000000654",
+   "name": "Padala2017- ERK, PI3K/Akt and Wnt signalling network (Ras mutated)",
+   "submitted": "2017-08-29",
+   "file": "BIOMD0000000654_url.xml",
+   "bytes": 332263
+  },
+  {
+   "id": "BIOMD0000000655",
+   "name": "Padala2017- ERK, PI3K/Akt and Wnt signalling network (PTEN mutation)",
+   "submitted": "2017-08-29",
+   "file": "BIOMD0000000655_url.xml",
+   "bytes": 331784
+  },
+  {
+   "id": "BIOMD0000000656",
+   "name": "Padala2017- ERK, PI3K/Akt and Wnt signalling network (EGFR overexpression)",
+   "submitted": "2017-08-29",
+   "file": "BIOMD0000000656_url.xml",
+   "bytes": 327635
+  },
+  {
+   "id": "BIOMD0000000657",
+   "name": "Araujo2016 - Positive feedback in Cdk1 signalling keeps mitotic duration short and constant",
+   "submitted": "2017-10-04",
+   "file": "BIOMD0000000657.xml",
+   "bytes": 55028
+  },
+  {
+   "id": "BIOMD0000000658",
+   "name": "Lee2003 - Roles of APC and Axin in Wnt Pathway (without regulatory loop)",
+   "submitted": "2017-08-31",
+   "file": "BIOMD0000000658_url.xml",
+   "bytes": 100736
+  },
+  {
+   "id": "BIOMD0000000659",
+   "name": "Cursons2015 - Regulation of ERK-MAPK signaling in human epidermis",
+   "submitted": "2015-03-27",
+   "file": "BIOMD0000000659_url.xml",
+   "bytes": 53986
+  },
+  {
+   "id": "BIOMD0000000660",
+   "name": "Barr2017 - Dynamics of p21 in hTert-RPE1 cells",
+   "submitted": "2016-07-21",
+   "file": "BIOMD0000000660_url.xml",
+   "bytes": 160837
+  },
+  {
+   "id": "BIOMD0000000661",
+   "name": "Webb2002 - Fas/FasL mediated tumor T-cell interaction",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000661_url.xml",
+   "bytes": 93666
+  },
+  {
+   "id": "BIOMD0000000662",
+   "name": "Moore2004 - Chronic Myeloid Leukemic cells and T-lymphocyte interaction",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000662_url.xml",
+   "bytes": 66123
+  },
+  {
+   "id": "BIOMD0000000663",
+   "name": "Wodarz2007 - HIV/CD4 T-cell interaction",
+   "submitted": "2009-11-27",
+   "file": "BIOMD0000000663_url.xml",
+   "bytes": 44962
+  },
+  {
+   "id": "BIOMD0000000664",
+   "name": "Muller2008 - Simplified MAPK activation Dynamics (Model B)",
+   "submitted": "2009-04-23",
+   "file": "BIOMD0000000664_url.xml",
+   "bytes": 77094
+  },
+  {
+   "id": "BIOMD0000000665",
+   "name": "Fallon2000 - Interleukin-2 dynamics",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000665_url.xml",
+   "bytes": 75603
+  },
+  {
+   "id": "BIOMD0000000666",
+   "name": "Pappalardo2016 - PI3K/AKT and MAPK Signaling Pathways in Melanoma Cancer",
+   "submitted": "2016-09-19",
+   "file": "BIOMD0000000666_url.xml",
+   "bytes": 210607
+  },
+  {
+   "id": "BIOMD0000000667",
+   "name": "Hornberg2005 - MAPKsignalling",
+   "submitted": "2009-04-28",
+   "file": "BIOMD0000000667_url.xml",
+   "bytes": 587669
+  },
+  {
+   "id": "BIOMD0000000668",
+   "name": "Zhu2015 - Combined gemcitabine and birinapant in pancreatic cancer cells - basic PD model",
+   "submitted": "2016-04-27",
+   "file": "BIOMD0000000668_url.xml",
+   "bytes": 88281
+  },
+  {
+   "id": "BIOMD0000000669",
+   "name": "Zhu2015 - Combined gemcitabine and birinapant in pancreatic cancer cells - mechanistic PD model",
+   "submitted": "2016-04-27",
+   "file": "BIOMD0000000669_url.xml",
+   "bytes": 135863
+  },
+  {
+   "id": "BIOMD0000000670",
+   "name": "Owen1998 - tumour growth model",
+   "submitted": "2017-08-24",
+   "file": "BIOMD0000000670_url.xml",
+   "bytes": 19770
+  },
+  {
+   "id": "BIOMD0000000671",
+   "name": "Murphy2016 - Differences in predictions of ODE models of tumor growth",
+   "submitted": "2017-08-25",
+   "file": "BIOMD0000000671_url.xml",
+   "bytes": 29023
+  },
+  {
+   "id": "BIOMD0000000672",
+   "name": "Brown1997 - Plasma Melatonin Levels",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000672_url.xml",
+   "bytes": 35769
+  },
+  {
+   "id": "BIOMD0000000673",
+   "name": "Lockwood2006 - Alzheimer's Disease PBPK model",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000673_url.xml",
+   "bytes": 64944
+  },
+  {
+   "id": "BIOMD0000000674",
+   "name": "Reyes-Palomares2012 - a combined model hepatic polyamine and sulfur aminoacid metabolism - version1",
+   "submitted": "2013-05-06",
+   "file": "BIOMD0000000674_url.xml",
+   "bytes": 425173
+  },
+  {
+   "id": "BIOMD0000000675",
+   "name": "Chen2000_CellCycle",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000675.xml",
+   "bytes": 190217
+  },
+  {
+   "id": "BIOMD0000000676",
+   "name": "Chen2006 - Nitric Oxide Release from Endothelial Cells",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000676_url.xml",
+   "bytes": 76814
+  },
+  {
+   "id": "BIOMD0000000677",
+   "name": "Holmes2006 - Hill's model of muscle contraction",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000677_url.xml",
+   "bytes": 16852
+  },
+  {
+   "id": "BIOMD0000000678",
+   "name": "Tomida2003 - Calcium Oscillatory-induced translocation of nuclear factor of activated T cells",
+   "submitted": "2009-12-16",
+   "file": "BIOMD0000000678_url.xml",
+   "bytes": 38440
+  },
+  {
+   "id": "BIOMD0000000679",
+   "name": "Waugh2006 - Diabetic Wound Healing - Macrophage Dynamics",
+   "submitted": "2010-06-23",
+   "file": "Waugh2006_1.xml",
+   "bytes": 51196
+  },
+  {
+   "id": "BIOMD0000000680",
+   "name": "Waugh2006 - Diabetic Wound Healing - TGF-B Dynamics",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000680_url.xml",
+   "bytes": 34249
+  },
+  {
+   "id": "BIOMD0000000681",
+   "name": "Waugh2006 - Diabetic Wound Healing - Treated and Untreated Macrophage Dynamics",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000681_url.xml",
+   "bytes": 37671
+  },
+  {
+   "id": "BIOMD0000000682",
+   "name": "Wierschem2004 - Electrical bursting activity in Pancreatic Islets",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000682_url.xml",
+   "bytes": 61273
+  },
+  {
+   "id": "BIOMD0000000683",
+   "name": "Wodarz1999 CTL memory response HIV",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000683.xml",
+   "bytes": 51613
+  },
+  {
+   "id": "BIOMD0000000684",
+   "name": "Wodarz2003 - Immunological Memory",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000684_url.xml",
+   "bytes": 57871
+  },
+  {
+   "id": "BIOMD0000000685",
+   "name": "Wodarz2003 - Cytotoxic T lymphocyte cross-priming",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000685_url.xml",
+   "bytes": 37932
+  },
+  {
+   "id": "BIOMD0000000686",
+   "name": "Wodarz2007 - Basic Model of Cytomegalovirus Infection",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000686_url.xml",
+   "bytes": 37161
+  },
+  {
+   "id": "BIOMD0000000687",
+   "name": "Wodarz2007 - Cytomegalovirus infection model with cytotoxic T lymphocyte response",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000687_url.xml",
+   "bytes": 101202
+  },
+  {
+   "id": "BIOMD0000000688",
+   "name": "Wodarz2007 - Cytomegalovirus infection model with cytotoxic T lymphocyte and natural killer cell response",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000688_url.xml",
+   "bytes": 112572
+  },
+  {
+   "id": "BIOMD0000000689",
+   "name": "Thiaville2016 - Folate pathway model (PanB overexpression)",
+   "submitted": "2016-02-28",
+   "file": "BIOMD0000000689_url.xml",
+   "bytes": 67935
+  },
+  {
+   "id": "BIOMD0000000690",
+   "name": "Thiaville2016 - Folate pathway model (PanB overexpression and THF regulation)",
+   "submitted": "2016-02-28",
+   "file": "BIOMD0000000690_url.xml",
+   "bytes": 67962
+  },
+  {
+   "id": "BIOMD0000000691",
+   "name": "Wolf2000 - Cellular interaction on glycolytic oscillations in yeast",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000691_url.xml",
+   "bytes": 103168
+  },
+  {
+   "id": "BIOMD0000000692",
+   "name": "Phillips2003 - The Mechanism of Ras GTPase Activation by Neurofibromin",
+   "submitted": "2007-01-26",
+   "file": "BIOMD0000000692_url.xml",
+   "bytes": 44133
+  },
+  {
+   "id": "BIOMD0000000693",
+   "name": "Wang2008 - Mimicking the inhibitory effect of riluzole on membrane conductance in skeletal fibres",
+   "submitted": "2009-03-23",
+   "file": "BIOMD0000000693_url.xml",
+   "bytes": 76910
+  },
+  {
+   "id": "BIOMD0000000695",
+   "name": "FelixGarza2017 - Blue Light Treatment of Psoriasis (simplified)",
+   "submitted": "2017-01-09",
+   "file": "BIOMD0000000695_url.xml",
+   "bytes": 222975
+  },
+  {
+   "id": "BIOMD0000000696",
+   "name": "Boada2016 - Incoherent type 1 feed-forward loop (I1-FFL)",
+   "submitted": "2015-11-29",
+   "file": "BIOMD0000000696_url.xml",
+   "bytes": 135729
+  },
+  {
+   "id": "BIOMD0000000697",
+   "name": "Ciliberto2003 - CyclinE / Cdk2 timer in the cell cycle of Xenopus laevis embryo",
+   "submitted": "2009-04-30",
+   "file": "BIOMD0000000697_url.xml",
+   "bytes": 143510
+  },
+  {
+   "id": "BIOMD0000000698",
+   "name": "Reed2004 - Methionine Cycle",
+   "submitted": "2010-06-23",
+   "file": "BIOMD0000000698_url.xml",
+   "bytes": 65462
+  },
+  {
+   "id": "BIOMD0000000699",
+   "name": "Caydasi2012 - Regulation of Tem1 by the GAP complex in spindle position cell cycle checkpoint - Ubiquitous association model",
+   "submitted": "2012-02-09",
+   "file": "BIOMD0000000699_url.xml",
+   "bytes": 274304
+  },
+  {
+   "id": "BIOMD0000000700",
+   "name": "Heldt2018 - Proliferation-quiescence decision in response to DNA damage",
+   "submitted": "2017-03-03",
+   "file": "BIOMD0000000700_url.xml",
+   "bytes": 267673
+  },
+  {
+   "id": "BIOMD0000000701",
+   "name": "Caydasi2012 - Inhibition of Tem1 by the GAP complex in Spindle Position Checkpoint",
+   "submitted": "2012-02-09",
+   "file": "MODEL1202090001_FINAL.xml",
+   "bytes": 257661
+  },
+  {
+   "id": "BIOMD0000000702",
+   "name": "Caydasi2012 - Regulation of Tem1 by the GAP complex in Spindle Position Checkpoint - Ubiquitous inactive model",
+   "submitted": "2012-02-09",
+   "file": "BIOMD0000000702_url.xml",
+   "bytes": 255144
+  },
+  {
+   "id": "BIOMD0000000703",
+   "name": "Diedrichs2018 - A data-entrained computational model for testing the regulatory logic of the vertebrate unfolded protein response",
+   "submitted": "2018-03-30",
+   "file": "BIOMD0000000703_url.xml",
+   "bytes": 138948
+  },
+  {
+   "id": "BIOMD0000000704",
+   "name": "Aguda1999 - G2 DNA damage checkpoint",
+   "submitted": "2009-03-23",
+   "file": "BIOMD0000000704_url.xml",
+   "bytes": 147256
+  },
+  {
+   "id": "BIOMD0000000705",
+   "name": "Smith2010 - Response of FOXO Transcription Factors to Post-Translational Modifications Made by Ageing-Related Signalling Pathways",
+   "submitted": "2011-12-26",
+   "file": "BIOMD0000000705_url.xml",
+   "bytes": 294258
+  },
+  {
+   "id": "BIOMD0000000706",
+   "name": "Smith2010 - Response of FOXO Transcription Factors to Post-Translational Modifications (with acetylation pathway)",
+   "submitted": "2011-12-26",
+   "file": "BIOMD0000000706_url.xml",
+   "bytes": 581033
+  },
+  {
+   "id": "BIOMD0000000707",
+   "name": "Revilla2003 - Controlling HIV infection using recombinant viruses",
+   "submitted": "2010-06-23",
+   "file": "MODEL1006230047.xml",
+   "bytes": 46888
+  },
+  {
+   "id": "BIOMD0000000708",
+   "name": "Liu2017 - Dynamics of Avian Influenza with Logistic Growth",
+   "submitted": "2018-08-24",
+   "file": "Liu2017 - Dynamics of Avian Influenza with Logistic Growth.xml",
+   "bytes": 47615
+  },
+  {
+   "id": "BIOMD0000000709",
+   "name": "Liu2017 - Dynamics of Avian Influenza with Allee Growth Effect",
+   "submitted": "2018-08-24",
+   "file": "Liu2017 - Dynamics of Avian Influenza with Allee Growth Effect.xml",
+   "bytes": 43914
+  },
+  {
+   "id": "BIOMD0000000710",
+   "name": "Hernandez-Vargas2012 - Innate immune system dynamics to Influenza virus",
+   "submitted": "2018-08-28",
+   "file": "Hernandez-Vargas2012 - Innate immune system dynamics to Influenza virus.xml",
+   "bytes": 61297
+  },
+  {
+   "id": "BIOMD0000000711",
+   "name": "Hancioglu2007 - Human Immune Response to Influenza A virus Infection",
+   "submitted": "2018-08-28",
+   "file": "Hancioglu2007 - Human Immune Response to Influenza A virus.xml",
+   "bytes": 110491
+  },
+  {
+   "id": "BIOMD0000000712",
+   "name": "Manchanda2014 - Effect on Immune System by 4 different Influenza A virus strains",
+   "submitted": "2018-08-28",
+   "file": "Jena5258.xml",
+   "bytes": 30128
+  },
+  {
+   "id": "BIOMD0000000713",
+   "name": "Aston2018 - Dynamics of Hepatitis C Infection",
+   "submitted": "2018-08-28",
+   "file": "PVR.xml",
+   "bytes": 37014
+  },
+  {
+   "id": "BIOMD0000000714",
+   "name": "Reynolds2006 - Reduced model of the acute inflammatory response",
+   "submitted": "2018-08-28",
+   "file": "HealthyOutcome.xml",
+   "bytes": 41814
+  },
+  {
+   "id": "BIOMD0000000715",
+   "name": "Huo2017 - SEIS epidemic model with the impact of media",
+   "submitted": "2018-08-28",
+   "file": "Epidemic Model with the impact of Media Reactions.xml",
+   "bytes": 34814
+  },
+  {
+   "id": "BIOMD0000000716",
+   "name": "Lee2018 - Avian human bilinear incidence (BI) model",
+   "submitted": "2018-08-28",
+   "file": "BI reactions.xml",
+   "bytes": 50795
+  },
+  {
+   "id": "BIOMD0000000717",
+   "name": "Lee2018 - Avian human half-saturated incidence (HSI) model",
+   "submitted": "2018-08-28",
+   "file": "HSI reactions.xml",
+   "bytes": 51603
+  },
+  {
+   "id": "BIOMD0000000718",
+   "name": "Li2008 - Caulobacter Cell Cycle",
+   "submitted": "2018-11-07",
+   "file": "Li2008.xml",
+   "bytes": 175897
+  },
+  {
+   "id": "BIOMD0000000719",
+   "name": "Tsai2014 - Cell cycle duration control by oscillatory Dynamics  in Early Xenopus laevis Embryos",
+   "submitted": "2018-09-06",
+   "file": "Tsai2014.xml",
+   "bytes": 63389
+  },
+  {
+   "id": "BIOMD0000000720",
+   "name": "Yan2012 - Rb-E2F pathway dynamics with miR449",
+   "submitted": "2018-11-08",
+   "file": "Yan2012.xml",
+   "bytes": 61788
+  },
+  {
+   "id": "BIOMD0000000721",
+   "name": "Graham2013 - Role of osteocytes in targeted bone remodeling",
+   "submitted": "2018-11-15",
+   "file": "Model.xml",
+   "bytes": 48468
+  },
+  {
+   "id": "BIOMD0000000722",
+   "name": "Bianchi2015 -Model for lymphangiogenesis in normal and diabetic wounds",
+   "submitted": "2018-11-21",
+   "file": "Wound Healing with Normal health condition.xml",
+   "bytes": 55915
+  },
+  {
+   "id": "BIOMD0000000723",
+   "name": "Weis2014 - Data driven Mammalian Cell Cycle Model",
+   "submitted": "2018-11-22",
+   "file": "Weis2014.xml",
+   "bytes": 283002
+  },
+  {
+   "id": "BIOMD0000000724",
+   "name": "Theinmozhi2018 - Mechanism of PD1 inhibiting TCR signaling in Tumor immune regulation",
+   "submitted": "2018-12-04",
+   "file": "Theinmozhi_2018.xml",
+   "bytes": 185560
+  },
+  {
+   "id": "BIOMD0000000725",
+   "name": "Salcedo-Sora2016 - Microbial folate biosynthesis and utilisation",
+   "submitted": "2015-11-02",
+   "file": "Model.xml",
+   "bytes": 209908
+  },
+  {
+   "id": "BIOMD0000000726",
+   "name": "Ruan2017 - Transmission dynamics and control of rabies in China",
+   "submitted": "2018-08-28",
+   "file": "Model.xml",
+   "bytes": 66195
+  },
+  {
+   "id": "BIOMD0000000727",
+   "name": "Li2009- Assymetric Caulobacter cell cycle",
+   "submitted": "2018-12-11",
+   "file": "Li2009.xml",
+   "bytes": 331426
+  },
+  {
+   "id": "BIOMD0000000728",
+   "name": "Norel1990 - MPF and Cyclin Oscillations",
+   "submitted": "2018-12-12",
+   "file": "Norell1990.xml",
+   "bytes": 29561
+  },
+  {
+   "id": "BIOMD0000000729",
+   "name": "Goldbeter1996 - Cyclin Cdc2 kinase Oscillations",
+   "submitted": "2018-12-12",
+   "file": "Goldbeter1996.xml",
+   "bytes": 50423
+  },
+  {
+   "id": "BIOMD0000000730",
+   "name": "Gerard2009 - An Integrated Mammalian Cell Cycle Model",
+   "submitted": "2018-12-21",
+   "file": "Gerard2009.xml",
+   "bytes": 606927
+  },
+  {
+   "id": "BIOMD0000000731",
+   "name": "Robertson-Tessi M 2012 A model of tumor Immune interaction",
+   "submitted": "2019-01-25",
+   "file": "22051568_Tessi.xml",
+   "bytes": 155225
+  },
+  {
+   "id": "BIOMD0000000732",
+   "name": "Kirschner1998_Immunotherapy_Tumour",
+   "submitted": "2010-06-23",
+   "file": "Kirschner_1998.xml",
+   "bytes": 43735
+  },
+  {
+   "id": "BIOMD0000000733",
+   "name": "Moore_2004_Mathematical model for CML and T cell interaction",
+   "submitted": "2019-02-20",
+   "file": "Moore_2004_fig6.xml",
+   "bytes": 39762
+  },
+  {
+   "id": "BIOMD0000000734",
+   "name": "Mouse Iron Distribution - Rich and Deficient iron diets (tracer)",
+   "submitted": "2019-03-04",
+   "file": "BIOMD0000000734.xml",
+   "bytes": 201715
+  },
+  {
+   "id": "BIOMD0000000735",
+   "name": "Mouse Iron Distribution - Adequate iron diet (tracer)",
+   "submitted": "2016-05-03",
+   "file": "Parmar2017_Adequate_tracer.xml",
+   "bytes": 199746
+  },
+  {
+   "id": "BIOMD0000000736",
+   "name": "Mouse Iron Distribution - Adequate iron diet (No Tracer)",
+   "submitted": "2016-05-03",
+   "file": "Parmar2017_Adequate_diet_Anemia_NoTracer.xml",
+   "bytes": 112397
+  },
+  {
+   "id": "BIOMD0000000737",
+   "name": "Mouse Iron Distribution - Deficient iron diet (No Tracer)",
+   "submitted": "2016-05-03",
+   "file": "Parmar2017_Deficient_NoTracer.xml",
+   "bytes": 110057
+  },
+  {
+   "id": "BIOMD0000000738",
+   "name": "Mouse Iron Distribution - Rich iron diet (No Tracer)",
+   "submitted": "2016-05-03",
+   "file": "Parmar2017_Rich_NoTracer.xml",
+   "bytes": 111729
+  },
+  {
+   "id": "BIOMD0000000739",
+   "name": "Bravo2012 - Modelling blood coagulation factor Va inactivation by APC",
+   "submitted": "2018-07-02",
+   "file": "Bravo2012.xml",
+   "bytes": 91132
+  },
+  {
+   "id": "BIOMD0000000740",
+   "name": "Panteleev2010 - Blood Coagulation: Full Model",
+   "submitted": "2018-08-16",
+   "file": "Panteleev2010_full_model.xml",
+   "bytes": 108768
+  },
+  {
+   "id": "BIOMD0000000741",
+   "name": "Eftimie2018 - Cancer and Immune biomarkers",
+   "submitted": "2019-07-05",
+   "file": "Eftimie2018.xml",
+   "bytes": 80908
+  },
+  {
+   "id": "BIOMD0000000742",
+   "name": "Garcia2018basic - cancer and immune cell count basic model",
+   "submitted": "2019-07-05",
+   "file": "Garcia2018basic.xml",
+   "bytes": 41412
+  },
+  {
+   "id": "BIOMD0000000743",
+   "name": "Gallaher2018 - Tumor\u2013Immune dynamics in multiple myeloma",
+   "submitted": "2019-07-05",
+   "file": "Gallaher2018.xml",
+   "bytes": 115864
+  },
+  {
+   "id": "BIOMD0000000744",
+   "name": "Hu2019 - Pancreatic cancer dynamics",
+   "submitted": "2019-07-05",
+   "file": "Hu2019.xml",
+   "bytes": 107509
+  },
+  {
+   "id": "BIOMD0000000745",
+   "name": "Jarrett2018 - trastuzumab-induced immune response in murine HER2+ breast cancer model",
+   "submitted": "2019-07-05",
+   "file": "Jarrett2018.xml",
+   "bytes": 76981
+  },
+  {
+   "id": "BIOMD0000000746",
+   "name": "Saad2017 - immune checkpoint and BCG in superficial bladder cancer",
+   "submitted": "2019-07-10",
+   "file": "Saad2017.xml",
+   "bytes": 70413
+  },
+  {
+   "id": "BIOMD0000000747",
+   "name": "Nagashima2002 - Simulating blood coagulation inhibitory effects",
+   "submitted": "2018-07-23",
+   "file": "Nagashima2002.xml",
+   "bytes": 130506
+  },
+  {
+   "id": "BIOMD0000000748",
+   "name": "Phan2017 - innate immune in oncolytic virotherapy",
+   "submitted": "2019-07-11",
+   "file": "Phan2017.xml",
+   "bytes": 65016
+  },
+  {
+   "id": "BIOMD0000000749",
+   "name": "Reppas2015 - tumor control via alternating immunostimulating and immunosuppressive phases",
+   "submitted": "2019-07-11",
+   "file": "Reppas2015.xml",
+   "bytes": 64135
+  },
+  {
+   "id": "BIOMD0000000750",
+   "name": "Lolas2016 - tumour-induced neoneurogenesis and perineural tumour growth",
+   "submitted": "2019-07-16",
+   "file": "Lolas2016.xml",
+   "bytes": 161199
+  },
+  {
+   "id": "BIOMD0000000751",
+   "name": "Wilkie2013b - immune-induced cancer dormancy and immune evasion-basic",
+   "submitted": "2019-07-16",
+   "file": "Wilkie2013b.xml",
+   "bytes": 34195
+  },
+  {
+   "id": "BIOMD0000000752",
+   "name": "Wilkie2013r - immune-induced cancer dormancy and immune evasion-resistance",
+   "submitted": "2019-07-17",
+   "file": "Wilkie2013r.xml",
+   "bytes": 45774
+  },
+  {
+   "id": "BIOMD0000000753",
+   "name": "Figueredo2013/1 - immunointeraction base model",
+   "submitted": "2019-07-18",
+   "file": "Figueredo2013_1.xml",
+   "bytes": 46769
+  },
+  {
+   "id": "BIOMD0000000754",
+   "name": "Figueredo2013/2 - immunointeraction model with IL2",
+   "submitted": "2019-07-18",
+   "file": "Figueredo2013_2.xml",
+   "bytes": 65839
+  },
+  {
+   "id": "BIOMD0000000755",
+   "name": "Hansen2019 - Nine species reduced model of blood coagulation",
+   "submitted": "2019-07-18",
+   "file": "Hansen2019.xml",
+   "bytes": 41829
+  },
+  {
+   "id": "BIOMD0000000756",
+   "name": "Figueredo2013/3 - immunointeraction full model",
+   "submitted": "2019-07-22",
+   "file": "Figueredo2013_3.xml",
+   "bytes": 85929
+  },
+  {
+   "id": "BIOMD0000000757",
+   "name": "Abernathy2016 - glioblastoma treatment",
+   "submitted": "2019-07-24",
+   "file": "Abernathy2016.xml",
+   "bytes": 131388
+  },
+  {
+   "id": "BIOMD0000000758",
+   "name": "Babbs2012 - immunotherapy",
+   "submitted": "2019-07-24",
+   "file": "Babbs2012.xml",
+   "bytes": 32484
+  },
+  {
+   "id": "BIOMD0000000759",
+   "name": "den Breems2015 - macrophage in cancer",
+   "submitted": "2019-07-24",
+   "file": "denBreems2015.xml",
+   "bytes": 111972
+  },
+  {
+   "id": "BIOMD0000000760",
+   "name": "Feizabadi2011/1 - immunodeficiency in cancer core model",
+   "submitted": "2019-07-25",
+   "file": "Feizabadi2011_1.xml",
+   "bytes": 37363
+  },
+  {
+   "id": "BIOMD0000000761",
+   "name": "Cappuccio2006 - Cancer immunotherapy by interleukin-21",
+   "submitted": "2019-07-23",
+   "file": "Cappuccio2006 v2.0.xml",
+   "bytes": 78994
+  },
+  {
+   "id": "BIOMD0000000762",
+   "name": "Kuznetsov1994 - Nonlinear dynamics of immunogenic tumors",
+   "submitted": "2019-07-23",
+   "file": "Kuznetsov1994.xml",
+   "bytes": 35258
+  },
+  {
+   "id": "BIOMD0000000763",
+   "name": "Dritschel2018 - A mathematical model of cytotoxic and helper T cell interactions in a tumour microenvironment",
+   "submitted": "2019-07-23",
+   "file": "Dritschel2018.xml",
+   "bytes": 40887
+  },
+  {
+   "id": "BIOMD0000000764",
+   "name": "Malinzi2019 - chemovirotherapy",
+   "submitted": "2019-07-26",
+   "file": "Malinzi2019.xml",
+   "bytes": 68514
+  },
+  {
+   "id": "BIOMD0000000765",
+   "name": "Mager2005 - Quasi-equilibrium pharmacokinetic model for drugs exhibiting target-mediated drug disposition",
+   "submitted": "2019-07-29",
+   "file": "Mager2005.xml",
+   "bytes": 47460
+  },
+  {
+   "id": "BIOMD0000000766",
+   "name": "Macnamara2015/1 - virotherapy full model",
+   "submitted": "2019-07-29",
+   "file": "Macnamara2015_1.xml",
+   "bytes": 75891
+  },
+  {
+   "id": "BIOMD0000000767",
+   "name": "Macnamara2015/2 - virotherapy virus-free submodel",
+   "submitted": "2019-07-29",
+   "file": "Macnamara2015_2.xml",
+   "bytes": 44850
+  },
+  {
+   "id": "BIOMD0000000768",
+   "name": "Eftimie2010 - immunity to melanoma",
+   "submitted": "2019-07-30",
+   "file": "Eftimie2010.xml",
+   "bytes": 99263
+  },
+  {
+   "id": "BIOMD0000000769",
+   "name": "Eftimie2017/2 - interaction of Th and macrophage in melanoma",
+   "submitted": "2019-07-31",
+   "file": "Eftimie2017_2.xml",
+   "bytes": 122091
+  },
+  {
+   "id": "BIOMD0000000770",
+   "name": "Eftimie2017/1 - interaction of Th and macrophage",
+   "submitted": "2019-07-31",
+   "file": "Eftimie2017_1.xml",
+   "bytes": 77332
+  },
+  {
+   "id": "BIOMD0000000771",
+   "name": "Bajzer2008 - Modeling of cancer virotherapy with recombinant measles viruses",
+   "submitted": "2019-07-31",
+   "file": "Bazjer2008.xml",
+   "bytes": 33024
+  },
+  {
+   "id": "BIOMD0000000772",
+   "name": "Wang2019 - A mathematical model of oncolytic virotherapy with time delay",
+   "submitted": "2019-08-01",
+   "file": "Wang2019.xml",
+   "bytes": 35434
+  },
+  {
+   "id": "BIOMD0000000773",
+   "name": "Wodarz2018/2 - model with transit amplifying cells",
+   "submitted": "2019-08-01",
+   "file": "Wodarz2018_2.xml",
+   "bytes": 68890
+  },
+  {
+   "id": "BIOMD0000000774",
+   "name": "Wodarz2018/1 - simple model",
+   "submitted": "2019-08-01",
+   "file": "Wodarz2018_1.xml",
+   "bytes": 45112
+  },
+  {
+   "id": "BIOMD0000000775",
+   "name": "Iarosz2015 - brain tumor",
+   "submitted": "2019-08-02",
+   "file": "Iarosz2015.xml",
+   "bytes": 69162
+  },
+  {
+   "id": "BIOMD0000000776",
+   "name": "Monro2008 - chemotherapy resistance",
+   "submitted": "2019-08-02",
+   "file": "Monro2008.xml",
+   "bytes": 36569
+  },
+  {
+   "id": "BIOMD0000000777",
+   "name": "Chakrabarty2010 - A control theory approach to cancer remission aided by an optimal therapy",
+   "submitted": "2019-08-04",
+   "file": "Chakrabarty2010.xml",
+   "bytes": 35600
+  },
+  {
+   "id": "BIOMD0000000778",
+   "name": "Wei2017 - tumor, T cell and cytokine interaction",
+   "submitted": "2019-08-05",
+   "file": "Wei2017.xml",
+   "bytes": 61745
+  },
+  {
+   "id": "BIOMD0000000779",
+   "name": "dePillis2009 - Mathematical model creation for cancer chemo-immunotherapy",
+   "submitted": "2019-08-05",
+   "file": "dePillis2009.xml",
+   "bytes": 106509
+  },
+  {
+   "id": "BIOMD0000000780",
+   "name": "Wang2016/1 - oncolytic efficacy of M1 virus-SNTM model",
+   "submitted": "2019-08-06",
+   "file": "Wang2016_1.xml",
+   "bytes": 62323
+  },
+  {
+   "id": "BIOMD0000000781",
+   "name": "Wang2016/2 - oncolytic efficacy of M1 virus-SNT model",
+   "submitted": "2019-08-06",
+   "file": "Wang2016_2.xml",
+   "bytes": 47474
+  },
+  {
+   "id": "BIOMD0000000782",
+   "name": "Wang2016/3 - oncolytic efficacy of M1 virus-SN model",
+   "submitted": "2019-08-06",
+   "file": "Wang2016_3.xml",
+   "bytes": 35620
+  },
+  {
+   "id": "BIOMD0000000783",
+   "name": "Dong2014 - Mathematical modeling on helper t cells in a tumor immune system",
+   "submitted": "2019-08-08",
+   "file": "Dong2014.xml",
+   "bytes": 35079
+  },
+  {
+   "id": "BIOMD0000000784",
+   "name": "Lopez2014 - A Validated Mathematical Model of Tumor Growth Including Tumor-Host Interaction and Cell-Mediated Immune Response",
+   "submitted": "2019-08-09",
+   "file": "Lopez2014.xml",
+   "bytes": 42623
+  },
+  {
+   "id": "BIOMD0000000785",
+   "name": "Sotolongo-Costa2003 - Behavior of tumors under nonstationary therapy",
+   "submitted": "2019-08-09",
+   "file": "Sotolongo-Costa2003.xml",
+   "bytes": 26257
+  },
+  {
+   "id": "BIOMD0000000786",
+   "name": "Lipniacki2004 - Mathematical model of NFKB regulatory module",
+   "submitted": "2019-08-09",
+   "file": "Lipniacki2004.xml",
+   "bytes": 243196
+  },
+  {
+   "id": "BIOMD0000000787",
+   "name": "Frascoli2014 - A dynamical model of tumour immunotherapy",
+   "submitted": "2019-08-12",
+   "file": "Frascoli2014.xml",
+   "bytes": 26921
+  },
+  {
+   "id": "BIOMD0000000788",
+   "name": "Schropp2019 - Target-Mediated Drug Disposition Model for Bispecific Antibodies",
+   "submitted": "2019-07-24",
+   "file": "Schropp2019.xml",
+   "bytes": 91686
+  },
+  {
+   "id": "BIOMD0000000789",
+   "name": "Jenner2018 - treatment of oncolytic virus",
+   "submitted": "2019-08-12",
+   "file": "Jenner2018.xml",
+   "bytes": 46616
+  },
+  {
+   "id": "BIOMD0000000790",
+   "name": "Alvarez2019 - A nonlinear mathematical model of cell-mediated immune response for tumor phenotypic heterogeneity",
+   "submitted": "2019-08-12",
+   "file": "Alvarez2019.xml",
+   "bytes": 65150
+  },
+  {
+   "id": "BIOMD0000000791",
+   "name": "Wilson2012 - tumor vaccine efficacy",
+   "submitted": "2019-08-12",
+   "file": "Wilson2012.xml",
+   "bytes": 71126
+  },
+  {
+   "id": "BIOMD0000000792",
+   "name": "Hu2019 - Modeling Pancreatic Cancer Dynamics with Immunotherapy",
+   "submitted": "2019-08-13",
+   "file": "Hu2019.xml",
+   "bytes": 57418
+  },
+  {
+   "id": "BIOMD0000000793",
+   "name": "Chen2011/1 - bone marrow invasion absolute model",
+   "submitted": "2019-08-13",
+   "file": "Chen2011_1.xml",
+   "bytes": 34293
+  },
+  {
+   "id": "BIOMD0000000794",
+   "name": "Benary2019 - Controlling NFKB dynamics by B-TrCP",
+   "submitted": "2019-08-13",
+   "file": "Benary2019.xml",
+   "bytes": 244922
+  },
+  {
+   "id": "BIOMD0000000795",
+   "name": "Chen2011/2 - bone marrow invasion relative model",
+   "submitted": "2019-08-13",
+   "file": "Chen2011_2.xml",
+   "bytes": 39830
+  },
+  {
+   "id": "BIOMD0000000796",
+   "name": "Yang2012 - cancer growth with angiogenesis",
+   "submitted": "2019-08-14",
+   "file": "Yang2012.xml",
+   "bytes": 94671
+  },
+  {
+   "id": "BIOMD0000000797",
+   "name": "Hu2018 - Dynamics of tumor-CD4+-cytokine-host cells interactions with treatments",
+   "submitted": "2019-08-15",
+   "file": "Hu2018.xml",
+   "bytes": 54743
+  },
+  {
+   "id": "BIOMD0000000798",
+   "name": "Sharp2019 - AML",
+   "submitted": "2019-08-19",
+   "file": "Sharp2019.xml",
+   "bytes": 58404
+  },
+  {
+   "id": "BIOMD0000000799",
+   "name": "Cucuianu2010 - A hypothetical-mathematical model of acute myeloid leukaemia pathogenesis",
+   "submitted": "2019-08-19",
+   "file": "Cucuianu2010.xml",
+   "bytes": 21812
+  },
+  {
+   "id": "BIOMD0000000800",
+   "name": "Precup2012 - Mathematical modeling of cell dynamics after allogeneic bone marrow transplantation",
+   "submitted": "2019-08-19",
+   "file": "Precup2012.xml",
+   "bytes": 32756
+  },
+  {
+   "id": "BIOMD0000000801",
+   "name": "Sturrock2015 - glioma growth",
+   "submitted": "2019-08-20",
+   "file": "Sturrock2015.xml",
+   "bytes": 81862
+  },
+  {
+   "id": "BIOMD0000000802",
+   "name": "Hoffman2018- ADCC against cancer",
+   "submitted": "2019-08-20",
+   "file": "Hoffman2017.xml",
+   "bytes": 56563
+  },
+  {
+   "id": "BIOMD0000000803",
+   "name": "Park2019 - IL7 receptor signaling in T cells",
+   "submitted": "2019-08-21",
+   "file": "Park2019.xml",
+   "bytes": 36594
+  },
+  {
+   "id": "BIOMD0000000804",
+   "name": "Koenders2015 - multiple myeloma",
+   "submitted": "2019-08-29",
+   "file": "Koenders2015.xml",
+   "bytes": 63803
+  },
+  {
+   "id": "BIOMD0000000805",
+   "name": "Al-Husari2013 - pH and lactate in tumor",
+   "submitted": "2019-09-03",
+   "file": "Al-Husari2013.xml",
+   "bytes": 67584
+  },
+  {
+   "id": "BIOMD0000000806",
+   "name": "Eftimie2019-Macrophages Plasticity",
+   "submitted": "2019-09-05",
+   "file": "model.xml",
+   "bytes": 133076
+  },
+  {
+   "id": "BIOMD0000000807",
+   "name": "Fassoni2019 - Oncogenesis encompassing mutations and genetic instability",
+   "submitted": "2019-09-05",
+   "file": "model.xml",
+   "bytes": 99552
+  },
+  {
+   "id": "BIOMD0000000808",
+   "name": "Kronik2008 - Improving alloreactive CTL immunotherapy for malignant gliomas using a simulation model of their interactive dynamics",
+   "submitted": "2019-09-09",
+   "file": "Kronik2008.xml",
+   "bytes": 101459
+  },
+  {
+   "id": "BIOMD0000000809",
+   "name": "Malinzi2018 - tumour-immune interaction model",
+   "submitted": "2019-09-06",
+   "file": "Malinzi2018 - tumour-immune interaction model.xml",
+   "bytes": 56189
+  },
+  {
+   "id": "BIOMD0000000810",
+   "name": "Ganguli2018-immuno regulatory mechanisms in tumor microenvironment",
+   "submitted": "2019-09-11",
+   "file": "Ganguli2018-immuno regulatory mechanisms in tumor microenvironment.xml",
+   "bytes": 280389
+  },
+  {
+   "id": "BIOMD0000000811",
+   "name": "He2017 - A mathematical model of pancreatic cancer with two kinds of treatments",
+   "submitted": "2019-09-12",
+   "file": "He2017.xml",
+   "bytes": 117278
+  },
+  {
+   "id": "BIOMD0000000812",
+   "name": "Galante2012 - B7-H1 and a Mathematical Model for Cytotoxic T Cell and Tumor Cell Interaction",
+   "submitted": "2019-09-16",
+   "file": "Galante2012.xml",
+   "bytes": 48114
+  },
+  {
+   "id": "BIOMD0000000813",
+   "name": "Anderson2015 - Qualitative behavior of systems of tumor-CD4+-cytokine interactions with treatments",
+   "submitted": "2019-09-17",
+   "file": "Anderson2015.xml",
+   "bytes": 34800
+  },
+  {
+   "id": "BIOMD0000000814",
+   "name": "Perez-Garcia19 - Computational design of improved standardized chemotherapy protocols for grade 2 oligodendrogliomas",
+   "submitted": "2019-09-17",
+   "file": "Perez-Garcia19 Computational design of improved standardized chemotherapy protocols for grade 2 oligodendrogliomas.xml",
+   "bytes": 79959
+  },
+  {
+   "id": "BIOMD0000000815",
+   "name": "Chrobak2011 - A mathematical model of induced cancer-adaptive immune system competition",
+   "submitted": "2019-09-17",
+   "file": "Chrobak2011.xml",
+   "bytes": 34942
+  },
+  {
+   "id": "BIOMD0000000816",
+   "name": "Gevertz2018 - Cancer Treatment with Oncolytic Viruses and Dendritic Cell injections original model",
+   "submitted": "2019-09-18",
+   "file": "model.xml",
+   "bytes": 104956
+  },
+  {
+   "id": "BIOMD0000000817",
+   "name": "Gevertz2018 - cancer treatment with oncolytic viruses and dendritic cell injections minimal model",
+   "submitted": "2019-09-18",
+   "file": "model.xml",
+   "bytes": 93754
+  },
+  {
+   "id": "BIOMD0000000818",
+   "name": "Lee2008 - ERK and PI3K signal integration by Myc",
+   "submitted": "2019-09-17",
+   "file": "Lee2008.xml",
+   "bytes": 66559
+  },
+  {
+   "id": "BIOMD0000000819",
+   "name": "Nazari2018 - IL6 mediated stem cell driven tumor growth and targeted treatment",
+   "submitted": "2019-09-23",
+   "file": "Nazari2018 - IL6 mediated stem cell driven tumor growth and targeted treatment.xml",
+   "bytes": 157578
+  },
+  {
+   "id": "BIOMD0000000820",
+   "name": "West2019 - Cellular interactions constrain tumor growth",
+   "submitted": "2019-09-24",
+   "file": "West2019 - Cellular interactions constrain tumor growth.xml",
+   "bytes": 49631
+  },
+  {
+   "id": "BIOMD0000000821",
+   "name": "Yazdjer2019 - reinforcement learning-based control of tumor growth under anti-angiogenic therapy",
+   "submitted": "2019-09-24",
+   "file": "Yazdjer2019 - reinforcement learning-based control of tumor growth under anti-angiogenic therapy.xml",
+   "bytes": 44828
+  },
+  {
+   "id": "BIOMD0000000822",
+   "name": "Dorvash2019 - Dynamic modeling of signal transduction by mTOR complexes in cancer",
+   "submitted": "2019-09-25",
+   "file": "Dorvash2019 - Dynamic modeling of signal transduction by mTOR complexes in cancer.xml",
+   "bytes": 83939
+  },
+  {
+   "id": "BIOMD0000000823",
+   "name": "Varusai2018 - Dynamic modelling of the mTOR signalling network reveals complex emergent behaviours conferred by DEPTOR",
+   "submitted": "2019-09-25",
+   "file": "Varusai2018.xml",
+   "bytes": 83144
+  },
+  {
+   "id": "BIOMD0000000824",
+   "name": "Lewkiewics2019 - effects of aging on naive T cell populations and diversity",
+   "submitted": "2019-09-26",
+   "file": "Lewkiewics2019 - effects of aging on naive T cell populations and diversity.xml",
+   "bytes": 21778
+  },
+  {
+   "id": "BIOMD0000000825",
+   "name": "Greene2019 - Differentiate Spontaneous and Induced Evolution to Drug Resistance During Cancer Treatment",
+   "submitted": "2019-09-26",
+   "file": "Greene2019 - Differentiate Spontaneous and Induced Evolution to Drug Resistance During Cancer Treatment.xml",
+   "bytes": 31370
+  },
+  {
+   "id": "BIOMD0000000826",
+   "name": "Shin_2018_EGFR-PYK2-c-Met interaction network_model",
+   "submitted": "2019-09-27",
+   "file": "Shin2018.xml",
+   "bytes": 147989
+  },
+  {
+   "id": "BIOMD0000000827",
+   "name": "Ito2019 - gefitnib resistance of lung adenocarcinoma caused by MET amplification",
+   "submitted": "2019-09-30",
+   "file": "Ito2019 - gefitnib resistance of lung adenocarcinoma caused by MET amplification.xml",
+   "bytes": 57151
+  },
+  {
+   "id": "BIOMD0000000828",
+   "name": "Jung2019 - Regulating glioblastoma signaling pathways and anti-invasion therapy - core control model",
+   "submitted": "2019-09-30",
+   "file": "Jung2019 model.xml",
+   "bytes": 77916
+  },
+  {
+   "id": "BIOMD0000000829",
+   "name": "Jung2019 - egulating glioblastoma signaling pathways and anti-invasion therapy cell cycle dynamics model",
+   "submitted": "2019-10-02",
+   "file": "Jung2019 - egulating glioblastoma signaling pathways and anti-invasion therapy cell cycle dynamics model.xml",
+   "bytes": 138041
+  },
+  {
+   "id": "BIOMD0000000830",
+   "name": "GiantsosAdams2013 - Growth of glycocalyx under static conditions",
+   "submitted": "2016-09-10",
+   "file": "Giantsos-Adams2013.xml",
+   "bytes": 109444
+  },
+  {
+   "id": "BIOMD0000000831",
+   "name": "Smith1980 - Hypothalamic Regulation",
+   "submitted": "2009-03-25",
+   "file": "Smith1980_HypothalamicRegulation.xml",
+   "bytes": 40801
+  },
+  {
+   "id": "BIOMD0000000832",
+   "name": "Shin2016 - Unveiling Hidden Dynamics of Hippo Signalling",
+   "submitted": "2019-09-25",
+   "file": "Shin2016.xml",
+   "bytes": 142676
+  },
+  {
+   "id": "BIOMD0000000833",
+   "name": "DiCamillo2016 - Insulin signalling pathway - Rule-based model",
+   "submitted": "2016-04-10",
+   "file": "DiCamillo2016.xml",
+   "bytes": 395687
+  },
+  {
+   "id": "BIOMD0000000834",
+   "name": "Verma2016 - Ca(2+) Signal Propagation Along Hepatocyte Cords",
+   "submitted": "2016-03-11",
+   "file": "Verma2016.xml",
+   "bytes": 346336
+  },
+  {
+   "id": "BIOMD0000000835",
+   "name": "Rao2014 - Fatty acid beta-oxidation (reduced model)",
+   "submitted": "2014-03-25",
+   "file": "Rao2014.xml",
+   "bytes": 364057
+  },
+  {
+   "id": "BIOMD0000000836",
+   "name": "Radosavljevic2009_BioterroristAttack_PanicProtection_1",
+   "submitted": "2012-03-07",
+   "file": "Radosavljevic2009.xml",
+   "bytes": 14268
+  },
+  {
+   "id": "BIOMD0000000837",
+   "name": "Hanson2016 - Toxicity Management in CAR T cell therapy for B-ALL",
+   "submitted": "2019-10-25",
+   "file": "Hanson2016.xml",
+   "bytes": 79015
+  },
+  {
+   "id": "BIOMD0000000838",
+   "name": "Tsur2019 - Response of patients with melanoma to immune checkpoint blockade",
+   "submitted": "2019-10-25",
+   "file": "Tsur2019.xml",
+   "bytes": 33703
+  },
+  {
+   "id": "BIOMD0000000839",
+   "name": "Almeida2019 - Transcription-based circadian mechanism controls the duration of molecular clock states in response to signaling inputs",
+   "submitted": "2019-10-29",
+   "file": "Almeida2019.xml",
+   "bytes": 70803
+  },
+  {
+   "id": "BIOMD0000000840",
+   "name": "Caldwell2019 - The Vicodin abuse problem",
+   "submitted": "2019-10-29",
+   "file": "Caldwell2019.xml",
+   "bytes": 39653
+  },
+  {
+   "id": "BIOMD0000000841",
+   "name": "Dhawan2019 - Endogenous miRNA sponges mediate the generation of oscillatory dynamics for a non-coding RNA network",
+   "submitted": "2019-11-01",
+   "file": "Dhawan2019.xml",
+   "bytes": 38115
+  },
+  {
+   "id": "BIOMD0000000842",
+   "name": "Heitzler2012 - GPCR signalling",
+   "submitted": "2010-12-08",
+   "file": "MODEL1012080000.xml",
+   "bytes": 163415
+  },
+  {
+   "id": "BIOMD0000000843",
+   "name": "Dudziuk2019 - Biologically sound formal model of Hsp70 heat induction",
+   "submitted": "2018-07-16",
+   "file": "Dudziuk2019.xml",
+   "bytes": 80014
+  },
+  {
+   "id": "BIOMD0000000844",
+   "name": "Viertel2019 - A Computational model of the mammalian external tufted cell",
+   "submitted": "2019-11-10",
+   "file": "Viertel2019.xml",
+   "bytes": 127574
+  },
+  {
+   "id": "BIOMD0000000845",
+   "name": "Gulbudak2019.1 - Heterogeneous viral strategies promote coexistence in virus-microbe systems (Lytic)",
+   "submitted": "2019-11-10",
+   "file": "Gulbudak2019.1.Lytic.xml",
+   "bytes": 31290
+  },
+  {
+   "id": "BIOMD0000000846",
+   "name": "Gulbudak2019.2 - Heterogeneous viral strategies promote coexistence in virus-microbe systems (Chronic)",
+   "submitted": "2019-11-10",
+   "file": "Gulbudak2019.2.Chronic.xml",
+   "bytes": 35029
+  },
+  {
+   "id": "BIOMD0000000847",
+   "name": "Adams2019 - The regulatory role of shikimate in plant phenylalanine metabolism",
+   "submitted": "2019-11-10",
+   "file": "Adams2019.xml",
+   "bytes": 39534
+  },
+  {
+   "id": "BIOMD0000000848",
+   "name": "FatehiChenar2018 - Mathematical model of immune response to hepatitis B",
+   "submitted": "2019-11-11",
+   "file": "FatehiChenar2018.xml",
+   "bytes": 87625
+  },
+  {
+   "id": "BIOMD0000000849",
+   "name": "Potassium balance in lactating and non-lactating dairy cows",
+   "submitted": "2017-10-23",
+   "file": "Berg2017.xml",
+   "bytes": 318364
+  },
+  {
+   "id": "BIOMD0000000850",
+   "name": "Jenner2019 - Oncolytic virotherapy for tumours following a Gompertz growth law",
+   "submitted": "2019-11-12",
+   "file": "Jenner2019.xml",
+   "bytes": 21058
+  },
+  {
+   "id": "BIOMD0000000851",
+   "name": "Ho2019 - Mathematical models of transmission dynamics and vaccine strategies in Hong Kong during the 2017-2018 winter influenza season (Simple)",
+   "submitted": "2019-11-12",
+   "file": "Ho2019.xml",
+   "bytes": 34108
+  },
+  {
+   "id": "BIOMD0000000852",
+   "name": "Andersen2017 - Mathematical modelling as a proof of concept for MPNs as a human inflammation model for cancer development",
+   "submitted": "2019-11-12",
+   "file": "Andersen2017.xml",
+   "bytes": 77905
+  },
+  {
+   "id": "BIOMD0000000853",
+   "name": "Smolen2018 - Paradoxical LTP maintenance with inhibition of protein synthesis and the proteasome",
+   "submitted": "2019-11-12",
+   "file": "Smolen2018.xml",
+   "bytes": 77703
+  },
+  {
+   "id": "BIOMD0000000854",
+   "name": "Gray2016 - The Akt switch model",
+   "submitted": "2019-11-13",
+   "file": "Gray2016.xml",
+   "bytes": 38185
+  },
+  {
+   "id": "BIOMD0000000855",
+   "name": "Cooper2015 - Modeling the effects of systemic mediators on the inflammatory phase of wound healing",
+   "submitted": "2019-11-13",
+   "file": "Cooper2015.xml",
+   "bytes": 82791
+  },
+  {
+   "id": "BIOMD0000000856",
+   "name": "Budding yeast size control by titration of nuclear sites",
+   "submitted": "2018-03-22",
+   "file": "Heldt2018.xml",
+   "bytes": 165473
+  },
+  {
+   "id": "BIOMD0000000857",
+   "name": "Larbat2016.1 - Modeling the diversion of primary carbon flux into secondary metabolism under variable nitrate and light or dark conditions (Base Model)",
+   "submitted": "2019-11-13",
+   "file": "Larbat2016.1.xml",
+   "bytes": 92468
+  },
+  {
+   "id": "BIOMD0000000858",
+   "name": "Larbat2016.2 - Modeling the diversion of primary carbon flux into secondary metabolism under variable nitrate and light or dark conditions (Light Dark Cycles)",
+   "submitted": "2019-11-13",
+   "file": "Larbat2016.2.xml",
+   "bytes": 96686
+  },
+  {
+   "id": "BIOMD0000000859",
+   "name": "Larbat2016.3 - Modeling the diversion of primary carbon flux into secondary metabolism under variable nitrate and light or dark conditions (Light Dark Cycles with Minimum Starch Adaption)",
+   "submitted": "2019-11-13",
+   "file": "Larbat2016.3.xml",
+   "bytes": 124886
+  },
+  {
+   "id": "BIOMD0000000860",
+   "name": "Proctor2017- Role of microRNAs in osteoarthritis (Positive Feedforward Incoherent By MicroRNA)_1",
+   "submitted": "2016-10-10",
+   "file": "proctor2017_model4.xml",
+   "bytes": 26622
+  },
+  {
+   "id": "BIOMD0000000861",
+   "name": "Bachmann2011 - Division of labor by dual feedback regulators controls JAK2/STAT5 signaling over broad ligand range",
+   "submitted": "2019-11-14",
+   "file": "Bachmann2011.xml",
+   "bytes": 159844
+  },
+  {
+   "id": "BIOMD0000000862",
+   "name": "Proctor2017- Role of microRNAs in osteoarthritis (Positive Feedback By Micro RNA)",
+   "submitted": "2016-10-10",
+   "file": "Proctor2017_model0.xml",
+   "bytes": 33553
+  },
+  {
+   "id": "BIOMD0000000863",
+   "name": "Kosinsky2018 - Radiation and PD-(L)1 treatment combinations",
+   "submitted": "2019-11-14",
+   "file": "Kosinsky2018.xml",
+   "bytes": 93886
+  },
+  {
+   "id": "BIOMD0000000864",
+   "name": "Proctor2017- Role of microRNAs in osteoarthritis (Negative Feedback By MicroRNA)",
+   "submitted": "2016-10-10",
+   "file": "Proctor2017_model1.xml",
+   "bytes": 28998
+  },
+  {
+   "id": "BIOMD0000000865",
+   "name": "Nikolaev2019 - Immunobiochemical reconstruction of influenza lung infection-melanoma skin cancer interactions",
+   "submitted": "2019-11-18",
+   "file": "Nikolaev2019.xml",
+   "bytes": 67003
+  },
+  {
+   "id": "BIOMD0000000866",
+   "name": "Simon2019 - NIK-dependent p100 processing into p52, Michaelis-Menten, SBML 2v4",
+   "submitted": "2019-03-28",
+   "file": "Simon2019.xml",
+   "bytes": 23348
+  },
+  {
+   "id": "BIOMD0000000867",
+   "name": "Coulibaly2019 - Interleukin-15 Signaling in HIF-1a Regulation in Natural Killer Cells",
+   "submitted": "2019-11-18",
+   "file": "Coulibaly2019.xml",
+   "bytes": 115387
+  },
+  {
+   "id": "BIOMD0000000868",
+   "name": "Simon2019 - NIK-dependent p100 processing into p52, Mass Action, SBML 2v4",
+   "submitted": "2019-03-28",
+   "file": "simon2019_model2.xml",
+   "bytes": 26829
+  },
+  {
+   "id": "BIOMD0000000869",
+   "name": "Simon2019 - NIK-dependent p100 processing into p52 and IkBd degradation, Michaelis-Menten, SBML 2v4",
+   "submitted": "2019-04-02",
+   "file": "Simon2019_model3.xml",
+   "bytes": 33394
+  },
+  {
+   "id": "BIOMD0000000870",
+   "name": "Simon2019 - NIK-dependent p100 processing into p52 and IkBd degradation, mass action, SBML 2v4",
+   "submitted": "2019-04-02",
+   "file": "Simon2019_model4.xml",
+   "bytes": 36104
+  },
+  {
+   "id": "BIOMD0000000871",
+   "name": "NIK-dependent p100 processing into p52 with RelB binding and IkBd degradation, mass action, SBML 2v4",
+   "submitted": "2019-04-03",
+   "file": "Simon2019_Figure3b.xml",
+   "bytes": 50153
+  },
+  {
+   "id": "BIOMD0000000872",
+   "name": "Verma2016 - HIV and HPV co-infection, T-cell response",
+   "submitted": "2016-05-03",
+   "file": "verma2017.xml",
+   "bytes": 232528
+  },
+  {
+   "id": "BIOMD0000000873",
+   "name": "Soni2018 - IL6 induced M2 Phenotype in Leishmania major infected macrophage",
+   "submitted": "2018-12-07",
+   "file": "Soni2018.xml",
+   "bytes": 163275
+  },
+  {
+   "id": "BIOMD0000000874",
+   "name": "Perelson1993 - HIVinfection_CD4Tcells_ModelA",
+   "submitted": "2010-06-23",
+   "file": "Perelson1993.xml",
+   "bytes": 44335
+  },
+  {
+   "id": "BIOMD0000000875",
+   "name": "Nelson2000- HIV-1 general model 1",
+   "submitted": "2009-07-22",
+   "file": "Nelson2000.xml",
+   "bytes": 27992
+  },
+  {
+   "id": "BIOMD0000000876",
+   "name": "Aavani2019 - The role of CD4 T cells in immune system activation and viral reproduction in a simple model for HIV infection",
+   "submitted": "2019-11-27",
+   "file": "Aavani2019.xml",
+   "bytes": 40965
+  },
+  {
+   "id": "BIOMD0000000877",
+   "name": "Ontah2019 - Dynamic analysis of a tumor treatment model using oncolytic virus and chemotherapy with saturated infection rate",
+   "submitted": "2019-11-27",
+   "file": "Ontah2019.xml",
+   "bytes": 40122
+  },
+  {
+   "id": "BIOMD0000000878",
+   "name": "Lenbury2001_InsulinKineticsModel_A",
+   "submitted": "2012-01-14",
+   "file": "Lenbury2001.xml",
+   "bytes": 43459
+  },
+  {
+   "id": "BIOMD0000000879",
+   "name": "Rodrigues2019 - A mathematical model for chemoimmunotherapy of chronic lymphocytic leukemia",
+   "submitted": "2019-11-28",
+   "file": "Rodrigues2019.xml",
+   "bytes": 58114
+  },
+  {
+   "id": "BIOMD0000000880",
+   "name": "Trisilowati2018 - Optimal control of tumor-immune system interaction with treatment",
+   "submitted": "2019-11-28",
+   "file": "Trisilowati2018.xml",
+   "bytes": 50027
+  },
+  {
+   "id": "BIOMD0000000881",
+   "name": "Kogan2013 - A mathematical model for the immunotherapeutic control of the TH1 TH2 imbalance in melanoma",
+   "submitted": "2019-12-02",
+   "file": "Kogan2013.xml",
+   "bytes": 51628
+  },
+  {
+   "id": "BIOMD0000000882",
+   "name": "Munz2009 - Zombie SIZRC",
+   "submitted": "2010-08-06",
+   "file": "munz2000.xml",
+   "bytes": 34469
+  },
+  {
+   "id": "BIOMD0000000883",
+   "name": "Giani2019 - Computational modeling to predict MAP3K8 effects as mediator of resistance to vemurafenib in thyroid cancer stem cells",
+   "submitted": "2019-02-14",
+   "file": "Giani2019.xml",
+   "bytes": 356813
+  },
+  {
+   "id": "BIOMD0000000884",
+   "name": "Cortes2019 - Optimality of the spontaneous prophage induction rate.",
+   "submitted": "2019-12-04",
+   "file": "Cortes2019.xml",
+   "bytes": 37838
+  },
+  {
+   "id": "BIOMD0000000885",
+   "name": "Sumana2018 - Mathematical modeling of cancer-immune system, considering the role of antibodies.",
+   "submitted": "2019-12-09",
+   "file": "Sumana2018.xml",
+   "bytes": 37538
+  },
+  {
+   "id": "BIOMD0000000886",
+   "name": "Dubey2008 - Modeling the interaction between avascular cancerous cells and acquired immune response",
+   "submitted": "2019-12-10",
+   "file": "Dubey2008.xml",
+   "bytes": 50215
+  },
+  {
+   "id": "BIOMD0000000887",
+   "name": "Lim2014 - HTLV-I infection A dynamic struggle between viral persistence and host immunity",
+   "submitted": "2019-12-10",
+   "file": "Lim2014.xml",
+   "bytes": 39126
+  },
+  {
+   "id": "BIOMD0000000888",
+   "name": "Unni2019 - Mathematical Modeling, Analysis, and Simulation of Tumor Dynamics with Drug Interventions",
+   "submitted": "2019-12-10",
+   "file": "unni2019.xml",
+   "bytes": 57340
+  },
+  {
+   "id": "BIOMD0000000889",
+   "name": "Fribourg2014 - Model of influenza A virus infection dynamics of viral antagonism and innate immune response.",
+   "submitted": "2019-12-12",
+   "file": "Fribourg2014.xml",
+   "bytes": 118077
+  },
+  {
+   "id": "BIOMD0000000890",
+   "name": "Bhattacharya2014 - A mathematical model of the sterol regulatory element binding protein 2 cholesterol biosynthesis pathway",
+   "submitted": "2019-12-12",
+   "file": "Bhattacharya2014.xml",
+   "bytes": 31621
+  },
+  {
+   "id": "BIOMD0000000891",
+   "name": "Khajanchi2019 - Stability Analysis of a Mathematical Model forGlioma-Immune Interaction under OptimalTherapy",
+   "submitted": "2019-12-13",
+   "file": "Khajanchi2019.xml",
+   "bytes": 34501
+  },
+  {
+   "id": "BIOMD0000000892",
+   "name": "Sandip2013 - Modeling the dynamics of hepatitis C virus with combined antiviral drug therapy: interferon and ribavirin.",
+   "submitted": "2019-12-13",
+   "file": "Sandip2013.xml",
+   "bytes": 41236
+  },
+  {
+   "id": "BIOMD0000000893",
+   "name": "GonzalezMiranda2013 - The effect of circadian oscillations on biochemical cell signaling by NF-\u03baB",
+   "submitted": "2019-12-16",
+   "file": "GonzalezMiranda2013.xml",
+   "bytes": 30093
+  },
+  {
+   "id": "BIOMD0000000894",
+   "name": "Bose2011 - Noise-assisted interactions of tumor and immune cells",
+   "submitted": "2019-12-16",
+   "file": "Bose2011.xml",
+   "bytes": 36639
+  },
+  {
+   "id": "BIOMD0000000895",
+   "name": "Schokker2013 - A mathematical model representing cellular immune development and response to Salmonella of chicken intestinal tissue",
+   "submitted": "2019-12-16",
+   "file": "Schokker2013.xml",
+   "bytes": 115536
+  },
+  {
+   "id": "BIOMD0000000896",
+   "name": "Szymanska2009 - Mathematical modeling of heat shock protein synthesis in response to temperature change",
+   "submitted": "2019-12-16",
+   "file": "Szymanska2009.xml",
+   "bytes": 68220
+  },
+  {
+   "id": "BIOMD0000000897",
+   "name": "Khajanchi2015 - The combined effects of optimal control in cancer remission",
+   "submitted": "2019-12-17",
+   "file": "Khajanchi2015.xml",
+   "bytes": 24482
+  },
+  {
+   "id": "BIOMD0000000898",
+   "name": "Jiao2018 - Feedback regulation in a stem cell model with acute myeloid leukaemia",
+   "submitted": "2019-12-17",
+   "file": "Jiao2018.xml",
+   "bytes": 54068
+  },
+  {
+   "id": "BIOMD0000000899",
+   "name": "Ota2015 - Positive regulation of Rho GTPase activity by RhoGDIs as a result of their direct interaction with GAPs (GDI integrated)",
+   "submitted": "2019-12-17",
+   "file": "Ota2015_GDI-integrated.xml",
+   "bytes": 169834
+  },
+  {
+   "id": "BIOMD0000000900",
+   "name": "Bianca2013 - Persistence analysis in a Kolmogorov-type model for cancer-immune system competition",
+   "submitted": "2019-12-18",
+   "file": "Bianca2013.xml",
+   "bytes": 36425
+  },
+  {
+   "id": "BIOMD0000000901",
+   "name": "ChowHall2008 Dynamics of Human Weight Change_ODE_1",
+   "submitted": "2019-12-05",
+   "file": "ChowHall2008 - Dynamics of Human Weight Change.xml",
+   "bytes": 29688
+  },
+  {
+   "id": "BIOMD0000000902",
+   "name": "Wang2019 - A mathematical model of oncolytic virotherapy with time delay",
+   "submitted": "2019-12-18",
+   "file": "Wang2019.xml",
+   "bytes": 35434
+  },
+  {
+   "id": "BIOMD0000000903",
+   "name": "Solis-perez2019 - A fractional mathematical model of breast cancer competition model",
+   "submitted": "2019-12-18",
+   "file": "Solis-perez2019.xml",
+   "bytes": 54936
+  },
+  {
+   "id": "BIOMD0000000904",
+   "name": "Admon2017 - Modelling tumor growth with immune response and drug using ordinary differential equations",
+   "submitted": "2019-12-18",
+   "file": "Admon2017.xml",
+   "bytes": 45077
+  },
+  {
+   "id": "BIOMD0000000905",
+   "name": "Dubey2007 - A mathematical model for the effect of toxicant on the immune system (with toxicant effect) Model2",
+   "submitted": "2019-12-19",
+   "file": "Dubey2007_model2.xml",
+   "bytes": 48426
+  },
+  {
+   "id": "BIOMD0000000906",
+   "name": "Dubey2007 - A mathematical model for the effect of toxicant on the immune system (without toxicant effect) Model1",
+   "submitted": "2019-12-19",
+   "file": "Dubey2007_model1.xml",
+   "bytes": 31714
+  },
+  {
+   "id": "BIOMD0000000907",
+   "name": "HeberleRazquinNavas2019 - The PI3K and MAPK/p38 pathways control stress granuleassembly in a hierarchical manner model 3",
+   "submitted": "2020-01-03",
+   "file": "Navas2019_model3.xml",
+   "bytes": 138597
+  },
+  {
+   "id": "BIOMD0000000908",
+   "name": "dePillis2013 - Mathematical modeling of regulatory T cell effects on renal cell carcinoma treatment",
+   "submitted": "2020-01-06",
+   "file": "dePillis2013.xml",
+   "bytes": 77066
+  },
+  {
+   "id": "BIOMD0000000909",
+   "name": "dePillis2003 - The dynamics of an optimally controlled tumor model: A case study",
+   "submitted": "2020-01-08",
+   "file": "dePillis2003.xml",
+   "bytes": 43088
+  },
+  {
+   "id": "BIOMD0000000910",
+   "name": "Isaeva2008 - Modelling of Anti-Tumour Immune Response Immunocorrective Effect of Weak Centimetre Electromagnetic Waves",
+   "submitted": "2020-01-14",
+   "file": "Isaeva2008.xml",
+   "bytes": 30719
+  },
+  {
+   "id": "BIOMD0000000911",
+   "name": "Merola2008 - An insight into tumor dormancy equilibrium via the analysis of its domain of attraction",
+   "submitted": "2020-01-15",
+   "file": "Merola2008.xml",
+   "bytes": 37208
+  },
+  {
+   "id": "BIOMD0000000912",
+   "name": "Caravagna2010 - Tumour suppression by immune system",
+   "submitted": "2020-01-20",
+   "file": "Caravagna2010.xml",
+   "bytes": 34285
+  },
+  {
+   "id": "BIOMD0000000913",
+   "name": "dePillis2008 - Optimal control of mixed immunotherapy and chemotherapy of tumors",
+   "submitted": "2020-01-20",
+   "file": "dePillis2008.xml",
+   "bytes": 66096
+  },
+  {
+   "id": "BIOMD0000000914",
+   "name": "Parra_Guillen2013 -  Mathematical model approach to describe tumour response in mice after vaccine administration_model1",
+   "submitted": "2020-01-22",
+   "file": "Parra_Guillen2013.xml",
+   "bytes": 39312
+  },
+  {
+   "id": "BIOMD0000000915",
+   "name": "Sun2018 - Instantaneous mutation rate in cancer initiation and progression",
+   "submitted": "2019-09-30",
+   "file": "Sun2018.xml",
+   "bytes": 79587
+  },
+  {
+   "id": "BIOMD0000000916",
+   "name": "Kraan199_Kinetics of Cortisol Metabolism and Excretion.",
+   "submitted": "2020-02-28",
+   "file": "Kraan1992.xml",
+   "bytes": 36644
+  },
+  {
+   "id": "BIOMD0000000917",
+   "name": "Phillips2007_AscendingArousalSystem_SleepWakeDynamics",
+   "submitted": "2010-06-23",
+   "file": "Phillips2007_Curated.xml",
+   "bytes": 51393
+  },
+  {
+   "id": "BIOMD0000000918",
+   "name": "Schwarz2018-Cdk Activity Threshold Determines Passage through the Restriction Point",
+   "submitted": "2020-03-03",
+   "file": "Schwarz2018.xml",
+   "bytes": 76176
+  },
+  {
+   "id": "BIOMD0000000919",
+   "name": "Ledzewicz2013 - On optimal chemotherapy with a strongly targeted agent for a model of tumor immune system interactions with generalized logistic growth",
+   "submitted": "2020-03-06",
+   "file": "Ledzewicz2013.xml",
+   "bytes": 32503
+  },
+  {
+   "id": "BIOMD0000000920",
+   "name": "Jarrett2015 - Modelling the interaction between immune response, bacterial dynamics and inflammatory damage",
+   "submitted": "2018-03-20",
+   "file": "Jarrett2015.xml",
+   "bytes": 50796
+  },
+  {
+   "id": "BIOMD0000000921",
+   "name": "Khajanchi2017 - Uniform Persistence and Global Stability for a Brain Tumor and Immune System Interaction",
+   "submitted": "2020-03-11",
+   "file": "khajanchi2017.xml",
+   "bytes": 78334
+  },
+  {
+   "id": "BIOMD0000000922",
+   "name": "Turner2015-Human/Mosquito ELP Model",
+   "submitted": "2020-03-13",
+   "file": "Turner2015_ELP.xml",
+   "bytes": 27237
+  },
+  {
+   "id": "BIOMD0000000923",
+   "name": "Li\u00f22012_Modelling osteomyelitis_Control Model",
+   "submitted": "2020-03-17",
+   "file": "Lio2012_Modelling osteomyelitis_Control Model.xml",
+   "bytes": 47346
+  },
+  {
+   "id": "BIOMD0000000924",
+   "name": "Smith2011 - Three Stage Innate Immune Response to a Pneumococcal Lung Infection",
+   "submitted": "2018-08-28",
+   "file": "Smith2011_V1.xml",
+   "bytes": 73019
+  },
+  {
+   "id": "BIOMD0000000925",
+   "name": "Dunster2016 - Nondimensional Coagulation Model",
+   "submitted": "2018-08-14",
+   "file": "Dunster2016_Nondimensional_Model_Curated.xml",
+   "bytes": 185673
+  },
+  {
+   "id": "BIOMD0000000926",
+   "name": "Rhodes2019 - Immune-Mediated theory of Metastasis",
+   "submitted": "2019-10-02",
+   "file": "Rhodes2019-Immune-Mediated theory of Metastasis_V1.xml",
+   "bytes": 190798
+  },
+  {
+   "id": "BIOMD0000000927",
+   "name": "Grigolon2018-Responses to auxin signals",
+   "submitted": "2017-06-07",
+   "file": "Grigolon2018_fig1b.xml",
+   "bytes": 35118
+  },
+  {
+   "id": "BIOMD0000000928",
+   "name": "Baker2017 - The role of cytokines, MMPs and fibronectin fragments osteoarthritis",
+   "submitted": "2017-04-12",
+   "file": "Baker2017_Fig14.xml",
+   "bytes": 78464
+  },
+  {
+   "id": "BIOMD0000000929",
+   "name": "Li2016 - Model for pancreatic cancer patients receiving immunotherapy",
+   "submitted": "2020-04-06",
+   "file": "Li2016.xml",
+   "bytes": 115654
+  },
+  {
+   "id": "BIOMD0000000930",
+   "name": "Liu2017 - chemotherapy targeted model of tumor immune system",
+   "submitted": "2020-04-06",
+   "file": "Liu2017.xml",
+   "bytes": 56589
+  },
+  {
+   "id": "BIOMD0000000931",
+   "name": "Voliotis2019-GnRH Pulse Generation",
+   "submitted": "2020-03-19",
+   "file": "Voliotis2019.xml",
+   "bytes": 37255
+  },
+  {
+   "id": "BIOMD0000000932",
+   "name": "Garde2020-Minimal model describing metabolic oscillations in Bacillus subtilis biofilms",
+   "submitted": "2020-04-14",
+   "file": "Garde2020.xml",
+   "bytes": 35543
+  },
+  {
+   "id": "BIOMD0000000933",
+   "name": "Kosiuk2015-Geometric analysis of the Goldbeter minimal model for the embryonic cell cycle",
+   "submitted": "2020-04-24",
+   "file": "Kosiuk2015.xml",
+   "bytes": 35202
+  },
+  {
+   "id": "BIOMD0000000934",
+   "name": "Linke2017 - Synchronization of Cyclins' expression by the Fkh2 transcription factor in the budding yeast cell cycle",
+   "submitted": "2018-09-05",
+   "file": "Linke2017.xml",
+   "bytes": 82966
+  },
+  {
+   "id": "BIOMD0000000935",
+   "name": "Ferrel2011 - Cdk1 and APC regulation in cell cycle in Xenopus laevis",
+   "submitted": "2018-09-04",
+   "file": "Ferrel2011.xml",
+   "bytes": 28032
+  },
+  {
+   "id": "BIOMD0000000936",
+   "name": "ferrel2011 - autonomous biochemical oscillator in cell cycle in Xenopus laevis v2",
+   "submitted": "2018-09-04",
+   "file": "Ferrel2011_V2.xml",
+   "bytes": 18706
+  },
+  {
+   "id": "BIOMD0000000937",
+   "name": "Ferrel2011 - Autonomous biochemical oscillator in regulation of CDK1, Plk1, and APC in Xenopus Laevis cell cycle",
+   "submitted": "2018-09-04",
+   "file": "Ferrel2011_V3.xml",
+   "bytes": 36388
+  },
+  {
+   "id": "BIOMD0000000938",
+   "name": "Gerard2013 - Model 3 - Embryonic-type eukaryotic Cell Cycle regulation based on negative feedback between Cdk/cyclin and APC and competitive inhibition between Cdk/cyclin and securin for polyubiquitylation_1",
+   "submitted": "2018-09-05",
+   "file": "Gerard2013.xml",
+   "bytes": 49446
+  },
+  {
+   "id": "BIOMD0000000939",
+   "name": "Iwamoto2010 - Cell cycle reponse to DNA damage",
+   "submitted": "2018-09-06",
+   "file": "Iwamoto2010.xml",
+   "bytes": 484615
+  },
+  {
+   "id": "BIOMD0000000940",
+   "name": "Tang2019 - Pharmacology modelling of AURKB and ZAK interaction in TNBC",
+   "submitted": "2020-04-23",
+   "file": "Tang2019.xml",
+   "bytes": 188740
+  },
+  {
+   "id": "BIOMD0000000941",
+   "name": "Gerard2010 - Progression of mammalian cell cycle by successive activation of various cyclin cdk complexes",
+   "submitted": "2018-09-06",
+   "file": "gerard2010.xml",
+   "bytes": 74454
+  },
+  {
+   "id": "BIOMD0000000942",
+   "name": "Sible2007 - Mitotic cell cycle mecanism in Xenopus Laevis",
+   "submitted": "2018-09-06",
+   "file": "Sible2007.xml",
+   "bytes": 91088
+  },
+  {
+   "id": "BIOMD0000000943",
+   "name": "Hat2016 - Reponse of p53 System to irradiation in cell fate decision making",
+   "submitted": "2018-09-06",
+   "file": "Hat2016.xml",
+   "bytes": 358809
+  },
+  {
+   "id": "BIOMD0000000944",
+   "name": "Goldbeter2013-Oscillatory activity of cyclin-dependent kinases in the cell cycle",
+   "submitted": "2020-05-05",
+   "file": "Goldbeter2013.xml",
+   "bytes": 43506
+  },
+  {
+   "id": "BIOMD0000000945",
+   "name": "Evans2004 - Cell based mathematical model of topotecan",
+   "submitted": "2018-05-17",
+   "file": "Evans2004.xml",
+   "bytes": 34893
+  },
+  {
+   "id": "BIOMD0000000946",
+   "name": "Evans2005 - Compartmental model for antineoplastic drug topotecan in breast cancer cells",
+   "submitted": "2018-05-21",
+   "file": "Evans2005.xml",
+   "bytes": 53194
+  },
+  {
+   "id": "BIOMD0000000947",
+   "name": "Lee2017 - Paracetamol first-pass metabolism PK model",
+   "submitted": "2018-03-05",
+   "file": "Lee2017_Paracetamol_Metabolism.xml",
+   "bytes": 50593
+  },
+  {
+   "id": "BIOMD0000000948",
+   "name": "Landberg2009 - Alkylresorcinol Dose Response",
+   "submitted": "2018-03-05",
+   "file": "Landberg2009.xml",
+   "bytes": 29879
+  },
+  {
+   "id": "BIOMD0000000949",
+   "name": "Chitnis2008 - Mathematical model of malaria transmission",
+   "submitted": "2018-05-22",
+   "file": "Chitnis2008.xml",
+   "bytes": 89486
+  },
+  {
+   "id": "BIOMD0000000950",
+   "name": "Chitnis2012 - Model Rift Valley Fever transmission between cattle and mosquitoes (Model 1)",
+   "submitted": "2018-05-23",
+   "file": "Chitnis2012_model_1.xml",
+   "bytes": 54638
+  },
+  {
+   "id": "BIOMD0000000951",
+   "name": "Mitrophanov2015 - Simulating extended Hockin Blood Coagulation Model under varied pH",
+   "submitted": "2018-06-27",
+   "file": "Mitrophanov2015.xml",
+   "bytes": 181907
+  },
+  {
+   "id": "BIOMD0000000952",
+   "name": "Rodenfels2019 - Heat Oscillations Driven by the Embryonic Cell Cycle Reveal the Energetic Costs of Signaling",
+   "submitted": "2020-04-17",
+   "file": "Rodenfels2019_V1.xml",
+   "bytes": 106361
+  },
+  {
+   "id": "BIOMD0000000953",
+   "name": "Queralt2006 - Initiation of mitotic exit by downregulation of PP2A in budding yeast",
+   "submitted": "2018-09-06",
+   "file": "queralt2006_final.xml",
+   "bytes": 161137
+  },
+  {
+   "id": "BIOMD0000000954",
+   "name": "Pandey2018-reversible transition between quiescence and proliferation",
+   "submitted": "2020-06-22",
+   "file": "Pandey2018_wildtype.xml",
+   "bytes": 237884
+  },
+  {
+   "id": "BIOMD0000000955",
+   "name": "Giordano2020 - SIDARTHE model of COVID-19 spread in Italy",
+   "submitted": "2020-07-28",
+   "file": "Giordano2020.xml",
+   "bytes": 95481
+  },
+  {
+   "id": "BIOMD0000000956",
+   "name": "Bertozzi2020 - SIR model of scenarios of COVID-19 spread in CA and NY",
+   "submitted": "2020-08-07",
+   "file": "Bertozzi2020.xml",
+   "bytes": 50633
+  },
+  {
+   "id": "BIOMD0000000957",
+   "name": "Roda2020 - SIR model of COVID-19 spread in Wuhan",
+   "submitted": "2020-08-11",
+   "file": "Roda2020.xml",
+   "bytes": 25859
+  },
+  {
+   "id": "BIOMD0000000958",
+   "name": "Ndairou2020 - early-stage transmission dynamics of COVID-19 in Wuhan",
+   "submitted": "2020-08-14",
+   "file": "Ndairou2020.xml",
+   "bytes": 69252
+  },
+  {
+   "id": "BIOMD0000000959",
+   "name": "Kok2020 - IFNalpha-induced signaling in Huh7.5 cells",
+   "submitted": "2020-05-11",
+   "file": "Kok2020.xml",
+   "bytes": 284299
+  },
+  {
+   "id": "BIOMD0000000960",
+   "name": "Paiva2020 - SEIAHRD model of transmission dynamics of COVID-19",
+   "submitted": "2020-08-20",
+   "file": "Paiva2020.xml",
+   "bytes": 212046
+  },
+  {
+   "id": "BIOMD0000000961",
+   "name": "McDougal2017 - Metabolism in ischemic cardiomyocytes",
+   "submitted": "2019-12-16",
+   "file": "McDougal2017.xml",
+   "bytes": 1020764
+  },
+  {
+   "id": "BIOMD0000000962",
+   "name": "Zhao2020 - SUQC model of COVID-19 transmission dynamics in Wuhan, Hubei, and China",
+   "submitted": "2020-08-26",
+   "file": "Zhao2020.xml",
+   "bytes": 79029
+  },
+  {
+   "id": "BIOMD0000000963",
+   "name": "Weitz2020 - SIR model of COVID-19 transmission with shielding",
+   "submitted": "2020-09-16",
+   "file": "Weitz2020.xml",
+   "bytes": 25487
+  },
+  {
+   "id": "BIOMD0000000964",
+   "name": "Mwalili2020 - SEIR model of COVID-19 transmission and environmental pathogen prevalence",
+   "submitted": "2020-09-21",
+   "file": "Mwalili2020.xml",
+   "bytes": 74507
+  },
+  {
+   "id": "BIOMD0000000965",
+   "name": "LeBeau1999 - IP3-dependent intracellular calcium oscillations due to agonist stimulation from Cholecytokinin",
+   "submitted": "2006-09-29",
+   "file": "LeBeau1999_Phosphorylation_CCK.xml",
+   "bytes": 129208
+  },
+  {
+   "id": "BIOMD0000000966",
+   "name": "Cui2008 - in vitro transcriptional response of zinc homeostasis system in Escherichia coli",
+   "submitted": "2009-05-01",
+   "file": "Cui2008.xml",
+   "bytes": 116105
+  },
+  {
+   "id": "BIOMD0000000967",
+   "name": "McLean1991 - Behaviour of HIV in the presence of zidovudine",
+   "submitted": "2019-12-05",
+   "file": "McLean1991.xml",
+   "bytes": 100808
+  },
+  {
+   "id": "BIOMD0000000968",
+   "name": "Palmer2008 - Negative Feedback in IL-7 mediated Jak-Stat signaling",
+   "submitted": "2020-10-16",
+   "file": "Palmer2008.xml",
+   "bytes": 57400
+  },
+  {
+   "id": "BIOMD0000000969",
+   "name": "Cuadros2020 - SIHRD spatiotemporal model of COVID-19 transmission in Ohio",
+   "submitted": "2020-10-27",
+   "file": "Cuadros2020.xml",
+   "bytes": 200333
+  },
+  {
+   "id": "BIOMD0000000970",
+   "name": "Hou2020 - SEIR model of COVID-19 transmission in Wuhan",
+   "submitted": "2020-10-28",
+   "file": "Hou2020.xml",
+   "bytes": 31036
+  },
+  {
+   "id": "BIOMD0000000971",
+   "name": "Tang2020 - Estimation of transmission risk of COVID-19 and impact of public health interventions",
+   "submitted": "2020-11-02",
+   "file": "Tang2020.xml",
+   "bytes": 73354
+  },
+  {
+   "id": "BIOMD0000000972",
+   "name": "Tang2020 - Estimation of transmission risk of COVID-19 and impact of public health interventions - update",
+   "submitted": "2020-11-03",
+   "file": "Tang2020.xml",
+   "bytes": 79963
+  },
+  {
+   "id": "BIOMD0000000973",
+   "name": "Dasgupta2020 - Reduced model of receptor clusturing and aggregation",
+   "submitted": "2020-11-03",
+   "file": "Dasgupta2020.xml",
+   "bytes": 33135
+  },
+  {
+   "id": "BIOMD0000000974",
+   "name": "Carcione2020 - Deterministic SEIR simulation of a COVID-19 outbreak",
+   "submitted": "2020-11-03",
+   "file": "Carcione2020.xml",
+   "bytes": 35467
+  },
+  {
+   "id": "BIOMD0000000975",
+   "name": "Leloup2004 - Mammalian Circadian Rhythm models for 23.8 and 24.2 hours timeperiod",
+   "submitted": "2009-04-23",
+   "file": "Leloup2004_Set1.xml",
+   "bytes": 303882
+  },
+  {
+   "id": "BIOMD0000000976",
+   "name": "Ghanbari2020 - forecasting the second wave of COVID-19 in Iran",
+   "submitted": "2020-11-23",
+   "file": "Ghanbari2020.xml",
+   "bytes": 39171
+  },
+  {
+   "id": "BIOMD0000000977",
+   "name": "Sarkar2020 - SAIR model of COVID-19 transmission with quarantine measures in India",
+   "submitted": "2020-11-30",
+   "file": "Sarkar2020.xml",
+   "bytes": 66604
+  },
+  {
+   "id": "BIOMD0000000978",
+   "name": "Mukandavire2020 - SEIR model of early COVID-19 transmission in South Africa",
+   "submitted": "2020-12-01",
+   "file": "Mukandavire2020.xml",
+   "bytes": 30697
+  },
+  {
+   "id": "BIOMD0000000979",
+   "name": "Malkov2020 - SEIRS model of COVID-19 transmission with reinfection",
+   "submitted": "2020-12-04",
+   "file": "Malkov2020.xml",
+   "bytes": 32844
+  },
+  {
+   "id": "BIOMD0000000980",
+   "name": "Malkov2020 - SEIRS model of COVID-19 transmission with time-varying R values and reinfection",
+   "submitted": "2020-12-07",
+   "file": "Malkov2020.xml",
+   "bytes": 39956
+  },
+  {
+   "id": "BIOMD0000000981",
+   "name": "Wan2020 - risk estimation and prediction of the transmission of COVID-19 in maninland China excluding Hubei province",
+   "submitted": "2020-12-09",
+   "file": "Wan2020.xml",
+   "bytes": 84521
+  },
+  {
+   "id": "BIOMD0000000982",
+   "name": "Law2020 - SIR model of COVID-19 transmission in Malyasia with time-varying parameters",
+   "submitted": "2020-12-24",
+   "file": "Law2020.xml",
+   "bytes": 29764
+  },
+  {
+   "id": "BIOMD0000000983",
+   "name": "Zongo2020 - model of COVID-19 transmission dynamics under containment measures in France",
+   "submitted": "2021-01-15",
+   "file": "Zongo2020.xml",
+   "bytes": 76997
+  },
+  {
+   "id": "BIOMD0000000984",
+   "name": "Fang2020 - SEIR model of COVID-19 transmission considering government interventions in Wuhan",
+   "submitted": "2021-01-19",
+   "file": "Fang2020.xml",
+   "bytes": 28952
+  },
+  {
+   "id": "BIOMD0000000985",
+   "name": "Gex-Fabry1984 - model of receptor-mediated endocytosis of EGF in BALB/c 3T3 cells",
+   "submitted": "2021-02-04",
+   "file": "Gex-Fabry1984.xml",
+   "bytes": 53854
+  },
+  {
+   "id": "BIOMD0000000986",
+   "name": "Aubry1995 - Multi-compartment model of fluid-phase endocytosis kinetics in Dictyostelium discoideum",
+   "submitted": "2021-02-09",
+   "file": "Aubry1995.xml",
+   "bytes": 53218
+  },
+  {
+   "id": "BIOMD0000000987",
+   "name": "Aubry1995 - Nine-compartment model of fluid-phase endocytosis kinetics in Dictyostelium discoideum",
+   "submitted": "2021-02-10",
+   "file": "Aubry1995.xml",
+   "bytes": 55537
+  },
+  {
+   "id": "BIOMD0000000988",
+   "name": "Westerhoff2020 - systems biology model of the coronavirus pandemic 2020",
+   "submitted": "2021-02-12",
+   "file": "Westerhoff2020.xml",
+   "bytes": 287632
+  },
+  {
+   "id": "BIOMD0000000989",
+   "name": "Strasen2018 - TGFb SMAD Signalling - Dose dependent dynamics upon TGFb stimulation",
+   "submitted": "2017-12-05",
+   "file": "MODEL1712050001.xml",
+   "bytes": 287711
+  },
+  {
+   "id": "BIOMD0000000990",
+   "name": "Strasen2018 - TGFb SMAD Signalling - Degradation of 25pM ligand (TGFb)",
+   "submitted": "2017-12-05",
+   "file": "MODEL1712050002.xml",
+   "bytes": 279830
+  },
+  {
+   "id": "BIOMD0000000991",
+   "name": "Okuonghae2020 - SEAIR model of COVID-19 transmission in Lagos, Nigeria",
+   "submitted": "2021-02-18",
+   "file": "Okuonghae2020.xml",
+   "bytes": 66389
+  },
+  {
+   "id": "BIOMD0000000994",
+   "name": "Strasen2018 - TGFb SMAD Signalling - Restimulation with 5pM TGFb at 3hr",
+   "submitted": "2017-12-05",
+   "file": "MODEL1712050003.xml",
+   "bytes": 289742
+  },
+  {
+   "id": "BIOMD0000000995",
+   "name": "Strasen2018 - TGFb SMAD Signalling - Restimulation with 5pM TGFb at 8hr",
+   "submitted": "2017-12-05",
+   "file": "MODEL1712050004.xml",
+   "bytes": 289430
+  },
+  {
+   "id": "BIOMD0000000996",
+   "name": "Strasen2018 - TGFb SMAD Signalling - Restimulation with 100pM TGFb at 6hr",
+   "submitted": "2017-12-05",
+   "file": "MODEL1712050005.xml",
+   "bytes": 289279
+  },
+  {
+   "id": "BIOMD0000000997",
+   "name": "Strasen2018 - TGFb SMAD Signalling - DRB treatment",
+   "submitted": "2017-12-05",
+   "file": "MODEL1712050006.xml",
+   "bytes": 280495
+  },
+  {
+   "id": "BIOMD0000000998",
+   "name": "Strasen2018 - TGFb SMAD Signalling Class 1",
+   "submitted": "2017-12-05",
+   "file": "MODEL1712050007.xml",
+   "bytes": 280040
+  },
+  {
+   "id": "BIOMD0000000999",
+   "name": "Strasen2018 - TGFb SMAD Signalling Class 2",
+   "submitted": "2017-12-05",
+   "file": "MODEL1712050008.xml",
+   "bytes": 281165
+  },
+  {
+   "id": "BIOMD0000001000",
+   "name": "Strasen2018 - TGFb SMAD Signalling Class 3",
+   "submitted": "2017-12-05",
+   "file": "MODEL1712050009.xml",
+   "bytes": 273684
+  },
+  {
+   "id": "BIOMD0000001001",
+   "name": "Strasen2018 - TGFb SMAD Signalling Class 4",
+   "submitted": "2017-12-05",
+   "file": "MODEL1712050010.xml",
+   "bytes": 281009
+  },
+  {
+   "id": "BIOMD0000001002",
+   "name": "Strasen2018 - TGFb SMAD Signalling Class 5",
+   "submitted": "2017-12-05",
+   "file": "MODEL1712050011.xml",
+   "bytes": 280151
+  },
+  {
+   "id": "BIOMD0000001003",
+   "name": "Strasen2018 - TGFb SMAD Signalling Class 6",
+   "submitted": "2017-12-05",
+   "file": "MODEL17120500012.xml",
+   "bytes": 281099
+  },
+  {
+   "id": "BIOMD0000001004",
+   "name": "Intosalmi2015 - Th17 core network model",
+   "submitted": "2021-02-26",
+   "file": "Intosalmi2015.xml",
+   "bytes": 62664
+  },
+  {
+   "id": "BIOMD0000001005",
+   "name": "Bae2017 - Mathematical analysis of circadian disruption and metabolic re-entrainment of hepatic gluconeogenesis",
+   "submitted": "2021-03-05",
+   "file": "Bae2018.xml",
+   "bytes": 312115
+  },
+  {
+   "id": "BIOMD0000001006",
+   "name": "Ciliberto2005 - Steady states and oscillations in the p53/Mdm2 network",
+   "submitted": "2021-04-14",
+   "file": "Ciliberto2005.xml",
+   "bytes": 105846
+  },
+  {
+   "id": "BIOMD0000001007",
+   "name": "Zhang2007 - Mechanism of DNA damage response (Model1)",
+   "submitted": "2021-05-26",
+   "file": "Zhang2007_M1_lowDD.xml",
+   "bytes": 57924
+  },
+  {
+   "id": "BIOMD0000001008",
+   "name": "Scaramellini1997 - Two-receptor:One-transducer (2R1T) model for analysis of interactions between agonists",
+   "submitted": "2021-06-08",
+   "file": "Scaramellini1997.xml",
+   "bytes": 26072
+  },
+  {
+   "id": "BIOMD0000001009",
+   "name": "Zhang2007 - Mechanism of DNA damage response (Model2)",
+   "submitted": "2021-06-23",
+   "file": "Zhang2007_M2_low_dose.xml",
+   "bytes": 66633
+  },
+  {
+   "id": "BIOMD0000001010",
+   "name": "Zhang2007 - Mechanism of DNA damage response (Model3)",
+   "submitted": "2021-06-23",
+   "file": "Zhang2007_M3_low_DD.xml",
+   "bytes": 47932
+  },
+  {
+   "id": "BIOMD0000001011",
+   "name": "Leon-Triana2020 - CAR T-cell therapy in B-cell acute lymphoblastic leukaemia",
+   "submitted": "2021-07-12",
+   "file": "Leon-Triana2020 (eqs 4).xml",
+   "bytes": 31366
+  },
+  {
+   "id": "BIOMD0000001012",
+   "name": "Leon-Triana2020 - CAR T-cell therapy in B-cell acute lymphoblastic leukaemia with contribution from immature B cells",
+   "submitted": "2021-07-12",
+   "file": "Leon-Triana2020 (eqs 3).xml",
+   "bytes": 42751
+  },
+  {
+   "id": "BIOMD0000001013",
+   "name": "Leon-Triana2021 - Competition between tumour cells and single-target CAR T-cells",
+   "submitted": "2021-07-12",
+   "file": "Leon-Triana2021 - eqs 1 and 2.xml",
+   "bytes": 30439
+  },
+  {
+   "id": "BIOMD0000001014",
+   "name": "Leon-Triana2021 - Competition between tumour cells and dual-target CAR T-cells",
+   "submitted": "2021-07-12",
+   "file": "Leon-Triana2021 (eqs 3-6).xml",
+   "bytes": 48340
+  },
+  {
+   "id": "BIOMD0000001015",
+   "name": "Jarrah2014 - mathematical model of the immune response in muscle degeneration and subsequent regeneration in Duchenne muscular dystrophy in mdx mice",
+   "submitted": "2021-07-20",
+   "file": "Jarrah2014.xml",
+   "bytes": 59681
+  },
+  {
+   "id": "BIOMD0000001016",
+   "name": "Bakshi2020 - Truncated minimal model of alternative pathway of complement system",
+   "submitted": "2021-07-19",
+   "file": "Bakshi2020 truncated minimal model.xml",
+   "bytes": 47218
+  },
+  {
+   "id": "BIOMD0000001017",
+   "name": "Bakshi2020 - Minimal model of alternative pathway of complement system",
+   "submitted": "2021-07-19",
+   "file": "Bakshi2020 minimal model.xml",
+   "bytes": 71046
+  },
+  {
+   "id": "BIOMD0000001018",
+   "name": "Bakshi2020 - Properdin model of alternative pathway of complement system",
+   "submitted": "2021-07-20",
+   "file": "Bakshi2020 properdin model.xml",
+   "bytes": 112996
+  },
+  {
+   "id": "BIOMD0000001019",
+   "name": "Barros2021 - CARTmath, Mathematical Model of CAR-T Immunotherapy in HDLM-2 cell line",
+   "submitted": "2021-07-22",
+   "file": "Barros2021_HDLM2.xml",
+   "bytes": 34874
+  },
+  {
+   "id": "BIOMD0000001020",
+   "name": "Barros2021 - CARTmath, Mathematical Model of CAR-T Immunotherapy in Raji Cell Line",
+   "submitted": "2021-07-22",
+   "file": "Barros2021_RAJI.xml",
+   "bytes": 36569
+  },
+  {
+   "id": "BIOMD0000001021",
+   "name": "Lavigne2021 - Non-spatial model of viral infection dynamics and interferon response of well-mixed viral infection",
+   "submitted": "2021-07-22",
+   "file": "Lavigne2021 - ODE model.xml",
+   "bytes": 47197
+  },
+  {
+   "id": "BIOMD0000001022",
+   "name": "Creemers2021 - Tumor-immune dynamics and implications on immunotherapy responses",
+   "submitted": "2021-07-29",
+   "file": "Creemers2021.xml",
+   "bytes": 34943
+  },
+  {
+   "id": "BIOMD0000001023",
+   "name": "Alharbi2020 - An ODE-based model of the dynamics of tumor cell progression and its effects on normal cell growth and immune system functionality",
+   "submitted": "2021-07-29",
+   "file": "Alharbi2020.xml",
+   "bytes": 41926
+  },
+  {
+   "id": "BIOMD0000001024",
+   "name": "Chaudhury2020 - Lotka-Volterra mathematical model of CAR-T cell and tumour kinetics",
+   "submitted": "2021-08-05",
+   "file": "Chaudhury2020 Eq 4-5.xml",
+   "bytes": 25531
+  },
+  {
+   "id": "BIOMD0000001025",
+   "name": "Chaudhury2020 - EC50 expansion and killing mathematical model of CAR-T cell and tumour kinetics",
+   "submitted": "2021-08-05",
+   "file": "Chaudhury2020 Eq 7-9.xml",
+   "bytes": 32314
+  },
+  {
+   "id": "BIOMD0000001026",
+   "name": "Kurlovics2021 - Metformin partitioning between plasma and RBC with independent Kin and Kout coefficients",
+   "submitted": "2021-03-17",
+   "file": "Kurlovics2021.xml",
+   "bytes": 30910
+  },
+  {
+   "id": "BIOMD0000001027",
+   "name": "Zake2021 - PBPK model of metformin in mice: single dose peroral",
+   "submitted": "2021-03-02",
+   "file": "Zake2021_Metformin_Mice_PO.xml",
+   "bytes": 226064
+  },
+  {
+   "id": "BIOMD0000001028",
+   "name": "Zake2021 - PBPK model of metformin in humans, single PO dose",
+   "submitted": "2021-03-02",
+   "file": "Zake2021_Metformin_Human_single_PO_dose.xml",
+   "bytes": 249505
+  },
+  {
+   "id": "BIOMD0000001029",
+   "name": "Zake2021 - PBPK model of metformin in humans, eight PO administrations with 12h interval",
+   "submitted": "2021-03-02",
+   "file": "Zake2021_Metformin_Human_multiple_PO_dose.xml",
+   "bytes": 255425
+  },
+  {
+   "id": "BIOMD0000001030",
+   "name": "Sontag2017 - Dynamic model of immune responses to antigen presentation by tumor or pathogen",
+   "submitted": "2021-08-16",
+   "file": "Sontag2017.xml",
+   "bytes": 31497
+  },
+  {
+   "id": "BIOMD0000001031",
+   "name": "Al-Tuwairqi2020 - Dynamics of cancer virotherapy - Phase I treatment",
+   "submitted": "2021-08-16",
+   "file": "Al-Tuwairqi2020 - Phase I virotherapy.xml",
+   "bytes": 26279
+  },
+  {
+   "id": "BIOMD0000001032",
+   "name": "Al-Tuwairqi2020 - Dynamics of cancer radiovirotherapy - Phase II treatment",
+   "submitted": "2021-08-17",
+   "file": "Al-Tuwairqi2020 - Phase II radiovirotherapy treatment.xml",
+   "bytes": 36656
+  },
+  {
+   "id": "BIOMD0000001033",
+   "name": "Almuallem2020 - Virus-macrophage-tumour interactions in oncolytic viral therapies",
+   "submitted": "2021-08-19",
+   "file": "Almuallem2020.xml",
+   "bytes": 78738
+  },
+  {
+   "id": "BIOMD0000001034",
+   "name": "Bunimovich-Mendrazitsky2007 - Mathematical model of BCG immunotherapy",
+   "submitted": "2021-08-19",
+   "file": "Bunimovich-Mendrazitsky2007.xml",
+   "bytes": 41274
+  },
+  {
+   "id": "BIOMD0000001035",
+   "name": "Al-Tuwairqi2020 - Dynamics of cancer virotherapy with immune response",
+   "submitted": "2021-08-19",
+   "file": "Al-Tuwairqi2020 - Virotherapy.xml",
+   "bytes": 43365
+  },
+  {
+   "id": "BIOMD0000001036",
+   "name": "Cappuccio2007 - Tumor-immune system interactions and determination of the optimal therapeutic protocol in immunotherapy",
+   "submitted": "2021-08-26",
+   "file": "Cappuccio2007.xml",
+   "bytes": 35703
+  },
+  {
+   "id": "BIOMD0000001037",
+   "name": "Alharbi2019 - Tumor-normal model (TNM) of the development of tumor cells and their impact on normal cell dynamics",
+   "submitted": "2021-08-26",
+   "file": "Alharbi2019 TNM.xml",
+   "bytes": 24375
+  },
+  {
+   "id": "BIOMD0000001038",
+   "name": "Alharbi2019 - Tumor-normal-vitamins model (TNVM) of the effects of vitamins on delaying the growth of tumor cells",
+   "submitted": "2021-08-26",
+   "file": "Alharbi2019 TNVM.xml",
+   "bytes": 35233
+  },
+  {
+   "id": "BIOMD0000001039",
+   "name": "Zake2021 - PBPK model of metformin in mice: single dose intavenous",
+   "submitted": "2021-03-02",
+   "file": "Zake2021_Metformin_Mice_IV.xml",
+   "bytes": 226296
+  },
+  {
+   "id": "BIOMD0000001040",
+   "name": "Kurlovics2021 - Metformin partitioning from plasma to RBC,  single coefficient",
+   "submitted": "2021-03-17",
+   "file": "Kurlovics2021_single.xml",
+   "bytes": 28517
+  },
+  {
+   "id": "BIOMD0000001041",
+   "name": "Kimmel2021 - T cell competition and stochastic extinction events in CAR T cell therapy",
+   "submitted": "2021-09-01",
+   "file": "Kimmel2021.xml",
+   "bytes": 33078
+  },
+  {
+   "id": "BIOMD0000001042",
+   "name": "Makhlouf2020 - No treatment model of the role of CD4 T cells in tumor-immune interactions",
+   "submitted": "2021-09-06",
+   "file": "Makhlouf2020.xml",
+   "bytes": 71100
+  },
+  {
+   "id": "BIOMD0000001043",
+   "name": "Wodarz2001 - Viruses as antitumor weapons",
+   "submitted": "2021-09-09",
+   "file": "Wodarz2001.xml",
+   "bytes": 39848
+  },
+  {
+   "id": "BIOMD0000001044",
+   "name": "Csikasz-Nagy2006 - Mammalian Cell Cycle model",
+   "submitted": "2008-11-28",
+   "file": "Csikasz-Nagy2006.xml",
+   "bytes": 408283
+  },
+  {
+   "id": "BIOMD0000001045",
+   "name": "Smith&Moore2004 - The SIR model for the spread of HongKong Flu",
+   "submitted": "2022-01-27",
+   "file": "Smith and moore2004-the SIR Model for Spread of Disease.xml",
+   "bytes": 24802
+  },
+  {
+   "id": "BIOMD0000001046",
+   "name": "Raman2005 - Mycolic acid pathway of M. tuberculosis",
+   "submitted": "2006-09-29",
+   "file": "Raman2005_MAP.xml",
+   "bytes": 538457
+  },
+  {
+   "id": "BIOMD0000001047",
+   "name": "Collier1996 - Delta Notch intercellular signalling and lateral inhibition",
+   "submitted": "2022-04-05",
+   "file": "delta_notch.xml",
+   "bytes": 43277
+  },
+  {
+   "id": "BIOMD0000001048",
+   "name": "Siddhartha2002 - Kinetic modelling of cancer therapies",
+   "submitted": "2022-04-12",
+   "file": "cancer_therapy.xml",
+   "bytes": 38582
+  },
+  {
+   "id": "BIOMD0000001052",
+   "name": "Alharbi2020 - Tumor and immune system competition",
+   "submitted": "2022-04-14",
+   "file": "Tumor_cells_immune_system_competition.xml",
+   "bytes": 65843
+  },
+  {
+   "id": "BIOMD0000001053",
+   "name": "Garde2020 - metabolic oscillations in Bacillus subtilis biofilms",
+   "submitted": "2022-04-18",
+   "file": "Garde2020.xml",
+   "bytes": 49233
+  },
+  {
+   "id": "BIOMD0000001054",
+   "name": "Pearce2021 - Fibrin Polymerization",
+   "submitted": "2022-04-20",
+   "file": "fibrin_polymerization.xml",
+   "bytes": 49236
+  },
+  {
+   "id": "BIOMD0000001055",
+   "name": "Jeon2018 - Enzyme clustering in Glucose metabolism",
+   "submitted": "2022-04-29",
+   "file": "Enzyme_clustering_in glucose_metabolism.xml",
+   "bytes": 145296
+  },
+  {
+   "id": "BIOMD0000001056",
+   "name": "Chulian2021 - feedback signalling in B lymphopoeisis",
+   "submitted": "2022-05-17",
+   "file": "chulian2021.xml",
+   "bytes": 29851
+  },
+  {
+   "id": "BIOMD0000001057",
+   "name": "Nikolov2020 - p53-miR34 model",
+   "submitted": "2022-05-18",
+   "file": "Nikolov2020.xml",
+   "bytes": 27972
+  },
+  {
+   "id": "BIOMD0000001058",
+   "name": "Novak2022 - Mitotic kinase oscillation",
+   "submitted": "2022-05-19",
+   "file": "Novak2022.xml",
+   "bytes": 128732
+  },
+  {
+   "id": "BIOMD0000001059",
+   "name": "Stucki2005 - caspase-3 metabolism",
+   "submitted": "2022-05-20",
+   "file": "Stucki2005.xml",
+   "bytes": 86784
+  },
+  {
+   "id": "BIOMD0000001060",
+   "name": "Frank2021 - Macrophage polarization",
+   "submitted": "2022-05-23",
+   "file": "Frank2021.xml",
+   "bytes": 48550
+  },
+  {
+   "id": "BIOMD0000001061",
+   "name": "Canto-Encalada2022-FBA of simultaneous degradation of ammonia and pollutants",
+   "submitted": "2022-04-27",
+   "file": "Canto-Encalada2022-FBA_of_simultaneous_degradation_of_ammonia_and_pollutants.xml",
+   "bytes": 4458820
+  },
+  {
+   "id": "BIOMD0000001062",
+   "name": "Kim2021 - Development of a Genome-Scale Metabolic Model and Phenome Analysis of the Probiotic Escherichia coli Strain Nissle 1917",
+   "submitted": "2022-04-18",
+   "file": "iDK1463.xml",
+   "bytes": 11814880
+  },
+  {
+   "id": "BIOMD0000001063",
+   "name": "Lu2019 - Genome scale metabolic model for Saccharomyces cerevisiae - yeastGEM8.5.0",
+   "submitted": "2022-04-28",
+   "file": "yeast-GEM.xml",
+   "bytes": 12099129
+  },
+  {
+   "id": "BIOMD0000001064",
+   "name": "Kim2011 - the genome scale reconstruction of the Vibrio vulnificus metabolic network - VvuMBEL943",
+   "submitted": "2010-11-30",
+   "file": "Kim2011_VvuMBEL943.xml",
+   "bytes": 693279
+  },
+  {
+   "id": "BIOMD0000001065",
+   "name": "vonDassow2000 - Segment Polarity Network model on 1x4 grid of cells",
+   "submitted": "2023-04-06",
+   "file": "vonDassow2000_1x4.timecourse1.xml",
+   "bytes": 620652
+  },
+  {
+   "id": "BIOMD0000001072",
+   "name": "Phillips2013 - physiologically based modeling explaining Mammalian rest/activity patterns",
+   "submitted": "2020-03-08",
+   "file": "Phillips2013.xml",
+   "bytes": 71151
+  },
+  {
+   "id": "BIOMD0000001077",
+   "name": "Adlung2021 - Cell-to-cell variability in JAK2/STAT5 pathway",
+   "submitted": "2021-03-08",
+   "file": "Adlung2021 _model_jakstat_pa.xml",
+   "bytes": 103775
+  },
+  {
+   "id": "BIOMD0000001078",
+   "name": "Hammaren-Geissen2022_PPToP_Model12",
+   "submitted": "2022-12-16",
+   "file": "Hammaren-Geissen2022_PPToP_Model12_withParameterSets.xml",
+   "bytes": 27654
+  },
+  {
+   "id": "BIOMD0000001079",
+   "name": "DeBoeck2021 - Modular approach to modeling the cell cycle, simple cell cycle model",
+   "submitted": "2022-12-06",
+   "file": "DeBoeck2021_cellcycle_bistableapc.xml",
+   "bytes": 17890
+  },
+  {
+   "id": "BIOMD0000001080",
+   "name": "DeBoeck2021 - Modular approach to modeling the cell cycle, 5 ODE model with 3 bistable switches",
+   "submitted": "2022-12-06",
+   "file": "DeBoeck2021_cellcycle_threeswitches.xml",
+   "bytes": 33129
+  },
+  {
+   "id": "BIOMD0000001090",
+   "name": "Dias2019 - GSM model of S. pneumoniae R6",
+   "submitted": "2022-05-02",
+   "file": "Dias2019_iDS372.xml",
+   "bytes": 1545277
+  },
+  {
+   "id": "BIOMD0000001091",
+   "name": "Kulyashov2020 - Genome-Scale Metabolic Model for Geobacillus icigianus",
+   "submitted": "2022-04-15",
+   "file": "Kulyashov2020_SBMLL3V1fbcV2-GSM_model_Geobacillus_icigianus.xml",
+   "bytes": 6254223
+  },
+  {
+   "id": "BIOMD0000001092",
+   "name": "Gautam2020-Metabolic network of Thermotoga sp. Strain RQ7",
+   "submitted": "2022-04-11",
+   "file": "Gautam2020_RQ7_iJG408.xml",
+   "bytes": 2945127
+  },
+  {
+   "id": "BIOMD0000001093",
+   "name": "Nogales2020 - Genome-scale metabolic network of Pseudomonas putida (iJN1462)",
+   "submitted": "2022-04-04",
+   "file": "iJN1463.xml",
+   "bytes": 9976168
+  },
+  {
+   "id": "BIOMD0000001094",
+   "name": "Liao2011 - Genome-scale metabolic reconstruction of Klebsiella pneumoniae (iYL1228)",
+   "submitted": "2015-07-18",
+   "file": "MODEL1507180054_url.xml",
+   "bytes": 3323148
+  },
+  {
+   "id": "BIOMD0000001095",
+   "name": "Jamshidi2007 - Genome-scale metabolic network of Mycobacterium tuberculosis (iNJ661)",
+   "submitted": "2015-07-18",
+   "file": "MODEL1507180001_url.xml",
+   "bytes": 1557616
+  },
+  {
+   "id": "BIOMD0000001096",
+   "name": "Irani2015 - Genome-scale metabolic model of P.pastoris N-glycosylation",
+   "submitted": "2015-10-22",
+   "file": "MODEL1510220000_url.xml",
+   "bytes": 2759405
+  },
+  {
+   "id": "BIOMD0000001097",
+   "name": "Benedict2011 - Genome-scale metoblic network of Methanosarcina acetivorans (iMB745)",
+   "submitted": "2015-07-18",
+   "file": "MODEL1507180040_url.xml",
+   "bytes": 1276509
+  },
+  {
+   "id": "BIOMD0000001098",
+   "name": "Feist2006_methanogenesis_OptiMethanol",
+   "submitted": "2006-10-02",
+   "file": "MODEL5662324959_url.xml",
+   "bytes": 988062
+  },
+  {
+   "id": "BIOMD0000001099",
+   "name": "Richards2016 - Genome-scale metabolic reconstruction of Methanococcus maripaludis (iMR539)",
+   "submitted": "2016-07-20",
+   "file": "MODEL1607200000_url.xml",
+   "bytes": 1568064
+  },
+  {
+   "id": "BIOMD0000001102",
+   "name": "Burbano2023 - HGFsignaling_in_FattyLiverDisease",
+   "submitted": "2023-06-28",
+   "file": "model_Burbano2023.xml",
+   "bytes": 57966
+  },
+  {
+   "id": "BIOMD0000001103",
+   "name": "Palaniappan2021 - Cell free modelling of second generation Toehold switches",
+   "submitted": "2021-07-15",
+   "file": "Palaniappan2021_Cell_free_modelling_of_second_generation_toehold_switches_v2.xml",
+   "bytes": 45631
+  }
+ ],
+ "total_bytes": 104388643
+}

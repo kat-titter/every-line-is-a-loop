@@ -692,11 +692,11 @@ def periodic_table(elements, found_top, found_rest):
 })();
 </script>"""
     tile = lambda cls: f'<span class="pt-key pt-{cls}" aria-hidden="true"></span>'
-    key = (f'<div class="pt-legend"><span>{tile("found")}found, with how many</span>'
-           f'<span>{tile("known")}known from experiments, not in this census</span>'
-           f'<span>{tile("candidate")}candidates from a looser test for running totals</span>'
-           f'<span>{tile("blank")}not found yet</span></div>')
-    axes = ('<p class="pt-axes"><span>across: loops that brake (k)</span><span>down: loops through a running total (j)</span></p>')
+    key = (f'<div class="pt-legend"><span>{tile("found")}found in published cell models, with how many</span>'
+           f'<span>{tile("known")}known from experiments, not in the models</span>'
+           f'<span>{tile("candidate")}blank: a looser test finds candidates</span>'
+           f'<span>{tile("blank")}blank: nothing found yet</span></div>')
+    axes = ('<p class="pt-axes"><span>blocks: how many loops</span><span>across: how many brake</span><span>down: how many keep a running total</span></p>')
     gaps = (f'<p class="pt-gap"><span><b>{found_top[0]} of {found_top[1]}</b> found with no running total (top rows)</span>'
             f'<span><b>{found_rest[0]} of {found_rest[1]}</b> found with one or more (rows below)</span></p>')
     return (f'<div class="interactive ptable" id="ptable">{axes}<div class="pt-blocks">{html_}</div>{gaps}{key}'

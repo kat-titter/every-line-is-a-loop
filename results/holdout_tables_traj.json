@@ -1,0 +1,1379 @@
+{
+ "census": {
+  "ok": 412,
+  "no influence arcs": 22,
+  "error": 1
+ },
+ "usable": 412,
+ "replication": {
+  "reference 24": {
+   "models": 506,
+   "no negative circuit": 70,
+   "no positive circuit": 48,
+   "no refined positive circuit": 105
+  },
+  "all usable": {
+   "models": 412,
+   "no negative circuit": 61,
+   "no positive circuit": 25,
+   "no refined positive circuit": 41,
+   "undecided": 0
+  },
+  "with reactions": {
+   "models": 386,
+   "no negative circuit": 52,
+   "no positive circuit": 21,
+   "no refined positive circuit": 37,
+   "undecided": 0
+  },
+  "with reactions, no events": {
+   "models": 327,
+   "no negative circuit": 45,
+   "no positive circuit": 18,
+   "no refined positive circuit": 32,
+   "undecided": 0
+  }
+ },
+ "defs": {
+  "thomas": {
+   "distribution": {
+    "2": 36,
+    "0": 16,
+    "4 to 10": 143,
+    "over 10": 148,
+    "over budget": 20,
+    "1": 21,
+    "3": 28
+   },
+   "rows": {
+    "1": {
+     "models": 21,
+     "cactus": 21,
+     "essay": {
+      "predicted": 4,
+      "occupied": 2,
+      "occupied_cactus": 2,
+      "cells": {
+       "(0, 0)": 15,
+       "(1, 0)": 6
+      }
+     },
+     "pf": {
+      "predicted": 4,
+      "occupied": 2,
+      "occupied_cactus": 2,
+      "cells": {
+       "(0, 0)": 15,
+       "(1, 0)": 6
+      }
+     },
+     "types4": {
+      "predicted": 4,
+      "occupied": 2,
+      "occupied_cactus": 2,
+      "cells": {
+       "(0, 0, 1, 0)": 6,
+       "(1, 0, 0, 0)": 15
+      }
+     },
+     "types3": {
+      "predicted": 3,
+      "occupied": 2,
+      "occupied_cactus": 2,
+      "cells": {
+       "(0, 1, 0)": 6,
+       "(1, 0, 0)": 15
+      }
+     },
+     "behaviours": {
+      "steady": 5,
+      "oscillating": 3,
+      "forced": 5,
+      "unbounded": 2,
+      "damped": 2,
+      "continuum": 1,
+      "damped+multistable": 1,
+      "multistable+oscillating": 1,
+      "multistable": 1
+     },
+     "distinct_autonomous_behaviours": 8,
+     "coarse_behaviours": {
+      "settles": 8,
+      "clock": 3,
+      "grows": 2,
+      "switch": 2,
+      "clock+switch": 1
+     },
+     "k_pf_differs": 0,
+     "nu_differs": 0,
+     "behaviour_by_cell": {
+      "(0, 0)": {
+       "steady": 5,
+       "oscillating": 1,
+       "forced": 4,
+       "unbounded": 2,
+       "continuum": 1,
+       "damped+multistable": 1,
+       "multistable": 1
+      },
+      "(1, 0)": {
+       "forced": 1,
+       "damped": 2,
+       "multistable+oscillating": 1,
+       "oscillating": 2
+      }
+     },
+     "models_list": [
+      "BIOMD0000000668",
+      "BIOMD0000000777",
+      "BIOMD0000000789",
+      "BIOMD0000000814",
+      "BIOMD0000000824",
+      "BIOMD0000000828",
+      "BIOMD0000000830",
+      "BIOMD0000000869",
+      "BIOMD0000000890",
+      "BIOMD0000000914",
+      "BIOMD0000000916",
+      "BIOMD0000000919",
+      "BIOMD0000000933",
+      "BIOMD0000000935",
+      "BIOMD0000000937",
+      "BIOMD0000000944",
+      "BIOMD0000001004",
+      "BIOMD0000001047",
+      "BIOMD0000001057",
+      "BIOMD0000001078",
+      "BIOMD0000001103"
+     ]
+    },
+    "2": {
+     "models": 36,
+     "cactus": 27,
+     "essay": {
+      "predicted": 9,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 0)": 8,
+       "(1, 0)": 25,
+       "(1, 1)": 1,
+       "(2, 0)": 2
+      }
+     },
+     "pf": {
+      "predicted": 9,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 0)": 8,
+       "(1, 0)": 26,
+       "(1, 1)": 1,
+       "(2, 0)": 1
+      }
+     },
+     "types4": {
+      "predicted": 10,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 0, 2, 0)": 2,
+       "(1, 0, 0, 1)": 1,
+       "(1, 0, 1, 0)": 25,
+       "(2, 0, 0, 0)": 8
+      }
+     },
+     "types3": {
+      "predicted": 6,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 2, 0)": 2,
+       "(1, 0, 1)": 1,
+       "(1, 1, 0)": 25,
+       "(2, 0, 0)": 8
+      }
+     },
+     "behaviours": {
+      "steady": 9,
+      "forced": 10,
+      "unbounded": 3,
+      "unsettled": 5,
+      "oscillating": 4,
+      "continuum+damped": 2,
+      "continuum": 3
+     },
+     "distinct_autonomous_behaviours": 5,
+     "coarse_behaviours": {
+      "settles": 14,
+      "grows": 3,
+      "clock": 4
+     },
+     "k_pf_differs": 1,
+     "nu_differs": 0,
+     "behaviour_by_cell": {
+      "(0, 0)": {
+       "steady": 4,
+       "forced": 2,
+       "unbounded": 1,
+       "unsettled": 1
+      },
+      "(1, 0)": {
+       "forced": 8,
+       "unbounded": 2,
+       "unsettled": 4,
+       "steady": 4,
+       "oscillating": 2,
+       "continuum+damped": 2,
+       "continuum": 3
+      },
+      "(1, 1)": {
+       "oscillating": 1
+      },
+      "(2, 0)": {
+       "steady": 1,
+       "oscillating": 1
+      }
+     },
+     "models_list": [
+      "BIOMD0000000641",
+      "BIOMD0000000642",
+      "BIOMD0000000659",
+      "BIOMD0000000664",
+      "BIOMD0000000678",
+      "BIOMD0000000708",
+      "BIOMD0000000709",
+      "BIOMD0000000712",
+      "BIOMD0000000716",
+      "BIOMD0000000717",
+      "BIOMD0000000728",
+      "BIOMD0000000741",
+      "BIOMD0000000742",
+      "BIOMD0000000775",
+      "BIOMD0000000782",
+      "BIOMD0000000793",
+      "BIOMD0000000795",
+      "BIOMD0000000804",
+      "BIOMD0000000818",
+      "BIOMD0000000838",
+      "BIOMD0000000875",
+      "BIOMD0000000885",
+      "BIOMD0000000893",
+      "BIOMD0000000901",
+      "BIOMD0000000917",
+      "BIOMD0000000956",
+      "BIOMD0000000957",
+      "BIOMD0000000962",
+      "BIOMD0000000963",
+      "BIOMD0000000973",
+      "BIOMD0000000974",
+      "BIOMD0000000978",
+      "BIOMD0000000984",
+      "BIOMD0000001010",
+      "BIOMD0000001045",
+      "BIOMD0000001079"
+     ]
+    },
+    "3": {
+     "models": 28,
+     "cactus": 15,
+     "essay": {
+      "predicted": 16,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 0)": 3,
+       "(1, 0)": 20,
+       "(2, 0)": 4,
+       "(3, 0)": 1
+      }
+     },
+     "pf": {
+      "predicted": 16,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 0)": 3,
+       "(1, 0)": 22,
+       "(2, 0)": 2,
+       "(3, 0)": 1
+      }
+     },
+     "types4": {
+      "predicted": 20,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 0, 3, 0)": 1,
+       "(1, 0, 2, 0)": 4,
+       "(2, 0, 1, 0)": 20,
+       "(3, 0, 0, 0)": 3
+      }
+     },
+     "types3": {
+      "predicted": 10,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 3, 0)": 1,
+       "(1, 2, 0)": 4,
+       "(2, 1, 0)": 20,
+       "(3, 0, 0)": 3
+      }
+     },
+     "behaviours": {
+      "forced": 7,
+      "oscillating": 5,
+      "unbounded": 1,
+      "steady": 6,
+      "continuum": 3,
+      "damped": 3,
+      "oscillating+unbounded": 2,
+      "multistable": 1
+     },
+     "distinct_autonomous_behaviours": 7,
+     "coarse_behaviours": {
+      "clock": 5,
+      "grows": 1,
+      "settles": 12,
+      "clock+grows": 2,
+      "switch": 1
+     },
+     "k_pf_differs": 2,
+     "nu_differs": 0,
+     "behaviour_by_cell": {
+      "(0, 0)": {
+       "continuum": 1,
+       "steady": 1,
+       "multistable": 1
+      },
+      "(1, 0)": {
+       "forced": 7,
+       "unbounded": 1,
+       "steady": 4,
+       "oscillating": 3,
+       "damped": 3,
+       "oscillating+unbounded": 1,
+       "continuum": 1
+      },
+      "(2, 0)": {
+       "continuum": 1,
+       "steady": 1,
+       "oscillating": 1,
+       "oscillating+unbounded": 1
+      },
+      "(3, 0)": {
+       "oscillating": 1
+      }
+     },
+     "models_list": [
+      "BIOMD0000000681",
+      "BIOMD0000000729",
+      "BIOMD0000000751",
+      "BIOMD0000000758",
+      "BIOMD0000000767",
+      "BIOMD0000000787",
+      "BIOMD0000000799",
+      "BIOMD0000000815",
+      "BIOMD0000000821",
+      "BIOMD0000000851",
+      "BIOMD0000000887",
+      "BIOMD0000000892",
+      "BIOMD0000000911",
+      "BIOMD0000000912",
+      "BIOMD0000000931",
+      "BIOMD0000000938",
+      "BIOMD0000000965",
+      "BIOMD0000000979",
+      "BIOMD0000000980",
+      "BIOMD0000001007",
+      "BIOMD0000001024",
+      "BIOMD0000001025",
+      "BIOMD0000001031",
+      "BIOMD0000001032",
+      "BIOMD0000001037",
+      "BIOMD0000001038",
+      "BIOMD0000001043",
+      "BIOMD0000001060"
+     ]
+    }
+   }
+  },
+  "ref24": {
+   "distribution": {
+    "2": 37,
+    "0": 28,
+    "4 to 10": 141,
+    "over 10": 123,
+    "over budget": 15,
+    "1": 38,
+    "3": 30
+   },
+   "rows": {
+    "1": {
+     "models": 38,
+     "cactus": 38,
+     "essay": {
+      "predicted": 4,
+      "occupied": 2,
+      "occupied_cactus": 2,
+      "cells": {
+       "(0, 0)": 30,
+       "(1, 0)": 8
+      }
+     },
+     "pf": {
+      "predicted": 4,
+      "occupied": 2,
+      "occupied_cactus": 2,
+      "cells": {
+       "(0, 0)": 30,
+       "(1, 0)": 8
+      }
+     },
+     "types4": {
+      "predicted": 4,
+      "occupied": 2,
+      "occupied_cactus": 2,
+      "cells": {
+       "(0, 0, 1, 0)": 8,
+       "(1, 0, 0, 0)": 30
+      }
+     },
+     "types3": {
+      "predicted": 3,
+      "occupied": 2,
+      "occupied_cactus": 2,
+      "cells": {
+       "(0, 1, 0)": 8,
+       "(1, 0, 0)": 30
+      }
+     },
+     "behaviours": {
+      "steady": 4,
+      "forced": 11,
+      "unbounded": 4,
+      "unsettled": 3,
+      "continuum": 5,
+      "oscillating": 3,
+      "damped": 3,
+      "damped+multistable": 1,
+      "multistable+oscillating": 1,
+      "continuum+damped": 2,
+      "multistable": 1
+     },
+     "distinct_autonomous_behaviours": 9,
+     "coarse_behaviours": {
+      "settles": 14,
+      "grows": 4,
+      "clock": 3,
+      "switch": 2,
+      "clock+switch": 1
+     },
+     "k_pf_differs": 0,
+     "nu_differs": 0,
+     "behaviour_by_cell": {
+      "(0, 0)": {
+       "steady": 4,
+       "unbounded": 4,
+       "unsettled": 3,
+       "continuum": 5,
+       "oscillating": 1,
+       "forced": 8,
+       "damped+multistable": 1,
+       "continuum+damped": 2,
+       "damped": 1,
+       "multistable": 1
+      },
+      "(1, 0)": {
+       "forced": 3,
+       "damped": 2,
+       "multistable+oscillating": 1,
+       "oscillating": 2
+      }
+     },
+     "models_list": [
+      "BIOMD0000000668",
+      "BIOMD0000000678",
+      "BIOMD0000000708",
+      "BIOMD0000000709",
+      "BIOMD0000000716",
+      "BIOMD0000000717",
+      "BIOMD0000000755",
+      "BIOMD0000000777",
+      "BIOMD0000000789",
+      "BIOMD0000000814",
+      "BIOMD0000000824",
+      "BIOMD0000000828",
+      "BIOMD0000000851",
+      "BIOMD0000000862",
+      "BIOMD0000000864",
+      "BIOMD0000000875",
+      "BIOMD0000000890",
+      "BIOMD0000000914",
+      "BIOMD0000000919",
+      "BIOMD0000000933",
+      "BIOMD0000000935",
+      "BIOMD0000000937",
+      "BIOMD0000000944",
+      "BIOMD0000000956",
+      "BIOMD0000000957",
+      "BIOMD0000000962",
+      "BIOMD0000000963",
+      "BIOMD0000000966",
+      "BIOMD0000000974",
+      "BIOMD0000000978",
+      "BIOMD0000000979",
+      "BIOMD0000000980",
+      "BIOMD0000000984",
+      "BIOMD0000001004",
+      "BIOMD0000001016",
+      "BIOMD0000001045",
+      "BIOMD0000001047",
+      "BIOMD0000001057"
+     ]
+    },
+    "2": {
+     "models": 37,
+     "cactus": 28,
+     "essay": {
+      "predicted": 9,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 0)": 15,
+       "(1, 0)": 17,
+       "(1, 1)": 2,
+       "(2, 0)": 3
+      }
+     },
+     "pf": {
+      "predicted": 9,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 0)": 15,
+       "(1, 0)": 17,
+       "(1, 1)": 2,
+       "(2, 0)": 2
+      }
+     },
+     "types4": {
+      "predicted": 10,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 0, 2, 0)": 3,
+       "(1, 0, 0, 1)": 2,
+       "(1, 0, 1, 0)": 17,
+       "(2, 0, 0, 0)": 15
+      }
+     },
+     "types3": {
+      "predicted": 6,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 2, 0)": 3,
+       "(1, 0, 1)": 2,
+       "(1, 1, 0)": 17,
+       "(2, 0, 0)": 15
+      }
+     },
+     "behaviours": {
+      "steady": 11,
+      "forced": 10,
+      "continuum": 6,
+      "unsettled": 3,
+      "damped": 1,
+      "oscillating": 4,
+      "unbounded": 2
+     },
+     "distinct_autonomous_behaviours": 5,
+     "coarse_behaviours": {
+      "settles": 18,
+      "clock": 4,
+      "grows": 2
+     },
+     "k_pf_differs": 1,
+     "nu_differs": 1,
+     "behaviour_by_cell": {
+      "(0, 0)": {
+       "steady": 4,
+       "forced": 3,
+       "continuum": 4,
+       "unsettled": 2,
+       "damped": 1,
+       "unbounded": 1
+      },
+      "(1, 0)": {
+       "forced": 6,
+       "steady": 6,
+       "unbounded": 1,
+       "oscillating": 2,
+       "continuum": 1,
+       "unsettled": 1
+      },
+      "(1, 1)": {
+       "oscillating": 1,
+       "forced": 1
+      },
+      "(2, 0)": {
+       "steady": 1,
+       "continuum": 1,
+       "oscillating": 1
+      }
+     },
+     "models_list": [
+      "BIOMD0000000641",
+      "BIOMD0000000642",
+      "BIOMD0000000659",
+      "BIOMD0000000664",
+      "BIOMD0000000689",
+      "BIOMD0000000690",
+      "BIOMD0000000707",
+      "BIOMD0000000712",
+      "BIOMD0000000728",
+      "BIOMD0000000741",
+      "BIOMD0000000742",
+      "BIOMD0000000765",
+      "BIOMD0000000775",
+      "BIOMD0000000782",
+      "BIOMD0000000793",
+      "BIOMD0000000795",
+      "BIOMD0000000804",
+      "BIOMD0000000827",
+      "BIOMD0000000838",
+      "BIOMD0000000840",
+      "BIOMD0000000850",
+      "BIOMD0000000885",
+      "BIOMD0000000887",
+      "BIOMD0000000893",
+      "BIOMD0000000901",
+      "BIOMD0000000917",
+      "BIOMD0000000968",
+      "BIOMD0000000970",
+      "BIOMD0000000973",
+      "BIOMD0000000982",
+      "BIOMD0000000985",
+      "BIOMD0000001007",
+      "BIOMD0000001010",
+      "BIOMD0000001031",
+      "BIOMD0000001032",
+      "BIOMD0000001059",
+      "BIOMD0000001079"
+     ]
+    },
+    "3": {
+     "models": 30,
+     "cactus": 21,
+     "essay": {
+      "predicted": 16,
+      "occupied": 4,
+      "occupied_cactus": 3,
+      "cells": {
+       "(0, 0)": 7,
+       "(1, 0)": 19,
+       "(2, 0)": 3,
+       "(3, 0)": 1
+      }
+     },
+     "pf": {
+      "predicted": 16,
+      "occupied": 3,
+      "occupied_cactus": 3,
+      "cells": {
+       "(0, 0)": 7,
+       "(1, 0)": 22,
+       "(3, 0)": 1
+      }
+     },
+     "types4": {
+      "predicted": 20,
+      "occupied": 4,
+      "occupied_cactus": 3,
+      "cells": {
+       "(0, 0, 3, 0)": 1,
+       "(1, 0, 2, 0)": 3,
+       "(2, 0, 1, 0)": 19,
+       "(3, 0, 0, 0)": 7
+      }
+     },
+     "types3": {
+      "predicted": 10,
+      "occupied": 4,
+      "occupied_cactus": 3,
+      "cells": {
+       "(0, 3, 0)": 1,
+       "(1, 2, 0)": 3,
+       "(2, 1, 0)": 19,
+       "(3, 0, 0)": 7
+      }
+     },
+     "behaviours": {
+      "forced": 7,
+      "steady": 8,
+      "oscillating": 6,
+      "unbounded": 1,
+      "damped+unbounded": 1,
+      "continuum": 2,
+      "damped": 2,
+      "oscillating+unbounded": 2,
+      "multistable": 1
+     },
+     "distinct_autonomous_behaviours": 8,
+     "coarse_behaviours": {
+      "settles": 12,
+      "clock": 6,
+      "grows": 2,
+      "clock+grows": 2,
+      "switch": 1
+     },
+     "k_pf_differs": 3,
+     "nu_differs": 0,
+     "behaviour_by_cell": {
+      "(0, 0)": {
+       "steady": 3,
+       "damped+unbounded": 1,
+       "continuum": 1,
+       "forced": 1,
+       "multistable": 1
+      },
+      "(1, 0)": {
+       "forced": 5,
+       "unbounded": 1,
+       "steady": 5,
+       "oscillating": 4,
+       "damped": 2,
+       "continuum": 1,
+       "oscillating+unbounded": 1
+      },
+      "(2, 0)": {
+       "forced": 1,
+       "oscillating": 1,
+       "oscillating+unbounded": 1
+      },
+      "(3, 0)": {
+       "oscillating": 1
+      }
+     },
+     "models_list": [
+      "BIOMD0000000681",
+      "BIOMD0000000719",
+      "BIOMD0000000726",
+      "BIOMD0000000729",
+      "BIOMD0000000751",
+      "BIOMD0000000758",
+      "BIOMD0000000764",
+      "BIOMD0000000767",
+      "BIOMD0000000771",
+      "BIOMD0000000785",
+      "BIOMD0000000787",
+      "BIOMD0000000799",
+      "BIOMD0000000815",
+      "BIOMD0000000821",
+      "BIOMD0000000845",
+      "BIOMD0000000892",
+      "BIOMD0000000911",
+      "BIOMD0000000912",
+      "BIOMD0000000931",
+      "BIOMD0000000938",
+      "BIOMD0000000960",
+      "BIOMD0000000965",
+      "BIOMD0000001022",
+      "BIOMD0000001024",
+      "BIOMD0000001025",
+      "BIOMD0000001037",
+      "BIOMD0000001038",
+      "BIOMD0000001043",
+      "BIOMD0000001048",
+      "BIOMD0000001060"
+     ]
+    }
+   }
+  },
+  "ref24_rank": {
+   "distribution": {
+    "2": 35,
+    "0": 31,
+    "4 to 10": 145,
+    "over 10": 111,
+    "over budget": 15,
+    "1": 45,
+    "3": 30
+   },
+   "rows": {
+    "1": {
+     "models": 45,
+     "cactus": 45,
+     "essay": {
+      "predicted": 4,
+      "occupied": 2,
+      "occupied_cactus": 2,
+      "cells": {
+       "(0, 0)": 33,
+       "(1, 0)": 12
+      }
+     },
+     "pf": {
+      "predicted": 4,
+      "occupied": 2,
+      "occupied_cactus": 2,
+      "cells": {
+       "(0, 0)": 33,
+       "(1, 0)": 12
+      }
+     },
+     "types4": {
+      "predicted": 4,
+      "occupied": 2,
+      "occupied_cactus": 2,
+      "cells": {
+       "(0, 0, 1, 0)": 12,
+       "(1, 0, 0, 0)": 33
+      }
+     },
+     "types3": {
+      "predicted": 3,
+      "occupied": 2,
+      "occupied_cactus": 2,
+      "cells": {
+       "(0, 1, 0)": 12,
+       "(1, 0, 0)": 33
+      }
+     },
+     "behaviours": {
+      "steady": 5,
+      "forced": 15,
+      "continuum": 6,
+      "unsettled": 4,
+      "unbounded": 4,
+      "oscillating": 3,
+      "damped": 3,
+      "damped+multistable": 1,
+      "multistable+oscillating": 1,
+      "continuum+damped": 2,
+      "multistable": 1
+     },
+     "distinct_autonomous_behaviours": 9,
+     "coarse_behaviours": {
+      "settles": 16,
+      "grows": 4,
+      "clock": 3,
+      "switch": 2,
+      "clock+switch": 1
+     },
+     "k_pf_differs": 0,
+     "nu_differs": 0,
+     "behaviour_by_cell": {
+      "(0, 0)": {
+       "steady": 5,
+       "continuum": 6,
+       "unsettled": 4,
+       "unbounded": 4,
+       "oscillating": 1,
+       "forced": 8,
+       "damped+multistable": 1,
+       "continuum+damped": 2,
+       "damped": 1,
+       "multistable": 1
+      },
+      "(1, 0)": {
+       "forced": 7,
+       "damped": 2,
+       "multistable+oscillating": 1,
+       "oscillating": 2
+      }
+     },
+     "models_list": [
+      "BIOMD0000000668",
+      "BIOMD0000000678",
+      "BIOMD0000000689",
+      "BIOMD0000000690",
+      "BIOMD0000000708",
+      "BIOMD0000000709",
+      "BIOMD0000000716",
+      "BIOMD0000000717",
+      "BIOMD0000000726",
+      "BIOMD0000000755",
+      "BIOMD0000000777",
+      "BIOMD0000000789",
+      "BIOMD0000000814",
+      "BIOMD0000000824",
+      "BIOMD0000000828",
+      "BIOMD0000000851",
+      "BIOMD0000000862",
+      "BIOMD0000000864",
+      "BIOMD0000000875",
+      "BIOMD0000000890",
+      "BIOMD0000000914",
+      "BIOMD0000000919",
+      "BIOMD0000000933",
+      "BIOMD0000000935",
+      "BIOMD0000000937",
+      "BIOMD0000000944",
+      "BIOMD0000000956",
+      "BIOMD0000000957",
+      "BIOMD0000000962",
+      "BIOMD0000000963",
+      "BIOMD0000000966",
+      "BIOMD0000000974",
+      "BIOMD0000000978",
+      "BIOMD0000000979",
+      "BIOMD0000000980",
+      "BIOMD0000000984",
+      "BIOMD0000001004",
+      "BIOMD0000001016",
+      "BIOMD0000001027",
+      "BIOMD0000001028",
+      "BIOMD0000001029",
+      "BIOMD0000001039",
+      "BIOMD0000001045",
+      "BIOMD0000001047",
+      "BIOMD0000001057"
+     ],
+     "essay_near": {
+      "predicted": 4,
+      "occupied": 4,
+      "cells": {
+       "(0, 0)": 29,
+       "(0, 1)": 4,
+       "(1, 0)": 10,
+       "(1, 1)": 2
+      }
+     },
+     "essay_pair": {
+      "predicted": 4,
+      "occupied": 3,
+      "cells": {
+       "(0, 0)": 31,
+       "(0, 1)": 2,
+       "(1, 0)": 12
+      },
+      "models with a loop through a paired total": [
+       "BIOMD0000000689",
+       "BIOMD0000000690"
+      ]
+     }
+    },
+    "2": {
+     "models": 35,
+     "cactus": 28,
+     "essay": {
+      "predicted": 9,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 0)": 13,
+       "(1, 0)": 17,
+       "(1, 1)": 2,
+       "(2, 0)": 3
+      }
+     },
+     "pf": {
+      "predicted": 9,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 0)": 13,
+       "(1, 0)": 17,
+       "(1, 1)": 2,
+       "(2, 0)": 2
+      }
+     },
+     "types4": {
+      "predicted": 10,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 0, 2, 0)": 3,
+       "(1, 0, 0, 1)": 2,
+       "(1, 0, 1, 0)": 17,
+       "(2, 0, 0, 0)": 13
+      }
+     },
+     "types3": {
+      "predicted": 6,
+      "occupied": 4,
+      "occupied_cactus": 4,
+      "cells": {
+       "(0, 2, 0)": 3,
+       "(1, 0, 1)": 2,
+       "(1, 1, 0)": 17,
+       "(2, 0, 0)": 13
+      }
+     },
+     "behaviours": {
+      "steady": 11,
+      "forced": 10,
+      "damped": 1,
+      "oscillating": 4,
+      "unbounded": 2,
+      "continuum": 5,
+      "unsettled": 2
+     },
+     "distinct_autonomous_behaviours": 5,
+     "coarse_behaviours": {
+      "settles": 17,
+      "clock": 4,
+      "grows": 2
+     },
+     "k_pf_differs": 1,
+     "nu_differs": 1,
+     "behaviour_by_cell": {
+      "(0, 0)": {
+       "steady": 4,
+       "forced": 3,
+       "damped": 1,
+       "unbounded": 1,
+       "continuum": 3,
+       "unsettled": 1
+      },
+      "(1, 0)": {
+       "forced": 6,
+       "steady": 6,
+       "unbounded": 1,
+       "oscillating": 2,
+       "continuum": 1,
+       "unsettled": 1
+      },
+      "(1, 1)": {
+       "oscillating": 1,
+       "forced": 1
+      },
+      "(2, 0)": {
+       "steady": 1,
+       "continuum": 1,
+       "oscillating": 1
+      }
+     },
+     "models_list": [
+      "BIOMD0000000641",
+      "BIOMD0000000642",
+      "BIOMD0000000659",
+      "BIOMD0000000664",
+      "BIOMD0000000707",
+      "BIOMD0000000712",
+      "BIOMD0000000728",
+      "BIOMD0000000741",
+      "BIOMD0000000742",
+      "BIOMD0000000765",
+      "BIOMD0000000775",
+      "BIOMD0000000782",
+      "BIOMD0000000793",
+      "BIOMD0000000795",
+      "BIOMD0000000804",
+      "BIOMD0000000827",
+      "BIOMD0000000838",
+      "BIOMD0000000840",
+      "BIOMD0000000850",
+      "BIOMD0000000885",
+      "BIOMD0000000887",
+      "BIOMD0000000893",
+      "BIOMD0000000901",
+      "BIOMD0000000917",
+      "BIOMD0000000968",
+      "BIOMD0000000970",
+      "BIOMD0000000973",
+      "BIOMD0000000982",
+      "BIOMD0000000985",
+      "BIOMD0000001007",
+      "BIOMD0000001010",
+      "BIOMD0000001031",
+      "BIOMD0000001032",
+      "BIOMD0000001059",
+      "BIOMD0000001079"
+     ],
+     "essay_near": {
+      "predicted": 9,
+      "occupied": 7,
+      "cells": {
+       "(0, 0)": 12,
+       "(0, 2)": 1,
+       "(1, 0)": 15,
+       "(1, 1)": 2,
+       "(1, 2)": 2,
+       "(2, 0)": 2,
+       "(2, 2)": 1
+      }
+     },
+     "essay_pair": {
+      "predicted": 9,
+      "occupied": 4,
+      "cells": {
+       "(0, 0)": 13,
+       "(1, 0)": 17,
+       "(1, 1)": 2,
+       "(2, 0)": 3
+      },
+      "models with a loop through a paired total": []
+     }
+    },
+    "3": {
+     "models": 30,
+     "cactus": 21,
+     "essay": {
+      "predicted": 16,
+      "occupied": 4,
+      "occupied_cactus": 3,
+      "cells": {
+       "(0, 0)": 6,
+       "(1, 0)": 19,
+       "(2, 0)": 3,
+       "(3, 0)": 2
+      }
+     },
+     "pf": {
+      "predicted": 16,
+      "occupied": 3,
+      "occupied_cactus": 3,
+      "cells": {
+       "(0, 0)": 6,
+       "(1, 0)": 22,
+       "(3, 0)": 2
+      }
+     },
+     "types4": {
+      "predicted": 20,
+      "occupied": 4,
+      "occupied_cactus": 3,
+      "cells": {
+       "(0, 0, 3, 0)": 2,
+       "(1, 0, 2, 0)": 3,
+       "(2, 0, 1, 0)": 19,
+       "(3, 0, 0, 0)": 6
+      }
+     },
+     "types3": {
+      "predicted": 10,
+      "occupied": 4,
+      "occupied_cactus": 3,
+      "cells": {
+       "(0, 3, 0)": 2,
+       "(1, 2, 0)": 3,
+       "(2, 1, 0)": 19,
+       "(3, 0, 0)": 6
+      }
+     },
+     "behaviours": {
+      "forced": 7,
+      "oscillating": 6,
+      "unbounded": 1,
+      "steady": 7,
+      "damped+unbounded": 1,
+      "continuum": 3,
+      "damped": 2,
+      "oscillating+unbounded": 2,
+      "multistable": 1
+     },
+     "distinct_autonomous_behaviours": 8,
+     "coarse_behaviours": {
+      "clock": 6,
+      "grows": 2,
+      "settles": 12,
+      "clock+grows": 2,
+      "switch": 1
+     },
+     "k_pf_differs": 3,
+     "nu_differs": 0,
+     "behaviour_by_cell": {
+      "(0, 0)": {
+       "damped+unbounded": 1,
+       "continuum": 1,
+       "steady": 2,
+       "forced": 1,
+       "multistable": 1
+      },
+      "(1, 0)": {
+       "forced": 5,
+       "unbounded": 1,
+       "steady": 5,
+       "oscillating": 4,
+       "damped": 2,
+       "continuum": 1,
+       "oscillating+unbounded": 1
+      },
+      "(2, 0)": {
+       "forced": 1,
+       "oscillating": 1,
+       "oscillating+unbounded": 1
+      },
+      "(3, 0)": {
+       "oscillating": 1,
+       "continuum": 1
+      }
+     },
+     "models_list": [
+      "BIOMD0000000681",
+      "BIOMD0000000719",
+      "BIOMD0000000729",
+      "BIOMD0000000751",
+      "BIOMD0000000758",
+      "BIOMD0000000764",
+      "BIOMD0000000767",
+      "BIOMD0000000771",
+      "BIOMD0000000785",
+      "BIOMD0000000787",
+      "BIOMD0000000799",
+      "BIOMD0000000815",
+      "BIOMD0000000821",
+      "BIOMD0000000845",
+      "BIOMD0000000892",
+      "BIOMD0000000911",
+      "BIOMD0000000912",
+      "BIOMD0000000931",
+      "BIOMD0000000938",
+      "BIOMD0000000960",
+      "BIOMD0000000965",
+      "BIOMD0000001022",
+      "BIOMD0000001024",
+      "BIOMD0000001025",
+      "BIOMD0000001037",
+      "BIOMD0000001038",
+      "BIOMD0000001043",
+      "BIOMD0000001048",
+      "BIOMD0000001055",
+      "BIOMD0000001060"
+     ],
+     "essay_near": {
+      "predicted": 16,
+      "occupied": 8,
+      "cells": {
+       "(0, 0)": 4,
+       "(0, 2)": 2,
+       "(1, 0)": 14,
+       "(1, 2)": 5,
+       "(2, 0)": 2,
+       "(2, 2)": 1,
+       "(3, 0)": 1,
+       "(3, 1)": 1
+      }
+     },
+     "essay_pair": {
+      "predicted": 16,
+      "occupied": 4,
+      "cells": {
+       "(0, 0)": 6,
+       "(1, 0)": 19,
+       "(2, 0)": 3,
+       "(3, 0)": 2
+      },
+      "models with a loop through a paired total": []
+     }
+    }
+   }
+  }
+ },
+ "theorem_checks": {
+  "forced models excluded": 108,
+  "multistable": 15,
+  "multistable without refined positive circuit": [
+   "BIOMD0000000933"
+  ],
+  "oscillating": 45,
+  "oscillating without negative circuit": [
+   "BIOMD0000000657",
+   "BIOMD0000000777",
+   "BIOMD0000000831",
+   "BIOMD0000001080"
+  ]
+ },
+ "paired_totals": {
+  "models with one": [
+   "BIOMD0000000689",
+   "BIOMD0000000690",
+   "BIOMD0000000952"
+  ],
+  "small models with a loop through one": [
+   "BIOMD0000000689",
+   "BIOMD0000000690"
+  ]
+ },
+ "integrators": {
+  "models with any integrating loop (ref24_rank, complete)": 14,
+  "models with complete ref24_rank enumeration": 397
+ },
+ "split": {
+  "rows": {
+   "1": 21,
+   "2": 40,
+   "3": 33
+  },
+  "patterns": {
+   "1": 2,
+   "2": 3,
+   "3": 4
+  },
+  "moved": 45,
+  "clocks without a brake": [
+   "BIOMD0000000777"
+  ],
+  "cells": {
+   "(1, 0)": 10,
+   "(1, 1)": 11,
+   "(2, 0)": 7,
+   "(2, 1)": 30,
+   "(2, 2)": 3,
+   "(3, 0)": 4,
+   "(3, 1)": 18,
+   "(3, 2)": 9,
+   "(3, 3)": 2
+  }
+ },
+ "controls": {
+  "BIOMD0000000429": {
+   "label": "yeast osmoregulation (Schaber 2012)",
+   "expected": true,
+   "status": null,
+   "loops": "over None",
+   "strict_integrators_on_loops": null,
+   "near_integrators": [],
+   "pair_integrators": []
+  },
+  "BIOMD0000000603": {
+   "label": "yeast osmoadaptation (Petelenz-Kurdziel 2013)",
+   "expected": true,
+   "status": null,
+   "loops": "over None",
+   "strict_integrators_on_loops": null,
+   "near_integrators": [],
+   "pair_integrators": []
+  },
+  "BIOMD0000000006": {
+   "label": "cell cycle, two variables (Tyson 1991)",
+   "expected": true,
+   "status": null,
+   "loops": "over None",
+   "strict_integrators_on_loops": null,
+   "near_integrators": [],
+   "pair_integrators": []
+  },
+  "BIOMD0000000312": {
+   "label": "feed-forward adapter, no loop (Tyson 2003)",
+   "expected": false,
+   "status": null,
+   "loops": "over None",
+   "strict_integrators_on_loops": null,
+   "near_integrators": [],
+   "pair_integrators": []
+  },
+  "BIOMD0000000200": {
+   "label": "chemotaxis, receptor complex only (Bray 1995)",
+   "expected": false,
+   "status": null,
+   "loops": "over None",
+   "strict_integrators_on_loops": null,
+   "near_integrators": [],
+   "pair_integrators": []
+  },
+  "BIOMD0000000404": {
+   "label": "chemotaxis, phosphorylation steps only (Bray 1993)",
+   "expected": false,
+   "status": null,
+   "loops": "over None",
+   "strict_integrators_on_loops": null,
+   "near_integrators": [],
+   "pair_integrators": []
+  }
+ }
+}

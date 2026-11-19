@@ -1,0 +1,886 @@
+{
+ "the four": [
+  {
+   "model": "BIOMD0000000159",
+   "name": "Zatorsky2006_p53_Model1",
+   "molecules": [
+    "x",
+    "y",
+    "y0"
+   ],
+   "rates set to zero in the file": [
+    "alpha_x"
+   ],
+   "pushes": [
+    {
+     "pushed rate": "psi",
+     "returning": [
+      "x"
+     ],
+     "exact?": {
+      "settled": true,
+      "rest": {
+       "x": 0.15309310892417358
+      },
+      "moves": {
+       "x": {
+        "0.5": 8.94164994742403e-13,
+        "0.8": 1.806822452879722e-12,
+        "1.2": 1.5029658974887512e-12,
+        "2.0": 1.5336053711528766e-12,
+        "5.0": 1.2690906251412857e-12
+       }
+      },
+      "others move": {
+       "0.5": 0.5000000000005782,
+       "0.8": 0.19999999999927573,
+       "1.2": 0.20000000000177387,
+       "2.0": 1.0000000000029667,
+       "5.0": 4.000000000006207
+      },
+      "largest move": 1.806822452879722e-12,
+      "exact": true,
+      "all that return exactly at 0.8x and 1.2x": [
+       "x"
+      ],
+      "largest move at 0.8x and 1.2x": 1.806822452879722e-12
+     },
+     "the total": {
+      "conservation laws": 0,
+      "totals found": 1,
+      "needed": 1,
+      "totals": [
+       {
+        "combination": {
+         "x": 1.0,
+         "y": -4.898979,
+         "y0": -4.898979
+        },
+        "rate when the returning molecule is 30% off": -0.18000000000116922
+       }
+      ],
+      "held at rest": [
+       "x"
+      ],
+      "free molecules": [
+       "y",
+       "y0"
+      ],
+      "pinned": true
+     },
+     "any rates? zero rates set to 0.0035": {
+      "settled": true,
+      "rest": {
+       "x": 0.15295645122203338
+      },
+      "moves": {
+       "x": {
+        "0.5": 0.0008926436648426404,
+        "0.8": 0.00022323575173332258,
+        "1.2": 0.00014885154833268332,
+        "2.0": 0.0004466211678317688,
+        "5.0": 0.0007146896515190656
+       }
+      },
+      "others move": {
+       "0.5": 0.5004463218318214,
+       "0.8": 0.2001785885984131,
+       "1.2": 0.20017862186253146,
+       "2.0": 1.0008932423418937,
+       "5.0": 4.003573448380643
+      },
+      "largest move": 0.0008926436648426404,
+      "exact": false,
+      "all that return exactly at 0.8x and 1.2x": [],
+      "largest move at 0.8x and 1.2x": 0.00022323575173332258
+     }
+    },
+    {
+     "pushed rate": "alpha_0",
+     "returning": [
+      "x",
+      "y"
+     ],
+     "exact?": {
+      "settled": true,
+      "rest": {
+       "x": 0.15309310892417358,
+       "y": 0.6123724356949138
+      },
+      "moves": {
+       "x": {
+        "0.5": 1.480484863557677e-12,
+        "0.8": 4.317083709409185e-12,
+        "1.2": 1.5200079715977913e-12,
+        "2.0": 1.208174275134504e-12,
+        "5.0": 1.4797596689147392e-12
+       },
+       "y": {
+        "0.5": 1.4491201952548272e-12,
+        "0.8": 4.260881124593888e-12,
+        "1.2": 1.4880994073128513e-12,
+        "2.0": 1.1191566327171336e-12,
+        "5.0": 1.4462194166830672e-12
+       }
+      },
+      "others move": {
+       "0.5": 1.0000000000014928,
+       "0.8": 0.2500000000035724,
+       "1.2": 0.1666666666659994,
+       "2.0": 0.49999999999963385,
+       "5.0": 0.7999999999998587
+      },
+      "largest move": 4.317083709409185e-12,
+      "exact": true,
+      "all that return exactly at 0.8x and 1.2x": [
+       "x",
+       "y"
+      ],
+      "largest move at 0.8x and 1.2x": 4.317083709409185e-12
+     },
+     "the total": {
+      "conservation laws": 0,
+      "totals found": 2,
+      "needed": 2,
+      "totals": [
+       {
+        "combination": {
+         "x": 1.0
+        },
+        "rate when the returning molecule is 30% off": -0.20700000000001587
+       },
+       {
+        "combination": {
+         "y": 1.0,
+         "y0": 1.0
+        },
+        "rate when the returning molecule is 30% off": 2.3580547369290675e-13
+       }
+      ],
+      "held at rest": [
+       "x",
+       "y"
+      ],
+      "free molecules": [
+       "y0"
+      ],
+      "pinned": true
+     },
+     "any rates? zero rates set to 0.0035": {
+      "settled": true,
+      "rest": {
+       "x": 0.15295645122203338,
+       "y": 0.6118258048862962
+      },
+      "moves": {
+       "x": {
+        "0.5": 1.7552143378874398e-11,
+        "0.8": 4.4476002999804756e-12,
+        "1.2": 1.6948423827750976e-13,
+        "2.0": 1.426825016676723e-12,
+        "5.0": 1.4734604012991212e-12
+       },
+       "y": {
+        "0.5": 1.6856241822400124e-11,
+        "0.8": 4.450140748961596e-12,
+        "1.2": 9.073032027731195e-14,
+        "2.0": 1.4745491651468739e-12,
+        "5.0": 1.5064862378844875e-12
+       }
+      },
+      "others move": {
+       "0.5": 0.9999999999942658,
+       "0.8": 0.2500000000049091,
+       "1.2": 0.1666666666677316,
+       "2.0": 0.4999999999989343,
+       "5.0": 0.7999999999995865
+      },
+      "largest move": 1.7552143378874398e-11,
+      "exact": true,
+      "all that return exactly at 0.8x and 1.2x": [
+       "x",
+       "y"
+      ],
+      "largest move at 0.8x and 1.2x": 4.450140748961596e-12
+     }
+    }
+   ],
+   "p53 identity": {
+    "total": "y0 + y - (beta_y / (2 beta_x)) x^2",
+    "rate": "y * ((beta_y alpha_xy / beta_x) x^2 - alpha_y)",
+    "largest relative gap over 200 random states and signals": 0.0,
+    "set point of x": 0.15309310892394862
+   }
+  },
+  {
+   "model": "BIOMD0000000292",
+   "name": "Rovers1995_Photsynthetic_Oscillations",
+   "molecules": [
+    "NADPH",
+    "ATP",
+    "X"
+   ],
+   "rates set to zero in the file": [],
+   "pushes": [
+    {
+     "pushed rate": "k1",
+     "returning": [
+      "NADPH",
+      "ATP"
+     ],
+     "exact?": {
+      "settled": true,
+      "rest": {
+       "NADPH": 0.738545059717698,
+       "ATP": 0.4533333333333335
+      },
+      "moves": {
+       "NADPH": {
+        "0.5": null,
+        "0.8": null,
+        "1.2": 1.5032569915903696e-16,
+        "2.0": null,
+        "5.0": null
+       },
+       "ATP": {
+        "0.5": null,
+        "0.8": null,
+        "1.2": 2.449021377849609e-16,
+        "2.0": null,
+        "5.0": null
+       }
+      },
+      "others move": {
+       "1.2": 0.16666666666666693
+      },
+      "largest move": 2.449021377849609e-16,
+      "exact": true,
+      "all that return exactly at 0.8x and 1.2x": [
+       "ATP",
+       "NADPH"
+      ],
+      "largest move at 0.8x and 1.2x": 2.449021377849609e-16
+     },
+     "the total": {
+      "conservation laws": 0,
+      "totals found": 2,
+      "needed": 2,
+      "totals": [
+       {
+        "combination": {
+         "NADPH": 1.0
+        },
+        "rate when the returning molecule is 30% off": -0.22104000000000004
+       },
+       {
+        "combination": {
+         "ATP": 1.0,
+         "X": -1.0
+        },
+        "rate when the returning molecule is 30% off": -0.4616551400651468
+       }
+      ],
+      "held at rest": [
+       "NADPH",
+       "ATP"
+      ],
+      "free molecules": [
+       "X"
+      ],
+      "pinned": true
+     }
+    },
+    {
+     "pushed rate": "k2",
+     "returning": [
+      "ATP"
+     ],
+     "exact?": {
+      "settled": true,
+      "rest": {
+       "ATP": 0.4533333333333335
+      },
+      "moves": {
+       "ATP": {
+        "0.5": null,
+        "0.8": 7.347064133548828e-16,
+        "1.2": 6.122553444624023e-16,
+        "2.0": null,
+        "5.0": null
+       }
+      },
+      "others move": {
+       "0.8": 0.19999999999999968,
+       "1.2": 0.19999999999999918
+      },
+      "largest move": 7.347064133548828e-16,
+      "exact": true,
+      "all that return exactly at 0.8x and 1.2x": [
+       "ATP"
+      ],
+      "largest move at 0.8x and 1.2x": 7.347064133548828e-16
+     },
+     "the total": {
+      "conservation laws": 0,
+      "totals found": 1,
+      "needed": 1,
+      "totals": [
+       {
+        "combination": {
+         "NADPH": 2.0,
+         "ATP": -1.0,
+         "X": 1.0
+        },
+        "rate when the returning molecule is 30% off": 0.037654723127035945
+       }
+      ],
+      "held at rest": [
+       "ATP"
+      ],
+      "free molecules": [
+       "NADPH",
+       "X"
+      ],
+      "pinned": true
+     }
+    }
+   ]
+  },
+  {
+   "model": "BIOMD0000000325",
+   "name": "Palini2011_Minimal_2_Feedback_Model",
+   "molecules": [
+    "R",
+    "C",
+    "I",
+    "X",
+    "A"
+   ],
+   "rates set to zero in the file": [],
+   "pushes": [
+    {
+     "pushed rate": "KD",
+     "returning": [
+      "I"
+     ],
+     "exact?": {
+      "settled": true,
+      "rest": {
+       "I": 3.3352472345906894
+      },
+      "moves": {
+       "I": {
+        "0.5": 0.001690982361016086,
+        "0.8": 0.0007692327760676366,
+        "1.2": 0.000942073868579681,
+        "2.0": 0.008632332611474341,
+        "5.0": 0.7373913797950623
+       }
+      },
+      "others move": {
+       "0.5": 0.25402724752460387,
+       "0.8": 0.10170797106687046,
+       "1.2": 0.10188862815567572,
+       "2.0": 0.5135376102763022,
+       "5.0": 0.9992177293783532
+      },
+      "largest move": 0.7373913797950623,
+      "exact": false,
+      "all that return exactly at 0.8x and 1.2x": [],
+      "largest move at 0.8x and 1.2x": 0.000942073868579681
+     },
+     "the total": {
+      "conservation laws": 0,
+      "totals found": 0,
+      "needed": 1,
+      "totals": [],
+      "held at rest": [
+       "I"
+      ],
+      "free molecules": [
+       "R",
+       "C",
+       "X",
+       "A"
+      ],
+      "pinned": false
+     }
+    }
+   ]
+  },
+  {
+   "model": "BIOMD0000000413",
+   "name": "Band2012_DII-Venus_FullModel",
+   "molecules": [
+    "auxin",
+    "TIR1",
+    "auxinTIR1",
+    "auxinTIR1VENUS",
+    "VENUS"
+   ],
+   "rates set to zero in the file": [],
+   "pushes": [
+    {
+     "pushed rate": "ld",
+     "returning": [
+      "auxinTIR1"
+     ],
+     "exact?": {
+      "settled": true,
+      "rest": {
+       "auxinTIR1": 1.3730309995657692
+      },
+      "moves": {
+       "auxinTIR1": {
+        "0.5": 0.004143371918321773,
+        "0.8": 0.001629074880094452,
+        "1.2": 0.0015930368540120897,
+        "2.0": 0.007630474539537881,
+        "5.0": 0.026444920911176947
+       }
+      },
+      "others move": {
+       "0.5": 0.46613114637926584,
+       "0.8": 0.18327163439413438,
+       "1.2": 0.17921733795627867,
+       "2.0": 0.8584317050904903,
+       "5.0": 2.9750651099531864
+      },
+      "largest move": 0.026444920911176947,
+      "exact": false,
+      "all that return exactly at 0.8x and 1.2x": [
+       "auxin"
+      ],
+      "largest move at 0.8x and 1.2x": 0.001629074880094452
+     },
+     "the total": {
+      "conservation laws": 1,
+      "totals found": 0,
+      "needed": 1,
+      "totals": [],
+      "held at rest": [
+       "auxinTIR1"
+      ],
+      "free molecules": [
+       "auxin",
+       "TIR1",
+       "auxinTIR1VENUS",
+       "VENUS"
+      ],
+      "pinned": true
+     }
+    },
+    {
+     "pushed rate": "la",
+     "returning": [
+      "auxinTIR1"
+     ],
+     "exact?": {
+      "settled": true,
+      "rest": {
+       "auxinTIR1": 1.3730309995657692
+      },
+      "moves": {
+       "auxinTIR1": {
+        "0.5": 0.007911769259328535,
+        "0.8": 0.0020621177448134683,
+        "1.2": 0.0014083303847915402,
+        "2.0": 0.004309733469775897,
+        "5.0": 0.007023046086957955
+       }
+      },
+      "others move": {
+       "0.5": 0.8900774834422363,
+       "0.8": 0.2319891423120502,
+       "1.2": 0.15843778259581778,
+       "2.0": 0.4848468916379275,
+       "5.0": 0.7900957426065532
+      },
+      "largest move": 0.007911769259328535,
+      "exact": false,
+      "all that return exactly at 0.8x and 1.2x": [
+       "auxin"
+      ],
+      "largest move at 0.8x and 1.2x": 0.0020621177448134683
+     },
+     "the total": {
+      "conservation laws": 1,
+      "totals found": 0,
+      "needed": 1,
+      "totals": [],
+      "held at rest": [
+       "auxinTIR1"
+      ],
+      "free molecules": [
+       "auxin",
+       "TIR1",
+       "auxinTIR1VENUS",
+       "VENUS"
+      ],
+      "pinned": true
+     }
+    }
+   ],
+   "leak test, lambda set to 0": [
+    {
+     "pushed rate": "ld",
+     "returning": [
+      "TIR1",
+      "auxin",
+      "auxinTIR1",
+      "auxinTIR1VENUS"
+     ],
+     "exact?": {
+      "settled": true,
+      "rest": {
+       "auxinTIR1": 1.3608263268203913
+      },
+      "moves": {
+       "auxinTIR1": {
+        "0.5": 1.428462585933459e-11,
+        "0.8": 1.4839073956541956e-11,
+        "1.2": 1.5259397175613816e-11,
+        "2.0": 1.5021660013273873e-11,
+        "5.0": 1.54403515428307e-11
+       }
+      },
+      "others move": {
+       "0.5": 0.4812433012402455,
+       "0.8": 0.19249732056608912,
+       "1.2": 0.19249732033051412,
+       "2.0": 0.9624866021258185,
+       "5.0": 3.8499464088599638
+      },
+      "largest move": 1.54403515428307e-11,
+      "exact": true,
+      "all that return exactly at 0.8x and 1.2x": [
+       "TIR1",
+       "auxin",
+       "auxinTIR1",
+       "auxinTIR1VENUS"
+      ],
+      "largest move at 0.8x and 1.2x": 1.5259397175613816e-11
+     },
+     "the total": {
+      "conservation laws": 1,
+      "totals found": 3,
+      "needed": 4,
+      "totals": [
+       {
+        "combination": {
+         "auxin": 1.0
+        },
+        "rate when the returning molecule is 30% off": -9.327261237325782
+       },
+       {
+        "combination": {
+         "TIR1": 1.0,
+         "auxinTIR1VENUS": -1.0,
+         "VENUS": -1.0
+        },
+        "rate when the returning molecule is 30% off": -0.03146123721419755
+       },
+       {
+        "combination": {
+         "auxinTIR1": 1.0,
+         "auxinTIR1VENUS": -1.0,
+         "VENUS": -2.0
+        },
+        "rate when the returning molecule is 30% off": 0.4688612374695846
+       }
+      ],
+      "held at rest": [
+       "TIR1",
+       "auxin",
+       "auxinTIR1",
+       "auxinTIR1VENUS"
+      ],
+      "free molecules": [
+       "VENUS"
+      ],
+      "pinned": true
+     }
+    },
+    {
+     "pushed rate": "la",
+     "returning": [
+      "TIR1",
+      "auxin",
+      "auxinTIR1",
+      "auxinTIR1VENUS"
+     ],
+     "exact?": {
+      "settled": true,
+      "rest": {
+       "auxinTIR1": 1.3608263268203913
+      },
+      "moves": {
+       "auxinTIR1": {
+        "0.5": 1.9366686022848612e-11,
+        "0.8": 1.5075505767269877e-11,
+        "1.2": 3.431589902165513e-11,
+        "2.0": 4.669634321694912e-11,
+        "5.0": 1.7136166455801907e-11
+       }
+      },
+      "others move": {
+       "0.5": 0.9999999999503433,
+       "0.8": 0.24999999985188112,
+       "1.2": 0.16666666683473896,
+       "2.0": 0.5000000000555823,
+       "5.0": 0.8000000000229395
+      },
+      "largest move": 4.669634321694912e-11,
+      "exact": true,
+      "all that return exactly at 0.8x and 1.2x": [
+       "TIR1",
+       "auxin",
+       "auxinTIR1",
+       "auxinTIR1VENUS"
+      ],
+      "largest move at 0.8x and 1.2x": 3.431589902165513e-11
+     },
+     "the total": {
+      "conservation laws": 1,
+      "totals found": 3,
+      "needed": 4,
+      "totals": [
+       {
+        "combination": {
+         "auxin": 1.0
+        },
+        "rate when the returning molecule is 30% off": -9.327261237325782
+       },
+       {
+        "combination": {
+         "TIR1": 1.0,
+         "auxinTIR1VENUS": -1.0,
+         "VENUS": -1.0
+        },
+        "rate when the returning molecule is 30% off": -0.03146123721415428
+       },
+       {
+        "combination": {
+         "auxinTIR1": 1.0,
+         "auxinTIR1VENUS": -1.0,
+         "VENUS": -2.0
+        },
+        "rate when the returning molecule is 30% off": 0.46886123746963176
+       }
+      ],
+      "held at rest": [
+       "TIR1",
+       "auxin",
+       "auxinTIR1",
+       "auxinTIR1VENUS"
+      ],
+      "free molecules": [
+       "VENUS"
+      ],
+      "pinned": true
+     }
+    }
+   ]
+  }
+ ],
+ "all robust returns": [
+  {
+   "model": "BIOMD0000000009",
+   "name": "Huang1996 - Ultrasensitivity in MAPK cascade",
+   "loops": 20,
+   "largest move at 0.8x and 1.2x": 0.002170829792194459,
+   "exact": false,
+   "kind": "within 0.5%",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000048",
+   "name": "Kholodenko1999 - EGFR signaling",
+   "loops": null,
+   "largest move at 0.8x and 1.2x": 0.0024620180953034486,
+   "exact": false,
+   "kind": "within 0.5%",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000063",
+   "name": "Galazzo1990_FermentationPathwayKinetics",
+   "loops": 15,
+   "largest move at 0.8x and 1.2x": 3.9376337475244573e-16,
+   "exact": true,
+   "kind": "exact",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000064",
+   "name": "Teusink2000_Glycolysis",
+   "loops": 91,
+   "largest move at 0.8x and 1.2x": 0.0,
+   "exact": false,
+   "kind": "unread",
+   "note": "baseline did not settle"
+  },
+  {
+   "model": "BIOMD0000000065",
+   "name": "Yildirim2003_Lac_Operon",
+   "loops": 4,
+   "largest move at 0.8x and 1.2x": 0.0003056764685368933,
+   "exact": false,
+   "kind": "within 0.5%",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000159",
+   "name": "Zatorsky2006_p53_Model1",
+   "loops": 1,
+   "largest move at 0.8x and 1.2x": 4.317083709409185e-12,
+   "exact": true,
+   "kind": "exact",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000218",
+   "name": "Singh2006_TCA_mtu_model2",
+   "loops": 9,
+   "largest move at 0.8x and 1.2x": 0.1247092583815204,
+   "exact": false,
+   "kind": "moves more than 0.5%",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000232",
+   "name": "Nazaret2009_TCA_RC_ATP",
+   "loops": 41,
+   "largest move at 0.8x and 1.2x": 5.198288076781557e-16,
+   "exact": true,
+   "kind": "exact",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000245",
+   "name": "Lei2001_Yeast_Aerobic_Metabolism",
+   "loops": 286,
+   "largest move at 0.8x and 1.2x": 6.2191740404521155e-12,
+   "exact": true,
+   "kind": "exact",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000249",
+   "name": "Restif2006 - Whooping cough",
+   "loops": 13,
+   "largest move at 0.8x and 1.2x": 5.025503267638925e-05,
+   "exact": false,
+   "kind": "within 0.5%",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000253",
+   "name": "Teusink1998_Glycolysis_TurboDesign",
+   "loops": 6,
+   "largest move at 0.8x and 1.2x": 3.053900245919443e-15,
+   "exact": true,
+   "kind": "exact",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000292",
+   "name": "Rovers1995_Photsynthetic_Oscillations",
+   "loops": 2,
+   "largest move at 0.8x and 1.2x": 7.347064133548828e-16,
+   "exact": true,
+   "kind": "exact",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000325",
+   "name": "Palini2011_Minimal_2_Feedback_Model",
+   "loops": 3,
+   "largest move at 0.8x and 1.2x": 0.000942073868579681,
+   "exact": false,
+   "kind": "within 0.5%",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000341",
+   "name": "Topp2000_BetaCellMass_Diabetes",
+   "loops": 4,
+   "largest move at 0.8x and 1.2x": 6.725997536705258e-13,
+   "exact": true,
+   "kind": "exact",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000347",
+   "name": "Bachmann2011_JAK2-STAT5_FeedbackControl",
+   "loops": 238,
+   "largest move at 0.8x and 1.2x": 8.838075726398839e-12,
+   "exact": true,
+   "kind": "exact",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000379",
+   "name": "DallaMan2007_MealModel_GlucoseInsulinSystem",
+   "loops": 12,
+   "largest move at 0.8x and 1.2x": 3.0956440108421005e-10,
+   "exact": true,
+   "kind": "exact",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000409",
+   "name": "Queralt2006_MitoticExit_Cdc55DownregulationBySeparase",
+   "loops": 36,
+   "largest move at 0.8x and 1.2x": 0.0048219475678140476,
+   "exact": false,
+   "kind": "within 0.5%",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000413",
+   "name": "Band2012_DII-Venus_FullModel",
+   "loops": 1,
+   "largest move at 0.8x and 1.2x": 0.0020621177448134683,
+   "exact": false,
+   "kind": "within 0.5%",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000457",
+   "name": "Firczuk2013 - Eukaryotic mRNA translation machinery",
+   "loops": null,
+   "largest move at 0.8x and 1.2x": 0.0,
+   "exact": false,
+   "kind": "unread",
+   "note": "baseline did not settle"
+  },
+  {
+   "model": "BIOMD0000000503",
+   "name": "Messiha2013 - combined glycolysis and pentose phosphate pathway model",
+   "loops": null,
+   "largest move at 0.8x and 1.2x": 1.8132805938861704e-05,
+   "exact": false,
+   "kind": "within 0.5%",
+   "note": ""
+  },
+  {
+   "model": "BIOMD0000000510",
+   "name": "Kerkhoven2013 - Glycolysis and Pentose Phosphate Pathway in T.brucei - MODEL C (with glucosomal ribokinase)",
+   "loops": null,
+   "largest move at 0.8x and 1.2x": 0.0,
+   "exact": false,
+   "kind": "unread",
+   "note": "baseline did not settle"
+  },
+  {
+   "model": "BIOMD0000000638",
+   "name": "Bush2016 - Extended Carrousel model of GPCR-RGS",
+   "loops": null,
+   "largest move at 0.8x and 1.2x": 0.004038805251157336,
+   "exact": false,
+   "kind": "within 0.5%",
+   "note": ""
+  }
+ ]
+}

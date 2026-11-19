@@ -72,9 +72,16 @@ ALIASES = {}
 
 # Figure numbers in the merged page for the figures that come from the census build.
 # The essay's own captions sit outside the gen: markers and are numbered by hand (10, 11 and 22 since the question chapter, 2026-11-10; the essay's own caption sits outside gen:next).
-FIG = {'Figure 5. The periodic table of loops.': 'Figure 10. The periodic table of loops.',
-       'Figure 6. The data.': 'Figure 11. The data.',
-       'Figure 7. The research loop.': 'Figure 22. The research loop.'}
+# essay numbering since 2026-11-19: main read 1 to 16 in reading order, folded figures S1 to S17
+FIG = {'Figure 5. The periodic table of loops.': 'Figure 6. The periodic table of loops.',
+       'Figure 6. The data.': 'Figure 8. The data.',
+       'Figure 7. The research loop.': 'Figure S8. The research loop.',
+       'Figure S1. Element tiles.': 'Figure S10. Element tiles.',
+       'Figure S4. From circuit to model.': 'Figure 7. One published model.',  # moved by hand to #fig-model; delete the supplement copy after a rerun
+       'Figure S5. Out and back': 'Figure S11. Out and back', 'Figure S6. One model through': 'Figure S12. One model through',
+       'Figure S7. Answer key.': 'Figure S13. Answer key.', 'Figure S8. Loops per model.': 'Figure S14. Loops per model.',
+       'Figure S9. Behaviour by sign': 'Figure S15. Behaviour by sign', 'Figure S10. The coastline': 'Figure S16. The coastline',
+       'Figure S11. The data pipeline.': 'Figure S17. The data pipeline.'}
 
 CSS_WANT = ['.pt-', '.ptable', '.ecard', '.rc-', '.refcard', '.tile', '.tiles', '.cards', '.card', '.summary-cards', '.f-', '.explorer',
             '.ex-', 'ol.ex-list', '#ex-q', '.pick', '.sl-', '.sn', '.sp', '.solo', '.bars', '.grid-fig', '.grid-key', '.rows-grid', '.quad',
@@ -466,20 +473,36 @@ def main():
             '.pt-sym, .tile .sym, .ecard h3, .pt-el .pt-sym, .card h3, .f-panel, .ex-name, details.supp > summary, .text h3 { font-family: var(--sans); }\n'
             '.text table.key td:nth-child(2) { white-space: normal; }\n')
 
+    # 2026-11-19: Figure 8 is a hand-written pipeline diagram (#pf) in front of gen:data, with a card per step and its
+    # script; the funnel and its script leave the block, and Figure S17 (the same steps as a list) leaves the supplement.
+    def strip_funnel(h):
+        f = div_block(h, '<div class="interactive" id="funnel">')
+        i = h.index(f)
+        j = h.index('</script>', i) + len('</script>')
+        return h[:i] + h[j:].lstrip('\n')
+
+    def strip_s17(h):
+        i = h.index('Figure S17. The data pipeline.')
+        j = h.rfind('<figure class="fig">', 0, i)
+        k = h.index('</figure>', i) + len('</figure>')
+        return h[:j] + h[k:]
+
     blocks = {
         'css-census': '<style>\n' + css + '\n</style>',
         'elcard': elcard,
         'orbitals': TF.fig_orbitals(),
         'ptable': clean(inner(ptable)),
-        'data': clean(inner(datafig)),
-        'cards': '<figure class="fig" id="fig-score">\n' + scorecard(post) + '\n<figcaption><b>The scorecard.</b> The first two findings, then two claims of the table. Each dot is one model or one family of models.</figcaption>\n</figure>',
+        'data': strip_funnel(clean(inner(datafig))),
+        # 'cards' (the scorecard) retired 2026-11-19: chapter 07's method table (#fig-method) replaces it
         'truth': truth_supp(lambda n: f'<span class="cite">[{n}]</span>'),
-        'next': clean(inner(nextfig)).replace('; test nesting order as a fourth count.', '. Look for a yes-or-no property of each loop that would double every row; speed order, tested below, does not.')
-                                     .replace('for example antithetic controllers in element 3.', 'for example running totals made of two molecules that destroy each other, in element 3.')
-                                     .replace('Benchmark running-total detectors on models with known answers', 'Trace by hand the four exact returns the loop reading missed, test the ways of reading running totals on models with known answers'),
+        # 'next' (Figure S8's ring) retired 2026-11-19: Figure 14 draws the method loop, and #fig-next is a hand-written
+        # table of the next lap, keyed to its stages. The old replacements are kept below, commented, for the record.
+        # 'next': clean(inner(nextfig)).replace('; test nesting order as a fourth count.', '. Look for a yes-or-no property of each loop that would double every row; speed order, tested below, does not.')
+        # .replace('for example antithetic controllers in element 3.', 'for example running totals made of two molecules that destroy each other, in element 3.')
+        # .replace('Benchmark running-total detectors on models with known answers', 'Trace by hand the four exact returns the loop reading missed, test the ways of reading running totals on models with known answers'),
         'nesting': nesting_figure()[0],
         'morph': LM.fig_morph(),
-        'supp': clean(supp),
+        'supp': strip_s17(clean(supp)),
         'refs-extra': '\n'.join(f'<li>{li}</li>' for k, li in extras),
     }
     for name, body in blocks.items():

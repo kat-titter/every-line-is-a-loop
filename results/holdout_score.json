@@ -1,0 +1,297 @@
+{
+ "funnel": {
+  "listed": 435,
+  "downloaded": 435,
+  "structure records": 435,
+  "read as equations": 412,
+  "every loop listed": 397,
+  "one to three loops": 110,
+  "run on their own": 302,
+  "match a behaviour label": 278,
+  "atlas read": 206,
+  "atlas filed": 191,
+  "structure status": {
+   "ok": 412,
+   "no influence arcs": 22,
+   "error": 1
+  },
+  "atlas status": {
+   "ok": 206,
+   "baseline unbounded": 51,
+   "baseline unsettled": 7,
+   "still drifting after the step": 5,
+   "baseline failed": 5,
+   "no parameter could be stepped": 4
+  }
+ },
+ "sign rules": {
+  "n": 278,
+  "clocks": 45,
+  "switches": 15,
+  "candidate exceptions": [
+   {
+    "model": "BIOMD0000000657",
+    "name": "Araujo2016 - Positive feedback in Cdk1 signalling keeps mito",
+    "rule": "ticks with no brake"
+   },
+   {
+    "model": "BIOMD0000000777",
+    "name": "Chakrabarty2010 - A control theory approach to cancer remiss",
+    "rule": "ticks with no brake"
+   },
+   {
+    "model": "BIOMD0000000831",
+    "name": "Smith1980 - Hypothalamic Regulation",
+    "rule": "ticks with no brake"
+   },
+   {
+    "model": "BIOMD0000001080",
+    "name": "DeBoeck2021 - Modular approach to modeling the cell cycle, 5",
+    "rule": "ticks with no brake"
+   },
+   {
+    "model": "BIOMD0000000933",
+    "name": "Kosiuk2015-Geometric analysis of the Goldbeter minimal model",
+    "rule": "two states with no self-feeding loop"
+   }
+  ],
+  "verdict": "CANDIDATES: hand check each model before calling it"
+ },
+ "strength": {
+  "rings read": 5,
+  "single as drawn": 5,
+  "misses (ticks at or below floor)": [],
+  "calm above floor (allowed, reported)": [],
+  "misses counting rings the filters leave": [],
+  "unread rings": [],
+  "verdict": "PASS"
+ },
+ "six answers": {
+  "rows": {
+   "ticks": 39,
+   "remembers": 7,
+   "returns exactly": 33,
+   "returns partly": 7,
+   "rings": 9,
+   "follows": 96,
+   "flat": 15
+  },
+  "filed": 191,
+  "follows share": 0.5026,
+  "release 31 follows share": 0.4066,
+  "twenty for the blind read": [
+   {
+    "model": "BIOMD0000000772",
+    "name": "Wang2019 - A mathematical model of oncolytic virotherapy wit"
+   },
+   {
+    "model": "BIOMD0000000774",
+    "name": "Wodarz2018/1 - simple model"
+   },
+   {
+    "model": "BIOMD0000000940",
+    "name": "Tang2019 - Pharmacology modelling of AURKB and ZAK interacti"
+   },
+   {
+    "model": "BIOMD0000000855",
+    "name": "Cooper2015 - Modeling the effects of systemic mediators on t"
+   },
+   {
+    "model": "BIOMD0000000807",
+    "name": "Fassoni2019 - Oncogenesis encompassing mutations and genetic"
+   },
+   {
+    "model": "BIOMD0000000887",
+    "name": "Lim2014 - HTLV-I infection A dynamic struggle between viral "
+   },
+   {
+    "model": "BIOMD0000000946",
+    "name": "Evans2005 - Compartmental model for antineoplastic drug topo"
+   },
+   {
+    "model": "BIOMD0000000804",
+    "name": "Koenders2015 - multiple myeloma"
+   },
+   {
+    "model": "BIOMD0000000909",
+    "name": "dePillis2003 - The dynamics of an optimally controlled tumor"
+   },
+   {
+    "model": "BIOMD0000000643",
+    "name": "Musante2017 - Switching behaviour of PP2A inhibition by ARPP"
+   },
+   {
+    "model": "BIOMD0000000768",
+    "name": "Eftimie2010 - immunity to melanoma"
+   },
+   {
+    "model": "BIOMD0000001037",
+    "name": "Alharbi2019 - Tumor-normal model (TNM) of the development of"
+   },
+   {
+    "model": "BIOMD0000000642",
+    "name": "Mufudza2012 - Estrogen effect on the dynamics of breast canc"
+   },
+   {
+    "model": "BIOMD0000000898",
+    "name": "Jiao2018 - Feedback regulation in a stem cell model with acu"
+   },
+   {
+    "model": "BIOMD0000000929",
+    "name": "Li2016 - Model for pancreatic cancer patients receiving immu"
+   },
+   {
+    "model": "BIOMD0000000821",
+    "name": "Yazdjer2019 - reinforcement learning-based control of tumor "
+   },
+   {
+    "model": "BIOMD0000000784",
+    "name": "Lopez2014 - A Validated Mathematical Model of Tumor Growth I"
+   },
+   {
+    "model": "BIOMD0000000908",
+    "name": "dePillis2013 - Mathematical modeling of regulatory T cell ef"
+   },
+   {
+    "model": "BIOMD0000000867",
+    "name": "Coulibaly2019 - Interleukin-15 Signaling in HIF-1a Regulatio"
+   },
+   {
+    "model": "BIOMD0000000907",
+    "name": "HeberleRazquinNavas2019 - The PI3K and MAPK/p38 pathways con"
+   }
+  ],
+  "blind read": "not done: a person reads the traces",
+  "verdict (catch-all half)": "FAIL"
+ },
+ "blank squares": {
+  "squares filled in the hold-out (loops, brakes, totals)": {
+   "(1, 0, 0)": 33,
+   "(1, 1, 0)": 12,
+   "(2, 0, 0)": 13,
+   "(2, 1, 0)": 17,
+   "(2, 1, 1)": 2,
+   "(2, 2, 0)": 3,
+   "(3, 0, 0)": 6,
+   "(3, 1, 0)": 19,
+   "(3, 2, 0)": 3,
+   "(3, 3, 0)": 2
+  },
+  "running-total squares filled": {
+   "(2, 1, 1)": 2
+  },
+  "newly filled, empty in release 31": {},
+  "kinds of behaviour against squares, by row": {
+   "1": [
+    9,
+    4
+   ],
+   "2": [
+    5,
+    9
+   ],
+   "3": [
+    8,
+    16
+   ]
+  },
+  "models per row": {
+   "1": 45,
+   "2": 35,
+   "3": 30
+  },
+  "verdict": "FAIL",
+  "why": "no running-total square newly filled"
+ },
+ "the address": {
+  "n": 51,
+  "squares": 10,
+  "chance": 0.4314,
+  "accuracy": {
+   "sign": 0.5098,
+   "address": 0.3922,
+   "size": 0.5686
+  },
+  "p": 0.8402,
+  "fails": {
+   "a_p_at_least_0.05": true,
+   "b_lead_over_sign_under_5_points": true,
+   "c_size_does_as_well": true
+  },
+  "verdict": "FAIL",
+  "first form void": true,
+  "first form": {
+   "accuracy": {
+    "sign": 0.5294,
+    "address": 0.4706,
+    "size": 0.5686
+   },
+   "p": 0.5387,
+   "rule breakers": 1
+  },
+  "with loop-free models": {
+   "n": 66,
+   "accuracy": {
+    "sign": 0.5606,
+    "address": 0.4697,
+    "size": 0.6061
+   },
+   "p": 0.8257,
+   "fails": {
+    "a_p_at_least_0.05": true,
+    "b_lead_over_sign_under_5_points": true,
+    "c_size_does_as_well": true
+   }
+  },
+  "control should fail": "FAIL",
+  "control should pass": {
+   "scope": "sign bits, zero to three loops",
+   "n": 66,
+   "chance": 0.5,
+   "accuracy": 0.5606,
+   "p": 0.0256,
+   "verdict": "PASS"
+  }
+ },
+ "exact returns": {
+  "exact": 39,
+  "robust": 28,
+  "robust in rows one to three": [
+   {
+    "model": "BIOMD0000000707",
+    "name": "Revilla2003 - Controlling HIV infection using recombinant viruses",
+    "running_totals": 0
+   },
+   {
+    "model": "BIOMD0000000782",
+    "name": "Wang2016/3 - oncolytic efficacy of M1 virus-SN model",
+    "running_totals": 0
+   },
+   {
+    "model": "BIOMD0000000892",
+    "name": "Sandip2013 - Modeling the dynamics of hepatitis C virus with combined antiviral drug therapy: interferon and ribavirin.",
+    "running_totals": 0
+   },
+   {
+    "model": "BIOMD0000000911",
+    "name": "Merola2008 - An insight into tumor dormancy equilibrium via the analysis of its domain of attraction",
+    "running_totals": 0
+   },
+   {
+    "model": "BIOMD0000000979",
+    "name": "Malkov2020 - SEIRS model of COVID-19 transmission with reinfection",
+    "running_totals": 0
+   },
+   {
+    "model": "BIOMD0000001038",
+    "name": "Alharbi2019 - Tumor-normal-vitamins model (TNVM) of the effects of vitamins on delaying the growth of tumor cells",
+    "running_totals": 0
+   },
+   {
+    "model": "BIOMD0000001055",
+    "name": "Jeon2018 - Enzyme clustering in Glucose metabolism",
+    "running_totals": 0
+   }
+  ]
+ }
+}

@@ -459,7 +459,7 @@ def fig_switch():
     ctl = ('<div class="ctl"><label for="sw-L">lactose outside</label>'
            f'<input id="sw-L" type="range" min="0" max="150" value="{int(SW["L0"] * 100)}" aria-label="Lactose outside the cell" style="--p: {SW["L0"] / 1.5 * 100:.0f}%">'
            f'<output for="sw-L" id="sw-Lv">{SW["L0"]:.2f}</output></div>')
-    chain = chain_html('self-feeding', 'two states, if strong enough', 'remember food that lasts', brakes=0, fn='remember', trace='holds two states')
+    chain = chain_html('self-feeding', 'two states, if strong enough', 'copies food that lasts', brakes=0, fn='remember', trace='holds two states')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -524,7 +524,7 @@ def fig_clock():
     ctl = ('<div class="ctl"><label for="ck-D">the extra wait</label>'
            f'<input id="ck-D" type="range" min="0" max="{int(CK["Dmax"] * 10)}" value="{int(CK["D"] * 10)}" aria-label="Extra delay before PER:CRY acts, in hours" style="--p: 75%">'
            f'<output for="ck-D" id="ck-Dv">{CK["D"]:.1f} h</output></div>')
-    chain = chain_html('brake', 'ticks, if strong and late', 'keep the day&#8217;s time', brakes=1, fn='time', trace='ticks')
+    chain = chain_html('brake', 'ticks, if strong and late', 'copies the day', brakes=1, fn='time', trace='ticks')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -595,7 +595,7 @@ def fig_adapter():
            f'<input id="ad-L" type="range" min="0" max="{int(AD["Lmax"] * 10)}" value="{int(AD["step"] * 10)}" aria-label="Food outside the cell" style="--p: 50%">'
            f'<output for="ad-L" id="ad-Lv">{AD["step"]:.1f}</output>'
            '<button type="button" class="chip tog" id="ad-leak" aria-pressed="false">let the total leak</button></div>')
-    chain = chain_html('brake, running total', 'returns exactly, at any strength', 'steer by change, not level', brakes=1, integ=True, fn='steer', trace='adapts exactly')
+    chain = chain_html('brake, running total', 'returns exactly, at any strength', 'copies the background', brakes=1, integ=True, fn='steer', trace='adapts exactly')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -613,12 +613,12 @@ def circuit_hypo():
     s += label(185, 195, '+', size=16, fill='var(--accent-text)', extra=' font-weight="600"')
     s += mono(20, 276, '1 loop  0 brakes  1 running total', size=12, fill='var(--ink)')
     return pane(s, PW, PH, 'A hypothetical element: a pulse feeds a running total, and the running total feeds an amplifying '
-                'loop of A and B, the switch of Figure 6 with the total in place of lactose.', ' data-sim="hy"')
+                'loop of A and B, the switch of Figure 2 with the total in place of lactose.', ' data-sim="hy"')
 
 
 def recipe_hypo():
     rows = (('input', 'a pulse of height 0.2 for T hours'), ('running total', 'dose = 0.2 &#215; T, never forgotten'),
-            ('switch', 'the lac loop of Figure 6, fed the dose'), ('flips when', f'dose passes {sw_thresholds()[1]:.2f}, the lac switch\'s own threshold'),
+            ('switch', 'the lac loop of Figure 2, fed the dose'), ('flips when', f'dose passes {sw_thresholds()[1]:.2f}, the lac switch\'s own threshold'),
             ('never matters', 'how high the pulse was'))
     s = ''
     for i, (k, v) in enumerate(rows):
@@ -650,7 +650,7 @@ def fig_hypo():
            f'<input id="hy-T" type="range" min="0" max="{int(HY["Tmax"] * 10)}" value="{int(HY["T"] * 10)}" aria-label="Length of the input pulse, in hours" style="--p: {HY["T"] / HY["Tmax"] * 100:.0f}%">'
            f'<output for="hy-T" id="hy-Tv">{HY["T"]:.1f} h</output>'
            '<button type="button" class="chip tog" id="hy-x2" aria-pressed="false">twice the height, half the length</button></div>')
-    chain = chain_html('self-feeding, running total', 'flips once enough adds up', 'judge a signal by its total', brakes=0, integ=True, fn='remember', trace='adds up, commits')
+    chain = chain_html('self-feeding, running total', 'flips once enough adds up', 'copies a pulse&#8217;s dose', brakes=0, integ=True, fn='remember', trace='adds up, commits')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 

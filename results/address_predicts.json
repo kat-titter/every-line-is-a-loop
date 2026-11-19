@@ -1,0 +1,586 @@
+{
+ "protocol_fixed": "2026-11-16, before any address-by-answer table was read",
+ "shuffles": 10000,
+ "seed": 20261116,
+ "row_totals_match_atlas": true,
+ "filed_models": 273,
+ "with_address": 112,
+ "primary": {
+  "scope": "one to three loops",
+  "sign_bits": "after the loop filters (the address)",
+  "n": 88,
+  "distinct_addresses": 11,
+  "sign_strata": 3,
+  "size_bins": 4,
+  "chance": 0.5455,
+  "accuracy": {
+   "sign": 0.5795,
+   "address": 0.5682,
+   "size": 0.5341
+  },
+  "null_address_accuracy": {
+   "median": 0.5568,
+   "p95": 0.6023
+  },
+  "p": 0.4651,
+  "cond_mi_bits": 0.2428,
+  "p_cond_mi": 0.5252,
+  "fails": {
+   "a_p_at_least_0.05": true,
+   "b_lead_over_sign_under_5_points": true,
+   "c_size_does_as_well": false
+  },
+  "verdict": "FAIL",
+  "rule_breakers": [
+   "BIOMD0000000039",
+   "BIOMD0000000045",
+   "BIOMD0000000098",
+   "BIOMD0000000114",
+   "BIOMD0000000115",
+   "BIOMD0000000166",
+   "BIOMD0000000184",
+   "BIOMD0000000225",
+   "BIOMD0000000236",
+   "BIOMD0000000319"
+  ],
+  "answers": {
+   "ticks": 48,
+   "follows": 23,
+   "returns exactly": 7,
+   "returns partly": 1,
+   "remembers": 4,
+   "rings": 5
+  },
+  "table": {
+   "1 loops, 0 brakes, 0 totals": {
+    "ticks": 7,
+    "remembers": 3,
+    "returns exactly": 1,
+    "follows": 11
+   },
+   "1 loops, 1 brakes, 0 totals": {
+    "ticks": 7,
+    "returns exactly": 1,
+    "rings": 2,
+    "follows": 2
+   },
+   "2 loops, 0 brakes, 0 totals": {
+    "ticks": 3,
+    "rings": 1,
+    "follows": 1
+   },
+   "2 loops, 1 brakes, 0 totals": {
+    "ticks": 13,
+    "remembers": 1,
+    "returns exactly": 1,
+    "rings": 1,
+    "follows": 2
+   },
+   "2 loops, 1 brakes, 1 totals": {
+    "ticks": 1
+   },
+   "2 loops, 1 brakes, 2 totals": {
+    "follows": 1
+   },
+   "2 loops, 2 brakes, 0 totals": {
+    "ticks": 2,
+    "returns exactly": 1,
+    "returns partly": 1,
+    "follows": 2
+   },
+   "3 loops, 0 brakes, 0 totals": {
+    "returns exactly": 1,
+    "follows": 1
+   },
+   "3 loops, 1 brakes, 0 totals": {
+    "ticks": 3,
+    "returns exactly": 1
+   },
+   "3 loops, 2 brakes, 0 totals": {
+    "ticks": 9,
+    "returns exactly": 1,
+    "rings": 1,
+    "follows": 3
+   },
+   "3 loops, 3 brakes, 0 totals": {
+    "ticks": 3
+   }
+  }
+ },
+ "secondary": {
+  "scope": "zero to three loops",
+  "sign_bits": "after the loop filters (the address)",
+  "n": 112,
+  "distinct_addresses": 12,
+  "sign_strata": 4,
+  "size_bins": 3,
+  "chance": 0.4286,
+  "accuracy": {
+   "sign": 0.6696,
+   "address": 0.6607,
+   "size": 0.6339
+  },
+  "null_address_accuracy": {
+   "median": 0.6518,
+   "p95": 0.6875
+  },
+  "p": 0.4617,
+  "cond_mi_bits": 0.1908,
+  "p_cond_mi": 0.5147,
+  "fails": {
+   "a_p_at_least_0.05": true,
+   "b_lead_over_sign_under_5_points": true,
+   "c_size_does_as_well": false
+  },
+  "verdict": "FAIL",
+  "rule_breakers": [
+   "BIOMD0000000039",
+   "BIOMD0000000045",
+   "BIOMD0000000098",
+   "BIOMD0000000114",
+   "BIOMD0000000115",
+   "BIOMD0000000166",
+   "BIOMD0000000184",
+   "BIOMD0000000225",
+   "BIOMD0000000236",
+   "BIOMD0000000319"
+  ],
+  "answers": {
+   "ticks": 48,
+   "follows": 47,
+   "returns exactly": 7,
+   "returns partly": 1,
+   "remembers": 4,
+   "rings": 5
+  },
+  "table": {
+   "0 loops, 0 brakes, 0 totals": {
+    "follows": 24
+   },
+   "1 loops, 0 brakes, 0 totals": {
+    "ticks": 7,
+    "remembers": 3,
+    "returns exactly": 1,
+    "follows": 11
+   },
+   "1 loops, 1 brakes, 0 totals": {
+    "ticks": 7,
+    "returns exactly": 1,
+    "rings": 2,
+    "follows": 2
+   },
+   "2 loops, 0 brakes, 0 totals": {
+    "ticks": 3,
+    "rings": 1,
+    "follows": 1
+   },
+   "2 loops, 1 brakes, 0 totals": {
+    "ticks": 13,
+    "remembers": 1,
+    "returns exactly": 1,
+    "rings": 1,
+    "follows": 2
+   },
+   "2 loops, 1 brakes, 1 totals": {
+    "ticks": 1
+   },
+   "2 loops, 1 brakes, 2 totals": {
+    "follows": 1
+   },
+   "2 loops, 2 brakes, 0 totals": {
+    "ticks": 2,
+    "returns exactly": 1,
+    "returns partly": 1,
+    "follows": 2
+   },
+   "3 loops, 0 brakes, 0 totals": {
+    "returns exactly": 1,
+    "follows": 1
+   },
+   "3 loops, 1 brakes, 0 totals": {
+    "ticks": 3,
+    "returns exactly": 1
+   },
+   "3 loops, 2 brakes, 0 totals": {
+    "ticks": 9,
+    "returns exactly": 1,
+    "rings": 1,
+    "follows": 3
+   },
+   "3 loops, 3 brakes, 0 totals": {
+    "ticks": 3
+   }
+  }
+ },
+ "control_should_fail": {
+  "scope": "control: answers shuffled across the scope",
+  "sign_bits": "after the loop filters (the address)",
+  "n": 88,
+  "distinct_addresses": 11,
+  "sign_strata": 3,
+  "size_bins": 4,
+  "chance": 0.5455,
+  "accuracy": {
+   "sign": 0.5455,
+   "address": 0.5227,
+   "size": 0.4886
+  },
+  "null_address_accuracy": {
+   "median": 0.5227,
+   "p95": 0.5682
+  },
+  "p": 0.5969,
+  "cond_mi_bits": 0.3129,
+  "p_cond_mi": 0.1036,
+  "fails": {
+   "a_p_at_least_0.05": true,
+   "b_lead_over_sign_under_5_points": true,
+   "c_size_does_as_well": false
+  },
+  "verdict": "FAIL",
+  "rule_breakers": 15,
+  "answers": {
+   "ticks": 48,
+   "follows": 23,
+   "remembers": 4,
+   "returns partly": 1,
+   "returns exactly": 7,
+   "rings": 5
+  },
+  "table": {
+   "1 loops, 0 brakes, 0 totals": {
+    "ticks": 10,
+    "returns exactly": 2,
+    "rings": 3,
+    "follows": 7
+   },
+   "1 loops, 1 brakes, 0 totals": {
+    "ticks": 7,
+    "follows": 5
+   },
+   "2 loops, 0 brakes, 0 totals": {
+    "ticks": 3,
+    "follows": 2
+   },
+   "2 loops, 1 brakes, 0 totals": {
+    "ticks": 10,
+    "remembers": 1,
+    "returns exactly": 2,
+    "returns partly": 1,
+    "rings": 1,
+    "follows": 3
+   },
+   "2 loops, 1 brakes, 1 totals": {
+    "follows": 1
+   },
+   "2 loops, 1 brakes, 2 totals": {
+    "follows": 1
+   },
+   "2 loops, 2 brakes, 0 totals": {
+    "ticks": 3,
+    "remembers": 1,
+    "returns exactly": 2
+   },
+   "3 loops, 0 brakes, 0 totals": {
+    "ticks": 1,
+    "follows": 1
+   },
+   "3 loops, 1 brakes, 0 totals": {
+    "ticks": 1,
+    "remembers": 2,
+    "returns exactly": 1
+   },
+   "3 loops, 2 brakes, 0 totals": {
+    "ticks": 10,
+    "rings": 1,
+    "follows": 3
+   },
+   "3 loops, 3 brakes, 0 totals": {
+    "ticks": 3
+   }
+  }
+ },
+ "void": true,
+ "amended_primary": {
+  "scope": "amended: one to three loops",
+  "sign_bits": "unfiltered graph (the atlas rule)",
+  "n": 88,
+  "distinct_addresses": 11,
+  "sign_strata": 3,
+  "size_bins": 4,
+  "chance": 0.5455,
+  "accuracy": {
+   "sign": 0.6705,
+   "address": 0.6591,
+   "size": 0.6705
+  },
+  "null_address_accuracy": {
+   "median": 0.6591,
+   "p95": 0.6818
+  },
+  "p": 0.6288,
+  "cond_mi_bits": 0.2501,
+  "p_cond_mi": 0.8925,
+  "fails": {
+   "a_p_at_least_0.05": true,
+   "b_lead_over_sign_under_5_points": true,
+   "c_size_does_as_well": true
+  },
+  "verdict": "FAIL",
+  "rule_breakers": [],
+  "answers": {
+   "ticks": 48,
+   "follows": 23,
+   "returns exactly": 7,
+   "returns partly": 1,
+   "remembers": 4,
+   "rings": 5
+  },
+  "table": {
+   "1 loops, 0 brakes, 0 totals": {
+    "ticks": 7,
+    "remembers": 3,
+    "returns exactly": 1,
+    "follows": 11
+   },
+   "1 loops, 1 brakes, 0 totals": {
+    "ticks": 7,
+    "returns exactly": 1,
+    "rings": 2,
+    "follows": 2
+   },
+   "2 loops, 0 brakes, 0 totals": {
+    "ticks": 3,
+    "rings": 1,
+    "follows": 1
+   },
+   "2 loops, 1 brakes, 0 totals": {
+    "ticks": 13,
+    "remembers": 1,
+    "returns exactly": 1,
+    "rings": 1,
+    "follows": 2
+   },
+   "2 loops, 1 brakes, 1 totals": {
+    "ticks": 1
+   },
+   "2 loops, 1 brakes, 2 totals": {
+    "follows": 1
+   },
+   "2 loops, 2 brakes, 0 totals": {
+    "ticks": 2,
+    "returns exactly": 1,
+    "returns partly": 1,
+    "follows": 2
+   },
+   "3 loops, 0 brakes, 0 totals": {
+    "returns exactly": 1,
+    "follows": 1
+   },
+   "3 loops, 1 brakes, 0 totals": {
+    "ticks": 3,
+    "returns exactly": 1
+   },
+   "3 loops, 2 brakes, 0 totals": {
+    "ticks": 9,
+    "returns exactly": 1,
+    "rings": 1,
+    "follows": 3
+   },
+   "3 loops, 3 brakes, 0 totals": {
+    "ticks": 3
+   }
+  }
+ },
+ "amended_secondary": {
+  "scope": "amended: zero to three loops",
+  "sign_bits": "unfiltered graph (the atlas rule)",
+  "n": 112,
+  "distinct_addresses": 12,
+  "sign_strata": 4,
+  "size_bins": 3,
+  "chance": 0.4286,
+  "accuracy": {
+   "sign": 0.6875,
+   "address": 0.7321,
+   "size": 0.6875
+  },
+  "null_address_accuracy": {
+   "median": 0.6696,
+   "p95": 0.7054
+  },
+  "p": 0.0043,
+  "cond_mi_bits": 0.3397,
+  "p_cond_mi": 0.0907,
+  "fails": {
+   "a_p_at_least_0.05": false,
+   "b_lead_over_sign_under_5_points": true,
+   "c_size_does_as_well": false
+  },
+  "verdict": "FAIL",
+  "rule_breakers": [],
+  "answers": {
+   "ticks": 48,
+   "follows": 47,
+   "returns exactly": 7,
+   "returns partly": 1,
+   "remembers": 4,
+   "rings": 5
+  },
+  "table": {
+   "0 loops, 0 brakes, 0 totals": {
+    "follows": 24
+   },
+   "1 loops, 0 brakes, 0 totals": {
+    "ticks": 7,
+    "remembers": 3,
+    "returns exactly": 1,
+    "follows": 11
+   },
+   "1 loops, 1 brakes, 0 totals": {
+    "ticks": 7,
+    "returns exactly": 1,
+    "rings": 2,
+    "follows": 2
+   },
+   "2 loops, 0 brakes, 0 totals": {
+    "ticks": 3,
+    "rings": 1,
+    "follows": 1
+   },
+   "2 loops, 1 brakes, 0 totals": {
+    "ticks": 13,
+    "remembers": 1,
+    "returns exactly": 1,
+    "rings": 1,
+    "follows": 2
+   },
+   "2 loops, 1 brakes, 1 totals": {
+    "ticks": 1
+   },
+   "2 loops, 1 brakes, 2 totals": {
+    "follows": 1
+   },
+   "2 loops, 2 brakes, 0 totals": {
+    "ticks": 2,
+    "returns exactly": 1,
+    "returns partly": 1,
+    "follows": 2
+   },
+   "3 loops, 0 brakes, 0 totals": {
+    "returns exactly": 1,
+    "follows": 1
+   },
+   "3 loops, 1 brakes, 0 totals": {
+    "ticks": 3,
+    "returns exactly": 1
+   },
+   "3 loops, 2 brakes, 0 totals": {
+    "ticks": 9,
+    "returns exactly": 1,
+    "rings": 1,
+    "follows": 3
+   },
+   "3 loops, 3 brakes, 0 totals": {
+    "ticks": 3
+   }
+  }
+ },
+ "amended_control_should_fail": {
+  "scope": "amended control: answers shuffled",
+  "sign_bits": "unfiltered graph (the atlas rule)",
+  "n": 88,
+  "distinct_addresses": 11,
+  "sign_strata": 3,
+  "size_bins": 4,
+  "chance": 0.5455,
+  "accuracy": {
+   "sign": 0.4318,
+   "address": 0.4205,
+   "size": 0.4886
+  },
+  "null_address_accuracy": {
+   "median": 0.4545,
+   "p95": 0.5568
+  },
+  "p": 0.8239,
+  "cond_mi_bits": 0.4221,
+  "p_cond_mi": 0.2542,
+  "fails": {
+   "a_p_at_least_0.05": true,
+   "b_lead_over_sign_under_5_points": true,
+   "c_size_does_as_well": true
+  },
+  "verdict": "FAIL",
+  "rule_breakers": 5,
+  "answers": {
+   "ticks": 48,
+   "follows": 23,
+   "remembers": 4,
+   "returns partly": 1,
+   "returns exactly": 7,
+   "rings": 5
+  },
+  "table": {
+   "1 loops, 0 brakes, 0 totals": {
+    "ticks": 10,
+    "returns exactly": 2,
+    "rings": 3,
+    "follows": 7
+   },
+   "1 loops, 1 brakes, 0 totals": {
+    "ticks": 7,
+    "follows": 5
+   },
+   "2 loops, 0 brakes, 0 totals": {
+    "ticks": 3,
+    "follows": 2
+   },
+   "2 loops, 1 brakes, 0 totals": {
+    "ticks": 10,
+    "remembers": 1,
+    "returns exactly": 2,
+    "returns partly": 1,
+    "rings": 1,
+    "follows": 3
+   },
+   "2 loops, 1 brakes, 1 totals": {
+    "follows": 1
+   },
+   "2 loops, 1 brakes, 2 totals": {
+    "follows": 1
+   },
+   "2 loops, 2 brakes, 0 totals": {
+    "ticks": 3,
+    "remembers": 1,
+    "returns exactly": 2
+   },
+   "3 loops, 0 brakes, 0 totals": {
+    "ticks": 1,
+    "follows": 1
+   },
+   "3 loops, 1 brakes, 0 totals": {
+    "ticks": 1,
+    "remembers": 2,
+    "returns exactly": 1
+   },
+   "3 loops, 2 brakes, 0 totals": {
+    "ticks": 10,
+    "rings": 1,
+    "follows": 3
+   },
+   "3 loops, 3 brakes, 0 totals": {
+    "ticks": 3
+   }
+  }
+ },
+ "amended_void": false,
+ "control_should_pass": {
+  "scope": "sign bits, zero to three loops",
+  "n": 112,
+  "chance": 0.4286,
+  "accuracy": 0.6875,
+  "p": 0.0001,
+  "verdict": "PASS"
+ }
+}

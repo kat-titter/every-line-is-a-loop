@@ -1,0 +1,2411 @@
+[
+ {
+  "model": "BIOMD0000000665",
+  "pairs": [
+   {
+    "parameter": "kt",
+    "variable": "Ri_0",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Fallon2000 - Interleukin-2 dynamics",
+  "loops": 13,
+  "running_totals": 1
+ },
+ {
+  "model": "BIOMD0000000684",
+  "pairs": [
+   {
+    "parameter": "r",
+    "variable": "S",
+    "draws": [
+     {
+      "peak": 0.081,
+      "final": 5e-05
+     },
+     {
+      "peak": 0.0717,
+      "final": 4e-05
+     },
+     {
+      "peak": 0.0848,
+      "final": 5e-05
+     },
+     {
+      "peak": 0.0687,
+      "final": 3e-05
+     },
+     {
+      "peak": 0.0818,
+      "final": 3e-05
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "epsilon",
+    "variable": "S",
+    "draws": [
+     {
+      "peak": 0.0703,
+      "final": 5e-05
+     },
+     {
+      "peak": 0.0591,
+      "final": 4e-05
+     },
+     {
+      "peak": 0.0731,
+      "final": 6e-05
+     },
+     {
+      "peak": 0.0572,
+      "final": 3e-05
+     },
+     {
+      "peak": 0.0669,
+      "final": 3e-05
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "beta_2",
+    "variable": "P_2",
+    "draws": [
+     {
+      "peak": 0.0606,
+      "final": 0.00726
+     },
+     {
+      "peak": 0.0143,
+      "final": 0.00198
+     },
+     {
+      "peak": 0.0181,
+      "final": 0.00405
+     },
+     {
+      "peak": 0.0032,
+      "final": 0.00251
+     },
+     {
+      "peak": 0.0151,
+      "final": 0.00338
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Wodarz2003 Immunological Memory",
+  "loops": 39,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000685",
+  "pairs": [
+   {
+    "parameter": "eta",
+    "variable": "C",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0486,
+      "final": 0.00106
+     },
+     null,
+     {
+      "peak": 0.0713,
+      "final": 0.00307
+     },
+     {
+      "peak": 0.023,
+      "final": 0.0023
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "mu",
+    "variable": "C",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0192,
+      "final": 0.00125
+     },
+     null,
+     {
+      "peak": 0.0481,
+      "final": 0.00404
+     },
+     {
+      "peak": 0.0176,
+      "final": 0.00276
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "alpha",
+    "variable": "C",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0461,
+      "final": 0.00091
+     },
+     null,
+     {
+      "peak": 0.0682,
+      "final": 0.00254
+     },
+     {
+      "peak": 0.0198,
+      "final": 0.00189
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Wodarz2003 - Cytotoxic T lymphocyte cross-priming",
+  "loops": 5,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000686",
+  "pairs": [
+   {
+    "parameter": "lambda",
+    "variable": "x",
+    "draws": [
+     {
+      "peak": 0.1635,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1577,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1602,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1682,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1632,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Wodarz2007 - Basic Model of Cytomegalovirus Infection",
+  "loops": 4,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000689",
+  "pairs": [
+   {
+    "parameter": "FolC_k1",
+    "variable": "DHF",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Thiaville2016 - Folate pathway model (PanB overexpression)",
+  "loops": 1,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000703",
+  "pairs": [
+   {
+    "parameter": "Btot_star",
+    "variable": "x",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Diedrichs2018 - A data-entrained computational model for testing the regulatory logic of the vertebrate unfolded protein response",
+  "loops": 38,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000707",
+  "pairs": [
+   {
+    "parameter": "beta",
+    "variable": "Pathogen_Virus",
+    "draws": [
+     {
+      "peak": 0.0606,
+      "final": 0.0
+     },
+     {
+      "peak": 0.118,
+      "final": 0.0
+     },
+     null,
+     {
+      "peak": 0.0972,
+      "final": 0.0
+     },
+     {
+      "peak": 0.07,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "beta",
+    "variable": "Single_Infected_Th_Cells",
+    "draws": [
+     {
+      "peak": 0.0348,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1217,
+      "final": 0.0
+     },
+     null,
+     {
+      "peak": 0.1427,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0894,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "k",
+    "variable": "Single_Infected_Th_Cells",
+    "draws": [
+     {
+      "peak": 0.0606,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1178,
+      "final": 0.0
+     },
+     null,
+     {
+      "peak": 0.1036,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0733,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Revilla2003 - Controlling HIV infection using recombinant viruses",
+  "loops": 2,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000738",
+  "pairs": [
+   {
+    "parameter": "kInRest",
+    "variable": "FeRest",
+    "draws": [
+     {
+      "peak": 0.1335,
+      "final": 0.00091
+     },
+     {
+      "peak": 0.1056,
+      "final": 0.00097
+     },
+     {
+      "peak": 0.1256,
+      "final": 0.00033
+     },
+     null,
+     {
+      "peak": 0.1017,
+      "final": 0.00157
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "VRestNTBI",
+    "variable": "FeRest",
+    "draws": [
+     {
+      "peak": 0.0602,
+      "final": 0.0005
+     },
+     {
+      "peak": 0.0395,
+      "final": 0.00042
+     },
+     {
+      "peak": 0.059,
+      "final": 0.00019
+     },
+     null,
+     {
+      "peak": 0.0423,
+      "final": 0.00075
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "vRBCSpleen",
+    "variable": "FeSpleen",
+    "draws": [
+     {
+      "peak": 0.3353,
+      "final": 0.0
+     },
+     {
+      "peak": 0.207,
+      "final": 0.0
+     },
+     {
+      "peak": 0.288,
+      "final": 0.0
+     },
+     null,
+     {
+      "peak": 0.1966,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Mouse Iron Distribution - Rich iron diet (No Tracer)",
+  "loops": 14,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000752",
+  "pairs": [
+   {
+    "parameter": "u",
+    "variable": "I",
+    "draws": [
+     {
+      "peak": 0.1742,
+      "final": 1e-05
+     },
+     null,
+     {
+      "peak": 0.1369,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1574,
+      "final": 2e-05
+     },
+     null
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Wilkie2013r - immune-induced cancer dormancy and immune evasion-resistance",
+  "loops": 9,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000766",
+  "pairs": [
+   {
+    "parameter": "hv",
+    "variable": "E",
+    "draws": [
+     {
+      "peak": 0.0564,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0365,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0382,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0574,
+      "final": 0.0
+     },
+     null
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "pe",
+    "variable": "E",
+    "draws": [
+     {
+      "peak": 0.0611,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0409,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0385,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0645,
+      "final": 0.0
+     },
+     null
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "de",
+    "variable": "E",
+    "draws": [
+     {
+      "peak": 0.0559,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0371,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0342,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0596,
+      "final": 0.0
+     },
+     null
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Macnamara2015/1 - virotherapy full model",
+  "loops": 14,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000773",
+  "pairs": [
+   {
+    "parameter": "k3",
+    "variable": "S",
+    "draws": [
+     {
+      "peak": 0.0666,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0264,
+      "final": 0.0
+     },
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "k3",
+    "variable": "D",
+    "draws": [
+     {
+      "peak": 0.1385,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0326,
+      "final": 0.0
+     },
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Wodarz2018/2 - model with transit amplifying cells",
+  "loops": 10,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000780",
+  "pairs": [
+   {
+    "parameter": "a",
+    "variable": "S",
+    "draws": [
+     {
+      "peak": 0.1321,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1286,
+      "final": 0.0871
+     },
+     null,
+     {
+      "peak": 0.1507,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1147,
+      "final": 0.00166
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Wang2016/1 - oncolytic efficacy of M1 virus-SNTM model",
+  "loops": 6,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000781",
+  "pairs": [
+   {
+    "parameter": "a",
+    "variable": "S",
+    "draws": [
+     {
+      "peak": 0.1497,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1621,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1656,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1656,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1537,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Wang2016/2 - oncolytic efficacy of M1 virus-SNT model",
+  "loops": 4,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000782",
+  "pairs": [
+   {
+    "parameter": "a",
+    "variable": "S",
+    "draws": [
+     {
+      "peak": 0.1381,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1534,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1462,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1435,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1547,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Wang2016/3 - oncolytic efficacy of M1 virus-SN model",
+  "loops": 2,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000783",
+  "pairs": [
+   {
+    "parameter": "alpha",
+    "variable": "x_Tumor_Cells",
+    "draws": [
+     {
+      "peak": 0.274,
+      "final": 0.0
+     },
+     {
+      "peak": 0.5794,
+      "final": 0.0
+     },
+     {
+      "peak": 0.4874,
+      "final": 0.0
+     },
+     {
+      "peak": 0.4464,
+      "final": 0.0
+     },
+     {
+      "peak": 0.3491,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "delta_1",
+    "variable": "y_Effector_Cells",
+    "draws": [
+     {
+      "peak": 0.0817,
+      "final": 0.00546
+     },
+     {
+      "peak": 0.0771,
+      "final": 0.00309
+     },
+     {
+      "peak": 0.1047,
+      "final": 0.00353
+     },
+     {
+      "peak": 0.093,
+      "final": 0.0024
+     },
+     {
+      "peak": 0.1138,
+      "final": 0.00478
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "omega_1",
+    "variable": "y_Effector_Cells",
+    "draws": [
+     {
+      "peak": 0.0722,
+      "final": 0.00414
+     },
+     {
+      "peak": 0.0511,
+      "final": 0.00191
+     },
+     {
+      "peak": 0.0621,
+      "final": 0.00196
+     },
+     {
+      "peak": 0.0586,
+      "final": 0.00118
+     },
+     {
+      "peak": 0.0683,
+      "final": 0.00229
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Dong2014 - Mathematical modeling on helper t cells in a tumor immune system",
+  "loops": 5,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000832",
+  "pairs": [
+   {
+    "parameter": "V_102",
+    "variable": "Raf1",
+    "draws": [
+     {
+      "peak": 0.1125,
+      "final": 2e-05
+     },
+     {
+      "peak": 0.1177,
+      "final": 3e-05
+     },
+     {
+      "peak": 0.0889,
+      "final": 1e-05
+     },
+     {
+      "peak": 0.1388,
+      "final": 8e-05
+     },
+     null
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "V_101",
+    "variable": "Raf1",
+    "draws": [
+     {
+      "peak": 0.1147,
+      "final": 1e-05
+     },
+     {
+      "peak": 0.1225,
+      "final": 3e-05
+     },
+     {
+      "peak": 0.0823,
+      "final": 1e-05
+     },
+     {
+      "peak": 0.1543,
+      "final": 7e-05
+     },
+     null
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "Km_102",
+    "variable": "Raf1",
+    "draws": [
+     {
+      "peak": 0.1144,
+      "final": 1e-05
+     },
+     {
+      "peak": 0.1221,
+      "final": 3e-05
+     },
+     {
+      "peak": 0.0823,
+      "final": 1e-05
+     },
+     {
+      "peak": 0.154,
+      "final": 7e-05
+     },
+     null
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Shin2016 - Unveiling Hidden Dynamics of Hippo Signalling",
+  "loops": 9,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000842",
+  "pairs": [
+   {
+    "parameter": "k24",
+    "variable": "HRP2",
+    "draws": [
+     {
+      "peak": 0.1131,
+      "final": 0.01421
+     },
+     {
+      "peak": 0.1047,
+      "final": 0.00274
+     },
+     {
+      "peak": 0.0796,
+      "final": 0.00453
+     },
+     {
+      "peak": 0.0974,
+      "final": 0.00584
+     },
+     {
+      "peak": 0.0782,
+      "final": 0.00552
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Heitzler2012 - GPCR signalling",
+  "loops": 9,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000843",
+  "pairs": [
+   {
+    "parameter": "T_05",
+    "variable": "HSP",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "T_05",
+    "variable": "HSF",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "T_05",
+    "variable": "mRNA",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Dudziuk2019 - Biologically sound formal model of Hsp70 heat induction",
+  "loops": 7,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000847",
+  "pairs": [
+   {
+    "parameter": "a_4",
+    "variable": "X_1",
+    "draws": [
+     {
+      "peak": 0.2459,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1114,
+      "final": 0.0
+     },
+     {
+      "peak": 0.3808,
+      "final": 0.0
+     },
+     {
+      "peak": 0.317,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1798,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "a_4",
+    "variable": "X_2",
+    "draws": [
+     {
+      "peak": 0.3414,
+      "final": 0.0
+     },
+     {
+      "peak": 0.2356,
+      "final": 0.0
+     },
+     {
+      "peak": 0.5485,
+      "final": 0.0
+     },
+     {
+      "peak": 0.5159,
+      "final": 0.0
+     },
+     {
+      "peak": 0.2537,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "a_4",
+    "variable": "X_3",
+    "draws": [
+     {
+      "peak": 0.3012,
+      "final": 0.0
+     },
+     {
+      "peak": 0.5848,
+      "final": 0.0
+     },
+     {
+      "peak": 0.8071,
+      "final": 0.0
+     },
+     {
+      "peak": 1.2487,
+      "final": 0.0
+     },
+     {
+      "peak": 0.486,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Adams2019 - The regulatory role of shikimate in plant phenylalanine metabolism",
+  "loops": 5,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000848",
+  "pairs": [
+   {
+    "parameter": "rho",
+    "variable": "T",
+    "draws": [
+     null,
+     {
+      "peak": 0.1119,
+      "final": 0.0
+     },
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "psi_1",
+    "variable": "T",
+    "draws": [
+     null,
+     {
+      "peak": 0.1077,
+      "final": 0.0
+     },
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "p_3",
+    "variable": "T",
+    "draws": [
+     null,
+     {
+      "peak": 0.1304,
+      "final": 0.0
+     },
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "FatehiChenar2018 - Mathematical model of immune response to hepatitis B",
+  "loops": 17,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000850",
+  "pairs": [
+   {
+    "parameter": "xi",
+    "variable": "V",
+    "draws": [
+     {
+      "peak": 0.161,
+      "final": 0.15964
+     },
+     {
+      "peak": 0.1584,
+      "final": 0.04261
+     },
+     {
+      "peak": 0.1661,
+      "final": 0.06475
+     },
+     {
+      "peak": 0.1759,
+      "final": 0.08564
+     },
+     {
+      "peak": 0.1531,
+      "final": 0.00941
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Jenner2019 - Oncolytic virotherapy for tumours following a Gompertz growth law",
+  "loops": 2,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000861",
+  "pairs": [
+   {
+    "parameter": "CISRNADelay",
+    "variable": "CISRNA",
+    "draws": [
+     {
+      "peak": 0.1974,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1902,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1836,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1975,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1978,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "CISRNATurn",
+    "variable": "CISRNA",
+    "draws": [
+     {
+      "peak": 0.1656,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1624,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1593,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1656,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1658,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "SOCS3RNAEqc",
+    "variable": "p2EpoRpJAK2",
+    "draws": [
+     {
+      "peak": 0.0914,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0752,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0751,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0751,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0522,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Bachmann2011 - Division of labor by dual feedback regulators controls JAK2/STAT5 signaling over broad ligand range",
+  "loops": 238,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000874",
+  "pairs": [
+   {
+    "parameter": "s",
+    "variable": "T",
+    "draws": [
+     {
+      "peak": 0.0976,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0787,
+      "final": 0.07875
+     },
+     {
+      "peak": 0.0741,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0552,
+      "final": 0.05516
+     },
+     {
+      "peak": 0.0797,
+      "final": 0.0
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "r",
+    "variable": "T",
+    "draws": [
+     {
+      "peak": 0.0669,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0683,
+      "final": 0.06827
+     },
+     {
+      "peak": 0.0572,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0264,
+      "final": 0.02637
+     },
+     {
+      "peak": 0.058,
+      "final": 0.0
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "T_max",
+    "variable": "T",
+    "draws": [
+     {
+      "peak": 0.0558,
+      "final": 0.0
+     },
+     {
+      "peak": 0.114,
+      "final": 0.11398
+     },
+     {
+      "peak": 0.0865,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1406,
+      "final": 0.14057
+     },
+     {
+      "peak": 0.0743,
+      "final": 0.0
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Perelson1993 - HIVinfection_CD4Tcells_ModelA",
+  "loops": 8,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000891",
+  "pairs": [
+   {
+    "parameter": "r_1",
+    "variable": "u",
+    "draws": [
+     null,
+     {
+      "peak": 0.1261,
+      "final": 0.0
+     },
+     {
+      "peak": 0.2016,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0717,
+      "final": 0.0
+     },
+     {
+      "peak": 0.6136,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "alpha_2",
+    "variable": "u",
+    "draws": [
+     null,
+     {
+      "peak": 0.1355,
+      "final": 0.0
+     },
+     {
+      "peak": 0.2089,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0678,
+      "final": 0.0
+     },
+     {
+      "peak": 0.5205,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "k_1",
+    "variable": "u",
+    "draws": [
+     null,
+     {
+      "peak": 0.0835,
+      "final": 0.0
+     },
+     {
+      "peak": 0.144,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0389,
+      "final": 0.0
+     },
+     {
+      "peak": 0.4533,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Khajanchi2019 - Stability Analysis of a Mathematical Model forGlioma-Immune Interaction under OptimalTherapy",
+  "loops": 5,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000892",
+  "pairs": [
+   {
+    "parameter": "r",
+    "variable": "T",
+    "draws": [
+     {
+      "peak": 0.0006,
+      "final": 0.00061
+     },
+     {
+      "peak": 0.0073,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0002,
+      "final": 0.0
+     },
+     {
+      "peak": 0.001,
+      "final": 0.001
+     },
+     {
+      "peak": 0.0005,
+      "final": 0.00053
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "k",
+    "variable": "T",
+    "draws": [
+     {
+      "peak": 0.2,
+      "final": 0.11639
+     },
+     {
+      "peak": 0.0328,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0047,
+      "final": 0.0
+     },
+     null,
+     {
+      "peak": 0.2,
+      "final": 0.2
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Sandip2013 - Modeling the dynamics of hepatitis C virus with combined antiviral drug therapy: interferon and ribavirin.",
+  "loops": 3,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000894",
+  "pairs": [
+   {
+    "parameter": "R",
+    "variable": "z",
+    "draws": [
+     {
+      "peak": 0.1048,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1139,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1261,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0708,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1039,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "Dx",
+    "variable": "z",
+    "draws": [
+     {
+      "peak": 0.0367,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0095,
+      "final": 0.0
+     },
+     {
+      "peak": 0.036,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0428,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0118,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "Dz",
+    "variable": "z",
+    "draws": [
+     {
+      "peak": 0.0743,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1739,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1103,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1681,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1169,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Bose2011 - Noise-assisted interactions of tumor and immune cells",
+  "loops": 4,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000895",
+  "pairs": [
+   {
+    "parameter": "iMr",
+    "variable": "CD4",
+    "draws": [
+     null,
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "iMr",
+    "variable": "Se",
+    "draws": [
+     null,
+     {
+      "peak": 0.0,
+      "final": 1e-05
+     },
+     {
+      "peak": 0.0,
+      "final": 1e-05
+     },
+     {
+      "peak": 0.0,
+      "final": 5e-05
+     },
+     {
+      "peak": 0.0001,
+      "final": 0.00013
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "cSeMri",
+    "variable": "CD4",
+    "draws": [
+     null,
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Schokker2013 - A mathematical model representing cellular immune development and response to Salmonella of chicken intestinal tissue",
+  "loops": 61,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000906",
+  "pairs": [
+   {
+    "parameter": "beta",
+    "variable": "P",
+    "draws": [
+     {
+      "peak": 0.0395,
+      "final": 0.00177
+     },
+     {
+      "peak": 0.0123,
+      "final": 0.0027
+     },
+     {
+      "peak": 0.0052,
+      "final": 0.00247
+     },
+     {
+      "peak": 0.0226,
+      "final": 0.00156
+     },
+     {
+      "peak": 0.0158,
+      "final": 0.0021
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "gamma",
+    "variable": "P",
+    "draws": [
+     {
+      "peak": 0.0291,
+      "final": 0.00058
+     },
+     {
+      "peak": 0.0109,
+      "final": 0.00326
+     },
+     {
+      "peak": 0.0036,
+      "final": 0.00194
+     },
+     {
+      "peak": 0.0104,
+      "final": 0.00665
+     },
+     {
+      "peak": 0.0059,
+      "final": 0.00181
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "beta0",
+    "variable": "P",
+    "draws": [
+     {
+      "peak": 0.0134,
+      "final": 0.00144
+     },
+     {
+      "peak": 0.0083,
+      "final": 0.00358
+     },
+     {
+      "peak": 0.0238,
+      "final": 0.00524
+     },
+     {
+      "peak": 0.0071,
+      "final": 0.0011
+     },
+     {
+      "peak": 0.0177,
+      "final": 0.00293
+     }
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Dubey2007 - A mathematical model for the effect of toxicant on the immune system (without toxicant effect) Model1",
+  "loops": 4,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000911",
+  "pairs": [
+   {
+    "parameter": "s",
+    "variable": "Z",
+    "draws": [
+     {
+      "peak": 0.09,
+      "final": 0.0
+     },
+     {
+      "peak": 0.4347,
+      "final": 0.0
+     },
+     {
+      "peak": 0.3744,
+      "final": 0.0
+     },
+     {
+      "peak": 0.379,
+      "final": 0.0
+     },
+     {
+      "peak": 0.2916,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "k2",
+    "variable": "Z",
+    "draws": [
+     {
+      "peak": 0.1799,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1431,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1356,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1516,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1562,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Merola2008 - An insight into tumor dormancy equilibrium via the analysis of its domain of attraction",
+  "loops": 3,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000946",
+  "pairs": [
+   {
+    "parameter": "B_T",
+    "variable": "L_c",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "V_n",
+    "variable": "L_c",
+    "draws": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Evans2005 - Compartmental model for antineoplastic drug topotecan in breast cancer cells",
+  "loops": 10,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000953",
+  "pairs": [
+   {
+    "parameter": "ka_polo_p",
+    "variable": "clb2",
+    "draws": [
+     null,
+     {
+      "peak": 0.0,
+      "final": 1e-05
+     },
+     {
+      "peak": 0.0,
+      "final": 3e-05
+     },
+     {
+      "peak": 0.0003,
+      "final": 0.00024
+     },
+     null
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "ki",
+    "variable": "clb2",
+    "draws": [
+     null,
+     {
+      "peak": 0.0025,
+      "final": 0.00238
+     },
+     {
+      "peak": 0.0004,
+      "final": 0.00031
+     },
+     {
+      "peak": 0.0214,
+      "final": 0.01857
+     },
+     null
+    ],
+    "robust": false
+   }
+  ],
+  "name": "Queralt2006 - Initiation of mitotic exit by downregulation of PP2A in budding yeast",
+  "loops": 36,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000967",
+  "pairs": [
+   {
+    "parameter": "alpha",
+    "variable": "E",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0455,
+      "final": 0.00393
+     },
+     {
+      "peak": 0.0378,
+      "final": 0.00461
+     },
+     {
+      "peak": 0.0277,
+      "final": 0.00448
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "alpha",
+    "variable": "V",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0464,
+      "final": 0.00393
+     },
+     {
+      "peak": 0.036,
+      "final": 0.00461
+     },
+     {
+      "peak": 0.0277,
+      "final": 0.00448
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "McLean1991 - Behaviour of HIV in the presence of zidovudine",
+  "loops": 4,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000979",
+  "pairs": [
+   {
+    "parameter": "omega",
+    "variable": "Susceptible",
+    "draws": [
+     {
+      "peak": 0.0482,
+      "final": 0.0
+     },
+     {
+      "peak": 0.052,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0646,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0748,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0662,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Malkov2020 - SEIRS model of COVID-19 transmission with reinfection",
+  "loops": 1,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000000987",
+  "pairs": [
+   {
+    "parameter": "lambda_compartment_1",
+    "variable": "FITC_Dextran_three_compartment_model_compartment_2",
+    "draws": [
+     {
+      "peak": 0.0893,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0827,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0587,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0745,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0836,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "lambda_compartment_1",
+    "variable": "FITC_Dextran_three_compartment_model_compartment_3",
+    "draws": [
+     {
+      "peak": 0.0663,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0602,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0404,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0478,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0609,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "lambda_compartment_2",
+    "variable": "FITC_Dextran_three_compartment_model_compartment_3",
+    "draws": [
+     {
+      "peak": 0.0588,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0595,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0662,
+      "final": 0.0
+     },
+     {
+      "peak": 0.054,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0617,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Aubry1995 - Nine-compartment model of fluid-phase endocytosis kinetics in Dictyostelium discoideum",
+  "loops": 0,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000001033",
+  "pairs": [
+   {
+    "parameter": "beta1",
+    "variable": "Uninfected_M2_macrophages",
+    "draws": [
+     null,
+     {
+      "peak": 0.0084,
+      "final": 0.00588
+     },
+     {
+      "peak": 0.0388,
+      "final": 0.00177
+     },
+     null,
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "delta_i1",
+    "variable": "M1_macrophages",
+    "draws": [
+     null,
+     {
+      "peak": 0.0261,
+      "final": 0.00473
+     },
+     {
+      "peak": 0.0172,
+      "final": 0.00275
+     },
+     null,
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "delta_i1",
+    "variable": "Uninfected_M2_macrophages",
+    "draws": [
+     null,
+     {
+      "peak": 0.0043,
+      "final": 0.00148
+     },
+     {
+      "peak": 0.0349,
+      "final": 0.00045
+     },
+     null,
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Almuallem2020 - Virus-macrophage-tumour interactions in oncolytic viral therapies",
+  "loops": 75,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000001035",
+  "pairs": [
+   {
+    "parameter": "r_1",
+    "variable": "uninfected_cancer_cells",
+    "draws": [
+     {
+      "peak": 0.1369,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0982,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1403,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1744,
+      "final": 0.0
+     },
+     {
+      "peak": 0.174,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "d_1",
+    "variable": "uninfected_cancer_cells",
+    "draws": [
+     {
+      "peak": 0.087,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0757,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1092,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1036,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0599,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Al-Tuwairqi2020 - Dynamics of cancer virotherapy with immune response",
+  "loops": 12,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000001038",
+  "pairs": [
+   {
+    "parameter": "alpha1",
+    "variable": "Tumor_cells",
+    "draws": [
+     {
+      "peak": 0.0162,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0331,
+      "final": 0.0
+     },
+     {
+      "peak": 0.2082,
+      "final": 0.20816
+     },
+     {
+      "peak": 0.0061,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0512,
+      "final": 0.0
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "alpha2",
+    "variable": "Tumor_cells",
+    "draws": [
+     {
+      "peak": 0.0145,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0188,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1667,
+      "final": 0.16667
+     },
+     {
+      "peak": 0.0236,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0204,
+      "final": 0.0
+     }
+    ],
+    "robust": false
+   },
+   {
+    "parameter": "beta2",
+    "variable": "Tumor_cells",
+    "draws": [
+     {
+      "peak": 0.0581,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0551,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0163,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0836,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Alharbi2019 - Tumor-normal-vitamins model (TNVM) of the effects of vitamins on delaying the growth of tumor cells",
+  "loops": 3,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000001055",
+  "pairs": [
+   {
+    "parameter": "k1",
+    "variable": "Fructose_6_Phosphate",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "k1",
+    "variable": "Fructose_1_6_Bisphosphate",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "k1",
+    "variable": "_3_Phosphoglycerate",
+    "draws": [
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Jeon2018 - Enzyme clustering in Glucose metabolism",
+  "loops": 3,
+  "running_totals": 0
+ },
+ {
+  "model": "BIOMD0000001077",
+  "pairs": [
+   {
+    "parameter": "CISRNADelay",
+    "variable": "CISRNA",
+    "draws": [
+     {
+      "peak": 0.1362,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0959,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1236,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1066,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0816,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "CISRNATurn",
+    "variable": "CISRNA",
+    "draws": [
+     {
+      "peak": 0.1257,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0941,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1159,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1021,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0816,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   },
+   {
+    "parameter": "SHP1ActEpoR",
+    "variable": "EpoRpJAK2",
+    "draws": [
+     {
+      "peak": 0.0787,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0723,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0997,
+      "final": 0.0
+     },
+     {
+      "peak": 0.1044,
+      "final": 0.0
+     },
+     {
+      "peak": 0.0842,
+      "final": 0.0
+     }
+    ],
+    "robust": true
+   }
+  ],
+  "name": "Adlung2021 - Cell-to-cell variability in JAK2/STAT5 pathway",
+  "loops": 119,
+  "running_totals": 0
+ }
+]

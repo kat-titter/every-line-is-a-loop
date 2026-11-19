@@ -1,0 +1,9774 @@
+{
+ "settings": {
+  "step": 0.2,
+  "moved": 0.05,
+  "exact": 0.005,
+  "memory_gap": 0.05,
+  "params_scanned": 40
+ },
+ "models": [
+  {
+   "model": "BIOMD0000000641",
+   "status": "ok",
+   "input": "Kcc2a",
+   "output": "Timeract",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": [
+    2,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000642",
+   "status": "ok",
+   "input": "alpha3",
+   "output": "T",
+   "step_peak": 1.8718,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.8718,
+   "crossings": 0,
+   "settle": 0.005,
+   "settled": true,
+   "ramp_gap": 0.0098,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     0.9998,
+     0.9993,
+     0.9971,
+     0.9887,
+     0.9573,
+     0.8522,
+     0.6075,
+     0.3292,
+     0.1627,
+     0.0811,
+     0.0409,
+     0.0207,
+     0.0105
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    2,
+    2,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000643",
+   "status": "ok",
+   "input": "ModelValue_0",
+   "output": "A46",
+   "step_peak": 0.2011,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20108,
+   "crossings": 0,
+   "settle": 0.005,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9993,
+     0.996,
+     0.977,
+     0.8832,
+     0.6119,
+     0.3029,
+     0.1295,
+     0.0536,
+     0.022,
+     0.0091
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "steady",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000644",
+   "status": "ok",
+   "input": "ARPPtot",
+   "output": "A46",
+   "step_peak": 0.2011,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20108,
+   "crossings": 0,
+   "settle": 0.005,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9993,
+     0.996,
+     0.977,
+     0.8832,
+     0.6119,
+     0.3029,
+     0.1295,
+     0.0536,
+     0.022,
+     0.0091
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000645",
+   "status": "ok",
+   "input": "ARPPtot",
+   "output": "A46",
+   "step_peak": 0.2011,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20108,
+   "crossings": 0,
+   "settle": 0.005,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9993,
+     0.996,
+     0.977,
+     0.8832,
+     0.6119,
+     0.3029,
+     0.1295,
+     0.0536,
+     0.022,
+     0.0091
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "steady",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000646",
+   "status": "ok",
+   "input": "kdcyca",
+   "output": "CycEp27",
+   "step_peak": 0.6319,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.63187,
+   "crossings": 0,
+   "settle": 0.015,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9984,
+     0.9818,
+     0.8376,
+     0.4126,
+     0.1286,
+     0.0324,
+     0.0084,
+     0.0024,
+     0.0007,
+     0.0001,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000647",
+   "status": "ok",
+   "input": "k8",
+   "output": "ERKPP",
+   "step_peak": 0.2072,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20719,
+   "crossings": 0,
+   "settle": 0.01,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9987,
+     0.9926,
+     0.9612,
+     0.8343,
+     0.5781,
+     0.3502,
+     0.1821,
+     0.0818,
+     0.0351,
+     0.015,
+     0.0064,
+     0.0027,
+     0.0011
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000648",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000651",
+   "status": "ok",
+   "input": "k6r",
+   "output": "IRS",
+   "step_peak": 0.1999,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.19949,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.9972476650314482,
+    "peak": 1.0027599312237698,
+    "peak_at": 0.2711864406779661,
+    "curve": [
+     0.9972,
+     0.9973,
+     0.9974,
+     0.9982,
+     1.0,
+     0.999,
+     0.999,
+     0.9989,
+     0.9983,
+     0.9922,
+     0.9339,
+     0.6308,
+     0.244,
+     0.0776,
+     0.0241
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000652",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000653",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000654",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000655",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000656",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000657",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000660",
+   "status": "ok",
+   "input": "kExPc",
+   "output": "P21",
+   "step_peak": 0.4674,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.46741,
+   "crossings": 0,
+   "settle": 0.015,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9984,
+     0.981,
+     0.8229,
+     0.3891,
+     0.1446,
+     0.0918,
+     0.0859,
+     0.0852,
+     0.0825,
+     0.0626,
+     0.0253,
+     0.0076,
+     0.0022
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000661",
+   "status": "ok",
+   "input": "k10",
+   "output": "SL",
+   "step_peak": 0.3404,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.34042,
+   "crossings": 0,
+   "settle": 0.002,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9824,
+     0.1879,
+     0.0008,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "continuum",
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000662",
+   "status": "ok",
+   "input": "dc",
+   "output": "T_cell_effector",
+   "step_peak": 0.8114,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.81143,
+   "crossings": 0,
+   "settle": 0.005,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9991,
+     0.9928,
+     0.9437,
+     0.7021,
+     0.3219,
+     0.1163,
+     0.0402,
+     0.0136,
+     0.004,
+     0.0008,
+     0.0001,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000663",
+   "status": "ok",
+   "input": "eta",
+   "output": "v",
+   "step_peak": 0.2021,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20206,
+   "crossings": 0,
+   "settle": 0.021,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9984,
+     0.9907,
+     0.9498,
+     0.7847,
+     0.4671,
+     0.2153,
+     0.0916,
+     0.0384,
+     0.016,
+     0.0067,
+     0.0028,
+     0.0012,
+     0.0005
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000665",
+   "status": "ok",
+   "input": "Vs",
+   "output": "Ri_0",
+   "step_peak": 0.2,
+   "exact_pairs": [
+    [
+     "kt",
+     "Ri_0"
+    ]
+   ],
+   "exact_count": 1,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.005,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     0.9999,
+     0.9978,
+     0.9659,
+     0.6687,
+     0.1696,
+     0.0154,
+     0.001,
+     0.0001,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "steady",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000666",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000667",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000668",
+   "status": "ok",
+   "input": "ModelValue_2",
+   "output": "Rd",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.079,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9996,
+     0.9956,
+     0.9601,
+     0.7444,
+     0.3402,
+     0.1155,
+     0.0343,
+     0.0069,
+     0.0009,
+     0.0001,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000670",
+   "status": "ok",
+   "input": "S",
+   "output": "m",
+   "step_peak": 7996107.7782,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.47929,
+   "crossings": 1,
+   "settle": 0.509,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9992,
+     0.994,
+     0.9555,
+     0.7567,
+     0.3812,
+     0.1416,
+     0.0422,
+     0.0081,
+     0.0011,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns partly",
+   "why": "peaks, then comes back part way",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000671",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000676",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000680",
+   "status": "ok",
+   "input": "alpha",
+   "output": "phi_R",
+   "step_peak": 0.8201,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.82011,
+   "crossings": 0,
+   "settle": 0.042,
+   "settled": true,
+   "ramp_gap": 0.5905,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9984,
+     0.9908,
+     0.9506,
+     0.7875,
+     0.464,
+     0.2062,
+     0.0861,
+     0.0362,
+     0.0152,
+     0.0064,
+     0.0027,
+     0.0011,
+     0.0005
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "remembers",
+   "why": "up and down paths differ by 59%",
+   "address": null,
+   "census": [
+    "damped",
+    "multistable",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000682",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000684",
+   "status": "ok",
+   "input": "alpha_1",
+   "output": "R_2",
+   "step_peak": 0.4078,
+   "exact_pairs": [
+    [
+     "beta_2",
+     "P_2"
+    ],
+    [
+     "epsilon",
+     "S"
+    ],
+    [
+     "r",
+     "S"
+    ],
+    [
+     "u",
+     "I_12"
+    ]
+   ],
+   "exact_count": 4,
+   "step_final": 0.40784,
+   "crossings": 0,
+   "settle": 0.007,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9997,
+     0.9974,
+     0.9809,
+     0.8897,
+     0.725,
+     0.2281,
+     0.0126,
+     0.0007,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000685",
+   "status": "ok",
+   "input": "delta_2",
+   "output": "T",
+   "step_peak": 0.4147,
+   "exact_pairs": [
+    [
+     "alpha",
+     "C"
+    ],
+    [
+     "eta",
+     "C"
+    ]
+   ],
+   "exact_count": 2,
+   "step_final": 0.34557,
+   "crossings": 4,
+   "settle": 0.004,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.06941718712210179,
+    "peak": 14.40565429770359,
+    "peak_at": 0.4745762711864407,
+    "curve": [
+     0.0694,
+     0.0694,
+     0.0694,
+     0.0694,
+     0.0691,
+     0.0688,
+     0.0753,
+     1.0,
+     0.0131,
+     0.0017,
+     0.0002,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000686",
+   "status": "ok",
+   "input": "k",
+   "output": "v",
+   "step_peak": 0.2134,
+   "exact_pairs": [
+    [
+     "lambda",
+     "x"
+    ]
+   ],
+   "exact_count": 1,
+   "step_final": 0.21341,
+   "crossings": 0,
+   "settle": 0.002,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     0.9998,
+     0.9992,
+     0.9962,
+     0.9824,
+     0.941,
+     0.8843,
+     0.7601,
+     0.5001,
+     0.2556,
+     0.1183,
+     0.0534,
+     0.024,
+     0.0108
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000687",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000688",
+   "status": "baseline unsettled"
+  },
+  {
+   "model": "BIOMD0000000689",
+   "status": "still drifting after the step",
+   "input": "H2_HMPt_production_v",
+   "output": "H2_HMPterinPP",
+   "step_peak": 218.7304,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 218.73039,
+   "crossings": 0,
+   "settle": 0.95,
+   "settled": false,
+   "ramp_gap": 1.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.3059,
+     0.0936,
+     0.0287,
+     0.0088,
+     0.0027,
+     0.0008,
+     0.0003,
+     0.0001,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0
+  },
+  {
+   "model": "BIOMD0000000691",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000692",
+   "status": "ok",
+   "input": "GTP_hydrolysis_sbo_1_sbc__kb",
+   "output": "RasGTP_minus_NF1_star_",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9994,
+     0.9966,
+     0.9809,
+     0.9047,
+     0.668,
+     0.354,
+     0.1572,
+     0.0668,
+     0.0282,
+     0.0118,
+     0.005,
+     0.0021,
+     0.0009
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000697",
+   "status": "ok",
+   "input": "kwact",
+   "output": "Wee1_a",
+   "step_peak": 0.4991,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.49906,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9992,
+     0.9875,
+     0.8501,
+     0.3842,
+     0.1066,
+     0.0276
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000700",
+   "status": "ok",
+   "input": "kDeE2f",
+   "output": "CeP21",
+   "step_peak": 1.1815,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.18155,
+   "crossings": 0,
+   "settle": 0.047,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.009450189704278966,
+    "peak": 105.81798157419088,
+    "peak_at": 0.3559322033898305,
+    "curve": [
+     0.0095,
+     0.155,
+     0.9335,
+     0.9997,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9982,
+     0.885,
+     0.4382,
+     0.0025,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "rings",
+   "why": "overshoots, or answers one speed of rhythm best",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000703",
+   "status": "ok",
+   "input": "Stress",
+   "output": "c",
+   "step_peak": 0.6531,
+   "exact_pairs": [
+    [
+     "Btot_star",
+     "x"
+    ]
+   ],
+   "exact_count": 1,
+   "step_final": 0.11997,
+   "crossings": 9,
+   "settle": 0.094,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.09044889714335771,
+    "peak": 11.055966756731616,
+    "peak_at": 0.3220338983050847,
+    "curve": [
+     0.0904,
+     0.0908,
+     0.0932,
+     0.1101,
+     0.2437,
+     0.6604,
+     0.2159,
+     0.048,
+     0.0076,
+     0.0011,
+     0.0001,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000704",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000705",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000707",
+   "status": "ok",
+   "input": "u",
+   "output": "Single_Infected_Th_Cells",
+   "step_peak": 3.193,
+   "exact_pairs": [
+    [
+     "beta",
+     "Pathogen_Virus"
+    ],
+    [
+     "beta",
+     "Single_Infected_Th_Cells"
+    ],
+    [
+     "k",
+     "Single_Infected_Th_Cells"
+    ]
+   ],
+   "exact_count": 3,
+   "step_final": 0.94667,
+   "crossings": 211,
+   "settle": 0.999,
+   "settled": false,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.3452375508218227e-05,
+    "peak": 74336.31326965913,
+    "peak_at": 0.5423728813559322,
+    "curve": [
+     0.0,
+     0.0,
+     0.0001,
+     0.0003,
+     0.0014,
+     0.0063,
+     0.0207,
+     0.0626,
+     1.0,
+     0.066,
+     0.0145,
+     0.0026,
+     0.0004,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 53,
+   "row": "ticks",
+   "why": "the push starts it ticking",
+   "address": [
+    2,
+    0,
+    0
+   ],
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000708",
+   "status": "baseline unsettled"
+  },
+  {
+   "model": "BIOMD0000000710",
+   "status": "ok",
+   "input": "q_K",
+   "output": "U_H",
+   "step_peak": 0.3946,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.39365,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.7808711206310164,
+    "peak": 1.2806210571494911,
+    "peak_at": 0.5932203389830508,
+    "curve": [
+     0.7809,
+     0.7809,
+     0.7809,
+     0.7809,
+     0.7811,
+     0.7826,
+     0.7873,
+     0.7964,
+     0.8537,
+     0.8479,
+     0.0862,
+     0.0057,
+     0.0002,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "rings",
+   "why": "overshoots, or answers one speed of rhythm best",
+   "address": null,
+   "census": [
+    "oscillating",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000712",
+   "status": "baseline failed"
+  },
+  {
+   "model": "BIOMD0000000713",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000714",
+   "status": "ok",
+   "input": "s_c",
+   "output": "C_A",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     0.9999,
+     0.9996,
+     0.9973,
+     0.9839,
+     0.9125,
+     0.6711,
+     0.3448,
+     0.1474,
+     0.0604,
+     0.0245,
+     0.01,
+     0.004,
+     0.0016
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "multistable",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000715",
+   "status": "ok",
+   "input": "A",
+   "output": "M",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.004,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9997,
+     0.9986,
+     0.9944,
+     0.978,
+     0.9184,
+     0.7407,
+     0.4203,
+     0.1555,
+     0.0446,
+     0.0117,
+     0.003,
+     0.0008,
+     0.0002,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000720",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000721",
+   "status": "ok",
+   "input": "K_S",
+   "output": "Pre_Osteoblasts__P",
+   "step_peak": 174090.4786,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.99273,
+   "crossings": 0,
+   "settle": 0.002,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9994,
+     0.9979,
+     0.9927,
+     0.9752,
+     0.9208,
+     0.7843,
+     0.5606,
+     0.3408,
+     0.1906,
+     0.1034,
+     0.0556,
+     0.0298,
+     0.016
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns partly",
+   "why": "peaks, then comes back part way",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000724",
+   "status": "baseline unsettled"
+  },
+  {
+   "model": "BIOMD0000000725",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000726",
+   "status": "ok",
+   "input": "A",
+   "output": "R_h",
+   "step_peak": 0.4134,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.40601,
+   "crossings": 1,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.6222594186534554,
+    "peak": 1.6070467879199968,
+    "peak_at": 0.5254237288135594,
+    "curve": [
+     0.6223,
+     0.6223,
+     0.6223,
+     0.6223,
+     0.6224,
+     0.6231,
+     0.6288,
+     0.6902,
+     0.7369,
+     0.036,
+     0.0013,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "rings",
+   "why": "overshoots, or answers one speed of rhythm best",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000728",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    2,
+    1,
+    1
+   ],
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000729",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    3,
+    3,
+    0
+   ],
+   "census": [
+    "oscillating",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000730",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000731",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000732",
+   "status": "ok",
+   "input": "r2",
+   "output": "Tumor",
+   "step_peak": 8.1145,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.99963,
+   "crossings": 250,
+   "settle": 0.998,
+   "settled": false,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.027191467502060612,
+    "peak": 36.77624239751747,
+    "peak_at": 0.3220338983050847,
+    "curve": [
+     0.0272,
+     0.0272,
+     0.0276,
+     0.0303,
+     0.0511,
+     0.153,
+     0.0212,
+     0.0074,
+     0.0028,
+     0.0011,
+     0.0004,
+     0.0002,
+     0.0001,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 63,
+   "row": "ticks",
+   "why": "the push starts it ticking",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000733",
+   "status": "ok",
+   "input": "Rc",
+   "output": "tumor_cells",
+   "step_peak": 1.0173,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.01726,
+   "crossings": 0,
+   "settle": 0.016,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9993,
+     0.9899,
+     0.8786,
+     0.4368,
+     0.1271,
+     0.0338,
+     0.0089,
+     0.0024,
+     0.0006,
+     0.0002,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000737",
+   "status": "ok",
+   "input": "HepcidinSynthesis_v",
+   "output": "Hepcidin",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9994,
+     0.9808,
+     0.6546,
+     0.1476,
+     0.0257,
+     0.0044,
+     0.0008,
+     0.0001,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000738",
+   "status": "ok",
+   "input": "vDiet",
+   "output": "FeDuo",
+   "step_peak": 0.4669,
+   "exact_pairs": [
+    [
+     "VRestNTBI",
+     "FeRest"
+    ],
+    [
+     "kInBM",
+     "FeLiver"
+    ],
+    [
+     "kInBM",
+     "Tf"
+    ],
+    [
+     "kInBM",
+     "Fe2Tf"
+    ],
+    [
+     "kInBM",
+     "FeRest"
+    ]
+   ],
+   "exact_count": 13,
+   "step_final": 0.46692,
+   "crossings": 0,
+   "settle": 0.002,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     0.9988,
+     0.9884,
+     0.9378,
+     0.4796,
+     0.0993,
+     0.0181,
+     0.0033,
+     0.0006,
+     0.0001,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000740",
+   "status": "baseline unsettled"
+  },
+  {
+   "model": "BIOMD0000000741",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000742",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000743",
+   "status": "ok",
+   "input": "dm",
+   "output": "M",
+   "step_peak": 0.3274,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.32735,
+   "crossings": 0,
+   "settle": 0.029,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9987,
+     0.9934,
+     0.9673,
+     0.86,
+     0.5973,
+     0.3126,
+     0.144,
+     0.0642,
+     0.0284,
+     0.0126,
+     0.0056,
+     0.0025,
+     0.0011
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000744",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000746",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000748",
+   "status": "ok",
+   "input": "m",
+   "output": "x",
+   "step_peak": 1.7496,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.74963,
+   "crossings": 0,
+   "settle": 0.08,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9996,
+     0.9958,
+     0.9626,
+     0.7597,
+     0.3585,
+     0.1254,
+     0.0419,
+     0.0152,
+     0.0169,
+     0.0002,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "multistable",
+    "oscillating",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000749",
+   "status": "baseline failed"
+  },
+  {
+   "model": "BIOMD0000000750",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000752",
+   "status": "ok",
+   "input": "b",
+   "output": "R",
+   "step_peak": 9078.9266,
+   "exact_pairs": [
+    [
+     "u",
+     "I"
+    ]
+   ],
+   "exact_count": 1,
+   "step_final": 9078.91759,
+   "crossings": 0,
+   "settle": 0.011,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9982,
+     0.9405,
+     0.4179,
+     0.0763,
+     0.0127,
+     0.0021,
+     0.0004,
+     0.0001,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "continuum",
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000753",
+   "status": "ok",
+   "input": "s",
+   "output": "E",
+   "step_peak": 0.2124,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.21244,
+   "crossings": 0,
+   "settle": 0.007,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9995,
+     0.9982,
+     0.9934,
+     0.976,
+     0.9201,
+     0.7806,
+     0.5565,
+     0.3346,
+     0.1826,
+     0.0961,
+     0.0501,
+     0.026,
+     0.0135
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000754",
+   "status": "ok",
+   "input": "a",
+   "output": "T",
+   "step_peak": 0.8673,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.22903,
+   "crossings": 142,
+   "settle": 0.089,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.06666058533116037,
+    "peak": 15.001368425316718,
+    "peak_at": 0.3220338983050847,
+    "curve": [
+     0.0667,
+     0.0668,
+     0.0678,
+     0.0745,
+     0.1254,
+     0.3777,
+     0.0539,
+     0.0188,
+     0.0071,
+     0.0027,
+     0.001,
+     0.0004,
+     0.0002,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns partly",
+   "why": "peaks, then comes back part way",
+   "address": null,
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000755",
+   "status": "baseline unsettled"
+  },
+  {
+   "model": "BIOMD0000000756",
+   "status": "ok",
+   "input": "a",
+   "output": "S",
+   "step_peak": 95.4234,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 73.87278,
+   "crossings": 84,
+   "settle": 0.999,
+   "settled": false,
+   "ramp_gap": 1.0,
+   "rhythm": {
+    "dc": 0.027227300019492237,
+    "peak": 36.727842984214085,
+    "peak_at": 0.3220338983050847,
+    "curve": [
+     0.0272,
+     0.0273,
+     0.0277,
+     0.0303,
+     0.051,
+     0.1524,
+     0.0211,
+     0.0073,
+     0.0027,
+     0.001,
+     0.0003,
+     0.0001,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 78,
+   "row": "ticks",
+   "why": "the push starts it ticking",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000757",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000758",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000759",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000760",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000761",
+   "status": "ok",
+   "input": "c",
+   "output": "U",
+   "step_peak": 0.3137,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.26014,
+   "crossings": 1,
+   "settle": 0.024,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.826634015278504,
+    "peak": 1.209725200653746,
+    "peak_at": 0.423728813559322,
+    "curve": [
+     0.8266,
+     0.8268,
+     0.828,
+     0.8373,
+     0.8885,
+     0.9732,
+     0.9998,
+     0.9911,
+     0.9348,
+     0.6802,
+     0.269,
+     0.0548,
+     0.0074,
+     0.0009,
+     0.0001
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000762",
+   "status": "ok",
+   "input": "d",
+   "output": "T",
+   "step_peak": 0.684,
+   "exact_pairs": [
+    [
+     "p",
+     "E"
+    ]
+   ],
+   "exact_count": 1,
+   "step_final": 0.40795,
+   "crossings": 19,
+   "settle": 0.014,
+   "settled": true,
+   "ramp_gap": 0.9193,
+   "rhythm": {
+    "dc": 0.21583854106731318,
+    "peak": 4.63309284363691,
+    "peak_at": 0.4915254237288136,
+    "curve": [
+     0.2158,
+     0.2159,
+     0.2161,
+     0.2167,
+     0.219,
+     0.2273,
+     0.262,
+     0.5419,
+     0.1784,
+     0.0326,
+     0.0084,
+     0.0024,
+     0.0007,
+     0.0002,
+     0.0001
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "remembers",
+   "why": "up and down paths differ by 92%",
+   "address": null,
+   "census": [
+    "damped",
+    "oscillating",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000763",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000765",
+   "status": "ok",
+   "input": "k_el",
+   "output": "R",
+   "step_peak": 1.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.0,
+   "crossings": 0,
+   "settle": 0.01,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": null,
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    2,
+    0,
+    0
+   ],
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000766",
+   "status": "still drifting after the step",
+   "input": "dv",
+   "output": "U",
+   "step_peak": 2.0282,
+   "exact_pairs": [
+    [
+     "de",
+     "E"
+    ],
+    [
+     "hv",
+     "E"
+    ],
+    [
+     "pe",
+     "E"
+    ]
+   ],
+   "exact_count": 3,
+   "step_final": 0.99695,
+   "crossings": 62,
+   "settle": 0.996,
+   "settled": false,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9997,
+     0.998,
+     0.9872,
+     0.9248,
+     0.6998,
+     0.4266,
+     0.1774,
+     0.0059,
+     0.0003,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0
+  },
+  {
+   "model": "BIOMD0000000767",
+   "status": "ok",
+   "input": "pe",
+   "output": "E",
+   "step_peak": 0.2002,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20019,
+   "crossings": 0,
+   "settle": 0.01,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9995,
+     0.9982,
+     0.9936,
+     0.9778,
+     0.9275,
+     0.7972,
+     0.5749,
+     0.3502,
+     0.195,
+     0.1052,
+     0.0562,
+     0.0299,
+     0.0159
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    3,
+    1,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000768",
+   "status": "ok",
+   "input": "ktum",
+   "output": "T",
+   "step_peak": 0.1667,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.16667,
+   "crossings": 0,
+   "settle": 0.015,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9997,
+     0.9977,
+     0.9843,
+     0.9048,
+     0.6299,
+     0.2958,
+     0.1174,
+     0.0451,
+     0.0172,
+     0.0066,
+     0.0025,
+     0.001,
+     0.0004,
+     0.0001
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000769",
+   "status": "ok",
+   "input": "m2",
+   "output": "M2",
+   "step_peak": 0.3416,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20026,
+   "crossings": 1,
+   "settle": 0.006,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.437516514544875,
+    "peak": 2.2856280088998386,
+    "peak_at": 0.4067796610169492,
+    "curve": [
+     0.4375,
+     0.438,
+     0.462,
+     0.8328,
+     0.9958,
+     0.9999,
+     1.0,
+     1.0,
+     0.998,
+     0.8985,
+     0.2584,
+     0.0349,
+     0.0046,
+     0.0006,
+     0.0001
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "rings",
+   "why": "overshoots, or answers one speed of rhythm best",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000770",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000771",
+   "status": "ok",
+   "input": "K",
+   "output": "y_Tumor_Cell",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.004,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9993,
+     0.997,
+     0.9873,
+     0.9493,
+     0.8267,
+     0.5817,
+     0.3288,
+     0.1671,
+     0.0822,
+     0.0401,
+     0.0195,
+     0.0095,
+     0.0046
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    3,
+    1,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000772",
+   "status": "ok",
+   "input": "k",
+   "output": "x",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.006,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9991,
+     0.996,
+     0.9831,
+     0.9324,
+     0.7787,
+     0.5127,
+     0.2762,
+     0.137,
+     0.0664,
+     0.032,
+     0.0154,
+     0.0074,
+     0.0036
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000773",
+   "status": "ok",
+   "input": "k3",
+   "output": "T",
+   "step_peak": 1.9848,
+   "exact_pairs": [
+    [
+     "k3",
+     "S"
+    ],
+    [
+     "k3",
+     "D"
+    ]
+   ],
+   "exact_count": 2,
+   "step_final": 1.86904,
+   "crossings": 2,
+   "settle": 0.08,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.9558603213078186,
+    "peak": 1.0461779589634905,
+    "peak_at": 0.4067796610169492,
+    "curve": [
+     0.9559,
+     0.9559,
+     0.9562,
+     0.9571,
+     0.9611,
+     0.9755,
+     1.0,
+     0.8348,
+     0.5953,
+     0.3771,
+     0.2052,
+     0.1044,
+     0.0521,
+     0.0258,
+     0.0128
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000774",
+   "status": "ok",
+   "input": "k1",
+   "output": "S",
+   "step_peak": 1.0336,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.03363,
+   "crossings": 0,
+   "settle": 0.137,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9987,
+     0.9844,
+     0.8514,
+     0.4357,
+     0.154,
+     0.0585,
+     0.0264,
+     0.0132,
+     0.007,
+     0.0037
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000776",
+   "status": "ok",
+   "input": "Ninf",
+   "output": "R",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.017,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.9999999991124946,
+    "peak": 1.0000000008875054,
+    "peak_at": 0.3220338983050847,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9983,
+     0.9215,
+     0.3089,
+     0.0444
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000777",
+   "status": "ok",
+   "input": "k_2",
+   "output": "Z_THL",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.005,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9991,
+     0.9959,
+     0.9823,
+     0.9287,
+     0.7674,
+     0.4968,
+     0.2641,
+     0.1298,
+     0.0625,
+     0.0299,
+     0.0143,
+     0.0069,
+     0.0033
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "oscillating",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000779",
+   "status": "ok",
+   "input": "omega",
+   "output": "I_IL_2",
+   "step_peak": 0.3052,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.30515,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9995,
+     0.9959,
+     0.9878,
+     0.985,
+     0.9843,
+     0.9801,
+     0.9378,
+     0.6729,
+     0.2529,
+     0.0744,
+     0.0224,
+     0.0068
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000780",
+   "status": "ok",
+   "input": "r2",
+   "output": "N",
+   "step_peak": 1.0,
+   "exact_pairs": [
+    [
+     "a",
+     "S"
+    ]
+   ],
+   "exact_count": 1,
+   "step_final": 1.0,
+   "crossings": 0,
+   "settle": 0.157,
+   "settled": false,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9987,
+     0.9928,
+     0.9635,
+     0.843,
+     0.5609,
+     0.2722,
+     0.1009,
+     0.0236,
+     0.0031,
+     0.0003,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 9,
+   "row": "ticks",
+   "why": "the push starts it ticking",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000781",
+   "status": "ok",
+   "input": "a",
+   "output": "T",
+   "step_peak": 0.2151,
+   "exact_pairs": [
+    [
+     "a",
+     "S"
+    ]
+   ],
+   "exact_count": 1,
+   "step_final": 0.21505,
+   "crossings": 0,
+   "settle": 0.004,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9995,
+     0.9974,
+     0.9873,
+     0.941,
+     0.7792,
+     0.4813,
+     0.2237,
+     0.0798,
+     0.0209,
+     0.0045,
+     0.0009,
+     0.0002,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000782",
+   "status": "ok",
+   "input": "r1",
+   "output": "N",
+   "step_peak": 0.2462,
+   "exact_pairs": [
+    [
+     "a",
+     "S"
+    ]
+   ],
+   "exact_count": 1,
+   "step_final": 0.24615,
+   "crossings": 0,
+   "settle": 0.03,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9992,
+     0.9969,
+     0.9882,
+     0.957,
+     0.8584,
+     0.6365,
+     0.3605,
+     0.1753,
+     0.0856,
+     0.0432,
+     0.0221,
+     0.0113,
+     0.0058
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": [
+    2,
+    1,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000783",
+   "status": "ok",
+   "input": "delta_1",
+   "output": "x_Tumor_Cells",
+   "step_peak": 0.4291,
+   "exact_pairs": [
+    [
+     "alpha",
+     "x_Tumor_Cells"
+    ]
+   ],
+   "exact_count": 1,
+   "step_final": 0.23674,
+   "crossings": 9,
+   "settle": 0.006,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.0660009056356069,
+    "peak": 15.151307249040366,
+    "peak_at": 0.6101694915254238,
+    "curve": [
+     0.066,
+     0.066,
+     0.066,
+     0.0661,
+     0.0665,
+     0.068,
+     0.0712,
+     0.0755,
+     0.09,
+     1.0,
+     0.02,
+     0.0033,
+     0.0006,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000784",
+   "status": "ok",
+   "input": "a_31",
+   "output": "z_Effector_Cells",
+   "step_peak": 0.1813,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.18131,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     0.9999,
+     0.9995,
+     0.9977,
+     0.989,
+     0.9569,
+     0.8905,
+     0.7981,
+     0.6121,
+     0.3538,
+     0.1706,
+     0.0777,
+     0.035,
+     0.0157
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000785",
+   "status": "ok",
+   "input": "alpha",
+   "output": "x_Malignant_Cells",
+   "step_peak": 0.4318,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.18182,
+   "crossings": 41,
+   "settle": 0.024,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.07835515385116086,
+    "peak": 12.762402354534904,
+    "peak_at": 0.4915254237288136,
+    "curve": [
+     0.0784,
+     0.0784,
+     0.0786,
+     0.0794,
+     0.082,
+     0.0913,
+     0.1271,
+     0.3951,
+     0.2124,
+     0.0689,
+     0.033,
+     0.0171,
+     0.0091,
+     0.0049,
+     0.0026
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns partly",
+   "why": "peaks, then comes back part way",
+   "address": [
+    3,
+    0,
+    0
+   ],
+   "census": [
+    "damped",
+    "steady",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000787",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    3,
+    1,
+    0
+   ],
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000788",
+   "status": "ok",
+   "input": "k_syn_B",
+   "output": "R_B",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.01,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     0.9994,
+     0.9932,
+     0.9294,
+     0.5961,
+     0.2138,
+     0.0644,
+     0.019,
+     0.0056,
+     0.0017,
+     0.0005,
+     0.0001,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000790",
+   "status": "no parameter could be stepped"
+  },
+  {
+   "model": "BIOMD0000000792",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000793",
+   "status": "ok",
+   "input": "b1",
+   "output": "T",
+   "step_peak": 0.5333,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.53333,
+   "crossings": 0,
+   "settle": 0.012,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9992,
+     0.9966,
+     0.9871,
+     0.9526,
+     0.8431,
+     0.5995,
+     0.3049,
+     0.1211,
+     0.0483,
+     0.0218,
+     0.0107,
+     0.0054,
+     0.0028
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    2,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000795",
+   "status": "ok",
+   "input": "b1",
+   "output": "T",
+   "step_peak": 1.8989,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.89892,
+   "crossings": 0,
+   "settle": 0.004,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9983,
+     0.9899,
+     0.9445,
+     0.7638,
+     0.4379,
+     0.1966,
+     0.0823,
+     0.0341,
+     0.0141,
+     0.0058,
+     0.0024,
+     0.001,
+     0.0004
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    2,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000796",
+   "status": "ok",
+   "input": "k1",
+   "output": "C",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9996,
+     0.9981,
+     0.9906,
+     0.9558,
+     0.8243,
+     0.5462,
+     0.2803,
+     0.1296,
+     0.0585,
+     0.0262,
+     0.0117
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "multistable",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000797",
+   "status": "ok",
+   "input": "b_2",
+   "output": "w_Healthy_Tissue",
+   "step_peak": 0.1729,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.17288,
+   "crossings": 0,
+   "settle": 0.044,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9997,
+     0.9971,
+     0.9778,
+     0.8584,
+     0.5187,
+     0.2155,
+     0.0792,
+     0.0285,
+     0.0102,
+     0.0037,
+     0.0013,
+     0.0005,
+     0.0002,
+     0.0001
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000798",
+   "status": "ok",
+   "input": "k1",
+   "output": "S",
+   "step_peak": 0.2778,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.27778,
+   "crossings": 0,
+   "settle": 0.002,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9995,
+     0.9976,
+     0.9897,
+     0.9574,
+     0.8465,
+     0.6063,
+     0.3433,
+     0.1726,
+     0.0837,
+     0.0402,
+     0.0193,
+     0.0093,
+     0.0044
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000799",
+   "status": "ok",
+   "input": "A",
+   "output": "y_Leukemic_Cell",
+   "step_peak": 4.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 4.2,
+   "crossings": 0,
+   "settle": 0.086,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9966,
+     0.8224,
+     0.1712,
+     0.0209,
+     0.0025,
+     0.0003,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    3,
+    0,
+    0
+   ],
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000800",
+   "status": "ok",
+   "input": "a",
+   "output": "z",
+   "step_peak": 0.2091,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20909,
+   "crossings": 0,
+   "settle": 0.004,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9994,
+     0.9979,
+     0.9926,
+     0.9745,
+     0.9182,
+     0.7778,
+     0.5513,
+     0.3327,
+     0.1851,
+     0.1001,
+     0.0536,
+     0.0287,
+     0.0153
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "multistable",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000802",
+   "status": "ok",
+   "input": "a1",
+   "output": "R",
+   "step_peak": 0.1998,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.19983,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9996,
+     0.9903,
+     0.8213,
+     0.2793,
+     0.0587,
+     0.0119,
+     0.0024,
+     0.0005,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000803",
+   "status": "ok",
+   "input": "k_r_1",
+   "output": "IL7Ra",
+   "step_peak": 0.1998,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.19982,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.45328473059302493,
+    "peak": 2.20611887519731,
+    "peak_at": 0.4915254237288136,
+    "curve": [
+     0.4533,
+     0.5619,
+     0.8969,
+     0.9991,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9916,
+     0.6427,
+     0.0665
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "rings",
+   "why": "overshoots, or answers one speed of rhythm best",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000804",
+   "status": "ok",
+   "input": "gtt",
+   "output": "T",
+   "step_peak": 0.7783,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.77828,
+   "crossings": 0,
+   "settle": 0.027,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9996,
+     0.9983,
+     0.9922,
+     0.9668,
+     0.8739,
+     0.6492,
+     0.3756,
+     0.189,
+     0.091,
+     0.0434,
+     0.0206,
+     0.0098,
+     0.0046
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    2,
+    1,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000805",
+   "status": "ok",
+   "input": "p1",
+   "output": "He",
+   "step_peak": 0.1592,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.15921,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9975,
+     0.9525,
+     0.5781,
+     0.1732,
+     0.0582,
+     0.0143,
+     0.0032
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000807",
+   "status": "ok",
+   "input": "r_N",
+   "output": "normalized_normal_cell_n",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.01,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9997,
+     0.9988,
+     0.9942,
+     0.9733,
+     0.889,
+     0.6646,
+     0.3774,
+     0.1835,
+     0.0852,
+     0.0392,
+     0.018
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000809",
+   "status": "ok",
+   "input": "phi_2",
+   "output": "x",
+   "step_peak": 0.1667,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.16667,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9998,
+     0.9991,
+     0.9959,
+     0.9805,
+     0.9153,
+     0.7193,
+     0.4266,
+     0.21,
+     0.0974,
+     0.0445,
+     0.0203,
+     0.0093
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000810",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000811",
+   "status": "ok",
+   "input": "a_n",
+   "output": "N_Killer",
+   "step_peak": 0.2007,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20072,
+   "crossings": 0,
+   "settle": 0.005,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9997,
+     0.998,
+     0.9872,
+     0.9252,
+     0.6928,
+     0.3537,
+     0.147,
+     0.0583,
+     0.0229,
+     0.009,
+     0.0035,
+     0.0014
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000812",
+   "status": "ok",
+   "input": "ModelValue_11",
+   "output": "P_Perforin",
+   "step_peak": 1.0354,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.18536,
+   "crossings": 1,
+   "settle": 0.022,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.1468011912020978,
+    "peak": 6.8119338256821305,
+    "peak_at": 0.4576271186440678,
+    "curve": [
+     0.1468,
+     0.151,
+     0.1995,
+     0.4752,
+     0.889,
+     0.9912,
+     0.9997,
+     1.0,
+     0.9999,
+     0.9986,
+     0.9813,
+     0.8084,
+     0.3467,
+     0.099,
+     0.0268
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns partly",
+   "why": "peaks, then comes back part way",
+   "address": null,
+   "census": [
+    "steady",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000813",
+   "status": "ok",
+   "input": "a",
+   "output": "x_Tumor_Cells",
+   "step_peak": 0.3341,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.33407,
+   "crossings": 0,
+   "settle": 0.082,
+   "settled": true,
+   "ramp_gap": 0.9974,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9991,
+     0.9903,
+     0.9105,
+     0.5032,
+     0.0917,
+     0.01,
+     0.001,
+     0.0001,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "remembers",
+   "why": "up and down paths differ by 100%",
+   "address": null,
+   "census": [
+    "multistable",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000815",
+   "status": "no parameter could be stepped"
+  },
+  {
+   "model": "BIOMD0000000819",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000821",
+   "status": "ok",
+   "input": "b",
+   "output": "tumor_volume_x_1",
+   "step_peak": 0.3145,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.31453,
+   "crossings": 0,
+   "settle": 0.009,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9983,
+     0.9901,
+     0.9454,
+     0.7674,
+     0.4425,
+     0.1987,
+     0.0813,
+     0.0295,
+     0.008,
+     0.0016,
+     0.0003,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    3,
+    1,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000823",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "continuum",
+    "oscillating",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000826",
+   "status": "still drifting after the step",
+   "input": "Km18",
+   "output": "pPYK2",
+   "step_peak": 5.0942,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 5.09424,
+   "crossings": 0,
+   "settle": 0.682,
+   "settled": false,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9926,
+     0.5509,
+     0.0198,
+     0.0002,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0
+  },
+  {
+   "model": "BIOMD0000000827",
+   "status": "ok",
+   "input": "k_3",
+   "output": "X_6_ErbB3_ErbB3",
+   "step_peak": 0.2143,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.21433,
+   "crossings": 0,
+   "settle": 0.169,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9993,
+     0.9953,
+     0.9696,
+     0.8787,
+     0.7863,
+     0.7347,
+     0.5827,
+     0.246,
+     0.0489,
+     0.0072,
+     0.001,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    2,
+    2,
+    0
+   ],
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000830",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000831",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000832",
+   "status": "ok",
+   "input": "aEGFR",
+   "output": "ppERK",
+   "step_peak": 0.2116,
+   "exact_pairs": [
+    [
+     "Km_101",
+     "Raf1"
+    ],
+    [
+     "Km_102",
+     "Raf1"
+    ],
+    [
+     "V_101",
+     "Raf1"
+    ],
+    [
+     "V_102",
+     "Raf1"
+    ]
+   ],
+   "exact_count": 4,
+   "step_final": 0.21155,
+   "crossings": 0,
+   "settle": 0.021,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.9994037917579264,
+    "peak": 1.0005965639183987,
+    "peak_at": 0.2542372881355932,
+    "curve": [
+     0.9994,
+     0.9993,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.8779,
+     0.0377,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000833",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000836",
+   "status": "ok",
+   "input": "C",
+   "output": "S",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000837",
+   "status": "baseline unsettled"
+  },
+  {
+   "model": "BIOMD0000000838",
+   "status": "ok",
+   "input": "gamma_mel",
+   "output": "M",
+   "step_peak": 0.3521,
+   "exact_pairs": [
+    [
+     "alpha_A",
+     "A"
+    ],
+    [
+     "alpha_A",
+     "T"
+    ],
+    [
+     "alpha_e",
+     "T"
+    ],
+    [
+     "b",
+     "A"
+    ],
+    [
+     "b",
+     "T"
+    ]
+   ],
+   "exact_count": 8,
+   "step_final": 0.35209,
+   "crossings": 0,
+   "settle": 0.022,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9988,
+     0.9945,
+     0.9766,
+     0.9064,
+     0.6992,
+     0.3783,
+     0.1618,
+     0.0724,
+     0.0343,
+     0.0165,
+     0.0079,
+     0.0038,
+     0.0018
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": [
+    2,
+    1,
+    0
+   ],
+   "census": [
+    "oscillating",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000839",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000840",
+   "status": "ok",
+   "input": "beta",
+   "output": "C2",
+   "step_peak": 0.223,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.15829,
+   "crossings": 1,
+   "settle": 0.032,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.6347415930100195,
+    "peak": 1.575444261117161,
+    "peak_at": 0.423728813559322,
+    "curve": [
+     0.6347,
+     0.6351,
+     0.637,
+     0.6466,
+     0.6919,
+     0.8364,
+     0.9966,
+     0.8672,
+     0.4718,
+     0.1907,
+     0.078,
+     0.0333,
+     0.0144,
+     0.0063,
+     0.0027
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "rings",
+   "why": "overshoots, or answers one speed of rhythm best",
+   "address": [
+    2,
+    1,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000842",
+   "status": "ok",
+   "input": "k19",
+   "output": "HRbarr2",
+   "step_peak": 0.2,
+   "exact_pairs": [
+    [
+     "k24",
+     "HRP2"
+    ]
+   ],
+   "exact_count": 1,
+   "step_final": 0.19996,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9994,
+     0.9969,
+     0.98,
+     0.8764,
+     0.5556,
+     0.2406,
+     0.0908,
+     0.0332,
+     0.0121,
+     0.0044
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000843",
+   "status": "ok",
+   "input": "T",
+   "output": "S",
+   "step_peak": 527741.6368,
+   "exact_pairs": [
+    [
+     "ModelValue_27",
+     "HSP"
+    ],
+    [
+     "ModelValue_27",
+     "HSF"
+    ],
+    [
+     "ModelValue_27",
+     "mRNA"
+    ],
+    [
+     "T_05",
+     "HSP"
+    ],
+    [
+     "T_05",
+     "HSF"
+    ]
+   ],
+   "exact_count": 6,
+   "step_final": 85.50744,
+   "crossings": 1,
+   "settle": 0.094,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.7888576868771394,
+    "peak": 1.2676557719285366,
+    "peak_at": 0.6101694915254238,
+    "curve": [
+     0.7889,
+     0.7889,
+     0.7889,
+     0.7889,
+     0.7889,
+     0.7889,
+     0.7889,
+     0.7888,
+     0.7834,
+     1.0,
+     0.8466,
+     0.7805,
+     0.7795,
+     0.6402,
+     0.0653
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000844",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000845",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    3,
+    1,
+    0
+   ],
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000846",
+   "status": "ok",
+   "input": "K",
+   "output": "S",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9993,
+     0.9964,
+     0.9823,
+     0.9192,
+     0.7212,
+     0.4209,
+     0.2026,
+     0.0918,
+     0.0411,
+     0.0183
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000847",
+   "status": "ok",
+   "input": "a_0",
+   "output": "X_2",
+   "step_peak": 6.5924,
+   "exact_pairs": [
+    [
+     "K_4",
+     "X_1"
+    ],
+    [
+     "K_4",
+     "X_2"
+    ],
+    [
+     "K_4",
+     "X_3"
+    ],
+    [
+     "a_4",
+     "X_1"
+    ],
+    [
+     "a_4",
+     "X_2"
+    ]
+   ],
+   "exact_count": 6,
+   "step_final": 0.13557,
+   "crossings": 1,
+   "settle": 0.015,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.09440978436383085,
+    "peak": 10.59212248749832,
+    "peak_at": 0.3728813559322034,
+    "curve": [
+     0.0944,
+     0.1004,
+     0.1572,
+     0.4231,
+     0.8565,
+     0.9915,
+     0.9956,
+     0.8946,
+     0.4807,
+     0.1517,
+     0.0421,
+     0.0094,
+     0.0011,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000848",
+   "status": "ok",
+   "input": "p_3",
+   "output": "R",
+   "step_peak": 0.312,
+   "exact_pairs": [
+    [
+     "delta_2",
+     "T"
+    ],
+    [
+     "p_3",
+     "T"
+    ],
+    [
+     "psi_1",
+     "T"
+    ],
+    [
+     "q_2",
+     "T"
+    ],
+    [
+     "rho",
+     "T"
+    ]
+   ],
+   "exact_count": 5,
+   "step_final": 0.312,
+   "crossings": 0,
+   "settle": 0.045,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9993,
+     0.9895,
+     0.8717,
+     0.4639,
+     0.2772,
+     0.2568,
+     0.2543,
+     0.241,
+     0.175,
+     0.0995,
+     0.0226,
+     0.002,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000850",
+   "status": "ok",
+   "input": "K",
+   "output": "U",
+   "step_peak": 0.2272,
+   "exact_pairs": [
+    [
+     "xi",
+     "V"
+    ]
+   ],
+   "exact_count": 1,
+   "step_final": 0.2,
+   "crossings": 1,
+   "settle": 0.006,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.8720127240529381,
+    "peak": 1.1467722573498733,
+    "peak_at": 0.4406779661016949,
+    "curve": [
+     0.872,
+     0.8721,
+     0.8725,
+     0.8746,
+     0.8841,
+     0.9195,
+     0.9835,
+     0.9869,
+     0.8327,
+     0.5392,
+     0.2803,
+     0.1312,
+     0.0595,
+     0.0268,
+     0.0121
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": [
+    2,
+    1,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000851",
+   "status": "ok",
+   "input": "A",
+   "output": "V",
+   "step_peak": 0.2449,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2449,
+   "crossings": 0,
+   "settle": 0.01,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9992,
+     0.9965,
+     0.9858,
+     0.9448,
+     0.8172,
+     0.572,
+     0.3245,
+     0.1664,
+     0.0827,
+     0.0408,
+     0.0201,
+     0.0099,
+     0.0049
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000852",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000854",
+   "status": "ok",
+   "input": "alpha1",
+   "output": "Pp",
+   "step_peak": 0.1984,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.19836,
+   "crossings": 0,
+   "settle": 0.021,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9996,
+     0.9982,
+     0.9921,
+     0.9672,
+     0.8767,
+     0.6466,
+     0.3348,
+     0.1185,
+     0.0321,
+     0.0078,
+     0.0019,
+     0.0005,
+     0.0002
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000855",
+   "status": "ok",
+   "input": "kpg",
+   "output": "Pt",
+   "step_peak": 1.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.0,
+   "crossings": 0,
+   "settle": 0.005,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": null,
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000857",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000861",
+   "status": "ok",
+   "input": "init_SHP1",
+   "output": "p12EpoRpJAK2",
+   "step_peak": 0.3671,
+   "exact_pairs": [
+    [
+     "CISRNATurn",
+     "CISRNA"
+    ],
+    [
+     "SOCS3RNAEqc",
+     "p12EpoRpJAK2"
+    ],
+    [
+     "SOCS3RNAEqc",
+     "SOCS3"
+    ]
+   ],
+   "exact_count": 3,
+   "step_final": 0.21097,
+   "crossings": 1,
+   "settle": 0.005,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.5352520781544153,
+    "peak": 1.868278593981487,
+    "peak_at": 0.5932203389830508,
+    "curve": [
+     0.5353,
+     0.477,
+     0.4765,
+     0.4765,
+     0.4765,
+     0.4765,
+     0.4765,
+     0.4771,
+     0.6004,
+     0.9987,
+     0.2604,
+     0.014,
+     0.0009,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000863",
+   "status": "ok",
+   "input": "TVmax",
+   "output": "TV",
+   "step_peak": 0.234,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.23398,
+   "crossings": 0,
+   "settle": 0.042,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9991,
+     0.9933,
+     0.9542,
+     0.762,
+     0.3981,
+     0.1584,
+     0.0595,
+     0.0222,
+     0.0083,
+     0.0031,
+     0.0011
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000865",
+   "status": "ok",
+   "input": "mu_b",
+   "output": "P",
+   "step_peak": 1.0398,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.03983,
+   "crossings": 0,
+   "settle": 0.011,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9989,
+     0.9946,
+     0.9747,
+     0.8938,
+     0.6723,
+     0.377,
+     0.168,
+     0.0584,
+     0.0152,
+     0.0034,
+     0.0007,
+     0.0002,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000866",
+   "status": "ok",
+   "input": "p100_mRNA_Expressions_k1",
+   "output": "p100",
+   "step_peak": 1.7768,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.77678,
+   "crossings": 0,
+   "settle": 0.067,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     0.9998,
+     0.9993,
+     0.9972,
+     0.9893,
+     0.9609,
+     0.8717,
+     0.6737,
+     0.4233,
+     0.2328,
+     0.1218,
+     0.0627,
+     0.0322,
+     0.0165
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000867",
+   "status": "ok",
+   "input": "D",
+   "output": "y4_HIF_1a",
+   "step_peak": 41.8565,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 41.84972,
+   "crossings": 0,
+   "settle": 0.002,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9994,
+     0.9921,
+     0.8799,
+     0.4805,
+     0.1595,
+     0.0452,
+     0.0126,
+     0.0035,
+     0.001,
+     0.0003,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000868",
+   "status": "ok",
+   "input": "p100_mRNA_Expressions_k1",
+   "output": "p100",
+   "step_peak": 1.772,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.77199,
+   "crossings": 0,
+   "settle": 0.067,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9988,
+     0.9885,
+     0.9046,
+     0.5676,
+     0.2186,
+     0.0726,
+     0.0236,
+     0.0077,
+     0.0025,
+     0.0008,
+     0.0003,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000869",
+   "status": "ok",
+   "input": "p100_mRNA_Expressions_k1",
+   "output": "IkBd",
+   "step_peak": 1.1624,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.16241,
+   "crossings": 0,
+   "settle": 0.007,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9994,
+     0.9961,
+     0.975,
+     0.8618,
+     0.546,
+     0.2293,
+     0.0665,
+     0.0128,
+     0.002,
+     0.0003,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000870",
+   "status": "ok",
+   "input": "p100_mRNA_Expressions_k1",
+   "output": "IkBd",
+   "step_peak": 2.4479,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 2.44795,
+   "crossings": 0,
+   "settle": 0.02,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.1803119027554003,
+    "peak": 5.54594557940269,
+    "peak_at": 0.423728813559322,
+    "curve": [
+     0.1803,
+     0.2076,
+     0.7548,
+     0.9966,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9998,
+     0.9781,
+     0.3686,
+     0.0077,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "rings",
+   "why": "overshoots, or answers one speed of rhythm best",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000871",
+   "status": "ok",
+   "input": "p100_mRNA_Expressions_k",
+   "output": "IkBd",
+   "step_peak": 0.2127,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.21271,
+   "crossings": 0,
+   "settle": 0.08,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.9888103577786587,
+    "peak": 1.0113162672026197,
+    "peak_at": 0.3220338983050847,
+    "curve": [
+     0.9888,
+     0.9891,
+     0.9986,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9753,
+     0.2632,
+     0.0159,
+     0.0002,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000872",
+   "status": "ok",
+   "input": "N1",
+   "output": "s13",
+   "step_peak": 1.7329,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.69399,
+   "crossings": 7,
+   "settle": 0.009,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.7139928037869979,
+    "peak": 1.4005743400998272,
+    "peak_at": 0.4067796610169492,
+    "curve": [
+     0.714,
+     0.7137,
+     0.7105,
+     0.6801,
+     0.5114,
+     0.3367,
+     1.0,
+     0.0332,
+     0.0029,
+     0.0003,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "rings",
+   "why": "overshoots, or answers one speed of rhythm best",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000873",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000874",
+   "status": "still drifting after the step",
+   "input": "mu_T",
+   "output": "T_1",
+   "step_peak": 1.0,
+   "exact_pairs": [
+    [
+     "T_max",
+     "T"
+    ],
+    [
+     "r",
+     "T"
+    ],
+    [
+     "s",
+     "T"
+    ]
+   ],
+   "exact_count": 3,
+   "step_final": 1.0,
+   "crossings": 0,
+   "settle": 0.045,
+   "settled": false,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9996,
+     0.9968,
+     0.9762,
+     0.8486,
+     0.4677,
+     0.1373,
+     0.0367,
+     0.0127,
+     0.0047,
+     0.0017,
+     0.0006,
+     0.0002,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0
+  },
+  {
+   "model": "BIOMD0000000875",
+   "status": "ok",
+   "input": "lambda",
+   "output": "T",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.034,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9997,
+     0.9979,
+     0.9865,
+     0.9208,
+     0.679,
+     0.3408,
+     0.1407,
+     0.0556,
+     0.0218,
+     0.0086,
+     0.0034,
+     0.0013,
+     0.0005,
+     0.0002
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000876",
+   "status": "ok",
+   "input": "k",
+   "output": "I_Infected_CD4",
+   "step_peak": 1.3023,
+   "exact_pairs": [
+    [
+     "C_ast",
+     "I_Infected_CD4"
+    ],
+    [
+     "C_ast",
+     "V_Virus"
+    ],
+    [
+     "N",
+     "C_Uninfected_CD4"
+    ],
+    [
+     "N",
+     "V_Virus"
+    ],
+    [
+     "a",
+     "V_Virus"
+    ]
+   ],
+   "exact_count": 8,
+   "step_final": 0.199,
+   "crossings": 10,
+   "settle": 0.015,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.027930437379600933,
+    "peak": 35.803234529021466,
+    "peak_at": 0.4915254237288136,
+    "curve": [
+     0.0279,
+     0.0279,
+     0.0279,
+     0.0275,
+     0.0254,
+     0.0259,
+     0.047,
+     0.3514,
+     0.0688,
+     0.0183,
+     0.0053,
+     0.0011,
+     0.0001,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "damped",
+    "oscillating",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000877",
+   "status": "ok",
+   "input": "mu",
+   "output": "C",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9992,
+     0.9952,
+     0.9722,
+     0.8619,
+     0.5711,
+     0.2739,
+     0.1158,
+     0.0477,
+     0.0195
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000878",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000880",
+   "status": "ok",
+   "input": "beta_1",
+   "output": "L_CD8_T_Cells",
+   "step_peak": 0.5618,
+   "exact_pairs": [
+    [
+     "a_2",
+     "D_Dendritic_Cells"
+    ],
+    [
+     "b_2__1",
+     "D_Dendritic_Cells"
+    ],
+    [
+     "beta_2",
+     "D_Dendritic_Cells"
+    ]
+   ],
+   "exact_count": 3,
+   "step_final": 0.16015,
+   "crossings": 13,
+   "settle": 0.019,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.1430140702413991,
+    "peak": 6.992318995690848,
+    "peak_at": 0.5423728813559322,
+    "curve": [
+     0.143,
+     0.143,
+     0.1431,
+     0.1436,
+     0.1453,
+     0.1528,
+     0.1839,
+     0.3271,
+     1.0,
+     0.2138,
+     0.0876,
+     0.041,
+     0.0198,
+     0.0096,
+     0.0047
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "continuum",
+    "damped",
+    "oscillating",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000881",
+   "status": "ok",
+   "input": "mu_I",
+   "output": "I",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20005,
+   "crossings": 0,
+   "settle": 0.016,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9988,
+     0.9898,
+     0.9391,
+     0.8593,
+     0.8358,
+     0.8321,
+     0.8265,
+     0.7847,
+     0.5774,
+     0.2606,
+     0.093,
+     0.0318,
+     0.0108
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000882",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000884",
+   "status": "ok",
+   "input": "delta",
+   "output": "V",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9995,
+     0.9976,
+     0.9876,
+     0.9395,
+     0.7665,
+     0.461,
+     0.2206,
+     0.098,
+     0.0428,
+     0.0187
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000885",
+   "status": "ok",
+   "input": "u",
+   "output": "B",
+   "step_peak": 1.6667,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.66667,
+   "crossings": 0,
+   "settle": 0.041,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9596,
+     0.1155,
+     0.004,
+     0.0001,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    2,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000886",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000887",
+   "status": "ok",
+   "input": "lambda",
+   "output": "u",
+   "step_peak": 0.5098,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.50945,
+   "crossings": 0,
+   "settle": 0.091,
+   "settled": true,
+   "ramp_gap": 0.0081,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9997,
+     0.9985,
+     0.993,
+     0.9691,
+     0.8706,
+     0.5665,
+     0.1841,
+     0.0402,
+     0.01,
+     0.0025,
+     0.0006,
+     0.0001,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    2,
+    1,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000888",
+   "status": "ok",
+   "input": "s_2",
+   "output": "D",
+   "step_peak": 0.2023,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20233,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9997,
+     0.9983,
+     0.9939,
+     0.9872,
+     0.9662,
+     0.866,
+     0.5842,
+     0.2811,
+     0.1179,
+     0.0481,
+     0.0195
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000890",
+   "status": "ok",
+   "input": "y",
+   "output": "m",
+   "step_peak": 0.511,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2297,
+   "crossings": 11,
+   "settle": 0.054,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.6220179693616383,
+    "peak": 1.6076705967614977,
+    "peak_at": 0.4406779661016949,
+    "curve": [
+     0.622,
+     0.6222,
+     0.6231,
+     0.6263,
+     0.639,
+     0.6883,
+     0.8681,
+     0.896,
+     0.4062,
+     0.1979,
+     0.1002,
+     0.0508,
+     0.0258,
+     0.013,
+     0.0066
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns partly",
+   "why": "peaks, then comes back part way",
+   "address": [
+    1,
+    1,
+    0
+   ],
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000891",
+   "status": "ok",
+   "input": "alpha_2",
+   "output": "u",
+   "step_peak": 0.3067,
+   "exact_pairs": [
+    [
+     "alpha_2",
+     "u"
+    ],
+    [
+     "k_1",
+     "u"
+    ],
+    [
+     "r_1",
+     "u"
+    ]
+   ],
+   "exact_count": 3,
+   "step_final": 0.0,
+   "crossings": 0,
+   "settle": 0.045,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.012217582939580534,
+    "peak": 81.84924996583105,
+    "peak_at": 0.4576271186440678,
+    "curve": [
+     0.0122,
+     0.0273,
+     0.0609,
+     0.1354,
+     0.2949,
+     0.5898,
+     0.9183,
+     0.9805,
+     0.712,
+     0.3792,
+     0.1771,
+     0.08,
+     0.0359,
+     0.0161,
+     0.0072
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "multistable",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000892",
+   "status": "ok",
+   "input": "n1",
+   "output": "VI",
+   "step_peak": 0.7965,
+   "exact_pairs": [
+    [
+     "k",
+     "T"
+    ],
+    [
+     "r",
+     "T"
+    ]
+   ],
+   "exact_count": 2,
+   "step_final": 0.7965,
+   "crossings": 0,
+   "settle": 0.105,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9989,
+     0.9946,
+     0.9747,
+     0.8897,
+     0.6483,
+     0.3739,
+     0.2314,
+     0.1494,
+     0.0818,
+     0.0394,
+     0.0183,
+     0.0084,
+     0.0038
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": [
+    3,
+    1,
+    0
+   ],
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000893",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    2,
+    2,
+    0
+   ],
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000894",
+   "status": "ok",
+   "input": "mu",
+   "output": "x",
+   "step_peak": 0.2517,
+   "exact_pairs": [
+    [
+     "Dx",
+     "z"
+    ],
+    [
+     "Dz",
+     "z"
+    ],
+    [
+     "R",
+     "z"
+    ],
+    [
+     "mu",
+     "z"
+    ]
+   ],
+   "exact_count": 4,
+   "step_final": 0.2517,
+   "crossings": 0,
+   "settle": 0.017,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9997,
+     0.9978,
+     0.9851,
+     0.9099,
+     0.6567,
+     0.3672,
+     0.1871,
+     0.0783,
+     0.0286,
+     0.0082,
+     0.0016,
+     0.0002,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000895",
+   "status": "ok",
+   "input": "ccMr",
+   "output": "Se",
+   "step_peak": 0.9982,
+   "exact_pairs": [
+    [
+     "bMi",
+     "CD4"
+    ],
+    [
+     "bMi",
+     "Se"
+    ],
+    [
+     "cSeMri",
+     "CD4"
+    ],
+    [
+     "cSeMri",
+     "Se"
+    ],
+    [
+     "iMr",
+     "CD4"
+    ]
+   ],
+   "exact_count": 6,
+   "step_final": 0.9982,
+   "crossings": 0,
+   "settle": 0.007,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.20036714969831615,
+    "peak": 4.990838076529288,
+    "peak_at": 0.3728813559322034,
+    "curve": [
+     0.2004,
+     0.2004,
+     0.2005,
+     0.2021,
+     0.218,
+     0.4223,
+     0.2144,
+     0.0356,
+     0.0047,
+     0.0005,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "damped",
+    "multistable",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000897",
+   "status": "ok",
+   "input": "d",
+   "output": "T",
+   "step_peak": 0.684,
+   "exact_pairs": [
+    [
+     "p",
+     "E"
+    ]
+   ],
+   "exact_count": 1,
+   "step_final": 0.40795,
+   "crossings": 19,
+   "settle": 0.014,
+   "settled": true,
+   "ramp_gap": 0.9193,
+   "rhythm": {
+    "dc": 0.2158385123611675,
+    "peak": 4.633093459830177,
+    "peak_at": 0.4915254237288136,
+    "curve": [
+     0.2158,
+     0.2159,
+     0.2161,
+     0.2167,
+     0.219,
+     0.2273,
+     0.262,
+     0.5419,
+     0.1784,
+     0.0326,
+     0.0084,
+     0.0024,
+     0.0007,
+     0.0002,
+     0.0001
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "remembers",
+   "why": "up and down paths differ by 92%",
+   "address": null,
+   "census": [
+    "damped",
+    "oscillating",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000898",
+   "status": "ok",
+   "input": "p_30",
+   "output": "T_TDLC",
+   "step_peak": 0.7444,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.74444,
+   "crossings": 0,
+   "settle": 0.004,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9997,
+     0.9958,
+     0.9523,
+     0.7479,
+     0.435,
+     0.2147,
+     0.101,
+     0.047,
+     0.0218
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000899",
+   "status": "ok",
+   "input": "re6_k5",
+   "output": "s5",
+   "step_peak": 0.0812,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.08119,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9991,
+     0.9889,
+     0.8865,
+     0.4837,
+     0.1574,
+     0.0459,
+     0.0133,
+     0.0038,
+     0.0011,
+     0.0003
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000900",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000902",
+   "status": "ok",
+   "input": "k",
+   "output": "x",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.006,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9991,
+     0.996,
+     0.9831,
+     0.9324,
+     0.7787,
+     0.5127,
+     0.2762,
+     0.137,
+     0.0664,
+     0.032,
+     0.0154,
+     0.0074,
+     0.0036
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000903",
+   "status": "ok",
+   "input": "s",
+   "output": "I",
+   "step_peak": 0.232,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.23198,
+   "crossings": 0,
+   "settle": 0.004,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     0.9997,
+     0.9985,
+     0.9925,
+     0.9692,
+     0.9204,
+     0.8762,
+     0.8154,
+     0.6467,
+     0.3808,
+     0.1828,
+     0.0823,
+     0.0365,
+     0.0162
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000904",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000905",
+   "status": "ok",
+   "input": "mu",
+   "output": "I",
+   "step_peak": 0.2013,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20129,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     0.9999,
+     0.9992,
+     0.9963,
+     0.9948,
+     0.9947,
+     0.9947,
+     0.9945,
+     0.992,
+     0.9636,
+     0.7398,
+     0.3003,
+     0.0893,
+     0.0255
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000906",
+   "status": "ok",
+   "input": "beta",
+   "output": "I",
+   "step_peak": 0.5465,
+   "exact_pairs": [
+    [
+     "beta",
+     "P"
+    ],
+    [
+     "beta0",
+     "P"
+    ]
+   ],
+   "exact_count": 2,
+   "step_final": 0.49466,
+   "crossings": 3,
+   "settle": 0.004,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.8722188598106703,
+    "peak": 1.1465012350421622,
+    "peak_at": 0.5423728813559322,
+    "curve": [
+     0.8722,
+     0.8722,
+     0.8722,
+     0.8723,
+     0.8728,
+     0.8746,
+     0.8825,
+     0.9159,
+     1.0,
+     0.4886,
+     0.1023,
+     0.0225,
+     0.0051,
+     0.0012,
+     0.0003
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000907",
+   "status": "ok",
+   "input": "a1_X2_0",
+   "output": "X2_2",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9997,
+     0.9946,
+     0.908,
+     0.4396,
+     0.1099,
+     0.025,
+     0.0056,
+     0.0013
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000908",
+   "status": "ok",
+   "input": "p_R",
+   "output": "R",
+   "step_peak": 128.446,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 128.446,
+   "crossings": 0,
+   "settle": 0.191,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9996,
+     0.9951,
+     0.9539,
+     0.7094,
+     0.3038,
+     0.1007,
+     0.0322,
+     0.0102,
+     0.0032,
+     0.001,
+     0.0003,
+     0.0001,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000909",
+   "status": "ok",
+   "input": "s",
+   "output": "I",
+   "step_peak": 3.5496,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 3.54959,
+   "crossings": 0,
+   "settle": 0.025,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9988,
+     0.9933,
+     0.9648,
+     0.8508,
+     0.6292,
+     0.4713,
+     0.3801,
+     0.2549,
+     0.1315,
+     0.0591,
+     0.0254,
+     0.0108,
+     0.0046
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "multistable",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000910",
+   "status": "ok",
+   "input": "beta_L",
+   "output": "T",
+   "step_peak": 1.026,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.40844,
+   "crossings": 14,
+   "settle": 0.024,
+   "settled": true,
+   "ramp_gap": 0.721,
+   "rhythm": {
+    "dc": 0.13706470508861704,
+    "peak": 7.295824255802875,
+    "peak_at": 0.4745762711864407,
+    "curve": [
+     0.1371,
+     0.1371,
+     0.1374,
+     0.1384,
+     0.1419,
+     0.1552,
+     0.2119,
+     1.0,
+     0.1212,
+     0.0279,
+     0.0075,
+     0.002,
+     0.0006,
+     0.0002,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "remembers",
+   "why": "up and down paths differ by 72%",
+   "address": null,
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000911",
+   "status": "ok",
+   "input": "beta",
+   "output": "Z",
+   "step_peak": 0.3756,
+   "exact_pairs": [
+    [
+     "k2",
+     "Z"
+    ],
+    [
+     "s",
+     "Z"
+    ]
+   ],
+   "exact_count": 2,
+   "step_final": 0.16667,
+   "crossings": 2,
+   "settle": 0.015,
+   "settled": true,
+   "ramp_gap": 0.0235,
+   "rhythm": {
+    "dc": 0.41538580392819624,
+    "peak": 2.4074005190915493,
+    "peak_at": 0.3559322033898305,
+    "curve": [
+     0.4154,
+     0.4165,
+     0.4239,
+     0.4678,
+     0.6545,
+     0.9674,
+     0.8646,
+     0.4455,
+     0.1842,
+     0.0728,
+     0.0286,
+     0.0112,
+     0.0044,
+     0.0017,
+     0.0007
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": [
+    3,
+    1,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000912",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    3,
+    1,
+    0
+   ],
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000913",
+   "status": "ok",
+   "input": "beta",
+   "output": "C",
+   "step_peak": 0.1667,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.16667,
+   "crossings": 0,
+   "settle": 0.007,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9996,
+     0.9963,
+     0.9689,
+     0.7989,
+     0.411,
+     0.1513,
+     0.0519,
+     0.0176,
+     0.006,
+     0.002,
+     0.0007,
+     0.0002,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000914",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000916",
+   "status": "ok",
+   "input": "K2",
+   "output": "The_cumulative_FOD_excreted_in_the_non_urinary_pool__X3",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000919",
+   "status": "ok",
+   "input": "x_inf",
+   "output": "y",
+   "step_peak": 0.4229,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.4229,
+   "crossings": 0,
+   "settle": 0.02,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9989,
+     0.9949,
+     0.9764,
+     0.9015,
+     0.6914,
+     0.3962,
+     0.1779,
+     0.0615,
+     0.0161,
+     0.0036,
+     0.0008,
+     0.0002,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "damped",
+    "multistable",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000921",
+   "status": "ok",
+   "input": "G_max",
+   "output": "G",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.011,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9996,
+     0.9965,
+     0.971,
+     0.813,
+     0.4326,
+     0.1628,
+     0.0566,
+     0.0195,
+     0.0067,
+     0.0023,
+     0.0008,
+     0.0003,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000922",
+   "status": "ok",
+   "input": "Ar",
+   "output": "Population_of_Eggs",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.025,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9995,
+     0.9981,
+     0.9926,
+     0.9727,
+     0.9061,
+     0.7387,
+     0.4891,
+     0.2758,
+     0.1453,
+     0.0749,
+     0.0384,
+     0.0197,
+     0.0101
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000923",
+   "status": "baseline failed"
+  },
+  {
+   "model": "BIOMD0000000924",
+   "status": "ok",
+   "input": "K_P",
+   "output": "Pneumococci___P",
+   "step_peak": 0.2013,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20135,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9996,
+     0.9969,
+     0.9762,
+     0.8475,
+     0.4931,
+     0.1973,
+     0.0713,
+     0.0254,
+     0.009,
+     0.0032,
+     0.0011,
+     0.0004
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "continuum",
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000926",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000927",
+   "status": "ok",
+   "input": "SIAA",
+   "output": "IAA",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.077,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9997,
+     0.9982,
+     0.9893,
+     0.9402,
+     0.7473,
+     0.4166,
+     0.1836,
+     0.0759,
+     0.031,
+     0.0126,
+     0.0052,
+     0.0021,
+     0.0009,
+     0.0003
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000929",
+   "status": "ok",
+   "input": "a_n",
+   "output": "NK_cells__N",
+   "step_peak": 0.2005,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20046,
+   "crossings": 0,
+   "settle": 0.005,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9993,
+     0.995,
+     0.9659,
+     0.8135,
+     0.4644,
+     0.1927,
+     0.0733,
+     0.0275,
+     0.0103,
+     0.0039,
+     0.0014
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000930",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000931",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    3,
+    1,
+    0
+   ],
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000932",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000933",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    1,
+    1,
+    0
+   ],
+   "census": [
+    "multistable",
+    "oscillating",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000934",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000935",
+   "status": "ok",
+   "input": "k2",
+   "output": "APC_active",
+   "step_peak": 0.266,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.02352,
+   "crossings": 6,
+   "settle": 0.011,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.03900291571704016,
+    "peak": 25.63910881060375,
+    "peak_at": 0.4915254237288136,
+    "curve": [
+     0.039,
+     0.04,
+     0.0432,
+     0.053,
+     0.0785,
+     0.1374,
+     0.2792,
+     0.7801,
+     0.576,
+     0.2254,
+     0.111,
+     0.0581,
+     0.0309,
+     0.0165,
+     0.0088
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns partly",
+   "why": "peaks, then comes back part way",
+   "address": [
+    1,
+    1,
+    0
+   ],
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000937",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    1,
+    1,
+    0
+   ],
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000938",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    3,
+    2,
+    0
+   ],
+   "census": [
+    "oscillating",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000940",
+   "status": "ok",
+   "input": "kd_pten",
+   "output": "PIK3R1",
+   "step_peak": 0.2138,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.21383,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9983,
+     0.9754,
+     0.7181,
+     0.2234,
+     0.0582,
+     0.0151,
+     0.0034,
+     0.0004,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000941",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000942",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000944",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    1,
+    1,
+    0
+   ],
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000945",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000946",
+   "status": "ok",
+   "input": "B_T",
+   "output": "L_n",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.006,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9993,
+     0.9953,
+     0.9689,
+     0.8527,
+     0.706,
+     0.6344,
+     0.4866,
+     0.2406,
+     0.0919,
+     0.0333,
+     0.012
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000949",
+   "status": "no parameter could be stepped"
+  },
+  {
+   "model": "BIOMD0000000950",
+   "status": "no parameter could be stepped"
+  },
+  {
+   "model": "BIOMD0000000952",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000953",
+   "status": "ok",
+   "input": "ka_tem_p",
+   "output": "cdh1",
+   "step_peak": 348.778,
+   "exact_pairs": [
+    [
+     "ka_polo_p",
+     "clb2"
+    ],
+    [
+     "ki",
+     "clb2"
+    ]
+   ],
+   "exact_count": 2,
+   "step_final": 0.815,
+   "crossings": 58,
+   "settle": 0.98,
+   "settled": false,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.278314401428793,
+    "peak": 3.5930587668703553,
+    "peak_at": 0.4406779661016949,
+    "curve": [
+     0.2783,
+     0.2783,
+     0.2786,
+     0.2829,
+     0.333,
+     0.5127,
+     0.745,
+     0.4566,
+     0.0572,
+     0.0041,
+     0.0001,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 31,
+   "row": "ticks",
+   "why": "the push starts it ticking",
+   "address": null,
+   "census": [
+    "damped",
+    "steady",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000954",
+   "status": "ok",
+   "input": "Kdemi1",
+   "output": "Cdh1",
+   "step_peak": 385.4831,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.59117,
+   "crossings": 54,
+   "settle": 0.996,
+   "settled": false,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.663287980760777,
+    "peak": 1.507640766915483,
+    "peak_at": 0.2711864406779661,
+    "curve": [
+     0.6633,
+     0.6634,
+     0.6648,
+     0.6918,
+     1.0,
+     0.7848,
+     0.6058,
+     0.2319,
+     0.1109,
+     0.0931,
+     0.0508,
+     0.0136,
+     0.0032,
+     0.0007,
+     0.0002
+    ]
+   },
+   "sustained_peaks": 14,
+   "row": "ticks",
+   "why": "the push starts it ticking",
+   "address": null,
+   "census": [
+    "continuum",
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000957",
+   "status": "ok",
+   "input": "beta",
+   "output": "Susceptible",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "continuum",
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000958",
+   "status": "ok",
+   "input": "N",
+   "output": "Susceptible",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000959",
+   "status": "ok",
+   "input": "Linear_chain_for_time_delay_in_USP18_translation_synthUSP18",
+   "output": "USP18",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9994,
+     0.9818,
+     0.627,
+     0.0247,
+     0.0002,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "damped",
+    "steady",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000962",
+   "status": "ok",
+   "input": "ModelValue_0",
+   "output": "Susceptible",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000965",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    3,
+    2,
+    0
+   ],
+   "census": [
+    "oscillating",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000000966",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000000967",
+   "status": "ok",
+   "input": "z",
+   "output": "R",
+   "step_peak": 4.0,
+   "exact_pairs": [
+    [
+     "alpha",
+     "E"
+    ],
+    [
+     "alpha",
+     "V"
+    ]
+   ],
+   "exact_count": 2,
+   "step_final": 4.0,
+   "crossings": 0,
+   "settle": 0.026,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.4571178150121237,
+    "peak": 2.1876198370730267,
+    "peak_at": 0.3220338983050847,
+    "curve": [
+     0.4571,
+     0.4574,
+     0.459,
+     0.4696,
+     0.5488,
+     0.9662,
+     0.099,
+     0.0181,
+     0.003,
+     0.0004,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000968",
+   "status": "ok",
+   "input": "K2",
+   "output": "IL7",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": [
+    2,
+    1,
+    0
+   ],
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000970",
+   "status": "ok",
+   "input": "alpha",
+   "output": "Susceptible",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": [
+    2,
+    0,
+    0
+   ],
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000974",
+   "status": "ok",
+   "input": "alpha",
+   "output": "Susceptible",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "continuum",
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000975",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000000977",
+   "status": "ok",
+   "input": "beta_s",
+   "output": "Susceptible",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000979",
+   "status": "ok",
+   "input": "R_fixed",
+   "output": "Exposed",
+   "step_peak": 0.2017,
+   "exact_pairs": [
+    [
+     "omega",
+     "Susceptible"
+    ]
+   ],
+   "exact_count": 1,
+   "step_final": 0.08333,
+   "crossings": 3,
+   "settle": 0.046,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.3276475251723567,
+    "peak": 3.0520602878778256,
+    "peak_at": 0.423728813559322,
+    "curve": [
+     0.3276,
+     0.328,
+     0.3297,
+     0.3374,
+     0.3718,
+     0.5216,
+     0.9836,
+     0.695,
+     0.467,
+     0.309,
+     0.1692,
+     0.0831,
+     0.0395,
+     0.0186,
+     0.0088
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000981",
+   "status": "ok",
+   "input": "beta",
+   "output": "Susceptible",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": null,
+   "census": [
+    "continuum",
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000984",
+   "status": "ok",
+   "input": "beta_o",
+   "output": "Susceptible",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000987",
+   "status": "ok",
+   "input": "mu",
+   "output": "FITC_Dextran_nine_compartment_model_compartment_9",
+   "step_peak": 0.2,
+   "exact_pairs": [
+    [
+     "lambda_compartment_1",
+     "FITC_Dextran_three_compartment_model_compartment_2"
+    ],
+    [
+     "lambda_compartment_1",
+     "FITC_Dextran_three_compartment_model_compartment_3"
+    ],
+    [
+     "lambda_compartment_2",
+     "FITC_Dextran_three_compartment_model_compartment_3"
+    ],
+    [
+     "lambda_compartment_3",
+     "FITC_Dextran_nine_compartment_model_compartment_4"
+    ],
+    [
+     "lambda_compartment_4",
+     "FITC_Dextran_nine_compartment_model_compartment_5"
+    ]
+   ],
+   "exact_count": 9,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.049,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.999,
+     0.9954,
+     0.9823,
+     0.9363,
+     0.7893,
+     0.4451,
+     0.0879,
+     0.0031,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000000991",
+   "status": "ok",
+   "input": "alpha",
+   "output": "susceptible",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001004",
+   "status": "ok",
+   "input": "STAT3_translation_k1",
+   "output": "RORgtmRNA",
+   "step_peak": 0.3033,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.30331,
+   "crossings": 0,
+   "settle": 0.005,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     0.9999,
+     0.9989,
+     0.9918,
+     0.9417,
+     0.7037,
+     0.2973,
+     0.0775,
+     0.0145,
+     0.0016,
+     0.0001,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001011",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000001012",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000001014",
+   "status": "baseline failed"
+  },
+  {
+   "model": "BIOMD0000001016",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000001017",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000001018",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000001021",
+   "status": "ok",
+   "input": "Beta",
+   "output": "Target_cells",
+   "step_peak": 0.1394,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.1394,
+   "crossings": 0,
+   "settle": 0.074,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.4102,
+     0.1682,
+     0.0689,
+     0.0279,
+     0.0108,
+     0.0035,
+     0.0008,
+     0.0001,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001022",
+   "status": "still drifting after the step",
+   "input": "p_s",
+   "output": "S",
+   "step_peak": 3.773716273483444e+260,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 3.773716273483444e+260,
+   "crossings": 0,
+   "settle": 0.999,
+   "settled": false,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.3727,
+     0.1389,
+     0.0518,
+     0.0193,
+     0.0072,
+     0.0027,
+     0.001,
+     0.0004,
+     0.0001,
+     0.0001,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0
+  },
+  {
+   "model": "BIOMD0000001023",
+   "status": "ok",
+   "input": "sigma",
+   "output": "Immune_cells",
+   "step_peak": 0.3646,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.36459,
+   "crossings": 0,
+   "settle": 0.081,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9992,
+     0.9964,
+     0.9835,
+     0.9322,
+     0.7906,
+     0.5961,
+     0.4219,
+     0.2509,
+     0.1267,
+     0.0602,
+     0.0281,
+     0.0131,
+     0.0061
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001024",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    3,
+    1,
+    0
+   ],
+   "census": [
+    "oscillating",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000001031",
+   "status": "ok",
+   "input": "h",
+   "output": "uninfected_cancer_cells",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": [
+    2,
+    0,
+    0
+   ],
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001033",
+   "status": "ok",
+   "input": "r",
+   "output": "Infected_tumour_cells",
+   "step_peak": 0.3724,
+   "exact_pairs": [
+    [
+     "a1_v",
+     "Uninfected_tumour_cells"
+    ],
+    [
+     "b",
+     "M1_macrophages"
+    ],
+    [
+     "b",
+     "Uninfected_M2_macrophages"
+    ],
+    [
+     "b",
+     "Infected_M2_macrophages"
+    ],
+    [
+     "d_i",
+     "M1_macrophages"
+    ]
+   ],
+   "exact_count": 12,
+   "step_final": 0.18525,
+   "crossings": 12,
+   "settle": 0.01,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.2133968987592167,
+    "peak": 4.686103714788918,
+    "peak_at": 0.4406779661016949,
+    "curve": [
+     0.2134,
+     0.2135,
+     0.2137,
+     0.215,
+     0.2208,
+     0.2483,
+     0.4396,
+     0.1843,
+     0.0277,
+     0.0065,
+     0.0015,
+     0.0003,
+     0.0001,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001035",
+   "status": "ok",
+   "input": "b",
+   "output": "free_virus",
+   "step_peak": 0.5342,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.52118,
+   "crossings": 1,
+   "settle": 0.002,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.8664422243814841,
+    "peak": 1.15414504494383,
+    "peak_at": 0.4406779661016949,
+    "curve": [
+     0.8664,
+     0.8665,
+     0.8665,
+     0.867,
+     0.8698,
+     0.8862,
+     0.966,
+     0.7678,
+     0.2423,
+     0.0972,
+     0.0451,
+     0.0197,
+     0.0082,
+     0.0033,
+     0.0014
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001036",
+   "status": "ok",
+   "input": "r2",
+   "output": "Tumor_cells",
+   "step_peak": 4.2131,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.98188,
+   "crossings": 206,
+   "settle": 0.999,
+   "settled": false,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.12046197462780898,
+    "peak": 8.301374795570943,
+    "peak_at": 0.3559322033898305,
+    "curve": [
+     0.1205,
+     0.1206,
+     0.1213,
+     0.1252,
+     0.1485,
+     0.3863,
+     0.185,
+     0.0524,
+     0.0209,
+     0.0088,
+     0.0037,
+     0.0016,
+     0.0007,
+     0.0003,
+     0.0001
+    ]
+   },
+   "sustained_peaks": 113,
+   "row": "ticks",
+   "why": "the push starts it ticking",
+   "address": null,
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001037",
+   "status": "ok",
+   "input": "alpha2",
+   "output": "Tumor_cells",
+   "step_peak": 0.1667,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.16667,
+   "crossings": 0,
+   "settle": 0.022,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9991,
+     0.9962,
+     0.9842,
+     0.9374,
+     0.7939,
+     0.5351,
+     0.2938,
+     0.1475,
+     0.0722,
+     0.0351,
+     0.017,
+     0.0083,
+     0.004
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    3,
+    1,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001038",
+   "status": "ok",
+   "input": "k1",
+   "output": "Normal_cells",
+   "step_peak": 1.1687,
+   "exact_pairs": [
+    [
+     "alpha1",
+     "Tumor_cells"
+    ],
+    [
+     "alpha2",
+     "Tumor_cells"
+    ],
+    [
+     "beta2",
+     "Tumor_cells"
+    ],
+    [
+     "c2",
+     "Tumor_cells"
+    ]
+   ],
+   "exact_count": 4,
+   "step_final": 0.73222,
+   "crossings": 12,
+   "settle": 0.015,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.3924097431537285,
+    "peak": 2.5483567048136337,
+    "peak_at": 0.4406779661016949,
+    "curve": [
+     0.3924,
+     0.3925,
+     0.393,
+     0.3948,
+     0.4024,
+     0.4369,
+     0.6513,
+     0.3514,
+     0.0487,
+     0.0092,
+     0.002,
+     0.0005,
+     0.0001,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": [
+    3,
+    1,
+    0
+   ],
+   "census": [
+    "damped",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001041",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000001042",
+   "status": "baseline failed"
+  },
+  {
+   "model": "BIOMD0000001045",
+   "status": "ok",
+   "input": "beta",
+   "output": "Infected",
+   "step_peak": 0.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "row": "flat",
+   "why": "no 20% step moves any molecule by 5%",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001047",
+   "status": "ok",
+   "input": "ModelValue_4",
+   "output": "notch1",
+   "step_peak": 0.8397,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.83965,
+   "crossings": 0,
+   "settle": 0.01,
+   "settled": true,
+   "ramp_gap": 0.4586,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9996,
+     0.9984,
+     0.994,
+     0.9784,
+     0.9272,
+     0.7917,
+     0.5609,
+     0.3331,
+     0.181,
+     0.0955,
+     0.0499,
+     0.026,
+     0.0136
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "remembers",
+   "why": "up and down paths differ by 46%",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "multistable",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001048",
+   "status": "ok",
+   "input": "a",
+   "output": "Tplas",
+   "step_peak": 4.0474,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 4.04736,
+   "crossings": 0,
+   "settle": 0.015,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9996,
+     0.9959,
+     0.9637,
+     0.7661,
+     0.3664,
+     0.129,
+     0.0429,
+     0.0142,
+     0.0046,
+     0.0014,
+     0.0003,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    3,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001052",
+   "status": "ok",
+   "input": "sigma",
+   "output": "I",
+   "step_peak": 0.3646,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.36459,
+   "crossings": 0,
+   "settle": 0.081,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9992,
+     0.996,
+     0.9813,
+     0.9223,
+     0.7666,
+     0.5697,
+     0.3926,
+     0.2227,
+     0.1088,
+     0.0505,
+     0.0232,
+     0.0106,
+     0.0049
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001053",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000001054",
+   "status": "ok",
+   "input": "k1",
+   "output": "C2",
+   "step_peak": 0.1957,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.19572,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.006429641543820803,
+    "peak": 155.52966571846426,
+    "peak_at": 0.4576271186440678,
+    "curve": [
+     0.0064,
+     0.0548,
+     0.2891,
+     0.8338,
+     0.9994,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9875,
+     0.7868,
+     0.2813,
+     0.0087,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "rings",
+   "why": "overshoots, or answers one speed of rhythm best",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001055",
+   "status": "ok",
+   "input": "k0",
+   "output": "Metabolic_outcome_of_Pentose_Phosphate_Shunt",
+   "step_peak": 0.2188,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.21883,
+   "crossings": 0,
+   "settle": 0.022,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9995,
+     0.9942,
+     0.9425,
+     0.6478,
+     0.2229,
+     0.0365,
+     0.0026,
+     0.0001,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    3,
+    3,
+    0
+   ],
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001056",
+   "status": "ok",
+   "input": "rho1",
+   "output": "C1",
+   "step_peak": 1.7903,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.78152,
+   "crossings": 1,
+   "settle": 0.012,
+   "settled": true,
+   "ramp_gap": 0.0373,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9998,
+     0.9987,
+     0.9931,
+     0.9657,
+     0.8528,
+     0.5783,
+     0.2853,
+     0.122,
+     0.0525,
+     0.023,
+     0.0101,
+     0.0045,
+     0.002,
+     0.0009
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001057",
+   "status": "ok",
+   "input": "k4",
+   "output": "miR34a",
+   "step_peak": 0.2001,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.20011,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9997,
+     0.9992,
+     0.997,
+     0.9838,
+     0.9087,
+     0.6498,
+     0.3178,
+     0.1302,
+     0.0514,
+     0.0202
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001058",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating",
+    "unbounded"
+   ]
+  },
+  {
+   "model": "BIOMD0000001060",
+   "status": "ok",
+   "input": "S1",
+   "output": "x1",
+   "step_peak": 1.595,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.59502,
+   "crossings": 0,
+   "settle": 0.009,
+   "settled": true,
+   "ramp_gap": 0.1976,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     0.9999,
+     0.9993,
+     0.9971,
+     0.9884,
+     0.956,
+     0.8542,
+     0.6458,
+     0.4096,
+     0.2309,
+     0.1207,
+     0.0611,
+     0.0306,
+     0.0153,
+     0.0077
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "remembers",
+   "why": "up and down paths differ by 20%",
+   "address": [
+    3,
+    0,
+    0
+   ],
+   "census": [
+    "multistable",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001065",
+   "status": "baseline unbounded"
+  },
+  {
+   "model": "BIOMD0000001077",
+   "status": "ok",
+   "input": "EpoRActJAK2",
+   "output": "p12EpoRpJAK2",
+   "step_peak": 0.3521,
+   "exact_pairs": [
+    [
+     "SHP1ActEpoR",
+     "EpoRpJAK2"
+    ],
+    [
+     "SHP1ActEpoR",
+     "p1EpoRpJAK2"
+    ],
+    [
+     "SHP1ActEpoR",
+     "p2EpoRpJAK2"
+    ],
+    [
+     "SHP1ActEpoR",
+     "p12EpoRpJAK2"
+    ],
+    [
+     "SHP1ActEpoR",
+     "STAT5"
+    ]
+   ],
+   "exact_count": 6,
+   "step_final": 0.35213,
+   "crossings": 0,
+   "settle": 0.001,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9998,
+     0.9988,
+     0.9908,
+     0.933,
+     0.6548,
+     0.2492,
+     0.0816,
+     0.0286,
+     0.0102
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "returns exactly",
+   "why": "some molecule comes back within 0.5% while others stay moved",
+   "address": null,
+   "census": [
+    "continuum",
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001078",
+   "status": "ok",
+   "input": "ke",
+   "output": "Pu",
+   "step_peak": 1.0,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 1.0,
+   "crossings": 0,
+   "settle": 0.017,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     0.9999,
+     0.9996,
+     0.9985,
+     0.994,
+     0.9765,
+     0.9139,
+     0.7457,
+     0.4862,
+     0.2666,
+     0.1362,
+     0.0682,
+     0.034,
+     0.0169
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": [
+    0,
+    0,
+    0
+   ],
+   "census": [
+    "steady"
+   ]
+  },
+  {
+   "model": "BIOMD0000001079",
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    2,
+    1,
+    0
+   ],
+   "census": [
+    "oscillating"
+   ]
+  },
+  {
+   "model": "BIOMD0000001080",
+   "status": "baseline unsettled"
+  },
+  {
+   "model": "BIOMD0000001102",
+   "status": "ok",
+   "input": "k_MET_expression",
+   "output": "pMET",
+   "step_peak": 0.2,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.2,
+   "crossings": 0,
+   "settle": 0.007,
+   "settled": true,
+   "ramp_gap": 0.0,
+   "rhythm": {
+    "dc": 0.9999999999999998,
+    "peak": 1.0000000000000002,
+    "peak_at": 0.0847457627118644,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9998,
+     0.9798,
+     0.3288,
+     0.0046,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
+  }
+ ],
+ "rows": {
+  "ticks": 39,
+  "remembers": 7,
+  "returns exactly": 33,
+  "returns partly": 7,
+  "rings": 9,
+  "follows": 96,
+  "flat": 15
+ },
+ "checks": [
+  {
+   "model": "BIOMD0000000312",
+   "output": "R",
+   "pre": 1.0,
+   "peak": 0.4124,
+   "final": 0.0,
+   "row": "returns exactly",
+   "solver_stopped_at": null,
+   "last_time": 599.0,
+   "trace": [
+    [
+     0.3,
+     1.0
+    ],
+    [
+     5.09,
+     1.0
+    ],
+    [
+     9.88,
+     1.0
+    ],
+    [
+     14.68,
+     1.0
+    ],
+    [
+     19.47,
+     1.0
+    ],
+    [
+     24.26,
+     1.0
+    ],
+    [
+     29.05,
+     1.0
+    ],
+    [
+     33.84,
+     1.0
+    ],
+    [
+     38.64,
+     1.0
+    ],
+    [
+     43.43,
+     1.0
+    ],
+    [
+     48.22,
+     1.0
+    ],
+    [
+     53.01,
+     1.0
+    ],
+    [
+     57.8,
+     1.0
+    ],
+    [
+     62.6,
+     1.0
+    ],
+    [
+     67.39,
+     1.0
+    ],
+    [
+     72.18,
+     1.0
+    ],
+    [
+     76.97,
+     1.0
+    ],
+    [
+     81.76,
+     1.0
+    ],
+    [
+     86.56,
+     1.0
+    ],
+    [
+     91.35,
+     1.0
+    ],
+    [
+     96.14,
+     1.0
+    ],
+    [
+     100.93,
+     1.0
+    ],
+    [
+     105.72,
+     1.0
+    ],
+    [
+     110.52,
+     1.0
+    ],
+    [
+     115.31,
+     1.0
+    ],
+    [
+     120.1,
+     1.0
+    ],
+    [
+     124.89,
+     1.0
+    ],
+    [
+     129.68,
+     1.0
+    ],
+    [
+     134.48,
+     1.0
+    ],
+    [
+     139.27,
+     1.0
+    ],
+    [
+     144.06,
+     1.0
+    ],
+    [
+     148.85,
+     1.0
+    ],
+    [
+     153.64,
+     1.0
+    ],
+    [
+     158.44,
+     1.0
+    ],
+    [
+     163.23,
+     1.0
+    ],
+    [
+     168.02,
+     1.0
+    ],
+    [
+     172.81,
+     1.0
+    ],
+    [
+     177.6,
+     1.0
+    ],
+    [
+     182.4,
+     1.0
+    ],
+    [
+     187.19,
+     1.0
+    ],
+    [
+     191.98,
+     1.0
+    ],
+    [
+     196.77,
+     1.0
+    ],
+    [
+     201.56,
+     1.5441
+    ],
+    [
+     206.36,
+     1.0036
+    ],
+    [
+     211.15,
+     1.0
+    ],
+    [
+     215.94,
+     1.0
+    ],
+    [
+     220.73,
+     1.0
+    ],
+    [
+     225.52,
+     1.0
+    ],
+    [
+     230.32,
+     1.0
+    ],
+    [
+     235.11,
+     1.0
+    ],
+    [
+     239.9,
+     1.0
+    ],
+    [
+     244.69,
+     1.0
+    ],
+    [
+     249.48,
+     1.0
+    ],
+    [
+     254.28,
+     1.0
+    ],
+    [
+     259.07,
+     1.0
+    ],
+    [
+     263.86,
+     1.0
+    ],
+    [
+     268.65,
+     1.0
+    ],
+    [
+     273.44,
+     1.0
+    ],
+    [
+     278.24,
+     1.0
+    ],
+    [
+     283.03,
+     1.0
+    ],
+    [
+     287.82,
+     1.0
+    ],
+    [
+     292.61,
+     1.0
+    ],
+    [
+     297.4,
+     1.0
+    ],
+    [
+     302.2,
+     1.0
+    ],
+    [
+     306.99,
+     1.0
+    ],
+    [
+     311.78,
+     1.0
+    ],
+    [
+     316.57,
+     1.0
+    ],
+    [
+     321.36,
+     1.0
+    ],
+    [
+     326.16,
+     1.0
+    ],
+    [
+     330.95,
+     1.0
+    ],
+    [
+     335.74,
+     1.0
+    ],
+    [
+     340.53,
+     1.0
+    ],
+    [
+     345.32,
+     1.0
+    ],
+    [
+     350.12,
+     1.0
+    ],
+    [
+     354.91,
+     1.0
+    ],
+    [
+     359.7,
+     1.0
+    ],
+    [
+     364.49,
+     1.0
+    ],
+    [
+     369.28,
+     1.0
+    ],
+    [
+     374.08,
+     1.0
+    ],
+    [
+     378.87,
+     1.0
+    ],
+    [
+     383.66,
+     1.0
+    ],
+    [
+     388.45,
+     1.0
+    ],
+    [
+     393.24,
+     1.0
+    ],
+    [
+     398.04,
+     1.0
+    ],
+    [
+     402.83,
+     1.042
+    ],
+    [
+     407.62,
+     1.0003
+    ],
+    [
+     412.41,
+     1.0
+    ],
+    [
+     417.2,
+     1.0
+    ],
+    [
+     422.0,
+     1.0
+    ],
+    [
+     426.79,
+     1.0
+    ],
+    [
+     431.58,
+     1.0
+    ],
+    [
+     436.37,
+     1.0
+    ],
+    [
+     441.16,
+     1.0
+    ],
+    [
+     445.96,
+     1.0
+    ],
+    [
+     450.75,
+     1.0
+    ],
+    [
+     455.54,
+     1.0
+    ],
+    [
+     460.33,
+     1.0
+    ],
+    [
+     465.12,
+     1.0
+    ],
+    [
+     469.92,
+     1.0
+    ],
+    [
+     474.71,
+     1.0
+    ],
+    [
+     479.5,
+     1.0
+    ],
+    [
+     484.29,
+     1.0
+    ],
+    [
+     489.08,
+     1.0
+    ],
+    [
+     493.88,
+     1.0
+    ],
+    [
+     498.67,
+     1.0
+    ],
+    [
+     503.46,
+     1.0
+    ],
+    [
+     508.25,
+     1.0
+    ],
+    [
+     513.04,
+     1.0
+    ],
+    [
+     517.84,
+     1.0
+    ],
+    [
+     522.63,
+     1.0
+    ],
+    [
+     527.42,
+     1.0
+    ],
+    [
+     532.21,
+     1.0
+    ],
+    [
+     537.0,
+     1.0
+    ],
+    [
+     541.8,
+     1.0
+    ],
+    [
+     546.59,
+     1.0
+    ],
+    [
+     551.38,
+     1.0
+    ],
+    [
+     556.17,
+     1.0
+    ],
+    [
+     560.96,
+     1.0
+    ],
+    [
+     565.76,
+     1.0
+    ],
+    [
+     570.55,
+     1.0
+    ],
+    [
+     575.34,
+     1.0
+    ],
+    [
+     580.13,
+     1.0
+    ],
+    [
+     584.92,
+     1.0
+    ],
+    [
+     589.72,
+     1.0
+    ],
+    [
+     594.51,
+     1.0
+    ]
+   ],
+   "expect": "Tyson 2003 perfect adaptation (feed-forward, no loop): returns exactly"
+  },
+  {
+   "model": "BIOMD0000000603",
+   "output": "Hog1PP",
+   "pre": 3.946208870549813e-06,
+   "peak": 42.0673,
+   "final": 11.65855,
+   "row": "inconclusive",
+   "solver_stopped_at": 4968.0,
+   "last_time": 4968.0,
+   "trace": [
+    [
+     5.4,
+     1.0483
+    ],
+    [
+     43.2,
+     1.0053
+    ],
+    [
+     81.0,
+     1.0061
+    ],
+    [
+     118.8,
+     1.0072
+    ],
+    [
+     156.6,
+     1.0081
+    ],
+    [
+     194.4,
+     1.0089
+    ],
+    [
+     232.2,
+     1.0096
+    ],
+    [
+     270.0,
+     1.0101
+    ],
+    [
+     307.8,
+     1.0106
+    ],
+    [
+     345.6,
+     1.011
+    ],
+    [
+     383.4,
+     1.0113
+    ],
+    [
+     421.2,
+     1.0116
+    ],
+    [
+     459.0,
+     1.0118
+    ],
+    [
+     496.8,
+     1.0119
+    ],
+    [
+     534.6,
+     1.012
+    ],
+    [
+     572.4,
+     1.012
+    ],
+    [
+     610.2,
+     1.012
+    ],
+    [
+     648.0,
+     1.0119
+    ],
+    [
+     685.8,
+     1.0118
+    ],
+    [
+     723.6,
+     1.0117
+    ],
+    [
+     761.4,
+     1.0116
+    ],
+    [
+     799.2,
+     1.0114
+    ],
+    [
+     837.0,
+     1.0113
+    ],
+    [
+     874.8,
+     1.0111
+    ],
+    [
+     912.6,
+     1.0109
+    ],
+    [
+     950.4,
+     1.0107
+    ],
+    [
+     988.2,
+     1.0105
+    ],
+    [
+     1026.0,
+     1.0103
+    ],
+    [
+     1063.8,
+     1.01
+    ],
+    [
+     1101.6,
+     1.0098
+    ],
+    [
+     1139.4,
+     1.0096
+    ],
+    [
+     1177.2,
+     1.0094
+    ],
+    [
+     1215.0,
+     1.0092
+    ],
+    [
+     1252.8,
+     1.009
+    ],
+    [
+     1290.6,
+     1.0088
+    ],
+    [
+     1328.4,
+     1.0086
+    ],
+    [
+     1366.2,
+     1.0084
+    ],
+    [
+     1404.0,
+     1.0082
+    ],
+    [
+     1441.8,
+     1.008
+    ],
+    [
+     1479.6,
+     1.0078
+    ],
+    [
+     1517.4,
+     1.0077
+    ],
+    [
+     1555.2,
+     1.0075
+    ],
+    [
+     1593.0,
+     1.0074
+    ],
+    [
+     1630.8,
+     1.0072
+    ],
+    [
+     1668.6,
+     1.0071
+    ],
+    [
+     1706.4,
+     1.007
+    ],
+    [
+     1744.2,
+     1.0068
+    ],
+    [
+     1782.0,
+     1.0067
+    ],
+    [
+     1819.8,
+     1.0066
+    ],
+    [
+     1857.6,
+     1.0064
+    ],
+    [
+     1895.4,
+     1.0063
+    ],
+    [
+     1933.2,
+     1.0062
+    ],
+    [
+     1971.0,
+     1.0061
+    ],
+    [
+     2008.8,
+     1.006
+    ],
+    [
+     2046.6,
+     1.0059
+    ],
+    [
+     2084.4,
+     1.0058
+    ],
+    [
+     2122.2,
+     1.0056
+    ],
+    [
+     2160.0,
+     1.0055
+    ],
+    [
+     2197.8,
+     1.0054
+    ],
+    [
+     2235.6,
+     1.0053
+    ],
+    [
+     2273.4,
+     1.0052
+    ],
+    [
+     2311.2,
+     1.0051
+    ],
+    [
+     2349.0,
+     1.0049
+    ],
+    [
+     2386.8,
+     1.0048
+    ],
+    [
+     2424.6,
+     1.0047
+    ],
+    [
+     2462.4,
+     1.0046
+    ],
+    [
+     2500.2,
+     1.0044
+    ],
+    [
+     2538.0,
+     1.0043
+    ],
+    [
+     2575.8,
+     1.0042
+    ],
+    [
+     2613.6,
+     1.004
+    ],
+    [
+     2651.4,
+     1.0039
+    ],
+    [
+     2689.2,
+     1.0038
+    ],
+    [
+     2727.0,
+     1.0036
+    ],
+    [
+     2764.8,
+     1.0035
+    ],
+    [
+     2802.6,
+     1.0033
+    ],
+    [
+     2840.4,
+     1.0032
+    ],
+    [
+     2878.2,
+     1.003
+    ],
+    [
+     2916.0,
+     1.0029
+    ],
+    [
+     2953.8,
+     1.0027
+    ],
+    [
+     2991.6,
+     1.0026
+    ],
+    [
+     3029.4,
+     1.0024
+    ],
+    [
+     3067.2,
+     1.0023
+    ],
+    [
+     3105.0,
+     1.0021
+    ],
+    [
+     3142.8,
+     1.002
+    ],
+    [
+     3180.6,
+     1.0018
+    ],
+    [
+     3218.4,
+     1.0016
+    ],
+    [
+     3256.2,
+     1.0015
+    ],
+    [
+     3294.0,
+     1.0013
+    ],
+    [
+     3331.8,
+     1.0011
+    ],
+    [
+     3369.6,
+     1.001
+    ],
+    [
+     3407.4,
+     1.0008
+    ],
+    [
+     3445.2,
+     1.0007
+    ],
+    [
+     3483.0,
+     1.0005
+    ],
+    [
+     3520.8,
+     1.0003
+    ],
+    [
+     3558.6,
+     1.0002
+    ],
+    [
+     3596.4,
+     1.0
+    ],
+    [
+     3634.2,
+     11.4682
+    ],
+    [
+     3672.0,
+     26.0123
+    ],
+    [
+     3709.8,
+     35.7575
+    ],
+    [
+     3747.6,
+     40.4916
+    ],
+    [
+     3785.4,
+     42.4306
+    ],
+    [
+     3823.2,
+     43.0259
+    ],
+    [
+     3861.0,
+     43.0058
+    ],
+    [
+     3898.8,
+     42.6984
+    ],
+    [
+     3936.6,
+     42.2428
+    ],
+    [
+     3974.4,
+     41.6962
+    ],
+    [
+     4012.2,
+     41.0813
+    ],
+    [
+     4050.0,
+     40.4067
+    ],
+    [
+     4087.8,
+     39.6754
+    ],
+    [
+     4125.6,
+     38.8889
+    ],
+    [
+     4163.4,
+     38.0477
+    ],
+    [
+     4201.2,
+     37.1527
+    ],
+    [
+     4239.0,
+     36.2049
+    ],
+    [
+     4276.8,
+     35.2058
+    ],
+    [
+     4314.6,
+     34.1573
+    ],
+    [
+     4352.4,
+     33.0615
+    ],
+    [
+     4390.2,
+     31.9214
+    ],
+    [
+     4428.0,
+     30.7402
+    ],
+    [
+     4465.8,
+     29.5215
+    ],
+    [
+     4503.6,
+     28.2699
+    ],
+    [
+     4541.4,
+     26.9902
+    ],
+    [
+     4579.2,
+     25.6882
+    ],
+    [
+     4617.0,
+     24.3699
+    ],
+    [
+     4654.8,
+     23.042
+    ],
+    [
+     4692.6,
+     21.7119
+    ],
+    [
+     4730.4,
+     20.387
+    ],
+    [
+     4768.2,
+     19.0752
+    ],
+    [
+     4806.0,
+     17.7842
+    ],
+    [
+     4843.8,
+     16.5216
+    ],
+    [
+     4881.6,
+     15.2947
+    ],
+    [
+     4919.4,
+     14.1101
+    ],
+    [
+     4957.2,
+     12.9737
+    ]
+   ],
+   "expect": "yeast osmo-adaptation, salt step (Muzzey 2009 measured exact return in cells)"
+  }
+ ]
+}

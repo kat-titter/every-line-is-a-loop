@@ -1,0 +1,168 @@
+[
+ {
+  "model": "BIOMD0000000657",
+  "rule": "ticks with no brake",
+  "name": "Araujo2016 - Positive feedback in Cdk1 signalling keeps mitotic duration short and constant",
+  "uses the clock": false,
+  "piecewise": false,
+  "delay": false,
+  "events": 0,
+  "molecules": [
+   "Cdk1CycB",
+   "APC",
+   "CycB"
+  ],
+  "points": 600,
+  "arrows": {
+   "APC -> Cdk1CycB": "-",
+   "CycB -> Cdk1CycB": "+",
+   "Cdk1CycB -> APC": "+",
+   "APC -> CycB": "-"
+  },
+  "arrows that change sign": [],
+  "has a brake": true,
+  "has a self-feeding loop": false,
+  "swing over the last run": {
+   "Cdk1CycB": 3.455,
+   "APC": 16.349,
+   "CycB": 0.797
+  }
+ },
+ {
+  "model": "BIOMD0000000777",
+  "rule": "ticks with no brake",
+  "name": "Chakrabarty2010 - A control theory approach to cancer remission aided by an optimal therapy",
+  "uses the clock": false,
+  "piecewise": false,
+  "delay": false,
+  "events": 0,
+  "molecules": [
+   "M_Tumor_Cells",
+   "N_CTL",
+   "Z_THL"
+  ],
+  "points": 600,
+  "arrows": {
+   "N_CTL -> M_Tumor_Cells": "-",
+   "M_Tumor_Cells -> N_CTL": "-"
+  },
+  "arrows that change sign": [],
+  "has a brake": false,
+  "has a self-feeding loop": true,
+  "swing over the last run": {
+   "M_Tumor_Cells": 0.0,
+   "N_CTL": 16.546,
+   "Z_THL": 0.0
+  },
+  "further check": {
+   "arrows with every molecule present": {
+    "N_CTL -> M_Tumor_Cells": "-",
+    "M_Tumor_Cells -> N_CTL": "-"
+   },
+   "has a brake": false,
+   "peaks of N_CTL in the second half of a 4000-unit run": 0
+  }
+ },
+ {
+  "model": "BIOMD0000000831",
+  "rule": "ticks with no brake",
+  "name": "Smith1980 - Hypothalamic Regulation",
+  "uses the clock": false,
+  "piecewise": true,
+  "delay": false,
+  "events": 0,
+  "molecules": [
+   "R",
+   "L",
+   "T"
+  ],
+  "points": 600,
+  "arrows": {
+   "T -> R": "-",
+   "R -> L": "+",
+   "L -> T": "+"
+  },
+  "arrows that change sign": [],
+  "has a brake": true,
+  "has a self-feeding loop": false,
+  "swing over the last run": {
+   "R": 2.963,
+   "L": 1.162,
+   "T": 0.695
+  }
+ },
+ {
+  "model": "BIOMD0000001080",
+  "rule": "ticks with no brake",
+  "name": "DeBoeck2021 - Modular approach to modeling the cell cycle, 5 ODE model with 3 bistable switches",
+  "uses the clock": false,
+  "piecewise": false,
+  "delay": false,
+  "events": 0,
+  "molecules": [
+   "CycD",
+   "CycB",
+   "APC",
+   "E2F",
+   "Cdk"
+  ],
+  "points": 600,
+  "arrows": {
+   "APC -> CycD": "-",
+   "APC -> CycB": "-",
+   "E2F -> CycB": "+",
+   "Cdk -> APC": "+",
+   "CycD -> E2F": "+",
+   "CycB -> Cdk": "+"
+  },
+  "arrows that change sign": [],
+  "has a brake": true,
+  "has a self-feeding loop": false,
+  "swing over the last run": {
+   "CycD": 0.887,
+   "CycB": 0.423,
+   "APC": 12.512,
+   "E2F": 2.034,
+   "Cdk": 9.296
+  }
+ },
+ {
+  "model": "BIOMD0000000933",
+  "rule": "two states with no self-feeding loop",
+  "name": "Kosiuk2015-Geometric analysis of the Goldbeter minimal model for the embryonic cell cycle",
+  "uses the clock": false,
+  "piecewise": false,
+  "delay": false,
+  "events": 0,
+  "molecules": [
+   "C",
+   "M",
+   "X"
+  ],
+  "points": 600,
+  "arrows": {
+   "X -> C": "-",
+   "C -> M": "+",
+   "M -> X": "+"
+  },
+  "arrows that change sign": [],
+  "has a brake": true,
+  "has a self-feeding loop": false,
+  "swing over the last run": {
+   "C": 0.942,
+   "M": 1.717,
+   "X": 2.279
+  },
+  "further check": {
+   "fixed points found on a 7x7x7 grid of starts": [
+    {
+     "C": 0.501906,
+     "M": 0.699989,
+     "X": 0.498094
+    }
+   ],
+   "stable fixed points": 0,
+   "runs that came to rest of 40": 0
+  }
+ }
+]
