@@ -11,7 +11,15 @@ page (model checked by circuit_figures.check_close, first frame baked by tools/b
 
 Usage: python3 analysis/fold_census.py              (rebuilds build/count-the-elements.html first when it is missing)
        python3 analysis/fold_census.py --readtime   (only recounts the main read and updates the read time)
+
+Reads: build/count-the-elements.html, every-line-is-a-loop.html, results/truth_tests.json, results/robust_return.json,
+       results/nesting.json and results/r31_structure_traj.jsonl.
+Writes: every-line-is-a-loop.html (between its gen markers).
+Run: .venv/bin/python analysis/fold_census.py [--readtime]
 """
+
+from __future__ import annotations
+
 import html as html_lib
 import json
 import pathlib
@@ -23,49 +31,86 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / 'analysis'))
 import table_figures as TF  # noqa: E402
 import loop_morph as LM  # noqa: E402
+from build_post import code_line  # noqa: E402
 
 BUILD = ROOT / 'build' / 'count-the-elements.html'
 ESSAY = ROOT / 'every-line-is-a-loop.html'
 
 # The essay's own list is 1 to 37. Sources the census brings in take the numbers after it, in this order.
 EXTRA_ORDER = [
-    '10.1016/S0039-3681(01)00023-1',   # Scerri and Worrall 2001, prediction and the periodic table
-    '10.1080/14786441308635052',       # Moseley 1913
-    '10.1093/nar/gkz1055',             # BioModels, Malik-Sheriff 2020
-    '10.1093/nar/gkj092',              # BioModels Database, Le Novère 2006
-    '10.1093/bioinformatics/btg015',   # SBML, Hucka 2003
-    '10.1126/science.298.5594.824',    # network motifs, Milo 2002
-    '10.1038/nrg2102',                 # Alon 2007
-    '10.1126/science.aaa2245',         # Ahnert 2015
-    '10.1016/j.cels.2016.01.004',      # Briat 2016, antithetic integral feedback
-    '10.1038/s41586-019-1321-1',       # Aoki 2019, universal integral controller
-    '10.1038/140193b0',                # Perrier and Segrè 1937, element 43
-    '10.1103/PhysRev.74.230',          # Bardeen and Brattain 1948
-    '10.1016/j.cell.2009.06.013',      # Ma 2009, topologies that adapt
-    '10.1016/j.cels.2017.06.013',      # Li 2017
-    '10.1101/170951',                  # Lillacci 2017
-    '10.1529/biophysj.107.125021',     # Sontag 2008, Boolean negative loops
-    '10.1007/s11538-013-9893-7',       # Soliman 2013
+    '10.1016/S0039-3681(01)00023-1',  # Scerri and Worrall 2001, prediction and the periodic table
+    '10.1080/14786441308635052',  # Moseley 1913
+    '10.1093/nar/gkz1055',  # BioModels, Malik-Sheriff 2020
+    '10.1093/nar/gkj092',  # BioModels Database, Le Novère 2006
+    '10.1093/bioinformatics/btg015',  # SBML, Hucka 2003
+    '10.1126/science.298.5594.824',  # network motifs, Milo 2002
+    '10.1038/nrg2102',  # Alon 2007
+    '10.1126/science.aaa2245',  # Ahnert 2015
+    '10.1016/j.cels.2016.01.004',  # Briat 2016, antithetic integral feedback
+    '10.1038/s41586-019-1321-1',  # Aoki 2019, universal integral controller
+    '10.1038/140193b0',  # Perrier and Segrè 1937, element 43
+    '10.1103/PhysRev.74.230',  # Bardeen and Brattain 1948
+    '10.1016/j.cell.2009.06.013',  # Ma 2009, topologies that adapt
+    '10.1016/j.cels.2017.06.013',  # Li 2017
+    '10.1101/170951',  # Lillacci 2017
+    '10.1529/biophysj.107.125021',  # Sontag 2008, Boolean negative loops
+    '10.1007/s11538-013-9893-7',  # Soliman 2013
     '10.1093/bioinformatics/btac770',  # libRoadRunner
-    '10.1093/bioinformatics/btn051',   # libSBML
-    '10.1145/1089014.1089020',         # SUNDIALS
-    '10.1142/S0218339098000042',       # Snoussi 1998
-    '10.1142/S0218339098000054',       # Gouzé 1998
+    '10.1093/bioinformatics/btn051',  # libSBML
+    '10.1145/1089014.1089020',  # SUNDIALS
+    '10.1142/S0218339098000042',  # Snoussi 1998
+    '10.1142/S0218339098000054',  # Gouzé 1998
 ]
 # Sources the essay cites by hand in the hidden-elements chapter, verified through Crossref on 2026-10-25.
 NEW_REFS = [
-    ('10.1098/rsta.1895.0006', 'Rayleigh (Strutt JW), Ramsay W. Argon, a new constituent of the atmosphere. <i>Philos Trans R Soc Lond A</i> 186:187&#8211;241 (1895). <a href="https://doi.org/10.1098/rsta.1895.0006">doi:10.1098/rsta.1895.0006</a>'),
-    ('10.1038/111079a0', 'Coster D, Hevesy G. On the missing element of atomic number 72. <i>Nature</i> 111:79 (1923). <a href="https://doi.org/10.1038/111079a0">doi:10.1038/111079a0</a>'),
-    ('10.1021/ja01203a059', 'Marinsky JA, Glendenin LE, Coryell CD. The chemical identification of radioisotopes of neodymium and of element 61. <i>J Am Chem Soc</i> 69(11):2781&#8211;2785 (1947). <a href="https://doi.org/10.1021/ja01203a059">doi:10.1021/ja01203a059</a>'),
-    ('10.1056/NEJMoa1202753', 'Bateman RJ et al. Clinical and biomarker changes in dominantly inherited Alzheimer&#8217;s disease. <i>N Engl J Med</i> 367:795&#8211;804 (2012). <a href="https://doi.org/10.1056/NEJMoa1202753">doi:10.1056/NEJMoa1202753</a>'),
-    ('10.1038/ng1293', 'Lahav G, Rosenfeld N, Sigal A, Geva-Zatorsky N, Levine AJ, Elowitz MB, Alon U. Dynamics of the p53-Mdm2 feedback loop in individual cells. <i>Nat Genet</i> 36:147&#8211;150 (2004). <a href="https://doi.org/10.1038/ng1293">doi:10.1038/ng1293</a>'),
-    ('10.1126/science.1197623', 'Mawuenyega KG et al. Decreased clearance of CNS &#946;-amyloid in Alzheimer&#8217;s disease. <i>Science</i> 330:1774 (2010). <a href="https://doi.org/10.1126/science.1197623">doi:10.1126/science.1197623</a>'),
-    ('10.1126/science.1241224', 'Xie L et al. Sleep drives metabolite clearance from the adult brain. <i>Science</i> 342:373&#8211;377 (2013). <a href="https://doi.org/10.1126/science.1241224">doi:10.1126/science.1241224</a>'),
-    ('10.1056/NEJMoa2212948', 'van Dyck CH et al. Lecanemab in early Alzheimer&#8217;s disease. <i>N Engl J Med</i> 388:9&#8211;21 (2023). <a href="https://doi.org/10.1056/NEJMoa2212948">doi:10.1056/NEJMoa2212948</a>'),
-    ('10.1182/blood.V72.2.567.567', 'Huang ME, Ye YC, Chen SR, Chai JR, Lu JX, Zhao L, Gu LJ, Wang ZY. Use of all-trans retinoic acid in the treatment of acute promyelocytic leukemia. <i>Blood</i> 72(2):567&#8211;572 (1988). <a href="https://doi.org/10.1182/blood.V72.2.567.567">doi:10.1182/blood.V72.2.567.567</a>'),
-    ('10.1016/j.cell.2016.11.052', 'Ocampo A et al. In vivo amelioration of age-associated hallmarks by partial reprogramming. <i>Cell</i> 167(7):1719&#8211;1733.e12 (2016). <a href="https://doi.org/10.1016/j.cell.2016.11.052">doi:10.1016/j.cell.2016.11.052</a>'),
-    ('10.1016/s0092-8240(05)80394-5', 'Thron CD. The secant condition for instability in biochemical feedback control&#8212;I. The role of cooperativity and saturability. <i>Bull Math Biol</i> 53(3):383&#8211;401 (1991). <a href="https://doi.org/10.1016/s0092-8240(05)80394-5">doi:10.1016/s0092-8240(05)80394-5</a>'),
-    ('10.1073/pnas.0308265100', 'Angeli D, Ferrell JE, Sontag ED. Detection of multistability, bifurcations, and hysteresis in a large class of biological positive-feedback systems. <i>Proc Natl Acad Sci USA</i> 101(7):1822&#8211;1827 (2004). <a href="https://doi.org/10.1073/pnas.0308265100">doi:10.1073/pnas.0308265100</a>'),
+    (
+        '10.1098/rsta.1895.0006',
+        'Rayleigh (Strutt JW), Ramsay W. Argon, a new constituent of the atmosphere. <i>Philos Trans R Soc Lond A</i> 186:187&#8211;241 (1895). <a href="https://doi.org/10.1098/rsta.1895.0006">doi:10.1098/rsta.1895.0006</a>',
+    ),
+    (
+        '10.1038/111079a0',
+        'Coster D, Hevesy G. On the missing element of atomic number 72. <i>Nature</i> 111:79 (1923). <a href="https://doi.org/10.1038/111079a0">doi:10.1038/111079a0</a>',
+    ),
+    (
+        '10.1021/ja01203a059',
+        'Marinsky JA, Glendenin LE, Coryell CD. The chemical identification of radioisotopes of neodymium and of element 61. <i>J Am Chem Soc</i> 69(11):2781&#8211;2785 (1947). <a href="https://doi.org/10.1021/ja01203a059">doi:10.1021/ja01203a059</a>',
+    ),
+    (
+        '10.1056/NEJMoa1202753',
+        'Bateman RJ et al. Clinical and biomarker changes in dominantly inherited Alzheimer&#8217;s disease. <i>N Engl J Med</i> 367:795&#8211;804 (2012). <a href="https://doi.org/10.1056/NEJMoa1202753">doi:10.1056/NEJMoa1202753</a>',
+    ),
+    (
+        '10.1038/ng1293',
+        'Lahav G, Rosenfeld N, Sigal A, Geva-Zatorsky N, Levine AJ, Elowitz MB, Alon U. Dynamics of the p53-Mdm2 feedback loop in individual cells. <i>Nat Genet</i> 36:147&#8211;150 (2004). <a href="https://doi.org/10.1038/ng1293">doi:10.1038/ng1293</a>',
+    ),
+    (
+        '10.1126/science.1197623',
+        'Mawuenyega KG et al. Decreased clearance of CNS &#946;-amyloid in Alzheimer&#8217;s disease. <i>Science</i> 330:1774 (2010). <a href="https://doi.org/10.1126/science.1197623">doi:10.1126/science.1197623</a>',
+    ),
+    (
+        '10.1126/science.1241224',
+        'Xie L et al. Sleep drives metabolite clearance from the adult brain. <i>Science</i> 342:373&#8211;377 (2013). <a href="https://doi.org/10.1126/science.1241224">doi:10.1126/science.1241224</a>',
+    ),
+    (
+        '10.1056/NEJMoa2212948',
+        'van Dyck CH et al. Lecanemab in early Alzheimer&#8217;s disease. <i>N Engl J Med</i> 388:9&#8211;21 (2023). <a href="https://doi.org/10.1056/NEJMoa2212948">doi:10.1056/NEJMoa2212948</a>',
+    ),
+    (
+        '10.1182/blood.V72.2.567.567',
+        'Huang ME, Ye YC, Chen SR, Chai JR, Lu JX, Zhao L, Gu LJ, Wang ZY. Use of all-trans retinoic acid in the treatment of acute promyelocytic leukemia. <i>Blood</i> 72(2):567&#8211;572 (1988). <a href="https://doi.org/10.1182/blood.V72.2.567.567">doi:10.1182/blood.V72.2.567.567</a>',
+    ),
+    (
+        '10.1016/j.cell.2016.11.052',
+        'Ocampo A et al. In vivo amelioration of age-associated hallmarks by partial reprogramming. <i>Cell</i> 167(7):1719&#8211;1733.e12 (2016). <a href="https://doi.org/10.1016/j.cell.2016.11.052">doi:10.1016/j.cell.2016.11.052</a>',
+    ),
+    (
+        '10.1016/s0092-8240(05)80394-5',
+        'Thron CD. The secant condition for instability in biochemical feedback control&#8212;I. The role of cooperativity and saturability. <i>Bull Math Biol</i> 53(3):383&#8211;401 (1991). <a href="https://doi.org/10.1016/s0092-8240(05)80394-5">doi:10.1016/s0092-8240(05)80394-5</a>',
+    ),
+    (
+        '10.1073/pnas.0308265100',
+        'Angeli D, Ferrell JE, Sontag ED. Detection of multistability, bifurcations, and hysteresis in a large class of biological positive-feedback systems. <i>Proc Natl Acad Sci USA</i> 101(7):1822&#8211;1827 (2004). <a href="https://doi.org/10.1073/pnas.0308265100">doi:10.1073/pnas.0308265100</a>',
+    ),
 ]
 # The same work cited through two records (post key -> essay key).
 ALIASES = {}
@@ -73,25 +118,105 @@ ALIASES = {}
 # Figure numbers in the merged page for the figures that come from the census build.
 # The essay's own captions sit outside the gen: markers and are numbered by hand (10, 11 and 22 since the question chapter, 2026-11-10; the essay's own caption sits outside gen:next).
 # essay numbering since 2026-11-19: main read 1 to 16 in reading order, folded figures S1 to S17
-FIG = {'Figure 5. The periodic table of loops.': 'Figure 6. The periodic table of loops.',
-       'Figure 6. The data.': 'Figure 8. The data.',
-       'Figure 7. The research loop.': 'Figure S8. The research loop.',
-       'Figure S1. Element tiles.': 'Figure S10. Element tiles.',
-       'Figure S4. From circuit to model.': 'Figure 7. One published model.',  # moved by hand to #fig-model; delete the supplement copy after a rerun
-       'Figure S5. Out and back': 'Figure S11. Out and back', 'Figure S6. One model through': 'Figure S12. One model through',
-       'Figure S7. Answer key.': 'Figure S13. Answer key.', 'Figure S8. Loops per model.': 'Figure S14. Loops per model.',
-       'Figure S9. Behaviour by sign': 'Figure S15. Behaviour by sign', 'Figure S10. The coastline': 'Figure S16. The coastline',
-       'Figure S11. The data pipeline.': 'Figure S17. The data pipeline.'}
+FIG = {
+    'Figure 5. The periodic table of loops.': 'Figure 6. The periodic table of loops.',
+    'Figure 6. The data.': 'Figure 8. The data.',
+    'Figure 7. The research loop.': 'Figure S8. The research loop.',
+    'Figure S1. Element tiles.': 'Figure S10. Element tiles.',
+    'Figure S4. From circuit to model.': 'Figure 7. One published model.',  # moved by hand to #fig-model; main() drops the supplement copy
+    'Figure S5. Out and back': 'Figure S11. Out and back',
+    'Figure S6. One model through': 'Figure S12. One model through',
+    'Figure S7. Answer key.': 'Figure S13. Answer key.',
+    'Figure S8. Loops per model.': 'Figure S14. Loops per model.',
+    'Figure S9. Behaviour by sign': 'Figure S15. Behaviour by sign',
+    'Figure S10. The coastline': 'Figure S16. The coastline',
+    'Figure S11. The data pipeline.': 'Figure S17. The data pipeline.',
+}
 
-CSS_WANT = ['.pt-', '.ptable', '.ecard', '.rc-', '.refcard', '.tile', '.tiles', '.cards', '.card', '.summary-cards', '.f-', '.explorer',
-            '.ex-', 'ol.ex-list', '#ex-q', '.pick', '.sl-', '.sn', '.sp', '.solo', '.bars', '.grid-fig', '.grid-key', '.rows-grid', '.quad',
-            '.pair', '.bio', '.sy-i', 'ol.steps', 'details.supp', '.interactive', '.fig-wide', '.fig-narrow', '.wide', '.nowrap', '.arr',
-            'math[display', 'table.key', '.lt-', '.coast', '.badge', '.shaft', '.ruler', '.builder', '.b-', '.seg', '.gauge', '.g-']
-CSS_DROP = {'body', 'html', '.text', 'h2', 'figure.fig', 'figure', '.ctl', '.chip', '.cite', '.mast', '.post', '.abstract', '.eyebrow',
-            '.end', 'ol.refs', 'a', 'p', 'svg', 'section', 'table', 'td', 'th', 'b', 'strong', 'label', 'title', '.label', 'code', 'pre'}
+CSS_WANT = [
+    '.pt-',
+    '.ptable',
+    '.ecard',
+    '.rc-',
+    '.refcard',
+    '.tile',
+    '.tiles',
+    '.cards',
+    '.card',
+    '.summary-cards',
+    '.f-',
+    '.explorer',
+    '.ex-',
+    'ol.ex-list',
+    '#ex-q',
+    '.pick',
+    '.sl-',
+    '.sn',
+    '.sp',
+    '.solo',
+    '.bars',
+    '.grid-fig',
+    '.grid-key',
+    '.rows-grid',
+    '.quad',
+    '.pair',
+    '.bio',
+    '.sy-i',
+    'ol.steps',
+    'details.supp',
+    '.interactive',
+    '.fig-wide',
+    '.fig-narrow',
+    '.wide',
+    '.nowrap',
+    '.arr',
+    'math[display',
+    'table.key',
+    '.lt-',
+    '.coast',
+    '.badge',
+    '.shaft',
+    '.ruler',
+    '.builder',
+    '.b-',
+    '.seg',
+    '.gauge',
+    '.g-',
+]
+CSS_DROP = {
+    'body',
+    'html',
+    '.text',
+    'h2',
+    'figure.fig',
+    'figure',
+    '.ctl',
+    '.chip',
+    '.cite',
+    '.mast',
+    '.post',
+    '.abstract',
+    '.eyebrow',
+    '.end',
+    'ol.refs',
+    'a',
+    'p',
+    'svg',
+    'section',
+    'table',
+    'td',
+    'th',
+    'b',
+    'strong',
+    'label',
+    'title',
+    '.label',
+    'code',
+    'pre',
+}
 
 
-def key_of(li):
+def key_of(li: str) -> str | None:
     """A DOI when the record has one, else an arXiv id, else the first link."""
     for pat in (r'doi\.org/([^"]+)"', r'arxiv\.org/abs/([^"]+)"', r'href="([^"]+)"'):
         m = re.search(pat, li)
@@ -100,7 +225,8 @@ def key_of(li):
     return None
 
 
-def refs_of(html, start='<ol class="refs">'):
+def refs_of(html: str, start: str = '<ol class="refs">') -> list[tuple[str | None, str]]:
+    """The reference list as (key, list-item html) pairs."""
     i = html.index(start)
     j = html.index('</ol>', i)
     out = []
@@ -109,31 +235,32 @@ def refs_of(html, start='<ol class="refs">'):
     return out
 
 
-def block(html, start, end_tag, from_index=0):
+def block(html: str, start: str, end_tag: str, from_index: int = 0) -> str:
+    """The text from the first start at or after from_index to the next end_tag, inclusive."""
     i = html.index(start, from_index)
     j = html.index(end_tag, i) + len(end_tag)
     return html[i:j]
 
 
-def inner(fig):
+def inner(fig: str) -> str:
     """The content of a <figure> block without its own plate and caption: the essay wraps it in its own figure."""
-    body = fig[fig.index('>') + 1:fig.rindex('</figure>')]
+    body = fig[fig.index('>') + 1 : fig.rindex('</figure>')]
     body = re.sub(r'<figcaption>.*?</figcaption>', '', body, flags=re.S)
     return body.strip()
 
 
-def div_block(html, start):
+def div_block(html: str, start: str) -> str:
     """A <div ...> and its matching </div>."""
     i = html.index(start)
     depth, k = 0, i
     for m in re.finditer(r'<div\b|</div>', html[i:]):
         depth += 1 if m.group(0) == '<div' else -1
         if depth == 0:
-            return html[i:i + m.end()]
+            return html[i : i + m.end()]
     raise ValueError(start)
 
 
-def split_css(css):
+def split_css(css: str) -> list[tuple[str, str]]:
     """Top-level rules and @-blocks as (prelude, body, nested) triples."""
     out, i, n = [], 0, len(css)
     while i < n:
@@ -145,20 +272,22 @@ def split_css(css):
         while depth and k < n:
             depth += 1 if css[k] == '{' else -1 if css[k] == '}' else 0
             k += 1
-        body = css[j + 1:k - 1]
+        body = css[j + 1 : k - 1]
         out.append((prelude, body))
         i = k
     return out
 
 
-def wanted(selector):
+def wanted(selector: str) -> bool:
+    """True if the CSS selector is one the essay needs from the census stylesheet."""
     sel = selector.strip()
     if sel in CSS_DROP:
         return False
     return any(sel.startswith(w) or (' ' + w) in sel or ('>' + w) in sel or (',' + w) in sel for w in CSS_WANT)
 
 
-def extract_css(css):
+def extract_css(css: str) -> str:
+    """The rules of the census stylesheet the essay needs, as one string."""
     kept = []
     for prelude, body in split_css(css):
         prelude = re.sub(r'/\*.*?\*/', '', prelude, flags=re.S).strip()
@@ -173,7 +302,8 @@ def extract_css(css):
     return '\n'.join(kept)
 
 
-def mono(x, y, t, anchor='start', fill='var(--muted)', size=12):
+def mono(x: float, y: float, t: str, anchor: str = 'start', fill: str = 'var(--muted)', size: float = 12) -> str:
+    """SVG text in the code font."""
     return f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-size="{size}" fill="{fill}" style="font-family: var(--code)">{t}</text>'
 
 
@@ -182,26 +312,37 @@ def dot_row(y, label, slots, filled, right, x0=64, step=12, r=4.2):
     s = mono(0, y + 4, label)
     for i in range(slots):
         cx = x0 + i * step
-        s += (f'<circle cx="{cx}" cy="{y}" r="{r}" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.2"/>' if i < filled
-              else f'<circle cx="{cx}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/>')
-    s += mono(x0 + 16 * step + 6, y + 4, right, fill='var(--ink)')   # one column for every row's count
+        s += (
+            f'<circle cx="{cx}" cy="{y}" r="{r}" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.2"/>'
+            if i < filled
+            else f'<circle cx="{cx}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/>'
+        )
+    s += mono(x0 + 16 * step + 6, y + 4, right, fill='var(--ink)')  # one column for every row's count
     return s
 
 
 # The census page says amplifying and braking loops; the essay says self-feeding loops and brakes. Longest first.
-VOCAB = [('an amplifying loop', 'a self-feeding loop'), ('An amplifying loop', 'A self-feeding loop'), ('Amplifying loop', 'Self-feeding loop'),
-         ('amplifying loop', 'self-feeding loop'), ('a braking loop', 'a brake'), ('A braking loop', 'A brake'),
-         ('braking loops', 'brakes'), ('Braking loop', 'Brake'), ('braking loop', 'brake')]
+VOCAB = [
+    ('an amplifying loop', 'a self-feeding loop'),
+    ('An amplifying loop', 'A self-feeding loop'),
+    ('Amplifying loop', 'Self-feeding loop'),
+    ('amplifying loop', 'self-feeding loop'),
+    ('a braking loop', 'a brake'),
+    ('A braking loop', 'A brake'),
+    ('braking loops', 'brakes'),
+    ('Braking loop', 'Brake'),
+    ('braking loop', 'brake'),
+]
 
 
-def truth_numbers():
+def truth_numbers() -> dict:
     """Every number the scorecard and Supplement E quote, read from results/truth_tests.json and
     results/robust_return.json (analysis/truth_tests.py, analysis/robust_return.py)."""
     T = json.loads((ROOT / 'results' / 'truth_tests.json').read_text())
     R = json.loads((ROOT / 'results' / 'robust_return.json').read_text())
     S = {json.loads(l)['model']: json.loads(l) for l in (ROOT / 'results' / 'r31_structure_traj.jsonl').open()}
     D = [json.loads(l) for l in (ROOT / 'results' / 'r31_dynamics.jsonl').open()]
-    run = sum(1 for d in D if d.get('status') == 'ok' and not d.get('forced'))   # run on their own, labelled or not
+    run = sum(1 for d in D if d.get('status') == 'ok' and not d.get('forced'))  # run on their own, labelled or not
     ru = T['rules']
     assert not ru['memory_without_amplifying_loop'] and not ru['clock_without_braking_loop']
     rings = [r for r in T['gain_brake'] if r['status'] == 'ok' and r.get('G') is not None]
@@ -230,13 +371,37 @@ def truth_numbers():
     robust = [m for m in R if any(q['robust'] for q in m['pairs'])]
     band = [m for m in robust if 1 <= (m['loops'] or 0) <= 3]
     assert all(m['running_totals'] == 0 for m in band)
-    return dict(run=run, auto=ru['autonomous'], mem=ru['memory'], clk=ru['clock'], rings=rings, clocks=clocks, calm=calm, raw=raw,
-                single=single, s_clocks=s_clocks, s_calm=s_calm, s_above=s_above, s_below=s_below, two_step=two_step,
-                above=above, below=below, miss=miss, tip=tip, rest=[g for g in tg if g != tip], fams=fams, does=does,
-                sits=sits, settling=len(ok), exact=len(exact), robust=robust, band=band)
+    return dict(
+        run=run,
+        auto=ru['autonomous'],
+        mem=ru['memory'],
+        clk=ru['clock'],
+        rings=rings,
+        clocks=clocks,
+        calm=calm,
+        raw=raw,
+        single=single,
+        s_clocks=s_clocks,
+        s_calm=s_calm,
+        s_above=s_above,
+        s_below=s_below,
+        two_step=two_step,
+        above=above,
+        below=below,
+        miss=miss,
+        tip=tip,
+        rest=[g for g in tg if g != tip],
+        fams=fams,
+        does=does,
+        sits=sits,
+        settling=len(ok),
+        exact=len(exact),
+        robust=robust,
+        band=band,
+    )
 
 
-def scorecard(post):
+def scorecard(post: str) -> str:
     """The laws, tested: verdict, claim, and the evidence as dots, one dot per model or family, filled where the
     result is as the laws predict."""
     N = truth_numbers()
@@ -249,67 +414,116 @@ def scorecard(post):
         out = mono(0, y + 4, lab)
         for i in range(slots):
             cx = x0 + i * step
-            out += (f'<circle cx="{cx}" cy="{y}" r="{r}" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.2"/>' if i < filled
-                    else f'<circle cx="{cx}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/>')
+            out += (
+                f'<circle cx="{cx}" cy="{y}" r="{r}" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.2"/>'
+                if i < filled
+                else f'<circle cx="{cx}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/>'
+            )
         return out + mono(x0 + 7 * step + 6, y + 4, right, fill='var(--ink)')
+
     n = N['mem'] + N['clk']
     cols, st = 48, 4.6
-    grid = ''.join(f'<circle cx="{4 + (i % cols) * st:.1f}" cy="{4 + (i // cols) * st:.1f}" r="1.5" fill="var(--accent)"/>' for i in range(n))
+    grid = ''.join(
+        f'<circle cx="{4 + (i % cols) * st:.1f}" cy="{4 + (i // cols) * st:.1f}" r="1.5" fill="var(--accent)"/>'
+        for i in range(n)
+    )
     rows = -(-n // cols)
-    ev1 = svg(grid + mono(4, 4 + rows * st + 12, f'{N["mem"]} memories, {N["clk"]} clocks, 0 exceptions', fill='var(--ink)'), int(4 + rows * st + 18),
-              f'All {N["mem"]} models that hold two states have a self-feeding loop and all {N["clk"]} that tick have a brake')
+    ev1 = svg(
+        grid + mono(4, 4 + rows * st + 12, f'{N["mem"]} memories, {N["clk"]} clocks, 0 exceptions', fill='var(--ink)'),
+        int(4 + rows * st + 18),
+        f'All {N["mem"]} models that hold two states have a self-feeding loop and all {N["clk"]} that tick have a brake',
+    )
     c, k = len(N['s_clocks']), len(N['s_calm'])
     a_, b_ = len(N['s_above']), len(N['s_below'])
     all_ok = len(N['above']) + len(N['below'])
-    ev2 = svg(row(12, 'ticks', c, a_, f'{a_} of {c} above') + row(36, 'settles', k, b_, f'{b_} of {k} below'), 46,
-              f'Of {c} clocks that are single rings before and after the filters, {a_} have gain above the floor; of {k} such rings that settle, {b_} are below it, '
-              f'{len(N["two_step"])} of them two-step rings that cannot tick at any gain. Counting every ring the filters leave, {all_ok} of {len(N["rings"])}.')
+    ev2 = svg(
+        row(12, 'ticks', c, a_, f'{a_} of {c} above') + row(36, 'settles', k, b_, f'{b_} of {k} below'),
+        46,
+        f'Of {c} clocks that are single rings before and after the filters, {a_} have gain above the floor; of {k} such rings that settle, {b_} are below it, '
+        f'{len(N["two_step"])} of them two-step rings that cannot tick at any gain. Counting every ring the filters leave, {all_ok} of {len(N["rings"])}.',
+    )
     f = len(N['fams'])
     d, p_ = sum(N['does'].values()), sum(N['sits'].values())
-    ev3 = svg(row(12, 'does', f, d, f'{d} of {f} agree') + row(36, 'count', f, p_, f'{p_} of {f} agree'), 46,
-              f'Across {f} families of models drawing one system, what the models do agrees in {d} and their place on the table in {p_}')
+    ev3 = svg(
+        row(12, 'does', f, d, f'{d} of {f} agree') + row(36, 'count', f, p_, f'{p_} of {f} agree'),
+        46,
+        f'Across {f} families of models drawing one system, what the models do agrees in {d} and their place on the table in {p_}',
+    )
     b = len(N['band'])
-    ev4 = svg(row(12, 'returns', b, 0, f'{b} found, 0 read'), 22,
-              f'{b} robust exact returns in rows one to three, none of them read as running totals from the loops')
+    ev4 = svg(
+        row(12, 'returns', b, 0, f'{b} found, 0 read'),
+        22,
+        f'{b} robust exact returns in rows one to three, none of them read as running totals from the loops',
+    )
     rows_html = [
         ('<span class="v ok">&#10003; holds</span>', 'The kind of loop sets what a circuit can do', ev1),
         ('<span class="v ok">&#10003; holds</span>', 'Its strength decides whether it does', ev2),
         ('<span class="v">~ mostly</span>', 'Redrawn, a circuit keeps what it does, not its count', ev3),
         ('<span class="v">? open</span>', 'Running totals hide from equation reading', ev4),
     ]
-    out = '<div class="pane one score">' + ''.join(
-        f'<div class="sc-row">{v}<span class="sc-c">{c_}</span><span class="sc-e">{e}</span></div>' for v, c_, e in rows_html) + '</div>'
-    out += ('<p class="keyrow"><span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="4.2" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.2"/></svg>as predicted</span>'
-            '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="4.2" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/></svg>not, or not yet</span></p>')
+    out = (
+        '<div class="pane one score">'
+        + ''.join(
+            f'<div class="sc-row">{v}<span class="sc-c">{c_}</span><span class="sc-e">{e}</span></div>'
+            for v, c_, e in rows_html
+        )
+        + '</div>'
+    )
+    out += (
+        '<p class="keyrow"><span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="4.2" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1.2"/></svg>as predicted</span>'
+        '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="4.2" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/></svg>not, or not yet</span></p>'
+    )
     return out
 
 
-def truth_supp(cite):
+def truth_supp(cite: object) -> str:
     """Supplement E: how the laws were tested, every number from the results files."""
     N = truth_numbers()
 
     def g(x):
-        return '&#8734;' if x == float('inf') or x > 1e9 else (f'{x:.0f}' if x >= 100 else f'{x:.2f}' if x < 10 else f'{x:.1f}')
-    tr = ''.join(f'<tr><td>{r["name"].replace("_", " ").replace(" - ", ", ")}, {r["n"]} steps</td><td>{g(r["G"])}</td><td>{g(r["threshold"])}</td>'
-                 f'<td>{"ticks" if r["ticks"] else "settles"}</td></tr>' for r in sorted(N['rings'], key=lambda r: (not r['ticks'], r['name'])))
-    fam = ''.join(f'<tr><td>{name}</td><td>{len(v)}</td><td>{"agree" if N["does"][name] else "differ"}</td><td>{"agree" if N["sits"][name] else "differ"}</td></tr>'
-                  for name, v in N['fams'].items())
-    band = ', '.join(f'{m["name"].replace("_", " ")} ({m["loops"]} loop{"s" if m["loops"] > 1 else ""})' for m in N['band'])
-    G = ('<math display="block"><mi>G</mi><mo>=</mo><mfrac><mrow><munder><mo>&#8719;</mo><mi>ring</mi></munder><mo>|</mo><msub><mi>J</mi><mrow><mi>b</mi><mi>a</mi></mrow></msub><mo>|</mo></mrow>'
-         '<mrow><munder><mo>&#8719;</mo><mi>ring</mi></munder><mo>|</mo><msub><mi>J</mi><mrow><mi>i</mi><mi>i</mi></mrow></msub><mo>|</mo></mrow></mfrac></math>')
+        return (
+            '&#8734;'
+            if x == float('inf') or x > 1e9
+            else (f'{x:.0f}' if x >= 100 else f'{x:.2f}' if x < 10 else f'{x:.1f}')
+        )
+
+    tr = ''.join(
+        f'<tr><td>{r["name"].replace("_", " ").replace(" - ", ", ")}, {r["n"]} steps</td><td>{g(r["G"])}</td><td>{g(r["threshold"])}</td>'
+        f'<td>{"ticks" if r["ticks"] else "settles"}</td></tr>'
+        for r in sorted(N['rings'], key=lambda r: (not r['ticks'], r['name']))
+    )
+    fam = ''.join(
+        f'<tr><td>{name}</td><td>{len(v)}</td><td>{"agree" if N["does"][name] else "differ"}</td><td>{"agree" if N["sits"][name] else "differ"}</td></tr>'
+        for name, v in N['fams'].items()
+    )
+    band = ', '.join(
+        f'{m["name"].replace("_", " ")} ({m["loops"]} loop{"s" if m["loops"] > 1 else ""})' for m in N['band']
+    )
+    G = (
+        '<math display="block"><mi>G</mi><mo>=</mo><mfrac><mrow><munder><mo>&#8719;</mo><mi>ring</mi></munder><mo>|</mo><msub><mi>J</mi><mrow><mi>b</mi><mi>a</mi></mrow></msub><mo>|</mo></mrow>'
+        '<mrow><munder><mo>&#8719;</mo><mi>ring</mi></munder><mo>|</mo><msub><mi>J</mi><mrow><mi>i</mi><mi>i</mi></mrow></msub><mo>|</mo></mrow></mfrac></math>'
+    )
     WORDS = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six'}
     nm = lambda r: r['name'].replace('_', ' ').replace(' - ', ' ')
     after = [r for r in N['rings'] if N['raw'][r['model']] > 1]
-    assert set(r['model'] for r in N['miss']) <= set(r['model'] for r in after), 'the miss must be one of the rings only the filters make single'
+    assert set(r['model'] for r in N['miss']) <= set(r['model'] for r in after), (
+        'the miss must be one of the rings only the filters make single'
+    )
     hits = [r for r in after if r not in N['miss']]
-    multi = (f'{WORDS[len(after)].capitalize()} of the {len(N["rings"])} are single rings only after the census&#8217;s filters: the miss, {nm(N["miss"][0])} '
-             f'({N["raw"][N["miss"][0]["model"]]} loops as drawn), and {WORDS[len(hits)]} hits, '
-             + ' and '.join(f'{nm(r)} ({N["raw"][r["model"]]})' for r in hits))
+    multi = (
+        f'{WORDS[len(after)].capitalize()} of the {len(N["rings"])} are single rings only after the census&#8217;s filters: the miss, {nm(N["miss"][0])} '
+        f'({N["raw"][N["miss"][0]["model"]]} loops as drawn), and {WORDS[len(hits)]} hits, '
+        + ' and '.join(f'{nm(r)} ({N["raw"][r["model"]]})' for r in hits)
+    )
     parts = [
         '<details class="supp" id="supp-e">',
         '<summary>E. The laws, tested</summary>',
         '<div class="text">',
         '<p><code>truth_tests.py</code> and <code>robust_return.py</code> run four tests on the same release, from the same equations. Every number below is read from their results files when this page is built.</p>',
+        code_line(
+            ('data', ['analysis/truth_tests.py', 'analysis/robust_return.py']),
+            ('written by', ['analysis/fold_census.py']),
+        ),
         '<h3>The kind of loop sets what a circuit can do</h3>',
         f'<p>Of the {N["run"]} models that run on their own, the {N["auto"]} that match a behaviour label were checked against both rules on their own sign graphs, read where each model runs, with no filters. The {N["mem"]} that hold two states all have a self-feeding loop; the {N["clk"]} that tick all have a brake.</p>',
         '<h3>Its strength decides whether it does</h3>',
@@ -329,7 +543,7 @@ def truth_supp(cite):
     return '\n'.join(parts)
 
 
-def nesting_figure():
+def nesting_figure() -> tuple[str, dict]:
     """Figure 13: the nesting guess, tested three ways, drawn from results/nesting.json (analysis/nesting.py)."""
     res = json.loads((ROOT / 'results' / 'nesting.json').read_text())
     cnt = {r['loops']: r for r in res['count']}
@@ -340,8 +554,13 @@ def nesting_figure():
     cen = res['census']['transit_time']
     ta, na = cen['table']['amplifying']['keeps time'], cen['table']['amplifying']['does not']
     tb, nb = cen['table']['braking']['keeps time'], cen['table']['braking']['does not']
-    alt = res['census']['arrow_strength']['table']   # the other way of timing the loops, reported beside the first
-    xa, xna, xb, xnb = alt['amplifying']['keeps time'], alt['amplifying']['does not'], alt['braking']['keeps time'], alt['braking']['does not']
+    alt = res['census']['arrow_strength']['table']  # the other way of timing the loops, reported beside the first
+    xa, xna, xb, xnb = (
+        alt['amplifying']['keeps time'],
+        alt['amplifying']['does not'],
+        alt['braking']['keeps time'],
+        alt['braking']['does not'],
+    )
     W = 340
 
     def svg(inner, h, aria):
@@ -351,9 +570,13 @@ def nesting_figure():
         s_ = mono(0, y + 4, label)
         for i in range(slots):
             cx = x0 + i * step
-            s_ += (f'<circle cx="{cx:.1f}" cy="{y}" r="{r}" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/>' if i < filled
-                   else f'<circle cx="{cx:.1f}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/>')
+            s_ += (
+                f'<circle cx="{cx:.1f}" cy="{y}" r="{r}" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/>'
+                if i < filled
+                else f'<circle cx="{cx:.1f}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/>'
+            )
         return s_ + mono(W - 2, y + 4, right, anchor='end', fill='var(--ink)')
+
     # 1. count: what doubling needs (outline) against what nesting order gives (filled), per row of the table
     x0, unit = 64, 3.0
     bars = ''
@@ -364,36 +587,71 @@ def nesting_figure():
         bars += f'<rect x="{x0}" y="{y}" width="{need * unit:.1f}" height="6" rx="1.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/>'
         bars += f'<rect x="{x0}" y="{y + 8}" width="{got * unit:.1f}" height="6" rx="1.5" fill="var(--ink)"/>'
         bars += mono(x0 + max(need, got) * unit + 6, y + 12, f'{need} vs {got}', fill='var(--ink)')
-    ev1 = svg(bars, 72, 'Elements per row if every one doubled, against arrangements when loops are ordered fast to slow: '
-              + ', '.join(f"{cnt[n]['chemistry_2n2']} against {cnt[n]['types_ordered']} for {n} loops" for n in (1, 2, 3)))
-    ev2 = svg(dots(12, 'self-feeding', tick_a, tick_a, str(tick_a), 112, 6.6, 2.5) + dots(32, 'brake', tick_a, tick_b, str(tick_b), 112, 6.6, 2.5), 42,
-              f'Of {draws} random draws, {tick_a} tick with the self-feeding loop fast; swap the speeds and {tick_b} do.')
-    ev3 = svg(dots(12, 'self-feeding', ta + na, ta, f'{ta} of {ta + na}', 130, 9.5, 3.6)
-              + dots(32, 'brake', tb + nb, tb, f'{tb} of {tb + nb}', 130, 9.5, 3.6)
-              + mono(0, 56, f'timed by their arrows: {xa} of {xa + xna} vs {xb} of {xb + xnb}'), 62,
-              f'Real two-loop circuits, timed by the molecules each loop keeps to itself: {ta} of {ta + na} tick where the self-feeding loop is faster, {tb} of {tb + nb} where the brake is. '
-              f'Timed by their arrows: {xa} of {xa + xna} against {xb} of {xb + xnb}, no lean.')
+    ev1 = svg(
+        bars,
+        72,
+        'Elements per row if every one doubled, against arrangements when loops are ordered fast to slow: '
+        + ', '.join(f"{cnt[n]['chemistry_2n2']} against {cnt[n]['types_ordered']} for {n} loops" for n in (1, 2, 3)),
+    )
+    ev2 = svg(
+        dots(12, 'self-feeding', tick_a, tick_a, str(tick_a), 112, 6.6, 2.5)
+        + dots(32, 'brake', tick_a, tick_b, str(tick_b), 112, 6.6, 2.5),
+        42,
+        f'Of {draws} random draws, {tick_a} tick with the self-feeding loop fast; swap the speeds and {tick_b} do.',
+    )
+    ev3 = svg(
+        dots(12, 'self-feeding', ta + na, ta, f'{ta} of {ta + na}', 130, 9.5, 3.6)
+        + dots(32, 'brake', tb + nb, tb, f'{tb} of {tb + nb}', 130, 9.5, 3.6)
+        + mono(0, 56, f'timed by their arrows: {xa} of {xa + xna} vs {xb} of {xb + xnb}'),
+        62,
+        f'Real two-loop circuits, timed by the molecules each loop keeps to itself: {ta} of {ta + na} tick where the self-feeding loop is faster, {tb} of {tb + nb} where the brake is. '
+        f'Timed by their arrows: {xa} of {xa + xna} against {xb} of {xb + xnb}, no lean.',
+    )
     rows_html = [
         ('<span class="v">&#10007; no</span>', 'Speed order is the missing factor of two', ev1),
         ('<span class="v ok">&#10003; yes</span>', 'In the toy, which loop is fast decides whether it ticks', ev2),
-        ('<span class="v">~ leans</span>', 'Real models lean toward a fast self-feeding loop, timed one way of two', ev3),
+        (
+            '<span class="v">~ leans</span>',
+            'Real models lean toward a fast self-feeding loop, timed one way of two',
+            ev3,
+        ),
     ]
-    out = '<div class="pane one score">' + ''.join(
-        f'<div class="sc-row">{v}<span class="sc-c">{c}</span><span class="sc-e">{e}</span></div>' for v, c, e in rows_html) + '</div>'
-    out += ('<p class="key-t">row sizes</p><p class="keyrow">'
-            '<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/></svg>what doubling needs</span>'
-            '<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--ink)"/></svg>what speed order gives</span></p>'
-            '<p class="key-t">circuits</p><p class="keyrow">'
-            '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/></svg>a draw or a model</span>'
-            '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/></svg>ticks</span></p>')
-    return out, {'tick_a': tick_a, 'draws': draws, 'ta': ta, 'na': na, 'tb': tb, 'nb': nb, 'p': cen['fisher_one_sided_p'],
-                  'xa': xa, 'xna': xna, 'xb': xb, 'xnb': xnb, 'xp': res['census']['arrow_strength']['fisher_one_sided_p']}
+    out = (
+        '<div class="pane one score">'
+        + ''.join(
+            f'<div class="sc-row">{v}<span class="sc-c">{c}</span><span class="sc-e">{e}</span></div>'
+            for v, c, e in rows_html
+        )
+        + '</div>'
+    )
+    out += (
+        '<p class="key-t">row sizes</p><p class="keyrow">'
+        '<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/></svg>what doubling needs</span>'
+        '<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--ink)"/></svg>what speed order gives</span></p>'
+        '<p class="key-t">circuits</p><p class="keyrow">'
+        '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/></svg>a draw or a model</span>'
+        '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/></svg>ticks</span></p>'
+    )
+    return out, {
+        'tick_a': tick_a,
+        'draws': draws,
+        'ta': ta,
+        'na': na,
+        'tb': tb,
+        'nb': nb,
+        'p': cen['fisher_one_sided_p'],
+        'xa': xa,
+        'xna': xna,
+        'xb': xb,
+        'xnb': xnb,
+        'xp': res['census']['arrow_strength']['fisher_one_sided_p'],
+    }
 
 
 WPM = 230
 # Everything the counter never reads. Must stay ONE alternation: a CSS comment holds a literal
 # "<details>", so stripping folds in a pass of their own swallows the page from the masthead down.
-SKIP = r'<script.*?</script>|<style.*?</style>|<svg.*?</svg>|<header.*?</header>|<nav.*?</nav>'
+SKIP = r'<script.*?</script>|<style.*?</style>|<svg.*?</svg>|<header.*?</header>|<nav.*?</nav>|<p class="fig-code".*?</p>'
 
 
 def drop_divs(html, opening):
@@ -403,12 +661,12 @@ def drop_divs(html, opening):
         if not m:
             return html
         depth, cut = 0, None
-        for t in re.finditer(r'<div\b|</div>', html[m.start():]):
+        for t in re.finditer(r'<div\b|</div>', html[m.start() :]):
             depth += 1 if t.group(0) != '</div>' else -1
             if depth == 0:
                 cut = m.start() + t.end()
                 break
-        html = html[:m.start()] + html[cut if cut else m.end():]
+        html = html[: m.start()] + html[cut if cut else m.end() :]
 
 
 def count_words(html, folds='closed'):
@@ -421,15 +679,20 @@ def count_words(html, folds='closed'):
     return re.findall(r"[A-Za-z0-9][A-Za-z0-9'\u2019\-]*", html_lib.unescape(re.sub(r'<[^>]+>', ' ', text)))
 
 
-def read_time(essay):
+def read_time(essay: str) -> tuple[str, int, int]:
     """The read time of the main read: no folds, hover cards, references, masthead, contents or figures.
     Returns the essay with its read time set, the word count and the minutes."""
-    words = count_words(essay[:essay.index('<section id="refs">')], 'closed')
+    words = count_words(essay[: essay.index('<section id="refs">')], 'closed')
     mins = max(1, round(len(words) / WPM))
-    return re.sub(r'<span id="readtime">[^<]*</span>', f'<span id="readtime">{mins} min read</span>', essay), len(words), mins
+    return (
+        re.sub(r'<span id="readtime">[^<]*</span>', f'<span id="readtime">{mins} min read</span>', essay),
+        len(words),
+        mins,
+    )
 
 
-def main():
+def main() -> dict:
+    """Fold the census build into the essay and write the essay."""
     if not BUILD.exists():
         BUILD.parent.mkdir(exist_ok=True)
         subprocess.run([sys.executable, str(ROOT / 'analysis' / 'build_post.py')], check=True)
@@ -437,7 +700,7 @@ def main():
     essay = ESSAY.read_text(encoding='utf-8')
 
     # ---- references: the essay's list, then the census's extras in a fixed order, then the hand-cited sources
-    essay_refs = refs_of(essay[:essay.index('<!-- gen:refs-extra -->')] + '</ol>')
+    essay_refs = refs_of(essay[: essay.index('<!-- gen:refs-extra -->')] + '</ol>')
     ekey = {k: n + 1 for n, (k, _) in enumerate(essay_refs) if k}
     post_refs = refs_of(post)
     pkey = {n + 1: (k, li) for n, (k, li) in enumerate(post_refs)}
@@ -462,7 +725,10 @@ def main():
     def recite(html):
         def one(m):
             nums = [pmap[int(x)] for x in re.findall(r'href="#r(\d+)"', m.group(0))]
-            return '<span class="cite">[' + ', '.join(f'<a href="#r{x}">{x}</a>' for x in nums) + ']</span>'  # linked since 2026-11-19
+            return (
+                '<span class="cite">[' + ', '.join(f'<a href="#r{x}">{x}</a>' for x in nums) + ']</span>'
+            )  # linked since 2026-11-19
+
         return re.sub(r'<span class="cite">.*?</span>', one, html, flags=re.S)
 
     def refig(html):
@@ -477,30 +743,50 @@ def main():
 
     # ---- blocks from the census build
     elcard = block(post, '<script>\nwindow.ElCard', '</script>')
-    table_sec = post[post.index('<section id="table">'):post.index('<section id="data">')]
-    ptable = block(table_sec, '<figure class="fig">', '</figure>', table_sec.index('Figure 5. The periodic table') - 60000)
-    ptable = table_sec[table_sec.rfind('<figure class="fig">', 0, table_sec.index('Figure 5. The periodic table')):table_sec.index('</figure>', table_sec.index('Figure 5. The periodic table')) + 9]
+    table_sec = post[post.index('<section id="table">') : post.index('<section id="data">')]
+    ptable = block(
+        table_sec, '<figure class="fig">', '</figure>', table_sec.index('Figure 5. The periodic table') - 60000
+    )
+    ptable = table_sec[
+        table_sec.rfind('<figure class="fig">', 0, table_sec.index('Figure 5. The periodic table')) : table_sec.index(
+            '</figure>', table_sec.index('Figure 5. The periodic table')
+        )
+        + 9
+    ]
     assert 'pt-card' in ptable and 'ptable' in ptable
-    ptable = ptable.replace(div_block(ptable, '<div class="pt-keybox">'), '')   # the explainer tile: the cards explain each real tile
-    data_sec = post[post.index('<section id="data">'):post.index('<section id="results">')]
+    ptable = ptable.replace(
+        div_block(ptable, '<div class="pt-keybox">'), ''
+    )  # the explainer tile: the cards explain each real tile
+    data_sec = post[post.index('<section id="data">') : post.index('<section id="results">')]
     datafig = block(data_sec, '<figure class="fig">', '</figure>')
     assert 'ex-q' in datafig and 'funnel' in datafig
     # the explorer opens on one worked search, the repressilator; the chips and the box lead to the rest
     k = datafig.index('  draw();\n})();', datafig.index('var R = [{'))
-    datafig = datafig[:k] + "  q.value = 'repressilator'; draw();\n})();" + datafig[k + len('  draw();\n})();'):]
-    results_sec = post[post.index('<section id="results">'):post.index('<section id="gaps">')]
+    datafig = datafig[:k] + "  q.value = 'repressilator'; draw();\n})();" + datafig[k + len('  draw();\n})();') :]
+    results_sec = post[post.index('<section id="results">') : post.index('<section id="gaps">')]
     cards = div_block(results_sec, '<div class="summary-cards">')
-    next_sec = post[post.index('<section id="next">'):post.index('<section id="limits">')]
+    next_sec = post[post.index('<section id="next">') : post.index('<section id="limits">')]
     nextfig = block(next_sec, '<figure class="fig">', '</figure>')
     assert 'id="sl"' in nextfig
-    supp = post[post.index('<details class="supp" id="supp-a">'):post.index('<details class="supp" id="refs-d">')]
+    supp = post[post.index('<details class="supp" id="supp-a">') : post.index('<details class="supp" id="refs-d">')]
     css = extract_css(re.search(r'<style>(.*?)</style>', post, re.S).group(1))
-    for claim in ('613 models', '175 have one to three loops', 'all 9 of them', 'Of the 20 elements with a running total, 3 are filled, by 4 models',
-                  'five curated models', 'from one to 14 loops', 'remove the brakes of 10 clocks', '(13 models)', '102 loop searches'):
+    for claim in (
+        '613 models',
+        '175 have one to three loops',
+        'all 9 of them',
+        'Of the 20 elements with a running total, 3 are filled, by 4 models',
+        'five curated models',
+        'from one to 14 loops',
+        'remove the brakes of 10 clocks',
+        '(13 models)',
+        '102 loop searches',
+    ):
         assert claim in post, claim
-    css += ('\n/* the essay reads in one sans; symbols and tiles follow it; its own key table wraps on a phone */\n'
-            '.pt-sym, .tile .sym, .ecard h3, .pt-el .pt-sym, .card h3, .f-panel, .ex-name, details.supp > summary, .text h3 { font-family: var(--sans); }\n'
-            '.text table.key td:nth-child(2) { white-space: normal; }\n')
+    css += (
+        '\n/* the essay reads in one sans; symbols and tiles follow it; its own key table wraps on a phone */\n'
+        '.pt-sym, .tile .sym, .ecard h3, .pt-el .pt-sym, .card h3, .f-panel, .ex-name, details.supp > summary, .text h3 { font-family: var(--sans); }\n'
+        '.text table.key td:nth-child(2) { white-space: normal; }\n'
+    )
 
     # 2026-11-19: Figure 8 is a hand-written pipeline diagram (#pf) in front of gen:data, with a card per step and its
     # script; the funnel and its script leave the block, and Figure S17 (the same steps as a list) leaves the supplement.
@@ -516,6 +802,15 @@ def main():
         k = h.index('</figure>', i) + len('</figure>')
         return h[:j] + h[k:]
 
+    def strip_figure(h: str, caption: str) -> str:
+        """Drop the figure whose caption starts with `caption` from h, and its line (raises if it is missing)."""
+        i = h.index(caption)
+        j = h.rfind('<figure class="fig">', 0, i)
+        k = h.index('</figure>', i) + len('</figure>')
+        if h[j - 1 : j] == '\n' and h[k : k + 1] == '\n':
+            k += 1
+        return h[:j] + h[k:]
+
     blocks = {
         'css-census': '<style>\n' + css + '\n</style>',
         'elcard': elcard,
@@ -523,7 +818,7 @@ def main():
         'ptable': clean(inner(ptable)),
         'data': strip_funnel(clean(inner(datafig))),
         # 'cards' (the scorecard) retired 2026-11-19: chapter 07's method table (#fig-method) replaces it
-        'truth': truth_supp(lambda n: f'<span class="cite">[{n}]</span>'),
+        'truth': truth_supp(lambda n: f'<span class="cite">[<a href="#r{n}">{n}</a>]</span>'),
         # 'next' (Figure S8's ring) retired 2026-11-19: Figure 14 draws the method loop, and #fig-next is a hand-written
         # table of the next lap, keyed to its stages. The old replacements are kept below, commented, for the record.
         # 'next': clean(inner(nextfig)).replace('; test nesting order as a fourth count.', '. Look for a yes-or-no property of each loop that would double every row; speed order, tested below, does not.')
@@ -531,7 +826,8 @@ def main():
         # .replace('Benchmark running-total detectors on models with known answers', 'Trace by hand the four exact returns the loop reading missed, test the ways of reading running totals on models with known answers'),
         'nesting': nesting_figure()[0],
         'morph': LM.fig_morph(),
-        'supp': strip_s17(clean(supp)),
+        # Figure 7 (one published model) lives in chapter 03 as #fig-model; the build's supplement copy goes
+        'supp': strip_figure(strip_s17(clean(supp)), 'Figure 7. One published model.'),
         'refs-extra': '\n'.join(f'<li>{li}</li>' for k, li in extras),
     }
     for name, body in blocks.items():
@@ -539,7 +835,9 @@ def main():
         assert pat.search(essay), name
         essay = pat.sub(lambda m: m.group(1) + '\n' + body + '\n' + m.group(2), essay, count=1)
     # every reference carries id="rN" so the linked markers land on it
-    i = essay.index('<ol class="refs">'); j = essay.index('</ol>', i); k = iter(range(1, 10000))
+    i = essay.index('<ol class="refs">')
+    j = essay.index('</ol>', i)
+    k = iter(range(1, 10000))
     essay = essay[:i] + re.sub(r'<li(?: id="r\d+")?>', lambda m: f'<li id="r{next(k)}">', essay[i:j]) + essay[j:]
     essay, words, mins = read_time(essay)
     ESSAY.write_text(essay, encoding='utf-8')

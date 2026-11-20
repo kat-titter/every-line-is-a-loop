@@ -2213,7 +2213,17 @@
   },
   {
    "model": "BIOMD0000000113",
-   "status": "timeout after 240 s"
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": [
+    1,
+    0,
+    0
+   ],
+   "census": [
+    "oscillating"
+   ]
   },
   {
    "model": "BIOMD0000000114",
@@ -6280,7 +6290,13 @@
   },
   {
    "model": "BIOMD0000000378",
-   "status": "timeout after 240 s"
+   "status": "ok",
+   "row": "ticks",
+   "why": "ticks before any push",
+   "address": null,
+   "census": [
+    "oscillating"
+   ]
   },
   {
    "model": "BIOMD0000000379",
@@ -8476,23 +8492,200 @@
   },
   {
    "model": "BIOMD0000000469",
-   "status": "timeout after 240 s"
+   "status": "ok",
+   "input": "ic0099",
+   "output": "s_0099",
+   "step_peak": 0.2002,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.19986,
+   "crossings": 0,
+   "settle": 0.215,
+   "settled": true,
+   "ramp_gap": 0.0018,
+   "rhythm": {
+    "dc": 0.9993574074874805,
+    "peak": 1.0006430057031699,
+    "peak_at": 0.5423728813559322,
+    "curve": [
+     0.9994,
+     0.9994,
+     0.9994,
+     0.9994,
+     0.9994,
+     0.9994,
+     0.9994,
+     0.9994,
+     1.0,
+     0.9233,
+     0.4599,
+     0.0345,
+     0.0018,
+     0.0001,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
   },
   {
    "model": "BIOMD0000000470",
-   "status": "timeout after 240 s"
+   "status": "still drifting after the step",
+   "input": "r_0008_Keq",
+   "output": "s_1106",
+   "step_peak": 0.1836,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.18362,
+   "crossings": 0,
+   "settle": 0.931,
+   "settled": false,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.9999575139375831,
+    "peak": 1.0000424878675591,
+    "peak_at": 0.2033898305084746,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9921,
+     0.9943,
+     0.8663,
+     0.1184,
+     0.0035,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0
   },
   {
    "model": "BIOMD0000000471",
-   "status": "timeout after 240 s"
+   "status": "ok",
+   "input": "ic0002",
+   "output": "s_0002",
+   "step_peak": 0.1999,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.19994,
+   "crossings": 0,
+   "settle": 0.082,
+   "settled": true,
+   "ramp_gap": 0.0005,
+   "rhythm": {
+    "dc": 1.0,
+    "peak": 1.0,
+    "peak_at": 0.0,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.9925,
+     0.7772,
+     0.1237,
+     0.0085,
+     0.0007,
+     0.0001
+    ]
+   },
+   "sustained_peaks": 0,
+   "row": "follows",
+   "why": "moves with the push and stays",
+   "address": null,
+   "census": [
+    "steady"
+   ]
   },
   {
    "model": "BIOMD0000000472",
-   "status": "timeout after 240 s"
+   "status": "still drifting after the step",
+   "input": "r_0012_Keq",
+   "output": "s_1035",
+   "step_peak": 0.1884,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 0.18836,
+   "crossings": 0,
+   "settle": 0.784,
+   "settled": false,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.9999735510163942,
+    "peak": 1.000026449683173,
+    "peak_at": 0.13559322033898305,
+    "curve": [
+     1.0,
+     1.0,
+     1.0,
+     0.9999,
+     0.9987,
+     0.9986,
+     0.9986,
+     0.9992,
+     0.993,
+     0.5813,
+     0.0436,
+     0.0002,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0
   },
   {
    "model": "BIOMD0000000473",
-   "status": "timeout after 240 s"
+   "status": "still drifting after the step",
+   "input": "HXK_Vmax",
+   "output": "s_0002",
+   "step_peak": 35.3528,
+   "exact_pairs": [],
+   "exact_count": 0,
+   "step_final": 35.35278,
+   "crossings": 0,
+   "settle": 0.931,
+   "settled": false,
+   "ramp_gap": null,
+   "rhythm": {
+    "dc": 0.01161922260749914,
+    "peak": 86.06427760103261,
+    "peak_at": 0.576271186440678,
+    "curve": [
+     0.0116,
+     0.0117,
+     0.0158,
+     0.0161,
+     0.0145,
+     0.0144,
+     0.0098,
+     0.0049,
+     0.1131,
+     0.0861,
+     0.0024,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "sustained_peaks": 0
   },
   {
    "model": "BIOMD0000000474",
@@ -11012,12 +11205,12 @@
   }
  ],
  "rows": {
-  "ticks": 94,
+  "ticks": 96,
   "remembers": 10,
   "returns exactly": 34,
   "returns partly": 5,
   "rings": 19,
-  "follows": 111,
+  "follows": 113,
   "flat": 29
  },
  "checks": [

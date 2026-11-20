@@ -1,0 +1,4 @@
+# Outside commits on the public main branch whose port into essay-revision needed a hand merge, so tools/publish_gate.sh
+# cannot prove them contained by a clean 3-way merge. One line each: short sha, then who checked what. The gate still
+# fails any file of theirs that is nearer its pre-commit version than its post-commit one.
+04cd30d PR #2 (split build() and script() into named steps), ported by hand in a3892f0 because Figure 12's disease code (JS_DISEASE, P['dz']) edits the same lines; the audit session confirmed function-level containment; at 4d2023a build_post.py is 14 lines from the PR and 296 from before it, circuit_figures.py 131 and 164

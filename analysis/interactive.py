@@ -7,11 +7,18 @@ loop_toy:  a three-gene ring; click an arrow to flip it between amplify and brak
            Odd brakes: both keep swinging (a clock).
 cruise:    cruise control on a hill of adjustable slope, with and without a running total of the shortfall.
 coast:     a coastline measured with rulers of 2 to 64 steps.
+
+Reads: nothing; each figure is computed in code.
+Writes: nothing; imported by build_post.py, bio_figures.py and circuit_figures.py, which place the returned HTML.
+Run: imported, not run.
 """
+
+from __future__ import annotations
+
 import json
 import math
 
-SVG = ''   # the stylesheet gives every svg the page's sans; a presentation attribute here would name a font the page never loads
+SVG = ''  # the stylesheet gives every svg the page's sans; a presentation attribute here would name a font the page never loads
 MINUS = '−'
 
 
@@ -19,7 +26,7 @@ MINUS = '−'
 TOY = {'beta': 4.0, 'n': 4.0, 'hi': 2.5, 'lo': 0.2, 'T': 40.0, 'dt': 0.01}
 
 
-def starts_for(signs):
+def starts_for(signs: list[int]) -> list[list[float]]:
     """Two starts, each near one of the two patterns a ring with these signs could hold: X high, and X low.
     Gene g is regulated by gene g-1 with sign signs[g]; a negative ring cannot hold either, and swings."""
     out = []
@@ -31,7 +38,9 @@ def starts_for(signs):
     return out
 
 
-def simulate_ring(signs, beta=TOY['beta'], n=TOY['n'], T=TOY['T'], dt=TOY['dt']):
+def simulate_ring(
+    signs: list[int], beta: float = TOY['beta'], n: float = TOY['n'], T: float = TOY['T'], dt: float = TOY['dt']
+) -> list[list[float]]:
     """Python twin of the page's simulation, used to check what the figure claims."""
     out = []
     for x0 in starts_for(signs):
@@ -39,7 +48,7 @@ def simulate_ring(signs, beta=TOY['beta'], n=TOY['n'], T=TOY['T'], dt=TOY['dt'])
         tr = []
         for i in range(int(T / dt)):
             prev = [x[2], x[0], x[1]]
-            f = [(p ** n / (1 + p ** n)) if s > 0 else (1 / (1 + p ** n)) for p, s in zip(prev, signs)]
+            f = [(p**n / (1 + p**n)) if s > 0 else (1 / (1 + p**n)) for p, s in zip(prev, signs)]
             x = [xi + dt * (beta * fi - xi) for xi, fi in zip(x, f)]
             if i % 10 == 0:
                 tr.append(x[0])
@@ -47,13 +56,14 @@ def simulate_ring(signs, beta=TOY['beta'], n=TOY['n'], T=TOY['T'], dt=TOY['dt'])
     return out
 
 
-def check_ring():
+def check_ring() -> bool:
     """Even brakes: the two starts end apart and still. Odd brakes: both keep swinging."""
     import itertools
+
     for signs in itertools.product((1, -1), repeat=3):
         k = signs.count(-1)
         a, b = simulate_ring(list(signs))
-        late = lambda tr: tr[len(tr) // 2:]
+        late = lambda tr: tr[len(tr) // 2 :]
         swing = lambda tr: max(late(tr)) - min(late(tr))
         if k % 2 == 0:
             assert swing(a) < 0.01 and swing(b) < 0.01 and abs(a[-1] - b[-1]) > 1.0, (k, a[-1], b[-1])
@@ -62,12 +72,16 @@ def check_ring():
     return True
 
 
-def loop_toy():
+def loop_toy() -> str:
+    """The three-gene ring toy: markup, style and script as one string."""
     check_ring()
     pts = [(165, 58), (240, 178), (90, 178)]
     names = ['TetR', 'LacI', 'cI']  # the repressilator's three repressors
-    nodes = ''.join(f'<circle cx="{x}" cy="{y}" r="22" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
-                    f'<text x="{x}" y="{y + 5}" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">{t}</text>' for (x, y), t in zip(pts, names))
+    nodes = ''.join(
+        f'<circle cx="{x}" cy="{y}" r="22" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
+        f'<text x="{x}" y="{y + 5}" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">{t}</text>'
+        for (x, y), t in zip(pts, names)
+    )
     arrows = ''
     for i in range(3):
         (x1, y1), (x2, y2) = pts[i], pts[(i + 1) % 3]
@@ -76,27 +90,36 @@ def loop_toy():
         sx, sy, ex, ey = x1 + ux * 25, y1 + uy * 25, x2 - ux * 28, y2 - uy * 28
         mx, my = (sx + ex) / 2, (sy + ey) / 2
         # the shaft and its sign badge first, then the invisible 44 px hit shapes on top (transparent fill still takes pointer events)
-        arrows += (f'<g class="arr" data-i="{i}" role="button" tabindex="0" aria-label="arrow from {names[i]} to {names[(i + 1) % 3]}">'
-                   f'<line class="shaft" x1="{sx:.1f}" y1="{sy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="var(--accent-text)" stroke-width="2.2" marker-end="url(#fx-arrow)"/>'
-                   f'<circle class="badge" cx="{mx - uy * 18:.1f}" cy="{my + ux * 18:.1f}" r="12" fill="var(--paper)" stroke="var(--accent-text)" stroke-width="1.4"/>'
-                   f'<text x="{mx - uy * 18:.1f}" y="{my + ux * 18 + 5:.1f}" text-anchor="middle" font-size="14" font-weight="600" fill="var(--accent-text)">+</text>'
-                   f'<line x1="{sx:.1f}" y1="{sy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="transparent" stroke-width="44"/>'
-                   f'<circle cx="{mx - uy * 18:.1f}" cy="{my + ux * 18:.1f}" r="22" fill="#fff" fill-opacity="0"/></g>')
-    ring = (f'<svg id="lt-ring" viewBox="0 0 330 230" role="img" aria-label="A ring of three genes; click an arrow to flip it" {SVG}>{arrows}{nodes}'
-            '<text id="lt-verdict" x="165" y="222" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)"></text></svg>')
-    plot = (f'<svg id="lt-plot" viewBox="0 0 330 230" role="img" aria-label="Level of X over time from two starts" {SVG}>'
-            '<line x1="44" y1="190" x2="316" y2="190" stroke="var(--muted)" stroke-width="1.4"/><line x1="44" y1="30" x2="44" y2="190" stroke="var(--muted)" stroke-width="1.4"/>'
-            '<text x="38" y="36" text-anchor="end" font-size="12.5" fill="var(--muted)">high</text>'
-            '<text x="38" y="190" text-anchor="end" font-size="12.5" fill="var(--muted)">low</text>'
-            '<text x="316" y="206" text-anchor="end" font-size="12.5" fill="var(--muted)">time</text>'
-            '<text x="44" y="18" font-size="12.5" fill="var(--muted)">level of TetR, from two starts</text>'
-            '<polyline id="lt-a0" fill="none" stroke="var(--ink)" stroke-width="2.2"/>'
-            '<polyline id="lt-a1" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-dasharray="5 4"/>'
-            '<g id="lt-glyph"></g>'
-            '<text id="lt-out" x="100" y="226" text-anchor="start" font-size="14" font-weight="600" fill="var(--ink)"></text></svg>')
-    js = '''<script>
+        arrows += (
+            f'<g class="arr" data-i="{i}" role="button" tabindex="0" aria-label="arrow from {names[i]} to {names[(i + 1) % 3]}">'
+            f'<line class="shaft" x1="{sx:.1f}" y1="{sy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="var(--accent-text)" stroke-width="2.2" marker-end="url(#fx-arrow)"/>'
+            f'<circle class="badge" cx="{mx - uy * 18:.1f}" cy="{my + ux * 18:.1f}" r="12" fill="var(--paper)" stroke="var(--accent-text)" stroke-width="1.4"/>'
+            f'<text x="{mx - uy * 18:.1f}" y="{my + ux * 18 + 5:.1f}" text-anchor="middle" font-size="14" font-weight="600" fill="var(--accent-text)">+</text>'
+            f'<line x1="{sx:.1f}" y1="{sy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="transparent" stroke-width="44"/>'
+            f'<circle cx="{mx - uy * 18:.1f}" cy="{my + ux * 18:.1f}" r="22" fill="#fff" fill-opacity="0"/></g>'
+        )
+    ring = (
+        f'<svg id="lt-ring" viewBox="0 0 330 230" role="img" aria-label="A ring of three genes; click an arrow to flip it" {SVG}>{arrows}{nodes}'
+        '<text id="lt-verdict" x="165" y="222" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)"></text></svg>'
+    )
+    plot = (
+        f'<svg id="lt-plot" viewBox="0 0 330 230" role="img" aria-label="Level of X over time from two starts" {SVG}>'
+        '<line x1="44" y1="190" x2="316" y2="190" stroke="var(--muted)" stroke-width="1.4"/><line x1="44" y1="30" x2="44" y2="190" stroke="var(--muted)" stroke-width="1.4"/>'
+        '<text x="38" y="36" text-anchor="end" font-size="12.5" fill="var(--muted)">high</text>'
+        '<text x="38" y="190" text-anchor="end" font-size="12.5" fill="var(--muted)">low</text>'
+        '<text x="316" y="206" text-anchor="end" font-size="12.5" fill="var(--muted)">time</text>'
+        '<text x="44" y="18" font-size="12.5" fill="var(--muted)">level of TetR, from two starts</text>'
+        '<polyline id="lt-a0" fill="none" stroke="var(--ink)" stroke-width="2.2"/>'
+        '<polyline id="lt-a1" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-dasharray="5 4"/>'
+        '<g id="lt-glyph"></g>'
+        '<text id="lt-out" x="100" y="226" text-anchor="start" font-size="14" font-weight="600" fill="var(--ink)"></text></svg>'
+    )
+    js = (
+        '''<script>
 (function () {
-  var P = ''' + json.dumps(TOY) + ''';
+  var P = '''
+        + json.dumps(TOY)
+        + ''';
   var signs = [1, 1, -1];
   var ring = document.getElementById('lt-ring');
   function starts() {
@@ -152,11 +175,13 @@ def loop_toy():
   draw();
 })();
 </script>'''
+    )
     return f'<div class="pair interactive"><div>{ring}</div><div>{plot}</div></div>' + js
 
 
 # ---------------------------------------------------------------- cruise control
-def cruise_curves(hill, ki):
+def cruise_curves(hill: float, ki: float) -> list[float]:
+    """Speed trace of the cruise-control car on a hill, with integral gain ki."""
     v, s, dt, tr = 60.0, 0.0, 0.02, []
     for i in range(int(80 / dt) + 1):
         t = i * dt
@@ -169,25 +194,30 @@ def cruise_curves(hill, ki):
     return tr
 
 
-def cruise():
+def cruise() -> str:
+    """The cruise-control figure as one string of markup, style and script."""
     a, b = cruise_curves(0.6, 0.0), cruise_curves(0.6, 0.06)
     assert abs(b[-1] - 60) < 0.05 and 57 < a[-1] < 59.5
     # authored 330 wide; the script widens the viewBox to the container so the text renders at its authored size
-    plot = (f'<svg id="cc-plot" viewBox="0 0 330 240" role="img" aria-label="Speed over time on a hill, with a simple controller and with a running total" {SVG}>'
-            '<line id="cc-x" x1="56" y1="186" x2="312" y2="186" stroke="var(--muted)" stroke-width="1.4"/><line x1="56" y1="34" x2="56" y2="186" stroke="var(--muted)" stroke-width="1.4"/>'
-            '<line id="cc-set" x1="56" y1="55.7" x2="312" y2="55.7" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="4 4"/>'
-            '<text x="48" y="59.7" text-anchor="end" font-size="12.5" fill="var(--muted)">60</text>'
-            '<text x="48" y="190" text-anchor="end" font-size="12.5" fill="var(--muted)">48</text>'
-            '<text x="48" y="24" text-anchor="end" font-size="12.5" fill="var(--muted)">speed</text>'
-            '<text id="cc-xl" x="184" y="208" text-anchor="middle" font-size="12.5" fill="var(--muted)">80 seconds; the hill starts at 10</text>'
-            '<polyline id="cc-s" fill="none" stroke="var(--muted)" stroke-width="1.4"/>'
-            '<polyline id="cc-t" fill="none" stroke="var(--ink)" stroke-width="2.2"/>'
-            '<text id="cc-ls" x="312" y="150" text-anchor="end" font-size="14" fill="var(--muted)"></text>'
-            '<g id="cc-glyph"></g>'
-            '<text id="cc-lt" x="312" y="46" text-anchor="end" font-size="14" font-weight="600" fill="var(--ink)">running total: back to 60</text></svg>')
-    ctl = ('<div class="ctl"><label for="cc-hill">hill</label>'
-           '<input id="cc-hill" type="range" min="0" max="1.4" step="0.1" value="0.6" aria-label="steepness of the hill">'
-           '<output id="cc-o" for="cc-hill"></output></div>')
+    plot = (
+        f'<svg id="cc-plot" viewBox="0 0 330 240" role="img" aria-label="Speed over time on a hill, with a simple controller and with a running total" {SVG}>'
+        '<line id="cc-x" x1="56" y1="186" x2="312" y2="186" stroke="var(--muted)" stroke-width="1.4"/><line x1="56" y1="34" x2="56" y2="186" stroke="var(--muted)" stroke-width="1.4"/>'
+        '<line id="cc-set" x1="56" y1="55.7" x2="312" y2="55.7" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="4 4"/>'
+        '<text x="48" y="59.7" text-anchor="end" font-size="12.5" fill="var(--muted)">60</text>'
+        '<text x="48" y="190" text-anchor="end" font-size="12.5" fill="var(--muted)">48</text>'
+        '<text x="48" y="24" text-anchor="end" font-size="12.5" fill="var(--muted)">speed</text>'
+        '<text id="cc-xl" x="184" y="208" text-anchor="middle" font-size="12.5" fill="var(--muted)">80 seconds; the hill starts at 10</text>'
+        '<polyline id="cc-s" fill="none" stroke="var(--muted)" stroke-width="1.4"/>'
+        '<polyline id="cc-t" fill="none" stroke="var(--ink)" stroke-width="2.2"/>'
+        '<text id="cc-ls" x="312" y="150" text-anchor="end" font-size="14" fill="var(--muted)"></text>'
+        '<g id="cc-glyph"></g>'
+        '<text id="cc-lt" x="312" y="46" text-anchor="end" font-size="14" font-weight="600" fill="var(--ink)">running total: back to 60</text></svg>'
+    )
+    ctl = (
+        '<div class="ctl"><label for="cc-hill">hill</label>'
+        '<input id="cc-hill" type="range" min="0" max="1.4" step="0.1" value="0.6" aria-label="steepness of the hill">'
+        '<output id="cc-o" for="cc-hill"></output></div>'
+    )
     js = '''<script>
 (function () {
   function curve(hill, ki) {
@@ -241,8 +271,10 @@ def cruise():
 
 
 # ---------------------------------------------------------------- coastline
-def coast_points():
+def coast_points() -> list[tuple[float, float]]:
+    """A fixed-seed jagged coastline as points from left to right."""
     import random
+
     rnd = random.Random(7)
     pts = [(20.0, 100.0), (310.0, 100.0)]
     for _ in range(7):
@@ -258,26 +290,39 @@ def coast_points():
     return pts
 
 
-def coast():
+def coast() -> tuple[str, dict]:
+    """The coastline figure and the ruler lengths it asserts."""
     pts = coast_points()
-    lo = min(y for _, y in pts); hi = max(y for _, y in pts)
+    lo = min(y for _, y in pts)
+    hi = max(y for _, y in pts)
     pts = [(x, 40 + (y - lo) * 110 / (hi - lo)) for x, y in pts]
+
     def length(n):
         idx = [round(i * (len(pts) - 1) / n) for i in range(n + 1)]
         sel = [pts[i] for i in idx]
         return sum(math.hypot(b[0] - a[0], b[1] - a[1]) for a, b in zip(sel, sel[1:]))
+
     L = {n: length(n) for n in (2, 4, 8, 16, 32, 64)}
     assert all(L[a] < L[b] for a, b in ((2, 4), (4, 8), (8, 16), (16, 32), (32, 64))), L
-    plot = (f'<svg id="co-plot" viewBox="0 0 330 200" role="img" aria-label="A coastline measured with a ruler of adjustable length" {SVG}>'
-            '<polyline points="' + ' '.join(f'{x:.1f},{y:.1f}' for x, y in pts) + '" fill="none" stroke="var(--muted)" stroke-width="1.1"/>'
-            '<polyline id="co-r" fill="none" stroke="var(--muted)" stroke-width="2.2"/><g id="co-d"></g>'
-            '<text id="co-out" x="165" y="190" text-anchor="middle" font-size="13.5" fill="var(--ink)"></text></svg>')
-    ctl = ('<div class="ctl"><label for="co-n">ruler</label>'
-           '<input id="co-n" type="range" min="1" max="6" step="1" value="2" aria-label="number of ruler steps, from 2 to 64">'
-           '<output id="co-o" for="co-n"></output></div>')
-    js = '''<script>
+    plot = (
+        f'<svg id="co-plot" viewBox="0 0 330 200" role="img" aria-label="A coastline measured with a ruler of adjustable length" {SVG}>'
+        '<polyline points="'
+        + ' '.join(f'{x:.1f},{y:.1f}' for x, y in pts)
+        + '" fill="none" stroke="var(--muted)" stroke-width="1.1"/>'
+        '<polyline id="co-r" fill="none" stroke="var(--muted)" stroke-width="2.2"/><g id="co-d"></g>'
+        '<text id="co-out" x="165" y="190" text-anchor="middle" font-size="13.5" fill="var(--ink)"></text></svg>'
+    )
+    ctl = (
+        '<div class="ctl"><label for="co-n">ruler</label>'
+        '<input id="co-n" type="range" min="1" max="6" step="1" value="2" aria-label="number of ruler steps, from 2 to 64">'
+        '<output id="co-o" for="co-n"></output></div>'
+    )
+    js = (
+        '''<script>
 (function () {
-  var P = ''' + json.dumps([[round(x, 1), round(y, 1)] for x, y in pts]) + ''';
+  var P = '''
+        + json.dumps([[round(x, 1), round(y, 1)] for x, y in pts])
+        + ''';
   function sel(n) { var out = []; for (var i = 0; i <= n; i++) out.push(P[Math.round(i * (P.length - 1) / n)]); return out; }
   function len(s) { var L = 0; for (var i = 1; i < s.length; i++) L += Math.hypot(s[i][0] - s[i - 1][0], s[i][1] - s[i - 1][1]); return L; }
   var base = len(sel(2));
@@ -293,25 +338,39 @@ def coast():
   draw();
 })();
 </script>'''
+    )
     return f'<div class="solo interactive">{plot}{ctl}</div>' + js, L
 
 
 # ---------------------------------------------------------------- amplify and brake, with a slider
-def gauges():
+def gauges() -> str:
+    """The amplify-and-brake slider figure as one string of markup, style and script."""
+
     def panel(pid, title, label, arrow):
-        nodes = ''.join(f'<circle cx="{x}" cy="62" r="22" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
-                        f'<text x="{x}" y="67" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">{t}</text>' for x, t in ((95, 'A'), (235, 'B')))
+        nodes = ''.join(
+            f'<circle cx="{x}" cy="62" r="22" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
+            f'<text x="{x}" y="67" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">{t}</text>'
+            for x, t in ((95, 'A'), (235, 'B'))
+        )
         col = 'var(--accent-text)' if arrow == 'fx-arrow' else 'var(--accent2-text)'
         mk = f'<line x1="120" y1="62" x2="210" y2="62" stroke="{col}" stroke-width="2.2" marker-end="url(#{arrow})"/>'
-        bars = ''.join(f'<rect x="{x - 14}" y="96" width="28" height="70" rx="4" fill="none" stroke="var(--muted)" stroke-width="1.4"/>'
-                       f'<rect id="{pid}-{t}" x="{x - 14}" y="131" width="28" height="35" rx="4" fill="var(--muted)"/>' for x, t in ((95, 'A'), (235, 'B')))
-        return (f'<svg viewBox="0 0 330 222" role="img" aria-label="{title}: {label}" {SVG}>'
-                f'<text x="165" y="22" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">{title}</text>{mk}{nodes}{bars}'
-                f'<text x="165" y="212" text-anchor="middle" font-size="14" fill="var(--ink)">{label}</text></svg>')
+        bars = ''.join(
+            f'<rect x="{x - 14}" y="96" width="28" height="70" rx="4" fill="none" stroke="var(--muted)" stroke-width="1.4"/>'
+            f'<rect id="{pid}-{t}" x="{x - 14}" y="131" width="28" height="35" rx="4" fill="var(--muted)"/>'
+            for x, t in ((95, 'A'), (235, 'B'))
+        )
+        return (
+            f'<svg viewBox="0 0 330 222" role="img" aria-label="{title}: {label}" {SVG}>'
+            f'<text x="165" y="22" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">{title}</text>{mk}{nodes}{bars}'
+            f'<text x="165" y="212" text-anchor="middle" font-size="14" fill="var(--ink)">{label}</text></svg>'
+        )
+
     a = panel('gp', 'amplify (+)', 'more A, more B', 'fx-arrow')
     b = panel('gm', f'brake ({MINUS})', 'more A, less B', 'fx-bar')
-    ctl = ('<div class="ctl"><label for="ga-s">level of A</label>'
-           '<input id="ga-s" type="range" min="0" max="1" step="0.05" value="0.5" aria-label="level of A"><output id="ga-o" for="ga-s"></output></div>')
+    ctl = (
+        '<div class="ctl"><label for="ga-s">level of A</label>'
+        '<input id="ga-s" type="range" min="0" max="1" step="0.05" value="0.5" aria-label="level of A"><output id="ga-o" for="ga-s"></output></div>'
+    )
     js = '''<script>
 (function () {
   function bar(id, f) { var r = document.getElementById(id), h = 4 + 62 * f; r.setAttribute('height', h.toFixed(1)); r.setAttribute('y', (166 - h).toFixed(1)); }
@@ -330,14 +389,20 @@ def gauges():
 
 
 # ---------------------------------------------------------------- the data, step by step
-def funnel(stages):
+def funnel(stages: list) -> str:
     """stages: list of (count, total, title, what, why). Rows are buttons; the panel explains the chosen step."""
-    rows = ''.join(f'<button type="button" class="f-row" data-i="{i}" aria-pressed="{str(i == 0).lower()}">'
-                   f'<span class="f-n">{c:,}</span><span class="f-bar"><span style="width:{max(2, 100 * c / tot):.1f}%"></span></span>'
-                   f'<span class="f-t">{t}</span></button>' for i, (c, tot, t, _, _) in enumerate(stages))
+    rows = ''.join(
+        f'<button type="button" class="f-row" data-i="{i}" aria-pressed="{str(i == 0).lower()}">'
+        f'<span class="f-n">{c:,}</span><span class="f-bar"><span style="width:{max(2, 100 * c / tot):.1f}%"></span></span>'
+        f'<span class="f-t">{t}</span></button>'
+        for i, (c, tot, t, _, _) in enumerate(stages)
+    )
     # every panel is in the page, stacked in one grid cell; a click shows one, so the figure never changes height
     on = ' class="on"'
-    panels = ''.join(f'<div{on if i == 0 else ""}><p><b>What.</b> {w}</p><p><b>Why.</b> {y}</p></div>' for i, (_, _, _, w, y) in enumerate(stages))
+    panels = ''.join(
+        f'<div{on if i == 0 else ""}><p><b>What.</b> {w}</p><p><b>Why.</b> {y}</p></div>'
+        for i, (_, _, _, w, y) in enumerate(stages)
+    )
     js = '''<script>
 (function () {
   var root = document.getElementById('funnel'), panel = document.getElementById('f-panel');
@@ -348,16 +413,22 @@ def funnel(stages):
   root.addEventListener('click', function (e) { var b = e.target.closest('.f-row'); if (b) show(+b.dataset.i); });
 })();
 </script>'''
-    return (f'<div class="interactive" id="funnel">{rows}<div class="f-panel" id="f-panel" aria-live="polite">{panels}</div></div>' + js)
+    return (
+        f'<div class="interactive" id="funnel">{rows}<div class="f-panel" id="f-panel" aria-live="polite">{panels}</div></div>'
+        + js
+    )
 
 
 # ---------------------------------------------------------------- explore the census
-def explorer(rows, picks):
+def explorer(rows: list, picks: list) -> str:
     """rows: list of dicts (id, name, loops, pattern, element, does). Search by name; quick picks are chips."""
     chips = ''.join(f'<button type="button" class="pick" data-q="{q}">{lab}</button>' for lab, q in picks)
-    js = '''<script>
+    js = (
+        '''<script>
 (function () {
-  var R = ''' + json.dumps(rows, separators=(',', ':')) + ''';
+  var R = '''
+        + json.dumps(rows, separators=(',', ':'))
+        + ''';
   var q = document.getElementById('ex-q'), list = document.getElementById('ex-list'), count = document.getElementById('ex-count');
   function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;'}[c]; }); }
   function draw() {
@@ -379,14 +450,17 @@ def explorer(rows, picks):
   draw();
 })();
 </script>'''
-    return ('<div class="interactive explorer"><label class="ex-lab" for="ex-q">search by name</label>'
-            '<input id="ex-q" type="search" autocomplete="off">'
-            f'<div class="ex-picks" id="ex-picks">{chips}</div><p class="ex-count" id="ex-count" aria-live="polite"></p>'
-            '<ol class="ex-list" id="ex-list"></ol></div>' + js)
+    )
+    return (
+        '<div class="interactive explorer"><label class="ex-lab" for="ex-q">search by name</label>'
+        '<input id="ex-q" type="search" autocomplete="off">'
+        f'<div class="ex-picks" id="ex-picks">{chips}</div><p class="ex-count" id="ex-count" aria-live="polite"></p>'
+        '<ol class="ex-list" id="ex-list"></ol></div>' + js
+    )
 
 
 # ---------------------------------------------------------------- science is a loop
-def science_loop(stages):
+def science_loop(stages: list) -> str:
     """stages: list of (name, this_round, next_round). Drawn as a loop of nodes; click one to read what comes next.
     this_round is kept for the record; the sections above already tell it, so the panel shows only the next round."""
     n = len(stages)
@@ -398,15 +472,22 @@ def science_loop(stages):
         x0, y0 = cx + r * math.sin(math.radians(a0)), cy - r * math.cos(math.radians(a0))
         x1, y1 = cx + r * math.sin(math.radians(a1)), cy - r * math.cos(math.radians(a1))
         arcs += f'<path d="M{x0:.1f} {y0:.1f}A{r} {r} 0 0 1 {x1:.1f} {y1:.1f}" fill="none" stroke="var(--muted)" stroke-width="2.2" marker-end="url(#fx-arrow-muted)"/>'
-    nodes = ''.join(f'<g class="sl-node" data-i="{i}" role="button" tabindex="0" aria-label="{name}">'
-                    f'<circle cx="{x:.1f}" cy="{y:.1f}" r="24" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
-                    f'<text x="{x:.1f}" y="{y + 4.5:.1f}" text-anchor="middle" font-size="12.5" fill="var(--ink)">{name}</text></g>'
-                    for i, ((x, y), (name, _, _)) in enumerate(zip(pts, stages)))
-    svg = (f'<svg id="sl" viewBox="0 0 330 300" role="img" aria-label="The research loop: {", ".join(s[0] for s in stages)}, and back again" {SVG}>'
-           f'{arcs}{nodes}<text x="{cx}" y="{cy + 5}" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">round two</text></svg>')
+    nodes = ''.join(
+        f'<g class="sl-node" data-i="{i}" role="button" tabindex="0" aria-label="{name}">'
+        f'<circle cx="{x:.1f}" cy="{y:.1f}" r="24" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
+        f'<text x="{x:.1f}" y="{y + 4.5:.1f}" text-anchor="middle" font-size="12.5" fill="var(--ink)">{name}</text></g>'
+        for i, ((x, y), (name, _, _)) in enumerate(zip(pts, stages))
+    )
+    svg = (
+        f'<svg id="sl" viewBox="0 0 330 300" role="img" aria-label="The research loop: {", ".join(s[0] for s in stages)}, and back again" {SVG}>'
+        f'{arcs}{nodes}<text x="{cx}" y="{cy + 5}" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">round two</text></svg>'
+    )
     # every panel is in the page, stacked in one grid cell; a click shows one, so the figure never changes height
     on = ' class="on"'
-    panels = ''.join(f'<div{on if i == 0 else ""}><p class="label">{name}</p><p><b>Next.</b> {nxt}</p></div>' for i, (name, _, nxt) in enumerate(stages))
+    panels = ''.join(
+        f'<div{on if i == 0 else ""}><p class="label">{name}</p><p><b>Next.</b> {nxt}</p></div>'
+        for i, (name, _, nxt) in enumerate(stages)
+    )
     js = '''<script>
 (function () {
   var svg = document.getElementById('sl'), panel = document.getElementById('sl-panel');
@@ -423,18 +504,31 @@ def science_loop(stages):
   show(0);
 })();
 </script>'''
-    return (f'<div class="interactive sl-wrap"><div class="solo">{svg}</div><div class="f-panel" id="sl-panel" aria-live="polite">{panels}</div></div>' + js)
+    return (
+        f'<div class="interactive sl-wrap"><div class="solo">{svg}</div><div class="f-panel" id="sl-panel" aria-live="polite">{panels}</div></div>'
+        + js
+    )
 
 
 # ---------------------------------------------------------------- hero: the loop table as a 3D spiral
 # The spiral of Figure S6 (one turn per row, elements from 30 to 330 degrees) lifted into a cone: each turn
 # drops by HERO['hs'], so the line that starts at element 0 winds into one loop per row. Orthographic view,
 # turned by phi about the vertical axis and tilted by 'tilt' radians; depth sorts and shades.
-HERO = {'th0': 30.0, 'th1': 330.0, 'r0': 0.30, 'b': 0.235, 'hs': 0.36, 'apex': -0.30, 'tilt': 0.5, 'phi': -18.0,
-        'lab': 60, 'smax': 230}
+HERO = {
+    'th0': 30.0,
+    'th1': 330.0,
+    'r0': 0.30,
+    'b': 0.235,
+    'hs': 0.36,
+    'apex': -0.30,
+    'tilt': 0.5,
+    'phi': -18.0,
+    'lab': 60,
+    'smax': 230,
+}
 
 
-def hero_world(elements):
+def hero_world(elements: list[dict]) -> tuple[list, list]:
     """elements: dicts with n, i (index in row), L (row length). Returns (r, theta, y) per element and the spiral."""
     H = HERO
     pts = []
@@ -454,7 +548,8 @@ def hero_world(elements):
     return pts, line
 
 
-def hero_layout(W):
+def hero_layout(W: float) -> tuple[float, float, float, float]:
+    """Scale, centre x, top and height of the hero view for width W."""
     H = HERO
     e = H['tilt']
     cx = (W - H['lab'] - 8) / 2 if W < 560 else W / 2
@@ -464,7 +559,10 @@ def hero_layout(W):
     return S, cx, top, height
 
 
-def hero_proj(p, phi, S, cx, top):
+def hero_proj(
+    p: tuple[float, float, float], phi: float, S: float, cx: float, top: float
+) -> tuple[float, float, float, float]:
+    """Project a world point to screen x, screen y, depth and z after turning by phi degrees."""
     r, th, y = p
     e = HERO['tilt']
     a = math.radians(th + phi)
@@ -472,7 +570,7 @@ def hero_proj(p, phi, S, cx, top):
     return cx + X * S, top + (y * math.cos(e) + Z * math.sin(e)) * S, Z * math.cos(e) - y * math.sin(e), Z
 
 
-def hero_frame(elements, W, phi):
+def hero_frame(elements: list[dict], W: float, phi: float) -> tuple:
     """SVG body for one view: spiral segments and element orbs, painted back to front, plus row labels."""
     pts, line = hero_world(elements)
     S, cx, top, height = hero_layout(W)
@@ -481,8 +579,13 @@ def hero_frame(elements, W, phi):
     proj = [hero_proj(p, phi, S, cx, top) for p in line]
     for (x0, y0, d0, z0), (x1, y1, d1, z1) in zip(proj, proj[1:]):
         f = ((z0 + z1) / 2 / rmax + 1) / 2
-        items.append(((d0 + d1) / 2, f'<line x1="{x0:.1f}" y1="{y0:.1f}" x2="{x1:.1f}" y2="{y1:.1f}" stroke="var(--muted)" '
-                                     f'stroke-width="{(1.1 + 1.4 * f) * S / 200:.2f}" stroke-linecap="round" opacity="{0.22 + 0.73 * f:.2f}"/>'))
+        items.append(
+            (
+                (d0 + d1) / 2,
+                f'<line x1="{x0:.1f}" y1="{y0:.1f}" x2="{x1:.1f}" y2="{y1:.1f}" stroke="var(--muted)" '
+                f'stroke-width="{(1.1 + 1.4 * f) * S / 200:.2f}" stroke-linecap="round" opacity="{0.22 + 0.73 * f:.2f}"/>',
+            )
+        )
     for el, p in zip(elements, pts):
         x, y, d, z = hero_proj(p, phi, S, cx, top)
         f = (z / rmax + 1) / 2 if p[0] else 1.0
@@ -496,9 +599,11 @@ def hero_frame(elements, W, phi):
         items.append((d + 0.001, body))
     items.sort(key=lambda t: t[0])
     # each row label sits 21 px beyond its own turn, at the turn's mid height; the hint sits in the stage's bottom-left
-    labels = ''.join(f'<text x="{cx + (HERO["r0"] + HERO["b"] * (n + 0.1)) * S + 21:.1f}" y="{top + (HERO["apex"] if n == 0 else HERO["hs"] * (n - 0.5)) * math.cos(HERO["tilt"]) * S + 4:.1f}" '
-                     f'fill="var(--muted)">{lab}</text>'
-                     for n, lab in ((0, 'no loop'), (1, '1 loop'), (2, '2 loops'), (3, '3 loops')))
+    labels = ''.join(
+        f'<text x="{cx + (HERO["r0"] + HERO["b"] * (n + 0.1)) * S + 21:.1f}" y="{top + (HERO["apex"] if n == 0 else HERO["hs"] * (n - 0.5)) * math.cos(HERO["tilt"]) * S + 4:.1f}" '
+        f'fill="var(--muted)">{lab}</text>'
+        for n, lab in ((0, 'no loop'), (1, '1 loop'), (2, '2 loops'), (3, '3 loops'))
+    )
     hint = f'<text x="0" y="{height - 8:.1f}" fill="var(--muted)">drag to turn, tap an element</text>'
     return ''.join(b for _, b in items) + labels + hint, height
 
@@ -519,7 +624,7 @@ TRACE = {
 }
 
 
-def trace_path(word, dx, dy):
+def trace_path(word: str, dx: float, dy: float) -> str:
     """A trace's path data moved by (dx, dy), for drawing it inside a larger figure. The traces use absolute commands
     only, so each number shifts by dx (x), dy (y) or, after H and V, by the one that applies."""
     import re
@@ -528,23 +633,30 @@ def trace_path(word, dx, dy):
         c, nums = m.group(1), [float(n) for n in m.group(2).split()]
         out = [n + dx if c == 'H' else n + dy if c == 'V' else n + (dy if i % 2 else dx) for i, n in enumerate(nums)]
         return c + ' '.join(f'{n:g}' for n in out)
+
     return re.sub(r'([MLQTCHV])([^MLQTCHV]*)', shift, TRACE[word])
 
 
-def trace_svg(word, dashed=False):
+def trace_svg(word: str, dashed: bool = False) -> str:
+    """A small SVG of the trace for a behaviour word; dashed means predicted."""
     dash = ' stroke-dasharray="3 2.5"' if dashed else ''
     # ink for an observed trace, muted for a predicted (dashed) one: the trace says what, not which sign
-    return (f'<svg width="32" height="16" viewBox="0 0 32 16" aria-hidden="true"><path d="{TRACE.get(word, "M1 8H31")}" fill="none" '
-            f'stroke="{"var(--muted)" if dashed else "var(--ink)"}" stroke-width="1.4" stroke-linecap="round"{dash}/></svg>')
+    return (
+        f'<svg width="32" height="16" viewBox="0 0 32 16" aria-hidden="true"><path d="{TRACE.get(word, "M1 8H31")}" fill="none" '
+        f'stroke="{"var(--muted)" if dashed else "var(--ink)"}" stroke-width="1.4" stroke-linecap="round"{dash}/></svg>'
+    )
 
 
-def element_card_js():
+def element_card_js() -> str:
     """One card renderer shared by the hero and the table: what an element does, drawn.
     window.ElCard.html(el) builds the card; window.ElCard.place(card, x, y, r, w, h, avoid, ry) puts it beside a point
     (r clears it sideways, ry below and above; ry defaults to r)."""
-    return """<script>
+    return (
+        """<script>
 window.ElCard = (function () {
-  var TRACE = """ + json.dumps(TRACE) + """;
+  var TRACE = """
+        + json.dumps(TRACE)
+        + """;
   function esc(x) { return String(x).replace(/[&<>"]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]; }); }
   function trace(w, dashed) {
     return '<svg width="32" height="16" viewBox="0 0 32 16" aria-hidden="true"><path d="' + (TRACE[w] || 'M1 8H31') +
@@ -626,50 +738,75 @@ window.ElCard = (function () {
   return {html: html, place: place, trace: trace, tracePath: tracePath, TRACE: TRACE};
 })();
 </script>"""
+    )
 
 
-def periodic_table(elements, found_top, found_rest):
+def periodic_table(elements: list[dict], found_top: list, found_rest: list) -> str:
     """The loop table as one figure: a k-by-j block per loop count (k across: loops that brake; j down: loops
     through a running total), each element a tile showing what it does; point at one for its card.
-    The axes are drawn on the table: each block's head names its loops, a "brakes" arrow spans that block's own
-    columns (brakes restart at 0 in every block), and one "running totals" arrow runs down the empty column under
-    the no-loop tile, since row j lines up across all blocks."""
+    The axes follow chart practice, each named once outside the tiles. Rows share one y axis down the left:
+    "running totals", a tick at every row from 0 and a line from the 0 row to the last (row j lines up across all
+    blocks). Columns are a grouped axis along the top: "loops" as a bracket over each block numbered 1 to 3, and
+    "brakes" as a tick per column numbered from 0 in every block (brakes restart per block). Element 0 has no
+    loop, so nothing to brake or to run through a running total: it sits apart, below the axes, as "no loop".
+    The second y axis (pt-y2) is drawn only where the 3-loop block wraps onto its own line, on a phone."""
     by = {(e['n'], e['k'], e['j']): e for e in elements}
-    head_x = '<svg class="pt-ax-head" width="6" height="9" viewBox="0 0 6 9"><path d="M.6 .6 5.4 4.5 .6 8.4"/></svg>'
-    head_y = '<svg class="pt-ax-head" width="9" height="6" viewBox="0 0 9 6"><path d="M.6 .6 4.5 5.4 8.4 .6"/></svg>'
-    blocks = []
-    for n in range(4):
-        tiles = []
-        for j in range(n + 1):
-            for k in range(n + 1):
-                e = by[(n, k, j)]
-                bottom = str(e['count']) if e['status'] == 'found' else '?'
-                tiles.append(f'<button type="button" class="pt-el pt-{e["status"]}" data-i="{elements.index(e)}" '
-                             f'aria-label="element {e["num"]}, {e["name"]}, {e["statusText"]}">'
-                             f'<span class="pt-n">{e["num"]}</span><span class="pt-sig">{e["sigShort"]}</span><span class="pt-sym">{e["symHtml"]}</span>'
-                             f'<span class="pt-tr" aria-hidden="true">{trace_svg(e["traces"][-1] if e["predicted"] and e["status"] != "found" else e["traces"][0], e["predicted"] and e["status"] != "found")}</span>'
-                             f'<span class="pt-c">{bottom}</span></button>')
-        head = 'no loop' if n == 0 else f'{n} loop{"s" if n > 1 else ""}'
-        axis_x = f'brakes<span class="pt-ax-line"></span>{head_x}' if n else ''   # the no-loop block keeps the row, so rows align
-        axis_y = (f'<p class="pt-ax pt-ax-y" aria-hidden="true">running totals<span class="pt-ax-line"></span>{head_y}</p>'
-                  if n == 0 else '')
-        blocks.append(f'<div class="pt-block"><p class="pt-h"><b>{head}</b></p><p class="pt-ax pt-ax-x" aria-hidden="true">{axis_x}</p>'
-                      f'<div class="pt-grid" style="grid-template-columns: repeat({n + 1}, var(--tile))">{"".join(tiles)}</div>{axis_y}</div>')
+
+    def tile(e):
+        bottom = str(e['count']) if e['status'] == 'found' else '?'
+        pred = e['predicted'] and e['status'] != 'found'
+        return (
+            f'<button type="button" class="pt-el pt-{e["status"]}" data-i="{elements.index(e)}" '
+            f'aria-label="element {e["num"]}, {e["name"]}, {e["statusText"]}">'
+            f'<span class="pt-n">{e["num"]}</span><span class="pt-sig">{e["sigShort"]}</span><span class="pt-sym">{e["symHtml"]}</span>'
+            f'<span class="pt-tr" aria-hidden="true">{trace_svg(e["traces"][-1] if pred else e["traces"][0], pred)}</span>'
+            f'<span class="pt-c">{bottom}</span></button>'
+        )
+
+    def yaxis(cls, titled):
+        ticks = ''.join(f'<span>{j}</span>' for j in range(4))
+        top = (
+            '<p class="pt-ax pt-ax-t">loops</p><p class="pt-ax pt-ax-t">brakes</p>'
+            if titled
+            else '<p class="pt-ax pt-ax-t"></p><p class="pt-ax pt-ax-t"></p>'
+        )
+        title = '<p class="pt-ax pt-ax-yt">running totals</p>' if titled else ''
+        return f'<div class="pt-yaxis {cls}" aria-hidden="true">{top}<div class="pt-ax-r">{title}<p class="pt-ax pt-ax-rt">{ticks}</p></div></div>'
+
+    blocks = [yaxis('pt-y1', True)]
+    for n in range(1, 4):
+        tiles = [tile(by[(n, k, j)]) for j in range(n + 1) for k in range(n + 1)]
+        cols = f'grid-template-columns: repeat({n + 1}, var(--tile))'
+        axes = (
+            f'<p class="pt-ax pt-ax-g"><b aria-hidden="true">{n}</b><span class="pt-ax-sr">{n} loop{"s" if n > 1 else ""}</span></p>'
+            f'<p class="pt-ax pt-ax-k" style="{cols}" aria-hidden="true">{"".join(f"<span>{k}</span>" for k in range(n + 1))}</p>'
+        )
+        if n == 3:
+            blocks.append(yaxis('pt-y2', False))
+        blocks.append(
+            f'<div class="pt-block pt-b{n}">{axes}<div class="pt-grid" style="{cols}">{"".join(tiles)}</div></div>'
+        )
+    zero = f'<div class="pt-zero"><p class="pt-ax pt-ax-z">no loop</p>{tile(by[(0, 0, 0)])}</div>'
     s8 = by[(2, 1, 0)]
-    keybox = ('<div class="pt-keybox"><p class="pt-h"><b>how to read a tile</b></p><div class="pt-anat">'
-              f'<span class="pt-el pt-found pt-big" aria-hidden="true"><span class="pt-n">{s8["num"]}</span><span class="pt-sig">{s8["sigShort"]}</span>'
-              f'<span class="pt-sym pt-sample">{s8["symHtml"]}</span><span class="pt-tr">{trace_svg(s8["traces"][0])}</span><span class="pt-c">{s8["count"]}</span></span>'
-              '<span class="pt-a" style="top: 0">element number</span>'
-              '<span class="pt-a" style="top: 18px"><span class="sp">+</span> self-feeding, <span class="sn">&#8722;</span> brake, &#8747; running total</span>'
-              f'<span class="pt-a" style="top: 42px">symbol: {s8["sym"]}, {s8["name"]}</span>'
-              '<span class="pt-a" style="top: 74px">what it does (dashed: predicted)</span>'
-              '<span class="pt-a" style="top: 108px">curated models found (? if none yet)</span></div></div>')
+    keybox = (
+        '<div class="pt-keybox"><p class="pt-h"><b>how to read a tile</b></p><div class="pt-anat">'
+        f'<span class="pt-el pt-found pt-big" aria-hidden="true"><span class="pt-n">{s8["num"]}</span><span class="pt-sig">{s8["sigShort"]}</span>'
+        f'<span class="pt-sym pt-sample">{s8["symHtml"]}</span><span class="pt-tr">{trace_svg(s8["traces"][0])}</span><span class="pt-c">{s8["count"]}</span></span>'
+        '<span class="pt-a" style="top: 0">element number</span>'
+        '<span class="pt-a" style="top: 18px"><span class="sp">+</span> self-feeding, <span class="sn">&#8722;</span> brake, &#8747; running total</span>'
+        f'<span class="pt-a" style="top: 42px">symbol: {s8["sym"]}, {s8["name"]}</span>'
+        '<span class="pt-a" style="top: 74px">what it does (dashed: predicted)</span>'
+        '<span class="pt-a" style="top: 108px">curated models found (? if none yet)</span></div></div>'
+    )
     blocks.insert(3, keybox)
     html_ = ''.join(blocks)
     data = json.dumps(elements, separators=(',', ':'))
-    js = """<script>
+    js = (
+        """<script>
 (function () {
-  var E = """ + data + """, box = document.getElementById('ptable'), card = document.getElementById('pt-card'), pinned = -1;
+  var E = """
+        + data
+        + """, box = document.getElementById('ptable'), card = document.getElementById('pt-card'), pinned = -1;
   function unpress() { [].forEach.call(box.querySelectorAll('.pt-el[data-i]'), function (x) { x.setAttribute('aria-pressed', 'false'); }); }
   function show(b) {
     if (!b) { card.classList.remove('on'); return; }
@@ -699,29 +836,41 @@ def periodic_table(elements, found_top, found_rest):
   document.addEventListener('click', function (ev) { if (pinned >= 0 && !box.contains(ev.target)) { pinned = -1; show(null); unpress(); } });
 })();
 </script>"""
+    )
     tile = lambda cls: f'<span class="pt-key pt-{cls}" aria-hidden="true"></span>'
-    key = (f'<div class="pt-legend"><span>{tile("found")}found in published cell models, with how many</span>'
-           f'<span>{tile("known")}known from experiments, not in the models</span>'
-           f'<span>{tile("candidate")}blank: a looser test finds candidates</span>'
-           f'<span>{tile("blank")}blank: nothing found yet</span></div>')
-    gaps =(f'<p class="pt-gap"><span><b>{found_top[0]} of {found_top[1]}</b> found with no running total (top rows)</span>'
-            f'<span><b>{found_rest[0]} of {found_rest[1]}</b> found with one or more (rows below)</span></p>')
-    return (f'<div class="interactive ptable" id="ptable"><div class="pt-blocks">{html_}</div>{gaps}{key}'
-            f'<div class="pt-card ecard" id="pt-card" role="status" aria-live="polite"></div></div>' + js)
+    key = (
+        f'<div class="pt-legend"><span>{tile("found")}found in published cell models, with how many</span>'
+        f'<span>{tile("known")}known from experiments, not in the models</span>'
+        f'<span>{tile("candidate")}blank: a looser test finds candidates</span>'
+        f'<span>{tile("blank")}blank: nothing found yet</span></div>'
+    )
+    gaps = (
+        f'<p class="pt-gap"><span><b>{found_top[0]} of {found_top[1]}</b> found with no running total (top rows)</span>'
+        f'<span><b>{found_rest[0]} of {found_rest[1]}</b> found with one or more (rows below)</span></p>'
+    )
+    return (
+        f'<div class="interactive ptable" id="ptable"><div class="pt-blocks">{html_}</div>{zero}{gaps}{key}'
+        f'<div class="pt-card ecard" id="pt-card" role="status" aria-live="polite"></div></div>' + js
+    )
 
 
-def hero(elements):
+def hero(elements: list[dict]) -> str:
     """elements: dicts as for periodic_table, plus i (index in row) and L (row length). Returns the hero figure."""
     W = 720
     body, height = hero_frame(elements, W, HERO['phi'])
     pts, line = hero_world(elements)
     data = {'el': elements, 'pts': pts, 'line': line, 'H': HERO}
-    svg = (f'<svg id="hero-svg" viewBox="0 0 {W} {height:.0f}" role="img" tabindex="0" '
-           f'aria-label="The loop table drawn as a spiral cone, one turn per row of 4, 9 and 16 elements, with the elements that curated models occupy filled and sized by count. Drag to turn, tap an element to read it" '
-           f'font-size="12"><g id="hero-g">{body}</g></svg>')
-    js = """<script>
+    svg = (
+        f'<svg id="hero-svg" viewBox="0 0 {W} {height:.0f}" role="img" tabindex="0" '
+        f'aria-label="The loop table drawn as a spiral cone, one turn per row of 4, 9 and 16 elements, with the elements that curated models occupy filled and sized by count. Drag to turn, tap an element to read it" '
+        f'font-size="12"><g id="hero-g">{body}</g></svg>'
+    )
+    js = (
+        """<script>
 (function () {
-  var D = """ + json.dumps(data, separators=(',', ':')) + """;
+  var D = """
+        + json.dumps(data, separators=(',', ':'))
+        + """;
   var H = D.H, svg = document.getElementById('hero-svg'), g = document.getElementById('hero-g'), card = document.getElementById('hero-card');
   var W = 0, S, cx, top, height, phi = H.phi, hover = -1, pinned = -1, drag = null, vel = 0, speed = 0, seen = true, last = null, lastMove = 0, turned = false;
   var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -822,9 +971,12 @@ def hero(elements):
   requestAnimationFrame(tick);
 })();
 </script>"""
+    )
     orb = '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="7" fill="url(#fx-orb)"/></svg>'
     ring = '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/></svg>'
-    return (f'<figure class="hero" id="hero"><div class="hero-stage">{svg}<div class="hero-card ecard" id="hero-card" role="status" aria-live="polite" tabindex="-1"></div></div>'
-            f'<figcaption class="hero-key"><span class="key">one turn per row: 4, 9 and 16 elements</span>'
-            f'<span class="key">{orb}found, sized by how many</span>'
-            f'<span class="key">{ring}not found yet</span></figcaption></figure>' + js)
+    return (
+        f'<figure class="hero" id="hero"><div class="hero-stage">{svg}<div class="hero-card ecard" id="hero-card" role="status" aria-live="polite" tabindex="-1"></div></div>'
+        f'<figcaption class="hero-key"><span class="key">one turn per row: 4, 9 and 16 elements</span>'
+        f'<span class="key">{orb}found, sized by how many</span>'
+        f'<span class="key">{ring}not found yet</span></figcaption></figure>' + js
+    )

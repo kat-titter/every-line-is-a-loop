@@ -11,7 +11,12 @@ parent without running totals, (n, k, 0), changed by what a running total does o
 
 The table does not say which loops carry the running totals. At least j - (n - k) of them must sit on braking
 loops and at least j - k on amplifying loops; when neither bound bites, the element could do either.
+
+Provides: symbol(), describe() and check_unique() for the 30 elements, imported by build_post.py.
+Run: imported, not run.
 """
+
+from __future__ import annotations
 
 # parent elements (no running total): name, short tile label, what it does, behaviour trace
 PARENT = {
@@ -19,7 +24,12 @@ PARENT = {
     (1, 0): ('switch', 'switch', 'Holds one of two states; a strong enough pulse flips it.', 'holds two states'),
     (1, 1): ('clock', 'clock', 'Ticks, or holds a level steady.', 'ticks'),
     (2, 0): ('memory', 'memory', 'Holds one of several states and keeps it.', 'holds two states'),
-    (2, 1): ('relaxation oscillator', 'oscillator', 'Builds up, fires and resets: a spike or a tick.', 'fires and resets'),
+    (2, 1): (
+        'relaxation oscillator',
+        'oscillator',
+        'Builds up, fires and resets: a spike or a tick.',
+        'fires and resets',
+    ),
     (2, 2): ('coupled clocks', 'two clocks', 'Two rhythms that pull on each other.', 'ticks'),
     (3, 0): ('multistate memory', 'fates', 'Holds one of many stable states, like a cell fate.', 'holds two states'),
     (3, 1): ('working memory', 'working', 'Holds a state for a while, then lets it go.', 'holds, then fades'),
@@ -32,15 +42,27 @@ ADAPTER = ('adapter', 'adapter', 'Responds to a change, then returns exactly to 
 # parent's symbol plus an integral sign per running total (Sw∫, Ro∫²), the way chemistry gives undiscovered elements
 # systematic names until they are confirmed.
 # Each symbol is unique, and none reuses a chemical element's symbol or a code from the essay's example key.
-SYMBOL = {(0, 0): 'Ct', (1, 0): 'Sw', (1, 1): 'Tk', (2, 0): 'Me', (2, 1): 'Ro', (2, 2): 'Cp',
-          (3, 0): 'Mm', (3, 1): 'Wm', (3, 2): 'Mx', (3, 3): 'Ps'}
-CHEMICAL = set('''H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr
+SYMBOL = {
+    (0, 0): 'Ct',
+    (1, 0): 'Sw',
+    (1, 1): 'Tk',
+    (2, 0): 'Me',
+    (2, 1): 'Ro',
+    (2, 2): 'Cp',
+    (3, 0): 'Mm',
+    (3, 1): 'Wm',
+    (3, 2): 'Mx',
+    (3, 3): 'Ps',
+}
+CHEMICAL = set(
+    '''H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr
 Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir Pt Au Hg Tl Pb
-Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og'''.split())
-ESSAY_CODES = set('Am Df Dv Ag Ev Al Rs Ck Lc Lh Ch Hg Gl Hs Kc Pc Ap Cc Sg Pl Eg Cr Nf'.split())
+Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og'''.split()  # noqa: SIM905 - a list this long is easier to read as words
+)
+ESSAY_CODES = set('Am Df Dv Ag Ev Al Rs Ck Lc Lh Ch Hg Gl Hs Kc Pc Ap Cc Sg Pl Eg Cr Nf'.split())  # noqa: SIM905 - same
 
 
-def symbol(n, k, j):
+def symbol(n: int, k: int, j: int) -> tuple[str, str]:
     """(plain text, html) of the element's symbol."""
     if (n, k, j) == (1, 1, 1):
         return 'Ad', 'Ad'
@@ -50,6 +72,7 @@ def symbol(n, k, j):
     sup = {2: '\u00b2', 3: '\u00b3'}.get(j, '')
     sup_html = f'<sup>{j}</sup>' if j > 1 else ''
     return base + '\u222b' + sup, f'{base}<span class="sy-i">\u222b{sup_html}</span>'
+
 
 # the essay's example key, by element (n, k, j); names as the essay gives them
 ESSAY_EXAMPLES = {
@@ -72,7 +95,7 @@ LOOK_ADAPT = 'sensing, and holding a level steady, where cells return exactly to
 LOOK_ACCUM = 'decisions that depend on how long or how strongly a signal lasts, such as commitment points in the cell cycle and in cell fate'
 
 
-def describe(n, k, j):
+def describe(n: int, k: int, j: int) -> dict:
     """name, short label, what it does, traces (defining behaviour first), predicted?, where to look"""
     if (n, k, j) == (1, 1, 1):
         name, short, does, trace = ADAPTER
@@ -83,20 +106,43 @@ def describe(n, k, j):
     must_adapt, must_accum = j > n - k, j > k
     many = '' if j == 1 else f', {j} running totals'
     if must_adapt and not must_accum:
-        return {'name': f'adapting {name}{many}', 'short': 'adapts', 'does': f'{does} Its running total {ADAPT}.',
-                'traces': [trace, 'adapts exactly'], 'predicted': True, 'look': LOOK_ADAPT}
+        return {
+            'name': f'adapting {name}{many}',
+            'short': 'adapts',
+            'does': f'{does} Its running total {ADAPT}.',
+            'traces': [trace, 'adapts exactly'],
+            'predicted': True,
+            'look': LOOK_ADAPT,
+        }
     if must_accum and not must_adapt:
-        return {'name': f'accumulating {name}{many}', 'short': 'adds up', 'does': f'{does} Its running total {ACCUM}.',
-                'traces': [trace, 'adds up, commits'], 'predicted': True, 'look': LOOK_ACCUM}
+        return {
+            'name': f'accumulating {name}{many}',
+            'short': 'adds up',
+            'does': f'{does} Its running total {ACCUM}.',
+            'traces': [trace, 'adds up, commits'],
+            'predicted': True,
+            'look': LOOK_ACCUM,
+        }
     if must_adapt and must_accum:
-        return {'name': f'adapting, accumulating {name}{many}', 'short': 'both', 'does': f'{does} One running total {ADAPT}; another {ACCUM}.',
-                'traces': [trace, 'adapts exactly', 'adds up, commits'], 'predicted': True, 'look': f'{LOOK_ADAPT}; and {LOOK_ACCUM}'}
-    return {'name': f'{name} with {"a running total" if j == 1 else f"{j} running totals"}', 'short': 'totals',
-            'does': f'{does} On a braking loop its running total {ADAPT}; on an amplifying loop it {ACCUM}.',
-            'traces': [trace, 'adapts exactly', 'adds up, commits'], 'predicted': True, 'look': f'{LOOK_ADAPT}; or {LOOK_ACCUM}'}
+        return {
+            'name': f'adapting, accumulating {name}{many}',
+            'short': 'both',
+            'does': f'{does} One running total {ADAPT}; another {ACCUM}.',
+            'traces': [trace, 'adapts exactly', 'adds up, commits'],
+            'predicted': True,
+            'look': f'{LOOK_ADAPT}; and {LOOK_ACCUM}',
+        }
+    return {
+        'name': f'{name} with {"a running total" if j == 1 else f"{j} running totals"}',
+        'short': 'totals',
+        'does': f'{does} On a braking loop its running total {ADAPT}; on an amplifying loop it {ACCUM}.',
+        'traces': [trace, 'adapts exactly', 'adds up, commits'],
+        'predicted': True,
+        'look': f'{LOOK_ADAPT}; or {LOOK_ACCUM}',
+    }
 
 
-def check_unique(elements):
+def check_unique(elements: list[tuple[int, int, int]]) -> tuple[list[str], list[str]]:
     """Every element's symbol and name are its own; base symbols avoid chemistry's and the essay's codes."""
     syms = [symbol(*e)[0] for e in elements]
     names = [describe(*e)['name'] for e in elements]

@@ -25,7 +25,7 @@
 | reference 24 filters plus rank condition | 2 | 65 | 45 | 5 of 9 | 5 of 9 | 5 of 10 | 4 of 6 |
 | reference 24 filters plus rank condition | 3 | 43 | 17 | 5 of 16 | 5 of 16 | 5 of 20 | 5 of 10 |
 
-Theorem checks: {"forced models excluded": 178, "multistable": 12, "multistable without refined positive circuit": [], "oscillating": 101, "oscillating without negative circuit": []}
+Theorem checks: {"forced models excluded": 180, "multistable": 12, "multistable without refined positive circuit": [], "oscillating": 101, "oscillating without negative circuit": []}
 
 Integrators: {"models with any integrating loop (ref24_rank, complete)": 13, "models with complete ref24_rank enumeration": 511}
 
@@ -77,7 +77,7 @@ Amplifying loops after the filters, braking loops as drawn: {"rows": {"1": 42, "
 | reference 24 filters plus rank condition | 2 | 68 | 47 | 4 of 9 | 4 of 9 | 4 of 10 | 4 of 6 |
 | reference 24 filters plus rank condition | 3 | 36 | 11 | 5 of 16 | 5 of 16 | 5 of 20 | 5 of 10 |
 
-Theorem checks: {"forced models excluded": 178, "multistable": 12, "multistable without refined positive circuit": [], "oscillating": 101, "oscillating without negative circuit": []}
+Theorem checks: {"forced models excluded": 180, "multistable": 12, "multistable without refined positive circuit": [], "oscillating": 101, "oscillating without negative circuit": []}
 
 Integrators: {"models with any integrating loop (ref24_rank, complete)": 13, "models with complete ref24_rank enumeration": 512}
 

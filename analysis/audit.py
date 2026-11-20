@@ -1,5 +1,10 @@
 """Two audits of the census, read from the results files alone (no model is rerun; about a second).
 
+Reads:  results/r31_structure_traj.jsonl, results/r31_dynamics.jsonl, results/r31_integrators.jsonl;
+        with --check also results/tables_traj.json and every-line-is-a-loop.html
+Writes: results/audit.json
+Run:    .venv/bin/python analysis/audit.py [--check]
+
 1. What a clean record is worth. The two proven rules (a switch needs a self-feeding loop, a clock needs a brake)
    are theorems, so a clean record checks the census. How hard a check it was depends on how many failures chance
    would have sent: if behaviour had nothing to do with loops, how many switches would the models with no
@@ -12,51 +17,73 @@
    the elements the strict reading leaves empty once the cut sits near zero. Ratios are stored rounded to four
    decimals, so "zero" means below 0.00005.
 
-Usage: python3 analysis/audit.py            writes results/audit.json
-       python3 analysis/audit.py --check    also fails if the essay's sentences no longer match the numbers
+Usage: .venv/bin/python analysis/audit.py            writes results/audit.json
+       .venv/bin/python analysis/audit.py --check    also fails if the essay's sentences no longer match the numbers
 """
+
+from __future__ import annotations
+
 import collections
 import json
 import math
 import pathlib
 import sys
+from collections.abc import Iterator
+from typing import Any, Callable
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 RES = ROOT / 'results'
 CUTS = [0.0, 1e-3, 1e-2, 3e-2, 0.1, 0.3, 1.0]  # 0.0 means "reads as zero"; 1.0 takes every stored ratio
 VOLTAGE = ('V', 'V_membrane')
 
+Record = dict[str, Any]  # one model's line from a results .jsonl file
 
-def load(name):
+
+def load(name: str) -> dict[str, Record]:
+    """One results .jsonl file, keyed by model id."""
     return {r['model']: r for r in map(json.loads, open(RES / name))}
 
 
-def p_none(total, marked, hits):
+def p_none(total: int, marked: int, hits: int) -> float:
     """Chance that none of `hits` behaviours land among the `total - marked` models without the loop, if behaviour
     ignored loops: draw `hits` of `total` without replacement and miss every model lacking the loop."""
     return math.comb(marked, hits) / math.comb(total, hits)
 
 
-def rules(S, D):
+def rules(S: dict[str, Record], D: dict[str, Record]) -> dict[str, Any]:
+    """Both proven rules on the autonomous labelled models: counts with and without the loop, the failures chance
+    would send (expected count and the chance of none), and the rule run backwards."""
     auto = [m for m, d in D.items() if d.get('status') == 'ok' and not d.get('forced') and d.get('behaviours')]
     pos = {m for m in auto if S.get(m, {}).get('plain_positive') or S.get(m, {}).get('refined_positive')}
     neg = {m for m in auto if S.get(m, {}).get('plain_negative')}
     mem = {m for m in auto if 'multistable' in D[m]['behaviours']}
     osc = {m for m in auto if 'oscillating' in D[m]['behaviours']}
     n = len(auto)
-    out = {'autonomous': n,
-           'switch': {'models_with_loop': len(pos), 'models_without': n - len(pos), 'behaving': len(mem),
-                      'behaving_with_loop': len(mem & pos), 'behaving_without_loop': len(mem - pos),
-                      'expected_without_by_chance': len(mem) * (n - len(pos)) / n,
-                      'p_none_by_chance': p_none(n, len(pos), len(mem))},
-           'clock': {'models_with_loop': len(neg), 'models_without': n - len(neg), 'behaving': len(osc),
-                     'behaving_with_loop': len(osc & neg), 'behaving_without_loop': len(osc - neg),
-                     'expected_without_by_chance': len(osc) * (n - len(neg)) / n,
-                     'p_none_by_chance': p_none(n, len(neg), len(osc))}}
+    out = {
+        'autonomous': n,
+        'switch': {
+            'models_with_loop': len(pos),
+            'models_without': n - len(pos),
+            'behaving': len(mem),
+            'behaving_with_loop': len(mem & pos),
+            'behaving_without_loop': len(mem - pos),
+            'expected_without_by_chance': len(mem) * (n - len(pos)) / n,
+            'p_none_by_chance': p_none(n, len(pos), len(mem)),
+        },
+        'clock': {
+            'models_with_loop': len(neg),
+            'models_without': n - len(neg),
+            'behaving': len(osc),
+            'behaving_with_loop': len(osc & neg),
+            'behaving_without_loop': len(osc - neg),
+            'expected_without_by_chance': len(osc) * (n - len(neg)) / n,
+            'p_none_by_chance': p_none(n, len(neg), len(osc)),
+        },
+    }
     return out
 
 
-def rows(S):
+def rows(S: dict[str, Record]) -> Iterator[tuple[str, int, Record]]:
     """Row-one-to-three models under ref24_rank with their loop lists (the population tabulate.py fills)."""
     for k, r in S.items():
         d = r.get('defs', {}).get('ref24_rank', {})
@@ -64,56 +91,84 @@ def rows(S):
             yield k, d['c'], r
 
 
-def cell(r, marked):
-    kk = sum(1 for l in r['loop_list'] if l['sign'] == '-')
-    return kk, sum(1 for l in r['loop_list'] if marked(l))
+def cell(r: Record, marked: Callable[[Record], bool]) -> tuple[int, int]:
+    """A model's element within its row: (braking loops, loops that `marked` calls running totals)."""
+    kk = sum(1 for lp in r['loop_list'] if lp['sign'] == '-')
+    return kk, sum(1 for lp in r['loop_list'] if marked(lp))
 
 
-def dial(S, I, D):
-    ratios = {k: (v.get('ratios') or {}) if v.get('status') == 'ok' else {} for k, v in I.items()}
+def touches(nodes: set[str]) -> Callable[[Record], bool]:
+    """Marks a loop as passing through a running total when it touches any of `nodes`."""
+    return lambda lp: bool(set(lp['nodes']) & nodes)
+
+
+def dial(S: dict[str, Record], ints: dict[str, Record], D: dict[str, Record]) -> dict[str, Any]:
+    """The loose reading's cut swept over CUTS: filled elements per row, who fills the elements that appear once the
+    cut reads zero, and how the stored ratios spread (ints: integrators.py's records, by model)."""
+    ratios = {k: (v.get('ratios') or {}) if v.get('status') == 'ok' else {} for k, v in ints.items()}
     strict = collections.defaultdict(set)
-    for k, nu, r in rows(S):
-        strict[nu].add(cell(r, lambda l: l['integrates']))
+    for _k, nu, r in rows(S):
+        strict[nu].add(cell(r, lambda lp: lp['integrates']))
     sweep = {}
     for cut in CUTS:
         occ = collections.defaultdict(set)
         for k, nu, r in rows(S):
             near = {n for n, v in ratios.get(k, {}).items() if (v == 0 if cut == 0.0 else v < cut)}
-            occ[nu].add(cell(r, lambda l: bool(set(l['nodes']) & near)))
-        sweep[str(cut)] = {'rows': {nu: len(occ[nu]) for nu in (1, 2, 3)}, 'filled': sum(len(occ[nu]) for nu in (1, 2, 3))}
+            occ[nu].add(cell(r, touches(near)))
+        sweep[str(cut)] = {
+            'rows': {nu: len(occ[nu]) for nu in (1, 2, 3)},
+            'filled': sum(len(occ[nu]) for nu in (1, 2, 3)),
+        }
     # who fills the elements that appear once the cut sits at zero
     new = collections.defaultdict(list)
     for k, nu, r in rows(S):
         zero = {n for n, v in ratios.get(k, {}).items() if v == 0}
-        c = cell(r, lambda l: bool(set(l['nodes']) & zero))
+        c = cell(r, touches(zero))
         if c not in strict[nu]:
-            on = sorted({n for l in r['loop_list'] for n in l['nodes']} & zero)
-            new[(nu, c)].append({'model': k, 'name': r.get('name'), 'nodes': on,
-                                 'behaviours': D.get(k, {}).get('behaviours'), 'voltage': all(n in VOLTAGE for n in on)})
+            on = sorted({n for lp in r['loop_list'] for n in lp['nodes']} & zero)
+            new[(nu, c)].append(
+                {
+                    'model': k,
+                    'name': r.get('name'),
+                    'nodes': on,
+                    'behaviours': D.get(k, {}).get('behaviours'),
+                    'voltage': all(n in VOLTAGE for n in on),
+                }
+            )
     models = {m['model']: m for ms in new.values() for m in ms}
     volt = [m for m in models.values() if m['voltage']]
-    allv = [r for v in I.values() if v.get('status') == 'ok' for r in (v.get('ratios') or {}).values()]
+    allv = [r for v in ints.values() if v.get('status') == 'ok' for r in (v.get('ratios') or {}).values()]
     half_decades = collections.Counter(math.floor(2 * math.log10(x)) / 2 for x in allv if x > 0)
-    return {'strict': {'rows': {nu: len(strict[nu]) for nu in (1, 2, 3)}, 'filled': sum(len(strict[nu]) for nu in (1, 2, 3))},
-            'sweep': sweep,
-            'new_at_zero': {f'row {nu} {c}': ms for (nu, c), ms in sorted(new.items())},
-            'new_cells_at_zero': len(new), 'models_at_zero': len(models), 'voltage_models': len(volt),
-            'voltage_models_oscillate': sum(1 for m in volt if 'oscillating' in (m['behaviours'] or [])),
-            'cells_on_voltage_alone': sum(1 for ms in new.values() if all(m['voltage'] for m in ms)),
-            'readings_below_one': len(allv), 'readings_at_zero': sum(1 for x in allv if x == 0),
-            'readings_by_half_decade': {str(b): half_decades[b] for b in sorted(half_decades)}}
+    return {
+        'strict': {
+            'rows': {nu: len(strict[nu]) for nu in (1, 2, 3)},
+            'filled': sum(len(strict[nu]) for nu in (1, 2, 3)),
+        },
+        'sweep': sweep,
+        'new_at_zero': {f'row {nu} {c}': ms for (nu, c), ms in sorted(new.items())},
+        'new_cells_at_zero': len(new),
+        'models_at_zero': len(models),
+        'voltage_models': len(volt),
+        'voltage_models_oscillate': sum(1 for m in volt if 'oscillating' in (m['behaviours'] or [])),
+        'cells_on_voltage_alone': sum(1 for ms in new.values() if all(m['voltage'] for m in ms)),
+        'readings_below_one': len(allv),
+        'readings_at_zero': sum(1 for x in allv if x == 0),
+        'readings_by_half_decade': {str(b): half_decades[b] for b in sorted(half_decades)},
+    }
 
 
-def odds(p):
+def odds(p: float) -> str:
     """'one in N million' with N rounded, for the essay's prose."""
     return f'one in {round(1 / p / 1e6)} million'
 
 
-def check(a):
+def check(a: dict[str, Any]) -> None:
+    """Fail unless every audit sentence the essay states matches `a`, and the facts it states in words still hold."""
     s = (ROOT / 'every-line-is-a-loop.html').read_text(encoding='utf-8')
     sw, cl, dl = a['rules']['switch'], a['rules']['clock'], a['dial']
     sweep = dl['sweep']
-    with_reactions = json.load(open(RES / 'tables_traj.json'))['replication']['with reactions']['models']
+    with open(RES / 'tables_traj.json') as f:
+        with_reactions = json.load(f)['replication']['with reactions']['models']
     want = [
         f"{sw['models_without']} have no self-feeding loop",
         f"{sw['expected_without_by_chance']:.1f} switches",
@@ -134,24 +189,42 @@ def check(a):
         f"pile of {dl['readings_at_zero']} that read as zero",
     ]
     assert 0.4 < sw['p_none_by_chance'] < 0.6, 'the essay says "about half the time"'
-    assert dl['voltage_models'] == 5 and dl['voltage_models_oscillate'] == 5, 'the essay says five voltages, all oscillating'
+    assert dl['voltage_models'] == 5 and dl['voltage_models_oscillate'] == 5, (
+        'the essay says five voltages, all oscillating'
+    )
     assert sw['behaving_without_loop'] == 0 and cl['behaving_without_loop'] == 0, 'a proven rule broke'
     missing = [w for w in want if w not in s]
     assert not missing, f'essay no longer matches results/audit.json: {missing}'
     print('essay matches', len(want), 'audit sentences')
 
 
-def main():
-    S, D, I = load('r31_structure_traj.jsonl'), load('r31_dynamics.jsonl'), load('r31_integrators.jsonl')
-    a = {'rules': rules(S, D), 'dial': dial(S, I, D)}
+def main() -> None:
+    """Run both audits, write results/audit.json, print a summary; with --check, hold the essay to it."""
+    S, D, ints = load('r31_structure_traj.jsonl'), load('r31_dynamics.jsonl'), load('r31_integrators.jsonl')
+    a = {'rules': rules(S, D), 'dial': dial(S, ints, D)}
     (RES / 'audit.json').write_text(json.dumps(a, indent=1) + '\n')
     sw, cl, dl = a['rules']['switch'], a['rules']['clock'], a['dial']
-    print(f"switch: {sw['behaving']} of {a['rules']['autonomous']}; {sw['models_with_loop']} with a self-feeding loop; "
-          f"{sw['expected_without_by_chance']:.2f} expected without one, P(none) {sw['p_none_by_chance']:.3f}")
-    print(f"clock: {cl['behaving']}; {cl['models_with_loop']} with a brake; "
-          f"{cl['expected_without_by_chance']:.2f} expected without one, P(none) {cl['p_none_by_chance']:.2e}")
-    print('dial:', 'strict', dl['strict']['filled'], {c: v['filled'] for c, v in dl['sweep'].items()},
-          '| new at zero', dl['new_cells_at_zero'], 'on', dl['models_at_zero'], 'models,', dl['voltage_models'], 'voltages')
+    print(
+        f"switch: {sw['behaving']} of {a['rules']['autonomous']}; {sw['models_with_loop']} with a self-feeding loop; "
+        f"{sw['expected_without_by_chance']:.2f} expected without one, P(none) {sw['p_none_by_chance']:.3f}"
+    )
+    print(
+        f"clock: {cl['behaving']}; {cl['models_with_loop']} with a brake; "
+        f"{cl['expected_without_by_chance']:.2f} expected without one, P(none) {cl['p_none_by_chance']:.2e}"
+    )
+    print(
+        'dial:',
+        'strict',
+        dl['strict']['filled'],
+        {c: v['filled'] for c, v in dl['sweep'].items()},
+        '| new at zero',
+        dl['new_cells_at_zero'],
+        'on',
+        dl['models_at_zero'],
+        'models,',
+        dl['voltage_models'],
+        'voltages',
+    )
     if '--check' in sys.argv:
         check(a)
 

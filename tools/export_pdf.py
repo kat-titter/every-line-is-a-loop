@@ -5,7 +5,12 @@ must close Figure 4 and open the symbol key, so the PDF proves the print path a
 reader gets with Cmd+P.
 
 Usage: .venv/bin/python tools/export_pdf.py [OUT.pdf] [--a4] [--scheme dark]
+
+Reads: every-line-is-a-loop.html.
+Writes: OUT.pdf (default every-line-is-a-loop.pdf in the repo root).
+Run: .venv/bin/python tools/export_pdf.py [OUT.pdf] [--a4] [--scheme dark]
 """
+
 import asyncio
 import pathlib
 import sys
@@ -25,29 +30,39 @@ async def export(out, fmt, scheme):
         pg.on('pageerror', lambda e: errs.append(str(e)))
         await pg.goto(PAGE.as_uri())
         await pg.wait_for_timeout(500)
-        await pg.evaluate("window.__bp = 0; window.__ap = 0;"
-                          "addEventListener('beforeprint', () => window.__bp++);"
-                          "addEventListener('afterprint', () => window.__ap++);")
+        await pg.evaluate(
+            "window.__bp = 0; window.__ap = 0;"
+            "addEventListener('beforeprint', () => window.__bp++);"
+            "addEventListener('afterprint', () => window.__ap++);"
+        )
         before = await pg.evaluate("document.getElementById('t-w').value")
         await pg.pdf(path=str(out), format=fmt, print_background=True, prefer_css_page_size=False)
-        after = await pg.evaluate("[window.__bp, window.__ap, document.getElementById('t-w').value, document.querySelector('#table details').open]")
+        after = await pg.evaluate(
+            "[window.__bp, window.__ap, document.getElementById('t-w').value, document.querySelector('#table details').open]"
+        )
         await b.close()
-    print(f'slider before {before}; beforeprint fired {after[0]}, afterprint fired {after[1]}; '
-          f'slider after {after[2]}; key open after {after[3]}; page errors {len(errs)}')
+    print(
+        f'slider before {before}; beforeprint fired {after[0]}, afterprint fired {after[1]}; '
+        f'slider after {after[2]}; key open after {after[3]}; page errors {len(errs)}'
+    )
     assert not errs, errs
     assert after[0] >= 1, 'beforeprint did not fire'
 
     r = PdfReader(str(out))
     w = PdfWriter(clone_from=r)
-    w.add_metadata({
-        '/Title': 'Every line is a loop: a periodic table for biology',
-        '/Author': 'Kat Titterton',
-        '/Subject': 'Draft for comment, October 2026',
-    })
+    w.add_metadata(
+        {
+            '/Title': 'Every line is a loop: a periodic table for biology',
+            '/Author': 'Kat Titterton',
+            '/Subject': 'Draft for comment, October 2026',
+        }
+    )
     with open(out, 'wb') as f:
         w.write(f)
     box = r.pages[0].mediabox
-    print(f'{out.name}: {len(r.pages)} pages, {float(box.width):.0f} x {float(box.height):.0f} pt, {out.stat().st_size // 1024} KB')
+    print(
+        f'{out.name}: {len(r.pages)} pages, {float(box.width):.0f} x {float(box.height):.0f} pt, {out.stat().st_size // 1024} KB'
+    )
 
 
 if __name__ == '__main__':

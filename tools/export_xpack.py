@@ -4,7 +4,12 @@ Usage: .venv/bin/python tools/export_xpack.py fig2 [--page PATH] [--out DIR]
 
 fig2: the Figure 2 SVG alone, light scheme, 900 px viewport (figure 720 px wide), as
 x-pack/fig2-table-by-loop-count.png (1440 x 914 in the original pack).
+
+Reads: every-line-is-a-loop.html (or --page PATH).
+Writes: PNG stills into x-pack/ (or --out DIR).
+Run: .venv/bin/python tools/export_xpack.py fig2 [--page PATH] [--out DIR]
 """
+
 import asyncio
 import pathlib
 import sys
@@ -39,8 +44,12 @@ if __name__ == '__main__':
     page = ROOT / 'every-line-is-a-loop.html'
     out = ROOT / 'x-pack'
     if '--page' in a:
-        i = a.index('--page'); page = pathlib.Path(a[i + 1]).resolve(); del a[i:i + 2]
+        i = a.index('--page')
+        page = pathlib.Path(a[i + 1]).resolve()
+        del a[i : i + 2]
     if '--out' in a:
-        i = a.index('--out'); out = pathlib.Path(a[i + 1]).resolve(); del a[i:i + 2]
+        i = a.index('--out')
+        out = pathlib.Path(a[i + 1]).resolve()
+        del a[i : i + 2]
     out.mkdir(parents=True, exist_ok=True)
     asyncio.run(main(a or ['fig2'], page, out))

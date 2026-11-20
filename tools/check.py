@@ -7,7 +7,14 @@
 
 Usage: .venv/bin/python tools/check.py [OUT_DIR] [--page PATH]   (default: shots/, the page beside tools/)
 Uses the installed Google Chrome through Playwright (channel="chrome").
+
+Reads: every-line-is-a-loop.html (or --page PATH).
+Writes: screenshots into OUT_DIR (default shots/).
+Run: .venv/bin/python tools/check.py [OUT_DIR] [--page PATH]
 """
+
+from __future__ import annotations
+
 import asyncio
 import hashlib
 import pathlib
@@ -21,11 +28,12 @@ PAGE = ROOT / 'every-line-is-a-loop.html'
 if '--page' in sys.argv:
     i = sys.argv.index('--page')
     PAGE = pathlib.Path(sys.argv[i + 1]).resolve()
-    del sys.argv[i:i + 2]
+    del sys.argv[i : i + 2]
 VOID = ('meta', 'input', 'br', 'img', 'line', 'circle', 'ellipse', 'path', 'rect', 'polygon')
 
 
-def static_checks():
+def static_checks() -> None:
+    """Parse the page and check tag nesting, dashes and the other static rules; exit nonzero on errors."""
     s = PAGE.read_text(encoding='utf-8')
     dashes = s.count('—')
 
@@ -60,14 +68,18 @@ async def shots(out):
             for scheme in ('light', 'dark'):
                 pg = await b.new_page(viewport={'width': w, 'height': 900}, color_scheme=scheme)
                 errs = []
-                pg.on('pageerror', lambda e: errs.append('pageerror: ' + str(e)))
-                pg.on('console', lambda m: errs.append('console: ' + m.text) if m.type == 'error' else None)
+                pg.on('pageerror', lambda e: errs.append('pageerror: ' + str(e)))  # noqa: B023 - the page closes before errs is rebound
+                pg.on('console', lambda m: errs.append('console: ' + m.text) if m.type == 'error' else None)  # noqa: B023 - same
                 await pg.goto(PAGE.as_uri())
                 await pg.wait_for_timeout(500)
-                await pg.evaluate("document.querySelectorAll('details').forEach(d => { d.open = true; })")   # folded figures too
+                await pg.evaluate(
+                    "document.querySelectorAll('details').forEach(d => { d.open = true; })"
+                )  # folded figures too
                 if await pg.locator('button.chip[data-k="day"]').count():
                     await pg.click('button.chip[data-k="day"]')
-                await pg.evaluate("const s=document.getElementById('t-w'); if (s) { s.value=100; s.dispatchEvent(new Event('input')) }")
+                await pg.evaluate(
+                    "const s=document.getElementById('t-w'); if (s) { s.value=100; s.dispatchEvent(new Event('input')) }"
+                )
                 await pg.wait_for_timeout(500)
                 f = out / f'shot_{w}_{scheme}.png'
                 await pg.screenshot(path=str(f), full_page=True, timeout=120000)

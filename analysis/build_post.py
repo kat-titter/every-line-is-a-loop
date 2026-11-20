@@ -7,7 +7,14 @@ Reads results/tables_traj.json, results/tables_random.json, results/toys.json, r
 and results/r31_dynamics.jsonl. Every count from the census comes from these files. The few things typed in
 below (short model names, which molecules a flag points at, what kind of clock each dashed clock is, the
 Baudier et al. row) are checked against the files by asserts, so the prose cannot drift from the data.
+
+Reads: results/ files named above.
+Writes: build/count-the-elements.html (the build folder is not committed).
+Run: .venv/bin/python analysis/build_post.py
 """
+
+from __future__ import annotations
+
 import html as html_lib
 import json
 import pathlib
@@ -22,39 +29,80 @@ import story_figures as SF  # noqa: E402
 import bio_figures as BF  # noqa: E402
 import elements as EL  # noqa: E402
 import interactive as IA  # noqa: E402
+
 R = ROOT / 'results'
 MAIN = 'ref24_rank'
 REPO_URL = 'https://github.com/kat-titter/every-line-is-a-loop'
 TITLE = 'Every line is a loop. Let&#8217;s count them.'
 MINUS = '&#8722;'
-WORD = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight', 9: 'nine', 10: 'ten',
-        11: 'eleven', 12: 'twelve'}
+WORD = {
+    1: 'one',
+    2: 'two',
+    3: 'three',
+    4: 'four',
+    5: 'five',
+    6: 'six',
+    7: 'seven',
+    8: 'eight',
+    9: 'nine',
+    10: 'ten',
+    11: 'eleven',
+    12: 'twelve',
+}
 LOOPS = {1: 'one loop', 2: 'two loops', 3: 'three loops'}
 
 # Short names for well-known curated models, used to label the squares of the census figure (priority order).
 NAMES = [
-    ('BIOMD0000000012', 'repressilator'), ('BIOMD0000000507', 'toggle switch'), ('BIOMD0000000036', 'fly day clock'),
-    ('BIOMD0000000062', 'trp operon'), ('BIOMD0000000003', 'mitosis clock'), ('BIOMD0000000006', 'cell cycle'),
-    ('BIOMD0000000020', 'squid giant axon'), ('BIOMD0000000016', 'fly day clock'), ('BIOMD0000000021', 'fly day clock'),
-    ('BIOMD0000000171', 'fly day clock'), ('BIOMD0000000073', 'mammal day clock'), ('BIOMD0000000189', 'p53&#8211;Mdm2'),
-    ('BIOMD0000000188', 'p53&#8211;Mdm2'), ('BIOMD0000000174', 'endosome switch'), ('BIOMD0000000201', 'somite clock'),
-    ('BIOMD0000000098', 'calcium spikes'), ('BIOMD0000000318', 'Rb&#8211;E2F switch'), ('BIOMD0000000215', 'T-cell fate'),
-    ('BIOMD0000000372', 'insulin&#8211;glucose'), ('BIOMD0000000304', 'bursting neuron'), ('BIOMD0000000179', 'cell memory'),
-    ('BIOMD0000000033', 'growth signals'), ('BIOMD0000000313', 'IL-13 signalling'), ('BIOMD0000000039', 'calcium spikes'),
-    ('BIOMD0000000225', 'glycolysis pulse'), ('BIOMD0000000040', 'BZ reaction'),
+    ('BIOMD0000000012', 'repressilator'),
+    ('BIOMD0000000507', 'toggle switch'),
+    ('BIOMD0000000036', 'fly day clock'),
+    ('BIOMD0000000062', 'trp operon'),
+    ('BIOMD0000000003', 'mitosis clock'),
+    ('BIOMD0000000006', 'cell cycle'),
+    ('BIOMD0000000020', 'squid giant axon'),
+    ('BIOMD0000000016', 'fly day clock'),
+    ('BIOMD0000000021', 'fly day clock'),
+    ('BIOMD0000000171', 'fly day clock'),
+    ('BIOMD0000000073', 'mammal day clock'),
+    ('BIOMD0000000189', 'p53&#8211;Mdm2'),
+    ('BIOMD0000000188', 'p53&#8211;Mdm2'),
+    ('BIOMD0000000174', 'endosome switch'),
+    ('BIOMD0000000201', 'somite clock'),
+    ('BIOMD0000000098', 'calcium spikes'),
+    ('BIOMD0000000318', 'Rb&#8211;E2F switch'),
+    ('BIOMD0000000215', 'T-cell fate'),
+    ('BIOMD0000000372', 'insulin&#8211;glucose'),
+    ('BIOMD0000000304', 'bursting neuron'),
+    ('BIOMD0000000179', 'cell memory'),
+    ('BIOMD0000000033', 'growth signals'),
+    ('BIOMD0000000313', 'IL-13 signalling'),
+    ('BIOMD0000000039', 'calcium spikes'),
+    ('BIOMD0000000225', 'glycolysis pulse'),
+    ('BIOMD0000000040', 'BZ reaction'),
 ]
 # The fruit fly's day clock (PER and TIM proteins), from each model's source paper (PubMed 8587874, 20540926,
 # 9486845, 10366496, 10643740).
 FLY_CLOCK = ['BIOMD0000000016', 'BIOMD0000000036', 'BIOMD0000000171', 'BIOMD0000000021', 'BIOMD0000000298']
 # Clocks with no braking loop after the filters: what runs dry in each (from the model names and papers).
-DEPLETION_KIND = {'BIOMD0000000039': 'calcium', 'BIOMD0000000045': 'calcium', 'BIOMD0000000098': 'calcium', 'BIOMD0000000113': 'calcium',
-                  'BIOMD0000000114': 'calcium', 'BIOMD0000000166': 'calcium', 'BIOMD0000000184': 'calcium',
-                  'BIOMD0000000225': 'glycolysis', 'BIOMD0000000236': 'glycolysis', 'BIOMD0000000319': 'enzyme'}
+DEPLETION_KIND = {
+    'BIOMD0000000039': 'calcium',
+    'BIOMD0000000045': 'calcium',
+    'BIOMD0000000098': 'calcium',
+    'BIOMD0000000113': 'calcium',
+    'BIOMD0000000114': 'calcium',
+    'BIOMD0000000166': 'calcium',
+    'BIOMD0000000184': 'calcium',
+    'BIOMD0000000225': 'glycolysis',
+    'BIOMD0000000236': 'glycolysis',
+    'BIOMD0000000319': 'enzyme',
+}
 # Plain names for the molecules the loose running-total reading flags in the control models.
-LOOSE_NAMES = {'BIOMD0000000429': {'species_7': 'the glycerol-making protein', 'species_13': 'glycerol outside the cell'},
-               'BIOMD0000000603': {'acetate_e': 'acetate', 'ethanol_e': 'ethanol', 'glycerol_e': 'glycerol', 'biomass': 'biomass'},
-               'BIOMD0000000006': {'v': 'total cyclin'},
-               'BIOMD0000000404': {'Tni': 'two receptor complexes', 'Tni_W': 'two receptor complexes'}}
+LOOSE_NAMES = {
+    'BIOMD0000000429': {'species_7': 'the glycerol-making protein', 'species_13': 'glycerol outside the cell'},
+    'BIOMD0000000603': {'acetate_e': 'acetate', 'ethanol_e': 'ethanol', 'glycerol_e': 'glycerol', 'biomass': 'biomass'},
+    'BIOMD0000000006': {'v': 'total cyclin'},
+    'BIOMD0000000404': {'Tni': 'two receptor complexes', 'Tni_W': 'two receptor complexes'},
+}
 STRICT_NAMES = {'BIOMD0000000006': 'total cyclin'}
 
 REFS = {
@@ -99,7 +147,17 @@ REFS = {
 }
 
 
-def cite(*keys):
+def code_line(*groups: tuple[str, list[str]]) -> str:
+    """One muted mono line under a figure: each (role, repo paths) group links its files on GitHub's main branch."""
+    parts = [
+        ', '.join(f'<a href="{REPO_URL}/blob/main/{p}">{p.rsplit("/", 1)[-1].split("#")[0]}</a>' for p in paths)
+        + f' ({role})'
+        for role, paths in groups
+    ]
+    return '<p class="fig-code">code: ' + '; '.join(parts) + '</p>'
+
+
+def cite(*keys: str) -> str:
     """Placeholder, numbered by first appearance once the page is assembled."""
     return '<span class="cite">[' + ','.join('@' + k + '@' for k in keys) + ']</span>'
 
@@ -139,19 +197,26 @@ REF_POPOVER_JS = """<script>
 </script>"""
 
 
-def number_refs(page):
+def number_refs(page: str) -> str:
+    """Number the citation placeholders by first appearance and fill in the reference list."""
     order = []
     for k in re.findall(r'@(\w+)@', page):
         if k not in order:
             order.append(k)
     num = {k: i + 1 for i, k in enumerate(order)}
-    page = re.sub(r'\[((?:@\w+@,?)+)\]', lambda m: '[' + ', '.join(f'<a href="#r{num[k]}">{num[k]}</a>' for k in re.findall(r'@(\w+)@', m.group(1))) + ']', page)
+    page = re.sub(
+        r'\[((?:@\w+@,?)+)\]',
+        lambda m: (
+            '[' + ', '.join(f'<a href="#r{num[k]}">{num[k]}</a>' for k in re.findall(r'@(\w+)@', m.group(1))) + ']'
+        ),
+        page,
+    )
     unused = set(REFS) - set(order)
     assert not unused, f'references never cited: {unused}'
     return page.replace('%REFS%', ''.join(f'<li id="r{num[k]}">{REFS[k]}</li>' for k in order))
 
 
-def rows_grid():
+def rows_grid() -> str:
     """Rows of the table as k-by-j grids: with n loops, k and j each run from 0 to n, so a row has (n + 1) x (n + 1) elements."""
     c, g, x, out, slot = 15, 3, 0, [], 86
     for n in (1, 2, 3):
@@ -160,34 +225,44 @@ def rows_grid():
         x0 = x + max(0, (slot - w) / 2) if n == 1 else x
         for j in range(m):
             for k in range(m):
-                out.append(f'<rect x="{x0 + k * (c + g):.0f}" y="{22 + j * (c + g)}" width="{c}" height="{c}" rx="3" fill="var(--tint)" stroke="var(--muted)" stroke-width="1"/>')
+                out.append(
+                    f'<rect x="{x0 + k * (c + g):.0f}" y="{22 + j * (c + g)}" width="{c}" height="{c}" rx="3" fill="var(--tint)" stroke="var(--muted)" stroke-width="1"/>'
+                )
         mid = x0 + w / 2
-        out.append(f'<text x="{mid:.1f}" y="{22 + 4 * (c + g) + 14}" text-anchor="middle" fill="var(--ink)" font-weight="600">{m} &#215; {m} = {m * m}</text>')
-        out.append(f'<text x="{mid:.1f}" y="{22 + 4 * (c + g) + 31}" text-anchor="middle" fill="var(--muted)">{LOOPS[n]}</text>')
+        out.append(
+            f'<text x="{mid:.1f}" y="{22 + 4 * (c + g) + 14}" text-anchor="middle" fill="var(--ink)" font-weight="600">{m} &#215; {m} = {m * m}</text>'
+        )
+        out.append(
+            f'<text x="{mid:.1f}" y="{22 + 4 * (c + g) + 31}" text-anchor="middle" fill="var(--muted)">{LOOPS[n]}</text>'
+        )
         x = max(x0 + w, mid + slot / 2) + 34
     W = x - 34
     out.append(f'<text x="0" y="12" fill="var(--muted)">across: loops that brake (k)</text>')
-    return (f'<svg class="rows-grid" viewBox="-2 0 {W + 4} {22 + 4 * (c + g) + 38}" width="{W + 4}" role="img" '
-            f'aria-label="Rows of the table as grids: one loop gives 2 by 2 = 4 elements, two loops 3 by 3 = 9, three loops 4 by 4 = 16; '
-            f'across, how many loops brake; down, how many run through a running total" font-size="12.5">{"".join(out)}</svg>'
-            '<p class="grid-key">down: loops through a running total (j)</p>')
+    return (
+        f'<svg class="rows-grid" viewBox="-2 0 {W + 4} {22 + 4 * (c + g) + 38}" width="{W + 4}" role="img" '
+        f'aria-label="Rows of the table as grids: one loop gives 2 by 2 = 4 elements, two loops 3 by 3 = 9, three loops 4 by 4 = 16; '
+        f'across, how many loops brake; down, how many run through a running total" font-size="12.5">{"".join(out)}</svg>'
+        '<p class="grid-key">down: loops through a running total (j)</p>'
+    )
 
 
 def signs(nu, k):
     return ' '.join(['+'] * (nu - k) + [MINUS] * k)
 
 
-def signs_html(nu, k):
+def signs_html(nu: int, k: int) -> str:
     """The sign pattern with each glyph in its colour: lavender amplifies, amber brakes."""
     return ' '.join(['<span class="sp">+</span>'] * (nu - k) + ['<span class="sn">' + MINUS + '</span>'] * k)
 
 
-def listing(items):
+def listing(items: list[str]) -> str:
+    """Join words as "a, b and c"."""
     items = list(items)
     return items[0] if len(items) == 1 else ', '.join(items[:-1]) + ' and ' + items[-1]
 
 
-def cap(s):
+def cap(s: str) -> str:
+    """Capitalise the first letter and leave the rest alone."""
     return s[0].upper() + s[1:]
 
 
@@ -195,14 +270,18 @@ def cap(s):
 # One stylesheet for this page. Tokens first: four colours (ink = content; muted gray = secondary, axes, not found;
 # lavender = amplify in strokes and text, found in fills, and links; amber = brake) with the surfaces they sit on,
 # one serif for reading, one sans for labels, figures and UI, monospace for code only, and the golden-ratio scales.
-LIGHT = ('--paper: #ffffff; --ink: #1c2226; --muted: #68727a; --rule: #dfe4e6; '
-         '--accent: #c6ef6b; --accent-text: #4a7a0c; --accent-soft: rgba(198, 239, 107, 0.30); --accent-tint: #f1fbd6; '
-         '--accent2: #d891aa; --accent2-text: #ad3a6b; --accent2-soft: rgba(216, 145, 170, 0.18); --orb2-lo: #ad3a6b; '
-         '--plate: #f5f7f8; --tint: #eaeeef; --lift: rgba(34, 52, 48, 0.16); --orb-hi: #ffffff; --orb-lo: #6f9c1a; color-scheme: light;')
-DARK = ('--paper: #111416; --ink: #e9edee; --muted: #9aa4a8; --rule: #2a3134; '
-        '--accent: #c6ef6b; --accent-text: #cdf27a; --accent-soft: rgba(198, 239, 107, 0.20); --accent-tint: #222b14; '
-        '--accent2: #e6a0bb; --accent2-text: #efb0c7; --accent2-soft: rgba(230, 160, 187, 0.2); --orb2-lo: #c0608b; '
-        '--plate: #171b1d; --tint: #1d2225; --lift: rgba(0, 0, 0, 0.6); --orb-hi: #f6ffe0; --orb-lo: #7fae25; color-scheme: dark;')
+LIGHT = (
+    '--paper: #ffffff; --ink: #1c2226; --muted: #68727a; --rule: #dfe4e6; '
+    '--accent: #c6ef6b; --accent-text: #4a7a0c; --accent-soft: rgba(198, 239, 107, 0.30); --accent-tint: #f1fbd6; '
+    '--accent2: #d891aa; --accent2-text: #ad3a6b; --accent2-soft: rgba(216, 145, 170, 0.18); --orb2-lo: #ad3a6b; '
+    '--plate: #f5f7f8; --tint: #eaeeef; --lift: rgba(34, 52, 48, 0.16); --orb-hi: #ffffff; --orb-lo: #6f9c1a; color-scheme: light;'
+)
+DARK = (
+    '--paper: #111416; --ink: #e9edee; --muted: #9aa4a8; --rule: #2a3134; '
+    '--accent: #c6ef6b; --accent-text: #cdf27a; --accent-soft: rgba(198, 239, 107, 0.20); --accent-tint: #222b14; '
+    '--accent2: #e6a0bb; --accent2-text: #efb0c7; --accent2-soft: rgba(230, 160, 187, 0.2); --orb2-lo: #c0608b; '
+    '--plate: #171b1d; --tint: #1d2225; --lift: rgba(0, 0, 0, 0.6); --orb-hi: #f6ffe0; --orb-lo: #7fae25; color-scheme: dark;'
+)
 STYLE = r'''
 :root {
   %LIGHT%
@@ -411,21 +490,29 @@ figure.hero { margin: 0 0 var(--s5); }
 .ecard .ec-l { font: 400 var(--t2)/1.5 var(--sans); color: var(--ink); }
 
 /* Figure 3: the periodic table of loops */
-.ptable { position: relative; --tile: 64px; }
+.ptable { position: relative; --tile: 64px; --tile-h: 84px; }
 .pt-blocks { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: var(--s5); }
-/* axes drawn on the table: "brakes" across each block's columns, "running totals" down the column under the no-loop tile */
+/* axes as in a chart, each named once: a y axis down the left (running totals, ticks 0 to 3, a line from the 0 row to the last), a grouped axis along the top (loops bracket each block, brakes tick each column from 0); element 0 apart */
 .pt-ax { font: 400 var(--t1)/1.25 var(--sans); color: var(--muted); margin: 0; }
-.pt-ax-x { display: flex; align-items: center; gap: var(--s2); height: var(--s5); margin: 0 0 var(--s1); padding-right: var(--s2); }
-.pt-ax-x .pt-ax-line { flex: 1; border-top: 1px solid currentColor; }
-.pt-ax-x .pt-ax-head { flex: none; margin-left: calc(-6px - var(--s2)); }   /* the line runs to the tip */
-.pt-block:first-child { display: flex; flex-direction: column; align-self: stretch; }
-.pt-ax-y { flex: 1; display: flex; flex-direction: column; align-items: center; width: var(--tile); min-height: var(--s8); margin-top: var(--s3); text-align: center; }
-.pt-ax-y .pt-ax-line { flex: 1; border-left: 1px solid currentColor; margin-top: var(--s2); }
-.pt-ax-y .pt-ax-head { flex: none; margin-top: -6px; }
-.pt-ax-head, figure.fig .pt-ax-head { display: block; overflow: visible; }
-.pt-ax-x .pt-ax-head, figure.fig .pt-ax-x .pt-ax-head { width: 6px; height: 9px; }
-.pt-ax-y .pt-ax-head, figure.fig .pt-ax-y .pt-ax-head { width: 9px; height: 6px; }
-.pt-ax-head path { fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.pt-ax-t, .pt-ax-g, .pt-ax-k { display: flex; align-items: center; height: var(--s5); margin: 0 0 var(--s1); }
+.pt-ax-t { justify-content: flex-end; }
+.pt-ax-g { gap: var(--s2); color: var(--ink); }
+.pt-ax-g b { font-weight: 600; }
+.pt-ax-g::before, .pt-ax-g::after { content: ""; flex: 1; align-self: stretch; margin: 10px 0 5px; border-top: 1px solid var(--muted); }
+.pt-ax-g::before { border-left: 1px solid var(--muted); }
+.pt-ax-g::after { border-right: 1px solid var(--muted); }
+.pt-ax-k { display: grid; gap: var(--s2); justify-items: center; font-variant-numeric: tabular-nums; }
+.pt-ax-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.pt-yaxis { display: flex; flex-direction: column; }
+.pt-y2 { display: none; }
+.pt-ax-r { display: flex; justify-content: flex-end; align-items: center; gap: var(--s2); }
+.pt-ax-yt { writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; }
+.pt-ax-rt { position: relative; display: flex; flex-direction: column; gap: var(--s2); font-variant-numeric: tabular-nums; }
+.pt-ax-rt::after { content: ""; position: absolute; right: 0; top: calc(var(--tile-h) / 2); bottom: calc(var(--tile-h) / 2); border-right: 1px solid var(--muted); }
+.pt-ax-rt span { position: relative; display: flex; align-items: center; justify-content: flex-end; height: var(--tile-h); padding-right: var(--s3); }
+.pt-ax-rt span::after { content: ""; position: absolute; right: 0; top: 50%; width: var(--s2); border-top: 1px solid var(--muted); }
+.pt-zero { margin: var(--s4) 0 0; }
+.pt-ax-z { color: var(--ink); font-weight: 600; margin: 0 0 var(--s2); }
 .pt-h { font: 400 var(--t1)/1.4 var(--sans); color: var(--muted); margin: 0 0 var(--s2); }
 .pt-h b { color: var(--ink); margin-right: var(--s2); }
 .pt-grid { display: grid; gap: var(--s2); }
@@ -498,8 +585,8 @@ ol.refs { padding-left: var(--s5); margin: 0; }
 @media (min-width: 860px) {
   figure.fig { margin-left: calc(-1 * var(--s6) - 1px); margin-right: calc(-1 * var(--s6) - 1px); padding: var(--s6) var(--s6) var(--s5); }
   /* Figure 5: the four blocks in one row, the key in the slot under the first three */
-  .pt-blocks { display: grid; grid-template-columns: auto auto auto auto; grid-template-areas: "a b c d" "key key key d"; gap: var(--s4); justify-content: start; align-items: start; }
-  .pt-block:nth-child(1) { grid-area: a; } .pt-block:nth-child(2) { grid-area: b; } .pt-block:nth-child(3) { grid-area: c; } .pt-keybox { grid-area: key; } .pt-block:nth-child(5) { grid-area: d; }
+  .pt-blocks { display: grid; grid-template-columns: auto auto auto auto; grid-template-areas: "y a b c" ". key key c"; gap: var(--s4); justify-content: start; align-items: start; }
+  .pt-y1 { grid-area: y; } .pt-b1 { grid-area: a; } .pt-b2 { grid-area: b; } .pt-keybox { grid-area: key; } .pt-b3 { grid-area: c; }
 }
 @media (min-width: 701px) and (max-width: 859px) {
   figure.fig { margin-left: calc(-1 * var(--s5) - 1px); margin-right: calc(-1 * var(--s5) - 1px); padding: var(--s6) var(--s5) var(--s5); }
@@ -536,27 +623,34 @@ ol.refs { padding-left: var(--s5); margin: 0; }
 
 
 # ---------------------------------------------------------------- figures
-SVG = ''   # the stylesheet gives every svg the page's sans
-DASH_EMPTY = ' stroke-dasharray="3 3"'   # an empty square
-DASH_CLOCK = ' stroke-dasharray="3 2"'   # a clock whose only brake the filters remove
+SVG = ''  # the stylesheet gives every svg the page's sans
+DASH_EMPTY = ' stroke-dasharray="3 3"'  # an empty square
+DASH_CLOCK = ' stroke-dasharray="3 2"'  # a clock whose only brake the filters remove
 # Arrowheads and bars come from the page's hidden <defs> (fx-arrow, fx-bar and their muted and ink copies), so every
 # figure draws them at one size and in the meaning-carrying colour.
 
 
-def node(x, y, t, r=22):   # one node style across the story and method figures
-    return (f'<circle cx="{x}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
-            f'<text x="{x}" y="{y + 5}" text-anchor="middle" fill="var(--ink)">{t}</text>')
+def node(x: float, y: float, t: str, r: float = 22) -> str:  # one node style across the story and method figures
+    """SVG circle with a centred label."""
+    return (
+        f'<circle cx="{x}" cy="{y}" r="{r}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4"/>'
+        f'<text x="{x}" y="{y + 5}" text-anchor="middle" fill="var(--ink)">{t}</text>'
+    )
 
 
-def line(x1, y1, x2, y2, mk, cls):
+def line(x1: float, y1: float, x2: float, y2: float, mk: str, cls: str) -> str:
+    """SVG line ending in the arrowhead or bar marker mk."""
     return f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" class="{cls}" marker-end="url(#{mk})"/>'
 
 
-def fig_method(toys):
+def fig_method(toys: dict) -> str:
+    """The methods figure: the enzyme and ring toys drawn as node-and-arrow panels."""
     e, g = toys['enzyme'], toys['ring']
     assert e['thomas']['c'] == 5 and e[MAIN]['c'] == 0 and g[MAIN]['c'] == 1 and g[MAIN]['k'] == 1, toys
-    st = ('<style>.f1g{stroke:var(--muted);stroke-width:1.4;stroke-dasharray:4 3}.f1k{stroke:var(--muted);stroke-width:1.4}'
-          '.f1l{stroke:var(--accent2-text);stroke-width:2.2}</style>')
+    st = (
+        '<style>.f1g{stroke:var(--muted);stroke-width:1.4;stroke-dasharray:4 3}.f1k{stroke:var(--muted);stroke-width:1.4}'
+        '.f1l{stroke:var(--accent2-text);stroke-width:2.2}</style>'
+    )
     enzyme = f'''<svg viewBox="0 0 330 270" role="img" aria-label="Enzyme E binds substrate S to make the pair ES, which releases product P. Five loops appear among E, S and ES, drawn dashed because none passes the filters." {SVG} font-size="14">
   {st}
   <text x="165" y="26" text-anchor="middle" font-weight="600" fill="var(--ink)">An enzyme at work</text>
@@ -577,8 +671,17 @@ def fig_method(toys):
     return f'<div class="pair"><div>{enzyme}</div><div>{ring}</div></div>'
 
 
-def fig_distribution(dist):
-    cats = [('0', 'none'), ('1', '1'), ('2', '2'), ('3', '3'), ('4 to 10', '4 to 10'), ('over 10', 'more than 10'), ('over budget', 'search unfinished')]
+def fig_distribution(dist: dict) -> str:
+    """Bar figure of how many models fall in each count of running totals."""
+    cats = [
+        ('0', 'none'),
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4 to 10', '4 to 10'),
+        ('over 10', 'more than 10'),
+        ('over budget', 'search unfinished'),
+    ]
     top = max(dist.get(c, 0) for c, _ in cats) or 1
     out = []
     for i, (c, lab) in enumerate(cats):
@@ -589,38 +692,48 @@ def fig_distribution(dist):
             bar = f'<rect x="130" y="{y}" width="{w:.1f}" height="18" rx="3" fill="var(--accent)"/>'
         else:
             bar = f'<rect x="130.5" y="{y + 0.5}" width="{w - 1:.1f}" height="17" rx="3" fill="none" stroke="var(--muted)"/>'
-        out.append(f'<text x="120" y="{y + 13}" text-anchor="end" fill="var(--muted)">{lab}</text>{bar}'
-                   f'<text x="{136 + w:.1f}" y="{y + 14}" fill="var(--ink)">{v}</text>')
+        out.append(
+            f'<text x="120" y="{y + 13}" text-anchor="end" fill="var(--muted)">{lab}</text>{bar}'
+            f'<text x="{136 + w:.1f}" y="{y + 14}" fill="var(--ink)">{v}</text>'
+        )
     return f'''<svg viewBox="0 0 400 282" role="img" aria-label="How many models have no loop, one, two, three, four to ten, or more than ten loops, and for how many the search did not finish" {SVG} font-size="14">
   <text x="120" y="24" text-anchor="end" fill="var(--muted)">loops</text><text x="130" y="24" fill="var(--muted)">models</text>
   {''.join(out)}
 </svg>'''
 
 
-def table_square(x, y, nu, k, cells, ex):
+def table_square(x: float, y: float, nu: int, k: int, cells: dict, ex: str | None) -> str:
     """One square of the census figure: sign pattern, a named model, and one small box per possible number of running totals."""
     CW, CH, SW, PITCH = 150, 112, 27, 33
     n = sum(v for (kk, _), v in cells.items() if kk == k)
     occ = n > 0
-    out = [f'<rect x="{x}" y="{y}" width="{CW}" height="{CH}" rx="9" fill="{"var(--accent-soft)" if occ else "none"}" '
-           f'stroke="{"var(--accent)" if occ else "var(--muted)"}" stroke-width="{1.5 if occ else 1}"{"" if occ else DASH_EMPTY}/>',
-           f'<text x="{x + 12}" y="{y + 24}" fill="var(--ink)">{signs(nu, k)}</text>']
+    out = [
+        f'<rect x="{x}" y="{y}" width="{CW}" height="{CH}" rx="9" fill="{"var(--accent-soft)" if occ else "none"}" '
+        f'stroke="{"var(--accent)" if occ else "var(--muted)"}" stroke-width="{1.5 if occ else 1}"{"" if occ else DASH_EMPTY}/>',
+        f'<text x="{x + 12}" y="{y + 24}" fill="var(--ink)">{signs(nu, k)}</text>',
+    ]
     if occ and ex:
         out.append(f'<text x="{x + 12}" y="{y + 46}" fill="var(--ink)">{ex}</text>')
     for j in range(nu + 1):
         sx = x + 12 + j * PITCH
         for q in range(j):  # hollow rings: how many loops keep a running total
-            out.append(f'<circle cx="{sx + SW / 2 + (q - (j - 1) / 2) * 8:.1f}" cy="{y + 60}" r="3" fill="none" stroke="var(--muted)" stroke-width="1.3"/>')
+            out.append(
+                f'<circle cx="{sx + SW / 2 + (q - (j - 1) / 2) * 8:.1f}" cy="{y + 60}" r="3" fill="none" stroke="var(--muted)" stroke-width="1.3"/>'
+            )
         m = cells.get((k, j), 0)
         if m:
-            out.append(f'<rect x="{sx}" y="{y + 70}" width="{SW}" height="28" rx="5" fill="var(--paper)" stroke="var(--accent)" stroke-width="1.2"/>'
-                       f'<text x="{sx + SW / 2:.1f}" y="{y + 89}" text-anchor="middle" fill="var(--ink)">{m}</text>')
+            out.append(
+                f'<rect x="{sx}" y="{y + 70}" width="{SW}" height="28" rx="5" fill="var(--paper)" stroke="var(--accent)" stroke-width="1.2"/>'
+                f'<text x="{sx + SW / 2:.1f}" y="{y + 89}" text-anchor="middle" fill="var(--ink)">{m}</text>'
+            )
         else:
-            out.append(f'<rect x="{sx}" y="{y + 70}" width="{SW}" height="28" rx="5" fill="none" stroke="var(--muted)" stroke-dasharray="3 3"/>')
+            out.append(
+                f'<rect x="{sx}" y="{y + 70}" width="{SW}" height="28" rx="5" fill="none" stroke="var(--muted)" stroke-dasharray="3 3"/>'
+            )
     return ''.join(out)
 
 
-def fig_table(rows, examples, narrow=False):
+def fig_table(rows: dict, examples: dict, narrow: bool = False) -> str:
     """The census drawn in the essay's Figure 2 layout: one row per loop count, one square per sign pattern,
     and inside each square a strip of boxes for how many loops keep a running total (strict reading)."""
     CW, CH, GX, GY = 150, 112, 12, 18
@@ -630,17 +743,23 @@ def fig_table(rows, examples, narrow=False):
         cells = {tuple(int(v) for v in k.strip('()').split(',')): n for k, n in Rr['essay']['cells'].items()}
         kinds = f'{(nu + 1) ** 2} possible, {Rr["essay"]["occupied"]} found'
         if narrow:
-            out.append(f'<text x="6" y="{y + 20}" font-weight="600" fill="var(--ink)">{LOOPS[nu]}</text>'
-                       f'<text x="318" y="{y + 20}" text-anchor="end" fill="var(--muted)">{kinds}</text>')
+            out.append(
+                f'<text x="6" y="{y + 20}" font-weight="600" fill="var(--ink)">{LOOPS[nu]}</text>'
+                f'<text x="318" y="{y + 20}" text-anchor="end" fill="var(--muted)">{kinds}</text>'
+            )
             y += 32
             for k in range(nu + 1):
-                out.append(table_square(6 + (k % 2) * (CW + GX), y + (k // 2) * (CH + GX), nu, k, cells, examples.get((nu, k))))
+                out.append(
+                    table_square(6 + (k % 2) * (CW + GX), y + (k // 2) * (CH + GX), nu, k, cells, examples.get((nu, k)))
+                )
             y += ((nu + 2) // 2) * (CH + GX) + 14
         else:
             X0 = 132
-            out.append(f'<text x="{X0 - 14}" y="{y + 30}" text-anchor="end" font-weight="600" fill="var(--ink)">{LOOPS[nu]}</text>'
-                       f'<text x="{X0 - 14}" y="{y + 50}" text-anchor="end" fill="var(--muted)">{(nu + 1) ** 2} possible</text>'
-                       f'<text x="{X0 - 14}" y="{y + 68}" text-anchor="end" fill="var(--muted)">{Rr["essay"]["occupied"]} found</text>')
+            out.append(
+                f'<text x="{X0 - 14}" y="{y + 30}" text-anchor="end" font-weight="600" fill="var(--ink)">{LOOPS[nu]}</text>'
+                f'<text x="{X0 - 14}" y="{y + 50}" text-anchor="end" fill="var(--muted)">{(nu + 1) ** 2} possible</text>'
+                f'<text x="{X0 - 14}" y="{y + 68}" text-anchor="end" fill="var(--muted)">{Rr["essay"]["occupied"]} found</text>'
+            )
             for k in range(nu + 1):
                 out.append(table_square(X0 + k * (CW + GX), y + 2, nu, k, cells, examples.get((nu, k))))
             y += CH + GY
@@ -651,11 +770,20 @@ def fig_table(rows, examples, narrow=False):
 </svg>'''
 
 
-BEHAVIOURS = [('multistable', 'holds two states'), ('oscillating', 'ticks'), ('damped', 'rings, then settles'),
-              ('steady', 'settles'), ('unbounded', 'grows without limit'), ('continuum', 'settles anywhere')]
+BEHAVIOURS = [
+    ('multistable', 'holds two states'),
+    ('oscillating', 'ticks'),
+    ('damped', 'rings, then settles'),
+    ('steady', 'settles'),
+    ('unbounded', 'grows without limit'),
+    ('continuum', 'settles anywhere'),
+]
 
 
-def behaviour_panel(out, behav, depletion, x, y0, dx, dy, nus, header_y):
+def behaviour_panel(
+    out: list, behav: dict, depletion: dict, x: float, y0: float, dx: float, dy: float, nus: tuple, header_y: float
+) -> float:
+    """Append the dot-matrix columns for each loop count in nus to out and return the next x."""
     for nu in nus:
         gx = x
         for k in range(nu + 1):
@@ -665,21 +793,27 @@ def behaviour_panel(out, behav, depletion, x, y0, dx, dy, nus, header_y):
             for r, (b, _) in enumerate(BEHAVIOURS):
                 cy = y0 + r * dy
                 if (b == 'multistable' and k == nu) or (b == 'oscillating' and k == 0):
-                    out.append(f'<rect x="{cx - dx / 2 + 3}" y="{cy - 16}" width="{dx - 6}" height="32" rx="6" fill="none" stroke="var(--muted)"/>')
+                    out.append(
+                        f'<rect x="{cx - dx / 2 + 3}" y="{cy - 16}" width="{dx - 6}" height="32" rx="6" fill="none" stroke="var(--muted)"/>'
+                    )
                 n = counts.get(b, 0)
                 if n:
                     dep = b == 'oscillating' and k == 0 and depletion.get((nu, k))
-                    out.append(f'<circle cx="{cx}" cy="{cy}" r="12" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.3"'
-                               f'{DASH_CLOCK if dep else ""}/>'
-                               f'<text x="{cx}" y="{cy + 5}" text-anchor="middle" fill="var(--ink)">{n}</text>')
+                    out.append(
+                        f'<circle cx="{cx}" cy="{cy}" r="12" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.3"'
+                        f'{DASH_CLOCK if dep else ""}/>'
+                        f'<text x="{cx}" y="{cy + 5}" text-anchor="middle" fill="var(--ink)">{n}</text>'
+                    )
             x += dx
-        out.append(f'<text x="{(gx + x) / 2}" y="{header_y}" text-anchor="middle" font-weight="600" fill="var(--ink)">{LOOPS[nu]}</text>'
-                   f'<line x1="{gx + 6}" y1="{header_y + 8}" x2="{x - 6}" y2="{header_y + 8}" stroke="var(--rule)"/>')
+        out.append(
+            f'<text x="{(gx + x) / 2}" y="{header_y}" text-anchor="middle" font-weight="600" fill="var(--ink)">{LOOPS[nu]}</text>'
+            f'<line x1="{gx + 6}" y1="{header_y + 8}" x2="{x - 6}" y2="{header_y + 8}" stroke="var(--rule)"/>'
+        )
         x += 20
     return x
 
 
-def fig_behaviour(behav, depletion, narrow=False):
+def fig_behaviour(behav: dict, depletion: dict, narrow: bool = False) -> str:
     """Dot matrix: what the models in each square do (models driven from outside left out)."""
     out = []
     if narrow:
@@ -704,15 +838,29 @@ def fig_behaviour(behav, depletion, narrow=False):
 
 # Tyson, Chen and Novak 2003 drew seven small circuits; BioModels' notes name the figure each model reproduces.
 # Loops each name implies: (loops, braking loops), or 0 for none.
-TEXTBOOK = [('BIOMD0000000312', 'perfect adapter', 0), ('BIOMD0000000311', 'mutual activation', (1, 0)),
-            ('BIOMD0000000310', 'mutual inhibition (toggle)', (1, 0)), ('BIOMD0000000309', 'homeostasis by a braking loop', (1, 1)),
-            ('BIOMD0000000308', 'braking-loop oscillator', (1, 1)), ('BIOMD0000000306', 'activator&#8211;inhibitor oscillator', (2, 1)),
-            ('BIOMD0000000307', 'substrate-depletion oscillator', (2, 1))]
-BEHAVIOUR_WORD = dict([('multistable', 'holds two states'), ('oscillating', 'ticks'), ('continuum', 'settles anywhere'),
-                       ('unbounded', 'grows without limit'), ('damped', 'rings, then settles'), ('steady', 'settles')])
+TEXTBOOK = [
+    ('BIOMD0000000312', 'perfect adapter', 0),
+    ('BIOMD0000000311', 'mutual activation', (1, 0)),
+    ('BIOMD0000000310', 'mutual inhibition (toggle)', (1, 0)),
+    ('BIOMD0000000309', 'homeostasis by a braking loop', (1, 1)),
+    ('BIOMD0000000308', 'braking-loop oscillator', (1, 1)),
+    ('BIOMD0000000306', 'activator&#8211;inhibitor oscillator', (2, 1)),
+    ('BIOMD0000000307', 'substrate-depletion oscillator', (2, 1)),
+]
+BEHAVIOUR_WORD = dict(
+    [
+        ('multistable', 'holds two states'),
+        ('oscillating', 'ticks'),
+        ('continuum', 'settles anywhere'),
+        ('unbounded', 'grows without limit'),
+        ('damped', 'rings, then settles'),
+        ('steady', 'settles'),
+    ]
+)
 
 
-def what_it_does(d):
+def what_it_does(d: dict | None) -> str:
+    """One phrase for what a model does at its published settings."""
     if not d or d.get('status') != 'ok':
         return 'not run'
     if d.get('forced'):
@@ -723,21 +871,23 @@ def what_it_does(d):
     return next(w for k, w in BEHAVIOUR_WORD.items() if k in b)
 
 
-def loops_word(p):
+def loops_word(p: tuple[int, int] | None) -> str:
+    """The sign pattern of a (loops, braking loops) placement, or "none" or "no arrows"."""
     if p is None:
         return 'no arrows'
     c, k = p
     return 'none' if c == 0 else signs(c, k)
 
 
-def loops_html(p):
+def loops_html(p: tuple[int, int] | None) -> str:
     """loops_word with each sign in its colour, so both columns of the answer key paint a sign one way."""
     if p is None or p[0] == 0:
         return loops_word(p)
     return signs_html(*p)
 
 
-def fig_answer_key(struct, dyn):
+def fig_answer_key(struct: dict, dyn: dict) -> tuple[str, int, list]:
+    """The textbook-circuit table, the count that agrees with the census, and the model ids that do not."""
     rows, agree, misses = [], 0, []
     for mid, name, want in TEXTBOOK:
         r = struct[mid]
@@ -746,55 +896,93 @@ def fig_answer_key(struct, dyn):
         agree += ok
         if not ok:
             misses.append(mid)
-        rows.append(f'<tr><td>{name}</td><td>{"none" if want == 0 else signs_html(*want)}</td>'
-                    f'<td>{loops_html(got)}{"" if ok else "&#160;&#10007;"}</td><td>{what_it_does(dyn.get(mid))}</td></tr>')
-    table = ('<div class="scroll"><table class="key"><tr><th>Circuit</th><th>Its name implies</th><th>Census counts</th>'
-             '<th>At published settings</th></tr>' + ''.join(rows) + '</table></div>')
+        rows.append(
+            f'<tr><td>{name}</td><td>{"none" if want == 0 else signs_html(*want)}</td>'
+            f'<td>{loops_html(got)}{"" if ok else "&#160;&#10007;"}</td><td>{what_it_does(dyn.get(mid))}</td></tr>'
+        )
+    table = (
+        '<div class="scroll"><table class="key"><tr><th>Circuit</th><th>Its name implies</th><th>Census counts</th>'
+        '<th>At published settings</th></tr>' + ''.join(rows) + '</table></div>'
+    )
     return table, agree, misses
 
 
-def fig_pipeline(struct, dyn, starts):
+def fig_pipeline(struct: dict, dyn: dict, starts: int) -> str:
     """The repressilator through the census, with the numbers read from the results."""
     import libsbml
+
     r, d = struct['BIOMD0000000012'], dyn['BIOMD0000000012']
     loop = r['loop_list']
-    assert r['species'] == 6 and r['reactions'] == 12 and r['arcs'] == 6 and len(loop) == 1 and len(loop[0]['nodes']) == 6 and loop[0]['sign'] == '-', r
+    assert (
+        r['species'] == 6
+        and r['reactions'] == 12
+        and r['arcs'] == 6
+        and len(loop) == 1
+        and len(loop[0]['nodes']) == 6
+        and loop[0]['sign'] == '-'
+    ), r
     assert r['integrator_nodes'] == 0 and d['runs'] == ['oscillating'] * starts, d
     m = libsbml.readSBMLFromFile(str(ROOT / 'data' / 'r31_curated' / 'BIOMD0000000012.xml')).getModel()
     law = libsbml.formulaToL3String(m.getReaction('Reaction11').getKineticLaw().getMath())
     assert law == 'a0_tr + a_tr * KM^n / (KM^n + PX^n)', law
-    step = lambda title, text, code, out: (f'<li><b>{title}</b> {text}' + (f'<pre>{code}</pre>' if code else '') + f'<span class="out">{out}</span></li>')
-    return '<ol class="steps">' + ''.join([
-        step('Read the model.', f'BioModels stores each model as an SBML file: its molecules, its reactions and the rate law of every reaction. libRoadRunner {cite("roadrunner")} turns the file into equations it can solve.',
-             "rr = roadrunner.RoadRunner(path)", 'Six molecules (three RNAs and three proteins) and twelve reactions.'),
-        step('Read each arrow.', 'TetR&#8217;s RNA is made at a rate that falls as LacI protein (PX) rises:',
-             law + '\n\nsg = s * (1 if st > 0 else -1)',
-             'The code nudges LacI up by a tenth of a percent and the rate falls (s = &#8722;1). The reaction makes TetR RNA (st &gt; 0). So LacI brakes TetR. Reading every reaction this way, at five moments of the model&#8217;s own run, gives six arrows: each protein brakes the next gene, and each RNA amplifies its own protein.'),
-        step('Find the loops.', 'A search walks the arrows and keeps every path that returns to its start, skipping any the filters forbid.',
-             'found, complete = circuits(n, arcs, True, reverse, supports)',
-             'One loop through all six molecules, with three brakes: a braking loop.'),
-        step('Look for running totals.', 'A molecule keeps one if its own level appears in none of the rate laws that change it.',
-             'if laws and all(v not in d for d in laws):\n    integ.add(i)',
-             'Each RNA and protein decays at a rate set by its own level, so none does.'),
-        step('Run it.', f'The model is simulated from its own start and {WORD[starts - 1]} others, and each run is labelled.',
-             'starts = [x0] + spread_starts(x0, N, STARTS - 1, seed)',
-             f'It ticks from all {WORD[starts]} starts.'),
-    ]) + '</ol>'
+    step = lambda title, text, code, out: (
+        f'<li><b>{title}</b> {text}' + (f'<pre>{code}</pre>' if code else '') + f'<span class="out">{out}</span></li>'
+    )
+    return (
+        '<ol class="steps">'
+        + ''.join(
+            [
+                step(
+                    'Read the model.',
+                    f'BioModels stores each model as an SBML file: its molecules, its reactions and the rate law of every reaction. libRoadRunner {cite("roadrunner")} turns the file into equations it can solve.',
+                    "rr = roadrunner.RoadRunner(path)",
+                    'Six molecules (three RNAs and three proteins) and twelve reactions.',
+                ),
+                step(
+                    'Read each arrow.',
+                    'TetR&#8217;s RNA is made at a rate that falls as LacI protein (PX) rises:',
+                    law + '\n\nsg = s * (1 if st > 0 else -1)',
+                    'The code nudges LacI up by a tenth of a percent and the rate falls (s = &#8722;1). The reaction makes TetR RNA (st &gt; 0). So LacI brakes TetR. Reading every reaction this way, at five moments of the model&#8217;s own run, gives six arrows: each protein brakes the next gene, and each RNA amplifies its own protein.',
+                ),
+                step(
+                    'Find the loops.',
+                    'A search walks the arrows and keeps every path that returns to its start, skipping any the filters forbid.',
+                    'found, complete = circuits(n, arcs, True, reverse, supports)',
+                    'One loop through all six molecules, with three brakes: a braking loop.',
+                ),
+                step(
+                    'Look for running totals.',
+                    'A molecule keeps one if its own level appears in none of the rate laws that change it.',
+                    'if laws and all(v not in d for d in laws):\n    integ.add(i)',
+                    'Each RNA and protein decays at a rate set by its own level, so none does.',
+                ),
+                step(
+                    'Run it.',
+                    f'The model is simulated from its own start and {WORD[starts - 1]} others, and each run is labelled.',
+                    'starts = [x0] + spread_starts(x0, N, STARTS - 1, seed)',
+                    f'It ticks from all {WORD[starts]} starts.',
+                ),
+            ]
+        )
+        + '</ol>'
+    )
 
 
 # ---------------------------------------------------------------- data helpers
-def load_jsonl(p):
+def load_jsonl(p: str | pathlib.Path) -> dict:
+    """Read a JSON-lines file into a dict keyed by each record's model id."""
     return {d['model']: d for d in (json.loads(l) for l in open(p) if l.strip())}
 
 
-def placement(r):
+def placement(r: dict) -> tuple[int, int] | None:
+    """The (loops, braking loops) square a model lands in, or None if its census is incomplete."""
     m = r['defs'][MAIN]
     if not m.get('complete'):
         return None
     return m['c'], m['k']
 
 
-def square_data(struct, dyn):
+def square_data(struct: dict, dyn: dict) -> tuple[dict, dict, dict, list]:
     """Named model per square (only models with no running total, so the name sits over its box), behaviours per
     square, and the clocks that sit in a square with no braking loop."""
     examples, behav, depletion, dep_models = {}, {}, {}, []
@@ -825,9 +1013,17 @@ def square_data(struct, dyn):
     return examples, behav, depletion, dep_models
 
 
-def why_excluded(r):
-    if r.get('status') == 'timeout':
-        return 'ran out of time'
+def sci(x: float) -> str:
+    """3e10 as 3 &#215; 10<sup>10</sup> and 4.1e10 as 4.1 &#215; 10<sup>10</sup>, for the settings table."""
+    m, e = f'{x:.1e}'.split('e')
+    m = m.rstrip('0').rstrip('.')
+    return f'{m} &#215; 10<sup>{int(e)}</sup>' if m != '1' else f'10<sup>{int(e)}</sup>'
+
+
+def why_excluded(r: dict) -> str:
+    """The plain-words reason a model is left out of the census."""
+    if (r.get('status') or '').startswith('safety net'):
+        return 'ran past the wall-clock safety net'
     if r.get('status') == 'no influence arcs':
         return 'gave no arrows at the states read'
     e = r.get('error', '')
@@ -843,18 +1039,65 @@ def why_excluded(r):
 # ---------------------------------------------------------------- page
 # build() is the recipe. Each step takes the values it names from v and returns new ones; the asserts inside a step
 # stop the build when a sentence no longer matches the data. The sections then render the page in reading order.
-def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path):
+def build(
+    tables_traj: str | pathlib.Path,
+    tables_random: str | pathlib.Path | None,
+    toys_path: str | pathlib.Path,
+    struct_path: str | pathlib.Path,
+    dyn_path: str | pathlib.Path,
+    out_path: str | pathlib.Path,
+) -> str | pathlib.Path:
+    """Build the census page from the results files, write it to out_path and return out_path."""
     v = load_inputs(tables_traj, tables_random, toys_path, struct_path, dyn_path)
-    for step in (count_rows, check_depletion_clocks, read_running_totals, check_replication, place_fly_clocks,
-                 tabulate_controls, count_behaviours, check_model_270, list_exclusions, read_random_signs, read_settings,
-                 describe_pipeline, name_elements, draw_funnel, list_census_rows, find_candidates, build_hero_elements,
-                 draw_interactive_figures, score_claims, check_answer_key, write_verdict, make_links):
+    for step in (
+        count_rows,
+        check_depletion_clocks,
+        read_running_totals,
+        check_replication,
+        place_fly_clocks,
+        tabulate_controls,
+        count_behaviours,
+        check_model_270,
+        list_exclusions,
+        read_random_signs,
+        read_settings,
+        describe_pipeline,
+        name_elements,
+        draw_funnel,
+        list_census_rows,
+        find_candidates,
+        build_hero_elements,
+        draw_interactive_figures,
+        score_claims,
+        check_answer_key,
+        write_verdict,
+        make_links,
+    ):
         new = step(**v)
-        assert not new.keys() & v.keys(), (step.__name__, sorted(new.keys() & v.keys()), 'each value comes from one step')
+        assert not new.keys() & v.keys(), (
+            step.__name__,
+            sorted(new.keys() & v.keys()),
+            'each value comes from one step',
+        )
         v.update(new)
-    page = ''.join(section(**v) for section in (
-        section_head, section_intro, section_theory, section_table, section_census, section_gaps, section_close,
-        section_supp_ab, section_supp_c, section_methods_models, section_methods_totals, section_methods_rules, section_refs))
+    page = ''.join(
+        section(**v)
+        for section in (
+            section_head,
+            section_intro,
+            section_theory,
+            section_table,
+            section_census,
+            section_gaps,
+            section_close,
+            section_supp_ab,
+            section_supp_c,
+            section_methods_models,
+            section_methods_totals,
+            section_methods_rules,
+            section_refs,
+        )
+    )
     page = finish_page(page)
     pathlib.Path(out_path).parent.mkdir(exist_ok=True)
     pathlib.Path(out_path).write_text(page, encoding='utf-8')
@@ -879,14 +1122,16 @@ def pct(a, n):
 def clip(t, w=44):
     """A model name cut at a word boundary to fit w characters."""
     t = t.replace('_', ' ')
-    return t if len(t) <= w else t[:t.rfind(' ', 0, w)] + '\u2026'
+    return t if len(t) <= w else t[: t.rfind(' ', 0, w)] + '\u2026'
 
 
 def card(label, title, found, mark, verdict, note):
     """One scorecard card."""
     # label, title, what was found, verdict: the title says the test, so the found line carries what it needs of it
-    return (f'<div class="card"><p class="k">{label}</p><h3>{title}</h3><dl><dt>found</dt><dd>{found}</dd></dl>'
-            f'<p class="v"><span class="chip"><span aria-hidden="true">{mark}</span> {verdict}</span>{note}</p></div>')
+    return (
+        f'<div class="card"><p class="k">{label}</p><h3>{title}</h3><dl><dt>found</dt><dd>{found}</dd></dl>'
+        f'<p class="v"><span class="chip"><span aria-hidden="true">{mark}</span> {verdict}</span>{note}</p></div>'
+    )
 
 
 def count_rows(*, T, struct, dyn, **_):
@@ -898,8 +1143,14 @@ def count_rows(*, T, struct, dyn, **_):
     usable, census = T['usable'], sum(T['census'].values())
     th = T['theorem_checks']
     assert not th['multistable without refined positive circuit'] and not th['oscillating without negative circuit'], th
-    autonomous = sum(1 for k, d in dyn.items() if d.get('status') == 'ok' and not d.get('forced') and struct.get(k, {}).get('status') == 'ok')
-    return dict(D=D, rows=rows, r1=r1, r2=r2, r3=r3, small=small, usable=usable, census=census, th=th, autonomous=autonomous)
+    autonomous = sum(
+        1
+        for k, d in dyn.items()
+        if d.get('status') == 'ok' and not d.get('forced') and struct.get(k, {}).get('status') == 'ok'
+    )
+    return dict(
+        D=D, rows=rows, r1=r1, r2=r2, r3=r3, small=small, usable=usable, census=census, th=th, autonomous=autonomous
+    )
 
 
 def check_depletion_clocks(*, struct, dyn, **_):
@@ -910,9 +1161,14 @@ def check_depletion_clocks(*, struct, dyn, **_):
     kinds_count = {}
     for mid in dep_models:
         kinds_count[DEPLETION_KIND[mid]] = kinds_count.get(DEPLETION_KIND[mid], 0) + 1
-    kind_words = {'calcium': ('is a calcium spike', 'are calcium spikes'), 'glycolysis': ('is a sugar-burning pulse in pancreatic cells', 'are sugar-burning pulses in pancreatic cells'),
-                  'enzyme': ('is an enzyme oscillator', 'are enzyme oscillators')}
-    dep_kinds = listing(f'{WORD[n]} {kind_words[k][n > 1]}' for k, n in sorted(kinds_count.items(), key=lambda x: -x[1]))
+    kind_words = {
+        'calcium': ('is a calcium spike', 'are calcium spikes'),
+        'glycolysis': ('is a sugar-burning pulse in pancreatic cells', 'are sugar-burning pulses in pancreatic cells'),
+        'enzyme': ('is an enzyme oscillator', 'are enzyme oscillators'),
+    }
+    dep_kinds = listing(
+        f'{WORD[n]} {kind_words[k][n > 1]}' for k, n in sorted(kinds_count.items(), key=lambda x: -x[1])
+    )
     return dict(behav=behav, depletion=depletion, dep=dep, dep_kinds=dep_kinds)
 
 
@@ -939,7 +1195,12 @@ def read_running_totals(*, T, toys, rows, r1, r2, integ_rows, **_):
 def check_replication(*, T, **_):
     """This census beside Baudier, Fages and Soliman's Table 1 on the same release."""
     rep, r24 = T['replication']['with reactions'], T['replication']['reference 24']
-    assert (r24['models'], r24['no negative circuit'], r24['no positive circuit'], r24['no refined positive circuit']) == (506, 70, 48, 105)
+    assert (
+        r24['models'],
+        r24['no negative circuit'],
+        r24['no positive circuit'],
+        r24['no refined positive circuit'],
+    ) == (506, 70, 48, 105)
     return dict(rep=rep, r24=r24)
 
 
@@ -951,13 +1212,17 @@ def place_fly_clocks(*, struct, **_):
     # fruit-fly day clock
     fp = {mid: placement(struct[mid]) for mid in FLY_CLOCK}
     assert all(fp.values()) and fp['BIOMD0000000171'] == fp['BIOMD0000000021'], fp
+
     def loops_at(mid, unit=False, each=''):
         c, k = fp[mid]
         n = f'{WORD.get(c, c)}{" loop" + ("s" if c > 1 else "") if unit else ""}{each}'
         return f'{n} ({signs(c, k)})' if c <= 3 else n
-    fly_txt = (f'Goldbeter&#8217;s 1995 model has {loops_at("BIOMD0000000016", unit=True)}; Tyson and colleagues&#8217; 1999 model has {loops_at("BIOMD0000000036")}; '
-               f'Leloup and Goldbeter&#8217;s 1998 and 1999 models have {loops_at("BIOMD0000000171", each=" each")}; '
-               f'and their 1999 model with Gonze has {loops_at("BIOMD0000000298")}')
+
+    fly_txt = (
+        f'Goldbeter&#8217;s 1995 model has {loops_at("BIOMD0000000016", unit=True)}; Tyson and colleagues&#8217; 1999 model has {loops_at("BIOMD0000000036")}; '
+        f'Leloup and Goldbeter&#8217;s 1998 and 1999 models have {loops_at("BIOMD0000000171", each=" each")}; '
+        f'and their 1999 model with Gonze has {loops_at("BIOMD0000000298")}'
+    )
     fly_places = len(set(fp.values()))
     fp_max = max(c for c, _ in fp.values())
     fp_min = min(c for c, _ in fp.values())
@@ -1003,14 +1268,31 @@ def count_behaviours(*, T, rows, **_):
     split_full = all(sp['patterns'][str(nu)] == nu + 1 for nu in (1, 2, 3))
     kpf = sum(rows[str(nu)]['k_pf_differs'] for nu in (1, 2, 3))
     nud = sum(rows[str(nu)]['nu_differs'] for nu in (1, 2, 3))
-    return dict(fine=fine, coarse=coarse, pred=pred, over=over, unsettled=unsettled, t4=t4, t3=t3, sp=sp, split_full=split_full, kpf=kpf, nud=nud)
+    return dict(
+        fine=fine,
+        coarse=coarse,
+        pred=pred,
+        over=over,
+        unsettled=unsettled,
+        t4=t4,
+        t3=t3,
+        sp=sp,
+        split_full=split_full,
+        kpf=kpf,
+        nud=nud,
+    )
 
 
 def check_model_270(*, struct, **_):
     """Model 270, the filters' case study."""
     r270 = struct['BIOMD0000000270']
     m270 = r270['defs'][MAIN]
-    assert r270['refined_positive'] is False and m270['complete'] and m270['k'] == m270['c'] > 0 and r270['conservation_laws'] == 9, m270
+    assert (
+        r270['refined_positive'] is False
+        and m270['complete']
+        and m270['k'] == m270['c'] > 0
+        and r270['conservation_laws'] == 9
+    ), m270
     return dict(m270=m270)
 
 
@@ -1022,7 +1304,13 @@ def list_exclusions(*, struct, **_):
         if r.get('status') != 'ok':
             excl.setdefault(why_excluded(r), []).append(r['model'])
     assert 'BIOMD0000000310' in excl.get('gave no arrows at the states read', []), 'Tyson mutual inhibition sentence'
-    ex_order = ['use built-in delays', 'use on-off rules', 'have values the solver cannot set', 'ran out of time', 'gave no arrows at the states read']
+    ex_order = [
+        'use built-in delays',
+        'use on-off rules',
+        'have values the solver cannot set',
+        'ran past the wall-clock safety net',
+        'gave no arrows at the states read',
+    ]
     excl_txt = listing(f'{len(excl[w])} {w}' for w in ex_order if w in excl)
     no_arrows = len(excl.get('gave no arrows at the states read', []))
     return dict(excl_txt=excl_txt, no_arrows=no_arrows)
@@ -1035,24 +1323,48 @@ def read_random_signs(*, TR, **_):
         thr = TR['theorem_checks']
         RR = {str(k): v for k, v in TR['defs'][MAIN]['rows'].items()}
         if not thr['multistable without refined positive circuit'] and not thr['oscillating without negative circuit']:
-            rob = (f' It gives {RR["2"]["essay"]["occupied"]} of 9 elements at two loops and {RR["3"]["essay"]["occupied"]} of 16 at three, '
-                   f'and the two proven rules still hold.')
+            rob = (
+                f' It gives {RR["2"]["essay"]["occupied"]} of 9 elements at two loops and {RR["3"]["essay"]["occupied"]} of 16 at three, '
+                f'and the two proven rules still hold.'
+            )
         else:
-            bad = len(thr['multistable without refined positive circuit']) + len(thr['oscillating without negative circuit'])
-            rob = (f' It gives {RR["2"]["essay"]["occupied"]} of 9 and {RR["3"]["essay"]["occupied"]} of 16, but loses arrows: '
-                   f'{bad} models then seem to break a proven rule, so those numbers are not used.')
+            bad = len(thr['multistable without refined positive circuit']) + len(
+                thr['oscillating without negative circuit']
+            )
+            rob = (
+                f' It gives {RR["2"]["essay"]["occupied"]} of 9 and {RR["3"]["essay"]["occupied"]} of 16, but loses arrows: '
+                f'{bad} models then seem to break a proven rule, so those numbers are not used.'
+            )
     return dict(rob=rob)
 
 
 def read_settings(*, T, D, **_):
     """The loop-count definitions table and the run's settings."""
-    defs = [('thomas', 'every loop, as drawn'), ('ref24', 'after the filters'), ('ref24_rank', 'after the filters and the rank test (used here)')]
-    def_rows = ''.join(f"<tr><td>{lab}</td>" + ''.join(f"<td>{T['defs'][d]['rows'][n]['models']}</td>" for n in ('1', '2', '3')) + '</tr>' for d, lab in defs)
+    defs = [
+        ('thomas', 'every loop, as drawn'),
+        ('ref24', 'after the filters'),
+        ('ref24_rank', 'after the filters and the rank test (used here)'),
+    ]
+    def_rows = ''.join(
+        f"<tr><td>{lab}</td>"
+        + ''.join(f"<td>{T['defs'][d]['rows'][n]['models']}</td>" for n in ('1', '2', '3'))
+        + '</tr>'
+        for d, lab in defs
+    )
     starts = int(re.search(r'^STARTS = (\d+)', (ROOT / 'analysis' / 'dynamics.py').read_text(), re.M).group(1))
     le3 = sum(D['distribution'].get(c, 0) for c in ('0', '1', '2', '3'))
     unfinished = D['distribution'].get('over budget', 0)
-    runtime = 'about two hours'
-    return dict(def_rows=def_rows, starts=starts, le3=le3, unfinished=unfinished, runtime=runtime)
+    runtime = 'about three hours'
+    budgets = {
+        f: sci(float(re.search(r'^WORK_BUDGET = (\S+)', (ROOT / 'analysis' / f).read_text(), re.M).group(1)))
+        for f in ('dynamics.py', 'truth_tests.py', 'fingerprints.py', 'robust_return.py')
+    }
+    net_h = int(
+        re.search(r'^SAFETY_NET_S = (\d+) \* 3600', (ROOT / 'analysis' / 'budget.py').read_text(), re.M).group(1)
+    )
+    return dict(
+        def_rows=def_rows, starts=starts, le3=le3, unfinished=unfinished, runtime=runtime, budgets=budgets, net_h=net_h
+    )
 
 
 def describe_pipeline(*, dyn, integ_rows, census, usable, small, unfinished, starts, autonomous, th, pt, **_):
@@ -1060,20 +1372,58 @@ def describe_pipeline(*, dyn, integ_rows, census, usable, small, unfinished, sta
     dyn_status = {}
     for d_ in dyn.values():
         dyn_status[d_.get('status')] = dyn_status.get(d_.get('status'), 0) + 1
+    spent = sum(v for k, v in dyn_status.items() if (k or '').startswith('budget'))
+    assert not any((k or '').startswith('safety net') for k in dyn_status), 'a run hit the safety net: load decided it'
     n_near = sum(1 for d_ in integ_rows.values() if d_.get('near_integrators'))
     step2 = lambda title, text, out: f'<li><b>{title}</b> {text}<span class="out">{out}</span></li>'
-    pipeline_html = '<ol class="steps">' + ''.join([
-        step2('<code>get_biomodels.sh</code>', 'downloads BioModels release 31, checks its SHA-256 and unpacks the curated models.', f'{census} model files.'),
-        step2('<code>loops.py</code>', 'reads each model, reads every arrow at five states of its own run, lists loops under three definitions, marks strict running totals, and asks <code>elim.py</code> whether an amplifying loop survives the filters.',
-              f'{usable} models read; {small} with one to three loops after the filters; {unfinished} searches unfinished.'),
-        step2('<code>loops.py</code> again', 'repeats the count with signs read at random states.', 'A check on the sign reading.'),
-        step2('<code>dynamics.py</code>', f'runs each readable model from {WORD[starts]} starts and labels what it does.',
-              f'{autonomous} run on their own; {th["forced models excluded"]} are driven from outside; {dyn_status.get("timeout", 0)} ran out of time.'),
-        step2('<code>integrators.py</code>', 'adds the loose and paired running-total readings.', f'{n_near} models with a loose running total; {len(pt["models with one"])} with a paired one.'),
-        step2('<code>tabulate.py</code>, <code>report_tables.py</code>', 'place every model in the table, count elements four ways, and run the proven-rule checks, the controls and the replication.', 'tables_traj.json, tables_random.json, tables.md.'),
-        step2('<code>toys.py</code>', 'builds the enzyme, the ring and the controller as models and counts them.', 'Fails the run if any toy changes.'),
-        step2('<code>build_post.py</code>', 'writes this page from the tables.', 'Refuses to build if a sentence no longer matches the data.'),
-    ]) + '</ol>'
+    pipeline_html = (
+        '<ol class="steps">'
+        + ''.join(
+            [
+                step2(
+                    '<code>get_biomodels.sh</code>',
+                    'downloads BioModels release 31, checks its SHA-256 and unpacks the curated models.',
+                    f'{census} model files.',
+                ),
+                step2(
+                    '<code>loops.py</code>',
+                    'reads each model, reads every arrow at five states of its own run, lists loops under three definitions, marks strict running totals, and asks <code>elim.py</code> whether an amplifying loop survives the filters.',
+                    f'{usable} models read; {small} with one to three loops after the filters; {unfinished} searches unfinished.',
+                ),
+                step2(
+                    '<code>loops.py</code> again',
+                    'repeats the count with signs read at random states.',
+                    'A check on the sign reading.',
+                ),
+                step2(
+                    '<code>dynamics.py</code>',
+                    f'runs each readable model from {WORD[starts]} starts and labels what it does.',
+                    f'{autonomous} run on their own; {th["forced models excluded"]} are driven from outside; {spent} ran out of work budget.',
+                ),
+                step2(
+                    '<code>integrators.py</code>',
+                    'adds the loose and paired running-total readings.',
+                    f'{n_near} models with a loose running total; {len(pt["models with one"])} with a paired one.',
+                ),
+                step2(
+                    '<code>tabulate.py</code>, <code>report_tables.py</code>',
+                    'place every model in the table, count elements four ways, and run the proven-rule checks, the controls and the replication.',
+                    'tables_traj.json, tables_random.json, tables.md.',
+                ),
+                step2(
+                    '<code>toys.py</code>',
+                    'builds the enzyme, the ring and the controller as models and counts them.',
+                    'Fails the run if any toy changes.',
+                ),
+                step2(
+                    '<code>build_post.py</code>',
+                    'writes this page from the tables.',
+                    'Refuses to build if a sentence no longer matches the data.',
+                ),
+            ]
+        )
+        + '</ol>'
+    )
     return dict(pipeline_html=pipeline_html)
 
 
@@ -1088,21 +1438,41 @@ def name_elements(**_):
 def draw_funnel(*, census, usable, complete_n, small, autonomous, excl_txt, unfinished, starts, th, **_):
     """Figure 6's funnel: release 31, then the hold-out batch, on one scale."""
     stages = [
-        (census, census, 'curated models in release 31',
-         'Downloaded BioModels release 31 (193 MB) and checked its fingerprint (SHA-256).',
-         'Anyone who reruns the code gets the same files.'),
-        (usable, census, 'read as equations',
-         f'Read each model&#8217;s equations with the standard tools (libSBML, libRoadRunner). {census - usable} could not be used: {excl_txt}.',
-         'The census needs rate equations it can nudge and run.'),
-        (complete_n, census, 'with every loop listed',
-         f'Read each arrow&#8217;s sign at five moments of the model&#8217;s own run, then listed every loop that survives the filters. For {unfinished} models the search reached its step limit.',
-         'Signs read where the model actually runs show the circuit as published; the filters remove loops that chemistry makes for free.'),
-        (small, census, 'with one to three loops',
-         'Placed each in the table by its loops, braking loops and running totals.',
-         'These rows hold the 4, 9 and 16 elements that the table&#8217;s predictions are about.'),
-        (autonomous, census, f'of the {usable} run on their own',
-         f'Simulated each from {WORD[starts]} starting states and labelled what it did: settles, ticks, holds two states, and so on. {th["forced models excluded"]} models driven by an outside schedule were set aside.',
-         'The proven rules, and the table&#8217;s claims, are about circuits left to themselves.'),
+        (
+            census,
+            census,
+            'curated models in release 31',
+            'Downloaded BioModels release 31 (193 MB) and checked its fingerprint (SHA-256).',
+            'Anyone who reruns the code gets the same files.',
+        ),
+        (
+            usable,
+            census,
+            'read as equations',
+            f'Read each model&#8217;s equations with the standard tools (libSBML, libRoadRunner). {census - usable} could not be used: {excl_txt}.',
+            'The census needs rate equations it can nudge and run.',
+        ),
+        (
+            complete_n,
+            census,
+            'with every loop listed',
+            f'Read each arrow&#8217;s sign at five moments of the model&#8217;s own run, then listed every loop that survives the filters. For {unfinished} models the search reached its step limit.',
+            'Signs read where the model actually runs show the circuit as published; the filters remove loops that chemistry makes for free.',
+        ),
+        (
+            small,
+            census,
+            'with one to three loops',
+            'Placed each in the table by its loops, braking loops and running totals.',
+            'These rows hold the 4, 9 and 16 elements that the table&#8217;s predictions are about.',
+        ),
+        (
+            autonomous,
+            census,
+            f'of the {usable} run on their own',
+            f'Simulated each from {WORD[starts]} starting states and labelled what it did: settles, ticks, holds two states, and so on. {th["forced models excluded"]} models driven by an outside schedule were set aside.',
+            'The proven rules, and the table&#8217;s claims, are about circuits left to themselves.',
+        ),
     ]
     # the labelled models, then the hold-out batch, on the same 640-model scale (results/truth_tests.json, holdout_score.json)
     labelled = json.loads((R / 'truth_tests.json').read_text())['rules']['autonomous']
@@ -1110,21 +1480,41 @@ def draw_funnel(*, census, usable, complete_n, small, autonomous, excl_txt, unfi
     ho_six = json.loads((R / 'holdout_score.json').read_text())['six answers']
     ho_addr = json.loads((R / 'holdout_score.json').read_text())['the address']['n']
     stages += [
-        (labelled, census, 'of those, match a behaviour label',
-         f'Kept the models whose runs match a label. The other {autonomous - labelled} never settled within 100,000 time units, or the solver failed.',
-         'The two sign rules and the atlas read a behaviour, so they need one.'),
-        (hf['listed'], census, 'held out: curated since 2017',
-         f'Listed and fetched every curated model added after release 31. {hf["read as equations"]} read as equations, {hf["run on their own"]} run on their own.',
-         'The tests were written down before any of these was read, so the batch can catch a rule fitted to release 31.'),
-        (hf['match a behaviour label'], census, 'held out, for the sign rules',
-         'The models with a behaviour label, read exactly as release 31 was read.',
-         'A rule that holds only on the models it was found in is not a rule.'),
-        (ho_six['filed'], census, 'held out, for the atlas',
-         f'{hf["atlas read"]} gave an answer to the pushes that could be read; {hf["atlas read"] - ho_six["filed"]} barely moved; the rest fill the rows.',
-         'The atlas predicts that its alphabet stays small as the library grows.'),
-        (ho_addr, census, 'held out, for the address test',
-         'Filed by the atlas, with one to three loops.',
-         'Whether a square predicts a circuit&#8217;s answer better than the two sign rules alone.'),
+        (
+            labelled,
+            census,
+            'of those, match a behaviour label',
+            f'Kept the models whose runs match a label. The other {autonomous - labelled} never settled within 100,000 time units, or the solver failed.',
+            'The two sign rules and the atlas read a behaviour, so they need one.',
+        ),
+        (
+            hf['listed'],
+            census,
+            'held out: curated since 2017',
+            f'Listed and fetched every curated model added after release 31. {hf["read as equations"]} read as equations, {hf["run on their own"]} run on their own.',
+            'The tests were written down before any of these was read, so the batch can catch a rule fitted to release 31.',
+        ),
+        (
+            hf['match a behaviour label'],
+            census,
+            'held out, for the sign rules',
+            'The models with a behaviour label, read exactly as release 31 was read.',
+            'A rule that holds only on the models it was found in is not a rule.',
+        ),
+        (
+            ho_six['filed'],
+            census,
+            'held out, for the atlas',
+            f'{hf["atlas read"]} gave an answer to the pushes that could be read; {hf["atlas read"] - ho_six["filed"]} barely moved; the rest fill the rows.',
+            'The atlas predicts that its alphabet stays small as the library grows.',
+        ),
+        (
+            ho_addr,
+            census,
+            'held out, for the address test',
+            'Filed by the atlas, with one to three loops.',
+            'Whether a square predicts a circuit&#8217;s answer better than the two sign rules alone.',
+        ),
     ]
     funnel_html = IA.funnel(stages)
     return dict(funnel_html=funnel_html)
@@ -1144,8 +1534,16 @@ def list_census_rows(*, struct, dyn, usable, **_):
             loops_txt = f'{c_} loop' + ('' if c_ == 1 else 's')
             pattern = (signs(c_, k_) + (' ' + '\u222b' * j_ if j_ else '')) if c_ else 'no loop'
             el = TF.NUMBER.get((c_, k_, j_)) if c_ <= 3 else None
-        ex_rows.append({'id': str(int(mid[-6:])), 'name': r.get('name') or mid, 'loops': loops_txt,
-                        'pattern': pattern.replace(MINUS, '\u2212'), 'element': el, 'does': what_it_does(dyn.get(mid))})
+        ex_rows.append(
+            {
+                'id': str(int(mid[-6:])),
+                'name': r.get('name') or mid,
+                'loops': loops_txt,
+                'pattern': pattern.replace(MINUS, '\u2212'),
+                'element': el,
+                'does': what_it_does(dyn.get(mid)),
+            }
+        )
     assert len(ex_rows) == usable
     return dict(ex_rows=ex_rows)
 
@@ -1162,7 +1560,9 @@ def find_candidates(*, struct, integ_rows, **_):
         near, pair = set(ig.get('near_integrators') or []), set(ig.get('pair_nodes') or [])
         kk = sum(1 for l in r['loop_list'] if l['sign'] == '-')
         near_el[mid] = TF.NUMBER.get((m['c'], kk, sum(1 for l in r['loop_list'] if set(l['nodes']) & near)))
-        pair_el[mid] = TF.NUMBER.get((m['c'], kk, sum(1 for l in r['loop_list'] if l['integrates'] or set(l['nodes']) & pair)))
+        pair_el[mid] = TF.NUMBER.get(
+            (m['c'], kk, sum(1 for l in r['loop_list'] if l['integrates'] or set(l['nodes']) & pair))
+        )
     return dict(near_el=near_el, pair_el=pair_el)
 
 
@@ -1181,13 +1581,24 @@ def build_hero_elements(*, struct, ex_rows, near_el, pair_el, small, **_):
             if x['does'] not in ('not run', 'never settles'):
                 does[x['does']] = does.get(x['does'], 0) + 1
         census_ex = []
-        shows = {'holds two states': 'holds two states', 'ticks': 'ticks', 'fires and resets': 'ticks'}.get(EL.describe(n_, k_, j_)['traces'][0])
+        shows = {'holds two states': 'holds two states', 'ticks': 'ticks', 'fires and resets': 'ticks'}.get(
+            EL.describe(n_, k_, j_)['traces'][0]
+        )
         for x in inside:
             nm = short.get(x['id'])
             if nm and nm not in census_ex and x['does'] == shows:
                 census_ex.append(nm)
-        cands = [] if inside else sorted({clip(struct[mid].get('name') or mid) for mid in near_el
-                                          if near_el[mid] == num or pair_el.get(mid) == num})
+        cands = (
+            []
+            if inside
+            else sorted(
+                {
+                    clip(struct[mid].get('name') or mid)
+                    for mid in near_el
+                    if near_el[mid] == num or pair_el.get(mid) == num
+                }
+            )
+        )
         essay_ex = EL.ESSAY_EXAMPLES.get(e, [])
         status = 'found' if inside else 'known' if essay_ex else 'candidate' if cands else 'blank'
         D_ = EL.describe(n_, k_, j_)
@@ -1197,13 +1608,46 @@ def build_hero_elements(*, struct, ex_rows, near_el, pair_el, small, **_):
             # census reads running totals only on loops, so none is shown to count and the counter stays a prediction.
             status, note = 'candidate', f'{len(inside)} curated models with no loop; none shown to count'
             D_ = dict(D_, predicted=True)
-        hero_els.append(dict(D_, num=num, n=n_, k=k_, j=j_, i=row.index(e), L=len(row), count=len(inside), status=status,
-                             statusText=note or {'found': f'found in {len(inside)} curated models', 'known': 'known from experiments',
-                                                 'candidate': 'candidates to check', 'blank': 'not found yet'}[status], **({'note': note} if note else {}),
-                             sig=sig, sigShort=''.join('<span class="sp">+</span>' if ch == '+' else '<span class="sn">\u2212</span>' if ch == '\u2212' else ch for ch in sig.replace(' ', '')) if n_ else '', sym=sym, symHtml=sym_html, observed=sorted(does.items(), key=lambda t: -t[1])[:3],
-                             examples=census_ex[:3], essay=essay_ex[:3], candidates=cands[:3]))
+        hero_els.append(
+            dict(
+                D_,
+                num=num,
+                n=n_,
+                k=k_,
+                j=j_,
+                i=row.index(e),
+                L=len(row),
+                count=len(inside),
+                status=status,
+                statusText=note
+                or {
+                    'found': f'found in {len(inside)} curated models',
+                    'known': 'known from experiments',
+                    'candidate': 'candidates to check',
+                    'blank': 'not found yet',
+                }[status],
+                **({'note': note} if note else {}),
+                sig=sig,
+                sigShort=''.join(
+                    '<span class="sp">+</span>'
+                    if ch == '+'
+                    else '<span class="sn">\u2212</span>'
+                    if ch == '\u2212'
+                    else ch
+                    for ch in sig.replace(' ', '')
+                )
+                if n_
+                else '',
+                sym=sym,
+                symHtml=sym_html,
+                observed=sorted(does.items(), key=lambda t: -t[1])[:3],
+                examples=census_ex[:3],
+                essay=essay_ex[:3],
+                candidates=cands[:3],
+            )
+        )
     assert sum(h['count'] for h in hero_els if h['n']) == small, 'element counts must match the placed models'
-    top_ = [h for h in hero_els if h['j'] == 0 and h['n']]   # rows one to three; element zero is a prediction
+    top_ = [h for h in hero_els if h['j'] == 0 and h['n']]  # rows one to three; element zero is a prediction
     rest_ = [h for h in hero_els if h['j'] > 0]
     found_top = (sum(h['status'] == 'found' for h in top_), len(top_))
     found_rest = (sum(h['status'] == 'found' for h in rest_), len(rest_))
@@ -1218,38 +1662,98 @@ def draw_interactive_figures(*, hero_els, found_top, found_rest, ex_rows, usable
     coast_html = IA.coast()[0]
     ptable_html = IA.periodic_table(hero_els, found_top, found_rest)
     hero_html = IA.hero(hero_els)
-    explorer_html = IA.explorer(ex_rows, [('repressilator', 'repressilator'), ('toggle', 'toggle'), ('day clocks', 'circ'),
-                                          ('calcium', 'calcium'), ('p53', 'p53'), ('cell cycle', 'cell cycle')])
-    science_html = IA.science_loop([
-        ('idea', 'Loops sort circuits into (n + 1)<sup>2</sup> elements per row (claims 1 to 3).',
-         'Count loops on a reduced model, with fast binding steps merged, so the count does not depend on detail; test nesting order as a fourth count.'),
-        ('predict', 'No more than 9 and 16 kinds of behaviour; no switch without an amplifying loop; no clock without a braking one.',
-         'Write down which blanks newer models will fill before looking, for example antithetic controllers in element 3.'),
-        ('test', f'A census of {usable} curated models from BioModels release 31, at their published settings.',
-         'Enumerate every small circuit per element across thousands of rate settings, and rerun the census on the current release.'),
-        ('result', 'Every mix of amplifying and braking loops used, no theorem broken, behaviour within the bound at one setting, running totals unreadable, one clock in four places.',
-         'Report, per element, the full range of behaviours and how often each appears.'),
-        ('refine', 'Found the grain problem and the detector problem, fixed a counting bug, added a paired detector.',
-         'Benchmark running-total detectors on models with known answers, and decide whether braking loops should be filtered.'),
-    ])
-    return dict(coast_html=coast_html, ptable_html=ptable_html, hero_html=hero_html, explorer_html=explorer_html, science_html=science_html)
+    explorer_html = IA.explorer(
+        ex_rows,
+        [
+            ('repressilator', 'repressilator'),
+            ('toggle', 'toggle'),
+            ('day clocks', 'circ'),
+            ('calcium', 'calcium'),
+            ('p53', 'p53'),
+            ('cell cycle', 'cell cycle'),
+        ],
+    )
+    science_html = IA.science_loop(
+        [
+            (
+                'idea',
+                'Loops sort circuits into (n + 1)<sup>2</sup> elements per row (claims 1 to 3).',
+                'Count loops on a reduced model, with fast binding steps merged, so the count does not depend on detail; test nesting order as a fourth count.',
+            ),
+            (
+                'predict',
+                'No more than 9 and 16 kinds of behaviour; no switch without an amplifying loop; no clock without a braking one.',
+                'Write down which blanks newer models will fill before looking, for example antithetic controllers in element 3.',
+            ),
+            (
+                'test',
+                f'A census of {usable} curated models from BioModels release 31, at their published settings.',
+                'Enumerate every small circuit per element across thousands of rate settings, and rerun the census on the current release.',
+            ),
+            (
+                'result',
+                'Every mix of amplifying and braking loops used, no theorem broken, behaviour within the bound at one setting, running totals unreadable, one clock in four places.',
+                'Report, per element, the full range of behaviours and how often each appears.',
+            ),
+            (
+                'refine',
+                'Found the grain problem and the detector problem, fixed a counting bug, added a paired detector.',
+                'Benchmark running-total detectors on models with known answers, and decide whether braking loops should be filtered.',
+            ),
+        ]
+    )
+    return dict(
+        coast_html=coast_html,
+        ptable_html=ptable_html,
+        hero_html=hero_html,
+        explorer_html=explorer_html,
+        science_html=science_html,
+    )
 
 
 def score_claims(*, r1, r2, fine, pred, autonomous, near2, fly_places, **_):
     """The scorecard: three claims and the surprise."""
     assert '(1, 1)' not in r1['essay']['cells'] and '(1, 1)' not in r1['essay_pair']['cells']
-    scorecard = '<div class="cards">' + ''.join([
-        card('claim 1', 'No more kinds of behaviour than elements',
-             f'Two loops: {fine[2]} kinds, {pred[2]} elements. Three loops: {fine[3]} kinds, {pred[3]} elements.', '&#126;', 'holds, softly',
-             'Each model ran at one setting of its rates.'),
-        card('claim 2', 'Loops forbid some behaviours',
-             f'No memory without an amplifying loop, no clock without a brake, in {autonomous} models.', '&#10003;', 'holds', 'Both rules are theorems, so this checks the code.'),
-        card('claim 3', 'Every element can exist',
-             f'Every mix of amplifying and braking loops. At two loops a strict detector fills {r2["essay"]["occupied"]} of {pred[2]} elements, a loose one {near2}.', '?', 'untested',
-             'No detector reads running totals reliably yet.'),
-        card('surprise', 'One circuit, one address',
-             f'{cap(WORD[len(FLY_CLOCK)])} models of one clock land in {WORD[fly_places]} places.', '!', 'depends on the drawing', ''),
-    ]) + '</div>'
+    scorecard = (
+        '<div class="cards">'
+        + ''.join(
+            [
+                card(
+                    'claim 1',
+                    'No more kinds of behaviour than elements',
+                    f'Two loops: {fine[2]} kinds, {pred[2]} elements. Three loops: {fine[3]} kinds, {pred[3]} elements.',
+                    '&#126;',
+                    'holds, softly',
+                    'Each model ran at one setting of its rates.',
+                ),
+                card(
+                    'claim 2',
+                    'Loops forbid some behaviours',
+                    f'No memory without an amplifying loop, no clock without a brake, in {autonomous} models.',
+                    '&#10003;',
+                    'holds',
+                    'Both rules are theorems, so this checks the code.',
+                ),
+                card(
+                    'claim 3',
+                    'Every element can exist',
+                    f'Every mix of amplifying and braking loops. At two loops a strict detector fills {r2["essay"]["occupied"]} of {pred[2]} elements, a loose one {near2}.',
+                    '?',
+                    'untested',
+                    'No detector reads running totals reliably yet.',
+                ),
+                card(
+                    'surprise',
+                    'One circuit, one address',
+                    f'{cap(WORD[len(FLY_CLOCK)])} models of one clock land in {WORD[fly_places]} places.',
+                    '!',
+                    'depends on the drawing',
+                    '',
+                ),
+            ]
+        )
+        + '</div>'
+    )
     return dict(scorecard=scorecard)
 
 
@@ -1257,9 +1761,14 @@ def check_answer_key(*, struct, dyn, small, r3, **_):
     """Figure S7, the textbook answer key, and the audit sentence in Supplement B."""
     key_table, key_agree, key_misses = fig_answer_key(struct, dyn)
     assert key_agree == 5 and key_misses == ['BIOMD0000000310', 'BIOMD0000000307'], (key_agree, key_misses)
-    assert placement(struct['BIOMD0000000307'])[1] == 0 and struct['BIOMD0000000307']['defs']['thomas']['k'] == 1, 'depletion brake sentence'
+    assert placement(struct['BIOMD0000000307'])[1] == 0 and struct['BIOMD0000000307']['defs']['thomas']['k'] == 1, (
+        'depletion brake sentence'
+    )
     key_does = {mid: what_it_does(dyn.get(mid)) for mid, _, _ in TEXTBOOK}
-    assert key_does['BIOMD0000000311'] == 'holds two states' and all(key_does[m] in ('settles', 'rings, then settles') for m in ('BIOMD0000000306', 'BIOMD0000000307', 'BIOMD0000000308')), key_does
+    assert key_does['BIOMD0000000311'] == 'holds two states' and all(
+        key_does[m] in ('settles', 'rings, then settles')
+        for m in ('BIOMD0000000306', 'BIOMD0000000307', 'BIOMD0000000308')
+    ), key_does
     # the audit story quotes the first run (before the backtracking fix) against this one
     assert small == 175 and r3['essay']['occupied'] == 5, 'update the audit sentence in Supplement B'
     return dict(key_table=key_table, key_agree=key_agree)
@@ -1268,18 +1777,24 @@ def check_answer_key(*, struct, dyn, small, r3, **_):
 def write_verdict(*, fine, coarse, pred, over, **_):
     """The rule's verdict, in the essay's own terms."""
     if over:
-        test_verdict = (f'At {listing(LOOPS[nu] for nu in over)} that is more kinds of behaviour than elements, which by the essay&#8217;s own terms kills the rule, '
-                        f'at least with behaviour sorted this finely.')
+        test_verdict = (
+            f'At {listing(LOOPS[nu] for nu in over)} that is more kinds of behaviour than elements, which by the essay&#8217;s own terms kills the rule, '
+            f'at least with behaviour sorted this finely.'
+        )
     else:
         test_verdict = 'Neither two nor three loops shows more kinds of behaviour than it has elements, so by the essay&#8217;s own terms the rule survives.'
     under = [nu for nu in (2, 3) if fine[nu] < pred[nu]]
     if under:
-        test_verdict += (f' At {listing(LOOPS[nu] for nu in under)} there are fewer kinds than elements '
-                         f'({", ".join(f"{fine[nu]} of {pred[nu]}" for nu in under)}), which by the same terms marks one of the three counts as dead weight, '
-                         f'most likely the running totals, whose band is nearly empty.')
+        test_verdict += (
+            f' At {listing(LOOPS[nu] for nu in under)} there are fewer kinds than elements '
+            f'({", ".join(f"{fine[nu]} of {pred[nu]}" for nu in under)}), which by the same terms marks one of the three counts as dead weight, '
+            f'most likely the running totals, whose band is nearly empty.'
+        )
     if fine[1] > pred[1] and not over:
-        test_verdict += (f' One loop shows more than its {pred[1]}, though the essay set its test at two and three loops, '
-                         f'and merged into four behaviours it gives {"exactly " if coarse[1] == pred[1] else ""}{coarse[1]}.')
+        test_verdict += (
+            f' One loop shows more than its {pred[1]}, though the essay set its test at two and three loops, '
+            f'and merged into four behaviours it gives {"exactly " if coarse[1] == pred[1] else ""}{coarse[1]}.'
+        )
     return dict(test_verdict=test_verdict)
 
 
@@ -1417,7 +1932,22 @@ def section_table(*, ptable_html, **_):
 '''
 
 
-def section_census(*, census, funnel_html, explorer_html, usable, small, rest_models, scorecard, found_top, found_rest, fly_places, fp_min, fp_max, **_):
+def section_census(
+    *,
+    census,
+    funnel_html,
+    explorer_html,
+    usable,
+    small,
+    rest_models,
+    scorecard,
+    found_top,
+    found_rest,
+    fly_places,
+    fp_min,
+    fp_max,
+    **_,
+):
     """Sections 4 and 5: the census and what the table says."""
     return f'''<section id="data">
 <div class="text">
@@ -1564,7 +2094,24 @@ def section_supp_ab(*, small, key_table, toys, struct, dyn, starts, key_agree, r
 '''
 
 
-def section_supp_c(*, le3, usable, unfinished, dep, dep_kinds, test_verdict, fly_txt, coast_html, behav, depletion, fine, coarse, D, pt, **_):
+def section_supp_c(
+    *,
+    le3,
+    usable,
+    unfinished,
+    dep,
+    dep_kinds,
+    test_verdict,
+    fly_txt,
+    coast_html,
+    behav,
+    depletion,
+    fine,
+    coarse,
+    D,
+    pt,
+    **_,
+):
     """Supplement C: loop counts, behaviour and detail."""
     return f'''<details class="supp" id="supp-c">
 <summary>C. More results: loop counts, behaviour, detail</summary>
@@ -1671,7 +2218,7 @@ def section_methods_totals(*, unchecked, ctl_rows, autonomous, unsettled, th, st
 '''
 
 
-def section_methods_rules(*, runtime, sp, split_full, r24, rep, m270, t4, t3, **_):
+def section_methods_rules(*, runtime, budgets, net_h, sp, split_full, r24, rep, m270, t4, t3, **_):
     """Supplement D, part 3: proven rules, counting, replication, reproducing."""
     return f'''<h3>The proven rules</h3>
 <p>Two of the table&#8217;s rules are theorems, so the census uses them to check itself.</p>
@@ -1703,11 +2250,12 @@ def section_methods_rules(*, runtime, sp, split_full, r24, rep, m270, t4, t3, **
 <tr><td>Software</td><td>Python 3.9.6, libRoadRunner 2.7.0, python-libsbml 5.20.4, numpy 1.26.4, scipy 1.13.1, sympy 1.14.0 (all pinned in requirements.txt)</td></tr>
 <tr><td>Randomness</td><td>every draw seeded; parallel jobs write results in model order</td></tr>
 <tr><td>Loop search</td><td>5,000,000 steps or 20,000 loops per model; elimination capped at 300,000 arcs</td></tr>
-<tr><td>Time limits</td><td>1,200 s per model for loops, 900 s for behaviour, 240 s for running totals</td></tr>
+<tr><td>Work limits</td><td>solver work per model, counted in derivative evaluations: {budgets['dynamics.py']} for behaviour, {budgets['truth_tests.py']} per test of the laws, {budgets['fingerprints.py']} for the atlas, {budgets['robust_return.py']} for redrawn rates; no clock decides a record, and a {net_h}-hour wall-clock safety net per model only stops a runaway</td></tr>
 <tr><td>Threads</td><td>one per job (OMP_NUM_THREADS=1), so parallel jobs don&#8217;t fight over the CPU</td></tr>
-<tr><td>Run time</td><td>{runtime} with 8 jobs on a 10-core laptop</td></tr>
+<tr><td>Run time</td><td>{runtime} with 4 jobs on a 10-core laptop (Apple M5, 16 GB)</td></tr>
 </table></div>
 <p>Two full runs from the raw download, in separate folders, gave identical files apart from the recorded timings. <code>build_post.py</code> writes this page from the results and refuses to build if a sentence no longer matches the data.</p>
+{code_line(('how to rerun it', ['README.md#02-reproduce', 'analysis/run_all.sh']))}
 </div>
 </details>
 
@@ -1735,7 +2283,9 @@ def section_refs(**_):
 def finish_page(page):
     """Fill in the read time from the main text, number the references and count em dashes."""
     main_txt = page.split('<!--main-->')[1].split('<!--/main-->')[0]
-    main_txt = re.sub(r'<figure\b.*?(<figcaption.*?</figcaption>).*?</figure>', r'\1', main_txt, flags=re.S)  # a figure counts as its caption
+    main_txt = re.sub(
+        r'<figure\b.*?(<figcaption.*?</figcaption>).*?</figure>', r'\1', main_txt, flags=re.S
+    )  # a figure counts as its caption
     main_txt = re.sub(r'<(script|style|svg|math).*?</\1>', ' ', main_txt, flags=re.S)
     main_words = len(re.sub(r'<[^>]+>', ' ', main_txt).split())
     page = page.replace('%READTIME%', str(max(1, round(main_words / 230))))
@@ -1746,5 +2296,13 @@ def finish_page(page):
 
 
 if __name__ == '__main__':
-    print(build(R / 'tables_traj.json', R / 'tables_random.json', R / 'toys.json', R / 'r31_structure_traj.jsonl', R / 'r31_dynamics.jsonl',
-                ROOT / 'build' / 'count-the-elements.html'))
+    print(
+        build(
+            R / 'tables_traj.json',
+            R / 'tables_random.json',
+            R / 'toys.json',
+            R / 'r31_structure_traj.jsonl',
+            R / 'r31_dynamics.jsonl',
+            ROOT / 'build' / 'count-the-elements.html',
+        )
+    )

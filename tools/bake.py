@@ -4,7 +4,13 @@ markers, so the figure reads without JavaScript. Run after any change to the fig
     .venv/bin/python tools/bake.py [--page PATH]
 
 The page draws the frame itself; this copies what the browser drew. The model behind it is checked by
-check_close in analysis/circuit_figures.py."""
+check_close in analysis/circuit_figures.py.
+
+Reads: every-line-is-a-loop.html (rendered in Chrome).
+Writes: the same file, between the bake markers.
+Run: .venv/bin/python tools/bake.py [--page PATH]
+"""
+
 import pathlib
 import re
 import sys
@@ -25,7 +31,12 @@ with sync_playwright() as p:
 src = PAGE.read_text(encoding='utf-8')
 for k, inner in frames.items():
     inner = re.sub(r'<!--.*?-->', '', inner, flags=re.S)
-    src, n = re.subn(rf'<!-- bake:{k} -->.*?<!-- /bake:{k} -->', lambda m: f'<!-- bake:{k} -->{inner}<!-- /bake:{k} -->', src, flags=re.S)
+    src, n = re.subn(
+        rf'<!-- bake:{k} -->.*?<!-- /bake:{k} -->',
+        lambda m: f'<!-- bake:{k} -->{inner}<!-- /bake:{k} -->',  # noqa: B023 - subn() calls it at once, in this iteration
+        src,
+        flags=re.S,
+    )
     assert n == 1, k
 PAGE.write_text(src, encoding='utf-8')
 print('baked', {k: len(v) for k, v in frames.items()}, 'into', PAGE.name)

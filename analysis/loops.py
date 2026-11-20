@@ -1,5 +1,9 @@
 """Loop census for SBML models, following Baudier, Fages and Soliman 2018 (reference 24).
 
+Reads:  SBML models: one file (--one MODEL.xml) or every *.xml in a folder (--all DIR, e.g. data/r31_curated).
+Writes: one JSON line per model to FILE.jsonl (--all ... --out), or the one line to stdout (--one); results/r31_structure_traj.jsonl and _random.jsonl.
+Run:    python analysis/loops.py --all data/r31_curated --out results/r31_structure_traj.jsonl --jobs 8 --signs trajectory
+
 For one SBML model this builds the reaction-labelled influence multigraph (arc i -> k
 labelled by reaction j with sign of dv_j/dx_i * N_kj; rate rules act as one labelled
 pseudo-reaction each), estimating the partial derivatives by central differences at
@@ -18,39 +22,59 @@ its negative count k, the number j that pass through an integrator (a node whose
 does not depend on itself), the cyclomatic number nu of the refined core (E - N + C), and
 whether the loops share arcs (when they do, k depends on how loops are chosen).
 
+Every limit is a count of work, so a record never depends on the machine's speed or load: the loop search stops at
+DFS_STEPS search steps or CIRCUIT_CAP loops, elim.py at 300,000 arcs, the conservation-law search at 3,000 rows,
+and each sign-reading run at CVODE's own 20,000 steps per output interval. Each model runs in its own process under
+budget.py's 6-hour wall-clock safety net, which no model comes near (the slowest, BIOMD0000000595, took 821 s).
+
 Usage:
   python analysis/loops.py --one MODEL.xml           one model, JSON to stdout
-  python analysis/loops.py --all DIR --out FILE.jsonl [--jobs 8] [--timeout 180]
+  python analysis/loops.py --all DIR --out FILE.jsonl [--jobs 8]
 """
+
+from __future__ import annotations
+
 import argparse
+import contextlib
 import json
 import pathlib
-import subprocess
 import sys
 import time
+from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
+from typing import Any
 
 import numpy as np
 
-CIRCUIT_CAP = 20000      # stop enumerating after this many labelled circuits
-DFS_STEPS = 5_000_000    # search-step budget per enumeration (a count, not a clock, so results do not depend on machine load)
-SAMPLES = 5              # states at which derivative signs are read
-SIGN_MODE = 'trajectory' # 'trajectory': the model's own states at t = 0, 1, 10, 100, 1000
-                         # 'random': random states, each variable within the range it reaches on its own run
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import budget  # noqa: E402
+
+CIRCUIT_CAP = 20000  # stop enumerating after this many labelled circuits
+DFS_STEPS = (
+    5_000_000  # search-step budget per enumeration (a count, not a clock, so results do not depend on machine load)
+)
+SAMPLES = 5  # states at which derivative signs are read
+SIGN_MODE = 'trajectory'  # 'trajectory': the model's own states at t = 0, 1, 10, 100, 1000
+# 'random': random states, each variable within the range it reaches on its own run
 REL_STEP = 1e-3
 
 
 # ---------------------------------------------------------------- model loading
-def load(path):
+def load(path: str | pathlib.Path) -> tuple[Any, dict[str, Any]]:
+    """Read an SBML file: return (RoadRunner instance, flags), flags holding model counts and the rate-law texts."""
     import libsbml
     import roadrunner
+
     roadrunner.Logger.setLevel(roadrunner.Logger.LOG_ERROR)
     doc = libsbml.readSBMLFromFile(str(path))
     m = doc.getModel()
     rules = [m.getRule(i) for i in range(m.getNumRules())]
     flags = {
-        'species': m.getNumSpecies(), 'reactions': m.getNumReactions(), 'events': m.getNumEvents(),
-        'rate_rules': sum(1 for r in rules if r.isRate()), 'assignment_rules': sum(1 for r in rules if r.isAssignment()),
+        'species': m.getNumSpecies(),
+        'reactions': m.getNumReactions(),
+        'events': m.getNumEvents(),
+        'rate_rules': sum(1 for r in rules if r.isRate()),
+        'assignment_rules': sum(1 for r in rules if r.isAssignment()),
         'algebraic_rules': sum(1 for r in rules if r.isAlgebraic()),
         'fast': any(m.getReaction(i).getFast() for i in range(m.getNumReactions()) if m.getReaction(i).isSetFast()),
         'name': m.getName() or m.getId(),
@@ -71,22 +95,40 @@ def load(path):
         for i in range(node.getNumChildren()):
             out |= names(node.getChild(i), seen)
         return out
-    flags['_reversible'] = {m.getReaction(i).getId(): bool(m.getReaction(i).getReversible()) for i in range(m.getNumReactions())}
-    flags['_deps'] = {m.getReaction(i).getId(): names(m.getReaction(i).getKineticLaw().getMath()) if m.getReaction(i).isSetKineticLaw() else set()
-                      for i in range(m.getNumReactions())}
+
+    flags['_reversible'] = {
+        m.getReaction(i).getId(): bool(m.getReaction(i).getReversible()) for i in range(m.getNumReactions())
+    }
+    flags['_deps'] = {
+        m.getReaction(i).getId(): names(m.getReaction(i).getKineticLaw().getMath())
+        if m.getReaction(i).isSetKineticLaw()
+        else set()
+        for i in range(m.getNumReactions())
+    }
     flags['_rule_deps'] = {r.getVariable(): names(r.getMath()) for r in rules if r.isRate()}
     try:
-        conv = libsbml.ConversionProperties(); conv.addOption('expandFunctionDefinitions', True)
-        doc2 = libsbml.readSBMLFromFile(str(path)); doc2.convert(conv); m2 = doc2.getModel()
-        flags['_laws'] = {m2.getReaction(i).getId(): libsbml.formulaToL3String(m2.getReaction(i).getKineticLaw().getMath())
-                          for i in range(m2.getNumReactions()) if m2.getReaction(i).isSetKineticLaw()}
-        flags['_assign_txt'] = {m2.getRule(i).getVariable(): libsbml.formulaToL3String(m2.getRule(i).getMath())
-                                for i in range(m2.getNumRules()) if m2.getRule(i).isAssignment()}
+        conv = libsbml.ConversionProperties()
+        conv.addOption('expandFunctionDefinitions', True)
+        doc2 = libsbml.readSBMLFromFile(str(path))
+        doc2.convert(conv)
+        m2 = doc2.getModel()
+        flags['_laws'] = {
+            m2.getReaction(i).getId(): libsbml.formulaToL3String(m2.getReaction(i).getKineticLaw().getMath())
+            for i in range(m2.getNumReactions())
+            if m2.getReaction(i).isSetKineticLaw()
+        }
+        flags['_assign_txt'] = {
+            m2.getRule(i).getVariable(): libsbml.formulaToL3String(m2.getRule(i).getMath())
+            for i in range(m2.getNumRules())
+            if m2.getRule(i).isAssignment()
+        }
         locals_ = {}
         for i in range(m2.getNumReactions()):
             kl = m2.getReaction(i).getKineticLaw()
             if kl is not None:
-                for q in list(kl.getListOfParameters()) + list(kl.getListOfLocalParameters() if hasattr(kl, 'getListOfLocalParameters') else []):
+                for q in list(kl.getListOfParameters()) + list(
+                    kl.getListOfLocalParameters() if hasattr(kl, 'getListOfLocalParameters') else []
+                ):
                     locals_.setdefault(m2.getReaction(i).getId(), {})[q.getId()] = q.getValue()
         flags['_local_params'] = locals_
     except Exception:
@@ -95,33 +137,42 @@ def load(path):
     return rr, flags
 
 
-def state_nodes(rr, flags):
+def state_nodes(rr: Any, flags: dict[str, Any]) -> tuple[list[str], dict[str, str], list[str]]:
+    """Return (state variables, kind of each floating species, rate-rule variables); assigned species are left out."""
     m = rr.model
     fl = list(m.getFloatingSpeciesIds())
     assigned = set(flags['_assigned'])
     rule_syms = list(flags['_rate_vars'])
     nodes = [s for s in fl if s not in assigned] + [s for s in rule_syms if s not in fl]
-    kinds = {s: 'species' for s in fl}
+    kinds = dict.fromkeys(fl, 'species')
     return nodes, kinds, rule_syms
 
 
-def setter(rr, kinds):
+def setter(rr: Any, kinds: dict[str, str]) -> Callable[[str, float], None]:
+    """Return put(node, value), which sets a species (as a concentration) or a rate-rule variable in the model."""
+
     def put(node, value):
         if kinds.get(node) == 'species':
             rr.setValue('[' + node + ']', float(value))
         else:
             rr.setValue(node, float(value))
+
     return put
 
 
-def getter(rr, kinds):
+def getter(rr: Any, kinds: dict[str, str]) -> Callable[[str], float]:
+    """Return get(node), which reads a species (as a concentration) or a rate-rule variable from the model."""
+
     def get(node):
         return rr.getValue('[' + node + ']') if kinds.get(node) == 'species' else rr.getValue(node)
+
     return get
 
 
 # ---------------------------------------------------------------- derivatives
-def derivative_signs(rr, nodes, kinds, rule_syms, seed=0):
+def derivative_signs(
+    rr: Any, nodes: list[str], kinds: dict[str, str], rule_syms: list[str], seed: int = 0
+) -> tuple[list[str], list[list[set[int]]], list[list[set[int]]], list[tuple[np.ndarray, np.ndarray, np.ndarray]]]:
     """Return (reaction ids, sign sets for reactions, sign sets for rate rules, samples).
     Each sample state is read in its own context: 'trajectory' mode resets the model and
     simulates to t = 0, 1, 10, 100, 1000 separately (so events and the clock apply only where
@@ -155,10 +206,8 @@ def derivative_signs(rr, nodes, kinds, rule_syms, seed=0):
             if y in named:
                 out[q] = named[y]
             else:
-                try:
+                with contextlib.suppress(Exception):
                     out[q] = rr.getValue(y + "'")
-                except Exception:
-                    pass
         return out
 
     rng = np.random.default_rng(seed)
@@ -169,7 +218,9 @@ def derivative_signs(rr, nodes, kinds, rule_syms, seed=0):
         lo, hi = np.abs(lift(x0)), np.abs(lift(x0))
         try:
             rr.resetToOrigin()
-            tr = np.array(rr.simulate(0, 1000, 201, [('[' + s + ']') if kinds.get(s) == 'species' else s for s in nodes]))
+            tr = np.array(
+                rr.simulate(0, 1000, 201, [('[' + s + ']') if kinds.get(s) == 'species' else s for s in nodes])
+            )
             ok_ = np.all(np.isfinite(tr), axis=1)
             if ok_.any():
                 a = np.abs(tr[ok_])
@@ -179,7 +230,10 @@ def derivative_signs(rr, nodes, kinds, rule_syms, seed=0):
         lo = np.where(lo > 0, lo, np.maximum(hi, 1e-6 * fill) * 1e-3)
         hi = np.maximum(hi, lo)
         sgn = np.where(np.sign(x0) < 0, -1.0, 1.0)
-        draw = lambda: sgn * np.exp(rng.uniform(np.log(lo), np.log(hi)))
+
+        def draw() -> np.ndarray:
+            return sgn * np.exp(rng.uniform(np.log(lo), np.log(hi)))
+
         contexts = [(0, lift(x0))] + [(0, np.where(is_sp, np.abs(draw()), draw())) for _ in range(SAMPLES - 1)]
     rsign = [[set() for _ in nodes] for _ in rids]
     gsign = [[set() for _ in nodes] for _ in rule_syms]
@@ -197,7 +251,9 @@ def derivative_signs(rr, nodes, kinds, rule_syms, seed=0):
         if ci == 0:  # rate turns negative when one variable is pushed 1000x (fallback self-loop test)
             for i, nd in enumerate(nodes):
                 try:
-                    put(nd, x[i] * 1e3); vv = np.array(m.getReactionRates()); put(nd, x[i])
+                    put(nd, x[i] * 1e3)
+                    vv = np.array(m.getReactionRates())
+                    put(nd, x[i])
                     for j in np.nonzero(np.isfinite(vv) & (vv < 0))[0]:
                         neg_at_large.add((int(j), i))
                 except Exception:
@@ -207,14 +263,16 @@ def derivative_signs(rr, nodes, kinds, rule_syms, seed=0):
         for i, nd in enumerate(nodes):
             h = REL_STEP * abs(x[i]) if x[i] != 0 else 1e-6 * fill
             try:
-                put(nd, x[i] + h); vp = np.array(m.getReactionRates()); gp = rule_rates()
-                put(nd, x[i] - h); vm = np.array(m.getReactionRates()); gm = rule_rates()
+                put(nd, x[i] + h)
+                vp = np.array(m.getReactionRates())
+                gp = rule_rates()
+                put(nd, x[i] - h)
+                vm = np.array(m.getReactionRates())
+                gm = rule_rates()
                 put(nd, x[i])
             except Exception:
-                try:
+                with contextlib.suppress(Exception):
                     put(nd, x[i])
-                except Exception:
-                    pass
                 continue
             for arr_p, arr_m, outm, signs in ((vp, vm, dv, rsign), (gp, gm, dg, gsign)):
                 if not len(arr_p):
@@ -234,20 +292,28 @@ def derivative_signs(rr, nodes, kinds, rule_syms, seed=0):
 def _dep(v, var, assign, seen=None):
     """True if assignment variable v depends on var, directly or through other assignments."""
     import re
+
     seen = seen or set()
     e = assign.get(v, '')
     if re.search(r'\b' + re.escape(var) + r'\b', e):
         return True
-    return any(_dep(w, var, assign, seen | {v}) for w in assign
-               if w not in seen and w != v and re.search(r'\b' + re.escape(w) + r'\b', e))
+    return any(
+        _dep(w, var, assign, seen | {v})
+        for w in assign
+        if w not in seen and w != v and re.search(r'\b' + re.escape(w) + r'\b', e)
+    )
 
 
-def rate_has_positive_root(rr, flags, rid, var, ref_values):
+def rate_has_positive_root(
+    rr: Any, flags: dict[str, Any], rid: str, var: str, ref_values: dict[str, Any]
+) -> bool | None:
     """True if reaction rid's rate law, as a function of var with every other symbol at its
     reference value, has a numerator root at a positive value of var (an implicit substrate runs
     out, or the flux reverses). None if the law cannot be handled symbolically."""
     import re
+
     import sympy as sp
+
     law = flags.get('_laws', {}).get(rid)
     if not law:
         return None
@@ -258,15 +324,28 @@ def rate_has_positive_root(rr, flags, rid, var, ref_values):
             if not _dep(v, var, flags.get('_assign_txt', {})):
                 continue  # not driven by var: keep as a symbol, take its reference value below
             if re.search(r'\b' + re.escape(v) + r'\b', txt):
-                txt = re.sub(r'\b' + re.escape(v) + r'\b', '(' + e.replace('^', '**') + ')', txt); hit = True
+                txt = re.sub(r'\b' + re.escape(v) + r'\b', '(' + e.replace('^', '**') + ')', txt)
+                hit = True
         if not hit:
             break
     if re.search(r'\b(piecewise|delay|and|or|not|lt|gt|leq|geq|eq|neq)\b', txt):
         return None
-    ids = set(re.findall(r'[A-Za-z_][A-Za-z0-9_]*', re.sub(r'\b\d+\.?\d*[eE][-+]?\d+', '0', txt))) - {'exp', 'ln', 'log', 'sqrt', 'abs', 'pow', 'pi', 'exponentiale'}
+    ids = set(re.findall(r'[A-Za-z_][A-Za-z0-9_]*', re.sub(r'\b\d+\.?\d*[eE][-+]?\d+', '0', txt))) - {
+        'exp',
+        'ln',
+        'log',
+        'sqrt',
+        'abs',
+        'pow',
+        'pi',
+        'exponentiale',
+    }
     syms = {i: sp.Symbol('v_' + i) for i in ids}
     try:
-        expr = sp.sympify(txt.replace('ln(', 'log('), locals={**syms, 'exp': sp.exp, 'log': sp.log, 'sqrt': sp.sqrt, 'abs': sp.Abs, 'pow': sp.Pow})
+        expr = sp.sympify(
+            txt.replace('ln(', 'log('),
+            locals={**syms, 'exp': sp.exp, 'log': sp.log, 'sqrt': sp.sqrt, 'abs': sp.Abs, 'pow': sp.Pow},
+        )
     except Exception:
         return None
     if var not in syms:
@@ -277,7 +356,8 @@ def rate_has_positive_root(rr, flags, rid, var, ref_values):
         if i == var:
             continue
         if i in local:
-            subs[sym] = local[i]; continue
+            subs[sym] = local[i]
+            continue
         try:
             val = ref_values.get(i)
             if val is None:
@@ -300,7 +380,17 @@ def rate_has_positive_root(rr, flags, rid, var, ref_values):
     return any(abs(r.imag) < 1e-9 * max(1, abs(r.real)) and r.real > 1e-12 for r in roots)
 
 
-def influence_arcs(nodes, rids, N, rsign, rule_syms, gsign, reversible=None, neg_at_large=None, root_test=None):
+def influence_arcs(
+    nodes: list[str],
+    rids: list[str],
+    N: np.ndarray,
+    rsign: list[list[set[int]]],
+    rule_syms: list[str],
+    gsign: list[list[set[int]]],
+    reversible: dict[str, bool] | None = None,
+    neg_at_large: set[tuple[int, int]] | None = None,
+    root_test: Callable[[str, str], bool | None] | None = None,
+) -> list[tuple[int, int, str, int]]:
     """Arcs (src, dst, label, sign); N is species x reactions aligned to nodes (rows) and rids.
     Self-loops: a negative self-loop is kept only where a reaction producing the species slows as
     the species rises and its rate stays non-negative when the species is pushed 1000x higher
@@ -321,11 +411,11 @@ def influence_arcs(nodes, rids, N, rsign, rule_syms, gsign, reversible=None, neg
                         if root_test is not None and ((sg < 0 and st > 0 and s < 0) or (sg > 0 and st < 0 and s < 0)):
                             flips = root_test(r, nodes[i])
                         if flips is None or (flips is False and (j, i) in neg_at_large):
-                            flips = (j, i) in neg_at_large   # numeric evidence that the rate turns negative wins
+                            flips = (j, i) in neg_at_large  # numeric evidence that the rate turns negative wins
                         if sg < 0 and not (st > 0 and s < 0 and not flips):
-                            continue                     # decay, consumption, reverse flux
+                            continue  # decay, consumption, reverse flux
                         if sg > 0 and st < 0 and s < 0 and flips:
-                            continue                     # consumed species written as total minus itself
+                            continue  # consumed species written as total minus itself
                     arcs.add((i, k, 'R:' + r, sg))
     for q, y in enumerate(rule_syms):
         if y not in idx:
@@ -339,7 +429,7 @@ def influence_arcs(nodes, rids, N, rsign, rule_syms, gsign, reversible=None, neg
     return sorted(arcs)
 
 
-def reaction_classes(N, rids):
+def reaction_classes(N: np.ndarray, rids: list[str]) -> tuple[dict[str, str], dict[str, set[str]]]:
     """Map each reaction label to a class label shared by reactions whose net stoichiometry
     columns are equal up to positive scaling (reference 24's 'same reaction', read through the
     rank condition of Theorem 2.2), and return reverse pairs at class level."""
@@ -354,7 +444,6 @@ def reaction_classes(N, rids):
         key = tuple(np.round(v, 9))
         cls['R:' + r] = key_of.setdefault(key, 'C:' + r)
     rev = {}
-    keys = {v: k for k, v in key_of.items()}
     for k, lab in key_of.items():
         neg = tuple(-x for x in k)
         if neg in key_of:
@@ -362,20 +451,7 @@ def reaction_classes(N, rids):
     return cls, rev
 
 
-def reverse_pairs(N, rids):
-    pairs = {}
-    cols = [N[:, j] for j in range(N.shape[1])]
-    for a in range(len(cols)):
-        if not np.any(cols[a]):
-            continue
-        for b in range(a + 1, len(cols)):
-            if np.allclose(cols[a], -cols[b]):
-                pairs.setdefault('R:' + rids[a], set()).add('R:' + rids[b])
-                pairs.setdefault('R:' + rids[b], set()).add('R:' + rids[a])
-    return pairs
-
-
-def p_invariant_supports(N, cap=3000):
+def p_invariant_supports(N: np.ndarray, cap: int = 3000) -> tuple[list[frozenset[int]], bool]:
     """Supports of minimal semi-positive conservation laws (y >= 0, y^T N = 0), Farkas method."""
     n, R = N.shape
     if n == 0:
@@ -402,27 +478,36 @@ def p_invariant_supports(N, cap=3000):
         for i in order:
             if any(ks <= sup[i] for ks in kept_sup):
                 continue
-            kept.append(rows[i]); kept_sup.append(sup[i])
+            kept.append(rows[i])
+            kept_sup.append(sup[i])
         rows = kept
     sups = [frozenset(np.nonzero(r[R:] > 1e-12)[0]) for r in rows]
     return [s for s in sups if s], True
 
 
-def sccs(n, adj):
+def sccs(n: int, adj: list[set[int]]) -> list[list[int]]:
     """Tarjan, iterative. adj: list of iterables of successor indices."""
     index, low, on, st, out, counter = {}, {}, set(), [], [], [0]
     for v0 in range(n):
         if v0 in index:
             continue
         work = [(v0, iter(adj[v0]))]
-        index[v0] = low[v0] = counter[0]; counter[0] += 1; st.append(v0); on.add(v0)
+        index[v0] = low[v0] = counter[0]
+        counter[0] += 1
+        st.append(v0)
+        on.add(v0)
         while work:
             v, it = work[-1]
             advanced = False
             for w in it:
                 if w not in index:
-                    index[w] = low[w] = counter[0]; counter[0] += 1; st.append(w); on.add(w)
-                    work.append((w, iter(adj[w]))); advanced = True; break
+                    index[w] = low[w] = counter[0]
+                    counter[0] += 1
+                    st.append(w)
+                    on.add(w)
+                    work.append((w, iter(adj[w])))
+                    advanced = True
+                    break
                 elif w in on:
                     low[v] = min(low[v], index[w])
             if advanced:
@@ -433,14 +518,26 @@ def sccs(n, adj):
             if low[v] == index[v]:
                 comp = []
                 while True:
-                    w = st.pop(); on.discard(w); comp.append(w)
+                    w = st.pop()
+                    on.discard(w)
+                    comp.append(w)
                     if w == v:
                         break
                 out.append(comp)
     return out
 
 
-def circuits(n, arcs, refined, reverse, supports, want=None, cap=CIRCUIT_CAP, steps=DFS_STEPS, cls=None):
+def circuits(
+    n: int,
+    arcs: list[tuple[int, int, str, int]],
+    refined: bool,
+    reverse: dict[str, set[str]],
+    supports: list[frozenset[int]],
+    want: str | None = None,
+    cap: int = CIRCUIT_CAP,
+    steps: int = DFS_STEPS,
+    cls: dict[str, str] | None = None,
+) -> tuple[list[tuple[tuple[int, ...], tuple[str, ...], int]], bool]:
     """Enumerate elementary circuits. Returns (list of (nodes, labels, sign), complete flag).
     want='+' or '-' stops at the first circuit of that sign."""
     if not refined:  # plain: one arc per (src, dst, sign)
@@ -478,7 +575,7 @@ def circuits(n, arcs, refined, reverse, supports, want=None, cap=CIRCUIT_CAP, st
                 return found, False
             v, it, sg = stack[-1]
             step = None
-            for (w, lab, s) in it:
+            for w, lab, s in it:
                 if refined and bad_labels(lab, used):
                     continue
                 if w == s0:
@@ -499,15 +596,20 @@ def circuits(n, arcs, refined, reverse, supports, want=None, cap=CIRCUIT_CAP, st
             if step is None:
                 stack.pop()
                 if len(path) > 1:
-                    onpath.discard(path.pop()); _l = labs.pop(); used.discard(cls.get(_l, _l))
+                    onpath.discard(path.pop())
+                    _l = labs.pop()
+                    used.discard(cls.get(_l, _l))
                 continue
             w, lab, s = step
-            path.append(w); onpath.add(w); labs.append(lab); used.add(cls.get(lab, lab))
+            path.append(w)
+            onpath.add(w)
+            labs.append(lab)
+            used.add(cls.get(lab, lab))
             stack.append((w, iter(out[w]), sg * s))
     return found, complete
 
 
-def has_negative_circuit(n, arcs):
+def has_negative_circuit(n: int, arcs: list[tuple[int, int, str, int]]) -> bool:
     """Exact: a strongly connected component has no negative directed circuit iff its nodes
     can be two-coloured so each arc's sign is the product of its end colours (directed
     circuits span the cycle space of a strongly connected digraph)."""
@@ -523,7 +625,8 @@ def has_negative_circuit(n, arcs):
             return True
         nbr = {v: [] for v in comp}
         for a, b, s in inner:
-            nbr[a].append((b, s)); nbr[b].append((a, s))
+            nbr[a].append((b, s))
+            nbr[b].append((a, s))
         col = {comp[0]: 1}
         todo = [comp[0]]
         while todo:
@@ -531,19 +634,28 @@ def has_negative_circuit(n, arcs):
             for w, s in nbr[v]:
                 want = col[v] * s
                 if w not in col:
-                    col[w] = want; todo.append(w)
+                    col[w] = want
+                    todo.append(w)
                 elif col[w] != want:
                     return True
     return False
 
 
-def exists(n, arcs, sign, refined, reverse, supports):
+def exists(
+    n: int,
+    arcs: list[tuple[int, int, str, int]],
+    sign: str,
+    refined: bool,
+    reverse: dict[str, set[str]],
+    supports: list[frozenset[int]],
+) -> bool | None:
+    """True or False if a circuit of the given sign ('+' or '-') exists, None if the search ran out of budget."""
     f, complete = circuits(n, arcs, refined, reverse, supports, want=sign)
     hit = any((c[2] > 0) == (sign == '+') for c in f)
     return True if hit else (False if complete else None)
 
 
-def pf_filtered(loop_arcs, signs, max_classes=20):
+def pf_filtered(loop_arcs: list[set[tuple[int, int, str]]], signs: list[int], max_classes: int = 20) -> int | None:
     """Fewest arc sign flips that make every accepted loop positive (Sontag et al. 2008's
     distance-to-positive-feedback restricted to the loops that pass the filters). Arcs are
     grouped by which loops they lie on; flipping two arcs of one group cancels, so the
@@ -572,7 +684,8 @@ def pf_filtered(loop_arcs, signs, max_classes=20):
     return best
 
 
-def cyclomatic(edges):
+def cyclomatic(edges: list[tuple[int, int, str]]) -> tuple[int, int, int, int]:
+    """Return (cyclomatic number E - N + C, edges E, nodes N, connected components C) of the graph with these edges."""
     nodes = sorted({a for a, _, _ in edges} | {b for _, b, _ in edges})
     if not nodes:
         return 0, 0, 0, 0
@@ -580,8 +693,10 @@ def cyclomatic(edges):
 
     def f(v):
         while parent[v] != v:
-            parent[v] = parent[parent[v]]; v = parent[v]
+            parent[v] = parent[parent[v]]
+            v = parent[v]
         return v
+
     for a, b, _ in edges:
         ra, rb = f(a), f(b)
         if ra != rb:
@@ -591,7 +706,8 @@ def cyclomatic(edges):
 
 
 # ---------------------------------------------------------------- one model
-def analyze(path):
+def analyze(path: str | pathlib.Path) -> dict[str, Any]:
+    """Run the whole census on one SBML model and return its record (the JSON line loops.py writes)."""
     t0 = time.time()
     out = {'model': pathlib.Path(path).stem}
     rr, flags = load(path)
@@ -619,19 +735,29 @@ def analyze(path):
     rr.resetToOrigin()
     refv = {'_species': set(kinds), 'time': 0.0}
     for nd in nodes:
-        try:
+        with contextlib.suppress(Exception):
             refv[nd] = float(getter(rr, kinds)(nd))
-        except Exception:
-            pass
     _pos = [v for k_, v in refv.items() if k_ in kinds and isinstance(v, float) and v > 0]
     for nd in nodes:
         if kinds.get(nd) == 'species' and isinstance(refv.get(nd), float) and refv[nd] <= 0:
             refv[nd] = float(np.median(_pos)) if _pos else 1.0
-    arcs = influence_arcs(nodes, rids, N, rsign, rule_syms, gsign, flags.get('_reversible'),
-                          root_test=lambda rid, var: rate_has_positive_root(rr, flags, rid, var, refv))
+    arcs = influence_arcs(
+        nodes,
+        rids,
+        N,
+        rsign,
+        rule_syms,
+        gsign,
+        flags.get('_reversible'),
+        root_test=lambda rid, var: rate_has_positive_root(rr, flags, rid, var, refv),
+    )
     arcs_nr = [a for a in arcs if not (a[0] == a[1] and a[3] < 0)]  # reference 24 omits negative self-loops
-    out.update(nodes=len(nodes), arcs=len(arcs), negative_selfloops_kept=len(arcs) - len(arcs_nr),
-               sign_states=getattr(derivative_signs, 'states_used', None))
+    out.update(
+        nodes=len(nodes),
+        arcs=len(arcs),
+        negative_selfloops_kept=len(arcs) - len(arcs_nr),
+        sign_states=getattr(derivative_signs, 'states_used', None),
+    )
     if not arcs:
         out.update(status='no influence arcs', seconds=round(time.time() - t0, 2))
         return out
@@ -643,10 +769,11 @@ def analyze(path):
     n = len(nodes)
     out['plain_negative'] = has_negative_circuit(n, arcs_nr)
     import elim
+
     uniq = [(a, b, f'u{q}', s_) for q, (a, b, _, s_) in enumerate(arcs_nr)]
     pp = elim.positive_circuit_exists(n, uniq, {}, [])
     out['plain_positive'] = pp if pp is not None else exists(n, arcs_nr, '+', False, {}, [])
-    carcs = [(a, b, cls.get(l, l), s_) for a, b, l, s_ in arcs_nr]
+    carcs = [(a, b, cls.get(lab, lab), s_) for a, b, lab, s_ in arcs_nr]
     rp = elim.positive_circuit_exists(n, carcs, reverse, supports if inv_ok else [])
     out['refined_positive'] = rp if rp is not None else exists(n, carcs, '+', True, reverse, supports if inv_ok else [])
     found, complete = circuits(n, arcs, True, reverse, supports if inv_ok else [], cls=cls)
@@ -658,7 +785,8 @@ def analyze(path):
     def column(lab):
         if lab.startswith('R:'):
             return N[:, rid_index[lab[2:]]]
-        col = np.zeros(n); col[idx[lab[5:]]] = 1.0  # rate rule: unit gain on its own variable
+        col = np.zeros(n)
+        col[idx[lab[5:]]] = 1.0  # rate rule: unit gain on its own variable
         return col
 
     def degenerate(nd, labs):
@@ -666,7 +794,7 @@ def analyze(path):
         reactions on a circuit must have linearly independent net stoichiometry columns. This
         removes 1:1 state cycles, a reaction and its reverse, and reactions with identical
         stoichiometry, and keeps autocatalytic cycles with non-unit gain."""
-        M = np.array([column(l) for l in labs]).T
+        M = np.array([column(lab) for lab in labs]).T
         return np.linalg.matrix_rank(M, tol=1e-9 * max(1.0, float(np.abs(M).max()))) < len(labs)
 
     loops, degen = {}, set()
@@ -706,10 +834,17 @@ def analyze(path):
             for a in x:
                 use[a] = use.get(a, 0) + 1
         nu_, E_, N_, C_ = cyclomatic(list(use))
-        return {'complete': True, 'c': len(cycles), 'k': sum(1 for _, s_ in cycles if s_ < 0),
-                'j': sum(1 for nd, _ in cycles if set(nd) & integ), 'types': types,
-                'cactus': all(v == 1 for v in use.values()), 'k_pf': pf_filtered(la, [s_ for _, s_ in cycles]),
-                'nu_core': nu_}
+        return {
+            'complete': True,
+            'c': len(cycles),
+            'k': sum(1 for _, s_ in cycles if s_ < 0),
+            'j': sum(1 for nd, _ in cycles if set(nd) & integ),
+            'types': types,
+            'cactus': all(v == 1 for v in use.values()),
+            'k_pf': pf_filtered(la, [s_ for _, s_ in cycles]),
+            'nu_core': nu_,
+        }
+
     found_p, complete_p = circuits(n, arcs, False, {}, [])
     plain = {}
     for nd, labs, sg in found_p:
@@ -724,47 +859,68 @@ def analyze(path):
             lab24[key] = labs[k:] + labs[:k]
             if good:
                 lab_ok.add(key)
-    defs = {'thomas': metrics([(list(k[0]), k[1]) for k in plain], complete_p, plain),
-            'ref24': metrics([(list(k[0]), k[1]) for k in loops], complete, lab24),
-            'ref24_rank': metrics(fb, complete, lab24)}
+    defs = {
+        'thomas': metrics([(list(k[0]), k[1]) for k in plain], complete_p, plain),
+        'ref24': metrics([(list(k[0]), k[1]) for k in loops], complete, lab24),
+        'ref24_rank': metrics(fb, complete, lab24),
+    }
     out['defs'] = defs
     m = defs['ref24_rank']
     c = len(fb)
     loop_list = fb
-    out.update(loops_filtered=len(loops) if complete else None, degenerate_cycles=len(degen) if complete else None,
-               loops=m.get('c'), loops_at_least=c, negative=m.get('k'), integrating=m.get('j'), k_pf=m.get('k_pf'),
-               types=m.get('types'), cactus=m.get('cactus'), nu_core=m.get('nu_core'),
-               integrator_nodes=len(integ & {v for nd, _ in fb for v in nd}))
+    out.update(
+        loops_filtered=len(loops) if complete else None,
+        degenerate_cycles=len(degen) if complete else None,
+        loops=m.get('c'),
+        loops_at_least=c,
+        negative=m.get('k'),
+        integrating=m.get('j'),
+        k_pf=m.get('k_pf'),
+        types=m.get('types'),
+        cactus=m.get('cactus'),
+        nu_core=m.get('nu_core'),
+        integrator_nodes=len(integ & {v for nd, _ in fb for v in nd}),
+    )
     if complete and c <= 12:
-        out['loop_list'] = [{'nodes': [nodes[v] for v in nd], 'sign': '+' if s_ > 0 else '-',
-                             'integrates': bool(set(nd) & integ)} for nd, s_ in loop_list]
+        out['loop_list'] = [
+            {'nodes': [nodes[v] for v in nd], 'sign': '+' if s_ > 0 else '-', 'integrates': bool(set(nd) & integ)}
+            for nd, s_ in loop_list
+        ]
     out['status'] = 'ok'
     out['seconds'] = round(time.time() - t0, 2)
     return out
 
 
-def run_all(folder, out_file, jobs, timeout):
+def run_all(folder: str | pathlib.Path, out_file: str | pathlib.Path, jobs: int) -> None:
+    """Run analyze on every *.xml in folder, each in its own process; write one JSON line per model."""
     files = sorted(pathlib.Path(folder).glob('*.xml'))
     me = pathlib.Path(__file__).resolve()
 
     def one(f):
-        try:
-            p = subprocess.run([sys.executable, str(me), '--one', str(f), '--signs', SIGN_MODE], capture_output=True, text=True, timeout=timeout)
-            line = p.stdout.strip().splitlines()[-1] if p.stdout.strip() else ''
-            return json.loads(line) if line.startswith('{') else {'model': f.stem, 'status': 'error', 'error': (p.stderr or '')[-300:]}
-        except subprocess.TimeoutExpired:
-            return {'model': f.stem, 'status': 'timeout'}
+        p = budget.run([sys.executable, str(me), '--one', str(f), '--signs', SIGN_MODE], f.stem)
+        if p is None:
+            return {'model': f.stem, 'status': budget.SAFETY_NET}
+        line = p.stdout.strip().splitlines()[-1] if p.stdout.strip() else ''
+        return (
+            json.loads(line)
+            if line.startswith('{')
+            else {'model': f.stem, 'status': 'error', 'error': (p.stderr or '')[-300:]}
+        )
+
     with ThreadPoolExecutor(jobs) as ex, open(out_file, 'w') as fh:
         for i, r in enumerate(ex.map(one, files)):
-            fh.write(json.dumps(r) + '\n'); fh.flush()
+            fh.write(json.dumps(r) + '\n')
+            fh.flush()
             if (i + 1) % 50 == 0:
                 print(f'{i + 1}/{len(files)}', flush=True)
 
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
-    ap.add_argument('--one'); ap.add_argument('--all'); ap.add_argument('--out')
-    ap.add_argument('--jobs', type=int, default=8); ap.add_argument('--timeout', type=int, default=180)
+    ap.add_argument('--one')
+    ap.add_argument('--all')
+    ap.add_argument('--out')
+    ap.add_argument('--jobs', type=int, default=8)
     ap.add_argument('--signs', choices=['trajectory', 'random'], default='trajectory')
     a = ap.parse_args()
     SIGN_MODE = a.signs
@@ -774,4 +930,4 @@ if __name__ == '__main__':
         except Exception as e:
             print(json.dumps({'model': pathlib.Path(a.one).stem, 'status': 'error', 'error': repr(e)[:300]}))
     else:
-        run_all(a.all, a.out, a.jobs, a.timeout)
+        run_all(a.all, a.out, a.jobs)

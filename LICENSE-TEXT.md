@@ -8,4 +8,5 @@ You may share and adapt them for any purpose, including commercially, provided y
 Katherine Titterton, link to the licence, and indicate if changes were made.
 
 The code in `analysis/` and `tools/` is licensed separately under the MIT licence (see `LICENSE`). The results in
-`results/` are derived from BioModels release 31, which BioModels publishes under CC0.
+`results/` are derived from BioModels release 31, which BioModels publishes under CC0; `results/DATASHEET.md` found a
+CC0 notice in 352 of the 640 release 31 files.

@@ -1,5 +1,9 @@
 """Is nesting order the loop table's missing factor of two? Three tests, one script.
 
+Reads:  results/r31_structure_traj.jsonl, results/r31_dynamics.jsonl, data/r31_curated/*.xml
+Writes: results/nesting.json
+Run:    .venv/bin/python analysis/nesting.py
+
 The essay's table has (nu + 1)^2 elements in the row of nu loops: 4, 9, 16, the numbers of orbitals in an atom's
 second, third and fourth shells. Chemistry's shells hold twice that, 2 n^2, because each orbital takes two electrons
 of opposite spin. The essay guessed that the loop table's missing binary is the order in which loops nest, which loop
@@ -21,7 +25,9 @@ compared directly.
 
 Usage: .venv/bin/python analysis/nesting.py          writes results/nesting.json and prints a summary
 """
-import itertools
+
+from __future__ import annotations
+
 import json
 import math
 import pathlib
@@ -36,22 +42,28 @@ SEED = 7
 
 
 # ---------------------------------------------------------------- 1. count
-def count_test():
+def count_test() -> list[dict[str, int]]:
     """Configurations per row under each reading of 'nesting order', against chemistry's 2 n^2."""
     rows = []
     for nu in (0, 1, 2, 3):
         table = (nu + 1) ** 2
-        # a loop's type: amplifies or brakes, with or without a running total
-        types = [(s, i) for s in '+-' for i in (0, 1)]
-        multisets = math.comb(nu + 3, 3) if nu else 1                 # loops unordered, each with its own type
-        ordered = 4 ** nu if nu else 1                                # loops ordered fastest to slowest
+        multisets = math.comb(nu + 3, 3) if nu else 1  # loops unordered, each with its own type
+        ordered = 4**nu if nu else 1  # loops ordered fastest to slowest
         # the table's own elements, each split in two by which loop is fastest, where the loops differ in sign
         split = 0
         for k in range(nu + 1):
-            for j in range(nu + 1):
+            for _ in range(nu + 1):
                 split += 2 if 0 < k < nu else 1
-        rows.append({'loops': nu, 'table': table, 'chemistry_2n2': 2 * table, 'nesting_binary_where_defined': split,
-                     'types_unordered': multisets, 'types_ordered': ordered})
+        rows.append(
+            {
+                'loops': nu,
+                'table': table,
+                'chemistry_2n2': 2 * table,
+                'nesting_binary_where_defined': split,
+                'types_unordered': multisets,
+                'types_ordered': ordered,
+            }
+        )
     # the binary reading cannot touch a row whose elements have fewer than two loops
     assert rows[0]['nesting_binary_where_defined'] == 1 and rows[1]['nesting_binary_where_defined'] == 4
     return rows
@@ -61,7 +73,7 @@ def count_test():
 TOY = {'draws': 800, 'tx': 0.05, 'fast': 0.5, 'slow': 10.0, 'T': 600.0, 'dt': 0.002, 'every': 100}
 
 
-def toy_test(draws=TOY['draws'], seed=SEED):
+def toy_test(draws: int = TOY['draws'], seed: int = SEED) -> dict[str, object]:
     """x is made at a rate that p raises and n lowers; p and n follow x. x -> p -> x amplifies; x -> n -| x brakes.
     'amplify fast' sets p quick and n slow; 'brake fast' swaps the two time constants and nothing else. Each draw runs
     from three starts for 600 time units (60 times the slow loop's time constant). A run keeps time when, over its last
@@ -90,9 +102,9 @@ def toy_test(draws=TOY['draws'], seed=SEED):
                 rec.append(x.copy())
         rec = np.array(rec)
         L = len(rec)
-        tail = rec[L * 2 // 3:]
+        tail = rec[L * 2 // 3 :]
         sw, m = tail.max(0) - tail.min(0), np.abs(tail.mean(0))
-        a, b = rec[L * 2 // 3:L * 5 // 6], rec[L * 5 // 6:]
+        a, b = rec[L * 2 // 3 : L * 5 // 6], rec[L * 5 // 6 :]
         held = (b.max(0) - b.min(0)) / np.maximum(a.max(0) - a.min(0), 1e-12)
         d1 = np.diff(tail, axis=0)
         peaks = ((d1[:-1] > 0) & (d1[1:] <= 0) & (tail[1:-1] > tail.min(0) + 0.5 * sw)).sum(0)
@@ -106,17 +118,33 @@ def toy_test(draws=TOY['draws'], seed=SEED):
                 ends = np.sort(rec[-1, sl])
                 out.append('holds two states' if ends[-1] - ends[0] > 0.05 * (ends[-1] + 0.01) else 'settles')
         return out
+
     amp_fast = run(TOY['fast'], TOY['slow'])
     brake_fast = run(TOY['slow'], TOY['fast'])
-    tally = lambda xs: {k: xs.count(k) for k in ('keeps time', 'holds two states', 'settles')}
+
+    def tally(xs: list[str]) -> dict[str, int]:
+        return {k: xs.count(k) for k in ('keeps time', 'holds two states', 'settles')}
+
     pairs = {}
     for a, b in zip(amp_fast, brake_fast):
         pairs[f'{a} | {b}'] = pairs.get(f'{a} | {b}', 0) + 1
-    return {'settings': TOY, 'seed': seed, 'amplify fast': tally(amp_fast), 'brake fast': tally(brake_fast), 'pairs': pairs}
+    return {
+        'settings': TOY,
+        'seed': seed,
+        'amplify fast': tally(amp_fast),
+        'brake fast': tally(brake_fast),
+        'pairs': pairs,
+    }
 
 
 # ---------------------------------------------------------------- 3. census
-def loop_speed(J, idx, loop, Jpos=None, Jneg=None):
+def loop_speed(
+    J: np.ndarray,
+    idx: dict[str, int],
+    loop: dict[str, object],
+    Jpos: np.ndarray | None = None,
+    Jneg: np.ndarray | None = None,
+) -> float | None:
     """Geometric mean of |J[b, a]| over the loop's arrows a -> b, in the stored direction of travel. A one-arrow loop
     (a molecule acting on its own rate) counts only the part with the loop's sign, since the diagonal of the Jacobian
     also carries the molecule's own decay."""
@@ -127,7 +155,8 @@ def loop_speed(J, idx, loop, Jpos=None, Jneg=None):
         if a is None or b is None:
             return None
         if len(nd) == 1 and Jpos is not None:
-            v = abs((Jpos if loop['sign'] == '+' else Jneg)[b, a])
+            part = Jpos if loop['sign'] == '+' else Jneg
+            v = abs(part[b, a])
         else:
             v = abs(J[b, a])
         if not np.isfinite(v) or v == 0:
@@ -136,7 +165,9 @@ def loop_speed(J, idx, loop, Jpos=None, Jneg=None):
     return math.exp(sum(vals) / len(vals))
 
 
-def loop_transit(Jneg, idx, loop, shared=frozenset()):
+def loop_transit(
+    Jneg: np.ndarray, idx: dict[str, int], loop: dict[str, object], shared: frozenset[str] | set[str] = frozenset()
+) -> float | None:
     """How long a signal takes to get round the loop's own molecules, those it does not share with the other loop:
     the sum of each one's relaxation time, 1 / its decay and consumption rate (the negative part of its own diagonal
     entry). Shared molecules add the same time to both loops, so they are left out. A molecule with no decay of its own
@@ -155,28 +186,44 @@ def loop_transit(Jneg, idx, loop, shared=frozenset()):
     return t
 
 
-def census_test():
+def census_test() -> dict[str, object]:
+    """Test 3: time each loop of the 42 mixed two-loop models and ask whether the fast one is the amplifying loop."""
     import loops as L
-    struct = [json.loads(l) for l in open(ROOT / 'results' / 'r31_structure_traj.jsonl')]
+
+    struct = [json.loads(line) for line in (ROOT / 'results' / 'r31_structure_traj.jsonl').read_text().splitlines()]
     dyn = {}
-    for l in open(ROOT / 'results' / 'r31_dynamics.jsonl'):
-        d = json.loads(l)
+    for line in (ROOT / 'results' / 'r31_dynamics.jsonl').read_text().splitlines():
+        d = json.loads(line)
         dyn[d['model']] = d
-    mixed = [d for d in struct if d.get('status') == 'ok' and d.get('loops') == 2 and d.get('loop_list')
-             and sorted(l['sign'] for l in d['loop_list']) == ['+', '-']]
+    mixed = [
+        d
+        for d in struct
+        if d.get('status') == 'ok'
+        and d.get('loops') == 2
+        and d.get('loop_list')
+        and sorted(loop['sign'] for loop in d['loop_list']) == ['+', '-']
+    ]
     rows = []
     for d in mixed:
         y = dyn.get(d['model'], {})
-        row = {'model': d['model'], 'name': d['name'], 'forced': bool(y.get('forced')),
-               'behaviours': y.get('behaviours') or [], 'keeps_time': 'oscillating' in (y.get('behaviours') or []),
-               'loops': [{'sign': l['sign'], 'integrates': l['integrates'], 'length': len(l['nodes'])} for l in d['loop_list']]}
+        row = {
+            'model': d['model'],
+            'name': d['name'],
+            'forced': bool(y.get('forced')),
+            'behaviours': y.get('behaviours') or [],
+            'keeps_time': 'oscillating' in (y.get('behaviours') or []),
+            'loops': [
+                {'sign': loop['sign'], 'integrates': loop['integrates'], 'length': len(loop['nodes'])}
+                for loop in d['loop_list']
+            ],
+        }
         try:
             rr, flags = L.load(ROOT / 'data' / 'r31_curated' / f"{d['model']}.xml")
             nodes, kinds, rule_syms = L.state_nodes(rr, flags)
             try:
                 S = rr.getFullStoichiometryMatrix()
                 rids_S, srows = list(S.colnames), {s: i for i, s in enumerate(S.rownames)}
-            except Exception:     # a model written as rate rules has no reactions; its rows come from the rules
+            except Exception:  # a model written as rate rules has no reactions; its rows come from the rules
                 S, rids_S, srows = None, [], {}
             rids, rsign, gsign, jac = L.derivative_signs(rr, nodes, kinds, rule_syms)
             N = np.zeros((len(nodes), len(rids)))
@@ -198,7 +245,7 @@ def census_test():
             idx = {s: i for i, s in enumerate(nodes)}
             speeds = {'+': [], '-': []}
             transits = {'+': [], '-': []}
-            for dv, dg, x in jac:
+            for dv, dg, _x in jac:
                 contrib = N[:, :, None] * dv[None, :, :] if dv.size else np.zeros((len(nodes), 0, len(nodes)))
                 Jpos = np.clip(contrib, 0, None).sum(1) / vol[:, None]
                 Jneg = np.clip(contrib, None, 0).sum(1) / vol[:, None]
@@ -208,19 +255,22 @@ def census_test():
                         J[idx[y_]] = dg[q]
                         Jpos[idx[y_]] = np.clip(dg[q], 0, None)
                         Jneg[idx[y_]] = np.clip(dg[q], None, 0)
-                got = {l['sign']: loop_speed(J, idx, l, Jpos, Jneg) for l in d['loop_list']}
+                got = {loop['sign']: loop_speed(J, idx, loop, Jpos, Jneg) for loop in d['loop_list']}
                 if got['+'] and got['-']:
                     speeds['+'].append(got['+'])
                     speeds['-'].append(got['-'])
                 shared = set(d['loop_list'][0]['nodes']) & set(d['loop_list'][1]['nodes'])
-                tr = {l['sign']: loop_transit(Jneg, idx, l, shared) for l in d['loop_list']}
+                tr = {loop['sign']: loop_transit(Jneg, idx, loop, shared) for loop in d['loop_list']}
                 if tr['+'] is not None and tr['-'] is not None:
                     transits['+'].append(tr['+'])
                     transits['-'].append(tr['-'])
             if speeds['+']:
                 ratio = float(np.median(np.log10(np.array(speeds['+']) / np.array(speeds['-']))))
-                row.update(states=len(speeds['+']), log10_amplify_over_brake=round(ratio, 3),
-                           faster='amplifying' if ratio > 0 else 'braking')
+                row.update(
+                    states=len(speeds['+']),
+                    log10_amplify_over_brake=round(ratio, 3),
+                    faster='amplifying' if ratio > 0 else 'braking',
+                )
             else:
                 row['faster'] = None
             if transits['+']:
@@ -238,20 +288,34 @@ def census_test():
 
     def tabulate(key):
         usable = [r for r in rows if r.get(key) and not r['forced'] and r['behaviours']]
-        table = {f: {'keeps time': sum(1 for r in usable if r[key] == f and r['keeps_time']),
-                     'does not': sum(1 for r in usable if r[key] == f and not r['keeps_time'])}
-                 for f in ('amplifying', 'braking')}
+        table = {
+            f: {
+                'keeps time': sum(1 for r in usable if r[key] == f and r['keeps_time']),
+                'does not': sum(1 for r in usable if r[key] == f and not r['keeps_time']),
+            }
+            for f in ('amplifying', 'braking')
+        }
         a, b = table['amplifying']['keeps time'], table['amplifying']['does not']
         c, d_ = table['braking']['keeps time'], table['braking']['does not']
         odds, p = fisher_exact([[a, b], [c, d_]], alternative='greater')
-        return {'usable': len(usable), 'table': table, 'fisher_one_sided_p': round(float(p), 4),
-                'odds_ratio': (round(float(odds), 2) if np.isfinite(odds) else 'inf')}
+        return {
+            'usable': len(usable),
+            'table': table,
+            'fisher_one_sided_p': round(float(p), 4),
+            'odds_ratio': (round(float(odds), 2) if np.isfinite(odds) else 'inf'),
+        }
+
     ties = sum(1 for r in rows if r.get('faster_transit') == 'tie' and not r['forced'] and r['behaviours'])
-    return {'mixed_two_loop_models': len(mixed), 'arrow_strength': tabulate('faster'),
-            'transit_time': dict(tabulate('faster_transit'), ties_left_out=ties), 'models': rows}
+    return {
+        'mixed_two_loop_models': len(mixed),
+        'arrow_strength': tabulate('faster'),
+        'transit_time': dict(tabulate('faster_transit'), ties_left_out=ties),
+        'models': rows,
+    }
 
 
-def main():
+def main() -> None:
+    """Run the count, toy and census tests, print a summary and write results/nesting.json."""
     res = {'count': count_test()}
     print('count')
     for r in res['count']:

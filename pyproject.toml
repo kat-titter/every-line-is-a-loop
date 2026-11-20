@@ -1,0 +1,22 @@
+# Tooling only: the analysis runs as plain scripts (see README, "Reproduce").
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+extend-exclude = ["proto", "x-pack", "build", "data"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "C4"]
+# E501: the formatter wraps code at 120; what stays longer is HTML, SVG and prose in string literals, kept whole.
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "preserve"
+
+[tool.ruff.lint.per-file-ignores]
+# The five page generators carry essay-revision 6739a8c's code exactly (the final merge gated each on an AST match,
+# docstrings and type hints aside), so its lint findings stay until one refactor pass rebuilds the page byte-identical.
+"analysis/build_post.py" = ["C401", "C406", "C408", "E731", "E741", "F541", "I001", "SIM115"]
+"analysis/circuit_figures.py" = ["E731", "E741", "F541", "SIM115", "SIM300", "UP031"]
+"analysis/fold_census.py" = ["B007", "B023", "C401", "C408", "E731", "E741", "F841", "I001"]
+"analysis/interactive.py" = ["B023", "E731"]
+"analysis/loop_morph.py" = ["E741", "F401"]

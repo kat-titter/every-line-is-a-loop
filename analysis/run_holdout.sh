@@ -23,9 +23,9 @@ sandbox() {  # $1 scratch root, $2 folder of model files to census
   for m in BIOMD0000000312 BIOMD0000000603; do [ -e "$1/data/r31_curated/$m.xml" ] || ln -s "$REPO/data/r31_curated/$m.xml" "$1/data/r31_curated/$m.xml"; done
 }
 structure() {  # run from inside a scratch root
-  "$PY" analysis/loops.py --all data/census_only --out results/r31_structure_traj.jsonl --jobs "$JOBS" --timeout 1200 --signs trajectory
+  "$PY" analysis/loops.py --all data/census_only --out results/r31_structure_traj.jsonl --jobs "$JOBS" --signs trajectory
   "$PY" -c "import json; print('\n'.join('data/r31_curated/%s.xml' % r['model'] for r in map(json.loads, open('results/r31_structure_traj.jsonl')) if r.get('status') == 'ok'))" > results/list_ok.txt
-  "$PY" analysis/dynamics.py --list results/list_ok.txt --out results/r31_dynamics.jsonl --jobs "$JOBS" --timeout 900
+  "$PY" analysis/dynamics.py --list results/list_ok.txt --out results/r31_dynamics.jsonl --jobs "$JOBS"
 }
 
 # ---- 0. the check that can fail: release 31 reproduces through this mechanism

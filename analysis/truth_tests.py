@@ -1,5 +1,9 @@
 """Three truth tests of the loop theory on the BioModels census (release 31).
 
+Reads:  results/r31_structure_traj.jsonl, results/r31_dynamics.jsonl, data/r31_curated/*.xml
+Writes: results/truth_tests.json
+Run:    .venv/bin/python analysis/truth_tests.py
+
 1. Rules.  Memory needs an amplifying loop; a sustained rhythm needs a braking loop. Checked on every autonomous
            model from the census's own sign graph (plain and refined), independently of the census summary.
 2. Gain.   Topology permits, strength decides. A clock built from one braking loop of n stages can only lose its
@@ -13,50 +17,84 @@
               variable that moves by more than 5% and comes back to within 0.5% of where it was while others stay
               moved. That is exact adaptation, found from behaviour rather than read from the equations.
 
+Budget: each (test, model) job may spend WORK_BUDGET derivative evaluations of solver work (budget.py); a job that
+spends it gets the status 'budget: solver work ...', whatever machine runs it. Each job runs in its own process under
+budget.py's wall-clock safety net.
+
 Usage: .venv/bin/python analysis/truth_tests.py            all tests, writes results/truth_tests.json
        .venv/bin/python analysis/truth_tests.py --one KIND MODEL    one model (used by the driver; JSON to stdout)
 """
+
+from __future__ import annotations
+
 import concurrent.futures as cf
 import json
 import math
 import pathlib
-import subprocess
 import sys
 
 import numpy as np
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / 'analysis'))
+import budget  # noqa: E402
+
 DATA = ROOT / 'data' / 'r31_curated'
 OUT = ROOT / 'results' / 'truth_tests.json'
 STEP, MOVE, BACK, OTHERS = 0.2, 0.05, 0.005, 0.05
+# Solver work per (test, model) job, in derivative evaluations (budget.py). Rule: no record that finished under the
+# old wall-clock caps (300 s for gain and memory, 600 s for step and return) can run out. A job's work is at most its
+# CPU time times the fastest rate measured, 1.7e8 a second (BIOMD0000000137, run alone 2026-11-19); these records
+# carry no timings, so the cap is the bound: 600 x 1.7e8 = 1.02e11, rounded up. Measured alone: the 24 slowest jobs
+# by dynamics time spend at most 1.7e9 (the memory test of BIOMD0000000045, which today's busy rerun timed out at
+# 300 s) and give their committed records.
+WORK_BUDGET = 1.1e11
 
 # models drawn of one system at different detail, or alternative models of one phenomenon (named in the census)
 FAMILIES = {
-    'fruit fly day clock': ['BIOMD0000000016', 'BIOMD0000000036', 'BIOMD0000000021', 'BIOMD0000000298', 'BIOMD0000000171'],
+    'fruit fly day clock': [
+        'BIOMD0000000016',
+        'BIOMD0000000036',
+        'BIOMD0000000021',
+        'BIOMD0000000298',
+        'BIOMD0000000171',
+    ],
     'Tyson 1991 cell cycle, 6 and 2 variables': ['BIOMD0000000005', 'BIOMD0000000006'],
     'Morris-Lecar muscle fibre, full and reduced': ['BIOMD0000000324', 'BIOMD0000000280'],
     'Singh 2006 TCA cycle, two versions': ['BIOMD0000000219', 'BIOMD0000000218'],
-    'Smallbone 2013 colon crypt, versions 0 to 3': ['BIOMD0000000520', 'BIOMD0000000519', 'BIOMD0000000518', 'BIOMD0000000517'],
+    'Smallbone 2013 colon crypt, versions 0 to 3': [
+        'BIOMD0000000520',
+        'BIOMD0000000519',
+        'BIOMD0000000518',
+        'BIOMD0000000517',
+    ],
     'Borghans 1997 calcium oscillations, models 1 to 3': ['BIOMD0000000043', 'BIOMD0000000044', 'BIOMD0000000045'],
 }
 
 
 # ---------------------------------------------------------------- shared
-def setup(mid, promote=False):
-    """The census's own loader; with promote, local reaction parameters become global so a step can reach them."""
+def setup(
+    mid: str, promote: bool = False
+) -> tuple[object, object, list[str], set[str], np.ndarray, set[str], list[str]]:
+    """The census's own loader; with promote, local reaction parameters become global so a step can reach them.
+
+    Returns (dynamics module, roadrunner model, state ids, species ids, start state, assigned ids, rate-rule ids)."""
+    import dynamics as DY
     import libsbml
     import roadrunner
-    import dynamics as DY
+
     path = DATA / f'{mid}.xml'
     if promote:
         doc = libsbml.readSBMLFromFile(str(path))
-        props = libsbml.ConversionProperties(); props.addOption('promoteLocalParameters', True)
+        props = libsbml.ConversionProperties()
+        props.addOption('promoteLocalParameters', True)
         doc.convert(props)
         roadrunner.Logger.setLevel(roadrunner.Logger.LOG_ERROR)
         rr = roadrunner.RoadRunner(libsbml.writeSBMLToString(doc))
         try:
-            rr.integrator.relative_tolerance = 1e-8; rr.integrator.absolute_tolerance = 1e-12; rr.integrator.maximum_num_steps = 200000
+            rr.integrator.relative_tolerance = 1e-8
+            rr.integrator.absolute_tolerance = 1e-12
+            rr.integrator.maximum_num_steps = 200000
         except Exception:
             pass
         m = doc.getModel()
@@ -72,7 +110,7 @@ def setup(mid, promote=False):
     return DY, rr, ids, spset, x0, assigned, rate_vars
 
 
-def rhs(rr, DY, ids, spset, x):
+def rhs(rr: object, DY: object, ids: list[str], spset: set[str], x: np.ndarray) -> np.ndarray:
     """Rates of change of the state variables at x (species as concentrations, rate-rule variables as written)."""
     DY.put_state(rr, ids, spset, x)
     a = rr.getRatesOfChangeNamedArray()
@@ -83,7 +121,8 @@ def rhs(rr, DY, ids, spset, x):
             v = named[s]
             if s in spset:  # amount rate to concentration rate
                 try:
-                    conc = rr.getValue('[' + s + ']'); amt = rr.getValue(s)
+                    conc = rr.getValue('[' + s + ']')
+                    amt = rr.getValue(s)
                     if conc and amt:
                         v = v * conc / amt
                 except Exception:
@@ -92,33 +131,39 @@ def rhs(rr, DY, ids, spset, x):
     return out
 
 
-def jacobian(rr, DY, ids, spset, x):
+def jacobian(rr: object, DY: object, ids: list[str], spset: set[str], x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Central-difference Jacobian of rhs at x (per time unit), and the rates of change at x."""
     f0 = rhs(rr, DY, ids, spset, x)
     J = np.zeros((len(ids), len(ids)))
     scale = np.maximum(np.abs(x), 1e-6 * (np.abs(x).max() or 1.0))
     for i in range(len(ids)):
         h = 1e-6 * scale[i]
         xp, xm = x.copy(), x.copy()
-        xp[i] += h; xm[i] -= h
+        xp[i] += h
+        xm[i] -= h
         J[:, i] = (rhs(rr, DY, ids, spset, xp) - rhs(rr, DY, ids, spset, xm)) / (2 * h)
     return J, f0
 
 
-def steady_from(rr, DY, ids, spset, x):
+def steady_from(rr: object, DY: object, ids: list[str], spset: set[str], x: np.ndarray) -> tuple[np.ndarray, bool]:
+    """Root-solve for a steady state starting at x; returns the state and whether the rates are near zero there."""
     from scipy.optimize import root
+
     sol = root(lambda z: rhs(rr, DY, ids, spset, z), x, method='hybr', options={'maxfev': 800})
     f = rhs(rr, DY, ids, spset, sol.x)
     ok = np.all(np.isfinite(sol.x)) and np.max(np.abs(f)) <= 1e-6 * max(1.0, np.max(np.abs(sol.x)))
     return sol.x, bool(ok)
 
 
-def loop_gain(J, idx, nodes):
+def loop_gain(J: np.ndarray, idx: dict[str, int], nodes: list[str]) -> tuple[float | None, str]:
+    """Loop gain prod|J[b,a]| / prod|J[i,i]| round the loop, or (None, why it cannot be read)."""
     diag, off = [], []
     for i in range(len(nodes)):
         a, b = idx.get(nodes[i]), idx.get(nodes[(i + 1) % len(nodes)])
         if a is None or b is None:
             return None, 'node not a state variable'
-        diag.append(J[a, a]); off.append(J[b, a])
+        diag.append(J[a, a])
+        off.append(J[b, a])
     if any(d >= 0 for d in diag):
         return None, 'a loop node has no decay of its own'
     if any(o == 0 for o in off):
@@ -126,19 +171,22 @@ def loop_gain(J, idx, nodes):
     return float(np.prod(np.abs(off)) / np.prod(np.abs(diag))), ''
 
 
-def secant(n):
+def secant(n: int) -> float:
+    """sec(pi/n)^n, the gain a loop of n stages must exceed to lose its steady state (infinite for n <= 2)."""
     return math.inf if n <= 2 else (1 / math.cos(math.pi / n)) ** n
 
 
 # ---------------------------------------------------------------- per-model work
-def one_gain(mid, loop):
+def one_gain(mid: str, loop: dict[str, object]) -> dict[str, object]:
+    """Loop gain of a one-brake model at its own steady state, with the threshold it must exceed to tick."""
     DY, rr, ids, spset, x0, *_ = setup(mid)
+    budget.meter(rr, WORK_BUDGET)
     idx = {s: i for i, s in enumerate(ids)}
     # a point near the steady state: the time-average of the model's own run, then a root solve
     DY.put_state(rr, ids, spset, x0)
     try:
         r = np.array(rr.simulate(0, 1000, 4001, [DY.sel(s, spset) for s in ids]))
-        guess = r[len(r) // 2:].mean(axis=0)
+        guess = r[len(r) // 2 :].mean(axis=0)
     except Exception:
         guess = x0
     xs, ok = steady_from(rr, DY, ids, spset, guess)
@@ -147,22 +195,31 @@ def one_gain(mid, loop):
     J, _ = jacobian(rr, DY, ids, spset, xs)
     G, why = loop_gain(J, idx, loop['nodes'])
     ev = np.linalg.eigvals(J)
-    return {'model': mid, 'status': 'ok', 'n': len(loop['nodes']), 'G': G, 'why': why, 'threshold': secant(len(loop['nodes'])),
-            'unstable': bool(np.max(ev.real) > 1e-9 * max(1, np.abs(ev).max()))}
+    return {
+        'model': mid,
+        'status': 'ok',
+        'n': len(loop['nodes']),
+        'G': G,
+        'why': why,
+        'threshold': secant(len(loop['nodes'])),
+        'unstable': bool(np.max(ev.real) > 1e-9 * max(1, np.abs(ev).max())),
+    }
 
 
-def one_memory(mid, loop):
+def one_memory(mid: str, loop: dict[str, object]) -> dict[str, object]:
     """All steady states reachable by root solves from the model's spread starts; G at each."""
     DY, rr, ids, spset, x0, *_ = setup(mid)
+    budget.meter(rr, WORK_BUDGET)
     idx = {s: i for i, s in enumerate(ids)}
     try:
-        S = rr.getFullStoichiometryMatrix(); rows = {s: i for i, s in enumerate(S.rownames)}
+        S = rr.getFullStoichiometryMatrix()
+        rows = {s: i for i, s in enumerate(S.rownames)}
         N = np.array([np.array(S[rows[s]]) if s in rows else np.zeros(S.shape[1]) for s in ids])
     except Exception:
         N = np.zeros((len(ids), 0))
     starts = [x0] + DY.spread_starts(x0, N, 11, 0)
     stable = []
-    for st in starts:            # the stable states: where the model's own runs settle
+    for st in starts:  # the stable states: where the model's own runs settle
         r = DY.run_from(rr, ids, st, spset)
         if r['kind'] == 'steady':
             xs = np.array(r['state'])
@@ -177,9 +234,10 @@ def one_memory(mid, loop):
         e = np.array(r['state'])
         d = [np.max(np.abs(e - y) / np.maximum(np.abs(y), 1e-9 * (np.abs(y).max() or 1.0))) for y in stable]
         return int(np.argmin(d)) if min(d) < 1e-2 else None
-    for i, a in enumerate(stable):   # the tipping point: bisect the line between two stable states to the boundary
-        for j in range(i + 1, len(stable)):                     # between their basins, then follow the run that
-            b = stable[j]                                       # lingers there and solve from its slowest point
+
+    for i, a in enumerate(stable):  # the tipping point: bisect the line between two stable states to the boundary
+        for j in range(i + 1, len(stable)):  # between their basins, then follow the run that
+            b = stable[j]  # lingers there and solve from its slowest point
             lo, hi = 0.0, 1.0
             if basin(a) != i or basin(b) != j:
                 continue
@@ -214,12 +272,15 @@ def one_memory(mid, loop):
     return {'model': mid, 'status': 'ok', 'steady_states': out}
 
 
-def one_step(mid):
+def one_step(mid: str) -> dict[str, object]:
+    """Raise each global parameter by STEP in one settling model; list the (parameter, variable) exact returns."""
     DY, rr, ids, spset, x0, assigned, rate_vars = setup(mid, promote=True)
+    budget.meter(rr, WORK_BUDGET)
     base = DY.run_from(rr, ids, x0, spset)
     if base['kind'] != 'steady':
         return {'model': mid, 'status': 'baseline not steady: ' + base['kind']}
-    xs = np.array(base['state']); T = float(min(max(3 * base['T'], 100.0), 1e5))
+    xs = np.array(base['state'])
+    T = float(min(max(3 * base['T'], 100.0), 1e5))
     params = [p for p in rr.model.getGlobalParameterIds() if p not in assigned and p not in rate_vars]
     hits, tried = [], 0
     for p in params:
@@ -235,7 +296,7 @@ def one_step(mid):
         tried += 1
         if not np.all(np.isfinite(y)):
             continue
-        tail = y[int(0.8 * len(y)):]
+        tail = y[int(0.8 * len(y)) :]
         level = np.maximum(np.abs(xs), 1e-9 * (np.abs(xs).max() or 1.0))
         settled = np.all(np.ptp(tail, axis=0) <= 1e-4 * np.maximum(np.abs(tail).mean(axis=0), 1e-12) + 1e-12)
         if not settled:
@@ -245,30 +306,54 @@ def one_step(mid):
         moved = final > OTHERS
         for k, s in enumerate(ids):
             if abs(xs[k]) > 1e-9 * (np.abs(xs).max() or 1.0) and peak[k] > MOVE and final[k] < BACK and moved.any():
-                hits.append({'parameter': p, 'variable': s, 'peak': round(float(peak[k]), 3), 'final': round(float(final[k]), 5)})
+                hits.append(
+                    {
+                        'parameter': p,
+                        'variable': s,
+                        'peak': round(float(peak[k]), 3),
+                        'final': round(float(final[k]), 5),
+                    }
+                )
     return {'model': mid, 'status': 'ok', 'parameters_tried': tried, 'exact_returns': hits}
 
 
 # ---------------------------------------------------------------- driver
-def run_one(kind, mid, arg=None, timeout=300):
-    cmd = [sys.executable, str(pathlib.Path(__file__)), '--one', kind, mid] + ([json.dumps(arg)] if arg is not None else [])
-    try:
-        p = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout,
-                           env={'OPENBLAS_NUM_THREADS': '1', 'VECLIB_MAXIMUM_THREADS': '1', 'OMP_NUM_THREADS': '1', 'PATH': '/usr/bin:/bin'})
-        line = [l for l in p.stdout.splitlines() if l.startswith('{')]
-        return json.loads(line[-1]) if line else {'model': mid, 'status': 'error: ' + p.stderr.strip()[-160:]}
-    except subprocess.TimeoutExpired:
-        return {'model': mid, 'status': f'timeout after {timeout} s'}
+def run_one(kind: str, mid: str, arg: dict[str, object] | None = None) -> dict[str, object]:
+    """Run one --one job in a single-threaded subprocess; failures come back as a status."""
+    cmd = [sys.executable, str(pathlib.Path(__file__)), '--one', kind, mid] + (
+        [json.dumps(arg)] if arg is not None else []
+    )
+    env = {'OPENBLAS_NUM_THREADS': '1', 'VECLIB_MAXIMUM_THREADS': '1', 'OMP_NUM_THREADS': '1', 'PATH': '/usr/bin:/bin'}
+    p = budget.run(cmd, mid, env=env)
+    if p is None:
+        return {'model': mid, 'status': budget.SAFETY_NET}
+    json_lines = [ln for ln in p.stdout.splitlines() if ln.startswith('{')]
+    return json.loads(json_lines[-1]) if json_lines else {'model': mid, 'status': 'error: ' + p.stderr.strip()[-160:]}
 
 
-def main():
-    S = {json.loads(l)['model']: json.loads(l) for l in open(ROOT / 'results' / 'r31_structure_traj.jsonl')}
-    D = {json.loads(l)['model']: json.loads(l) for l in open(ROOT / 'results' / 'r31_dynamics.jsonl')}
+def main() -> None:
+    """Run all three tests over the census and write results/truth_tests.json."""
+    S = {
+        rec['model']: rec
+        for rec in (
+            json.loads(line) for line in (ROOT / 'results' / 'r31_structure_traj.jsonl').read_text().splitlines()
+        )
+    }
+    D = {
+        rec['model']: rec
+        for rec in (json.loads(line) for line in (ROOT / 'results' / 'r31_dynamics.jsonl').read_text().splitlines())
+    }
     auto = [m for m, d in D.items() if d.get('status') == 'ok' and not d.get('forced') and d.get('behaviours')]
     res = {'settings': {'step': STEP, 'moves_more_than': MOVE, 'returns_within': BACK, 'others_stay_moved_by': OTHERS}}
 
     # 1. rules
-    rules = {'autonomous': len(auto), 'memory': 0, 'memory_without_amplifying_loop': [], 'clock': 0, 'clock_without_braking_loop': []}
+    rules = {
+        'autonomous': len(auto),
+        'memory': 0,
+        'memory_without_amplifying_loop': [],
+        'clock': 0,
+        'clock_without_braking_loop': [],
+    }
     for m in auto:
         b, d = D[m]['behaviours'], S.get(m, {})
         if 'multistable' in b:
@@ -282,8 +367,9 @@ def main():
     res['rules'] = rules
     print('rules', {k: (v if not isinstance(v, list) else len(v)) for k, v in rules.items()}, flush=True)
 
-    one_loop = lambda m, sign: S.get(m, {}).get('loop_list') and len(S[m]['loop_list']) == 1 and S[m]['loop_list'][0]['sign'] == sign
-    jobs = []
+    def one_loop(m: str, sign: str):
+        return S.get(m, {}).get('loop_list') and len(S[m]['loop_list']) == 1 and S[m]['loop_list'][0]['sign'] == sign
+
     with cf.ThreadPoolExecutor(8) as ex:
         # 2. gain: one-brake clocks and one-brake models that do not tick
         clocks = [m for m in auto if one_loop(m, '-') and 'oscillating' in D[m]['behaviours']]
@@ -294,7 +380,7 @@ def main():
         f_mem = {m: ex.submit(run_one, 'memory', m, S[m]['loop_list'][0]) for m in mems + single}
         # 3b. step and return on every settling autonomous model
         settle = [m for m in auto if 'steady' in D[m]['behaviours'] and 'oscillating' not in D[m]['behaviours']]
-        f_step = {m: ex.submit(run_one, 'step', m, None, 600) for m in settle}
+        f_step = {m: ex.submit(run_one, 'step', m) for m in settle}
         res['gain_brake'] = [dict(f_clock[m].result(), ticks=m in clocks, name=S[m]['name']) for m in clocks + quiet]
         print('gain: brake done', flush=True)
         res['gain_amplify'] = [dict(f_mem[m].result(), memory=m in mems, name=S[m]['name']) for m in mems + single]
@@ -314,9 +400,18 @@ def main():
         for m in ms:
             d, y = S.get(m, {}), D.get(m, {})
             step = next((r for r in res['step'] if r['model'] == m), None)
-            rows.append({'model': m, 'name': d.get('name'), 'loops': d.get('loops'), 'brakes': d.get('negative'),
-                         'running_totals': d.get('integrating'), 'forced': y.get('forced'), 'behaviours': y.get('behaviours'),
-                         'exact_return': (bool(step['exact_returns']) if step and step.get('status') == 'ok' else None)})
+            rows.append(
+                {
+                    'model': m,
+                    'name': d.get('name'),
+                    'loops': d.get('loops'),
+                    'brakes': d.get('negative'),
+                    'running_totals': d.get('integrating'),
+                    'forced': y.get('forced'),
+                    'behaviours': y.get('behaviours'),
+                    'exact_return': (bool(step['exact_returns']) if step and step.get('status') == 'ok' else None),
+                }
+            )
         fam[f] = rows
     res['families'] = fam
     OUT.write_text(json.dumps(res, indent=1))
@@ -329,7 +424,13 @@ if __name__ == '__main__':
         kind, mid = sys.argv[i + 1], sys.argv[i + 2]
         arg = json.loads(sys.argv[i + 3]) if len(sys.argv) > i + 3 else None
         try:
-            out = {'gain': lambda: one_gain(mid, arg), 'memory': lambda: one_memory(mid, arg), 'step': lambda: one_step(mid)}[kind]()
+            out = {
+                'gain': lambda: one_gain(mid, arg),
+                'memory': lambda: one_memory(mid, arg),
+                'step': lambda: one_step(mid),
+            }[kind]()
+        except budget.Spent as e:
+            out = {'model': mid, 'status': f'budget: {e}'}
         except Exception as e:
             out = {'model': mid, 'status': 'error: ' + repr(e)[:160]}
         print(json.dumps(out, default=float))

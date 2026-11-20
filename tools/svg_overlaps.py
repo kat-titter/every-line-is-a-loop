@@ -2,7 +2,12 @@
 past the viewBox) on every figure of the page, after the interactive states are set.
 
 Usage: .venv/bin/python tools/svg_overlaps.py [PAGE]
+
+Reads: every-line-is-a-loop.html (or PAGE), rendered in Chrome.
+Writes: nothing; prints the overlaps found.
+Run: .venv/bin/python tools/svg_overlaps.py [PAGE]
 """
+
 import asyncio
 import json
 import pathlib
@@ -21,7 +26,9 @@ async def main(page):
         pg = await b.new_page(viewport={'width': 900, 'height': 900})
         await pg.goto(page.as_uri())
         await pg.wait_for_timeout(500)
-        await pg.evaluate("const s=document.getElementById('t-w'); if (s) { s.value=100; s.dispatchEvent(new Event('input')) }")
+        await pg.evaluate(
+            "const s=document.getElementById('t-w'); if (s) { s.value=100; s.dispatchEvent(new Event('input')) }"
+        )
         await pg.wait_for_timeout(500)
         res = await pg.evaluate(js)
         await b.close()

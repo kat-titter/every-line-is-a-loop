@@ -1446,7 +1446,7 @@
   }
  },
  "theorem_checks": {
-  "forced models excluded": 178,
+  "forced models excluded": 180,
   "multistable": 12,
   "multistable without refined positive circuit": [],
   "oscillating": 101,

@@ -1,0 +1,54 @@
+cff-version: 1.2.0
+message: "If you use this code or its results, please cite the essay and the code as below."
+title: "Every line is a loop: what would a maximally plausible periodic table for biology look like?"
+type: software
+authors:
+  - family-names: Titterton
+    given-names: Katherine
+    affiliation: Macrofluidics
+repository-code: "https://github.com/kat-titter/every-line-is-a-loop"
+url: "https://kat-titter.github.io/every-line-is-a-loop/every-line-is-a-loop.html"
+license: MIT
+keywords:
+  - feedback loops
+  - systems biology
+  - BioModels
+  - periodic table
+  - SBML
+abstract: >-
+  An essay proposing a periodic table of feedback circuits in cells (loops, braking loops, running totals) and the
+  code that tests it: a census of the 640 curated models of BioModels release 31 and a hold-out of 435 models curated
+  since. One command rebuilds every number in the essay from the raw downloads.
+references:
+  - type: data
+    title: "BioModels Database, release 31 (26 June 2017), curated SBML models"
+    url: "https://ftp.ebi.ac.uk/pub/databases/biomodels/releases/2017-06-26/"
+    authors:
+      - name: "EMBL-EBI BioModels team"
+  - type: article
+    title: "BioModels—15 years of sharing computational models in life science"
+    authors:
+      - family-names: Malik-Sheriff
+        given-names: Rahuman S.
+    journal: "Nucleic Acids Research"
+    volume: 48
+    issue: "D1"
+    start: D407
+    end: D415
+    year: 2020
+    doi: "10.1093/nar/gkz1055"
+  - type: article
+    title: "Graphical requirements for multistationarity in reaction networks and their verification in BioModels"
+    authors:
+      - family-names: Baudier
+        given-names: Adrien
+      - family-names: Fages
+        given-names: François
+      - family-names: Soliman
+        given-names: Sylvain
+    journal: "Journal of Theoretical Biology"
+    volume: 459
+    start: 79
+    end: 89
+    year: 2018
+    doi: "10.1016/j.jtbi.2018.09.024"

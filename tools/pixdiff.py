@@ -2,7 +2,14 @@
 
 Usage: .venv/bin/python tools/pixdiff.py A.png B.png [A2.png B2.png ...]
 Prints size, number of differing pixels, max channel delta and the bounding box.
+
+Reads: the PNG pairs given on the command line.
+Writes: nothing; prints one line per pair.
+Run: .venv/bin/python tools/pixdiff.py A.png B.png [A2.png B2.png ...]
 """
+
+from __future__ import annotations
+
 import asyncio
 import base64
 import pathlib
@@ -28,11 +35,13 @@ JS = """async ([a, b]) => {
 }"""
 
 
-def uri(p):
+def uri(p: str | pathlib.Path) -> str:
+    """The image file as a PNG data URI."""
     return 'data:image/png;base64,' + base64.b64encode(pathlib.Path(p).read_bytes()).decode()
 
 
-async def main(pairs):
+async def main(pairs: list[tuple[str, str]]) -> None:
+    """Print the pixel difference for each pair of images."""
     async with async_playwright() as p:
         b = await p.chromium.launch(channel='chrome')
         pg = await b.new_page()

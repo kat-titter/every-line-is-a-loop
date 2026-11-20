@@ -6,7 +6,14 @@ spiral with its family rays fades in. The figure plays itself once when it scrol
 motion, where it starts wound), and the slider lets the reader unwind it.
 
 Both layouts are computed here, so the first frame is complete without JavaScript (drawn wound, the reveal).
+
+Reads: nothing (layouts come from table_figures.py).
+Writes: nothing; fig_morph() returns the figure, imported by fold_census.py.
+Run: .venv/bin/python analysis/loop_morph.py   (prints the figure's length as a smoke test)
 """
+
+from __future__ import annotations
+
 import json
 import math
 import pathlib
@@ -21,11 +28,12 @@ W = 330
 SHAPE_SIZE = {'chem': 2.9, 'bio': 5.2}
 
 
-def pt(cx, cy, r, th):
+def pt(cx: float, cy: float, r: float, th: float) -> tuple[float, float]:
+    """Point at radius r and angle th degrees from (cx, cy), as table_figures draws it."""
     return TF._pt(cx, cy, r, th)
 
 
-def chem_layout():
+def chem_layout() -> tuple:
     """Marks for chemistry: grid position (long form, 32 columns), spiral position, block index."""
     periods = [2, 8, 8, 18, 18, 32, 32]
     cx, cy, r0, b = 170, 190, 22, 15
@@ -39,26 +47,41 @@ def chem_layout():
         elif L == 18:
             cols, blocks = [0, 1] + list(range(16, 26)) + list(range(26, 32)), ['s', 's'] + ['d'] * 10 + ['p'] * 6
         else:
-            cols, blocks = [0, 1] + list(range(2, 16)) + list(range(16, 26)) + list(range(26, 32)), ['s', 's'] + ['f'] * 14 + ['d'] * 10 + ['p'] * 6
+            cols, blocks = (
+                [0, 1] + list(range(2, 16)) + list(range(16, 26)) + list(range(26, 32)),
+                ['s', 's'] + ['f'] * 14 + ['d'] * 10 + ['p'] * 6,
+            )
         for i, (c, blk) in enumerate(zip(cols, blocks)):
             th = TH0 + (TH1 - TH0) * i / (L - 1)
             sx, sy = pt(cx, cy, r0 + b * (p + th / 360), th)
-            marks.append({'g': [round(gx0 + c * gdx, 1), round(gy0 + p * gdy, 1)], 's': [round(sx, 1), round(sy, 1)], 'l': 'spdf'.index(blk)})
+            marks.append(
+                {
+                    'g': [round(gx0 + c * gdx, 1), round(gy0 + p * gdy, 1)],
+                    's': [round(sx, 1), round(sy, 1)],
+                    'l': 'spdf'.index(blk),
+                }
+            )
         guides.append(round(gy0 + p * gdy, 1))
     spiral = TF._spiral(cx, cy, r0, b, 0, 6) + TF._rays(cx, cy, r0, b, 6, 8)
     labels_s = ''
     for th, lab, anchor, dx in ((TH0, 'group 1', 'start', 4), (TH1, 'noble gases', 'end', -4)):
         x, y = pt(cx, cy, r0 + b * (6 + th / 360) + 24, th)
         labels_s += f'<text x="{x + dx:.1f}" y="{y - 8:.1f}" text-anchor="{anchor}" font-size="12" fill="var(--muted)">{lab}</text>'
-    labels_g = ''.join(f'<text x="{gx0 - 8}" y="{y + 4:.1f}" text-anchor="end" font-size="12" fill="var(--muted)" style="font-family: var(--code)">{p + 1}</text>' for p, y in enumerate(guides))
+    labels_g = ''.join(
+        f'<text x="{gx0 - 8}" y="{y + 4:.1f}" text-anchor="end" font-size="12" fill="var(--muted)" style="font-family: var(--code)">{p + 1}</text>'
+        for p, y in enumerate(guides)
+    )
     labels_g += f'<text x="{gx0}" y="{gy0 + 7 * gdy + 4}" text-anchor="start" font-size="12" fill="var(--muted)" style="font-family: var(--code)">period, down</text>'
     labels_g += f'<text x="{gx0}" y="{gy0 - 14}" text-anchor="start" font-size="12" fill="var(--muted)" style="font-family: var(--code)">group 1</text>'
     labels_g += f'<text x="{gx0 + 31 * gdx}" y="{gy0 - 14}" text-anchor="end" font-size="12" fill="var(--muted)" style="font-family: var(--code)">18</text>'
-    grid_guides = ''.join(f'<line x1="{gx0 - 4}" y1="{y:.1f}" x2="{gx0 + 31 * gdx + 4:.1f}" y2="{y:.1f}" stroke="var(--rule)" stroke-width="1"/>' for y in guides)
+    grid_guides = ''.join(
+        f'<line x1="{gx0 - 4}" y1="{y:.1f}" x2="{gx0 + 31 * gdx + 4:.1f}" y2="{y:.1f}" stroke="var(--rule)" stroke-width="1"/>'
+        for y in guides
+    )
     return marks, grid_guides, labels_g, spiral, labels_s
 
 
-def bio_layout():
+def bio_layout() -> tuple:
     """Marks for the loop table: one row per loop count in orbital order; element zero at the centre of the spiral."""
     cx, cy, r0, b = 170, 196, 40, 32
     gy0, gdy, gdx = 60, 34, 14
@@ -72,45 +95,74 @@ def bio_layout():
             th = TH0 + (TH1 - TH0) * i / (L - 1)
             sx, sy = pt(cx, cy, r0 + b * (nu - 1 + th / 360), th)
             gx = 165 + (i - (L - 1) / 2) * gdx
-            marks.append({'g': [round(gx, 1), round(gy0 + (nu - 1) * gdy, 1)], 's': [round(sx, 1), round(sy, 1)], 'l': max(e[1], e[2]), 'n': TF.NUMBER[e]})
+            marks.append(
+                {
+                    'g': [round(gx, 1), round(gy0 + (nu - 1) * gdy, 1)],
+                    's': [round(sx, 1), round(sy, 1)],
+                    'l': max(e[1], e[2]),
+                    'n': TF.NUMBER[e],
+                }
+            )
         guides.append((nu, L, round(gy0 + (nu - 1) * gdy, 1)))
     spiral = TF._spiral(cx, cy, r0, b, 0, 2) + TF._rays(cx, cy, r0, b, 2, 22)
     labels_s = ''
     for th, lab, anchor, dx in ((TH0, 'memories', 'start', 4), (TH1, 'clocks', 'end', -4)):
         x, y = pt(cx, cy, r0 + b * (2 + th / 360) + 36, th)
         labels_s += f'<text x="{x + dx:.1f}" y="{y - 8:.1f}" text-anchor="{anchor}" font-size="12" fill="var(--muted)">{lab}</text>'
-    labels_g = ''.join(f'<text x="{165 - (L - 1) / 2 * gdx - 12:.1f}" y="{y + 4:.1f}" text-anchor="end" font-size="12" fill="var(--muted)" style="font-family: var(--code)">{nu}</text>' for nu, L, y in guides)
+    labels_g = ''.join(
+        f'<text x="{165 - (L - 1) / 2 * gdx - 12:.1f}" y="{y + 4:.1f}" text-anchor="end" font-size="12" fill="var(--muted)" style="font-family: var(--code)">{nu}</text>'
+        for nu, L, y in guides
+    )
     labels_g += '<text x="150" y="44" text-anchor="end" font-size="12" fill="var(--muted)" style="font-family: var(--code)">0</text>'
     # as chemistry's grid says "period, down": the row number is the loop count
     labels_g += f'<text x="{165 - 15 / 2 * gdx:.1f}" y="{gy0 + 2 * gdy + 34}" text-anchor="start" font-size="12" fill="var(--muted)" style="font-family: var(--code)">loops, down</text>'
-    grid_guides = ''.join(f'<line x1="{165 - (L - 1) / 2 * gdx - 6:.1f}" y1="{y:.1f}" x2="{165 + (L - 1) / 2 * gdx + 6:.1f}" y2="{y:.1f}" stroke="var(--rule)" stroke-width="1"/>' for nu, L, y in guides)
+    grid_guides = ''.join(
+        f'<line x1="{165 - (L - 1) / 2 * gdx - 6:.1f}" y1="{y:.1f}" x2="{165 + (L - 1) / 2 * gdx + 6:.1f}" y2="{y:.1f}" stroke="var(--rule)" stroke-width="1"/>'
+        for nu, L, y in guides
+    )
     return marks, grid_guides, labels_g, spiral, labels_s
 
 
-def panel(key, title, aria, layout, size):
+def panel(key: str, title: str, aria: str, layout: tuple, size: float) -> str:
+    """One table's svg: grid guides, spiral and the marks that move between them."""
     marks, grid_guides, labels_g, spiral, labels_s = layout
     s = f'<text x="165" y="22" text-anchor="middle" font-weight="600" font-size="14" fill="var(--ink)">{title}</text>'
     s += f'<g class="mo-grid" opacity="0" display="none">{grid_guides}{labels_g}</g>'
     s += f'<g class="mo-loop" opacity="1">{spiral}{labels_s}</g>'
-    s += '<g class="mo-marks">' + ''.join(
-        f'<g class="mk" transform="translate({m["s"][0]} {m["s"][1]})">{TF._shape(0, 0, m["l"], size, "var(--ink)")}</g>' for m in marks) + '</g>'
-    return (f'<svg class="morph" data-key="{key}" viewBox="0 0 {W} {W}" role="img" aria-label="{aria}" font-size="13">{s}</svg>')
+    s += (
+        '<g class="mo-marks">'
+        + ''.join(
+            f'<g class="mk" transform="translate({m["s"][0]} {m["s"][1]})">{TF._shape(0, 0, m["l"], size, "var(--ink)")}</g>'
+            for m in marks
+        )
+        + '</g>'
+    )
+    return f'<svg class="morph" data-key="{key}" viewBox="0 0 {W} {W}" role="img" aria-label="{aria}" font-size="13">{s}</svg>'
 
 
-def fig_morph():
+def fig_morph() -> str:
+    """The winding figure as one string of markup, style and script."""
     chem, bio = chem_layout(), bio_layout()
     data = {'chem': [[m['g'], m['s']] for m in chem[0]], 'bio': [[m['g'], m['s']] for m in bio[0]]}
-    legend = ''.join(f'<span><svg width="14" height="14" viewBox="-7 -7 14 14" aria-hidden="true">{TF._shape(0, 0, l, 5.2, "var(--ink)")}</svg> {TF.BLOCKS[l]}</span>' for l in range(4))
-    html = ('<div class="pair">'
-            f'<div>{panel("chem", "Chemistry", "The chemical periodic table: 118 elements as the long-form grid, wound one turn per period into a spiral where group 1 and the noble gases line up on two rays", chem, SHAPE_SIZE["chem"])}</div>'
-            f'<div>{panel("bio", "The loop table", "The loop table: 30 elements, one row per loop count, wound one turn per row into a spiral where memories and clocks line up on two rays", bio, SHAPE_SIZE["bio"])}</div>'
-            '</div>'
-            '<p class="key-t">block</p>'
-            f'<p class="keyrow pt-legend">{legend}</p>'
-            '<div class="ctl"><label for="mo-t">wind the rows</label>'
-            '<input id="mo-t" type="range" min="0" max="100" value="100" aria-label="Wind the rows of both tables into loops" style="--p: 100%">'
-            '<output for="mo-t" id="mo-tv">loop</output></div>')
-    js = '<script>\n(function () {\n  var M = ' + json.dumps(data) + ''';
+    legend = ''.join(
+        f'<span><svg width="14" height="14" viewBox="-7 -7 14 14" aria-hidden="true">{TF._shape(0, 0, l, 5.2, "var(--ink)")}</svg> {TF.BLOCKS[l]}</span>'
+        for l in range(4)
+    )
+    html = (
+        '<div class="pair">'
+        f'<div>{panel("chem", "Chemistry", "The chemical periodic table: 118 elements as the long-form grid, wound one turn per period into a spiral where group 1 and the noble gases line up on two rays", chem, SHAPE_SIZE["chem"])}</div>'
+        f'<div>{panel("bio", "The loop table", "The loop table: 30 elements, one row per loop count, wound one turn per row into a spiral where memories and clocks line up on two rays", bio, SHAPE_SIZE["bio"])}</div>'
+        '</div>'
+        '<p class="key-t">block</p>'
+        f'<p class="keyrow pt-legend">{legend}</p>'
+        '<div class="ctl"><label for="mo-t">wind the rows</label>'
+        '<input id="mo-t" type="range" min="0" max="100" value="100" aria-label="Wind the rows of both tables into loops" style="--p: 100%">'
+        '<output for="mo-t" id="mo-tv">loop</output></div>'
+    )
+    js = (
+        '<script>\n(function () {\n  var M = '
+        + json.dumps(data)
+        + ''';
   var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var el = document.getElementById('mo-t'), out = document.getElementById('mo-tv'); if (!el) return;
   var panels = Array.prototype.map.call(document.querySelectorAll('svg.morph'), function (svg) {
@@ -152,6 +204,7 @@ def fig_morph():
   } else play();
 })();
 </script>'''
+    )
     return html + js
 
 

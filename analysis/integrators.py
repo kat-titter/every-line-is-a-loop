@@ -1,5 +1,9 @@
 """Second integrator detector: near-integrators measured at the model's own states.
 
+Reads:  SBML models: one file (--one MODEL.xml) or a text file of model paths (--list results/list_ok.txt, one per line).
+Writes: one JSON line per model to FILE.jsonl (--list ... --out results/r31_integrators.jsonl), or the one line to stdout (--one).
+Run:    python analysis/integrators.py --list results/list_ok.txt --out results/r31_integrators.jsonl --jobs 8
+
 A variable keeps a near-running total when its own level barely moves its net rate:
     r_i = |df_i/dx_i| * |x_i| / (flux through i),  flux = sum_j max(N_ij v_j, 0) (+ |rate rule|)
 First-order decay gives r_i = 1 at steady state; saturated (zero-order) removal gives r_i << 1;
@@ -21,35 +25,48 @@ candidate found at those states is then confirmed from the rate laws: the weight
 ratio, and the exact derivative of the weighted sum's rate with respect to each member must cancel at
 random states spread over six orders of magnitude, with the parameters at the model's values.
 
+No clock cuts a model: sign reading is bounded by counts as in loops.py and the symbolic checks are finite, so a record
+never depends on the machine's speed or load (the five largest models, 310 to 500 variables, take under 14 s alone).
+Each model runs in its own process under budget.py's wall-clock safety net.
+
 Usage: python analysis/integrators.py --list FILE --out FILE.jsonl [--jobs 8]
        python analysis/integrators.py --one MODEL.xml
 """
+
+from __future__ import annotations
+
 import argparse
+import contextlib
 import json
 import pathlib
-import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
+from typing import Any
 
 import numpy as np
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import budget  # noqa: E402
 import loops as L  # noqa: E402
 
 R_CUT = 0.1
-PAIR_TOL = 1e-4     # a 2 x 2T matrix counts as rank one when s2/s1 < PAIR_TOL (finite differences carry ~1e-6 error)
+PAIR_TOL = 1e-4  # a 2 x 2T matrix counts as rank one when s2/s1 < PAIR_TOL (finite differences carry ~1e-6 error)
 
 
-def measure(path):
+def measure(path: str | pathlib.Path) -> dict[str, Any]:
+    """Return the model's record: near-integrators, their ratios, and the confirmed paired running totals."""
     rr, flags = L.load(path)
     nodes, kinds, rule_syms = L.state_nodes(rr, flags)
     L.SIGN_MODE = 'trajectory'
     rids, rsign, gsign, jac = L.derivative_signs(rr, nodes, kinds, rule_syms)
     out = {'model': pathlib.Path(path).stem, 'status': 'ok'}
     if not jac:
-        out['status'] = 'no states'; return out
+        out['status'] = 'no states'
+        return out
     try:
-        S = rr.getFullStoichiometryMatrix(); rows = {s: i for i, s in enumerate(S.rownames)}; cols = list(S.colnames)
+        S = rr.getFullStoichiometryMatrix()
+        rows = {s: i for i, s in enumerate(S.rownames)}
+        cols = list(S.colnames)
     except Exception:
         S, rows, cols = None, {}, []
     N = np.zeros((len(nodes), len(rids)))
@@ -59,13 +76,11 @@ def measure(path):
             for c, r in enumerate(rids):
                 if r in cols:
                     N[k, c] = full[cols.index(r)]
-    dv, dg, x = jac[-1]                       # last state reached
+    dv, dg, x = jac[-1]  # last state reached
     put = L.setter(rr, kinds)
     for nd, v in zip(nodes, x):
-        try:
+        with contextlib.suppress(Exception):
             put(nd, v)
-        except Exception:
-            pass
     v = np.array(rr.model.getReactionRates())
     flux = np.array([np.sum(np.maximum(N[i] * v, 0.0)) for i in range(len(nodes))])
     diag = (N * dv.T).sum(axis=1)
@@ -73,15 +88,21 @@ def measure(path):
         if y in nodes:
             i = nodes.index(y)
             diag[i] += dg[q, i]
-            try:
-                flux[i] += abs(float(rr.getRatesOfChangeNamedArray()[0][list(c.rstrip("'") for c in rr.getRatesOfChangeNamedArray().colnames).index(y)]))
-            except Exception:
-                pass
+            with contextlib.suppress(Exception):
+                flux[i] += abs(
+                    float(
+                        rr.getRatesOfChangeNamedArray()[0][
+                            [c.rstrip("'") for c in rr.getRatesOfChangeNamedArray().colnames].index(y)
+                        ]
+                    )
+                )
     ratio = {nodes[i]: (abs(diag[i]) * abs(x[i]) / flux[i]) for i in range(len(nodes)) if flux[i] > 1e-300}
     out['near_integrators'] = sorted(n for n, r in ratio.items() if r < R_CUT)
     out['ratios'] = {n: round(float(r), 4) for n, r in ratio.items() if r < 1.0}
     out['states_used'] = len(jac)
-    cands = pair_integrators(nodes, N, rule_syms, jac, [kinds.get(nd) == 'species' and nd not in rule_syms for nd in nodes])
+    cands = pair_integrators(
+        nodes, N, rule_syms, jac, [kinds.get(nd) == 'species' and nd not in rule_syms for nd in nodes]
+    )
     pairs, unchecked = [], 0
     for a, b, ca, cb, part in cands:
         ok = confirm_pair(path, rr, flags, nodes, kinds, rids, N, a, b, ca, cb, part)
@@ -96,12 +117,27 @@ def measure(path):
     return out
 
 
-def confirm_pair(path, rr, flags, nodes, kinds, rids, N, a, b, ca, cb, part=()):
+def confirm_pair(
+    path: str | pathlib.Path,
+    rr: Any,
+    flags: dict[str, Any],
+    nodes: list[str],
+    kinds: dict[str, str],
+    rids: list[str],
+    N: np.ndarray,
+    a: str,
+    b: str,
+    ca: float,
+    cb: float,
+    part: tuple[str, ...] | list[str] = (),
+) -> list[Any] | bool | None:
     """Exact check of a numeric candidate. Returns [a, b, wa, wb] with rational weights, False, or None
     if a rate law cannot be read symbolically."""
     import re
     from fractions import Fraction
+
     import sympy as sp
+
     ratio = Fraction(cb / ca).limit_denominator(12)
     if abs(float(ratio) - cb / ca) > 1e-3 * max(1.0, abs(cb / ca)):
         return False  # not a small whole-number ratio: an approximate cancellation
@@ -128,25 +164,38 @@ def confirm_pair(path, rr, flags, nodes, kinds, rids, N, a, b, ca, cb, part=()):
             hit = False
             for v, e in assign.items():
                 if re.search(r'\b' + re.escape(v) + r'\b', txt):
-                    txt = re.sub(r'\b' + re.escape(v) + r'\b', '(' + e + ')', txt); hit = True
+                    txt = re.sub(r'\b' + re.escape(v) + r'\b', '(' + e + ')', txt)
+                    hit = True
             if not hit:
                 return txt
         return None
+
     syms, exprs = {}, []
     for w, txt, local in terms:
         txt = expand(txt)
         if txt is None or re.search(r'\b(piecewise|delay|and|or|not|lt|gt|leq|geq|eq|neq|rateOf)\b', txt):
             return None
-        ids = set(re.findall(r'[A-Za-z_][A-Za-z0-9_]*', re.sub(r'\b\d+\.?\d*[eE][-+]?\d+', '0', txt))) - {'exp', 'ln', 'log', 'sqrt', 'abs', 'pow', 'pi', 'exponentiale'}
+        ids = set(re.findall(r'[A-Za-z_][A-Za-z0-9_]*', re.sub(r'\b\d+\.?\d*[eE][-+]?\d+', '0', txt))) - {
+            'exp',
+            'ln',
+            'log',
+            'sqrt',
+            'abs',
+            'pow',
+            'pi',
+            'exponentiale',
+        }
         loc = {i: sp.Symbol('v_' + i) for i in ids}
         try:
-            e = sp.sympify(txt.replace('ln(', 'log('), locals={**loc, 'exp': sp.exp, 'log': sp.log, 'sqrt': sp.sqrt, 'abs': sp.Abs, 'pow': sp.Pow})
+            e = sp.sympify(
+                txt.replace('ln(', 'log('),
+                locals={**loc, 'exp': sp.exp, 'log': sp.log, 'sqrt': sp.sqrt, 'abs': sp.Abs, 'pow': sp.Pow},
+            )
         except Exception:
             return None
         e = e.subs({loc[i]: val for i, val in local.items() if i in loc})
         syms.update({i: loc[i] for i in ids if i not in local})
         exprs.append(w * e)
-    total = sp.Add(*exprs)
     var = {nd: syms[nd] for nd in nodes if nd in syms}
     fixed = {}
     for i, sym in syms.items():
@@ -170,7 +219,7 @@ def confirm_pair(path, rr, flags, nodes, kinds, rids, N, a, b, ca, cb, part=()):
         pt = dict(fixed)
         for nd, sym in var.items():
             pt[sym] = ref[nd] * 10 ** rng.uniform(-3, 3)
-        for v, ds in parts.items():
+        for ds in parts.values():
             try:
                 vals = [complex(d.evalf(subs=pt)) for d in ds]
             except Exception:
@@ -186,18 +235,28 @@ def confirm_pair(path, rr, flags, nodes, kinds, rids, N, a, b, ca, cb, part=()):
 _RATE_RULES = {}
 
 
-def rate_rules(path):
+def rate_rules(path: str | pathlib.Path) -> dict[str, str]:
+    """Map each rate-rule variable to its right-hand side as text (function definitions expanded); cached per path."""
     if path not in _RATE_RULES:
         import libsbml
+
         doc = libsbml.readSBMLFromFile(str(path))
-        conv = libsbml.ConversionProperties(); conv.addOption('expandFunctionDefinitions', True); doc.convert(conv)
+        conv = libsbml.ConversionProperties()
+        conv.addOption('expandFunctionDefinitions', True)
+        doc.convert(conv)
         m = doc.getModel()
-        _RATE_RULES[path] = {m.getRule(i).getVariable(): libsbml.formulaToL3String(m.getRule(i).getMath())
-                             for i in range(m.getNumRules()) if m.getRule(i).isRate()}
+        _RATE_RULES[path] = {
+            m.getRule(i).getVariable(): libsbml.formulaToL3String(m.getRule(i).getMath())
+            for i in range(m.getNumRules())
+            if m.getRule(i).isRate()
+        }
     return _RATE_RULES[path]
 
 
-def jacobians(nodes, N, rule_syms, jac):
+def jacobians(
+    nodes: list[str], N: np.ndarray, rule_syms: list[str], jac: list[tuple[np.ndarray, np.ndarray, np.ndarray]]
+) -> np.ndarray:
+    """Stack the full Jacobian (nodes x nodes) at each state read, shape (states, nodes, nodes)."""
     Js = []
     for dv, dg, _ in jac:
         J = N @ dv
@@ -208,7 +267,7 @@ def jacobians(nodes, N, rule_syms, jac):
     return np.array(Js)
 
 
-def conservation_projector(N, is_reacting):
+def conservation_projector(N: np.ndarray, is_reacting: list[bool]) -> tuple[np.ndarray, np.ndarray]:
     """(I - P, P), where P projects onto the conserved totals (left null space of the stoichiometry of species).
     P[i, a] != 0 means i and a share a conserved total."""
     n = N.shape[0]
@@ -218,17 +277,25 @@ def conservation_projector(N, is_reacting):
         A = N[rows]
         u, sv, _ = np.linalg.svd(A, full_matrices=True)
         rank = int(np.sum(sv > 1e-9 * (sv[0] if len(sv) else 1.0)))
-        L = np.zeros((n, A.shape[0] - rank))
-        L[rows] = u[:, rank:]
-        P = L @ L.T
+        laws = np.zeros((n, A.shape[0] - rank))
+        laws[rows] = u[:, rank:]
+        P = laws @ laws.T
     return np.eye(n) - P, P
 
 
-def partners(P, a, b):
+def partners(P: np.ndarray, a: int, b: int) -> list[int]:
+    """Indices (other than a and b) that share a conserved total with a or b, read from the projector P."""
     return [i for i in range(P.shape[0]) if i not in (a, b) and (abs(P[i, a]) > 1e-9 or abs(P[i, b]) > 1e-9)]
 
 
-def pair_integrators(nodes, N, rule_syms, jac, is_reacting):
+def pair_integrators(
+    nodes: list[str],
+    N: np.ndarray,
+    rule_syms: list[str],
+    jac: list[tuple[np.ndarray, np.ndarray, np.ndarray]],
+    is_reacting: list[bool],
+) -> list[list[Any]]:
+    """Numeric candidates [a, b, weight_a, weight_b, partners] for paired running totals, before the exact check."""
     Js = jacobians(nodes, N, rule_syms, jac)
     n = len(nodes)
     Q, P = conservation_projector(N, is_reacting)
@@ -254,7 +321,11 @@ def pair_integrators(nodes, N, rule_syms, jac, is_reacting):
             if np.min(np.abs(c)) < 1e-3:
                 continue
             rest = [i for i in range(n) if i not in cols]
-            resp = max((np.max(np.abs(c @ J[[a, b]][:, rest])) / (np.max(np.abs(J[[a, b]])) or 1.0)) for J in Js) if rest else 0.0
+            resp = (
+                max((np.max(np.abs(c @ J[[a, b]][:, rest])) / (np.max(np.abs(J[[a, b]])) or 1.0)) for J in Js)
+                if rest
+                else 0.0
+            )
             if resp < PAIR_TOL:
                 continue  # a conserved total, or one that responds to nothing
             full = np.zeros(n)
@@ -264,27 +335,39 @@ def pair_integrators(nodes, N, rule_syms, jac, is_reacting):
                 continue  # one variable plus a constant, given the conserved totals
             if c[0] < 0:
                 c = -c
-            found.append([nodes[a], nodes[b], round(float(c[0]), 4), round(float(c[1]), 4), [nodes[i] for i in cols[2:]]])
+            found.append(
+                [nodes[a], nodes[b], round(float(c[0]), 4), round(float(c[1]), 4), [nodes[i] for i in cols[2:]]]
+            )
     return found
 
 
-def run_list(paths, out_file, jobs, timeout=240):
+def run_list(paths: list[str], out_file: str | pathlib.Path, jobs: int) -> None:
+    """Run measure on each path, each in its own process; write one JSON line per model."""
     me = pathlib.Path(__file__).resolve()
 
     def one(f):
-        try:
-            p = subprocess.run([sys.executable, str(me), '--one', f], capture_output=True, text=True, timeout=timeout)
-            line = p.stdout.strip().splitlines()[-1] if p.stdout.strip() else ''
-            return json.loads(line) if line.startswith('{') else {'model': pathlib.Path(f).stem, 'status': 'error', 'error': (p.stderr or '')[-300:]}
-        except subprocess.TimeoutExpired:
-            return {'model': pathlib.Path(f).stem, 'status': 'timeout'}
+        p = budget.run([sys.executable, str(me), '--one', f], pathlib.Path(f).stem)
+        if p is None:
+            return {'model': pathlib.Path(f).stem, 'status': budget.SAFETY_NET}
+        line = p.stdout.strip().splitlines()[-1] if p.stdout.strip() else ''
+        return (
+            json.loads(line)
+            if line.startswith('{')
+            else {'model': pathlib.Path(f).stem, 'status': 'error', 'error': (p.stderr or '')[-300:]}
+        )
+
     with ThreadPoolExecutor(jobs) as ex, open(out_file, 'w') as fh:
         for r in ex.map(one, paths):
-            fh.write(json.dumps(r) + '\n'); fh.flush()
+            fh.write(json.dumps(r) + '\n')
+            fh.flush()
 
 
 if __name__ == '__main__':
-    ap = argparse.ArgumentParser(); ap.add_argument('--one'); ap.add_argument('--list'); ap.add_argument('--out'); ap.add_argument('--jobs', type=int, default=8)
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--one')
+    ap.add_argument('--list')
+    ap.add_argument('--out')
+    ap.add_argument('--jobs', type=int, default=8)
     a = ap.parse_args()
     if a.one:
         try:
@@ -292,4 +375,6 @@ if __name__ == '__main__':
         except Exception as e:
             print(json.dumps({'model': pathlib.Path(a.one).stem, 'status': 'error', 'error': repr(e)[:300]}))
     else:
-        run_list([l.strip() for l in open(a.list) if l.strip()], a.out, a.jobs)
+        run_list(
+            [line.strip() for line in pathlib.Path(a.list).read_text().splitlines() if line.strip()], a.out, a.jobs
+        )
