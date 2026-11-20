@@ -995,14 +995,26 @@ def hero():
 
 # ================================================================ the script
 def script():
+    """The page's one <script>: the model constants as P, then the JS parts below in one closure.
+
+    The parts share that closure's names, so the order holds: helpers first, the loop last, after the
+    four figures it drives."""
     P = {'sw': SW, 'ck': CK, 'ad': AD, 'hy': HY, 'swp': {k: SW[k] for k in ('beta', 'basal', 'n', 'tx', 'ty')}, 'sig': SIG}
-    return '<script>\n(function () {\n  var P = ' + json.dumps(P) + ''';
+    return ('<script>\n(function () {\n  var P = ' + json.dumps(P) + ';\n'
+            + '\n'.join([JS_HELPERS, JS_FLUX, JS_CHART, JS_SWITCH, JS_CLOCK, JS_ADAPTER, JS_HYPO, JS_LOOP])
+            + '})();\n</script>')
+
+
+JS_HELPERS = '''\
   var NS = 'http://www.w3.org/2000/svg';
   var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function $(id) { return document.getElementById(id); }
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function setP(input) { var r = (input.value - input.min) / (input.max - input.min); input.style.setProperty('--p', (r * 100).toFixed(1) + '%'); }
+'''
 
+
+JS_FLUX = '''\
   // ---- flux: dots travelling along every reaction arrow of a cell pane, at a speed set by the model
   function Flux(svg) {
     this.items = [];
@@ -1040,7 +1052,10 @@ def script():
       els.forEach(function (e, i) { e.setAttribute('opacity', clamp(v - i, 0, 1).toFixed(2)); });
     }
   };
+'''
 
+
+JS_CHART = '''\
   // ---- a strip chart redrawn at the pane's true pixel width
   function Chart(svg, win, ymax, ymax2, inmax) {
     this.svg = svg; this.win = win; this.ymax = ymax; this.ymax2 = ymax2; this.inmax = inmax;
@@ -1089,7 +1104,10 @@ def script():
     var last = this.buf[this.buf.length - 1];
     if (last && this.now) { this.now.setAttribute('cx', (x0 + (x1 - x0) * (last[0] - tmin) / win).toFixed(1)); this.now.setAttribute('cy', (y0 - (y0 - y1) * last[1] / ymax).toFixed(1)); }
   };
+'''
 
+
+JS_SWITCH = '''\
   // ---- the switch: the lac operon
   var sw = (function () {
     var Q = P.sw, el = $('sw-L'); if (!el) return null;
@@ -1117,7 +1135,10 @@ def script():
     paint(0); readouts();
     return { tick: function (dtWall) { advance(dtWall * Q.speed); paint(dtWall); }, readouts: readouts, chart: chart, box: el.closest('figure') };
   })();
+'''
 
+
+JS_CLOCK = '''\
   // ---- the clock: the circadian loop, recomputed for three days whenever the delay moves; a playhead sweeps it
   var ck = (function () {
     var Q = P.ck, el = $('ck-D'); if (!el) return null;
@@ -1155,7 +1176,10 @@ def script():
     compute(); ph = RM ? 30 : 0; paint(0); readouts();
     return { tick: function (dtWall) { ph = (ph + dtWall * Q.T / Q.sweep) % Q.T; paint(dtWall); }, readouts: readouts, chart: chart, box: el.closest('figure') };
   })();
+'''
 
+
+JS_ADAPTER = '''\
   // ---- the adapter: chemotaxis
   var ad = (function () {
     var Q = P.ad, el = $('ad-L'); if (!el) return null;
@@ -1183,7 +1207,10 @@ def script():
     paint(0); readouts();
     return { tick: function (dtWall) { advance(dtWall * Q.speed); paint(dtWall); }, readouts: readouts, chart: chart, box: el.closest('figure') };
   })();
+'''
 
+
+JS_HYPO = '''\
   // ---- the hypothetical element: a pulse's running total feeds the lac switch; recomputed on input, swept by a playhead
   var hy = (function () {
     var Q = P.hy, W = P.swp, el = $('hy-T'); if (!el) return null;
@@ -1216,7 +1243,10 @@ def script():
     compute(); ph = RM ? Q.end : 0; paint(0);
     return { tick: function (dtWall) { ph = (ph + dtWall * Q.end / Q.sweep) % Q.end; paint(dtWall); }, readouts: readouts, chart: chart, box: el.closest('figure') };
   })();
+'''
 
+
+JS_LOOP = '''\
   // ---- one loop for all four; a figure runs only while it is on screen
   var sims = [sw, ck, ad, hy].filter(Boolean), last = null, frame = 0;
   sims.forEach(function (s) { s.on = !('IntersectionObserver' in window); });
@@ -1235,8 +1265,7 @@ def script():
   // charts drawn once over a fixed window keep their whole trace on a refit
   sims.forEach(function (s) { s.fixed = (s === ck || s === hy); });
   document.querySelectorAll('.ctl input[type=range]').forEach(setP);
-})();
-</script>'''
+'''
 
 
 # ================================================================ injection
