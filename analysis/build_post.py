@@ -837,7 +837,9 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
                  tabulate_controls, count_behaviours, check_model_270, list_exclusions, read_random_signs, read_settings,
                  describe_pipeline, name_elements, draw_funnel, list_census_rows, find_candidates, build_hero_elements,
                  draw_interactive_figures, score_claims, check_answer_key, write_verdict, make_links):
-        v.update(step(**v))
+        new = step(**v)
+        assert not new.keys() & v.keys(), (step.__name__, sorted(new.keys() & v.keys()), 'each value comes from one step')
+        v.update(new)
     page = ''.join(section(**v) for section in (
         section_head, section_intro, section_theory, section_table, section_census, section_gaps, section_close,
         section_supp_ab, section_supp_c, section_methods_models, section_methods_totals, section_methods_rules, section_refs))
