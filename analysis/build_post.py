@@ -839,23 +839,19 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
     r1, r2, r3 = rows['1'], rows['2'], rows['3']
     small = r1['models'] + r2['models'] + r3['models']
     usable, census = T['usable'], sum(T['census'].values())
-    examples, behav, depletion, dep_models = square_data(struct, dyn)
+    _, behav, depletion, dep_models = square_data(struct, dyn)
     th = T['theorem_checks']
-    ms, osc = th['multistable'], th['oscillating']
     assert not th['multistable without refined positive circuit'] and not th['oscillating without negative circuit'], th
     autonomous = sum(1 for k, d in dyn.items() if d.get('status') == 'ok' and not d.get('forced') and struct.get(k, {}).get('status') == 'ok')
     dep = len(dep_models)
     assert set(dep_models) == set(DEPLETION_KIND), (sorted(dep_models), 'update DEPLETION_KIND')
-    dep_plus = {nu: depletion.get((nu, 0), 0) for nu in (1, 2, 3)}
     kinds_count = {}
     for mid in dep_models:
         kinds_count[DEPLETION_KIND[mid]] = kinds_count.get(DEPLETION_KIND[mid], 0) + 1
     kind_words = {'calcium': ('is a calcium spike', 'are calcium spikes'), 'glycolysis': ('is a sugar-burning pulse in pancreatic cells', 'are sugar-burning pulses in pancreatic cells'),
                   'enzyme': ('is an enzyme oscillator', 'are enzyme oscillators')}
     dep_kinds = listing(f'{WORD[n]} {kind_words[k][n > 1]}' for k, n in sorted(kinds_count.items(), key=lambda x: -x[1]))
-    dep_where = listing(f'{dep_plus[nu]} under {signs(nu, 0)}' for nu in (1, 2, 3) if dep_plus[nu])
     integ = T['integrators']
-    strict_n = integ[[k for k in integ if k.startswith('models with any')][0]]
     complete_n = integ[[k for k in integ if k.startswith('models with complete')][0]]
     pt = T['paired_totals']
     pair_hits = pt['small models with a loop through one']
@@ -871,13 +867,9 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
     integ_rows = load_jsonl(R / 'r31_integrators.jsonl') if (R / 'r31_integrators.jsonl').exists() else {}
     unchecked = sum(d.get('pair_unchecked') or 0 for d in integ_rows.values())
     near2 = r2.get('essay_near', {}).get('occupied', '?')
-    near3 = r3.get('essay_near', {}).get('occupied', '?')
     rep, r24 = T['replication']['with reactions'], T['replication']['reference 24']
     assert (r24['models'], r24['no negative circuit'], r24['no positive circuit'], r24['no refined positive circuit']) == (506, 70, 48, 105)
     pct = lambda a, n: f'{100 * a / n:.0f}%' if n else 'n/a'
-    cols = {nu: sum(1 for k in range(nu + 1) if any(c.startswith(f'({k},') for c in rows[str(nu)]['essay']['cells'])) for nu in (1, 2, 3)}
-    by_k = {nu: {k: sum(v for c, v in rows[str(nu)]['essay']['cells'].items() if c.startswith(f'({k},')) for k in range(nu + 1)} for nu in (2, 3)}
-    top2, top3 = max(by_k[2], key=by_k[2].get), max(by_k[3], key=by_k[3].get)
     # familiar circuits
     p_rep, p_trp = placement(struct['BIOMD0000000012']), placement(struct['BIOMD0000000062'])
     assert p_rep == (1, 1) and p_trp == (2, 2), (p_rep, p_trp)
@@ -972,9 +964,7 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
         step2('<code>toys.py</code>', 'builds the enzyme, the ring and the controller as models and counts them.', 'Fails the run if any toy changes.'),
         step2('<code>build_post.py</code>', 'writes this page from the tables.', 'Refuses to build if a sentence no longer matches the data.'),
     ]) + '</ol>'
-    F = dict(score=1, model=2, lineloop=3, arrows=4, toy=5, cruise=6, tiles=7, orbitals=8, table=9, spiral=10, street=11,
-             filters=12, code=13, dist=14, census=15, coast=16, behaviour=17, key=18, pipeline=19)
-    coast_html, coast_len = IA.coast()
+    coast_html, _ = IA.coast()
     fp_max = max(c for c, _ in fp.values())
     fp_min = min(c for c, _ in fp.values())
     ad_num, ad_sym = TF.NUMBER[(1, 1, 1)], EL.symbol(1, 1, 1)[0]
@@ -1035,10 +1025,6 @@ def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path
         ex_rows.append({'id': str(int(mid[-6:])), 'name': r.get('name') or mid, 'loops': loops_txt,
                         'pattern': pattern.replace(MINUS, '\u2212'), 'element': el, 'does': what_it_does(dyn.get(mid))})
     assert len(ex_rows) == usable
-    occ = {}
-    for r_ in ex_rows:
-        if r_['element'] is not None:
-            occ[r_['element']] = occ.get(r_['element'], 0) + 1
     # loose and paired readings of the running totals, as in tabulate.py, to list candidates for the blanks
     near_el, pair_el = {}, {}
     for mid, r in struct.items():
