@@ -1331,7 +1331,7 @@ def fig_chem() -> str:
 
 # ================================================================ the blank band: occupancy under two readings of a running total
 def fig_band() -> str:
-    """Rows one to three of the table as k-by-j grids (brakes down, running totals across), filled where the census
+    """Rows one to three of the table as k-by-j grids (brakes across, running totals down, as in the hero table), filled where the census
     placed a model, under the strict reading (returns exactly) and the loose one (within a tenth). From
     results/tables_traj.json, the main definition (reference 24 filters plus rank condition)."""
     D = json.loads((ROOT / 'results' / 'tables_traj.json').read_text())
@@ -1348,7 +1348,7 @@ def fig_band() -> str:
             y0 = 40
             for k in range(nu + 1):
                 for j in range(nu + 1):
-                    X, Y = x + j * c, y0 + k * c
+                    X, Y = x + k * c, y0 + j * c
                     n = cells.get((k, j), 0)
                     if n:
                         s += f'<rect x="{X + 1}" y="{Y + 1}" width="{c - 2}" height="{c - 2}" rx="3" style="fill: var(--accent-tint)" stroke="var(--accent-text)" stroke-width="1.2"/>'

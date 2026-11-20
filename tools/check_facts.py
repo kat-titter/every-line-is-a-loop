@@ -868,7 +868,10 @@ FACTS = [
     ),
     F("hidden", "A trace by hand split the four in half. {four_exact} come back exactly"),
     F("hidden", "Why would seventeen hide?"),
-    F("hidden", "Row three is the open question, since {loose_blank3} of its 16 stay blank even read loosely."),
+    F(
+        "hidden",
+        "The three-loop row is the open question, since {loose_blank3} of its 16 stay blank even read loosely.",
+    ),
     F("hidden", "The first new batch, {ho_listed} models curated since 2017, filled none of them"),
     # 04, auditing the loose reading (PR #1)
     F("supplement", "Strictly, rows one to three hold {dial_strict} of {squares} elements."),
@@ -910,7 +913,7 @@ FACTS = [
     ),
     F(
         "atlas",
-        "all {ho_filed} newer models found a row, but {ho_follows} of them, {ho_over_half}, landed in follows, where release 31 had {r31_follows}",
+        "All {ho_filed} newer models found a row, but {ho_follows} of them, {ho_over_half}, landed in follows, the catch-all, where release 31 had {r31_follows}",
     ),
     # 05, other numbers a table could use (PR #1)
     F("supplement", "chapter 03 found that what a circuit does survives redrawing in {fams_does} of {fams} families"),

@@ -651,7 +651,9 @@ def nesting_figure() -> tuple[str, dict]:
 WPM = 230
 # Everything the counter never reads. Must stay ONE alternation: a CSS comment holds a literal
 # "<details>", so stripping folds in a pass of their own swallows the page from the masthead down.
-SKIP = r'<script.*?</script>|<style.*?</style>|<svg.*?</svg>|<header.*?</header>|<nav.*?</nav>|<p class="fig-code".*?</p>'
+SKIP = (
+    r'<script.*?</script>|<style.*?</style>|<svg.*?</svg>|<header.*?</header>|<nav.*?</nav>|<p class="fig-code".*?</p>'
+)
 
 
 def drop_divs(html, opening):
@@ -671,8 +673,10 @@ def drop_divs(html, opening):
 
 def count_words(html, folds='closed'):
     """The words a reader meets. folds='closed' skips <details>; 'open' counts inside them.
-    Text hidden until hover (Figure 8's pipeline cards) never counts: it is as shut as a fold."""
+    Text hidden until hover (Figure 8's pipeline cards) never counts: it is as shut as a fold.
+    Nor do the hero table's axis labels and key (<p class="pt-...">): they are figure labels, not prose."""
     html = drop_divs(html, r'<div class="pf-card"')
+    html = re.sub(r'<p class="pt-[^"]*"[^>]*>.*?</p>', '', html, flags=re.S)
     pat = (r'<details.*?</details>|' + SKIP) if folds == 'closed' else SKIP
     html = re.sub(pat, '', html, flags=re.S)
     text = ' '.join(re.findall(r'<(?:p|li|figcaption|h2)(?:\s[^>]*)?>(.*?)</(?:p|li|figcaption|h2)>', html, flags=re.S))
