@@ -390,14 +390,42 @@ def nesting_figure():
                   'xa': xa, 'xna': xna, 'xb': xb, 'xnb': xnb, 'xp': res['census']['arrow_strength']['fisher_one_sided_p']}
 
 
+WPM = 230
+# Everything the counter never reads. Must stay ONE alternation: a CSS comment holds a literal
+# "<details>", so stripping folds in a pass of their own swallows the page from the masthead down.
+SKIP = r'<script.*?</script>|<style.*?</style>|<svg.*?</svg>|<header.*?</header>|<nav.*?</nav>'
+
+
+def drop_divs(html, opening):
+    """Drop every <div> whose opening tag matches `opening`, with its matching </div>."""
+    while True:
+        m = re.search(opening, html)
+        if not m:
+            return html
+        depth, cut = 0, None
+        for t in re.finditer(r'<div\b|</div>', html[m.start():]):
+            depth += 1 if t.group(0) != '</div>' else -1
+            if depth == 0:
+                cut = m.start() + t.end()
+                break
+        html = html[:m.start()] + html[cut if cut else m.end():]
+
+
+def count_words(html, folds='closed'):
+    """The words a reader meets. folds='closed' skips <details>; 'open' counts inside them.
+    Text hidden until hover (Figure 8's pipeline cards) never counts: it is as shut as a fold."""
+    html = drop_divs(html, r'<div class="pf-card"')
+    pat = (r'<details.*?</details>|' + SKIP) if folds == 'closed' else SKIP
+    html = re.sub(pat, '', html, flags=re.S)
+    text = ' '.join(re.findall(r'<(?:p|li|figcaption|h2)(?:\s[^>]*)?>(.*?)</(?:p|li|figcaption|h2)>', html, flags=re.S))
+    return re.findall(r"[A-Za-z0-9][A-Za-z0-9'\u2019\-]*", html_lib.unescape(re.sub(r'<[^>]+>', ' ', text)))
+
+
 def read_time(essay):
-    """The read time of the main read: no folds, references, masthead, contents, scripts, styles or svg text.
-    Returns the essay with its read time set, the word count and the minutes (230 words a minute)."""
-    main = essay[:essay.index('<section id="refs">')]
-    main = re.sub(r'<details.*?</details>|<script.*?</script>|<style.*?</style>|<svg.*?</svg>|<header.*?</header>|<nav.*?</nav>', '', main, flags=re.S)
-    text = ' '.join(re.findall(r'<(?:p|li|figcaption|h2)(?:\s[^>]*)?>(.*?)</(?:p|li|figcaption|h2)>', main, flags=re.S))
-    words = re.findall(r"[A-Za-z0-9][A-Za-z0-9'\u2019\-]*", html_lib.unescape(re.sub(r'<[^>]+>', ' ', text)))
-    mins = max(1, round(len(words) / 230))
+    """The read time of the main read: no folds, hover cards, references, masthead, contents or figures.
+    Returns the essay with its read time set, the word count and the minutes."""
+    words = count_words(essay[:essay.index('<section id="refs">')], 'closed')
+    mins = max(1, round(len(words) / WPM))
     return re.sub(r'<span id="readtime">[^<]*</span>', f'<span id="readtime">{mins} min read</span>', essay), len(words), mins
 
 

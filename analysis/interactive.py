@@ -630,8 +630,13 @@ window.ElCard = (function () {
 
 def periodic_table(elements, found_top, found_rest):
     """The loop table as one figure: a k-by-j block per loop count (k across: loops that brake; j down: loops
-    through a running total), each element a tile showing what it does; point at one for its card."""
+    through a running total), each element a tile showing what it does; point at one for its card.
+    The axes are drawn on the table: each block's head names its loops, a "brakes" arrow spans that block's own
+    columns (brakes restart at 0 in every block), and one "running totals" arrow runs down the empty column under
+    the no-loop tile, since row j lines up across all blocks."""
     by = {(e['n'], e['k'], e['j']): e for e in elements}
+    head_x = '<svg class="pt-ax-head" width="6" height="9" viewBox="0 0 6 9"><path d="M.6 .6 5.4 4.5 .6 8.4"/></svg>'
+    head_y = '<svg class="pt-ax-head" width="9" height="6" viewBox="0 0 9 6"><path d="M.6 .6 4.5 5.4 8.4 .6"/></svg>'
     blocks = []
     for n in range(4):
         tiles = []
@@ -645,8 +650,11 @@ def periodic_table(elements, found_top, found_rest):
                              f'<span class="pt-tr" aria-hidden="true">{trace_svg(e["traces"][-1] if e["predicted"] and e["status"] != "found" else e["traces"][0], e["predicted"] and e["status"] != "found")}</span>'
                              f'<span class="pt-c">{bottom}</span></button>')
         head = 'no loop' if n == 0 else f'{n} loop{"s" if n > 1 else ""}'
-        blocks.append(f'<div class="pt-block"><p class="pt-h"><b>{head}</b></p>'
-                      f'<div class="pt-grid" style="grid-template-columns: repeat({n + 1}, var(--tile))">{"".join(tiles)}</div></div>')
+        axis_x = f'brakes<span class="pt-ax-line"></span>{head_x}' if n else ''   # the no-loop block keeps the row, so rows align
+        axis_y = (f'<p class="pt-ax pt-ax-y" aria-hidden="true">running totals<span class="pt-ax-line"></span>{head_y}</p>'
+                  if n == 0 else '')
+        blocks.append(f'<div class="pt-block"><p class="pt-h"><b>{head}</b></p><p class="pt-ax pt-ax-x" aria-hidden="true">{axis_x}</p>'
+                      f'<div class="pt-grid" style="grid-template-columns: repeat({n + 1}, var(--tile))">{"".join(tiles)}</div>{axis_y}</div>')
     s8 = by[(2, 1, 0)]
     keybox = ('<div class="pt-keybox"><p class="pt-h"><b>how to read a tile</b></p><div class="pt-anat">'
               f'<span class="pt-el pt-found pt-big" aria-hidden="true"><span class="pt-n">{s8["num"]}</span><span class="pt-sig">{s8["sigShort"]}</span>'
@@ -696,10 +704,9 @@ def periodic_table(elements, found_top, found_rest):
            f'<span>{tile("known")}known from experiments, not in the models</span>'
            f'<span>{tile("candidate")}blank: a looser test finds candidates</span>'
            f'<span>{tile("blank")}blank: nothing found yet</span></div>')
-    axes = ('<p class="pt-axes"><span>blocks: how many loops</span><span>across: how many brake</span><span>down: how many keep a running total</span></p>')
-    gaps = (f'<p class="pt-gap"><span><b>{found_top[0]} of {found_top[1]}</b> found with no running total (top rows)</span>'
+    gaps =(f'<p class="pt-gap"><span><b>{found_top[0]} of {found_top[1]}</b> found with no running total (top rows)</span>'
             f'<span><b>{found_rest[0]} of {found_rest[1]}</b> found with one or more (rows below)</span></p>')
-    return (f'<div class="interactive ptable" id="ptable">{axes}<div class="pt-blocks">{html_}</div>{gaps}{key}'
+    return (f'<div class="interactive ptable" id="ptable"><div class="pt-blocks">{html_}</div>{gaps}{key}'
             f'<div class="pt-card ecard" id="pt-card" role="status" aria-live="polite"></div></div>' + js)
 
 

@@ -412,8 +412,20 @@ figure.hero { margin: 0 0 var(--s5); }
 
 /* Figure 3: the periodic table of loops */
 .ptable { position: relative; --tile: 64px; }
-.pt-axes { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--s1) var(--s6); font: 400 var(--t1)/1.5 var(--sans); color: var(--muted); margin: 0 0 var(--s4); }
 .pt-blocks { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: var(--s5); }
+/* axes drawn on the table: "brakes" across each block's columns, "running totals" down the column under the no-loop tile */
+.pt-ax { font: 400 var(--t1)/1.25 var(--sans); color: var(--muted); margin: 0; }
+.pt-ax-x { display: flex; align-items: center; gap: var(--s2); height: var(--s5); margin: 0 0 var(--s1); padding-right: var(--s2); }
+.pt-ax-x .pt-ax-line { flex: 1; border-top: 1px solid currentColor; }
+.pt-ax-x .pt-ax-head { flex: none; margin-left: calc(-6px - var(--s2)); }   /* the line runs to the tip */
+.pt-block:first-child { display: flex; flex-direction: column; align-self: stretch; }
+.pt-ax-y { flex: 1; display: flex; flex-direction: column; align-items: center; width: var(--tile); min-height: var(--s8); margin-top: var(--s3); text-align: center; }
+.pt-ax-y .pt-ax-line { flex: 1; border-left: 1px solid currentColor; margin-top: var(--s2); }
+.pt-ax-y .pt-ax-head { flex: none; margin-top: -6px; }
+.pt-ax-head, figure.fig .pt-ax-head { display: block; overflow: visible; }
+.pt-ax-x .pt-ax-head, figure.fig .pt-ax-x .pt-ax-head { width: 6px; height: 9px; }
+.pt-ax-y .pt-ax-head, figure.fig .pt-ax-y .pt-ax-head { width: 9px; height: 6px; }
+.pt-ax-head path { fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
 .pt-h { font: 400 var(--t1)/1.4 var(--sans); color: var(--muted); margin: 0 0 var(--s2); }
 .pt-h b { color: var(--ink); margin-right: var(--s2); }
 .pt-grid { display: grid; gap: var(--s2); }
@@ -829,84 +841,33 @@ def why_excluded(r):
 
 
 # ---------------------------------------------------------------- page
-# build() is the recipe. Each step takes the values it names from v and returns new ones; the asserts inside a step
-# stop the build when a sentence no longer matches the data. The sections then render the page in reading order.
 def build(tables_traj, tables_random, toys_path, struct_path, dyn_path, out_path):
-    v = load_inputs(tables_traj, tables_random, toys_path, struct_path, dyn_path)
-    for step in (count_rows, check_depletion_clocks, read_running_totals, check_replication, place_fly_clocks,
-                 tabulate_controls, count_behaviours, check_model_270, list_exclusions, read_random_signs, read_settings,
-                 describe_pipeline, name_elements, draw_funnel, list_census_rows, find_candidates, build_hero_elements,
-                 draw_interactive_figures, score_claims, check_answer_key, write_verdict, make_links):
-        new = step(**v)
-        assert not new.keys() & v.keys(), (step.__name__, sorted(new.keys() & v.keys()), 'each value comes from one step')
-        v.update(new)
-    page = ''.join(section(**v) for section in (
-        section_head, section_intro, section_theory, section_table, section_census, section_gaps, section_close,
-        section_supp_ab, section_supp_c, section_methods_models, section_methods_totals, section_methods_rules, section_refs))
-    page = finish_page(page)
-    pathlib.Path(out_path).parent.mkdir(exist_ok=True)
-    pathlib.Path(out_path).write_text(page, encoding='utf-8')
-    return out_path
-
-
-def load_inputs(tables_traj, tables_random, toys_path, struct_path, dyn_path):
-    """The census results the page is written from."""
     T = json.load(open(tables_traj))
     TR = json.load(open(tables_random)) if tables_random and pathlib.Path(tables_random).exists() else None
     toys = json.load(open(toys_path))
     struct, dyn = load_jsonl(struct_path), load_jsonl(dyn_path)
-    integ_rows = load_jsonl(R / 'r31_integrators.jsonl') if (R / 'r31_integrators.jsonl').exists() else {}
-    return dict(T=T, TR=TR, toys=toys, struct=struct, dyn=dyn, integ_rows=integ_rows)
-
-
-def pct(a, n):
-    """a as a whole percent of n."""
-    return f'{100 * a / n:.0f}%' if n else 'n/a'
-
-
-def clip(t, w=44):
-    """A model name cut at a word boundary to fit w characters."""
-    t = t.replace('_', ' ')
-    return t if len(t) <= w else t[:t.rfind(' ', 0, w)] + '\u2026'
-
-
-def card(label, title, found, mark, verdict, note):
-    """One scorecard card."""
-    # label, title, what was found, verdict: the title says the test, so the found line carries what it needs of it
-    return (f'<div class="card"><p class="k">{label}</p><h3>{title}</h3><dl><dt>found</dt><dd>{found}</dd></dl>'
-            f'<p class="v"><span class="chip"><span aria-hidden="true">{mark}</span> {verdict}</span>{note}</p></div>')
-
-
-def count_rows(*, T, struct, dyn, **_):
-    """The table's rows, the census totals and the proven-rule checks."""
     D = T['defs'][MAIN]
     rows = {str(k): v for k, v in D['rows'].items()}
     r1, r2, r3 = rows['1'], rows['2'], rows['3']
     small = r1['models'] + r2['models'] + r3['models']
     usable, census = T['usable'], sum(T['census'].values())
+    examples, behav, depletion, dep_models = square_data(struct, dyn)
     th = T['theorem_checks']
+    ms, osc = th['multistable'], th['oscillating']
     assert not th['multistable without refined positive circuit'] and not th['oscillating without negative circuit'], th
     autonomous = sum(1 for k, d in dyn.items() if d.get('status') == 'ok' and not d.get('forced') and struct.get(k, {}).get('status') == 'ok')
-    return dict(D=D, rows=rows, r1=r1, r2=r2, r3=r3, small=small, usable=usable, census=census, th=th, autonomous=autonomous)
-
-
-def check_depletion_clocks(*, struct, dyn, **_):
-    """Behaviours per square, and the clocks whose only brake the filters remove, by kind."""
-    behav, depletion, dep_models = square_data(struct, dyn)[1:]
     dep = len(dep_models)
     assert set(dep_models) == set(DEPLETION_KIND), (sorted(dep_models), 'update DEPLETION_KIND')
+    dep_plus = {nu: depletion.get((nu, 0), 0) for nu in (1, 2, 3)}
     kinds_count = {}
     for mid in dep_models:
         kinds_count[DEPLETION_KIND[mid]] = kinds_count.get(DEPLETION_KIND[mid], 0) + 1
     kind_words = {'calcium': ('is a calcium spike', 'are calcium spikes'), 'glycolysis': ('is a sugar-burning pulse in pancreatic cells', 'are sugar-burning pulses in pancreatic cells'),
                   'enzyme': ('is an enzyme oscillator', 'are enzyme oscillators')}
     dep_kinds = listing(f'{WORD[n]} {kind_words[k][n > 1]}' for k, n in sorted(kinds_count.items(), key=lambda x: -x[1]))
-    return dict(behav=behav, depletion=depletion, dep=dep, dep_kinds=dep_kinds)
-
-
-def read_running_totals(*, T, toys, rows, r1, r2, integ_rows, **_):
-    """The running-total readings, checked against the toy controller."""
+    dep_where = listing(f'{dep_plus[nu]} under {signs(nu, 0)}' for nu in (1, 2, 3) if dep_plus[nu])
     integ = T['integrators']
+    strict_n = integ[[k for k in integ if k.startswith('models with any')][0]]
     complete_n = integ[[k for k in integ if k.startswith('models with complete')][0]]
     pt = T['paired_totals']
     pair_hits = pt['small models with a loop through one']
@@ -919,20 +880,16 @@ def read_running_totals(*, T, toys, rows, r1, r2, integ_rows, **_):
     assert zt['running_totals']['paired'] == [['z1', 'z2', 1, -1]] and zt[MAIN]['c'] == 1 and zt[MAIN]['k'] == 1, zt
     assert '(1, 1)' not in r1['essay_pair']['cells'], 'the controller box is no longer empty'
     assert not toys['enzyme']['running_totals']['paired'] and not toys['ring']['running_totals']['paired']
+    integ_rows = load_jsonl(R / 'r31_integrators.jsonl') if (R / 'r31_integrators.jsonl').exists() else {}
     unchecked = sum(d.get('pair_unchecked') or 0 for d in integ_rows.values())
     near2 = r2.get('essay_near', {}).get('occupied', '?')
-    return dict(complete_n=complete_n, pt=pt, unchecked=unchecked, near2=near2)
-
-
-def check_replication(*, T, **_):
-    """This census beside Baudier, Fages and Soliman's Table 1 on the same release."""
+    near3 = r3.get('essay_near', {}).get('occupied', '?')
     rep, r24 = T['replication']['with reactions'], T['replication']['reference 24']
     assert (r24['models'], r24['no negative circuit'], r24['no positive circuit'], r24['no refined positive circuit']) == (506, 70, 48, 105)
-    return dict(rep=rep, r24=r24)
-
-
-def place_fly_clocks(*, struct, **_):
-    """Where familiar circuits and the fruit-fly clock models land."""
+    pct = lambda a, n: f'{100 * a / n:.0f}%' if n else 'n/a'
+    cols = {nu: sum(1 for k in range(nu + 1) if any(c.startswith(f'({k},') for c in rows[str(nu)]['essay']['cells'])) for nu in (1, 2, 3)}
+    by_k = {nu: {k: sum(v for c, v in rows[str(nu)]['essay']['cells'].items() if c.startswith(f'({k},')) for k in range(nu + 1)} for nu in (2, 3)}
+    top2, top3 = max(by_k[2], key=by_k[2].get), max(by_k[3], key=by_k[3].get)
     # familiar circuits
     p_rep, p_trp = placement(struct['BIOMD0000000012']), placement(struct['BIOMD0000000062'])
     assert p_rep == (1, 1) and p_trp == (2, 2), (p_rep, p_trp)
@@ -947,13 +904,6 @@ def place_fly_clocks(*, struct, **_):
                f'Leloup and Goldbeter&#8217;s 1998 and 1999 models have {loops_at("BIOMD0000000171", each=" each")}; '
                f'and their 1999 model with Gonze has {loops_at("BIOMD0000000298")}')
     fly_places = len(set(fp.values()))
-    fp_max = max(c for c, _ in fp.values())
-    fp_min = min(c for c, _ in fp.values())
-    return dict(fly_txt=fly_txt, fly_places=fly_places, fp_min=fp_min, fp_max=fp_max)
-
-
-def tabulate_controls(*, T, **_):
-    """The controls table: models with a known running total, plain names checked against the flags."""
     # where the essay's running-total examples sit
     ctl = T['controls']
     hog = [ctl[m]['loops'] for m in ('BIOMD0000000429', 'BIOMD0000000603')]
@@ -973,11 +923,6 @@ def tabulate_controls(*, T, **_):
         label = re.sub(r' \(', ', has one (' if c['expected'] else ', has none (', c['label'], count=1)
         ctl_rows.append(f"<tr><td>{label}</td><td>{loops_txt}</td><td>{strict}</td><td>{loose}</td></tr>")
     ctl_rows = ''.join(ctl_rows)
-    return dict(ctl_rows=ctl_rows)
-
-
-def count_behaviours(*, T, rows, **_):
-    """The essay's test, kinds of behaviour per row, and the other counts of kinds."""
     # the essay's test: kinds of behaviour per row
     fine = {nu: rows[str(nu)]['distinct_autonomous_behaviours'] for nu in (1, 2, 3)}
     coarse = {nu: len(rows[str(nu)]['coarse_behaviours']) for nu in (1, 2, 3)}
@@ -991,19 +936,10 @@ def count_behaviours(*, T, rows, **_):
     split_full = all(sp['patterns'][str(nu)] == nu + 1 for nu in (1, 2, 3))
     kpf = sum(rows[str(nu)]['k_pf_differs'] for nu in (1, 2, 3))
     nud = sum(rows[str(nu)]['nu_differs'] for nu in (1, 2, 3))
-    return dict(fine=fine, coarse=coarse, pred=pred, over=over, unsettled=unsettled, t4=t4, t3=t3, sp=sp, split_full=split_full, kpf=kpf, nud=nud)
-
-
-def check_model_270(*, struct, **_):
-    """Model 270, the filters' case study."""
+    # model 270, the filters' case study
     r270 = struct['BIOMD0000000270']
     m270 = r270['defs'][MAIN]
     assert r270['refined_positive'] is False and m270['complete'] and m270['k'] == m270['c'] > 0 and r270['conservation_laws'] == 9, m270
-    return dict(m270=m270)
-
-
-def list_exclusions(*, struct, **_):
-    """The models left out, by reason."""
     # models left out
     excl = {}
     for r in struct.values():
@@ -1012,12 +948,7 @@ def list_exclusions(*, struct, **_):
     assert 'BIOMD0000000310' in excl.get('gave no arrows at the states read', []), 'Tyson mutual inhibition sentence'
     ex_order = ['use built-in delays', 'use on-off rules', 'have values the solver cannot set', 'ran out of time', 'gave no arrows at the states read']
     excl_txt = listing(f'{len(excl[w])} {w}' for w in ex_order if w in excl)
-    no_arrows = len(excl.get('gave no arrows at the states read', []))
-    return dict(excl_txt=excl_txt, no_arrows=no_arrows)
-
-
-def read_random_signs(*, TR, **_):
-    """Signs at random states, quoted only if the proven rules hold there too."""
+    # signs at random states, quoted only if the proven rules hold there too
     rob = ''
     if TR:
         thr = TR['theorem_checks']
@@ -1029,22 +960,13 @@ def read_random_signs(*, TR, **_):
             bad = len(thr['multistable without refined positive circuit']) + len(thr['oscillating without negative circuit'])
             rob = (f' It gives {RR["2"]["essay"]["occupied"]} of 9 and {RR["3"]["essay"]["occupied"]} of 16, but loses arrows: '
                    f'{bad} models then seem to break a proven rule, so those numbers are not used.')
-    return dict(rob=rob)
-
-
-def read_settings(*, T, D, **_):
-    """The loop-count definitions table and the run's settings."""
     defs = [('thomas', 'every loop, as drawn'), ('ref24', 'after the filters'), ('ref24_rank', 'after the filters and the rank test (used here)')]
     def_rows = ''.join(f"<tr><td>{lab}</td>" + ''.join(f"<td>{T['defs'][d]['rows'][n]['models']}</td>" for n in ('1', '2', '3')) + '</tr>' for d, lab in defs)
     starts = int(re.search(r'^STARTS = (\d+)', (ROOT / 'analysis' / 'dynamics.py').read_text(), re.M).group(1))
     le3 = sum(D['distribution'].get(c, 0) for c in ('0', '1', '2', '3'))
     unfinished = D['distribution'].get('over budget', 0)
     runtime = 'about two hours'
-    return dict(def_rows=def_rows, starts=starts, le3=le3, unfinished=unfinished, runtime=runtime)
 
-
-def describe_pipeline(*, dyn, integ_rows, census, usable, small, unfinished, starts, autonomous, th, pt, **_):
-    """Figure S11, the data pipeline: one script per step and what comes out."""
     dyn_status = {}
     for d_ in dyn.values():
         dyn_status[d_.get('status')] = dyn_status.get(d_.get('status'), 0) + 1
@@ -1062,19 +984,14 @@ def describe_pipeline(*, dyn, integ_rows, census, usable, small, unfinished, sta
         step2('<code>toys.py</code>', 'builds the enzyme, the ring and the controller as models and counts them.', 'Fails the run if any toy changes.'),
         step2('<code>build_post.py</code>', 'writes this page from the tables.', 'Refuses to build if a sentence no longer matches the data.'),
     ]) + '</ol>'
-    return dict(pipeline_html=pipeline_html)
-
-
-def name_elements(**_):
-    """The adapter and the counting switch, the two elements the prose names."""
+    F = dict(score=1, model=2, lineloop=3, arrows=4, toy=5, cruise=6, tiles=7, orbitals=8, table=9, spiral=10, street=11,
+             filters=12, code=13, dist=14, census=15, coast=16, behaviour=17, key=18, pipeline=19)
+    coast_html, coast_len = IA.coast()
+    fp_max = max(c for c, _ in fp.values())
+    fp_min = min(c for c, _ in fp.values())
     ad_num, ad_sym = TF.NUMBER[(1, 1, 1)], EL.symbol(1, 1, 1)[0]
     sw_num, sw_sym = TF.NUMBER[(1, 0, 1)], EL.symbol(1, 0, 1)[0]
     assert ad_sym == 'Ad', ad_sym
-    return dict(ad_num=ad_num, ad_sym=ad_sym, sw_num=sw_num, sw_sym=sw_sym)
-
-
-def draw_funnel(*, census, usable, complete_n, small, autonomous, excl_txt, unfinished, starts, th, **_):
-    """Figure 6's funnel: release 31, then the hold-out batch, on one scale."""
     stages = [
         (census, census, 'curated models in release 31',
          'Downloaded BioModels release 31 (193 MB) and checked its fingerprint (SHA-256).',
@@ -1115,11 +1032,6 @@ def draw_funnel(*, census, usable, complete_n, small, autonomous, excl_txt, unfi
          'Whether a square predicts a circuit&#8217;s answer better than the two sign rules alone.'),
     ]
     funnel_html = IA.funnel(stages)
-    return dict(funnel_html=funnel_html)
-
-
-def list_census_rows(*, struct, dyn, usable, **_):
-    """One explorer row per readable model: loops, sign pattern, element, behaviour."""
     ex_rows = []
     for mid, r in sorted(struct.items()):
         if r.get('status') != 'ok':
@@ -1135,11 +1047,10 @@ def list_census_rows(*, struct, dyn, usable, **_):
         ex_rows.append({'id': str(int(mid[-6:])), 'name': r.get('name') or mid, 'loops': loops_txt,
                         'pattern': pattern.replace(MINUS, '\u2212'), 'element': el, 'does': what_it_does(dyn.get(mid))})
     assert len(ex_rows) == usable
-    return dict(ex_rows=ex_rows)
-
-
-def find_candidates(*, struct, integ_rows, **_):
-    """Candidates for the blanks, from the loose and paired running-total readings."""
+    occ = {}
+    for r_ in ex_rows:
+        if r_['element'] is not None:
+            occ[r_['element']] = occ.get(r_['element'], 0) + 1
     # loose and paired readings of the running totals, as in tabulate.py, to list candidates for the blanks
     near_el, pair_el = {}, {}
     for mid, r in struct.items():
@@ -1151,11 +1062,6 @@ def find_candidates(*, struct, integ_rows, **_):
         kk = sum(1 for l in r['loop_list'] if l['sign'] == '-')
         near_el[mid] = TF.NUMBER.get((m['c'], kk, sum(1 for l in r['loop_list'] if set(l['nodes']) & near)))
         pair_el[mid] = TF.NUMBER.get((m['c'], kk, sum(1 for l in r['loop_list'] if l['integrates'] or set(l['nodes']) & pair)))
-    return dict(near_el=near_el, pair_el=pair_el)
-
-
-def build_hero_elements(*, struct, ex_rows, near_el, pair_el, small, **_):
-    """Every element's card: signs, symbol, the census models inside it, and its status."""
     short = {str(int(mid[-6:])): html_lib.unescape(nm) for mid, nm in reversed(NAMES)}
     hero_els = []
     for e in TF.ELEMENTS:
@@ -1174,6 +1080,9 @@ def build_hero_elements(*, struct, ex_rows, near_el, pair_el, small, **_):
             nm = short.get(x['id'])
             if nm and nm not in census_ex and x['does'] == shows:
                 census_ex.append(nm)
+        def clip(t, w=44):
+            t = t.replace('_', ' ')
+            return t if len(t) <= w else t[:t.rfind(' ', 0, w)] + '\u2026'
         cands = [] if inside else sorted({clip(struct[mid].get('name') or mid) for mid in near_el
                                           if near_el[mid] == num or pair_el.get(mid) == num})
         essay_ex = EL.ESSAY_EXAMPLES.get(e, [])
@@ -1198,12 +1107,6 @@ def build_hero_elements(*, struct, ex_rows, near_el, pair_el, small, **_):
     rest_models = sum(h['count'] for h in rest_)
     assert found_top == (9, 9) and found_rest[1] == 20, (found_top, found_rest)
     EL.check_unique(TF.ELEMENTS)
-    return dict(hero_els=hero_els, found_top=found_top, found_rest=found_rest, rest_models=rest_models)
-
-
-def draw_interactive_figures(*, hero_els, found_top, found_rest, ex_rows, usable, **_):
-    """The coastline, the periodic table, the hero, the model explorer and the research loop."""
-    coast_html = IA.coast()[0]
     ptable_html = IA.periodic_table(hero_els, found_top, found_rest)
     hero_html = IA.hero(hero_els)
     explorer_html = IA.explorer(ex_rows, [('repressilator', 'repressilator'), ('toggle', 'toggle'), ('day clocks', 'circ'),
@@ -1220,11 +1123,10 @@ def draw_interactive_figures(*, hero_els, found_top, found_rest, ex_rows, usable
         ('refine', 'Found the grain problem and the detector problem, fixed a counting bug, added a paired detector.',
          'Benchmark running-total detectors on models with known answers, and decide whether braking loops should be filtered.'),
     ])
-    return dict(coast_html=coast_html, ptable_html=ptable_html, hero_html=hero_html, explorer_html=explorer_html, science_html=science_html)
-
-
-def score_claims(*, r1, r2, fine, pred, autonomous, near2, fly_places, **_):
-    """The scorecard: three claims and the surprise."""
+    def card(label, title, found, mark, verdict, note):
+        # label, title, what was found, verdict: the title says the test, so the found line carries what it needs of it
+        return (f'<div class="card"><p class="k">{label}</p><h3>{title}</h3><dl><dt>found</dt><dd>{found}</dd></dl>'
+                f'<p class="v"><span class="chip"><span aria-hidden="true">{mark}</span> {verdict}</span>{note}</p></div>')
     assert '(1, 1)' not in r1['essay']['cells'] and '(1, 1)' not in r1['essay_pair']['cells']
     scorecard = '<div class="cards">' + ''.join([
         card('claim 1', 'No more kinds of behaviour than elements',
@@ -1238,23 +1140,14 @@ def score_claims(*, r1, r2, fine, pred, autonomous, near2, fly_places, **_):
         card('surprise', 'One circuit, one address',
              f'{cap(WORD[len(FLY_CLOCK)])} models of one clock land in {WORD[fly_places]} places.', '!', 'depends on the drawing', ''),
     ]) + '</div>'
-    return dict(scorecard=scorecard)
-
-
-def check_answer_key(*, struct, dyn, small, r3, **_):
-    """Figure S7, the textbook answer key, and the audit sentence in Supplement B."""
     key_table, key_agree, key_misses = fig_answer_key(struct, dyn)
     assert key_agree == 5 and key_misses == ['BIOMD0000000310', 'BIOMD0000000307'], (key_agree, key_misses)
     assert placement(struct['BIOMD0000000307'])[1] == 0 and struct['BIOMD0000000307']['defs']['thomas']['k'] == 1, 'depletion brake sentence'
     key_does = {mid: what_it_does(dyn.get(mid)) for mid, _, _ in TEXTBOOK}
     assert key_does['BIOMD0000000311'] == 'holds two states' and all(key_does[m] in ('settles', 'rings, then settles') for m in ('BIOMD0000000306', 'BIOMD0000000307', 'BIOMD0000000308')), key_does
+    no_arrows = len(excl.get('gave no arrows at the states read', []))
     # the audit story quotes the first run (before the backtracking fix) against this one
     assert small == 175 and r3['essay']['occupied'] == 5, 'update the audit sentence in Supplement B'
-    return dict(key_table=key_table, key_agree=key_agree)
-
-
-def write_verdict(*, fine, coarse, pred, over, **_):
-    """The rule's verdict, in the essay's own terms."""
     if over:
         test_verdict = (f'At {listing(LOOPS[nu] for nu in over)} that is more kinds of behaviour than elements, which by the essay&#8217;s own terms kills the rule, '
                         f'at least with behaviour sorted this finely.')
@@ -1268,20 +1161,11 @@ def write_verdict(*, fine, coarse, pred, over, **_):
     if fine[1] > pred[1] and not over:
         test_verdict += (f' One loop shows more than its {pred[1]}, though the essay set its test at two and three loops, '
                          f'and merged into four behaviours it gives {"exactly " if coarse[1] == pred[1] else ""}{coarse[1]}.')
-    return dict(test_verdict=test_verdict)
 
-
-def make_links(**_):
-    """Links to the code, the data and the repository."""
     code_link = f'{REPO_URL}/tree/main/analysis' if REPO_URL else 'analysis/README.md'
     data_link = f'{REPO_URL}/blob/main/results/tables.md' if REPO_URL else 'results/tables.md'
     repo_line = f' The repository is at <a href="{REPO_URL}">{REPO_URL.split("//")[1]}</a>.' if REPO_URL else ''
-    return dict(code_link=code_link, data_link=data_link, repo_line=repo_line)
-
-
-def section_head(*, usable, code_link, data_link, hero_html, pred, **_):
-    """The document head, the masthead and the hero table."""
-    return f'''<!DOCTYPE html>
+    page = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -1309,12 +1193,7 @@ def section_head(*, usable, code_link, data_link, hero_html, pred, **_):
 <div class="meta"><span>Kat Titterton</span><span>Macrofluidics</span><span>%READTIME% min read</span><span>draft</span><nav class="links" aria-label="Code, data and supplement"><a href="{code_link}">code</a><a href="{data_link}">data</a><a href="#supplement">supplement</a></nav></div>
 </header>
 {hero_html}
-'''
-
-
-def section_intro(*, census, **_):
-    """The abstract and section 1, the puzzle."""
-    return f'''<!--main-->
+<!--main-->
 <div class="text">
 <div class="abstract">
 <p class="label">In short</p>
@@ -1332,12 +1211,7 @@ def section_intro(*, census, **_):
 </div>
 </section>
 
-'''
-
-
-def section_theory(**_):
-    """Section 2: arrows, loops and running totals."""
-    return f'''<section id="theory">
+<section id="theory">
 <div class="text">
 <p class="kicker"><span class="n">2</span>what a loop can do</p>
 <h2>Flip the arrows and watch</h2>
@@ -1370,12 +1244,7 @@ def section_theory(**_):
 </div>
 </section>
 
-'''
-
-
-def section_table(*, ptable_html, **_):
-    """Section 3: three counts make the table."""
-    return f'''<section id="table">
+<section id="table">
 <div class="text">
 <p class="kicker"><span class="n">3</span>the table</p>
 <h2>Three counts make a periodic table</h2>
@@ -1402,12 +1271,7 @@ def section_table(*, ptable_html, **_):
 </div>
 </section>
 
-'''
-
-
-def section_census(*, census, funnel_html, explorer_html, usable, small, rest_models, scorecard, found_top, found_rest, fly_places, fp_min, fp_max, **_):
-    """Sections 4 and 5: the census and what the table says."""
-    return f'''<section id="data">
+<section id="data">
 <div class="text">
 <p class="kicker"><span class="n">4</span>the census</p>
 <h2>Counting real circuits</h2>
@@ -1434,12 +1298,7 @@ def section_census(*, census, funnel_html, explorer_html, usable, small, rest_mo
 </div>
 </section>
 
-'''
-
-
-def section_gaps(*, sw_num, sw_sym, science_html, ad_num, ad_sym, **_):
-    """Sections 6 and 7: the empty band and what comes next."""
-    return f'''<section id="gaps">
+<section id="gaps">
 <div class="text">
 <p class="kicker"><span class="n">6</span>the empty band</p>
 <h2>What the gaps say</h2>
@@ -1473,12 +1332,7 @@ def section_gaps(*, sw_num, sw_sym, science_html, ad_num, ad_sym, **_):
 </div>
 </section>
 
-'''
-
-
-def section_close(*, dep, no_arrows, unfinished, autonomous, runtime, repo_line, starts, **_):
-    """Sections 8 and 9: limits and the return."""
-    return f'''<section id="limits">
+<section id="limits">
 <div class="text">
 <p class="kicker"><span class="n">8</span>limits</p>
 <h2>What this census can&#8217;t tell you</h2>
@@ -1502,12 +1356,7 @@ def section_close(*, dep, no_arrows, unfinished, autonomous, runtime, repo_line,
 </section>
 <!--/main-->
 
-'''
-
-
-def section_supp_ab(*, small, key_table, toys, struct, dyn, starts, key_agree, r24, rep, **_):
-    """Supplements A and B: the tiles, and how the census works and was checked."""
-    return f'''<section id="supplement">
+<section id="supplement">
 <div class="text">
 <p class="kicker"><span class="n">S</span>supplement</p>
 <h2>Want more depth?</h2>
@@ -1549,12 +1398,7 @@ def section_supp_ab(*, small, key_table, toys, struct, dyn, starts, key_agree, r
 </figure>
 </details>
 
-'''
-
-
-def section_supp_c(*, le3, usable, unfinished, dep, dep_kinds, test_verdict, fly_txt, coast_html, behav, depletion, fine, coarse, D, pt, **_):
-    """Supplement C: loop counts, behaviour and detail."""
-    return f'''<details class="supp" id="supp-c">
+<details class="supp" id="supp-c">
 <summary>C. More results: loop counts, behaviour, detail</summary>
 <figure class="fig bars">
 {fig_distribution(D['distribution'])}
@@ -1578,12 +1422,7 @@ def section_supp_c(*, le3, usable, unfinished, dep, dep_kinds, test_verdict, fly
 </figure>
 </details>
 
-'''
-
-
-def section_methods_models(*, pipeline_html, census, usable, excl_txt, rob, nud, small, kpf, def_rows, **_):
-    """Supplement D, part 1: models into equations, arrows and loops."""
-    return f'''<details class="supp" id="supp-d">
+<details class="supp" id="supp-d">
 <summary>D. Methods: every step, setting and equation</summary>
 <div class="text" id="methods">
 <p>Every step is a script in the <code>analysis</code> folder beside this page, and every setting that can move a number is given here. The data flow top to bottom:</p>
@@ -1624,12 +1463,7 @@ def section_methods_models(*, pipeline_html, census, usable, excl_txt, rob, nud,
 <p>with E arrows, V molecules and C connected pieces. It differs from c in {nud} of the {small} small models. Sontag&#8217;s distance to positive feedback {cite('sontag')}, the fewest sign flips that make every loop amplifying, gives a braking count that doesn&#8217;t depend on which loops are listed. Computed on the filtered loops, it differs from k in {kpf} of the {small}.</p>
 <div class="scroll"><table><tr><th>Loops counted</th><th>one</th><th>two</th><th>three</th></tr>{def_rows}</table></div>
 
-'''
-
-
-def section_methods_totals(*, unchecked, ctl_rows, autonomous, unsettled, th, starts, **_):
-    """Supplement D, part 2: running totals and behaviour."""
-    return f'''<h3>Running totals</h3>
+<h3>Running totals</h3>
 <p>Strict reading. Molecule i keeps a running total if its own name appears in none of the rate laws that change it, so its rate cannot depend on its level:</p>
 {PM.STRICT}
 <p>Loose reading. Molecule i nearly keeps one if its own level moves its net rate by less than a tenth of the flow into it, at the last state reached (first-order decay scores exactly 1 at steady state):</p>
@@ -1656,12 +1490,7 @@ def section_methods_totals(*, unchecked, ctl_rows, autonomous, unsettled, th, st
 </table></div>
 <p>{autonomous} models run on their own; {unsettled} small models never settle under these rules. Finding two states from {WORD[starts]} starts at one setting of the rates is a lower bound.</p>
 
-'''
-
-
-def section_methods_rules(*, runtime, sp, split_full, r24, rep, m270, t4, t3, **_):
-    """Supplement D, part 3: proven rules, counting, replication, reproducing."""
-    return f'''<h3>The proven rules</h3>
+<h3>The proven rules</h3>
 <p>Two of the table&#8217;s rules are theorems, so the census uses them to check itself.</p>
 <p><b>Two states need an amplifying loop.</b> Soul&#233; proved it {cite('soule')}: if a system of smooth rate equations has two separate steady states, then at some state in between, the arrows the census draws (the signed Jacobian) contain an amplifying loop. The idea, roughly: between two stable states lies an unstable one, a hilltop, and a hilltop needs a disturbance that feeds back on itself and grows, which is an amplifying loop. Baudier, Fages and Soliman sharpened the statement for reaction networks: the loop can be taken to be one that survives their filters {cite('baudier')}. The census checks this with their elimination algorithm, which decides whether such a loop exists without listing loops.</p>
 <p><b>A sustained rhythm needs a braking loop.</b> Snoussi and Gouz&#233; proved that a stable oscillation needs a braking loop through at least two molecules, in systems whose arrows keep their sign {cite('snoussi', 'gouze')}. The idea: to swing, a system must overshoot and turn back, and turning back means some chain of arrows eventually pushes the other way, which multiplies to a brake. The census checks it exactly: a strongly connected piece of the graph has no braking loop just when its molecules split into two camps so that every arrow&#8217;s sign is the product of its ends&#8217; camps,</p>
@@ -1699,12 +1528,7 @@ def section_methods_rules(*, runtime, sp, split_full, r24, rep, m270, t4, t3, **
 </div>
 </details>
 
-'''
-
-
-def section_refs(**_):
-    """The references and the footer."""
-    return f'''<details class="supp" id="refs-d">
+<details class="supp" id="refs-d">
 <summary>References, {len(REFS)}</summary>
 <div class="text">
 <ol class="refs">%REFS%</ol>
@@ -1718,10 +1542,6 @@ def section_refs(**_):
 </body>
 </html>
 '''
-
-
-def finish_page(page):
-    """Fill in the read time from the main text, number the references and count em dashes."""
     main_txt = page.split('<!--main-->')[1].split('<!--/main-->')[0]
     main_txt = re.sub(r'<figure\b.*?(<figcaption.*?</figcaption>).*?</figure>', r'\1', main_txt, flags=re.S)  # a figure counts as its caption
     main_txt = re.sub(r'<(script|style|svg|math).*?</\1>', ' ', main_txt, flags=re.S)
@@ -1730,7 +1550,9 @@ def finish_page(page):
     page = number_refs(page)
     dashes = page.count('—') + page.count('&#8212;') + page.count('&mdash;')
     print('em dashes', dashes, '(a voice when sparing, a habit when frequent)')
-    return page
+    pathlib.Path(out_path).parent.mkdir(exist_ok=True)
+    pathlib.Path(out_path).write_text(page, encoding='utf-8')
+    return out_path
 
 
 if __name__ == '__main__':

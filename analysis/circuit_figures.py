@@ -950,28 +950,80 @@ def fig_atlas():
 
 
 # ================================================================ three diseases, one algebra
+# One disease at a time. The icons are Figure 13's (#fig-brakes) for cancer and neurodegeneration, so the same
+# disease wears the same mark on both figures; autoimmunity gets an antibody drawn to match.
+DZ_ICON = {
+    'cells': ('one cell becomes two, then four',
+              '<circle cx="6" cy="16" r="3.4"/><circle cx="15" cy="10" r="3.4"/><circle cx="15" cy="22" r="3.4"/>'
+              '<circle cx="25.5" cy="5" r="3"/><circle cx="25.5" cy="12.3" r="3"/><circle cx="25.5" cy="19.7" r="3"/>'
+              '<circle cx="25.5" cy="27" r="3"/>'),
+    'antibody': ('an antibody',
+                 '<path d="M16 28.5V17"/><path d="M16 17L8.5 7"/><path d="M16 17L23.5 7"/>'
+                 '<path d="M6.3 8.7L10.7 5.3"/><path d="M25.7 8.7L21.3 5.3"/>'),
+    'brain': ('a brain',
+              '<path d="M16 5.5c-1.6-1.7-5.4-1.6-6.5 1-2.8.2-4.6 2.8-3.8 5.4-2.1 1.1-2.1 5 0 6.1-.3 2.9 2.6 5.1 5.5 4.2 1 2.2 3.6 3 4.8 1.3"/>'
+              '<path d="M16 5.5c1.6-1.7 5.4-1.6 6.5 1 2.8.2 4.6 2.8 3.8 5.4 2.1 1.1 2.1 5 0 6.1.3 2.9-2.6 5.1-5.5 4.2-1 2.2-3.6 3-4.8 1.3"/>'
+              '<path d="M16 5.5v18"/><path d="M10.2 11.5c1.8.1 3 1.2 3 3"/><path d="M21.8 11.5c-1.8.1-3 1.2-3 3"/>'
+              '<path d="M9.5 18.2c1.6.2 2.9-.6 3.6-1.8"/><path d="M22.5 18.2c-1.6.2-2.9-.6-3.6-1.8"/>'),
+}
+
+# name, the amplifying node held on, the brake lost, what piles up, icon
+DZ = [('cancer', 'growth', 'p53', 'tumour mass', 'cells'),
+      ('autoimmunity', 'effector T cells', 'regulatory T cells', 'tissue damage', 'antibody'),
+      ('neurodegeneration', 'seeded aggregation', 'clearance', 'aggregates', 'brain')]
+
+
+def dz_aria(d):
+    name, a, b, pile, _ = d
+    return (f'{name.capitalize()}: {a} held on, a self-feeding loop; its brake, {b}, lost; '
+            f'{pile} piling up and never returning')
+
+
+def dz_icon(key, size):
+    aria, body = DZ_ICON[key]
+    return (f'<svg width="{size}" height="{size}" viewBox="0 0 32 32" role="img" aria-label="{aria}" fill="none" '
+            f'stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" '
+            f'style="width: {size}px; height: {size}px; flex: 0 0 auto">{body}</svg>')   # figure.fig svg is width:100%
+
+
 def fig_disease():
-    """One panel for three diseases, drawn tall so it reads on a phone: the same amplifying loop held on, the same
-    brake lost, the same ramp; the three tissues' names stand in rows inside the two nodes."""
-    w, h = 350, 340
-    A, B = (175, 74, 200, 66), (175, 196, 200, 66)
-    s = ''
-    # the loop runs down the left (held on) and back up the right (lost)
-    s += f'<path d="M{A[0] - 70} {A[1] + 36}C{A[0] - 150} {A[1] + 70} {B[0] - 150} {B[1] - 70} {B[0] - 70} {B[1] - 36}" fill="none" stroke="var(--accent-text)" stroke-width="2.2" marker-end="url(#fx-arrow)"/>'
-    s += f'<path d="M{B[0] + 70} {B[1] - 36}C{B[0] + 150} {B[1] - 70} {A[0] + 150} {A[1] + 70} {A[0] + 70} {A[1] + 36}" fill="none" stroke="var(--accent2)" stroke-width="2.2" stroke-dasharray="4 4" marker-end="url(#fx-bar)"/>'
-    s += label(118, 141, '+ held on', size=12, fill='var(--accent-text)')
-    s += label(232, 141, MINUS + ' lost', size=12, fill='var(--accent2-text)')
-    for (x, y, pw, ph), names in ((A, ('grow', 'effector T cells', 'seed')), (B, ('p53', 'regulatory T cells', 'clearance'))):
-        s += (f'<rect x="{x - pw / 2}" y="{y - ph / 2}" width="{pw}" height="{ph}" rx="{ph / 2 - 8}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.4" {LIFT}/>')
-        for i, nm in enumerate(names):
-            s += label(x, y - 14 + 18 * i + 4, nm, size=12, extra=' font-weight="600"')
-    s += mono(175, 22, 'rows: cancer, autoimmunity, neurodegeneration', anchor='middle', fill='var(--muted)')
-    s += '<line x1="30" y1="300" x2="320" y2="300" stroke="var(--muted)" stroke-width="1.4"/>'
-    s += '<path d="M30 298 H110 C180 294 250 266 320 240" fill="none" stroke="var(--accent-text)" stroke-width="2.2"/>'
-    s += mono(320, 318, 'time', anchor='end')
-    s += mono(30, 318, 'counts up, never returns')
-    return ('<div class="pane one tall">' + pane(s, w, h, 'Three diseases as one circuit: an amplifying loop (growth, effector T cells, seeded aggregation) held on, '
-            'its brake (p53, regulatory T cells, clearance) lost, and the response a ramp that never returns') + '</div>')
+    """One disease at a time: a segmented switch picks cancer, autoimmunity or neurodegeneration, and the three
+    names in the drawing (the loop held on, the brake lost, what piles up) flip to that disease. The circuit itself
+    never changes, which is the claim. The figure auto-cycles about every 3 s until the reader touches it, and holds
+    still under prefers-reduced-motion; without JavaScript it reads as cancer."""
+    w, h = 350, 300
+    A, B = (175, 48, 200, 44), (175, 160, 200, 44)
+    first = DZ[0]
+    flip = ('<style>.dz-f { transform-box: fill-box; transform-origin: 50% 50%; }'
+            '.dz-f.dz-go { animation: dz-flip 320ms ease-in-out; }'
+            '@keyframes dz-flip { 0% { transform: scaleY(1); opacity: 1 } 44%, 56% { transform: scaleY(0.06); opacity: 0.3 }'
+            ' 100% { transform: scaleY(1); opacity: 1 } }'
+            '@media (prefers-reduced-motion: reduce) { .dz-f.dz-go { animation: none } }</style>')
+    s = flip
+    # the loop: down the left, held on; back up the right, lost
+    s += '<path d="M120 73V135" fill="none" stroke="var(--accent-text)" stroke-width="2.2" marker-end="url(#fx-arrow)"/>'
+    s += '<path d="M230 135V73" fill="none" stroke="var(--accent2)" stroke-width="2.2" stroke-dasharray="4 4" marker-end="url(#fx-bar)"/>'
+    s += label(112, 108, '+ held on', anchor='end', size=12, fill='var(--accent-text)')
+    s += label(238, 108, MINUS + ' lost', anchor='start', size=12, fill='var(--accent2-text)')
+    for (x, y, pw, ph), slot, name in ((A, 'a', first[1]), (B, 'b', first[2])):
+        s += (f'<rect x="{x - pw / 2}" y="{y - ph / 2}" width="{pw}" height="{ph}" rx="{ph / 2 - 6}" fill="var(--paper)" '
+              f'stroke="var(--muted)" stroke-width="1.4" {LIFT}/>')
+        s += label(x, y + 4.5, name, size=12.5, extra=f' id="dz-{slot}" class="dz-f" font-weight="600"')
+    # what piles up: a ramp on its own axes, the quantity named on the y axis
+    x0, x1, y0, y1 = 30, 320, 272, 216
+    s += f'<line x1="{x0}" y1="{y0}" x2="{x1}" y2="{y0}" stroke="var(--muted)" stroke-width="1.4"/>'
+    s += f'<line x1="{x0}" y1="{y0}" x2="{x0}" y2="{y1}" stroke="var(--muted)" stroke-width="1.4"/>'
+    s += f'<path d="M{x0} {y0 - 2}H110C180 {y0 - 6} 250 {y0 - 34} {x1} {y1 + 4}" fill="none" stroke="var(--accent-text)" stroke-width="2.2"/>'
+    s += mono(x0, y1 - 8, first[3], anchor='start', fill='var(--ink)', extra=' id="dz-p" class="dz-f"')
+    s += mono(x1, y0 + 18, 'time', anchor='end')
+    chips = ''.join(
+        f'<button type="button" class="chip dz-chip" data-i="{i}" aria-pressed="{"true" if i == 0 else "false"}" '
+        f'style="display: inline-flex; align-items: center; gap: 6px; padding: 0 var(--s3)">'
+        f'{dz_icon(d[4], 20)}{d[0]}</button>' for i, d in enumerate(DZ))
+    return ('<div id="dz"><div class="chips" style="margin: 0 0 var(--s4)">'
+            '<div class="cl-seg" role="group" aria-label="Which disease" style="flex-wrap: wrap; max-width: 420px">'
+            + chips + '</div></div><div class="pane one tall">' + pane(s, w, h, dz_aria(first)) + '</div></div>')
+
 
 
 # ================================================================ hero: three live traces
@@ -995,26 +1047,15 @@ def hero():
 
 # ================================================================ the script
 def script():
-    """The page's one <script>: the model constants as P, then the JS parts below in one closure.
-
-    The parts share that closure's names, so the order holds: helpers first, the loop last, after the
-    four figures it drives."""
-    P = {'sw': SW, 'ck': CK, 'ad': AD, 'hy': HY, 'swp': {k: SW[k] for k in ('beta', 'basal', 'n', 'tx', 'ty')}, 'sig': SIG}
-    return ('<script>\n(function () {\n  var P = ' + json.dumps(P) + ';\n'
-            + '\n'.join([JS_HELPERS, JS_FLUX, JS_CHART, JS_SWITCH, JS_CLOCK, JS_ADAPTER, JS_HYPO, JS_LOOP])
-            + '})();\n</script>')
-
-
-JS_HELPERS = '''\
+    P = {'sw': SW, 'ck': CK, 'ad': AD, 'hy': HY, 'swp': {k: SW[k] for k in ('beta', 'basal', 'n', 'tx', 'ty')}, 'sig': SIG,
+         'dz': [{'a': d[1], 'b': d[2], 'p': d[3], 'aria': dz_aria(d)} for d in DZ]}
+    return '<script>\n(function () {\n  var P = ' + json.dumps(P) + ''';
   var NS = 'http://www.w3.org/2000/svg';
   var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function $(id) { return document.getElementById(id); }
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function setP(input) { var r = (input.value - input.min) / (input.max - input.min); input.style.setProperty('--p', (r * 100).toFixed(1) + '%'); }
-'''
 
-
-JS_FLUX = '''\
   // ---- flux: dots travelling along every reaction arrow of a cell pane, at a speed set by the model
   function Flux(svg) {
     this.items = [];
@@ -1052,10 +1093,7 @@ JS_FLUX = '''\
       els.forEach(function (e, i) { e.setAttribute('opacity', clamp(v - i, 0, 1).toFixed(2)); });
     }
   };
-'''
 
-
-JS_CHART = '''\
   // ---- a strip chart redrawn at the pane's true pixel width
   function Chart(svg, win, ymax, ymax2, inmax) {
     this.svg = svg; this.win = win; this.ymax = ymax; this.ymax2 = ymax2; this.inmax = inmax;
@@ -1104,10 +1142,7 @@ JS_CHART = '''\
     var last = this.buf[this.buf.length - 1];
     if (last && this.now) { this.now.setAttribute('cx', (x0 + (x1 - x0) * (last[0] - tmin) / win).toFixed(1)); this.now.setAttribute('cy', (y0 - (y0 - y1) * last[1] / ymax).toFixed(1)); }
   };
-'''
 
-
-JS_SWITCH = '''\
   // ---- the switch: the lac operon
   var sw = (function () {
     var Q = P.sw, el = $('sw-L'); if (!el) return null;
@@ -1135,10 +1170,7 @@ JS_SWITCH = '''\
     paint(0); readouts();
     return { tick: function (dtWall) { advance(dtWall * Q.speed); paint(dtWall); }, readouts: readouts, chart: chart, box: el.closest('figure') };
   })();
-'''
 
-
-JS_CLOCK = '''\
   // ---- the clock: the circadian loop, recomputed for three days whenever the delay moves; a playhead sweeps it
   var ck = (function () {
     var Q = P.ck, el = $('ck-D'); if (!el) return null;
@@ -1176,10 +1208,7 @@ JS_CLOCK = '''\
     compute(); ph = RM ? 30 : 0; paint(0); readouts();
     return { tick: function (dtWall) { ph = (ph + dtWall * Q.T / Q.sweep) % Q.T; paint(dtWall); }, readouts: readouts, chart: chart, box: el.closest('figure') };
   })();
-'''
 
-
-JS_ADAPTER = '''\
   // ---- the adapter: chemotaxis
   var ad = (function () {
     var Q = P.ad, el = $('ad-L'); if (!el) return null;
@@ -1207,10 +1236,7 @@ JS_ADAPTER = '''\
     paint(0); readouts();
     return { tick: function (dtWall) { advance(dtWall * Q.speed); paint(dtWall); }, readouts: readouts, chart: chart, box: el.closest('figure') };
   })();
-'''
 
-
-JS_HYPO = '''\
   // ---- the hypothetical element: a pulse's running total feeds the lac switch; recomputed on input, swept by a playhead
   var hy = (function () {
     var Q = P.hy, W = P.swp, el = $('hy-T'); if (!el) return null;
@@ -1243,10 +1269,36 @@ JS_HYPO = '''\
     compute(); ph = RM ? Q.end : 0; paint(0);
     return { tick: function (dtWall) { ph = (ph + dtWall * Q.end / Q.sweep) % Q.end; paint(dtWall); }, readouts: readouts, chart: chart, box: el.closest('figure') };
   })();
-'''
 
+  // ---- three diseases, one circuit: the switch picks one and the three names flip to it
+  (function () {
+    var box = $('dz'); if (!box) return;
+    var N = P.dz, svg = box.querySelector('svg'), slots = [$('dz-a'), $('dz-b'), $('dz-p')];
+    var chips = [].slice.call(box.querySelectorAll('.dz-chip')), cur = 0, timer = null, touched = false;
+    function show(i, animate) {
+      cur = i;
+      chips.forEach(function (c, k) { c.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      svg.setAttribute('aria-label', N[i].aria);
+      function set() { slots[0].textContent = N[i].a; slots[1].textContent = N[i].b; slots[2].textContent = N[i].p; }
+      if (!animate || RM) { set(); return; }
+      slots.forEach(function (e) { e.classList.remove('dz-go'); });
+      void box.offsetWidth;                                  // restart the flip even on a repeat press
+      slots.forEach(function (e) { e.classList.add('dz-go'); });
+      setTimeout(set, 160);                                  // swap at the half-turn, where the letters are edge-on
+    }
+    function stop() { touched = true; if (timer) { clearInterval(timer); timer = null; } }
+    chips.forEach(function (c, k) { c.addEventListener('click', function () { stop(); show(k, true); }); });
+    box.addEventListener('pointerdown', stop); box.addEventListener('focusin', stop);
+    // it cycles itself until the reader touches it, and only while it is on screen
+    function run(on) {
+      if (touched || RM) return;
+      if (on && !timer) timer = setInterval(function () { show((cur + 1) % N.length, true); }, 3000);
+      if (!on && timer) { clearInterval(timer); timer = null; }
+    }
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { es.forEach(function (e) { run(e.isIntersecting); }); }, { rootMargin: '0px' }).observe(box);
+    else run(true);
+  })();
 
-JS_LOOP = '''\
   // ---- one loop for all four; a figure runs only while it is on screen
   var sims = [sw, ck, ad, hy].filter(Boolean), last = null, frame = 0;
   sims.forEach(function (s) { s.on = !('IntersectionObserver' in window); });
@@ -1265,7 +1317,8 @@ JS_LOOP = '''\
   // charts drawn once over a fixed window keep their whole trace on a refit
   sims.forEach(function (s) { s.fixed = (s === ck || s === hy); });
   document.querySelectorAll('.ctl input[type=range]').forEach(setP);
-'''
+})();
+</script>'''
 
 
 # ================================================================ injection
