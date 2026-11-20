@@ -380,9 +380,10 @@ def nesting_figure():
     ]
     out = '<div class="pane one score">' + ''.join(
         f'<div class="sc-row">{v}<span class="sc-c">{c}</span><span class="sc-e">{e}</span></div>' for v, c, e in rows_html) + '</div>'
-    out += ('<p class="keyrow">'
+    out += ('<p class="key-t">row sizes</p><p class="keyrow">'
             '<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/></svg>what doubling needs</span>'
-            '<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--ink)"/></svg>what speed order gives</span>'
+            '<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><rect x="1" y="3" width="20" height="6" rx="1.5" fill="var(--ink)"/></svg>what speed order gives</span></p>'
+            '<p class="key-t">circuits</p><p class="keyrow">'
             '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/></svg>a draw or a model</span>'
             '<span><svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true"><circle r="3.6" fill="var(--accent)" stroke="var(--accent-text)" stroke-width="1"/></svg>ticks</span></p>')
     return out, {'tick_a': tick_a, 'draws': draws, 'ta': ta, 'na': na, 'tb': tb, 'nb': nb, 'p': cen['fisher_one_sided_p'],
@@ -433,7 +434,7 @@ def main():
     def recite(html):
         def one(m):
             nums = [pmap[int(x)] for x in re.findall(r'href="#r(\d+)"', m.group(0))]
-            return '<span class="cite">[' + ', '.join(str(x) for x in nums) + ']</span>'
+            return '<span class="cite">[' + ', '.join(f'<a href="#r{x}">{x}</a>' for x in nums) + ']</span>'  # linked since 2026-11-19
         return re.sub(r'<span class="cite">.*?</span>', one, html, flags=re.S)
 
     def refig(html):
@@ -509,11 +510,15 @@ def main():
         pat = re.compile(r'(<!-- gen:' + name + r' -->).*?(<!-- /gen:' + name + r' -->)', re.S)
         assert pat.search(essay), name
         essay = pat.sub(lambda m: m.group(1) + '\n' + body + '\n' + m.group(2), essay, count=1)
+    # every reference carries id="rN" so the linked markers land on it
+    i = essay.index('<ol class="refs">'); j = essay.index('</ol>', i); k = iter(range(1, 10000))
+    essay = essay[:i] + re.sub(r'<li(?: id="r\d+")?>', lambda m: f'<li id="r{next(k)}">', essay[i:j]) + essay[j:]
     essay, words, mins = read_time(essay)
     ESSAY.write_text(essay, encoding='utf-8')
     print('main read', words, 'words,', mins, 'min')
-    left = sorted(set(re.findall(r'href="#r\d+"', essay)))
-    assert not left, left
+    total = len(re.findall(r'<li id="r\d+">', essay))
+    left = sorted({n for n in re.findall(r'href="#r(\d+)"', essay) if not 1 <= int(n) <= total})
+    assert not left, left  # every marker points at a reference that exists
     print('folded', ', '.join(blocks), 'into', ESSAY.name, '| references', base, '+', len(extras))
     return number
 

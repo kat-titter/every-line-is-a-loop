@@ -105,7 +105,8 @@ def fig_morph():
             f'<div>{panel("chem", "Chemistry", "The chemical periodic table: 118 elements as the long-form grid, wound one turn per period into a spiral where group 1 and the noble gases line up on two rays", chem, SHAPE_SIZE["chem"])}</div>'
             f'<div>{panel("bio", "The loop table", "The loop table: 30 elements, one row per loop count, wound one turn per row into a spiral where memories and clocks line up on two rays", bio, SHAPE_SIZE["bio"])}</div>'
             '</div>'
-            f'<p class="keyrow pt-legend">{legend}<span class="mo-note">block, by the subshell it fills: s, p, d, f</span></p>'
+            '<p class="key-t">block</p>'
+            f'<p class="keyrow pt-legend">{legend}</p>'
             '<div class="ctl"><label for="mo-t">wind the rows</label>'
             '<input id="mo-t" type="range" min="0" max="100" value="100" aria-label="Wind the rows of both tables into loops" style="--p: 100%">'
             '<output for="mo-t" id="mo-tv">loop</output></div>')
