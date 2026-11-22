@@ -14,9 +14,10 @@ quote-style = "preserve"
 
 [tool.ruff.lint.per-file-ignores]
 # The five page generators carry essay-revision 6739a8c's code exactly (the final merge gated each on an AST match,
-# docstrings and type hints aside), so its lint findings stay until one refactor pass rebuilds the page byte-identical.
+# docstrings and type hints aside; loop_morph.py has since lost one unused import), so its lint findings stay until
+# one refactor pass rebuilds the page byte-identical.
 "analysis/build_post.py" = ["C401", "C406", "C408", "E731", "E741", "F541", "I001", "SIM115"]
 "analysis/circuit_figures.py" = ["E731", "E741", "F541", "SIM115", "SIM300", "UP031"]
 "analysis/fold_census.py" = ["B007", "B023", "C401", "C408", "E731", "E741", "F841", "I001"]
 "analysis/interactive.py" = ["B023", "E731"]
-"analysis/loop_morph.py" = ["E741", "F401"]
+"analysis/loop_morph.py" = ["E741"]
