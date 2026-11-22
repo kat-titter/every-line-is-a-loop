@@ -278,29 +278,6 @@ def record(path: str | pathlib.Path) -> dict[str, Any]:
         return {'model': pathlib.Path(path).stem, 'status': 'error', 'error': repr(e)[:300]}
 
 
-def run_list(paths: list[str], out_file: str | pathlib.Path, jobs: int) -> None:
-    """Run classify on each path, each in its own process; write one JSON line per model."""
-    from concurrent.futures import ThreadPoolExecutor
-
-    me = pathlib.Path(__file__).resolve()
-
-    def one(f):
-        p = budget.run([sys.executable, str(me), '--one', str(f)], pathlib.Path(f).stem)
-        if p is None:
-            return {'model': pathlib.Path(f).stem, 'status': budget.SAFETY_NET}
-        line = p.stdout.strip().splitlines()[-1] if p.stdout.strip() else ''
-        return (
-            json.loads(line)
-            if line.startswith('{')
-            else {'model': pathlib.Path(f).stem, 'status': 'error', 'error': (p.stderr or '')[-300:]}
-        )
-
-    with ThreadPoolExecutor(jobs) as ex, open(out_file, 'w') as fh:
-        for r in ex.map(one, paths):
-            fh.write(json.dumps(r) + '\n')
-            fh.flush()
-
-
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--one')
@@ -311,7 +288,8 @@ if __name__ == '__main__':
     if a.one:
         print(json.dumps(record(a.one)))
     else:
-        run_list(
+        budget.run_list(
+            pathlib.Path(__file__).resolve(),
             [line.strip() for line in pathlib.Path(a.list).read_text().splitlines() if line.strip()],
             a.out,
             a.jobs,
