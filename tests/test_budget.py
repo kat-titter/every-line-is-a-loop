@@ -1,5 +1,6 @@
 """Work budgets (analysis/budget.py) in a few seconds: a model that spends its budget gets the same status, at the same
-count of work, every time and on any machine; solver-failure handlers cannot swallow it; the safety net says so loudly.
+count of work, every time and on any machine; solver-failure handlers cannot swallow it; the safety net says so
+loudly; budget.run_list writes one row per model in list order, error rows included, with no data needed.
 
     .venv/bin/python -m unittest tests/test_budget.py -v
 
