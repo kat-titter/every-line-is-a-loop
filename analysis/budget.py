@@ -121,8 +121,13 @@ def run(cmd: list[str], model: str, **kwargs: Any) -> subprocess.CompletedProces
         return None
 
 
-def run_list(script: str | pathlib.Path, list_file: str | pathlib.Path, out_file: str | pathlib.Path, jobs: int,
-             extra: tuple[str, ...] = ()) -> None:
+def run_list(
+    script: str | pathlib.Path,
+    list_file: str | pathlib.Path,
+    out_file: str | pathlib.Path,
+    jobs: int,
+    extra: tuple[str, ...] = (),
+) -> None:
     """Run `script --one PATH *extra` on each path in list_file (one per line), each in its own process; write one
     JSON line per model to out_file, in list order. A run whose last output line does not start with '{' is recorded
     as an error with the tail of its stderr."""
