@@ -1,9 +1,9 @@
 """Work budgets: every per-model limit in the census counts work, never seconds, so a record does not depend on the
 machine's speed or load.
 
-Reads:  nothing (imported by dynamics.py, truth_tests.py, fingerprints.py, robust_return.py, loops.py, integrators.py,
-        elim.py)
-Writes: nothing
+Reads:  a --list file of model paths (run_list only); imported by dynamics.py, truth_tests.py, fingerprints.py,
+        robust_return.py, loops.py, integrators.py, elim.py
+Writes: one JSONL file per run_list call; nothing otherwise
 
 Solver work is counted in derivative evaluations: each time CVODE evaluates the model's right-hand side (in its
 Newton iterations, or column by column for its difference-quotient Jacobian) it computes one rate of change per state
@@ -124,8 +124,8 @@ def run(cmd: list[str], model: str, **kwargs: Any) -> subprocess.CompletedProces
 def run_list(script: str | pathlib.Path, list_file: str | pathlib.Path, out_file: str | pathlib.Path, jobs: int,
              extra: tuple[str, ...] = ()) -> None:
     """Run `script --one PATH *extra` on each path in list_file (one per line), each in its own process; write one
-    JSON line per model to out_file, in list order. A run that prints no JSON line is recorded as an error with the
-    tail of its stderr."""
+    JSON line per model to out_file, in list order. A run whose last output line does not start with '{' is recorded
+    as an error with the tail of its stderr."""
     paths = [line.strip() for line in pathlib.Path(list_file).read_text().splitlines() if line.strip()]
 
     def one(f):
