@@ -119,9 +119,10 @@ In the order `run_all.sh` runs them, by its eight stages.
 
 **Apart from the one command**
 
-- `budget.py`: imported by every per-model step, reads nothing and writes nothing. Counts CVODE's solver work after
-  each simulate call (derivative evaluations, from CVODE's own counters) against a model's budget, and runs each
-  model's subprocess under a wall-clock safety net that only stops a runaway.
+- `budget.py`: imported by every per-model step. Its `run_list` reads a `--list` file of model paths and writes one
+  JSONL file per run, for `dynamics.py`, `integrators.py` and `elim.py`; otherwise it reads and writes nothing. Counts
+  CVODE's solver work after each simulate call (derivative evaluations, from CVODE's own counters) against a model's
+  budget, and runs each model's subprocess under a wall-clock safety net that only stops a runaway.
 
 ## Choices that shape the numbers
 
