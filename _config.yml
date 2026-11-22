@@ -1,0 +1,7 @@
+# GitHub Pages renders the Markdown pages in the Primer theme. Each wears the essay's share card: jekyll-seo-tag
+# writes og:image and a large twitter card from this default. The two .html pages carry their own heads.
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/card.png

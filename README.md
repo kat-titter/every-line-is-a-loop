@@ -19,7 +19,7 @@ release 31, and a hold-out of 435 models curated since, scored against fail line
 - The address test fails: a model's square in the table predicts how it answers a push no better than the sign rules
   alone (p = 0.64 on 89 release 31 models, p = 0.84 on 51 hold-out models). The essay reports it as found.
 
-The essay is `every-line-is-a-loop.html`, one self-contained page with no external requests.
+The essay is `every-line-is-a-loop.html`, one page; only its icon and share images sit beside it in `assets/`.
 `count-the-elements.html` redirects to its census chapter.
 
 ## 02 reproduce
@@ -218,10 +218,11 @@ Every script in `analysis/`, in the order `run_all.sh` runs it. Files under `res
 ## 05 layout
 
 ```
-every-line-is-a-loop.html   the essay: one self-contained page
+every-line-is-a-loop.html   the essay: one page (icon and share images in assets/)
 count-the-elements.html     redirect to the essay's census chapter
 analysis/                   the pipeline (04) and its README
 results/                    every output the essay reads, DATASHEET.md and tables.md
+assets/                     icon.svg (every page's tab icon); icon-180.png and card.png from tools/make_icons.py
 tests/                      test_known_answers.py, test_budget.py, test_reproduce.py (06)
 tools/
   check_facts.py            every data fact on the page against results/
@@ -241,6 +242,8 @@ x-pack/                     share assets: figure stills, a short video, a thread
 HANDOFF.md                  state and decisions for whoever picks the project up (private, left out by publish.sh)
 README.md                   this page
 CITATION.cff                how to cite the essay and the code
+_config.yml                 the share card for the Markdown pages GitHub Pages renders (Jekyll needs it at the root)
+_includes/head-custom.html  the tab icon for those pages (the Primer theme includes it; Jekyll needs it at the root)
 LICENSE                     MIT, for the code
 LICENSE-TEXT.md             CC BY 4.0, for the essays' text and figures
 requirements.txt            the pinned environment the results came from
