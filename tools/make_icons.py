@@ -18,9 +18,19 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 LIME, INK, MUTED = '#a5d63a', '#1c2226', '#68727a'
 SANS = '"Helvetica Neue", Helvetica, Arial, sans-serif'
 # the tab icon's own drawing: assets/icon.svg, its one home, which every page links (the two .html heads and
-# _includes/head-custom.html for the Markdown pages); sized here for the --sizes check
-ICON = (ROOT / 'assets' / 'icon.svg').read_text().replace('<svg ', '<svg width="{s}" height="{s}" ', 1)
-# a touch icon has no rounded corner of its own (the phone crops it) and wants its mark inside a safe margin
+# _includes/head-custom.html for the Markdown pages); sized here for the --sizes check by plain replacement, so a
+# brace in the file cannot break a format string
+ICON = (ROOT / 'assets' / 'icon.svg').read_text()
+
+
+def icon_at(s: int) -> str:
+    """The tab icon sized to s x s px for the --sizes check."""
+    return ICON.replace('<svg ', f'<svg width="{s}" height="{s}" ', 1)
+
+
+
+# a touch icon has no rounded corner of its own (the phone crops it) and wants its mark inside a safe margin:
+# icon.svg's path redrawn at 0.875 about the centre (keep the two in step)
 TOUCH = (
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="180" height="180">'
     '<rect width="32" height="32" fill="#fff"/>'
@@ -58,7 +68,7 @@ def main() -> None:
     if '--sizes' in sys.argv:
         d = pathlib.Path(sys.argv[sys.argv.index('--sizes') + 1])
         d.mkdir(parents=True, exist_ok=True)
-        jobs += [(ICON.format(s=s), s, s, d / f'icon-{s}.png') for s in (16, 32, 180)]
+        jobs += [(icon_at(s), s, s, d / f'icon-{s}.png') for s in (16, 32, 180)]
     asyncio.run(render(jobs))
     assert (ROOT / 'assets' / 'card.png').stat().st_size < 300_000, 'share card over 300 KB'
 
