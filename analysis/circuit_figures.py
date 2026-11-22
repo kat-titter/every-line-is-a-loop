@@ -333,7 +333,7 @@ def check_all() -> None:
         'hypothetical switch: dose %.2f stays off, dose %.2f flips; the same dose at twice the strength flips the same'
         % check_hypo()
     )
-    print('spine: %d cells, the same in the table and under each figure' % check_spine())
+    print('spine: %d cells, in one table' % check_spine())
 
 
 # ================================================================ drawing helpers
@@ -514,7 +514,6 @@ def circuit_switch() -> str:
     )
     s += '<path d="M150 107 a28 28 0 1 1 0.1 0" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="3 3"/>'
     s += label(150, 141, '+', size=16, fill='var(--accent-text)', extra=' font-weight="600"')
-    s += mono(20, 276, '1 loop  0 brakes', size=12, fill='var(--ink)')
     return pane(
         s,
         PW,
@@ -648,7 +647,7 @@ def fig_switch() -> tuple[str, str]:
     end = sw_run(SW['sched'], SW['T0'])[-1]
     panes = (
         pane_html('cell', 'cell', 'sw-r1', f'lactose in  {end[3]:.2f}', cell_switch())
-        + pane_html('circuit', 'circuit', 'sw-r2', 'shape: 1 loop, 0 brakes', circuit_switch())
+        + pane_html('circuit', 'circuit', 'sw-r2', '1 loop, 0 brakes', circuit_switch())
         + pane_html('signal', 'signal', 'sw-r3', f'LacY  {end[2]:.2f}  on', signal_switch())
     )
     ctl = (
@@ -656,8 +655,7 @@ def fig_switch() -> tuple[str, str]:
         f'<input id="sw-L" type="range" min="0" max="150" value="{int(SW["L0"] * 100)}" aria-label="Lactose outside the cell" style="--p: {SW["L0"] / 1.5 * 100:.0f}%">'
         f'<output for="sw-L" id="sw-Lv">{SW["L0"]:.2f}</output></div>'
     )
-    chain = chain_html('switch')
-    return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
+    return f'<div class="deep">{panes}</div>', ctl
 
 
 # ================================================================ the clock (the circadian loop)
@@ -707,7 +705,6 @@ def circuit_clock() -> str:
     )
     s += '<path d="M180 104 a24 24 0 1 1 0.1 0" fill="none" stroke="var(--accent2)" stroke-width="1.4" stroke-dasharray="3 3"/>'
     s += label(180, 134, MINUS, size=16, fill='var(--accent2-text)', extra=' font-weight="600"')
-    s += mono(20, 276, '1 loop  1 brake', size=12, fill='var(--ink)')
     return pane(
         s,
         PW,
@@ -763,7 +760,7 @@ def fig_clock() -> tuple[str, str]:
     period = check_clock()
     panes = (
         pane_html('cell', 'cell', 'ck-r1', 'PER:CRY in  0.05', cell_clock())
-        + pane_html('circuit', 'circuit', 'ck-r2', 'shape: 1 loop, 1 brake', circuit_clock())
+        + pane_html('circuit', 'circuit', 'ck-r2', '1 loop, 1 brake', circuit_clock())
         + pane_html('signal', 'signal', 'ck-r3', f'period  {period:.0f} h', signal_clock())
     )
     ctl = (
@@ -771,8 +768,7 @@ def fig_clock() -> tuple[str, str]:
         f'<input id="ck-D" type="range" min="0" max="{int(CK["Dmax"] * 10)}" value="{int(CK["D"] * 10)}" aria-label="Extra delay before PER:CRY acts, in hours" style="--p: 75%">'
         f'<output for="ck-D" id="ck-Dv">{CK["D"]:.1f} h</output></div>'
     )
-    chain = chain_html('clock')
-    return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
+    return f'<div class="deep">{panes}</div>', ctl
 
 
 # ================================================================ the adapter (chemotaxis)
@@ -839,7 +835,6 @@ def circuit_adapter() -> str:
     s += pill(*A[:2], A[2], 'activity') + pill(*B[:2], B[2], 'CheB') + pill(*C[:2], C[2], 'methyl &#8747;')
     s += '<path d="M178 136 a24 24 0 1 1 0.1 0" fill="none" stroke="var(--accent2)" stroke-width="1.4" stroke-dasharray="3 3"/>'
     s += label(178, 166, MINUS, size=16, fill='var(--accent2-text)', extra=' font-weight="600"')
-    s += mono(20, 276, '1 loop  1 brake  1 running total', size=12, fill='var(--ink)')
     return pane(
         s,
         PW,
@@ -899,7 +894,7 @@ def fig_adapter() -> tuple[str, str]:
     """The adapter figure: (panes, controls and chain)."""
     panes = (
         pane_html('cell', 'cell', 'ad-r1', 'methyl  2.0', cell_adapter())
-        + pane_html('circuit', 'circuit', 'ad-r2', 'shape: 1 loop, 1 brake, &#8747;', circuit_adapter())
+        + pane_html('circuit', 'circuit', 'ad-r2', '1 loop, 1 brake, &#8747;', circuit_adapter())
         + pane_html('signal', 'signal', 'ad-r3', 'activity  0.333  at set point', signal_adapter())
     )
     ctl = (
@@ -908,8 +903,7 @@ def fig_adapter() -> tuple[str, str]:
         f'<output for="ad-L" id="ad-Lv">{AD["step"]:.1f}</output>'
         '<button type="button" class="chip tog" id="ad-leak" aria-pressed="false">let the total leak</button></div>'
     )
-    chain = chain_html('adapter')
-    return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
+    return f'<div class="deep">{panes}</div>', ctl
 
 
 # ================================================================ the hypothetical element (Sw∫)
@@ -1014,8 +1008,7 @@ def fig_hypo() -> tuple[str, str]:
         f'<output for="hy-T" id="hy-Tv">{HY["T"]:.1f} h</output>'
         '<button type="button" class="chip tog" id="hy-x2" aria-pressed="false">twice the height, half the length</button></div>'
     )
-    chain = chain_html('swint')
-    return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
+    return f'<div class="deep">{panes}</div>', ctl
 
 
 # ================================================================ early is reversible (the switch's two thresholds)
@@ -1151,8 +1144,9 @@ def shape_glyph(brakes: int, integ: bool = False) -> str:
 
 
 # ---------------------------------------------------------------- the spine: shape, behaviour, function
-# One fixed phrase per cell. The table in chapter 01 (gen:spine) and the row under each circuit (chain_html) are both
-# drawn from this dict by spine_row(), so they cannot drift; check_spine() asserts it on the generator and the page.
+# One fixed phrase per cell, and one home: the table in chapter 01 (gen:spine), drawn from this dict by spine_row().
+# Until 2026-11-22 each circuit's figure repeated its row; Kat: "avoid having the same element in two places".
+# check_spine() asserts the table holds every cell and that no figure on the page repeats a row.
 # A "|" in a value marks the only place its line may break. Behaviour words are the atlas's row names (remembers,
 # ticks, returns exactly). `trace` keys IA.TRACE, the census's glyph for that behaviour.
 SPINE = {
@@ -1238,33 +1232,18 @@ def spine_table() -> str:
     )
 
 
-def chain_html(key: str) -> str:
-    """The row under a circuit's figure: that circuit's row of the spine table, under the same column heads."""
-    return (
-        '<table class="spine one" aria-label="Shape, behaviour, function">'
-        + SPINE_HEAD
-        + f'<tbody>{spine_row(key, link=True)}</tbody></table>'
-    )
-
-
 def check_spine(page: pathlib.Path | None = None) -> int:
-    """The table and the rows under the figures carry the same cells: in the generator, and on `page` when one is given."""
+    """Shape, behaviour, function has one home, the table in chapter 01 (Kat, 2026-11-22: "avoid having the same
+    element in two places"). The table carries every cell; on `page`, no figure repeats a row of it."""
     table, n = spine_table(), 0
     for key in SPINE:
-        row = chain_html(key)
         for col, cell in spine_cells(key).items():
-            td = f'<td><span class="sp-h">{col}</span><span class="sp-v">{cell}</span></td>'
-            assert td in table and td in row, (key, col)
+            assert f'<td><span class="sp-h">{col}</span><span class="sp-v">{cell}</span></td>' in table, (key, col)
             n += 1
-        heads = re.findall(r'<th scope="col">(.*?)</th>', row)
-        assert heads == re.findall(r'<th scope="col">(.*?)</th>', table) == ['circuit', *SPINE_COLS], heads
+    assert re.findall(r'<th scope="col">(.*?)</th>', table) == ['circuit', *SPINE_COLS]
     if page is not None:
         s = page.read_text(encoding='utf-8')
-        block = lambda name: re.search(r'<!-- gen:' + name + r' -->(.*?)<!-- /gen:' + name + r' -->', s, re.S).group(1)
-        on_page = block('spine')
-        for key, name in (('switch', 'switch-ctl'), ('clock', 'clock-ctl'), ('adapter', 'adapter-ctl'), ('swint', 'hypo-ctl')):
-            cells = re.findall(r'<td>.*?</td>', block(name), re.S)
-            assert len(cells) == 3 and all(c in on_page for c in cells), f'on the page, the {name} row is not a row of the spine table'
+        assert s.count('<!-- gen:spine -->') == 1 and 'class="spine one"' not in s, 'a spine row is repeated outside the table'
     return n
 
 
@@ -1929,7 +1908,7 @@ JS_CLOCK = '''\
       period = (hi - lo > 0.02 && peaks.length > 1) ? (peaks[peaks.length - 1] - peaks[0]) / (peaks.length - 1) : null;
       chart.draw(0, true);
       $('ck-r3').textContent = period ? 'period  ' + period.toFixed(0) + ' h' : 'settles  no tick';
-      $('ck-r2').textContent = 'shape: 1 loop, 1 brake' + (period ? '' : ', too quick');
+      $('ck-r2').textContent = '1 loop, 1 brake' + (period ? '' : ', too quick');
     }
     function at(t) { var i = clamp(Math.round(t / Q.dt / 5), 0, run.length - 1); return run[i]; }
     function paint(dtWall) {
@@ -2093,5 +2072,5 @@ if __name__ == '__main__':
     check_all()
     if '--check' not in sys.argv:
         inject()
-    check_spine(PAGE)  # the page as it now stands: table and rows agree
-    print('spine on the page: the row under each circuit is a row of the table')
+    check_spine(PAGE)  # the page as it now stands: the table once, no row repeated
+    print('spine on the page: one table, no row repeated under a figure')

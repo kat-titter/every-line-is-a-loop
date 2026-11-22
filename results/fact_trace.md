@@ -251,7 +251,7 @@ fact: one of the facts above. read by hand: the note says where the number comes
 | close/fold | fact | checkedNo exception in 392 published models (chapter 03). |
 | circuits/main | label | 1The switch: a self-feeding loop lets E. coli commit to lactose and remember it |
 | circuits/main | generated (gen:switch) | celllactose in 2.32 |
-| circuits/main | generated (gen:switch) | circuitshape: 1 loop, 0 brakes |
+| circuits/main | generated (gen:switch) | circuit1 loop, 0 brakes |
 | circuits/main | generated (gen:switch) | signalLacY 4.65 on |
 | circuits/main | generated (gen:switch-ctl) | lactose outside0.50 |
 | circuits/caption | read by hand: circuit_figures.py --check asserts the lac switch flips on at L = 0.86 and off at 0.33 (check_switch) | On at 0.86 going up, off at 0.33 coming down. |
@@ -259,14 +259,14 @@ fact: one of the facts above. read by hand: the note says where the number comes
 | circuits/main | fact | functionBetween 0.4 and 0.8 the cell is on or off depending on where it has been, so the switch remembers food that lasts [3], a decision that sticks, which every committee values and few achieve. |
 | circuits/main | label | 2The clock: a brake that arrives hours late keeps daily time |
 | circuits/main | generated (gen:clock) | cellPER:CRY in 0.05 |
-| circuits/main | generated (gen:clock) | circuitshape: 1 loop, 1 brake |
+| circuits/main | generated (gen:clock) | circuit1 loop, 1 brake |
 | circuits/main | generated (gen:clock) | signalperiod 24 h |
 | circuits/main | generated (gen:clock-ctl) | the extra wait9.0 h |
 | circuits/main | fact | behaviourIn the model, nine hours of delay make a 24-hour rhythm; with none, it settles [4]. |
 | circuits/main | cited | Genes aren't even needed for the delay, since three cyanobacterial proteins keep 24-hour time in a test tube of ATP [6]. |
 | circuits/main | label | 3The adapter: a running total returns the receptor exactly, whatever the background |
 | circuits/main | generated (gen:adapter) | cellmethyl 2.0 |
-| circuits/main | generated (gen:adapter) | circuitshape: 1 loop, 1 brake, ∫ |
+| circuits/main | generated (gen:adapter) | circuit1 loop, 1 brake, ∫ |
 | circuits/main | fact | signalactivity 0.333 at set point |
 | circuits/main | generated (gen:adapter-ctl) | food outside5.0let the total leak |
 | table/main | read by hand: history: Levi's The Periodic Table has 21 element chapters (HANDOFF, Wikipedia and EBSCO, secondary) | Primo Levi named all 21 chapters of his memoir The Periodic Table after elements, as if each were a character. |
