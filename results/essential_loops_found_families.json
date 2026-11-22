@@ -1,0 +1,3575 @@
+{
+ "rule": "same paper (isDescribedBy), or same first author and year in the model name; connected groups of 2+",
+ "listed": "2026-11-22, before any reduced address was read",
+ "pool": {
+  "r31": 622,
+  "holdout": 435
+ },
+ "left_out_hand_picked": [
+  "BIOMD0000000005",
+  "BIOMD0000000006",
+  "BIOMD0000000016",
+  "BIOMD0000000021",
+  "BIOMD0000000036",
+  "BIOMD0000000043",
+  "BIOMD0000000044",
+  "BIOMD0000000045",
+  "BIOMD0000000171",
+  "BIOMD0000000218",
+  "BIOMD0000000219",
+  "BIOMD0000000280",
+  "BIOMD0000000298",
+  "BIOMD0000000324",
+  "BIOMD0000000517",
+  "BIOMD0000000518",
+  "BIOMD0000000519",
+  "BIOMD0000000520"
+ ],
+ "families": [
+  {
+   "id": 1,
+   "models": [
+    {
+     "model": "BIOMD0000000001",
+     "set": "r31",
+     "name": "Edelstein1996 - EPSP ACh event",
+     "paper": "pubmed/8983160",
+     "author_year": "edelstein 1996"
+    },
+    {
+     "model": "BIOMD0000000002",
+     "set": "r31",
+     "name": "Edelstein1996 - EPSP ACh species",
+     "paper": "pubmed/8983160",
+     "author_year": "edelstein 1996"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "models": [
+    {
+     "model": "BIOMD0000000003",
+     "set": "r31",
+     "name": "Goldbeter1991 - Min Mit Oscil",
+     "paper": "pubmed/1833774",
+     "author_year": "goldbeter 1991"
+    },
+    {
+     "model": "BIOMD0000000004",
+     "set": "r31",
+     "name": "Goldbeter1991 - Min Mit Oscil, Expl Inact",
+     "paper": "pubmed/1833774",
+     "author_year": "goldbeter 1991"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "models": [
+    {
+     "model": "BIOMD0000000011",
+     "set": "r31",
+     "name": "Levchenko2000_MAPK_noScaffold",
+     "paper": "pubmed/10823939",
+     "author_year": "levchenko 2000"
+    },
+    {
+     "model": "BIOMD0000000014",
+     "set": "r31",
+     "name": "Levchenko2000_MAPK_Scaffold",
+     "paper": "pubmed/10823939",
+     "author_year": "levchenko 2000"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "models": [
+    {
+     "model": "BIOMD0000000026",
+     "set": "r31",
+     "name": "Markevich2004_MAPK_orderedElementary",
+     "paper": "pubmed/14744999",
+     "author_year": "markevich 2004"
+    },
+    {
+     "model": "BIOMD0000000027",
+     "set": "r31",
+     "name": "Markevich2004 - MAPK double phosphorylation,  ordered Michaelis-Menton",
+     "paper": "pubmed/14744999",
+     "author_year": "markevich 2004"
+    },
+    {
+     "model": "BIOMD0000000028",
+     "set": "r31",
+     "name": "Markevich2004_MAPK_phosphoRandomElementary",
+     "paper": "pubmed/14744999",
+     "author_year": "markevich 2004"
+    },
+    {
+     "model": "BIOMD0000000029",
+     "set": "r31",
+     "name": "Markevich2004_MAPK_phosphoRandomMM",
+     "paper": "pubmed/14744999",
+     "author_year": "markevich 2004"
+    },
+    {
+     "model": "BIOMD0000000030",
+     "set": "r31",
+     "name": "Markevich2004_MAPK_AllRandomElementary",
+     "paper": "pubmed/14744999",
+     "author_year": "markevich 2004"
+    },
+    {
+     "model": "BIOMD0000000031",
+     "set": "r31",
+     "name": "Markevich2004_MAPK_orderedMM2kinases",
+     "paper": "pubmed/14744999",
+     "author_year": "markevich 2004"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "models": [
+    {
+     "model": "BIOMD0000000046",
+     "set": "r31",
+     "name": "Olsen2003_peroxidase",
+     "paper": "pubmed/12823550",
+     "author_year": "olsen 2003"
+    },
+    {
+     "model": "BIOMD0000000143",
+     "set": "r31",
+     "name": "Olsen2003_neutrophil_oscillatory_metabolism",
+     "paper": "pubmed/12524266",
+     "author_year": "olsen 2003"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "models": [
+    {
+     "model": "BIOMD0000000073",
+     "set": "r31",
+     "name": "Leloup2003_CircClock_DD",
+     "paper": "pubmed/12775757",
+     "author_year": "leloup 2003"
+    },
+    {
+     "model": "BIOMD0000000074",
+     "set": "r31",
+     "name": "Leloup2003_CircClock_DD_REV-ERBalpha",
+     "paper": "pubmed/12775757",
+     "author_year": "leloup 2003"
+    },
+    {
+     "model": "BIOMD0000000078",
+     "set": "r31",
+     "name": "Leloup2003_CircClock_LD",
+     "paper": "pubmed/12775757",
+     "author_year": "leloup 2003"
+    },
+    {
+     "model": "BIOMD0000000083",
+     "set": "r31",
+     "name": "Leloup2003_CircClock_LD_REV-ERBalpha",
+     "paper": "pubmed/12775757",
+     "author_year": "leloup 2003"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "models": [
+    {
+     "model": "BIOMD0000000084",
+     "set": "r31",
+     "name": "Hornberg2005_ERKcascade",
+     "paper": "pubmed/15634347",
+     "author_year": "hornberg 2005"
+    },
+    {
+     "model": "BIOMD0000000667",
+     "set": "holdout",
+     "name": "Hornberg2005 - MAPKsignalling",
+     "paper": "pubmed/16007170",
+     "author_year": "hornberg 2005"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "models": [
+    {
+     "model": "BIOMD0000000093",
+     "set": "r31",
+     "name": "Yamada2003_JAK_STAT_pathway",
+     "paper": "pubmed/12527385",
+     "author_year": "yamada 2003"
+    },
+    {
+     "model": "BIOMD0000000094",
+     "set": "r31",
+     "name": "Yamada2003_JAK_STAT_SOCS1_knockout",
+     "paper": "pubmed/12527385",
+     "author_year": "yamada 2003"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "models": [
+    {
+     "model": "BIOMD0000000095",
+     "set": "r31",
+     "name": "Zeilinger2006_PRR7-PRR9-Y",
+     "paper": "pubmed/17102803",
+     "author_year": "zeilinger 2006"
+    },
+    {
+     "model": "BIOMD0000000096",
+     "set": "r31",
+     "name": "Zeilinger2006_PRR7-PRR9light-Y",
+     "paper": "pubmed/17102803",
+     "author_year": "zeilinger 2006"
+    },
+    {
+     "model": "BIOMD0000000097",
+     "set": "r31",
+     "name": "Zeilinger2006_PRR7-PRR9light-Yprime",
+     "paper": "pubmed/17102803",
+     "author_year": "zeilinger 2006"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "models": [
+    {
+     "model": "BIOMD0000000102",
+     "set": "r31",
+     "name": "Legewie2006_apoptosis_WT",
+     "paper": "pubmed/16978046",
+     "author_year": "legewie 2006"
+    },
+    {
+     "model": "BIOMD0000000103",
+     "set": "r31",
+     "name": "Legewie2006_apoptosis_NC",
+     "paper": "pubmed/16978046",
+     "author_year": "legewie 2006"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "models": [
+    {
+     "model": "BIOMD0000000114",
+     "set": "r31",
+     "name": "Somogyi1990_CaOscillations",
+     "paper": "pubmed/1904060",
+     "author_year": "somogyi 1990"
+    },
+    {
+     "model": "BIOMD0000000115",
+     "set": "r31",
+     "name": "Somogyi1990_CaOscillations_SingleCaSpike",
+     "paper": "pubmed/1904060",
+     "author_year": "somogyi 1990"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "models": [
+    {
+     "model": "BIOMD0000000118",
+     "set": "r31",
+     "name": "Golomb2006_SomaticBursting",
+     "paper": "pubmed/16807352",
+     "author_year": "golomb 2006"
+    },
+    {
+     "model": "BIOMD0000000119",
+     "set": "r31",
+     "name": "Golomb2006_SomaticBursting_nonzero[Ca]",
+     "paper": "pubmed/16807352",
+     "author_year": "golomb 2006"
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "models": [
+    {
+     "model": "BIOMD0000000122",
+     "set": "r31",
+     "name": "Fisher2006_Ca_Oscillation_dpdnt_NFAT_dynamics",
+     "paper": "pubmed/17031595",
+     "author_year": "fisher 2006"
+    },
+    {
+     "model": "BIOMD0000000123",
+     "set": "r31",
+     "name": "Fisher2006_NFAT_Activation",
+     "paper": "pubmed/17031595",
+     "author_year": "fisher 2006"
+    }
+   ]
+  },
+  {
+   "id": 14,
+   "models": [
+    {
+     "model": "BIOMD0000000125",
+     "set": "r31",
+     "name": "Komarova2005_TheoreticalFramework_BasicArchitecture",
+     "paper": "pubmed/16729058",
+     "author_year": "komarova 2005"
+    },
+    {
+     "model": "BIOMD0000000279",
+     "set": "r31",
+     "name": "Komarova2005_PTHaction_OsteoclastOsteoblastCoupling",
+     "paper": "pubmed/15860557",
+     "author_year": "komarova 2005"
+    }
+   ]
+  },
+  {
+   "id": 15,
+   "models": [
+    {
+     "model": "BIOMD0000000129",
+     "set": "r31",
+     "name": "Izhikevich2004_SpikingNeurons_inhibitionInducedSpiking",
+     "paper": "pubmed/15484883",
+     "author_year": "izhikevich 2004"
+    },
+    {
+     "model": "BIOMD0000000130",
+     "set": "r31",
+     "name": "Izhikevich2004_SpikingNeurons_integrator",
+     "paper": "pubmed/15484883",
+     "author_year": "izhikevich 2004"
+    },
+    {
+     "model": "BIOMD0000000131",
+     "set": "r31",
+     "name": "Izhikevich2004_SpikingNeurons_reboundBurst",
+     "paper": "pubmed/15484883",
+     "author_year": "izhikevich 2004"
+    },
+    {
+     "model": "BIOMD0000000132",
+     "set": "r31",
+     "name": "Izhikevich2004_SpikingNeurons_reboundSpike",
+     "paper": "pubmed/15484883",
+     "author_year": "izhikevich 2004"
+    },
+    {
+     "model": "BIOMD0000000133",
+     "set": "r31",
+     "name": "Izhikevich2004_SpikingNeurons_resonator",
+     "paper": "pubmed/15484883",
+     "author_year": "izhikevich 2004"
+    },
+    {
+     "model": "BIOMD0000000134",
+     "set": "r31",
+     "name": "Izhikevich2004_SpikingNeurons_SpikeLatency",
+     "paper": "pubmed/15484883",
+     "author_year": "izhikevich 2004"
+    },
+    {
+     "model": "BIOMD0000000135",
+     "set": "r31",
+     "name": "Izhikevich2004_SpikingNeurons_subthresholdOscillations",
+     "paper": "pubmed/15484883",
+     "author_year": "izhikevich 2004"
+    },
+    {
+     "model": "BIOMD0000000136",
+     "set": "r31",
+     "name": "Izhikevich2004_SpikingNeurons_thresholdVariability",
+     "paper": "pubmed/15484883",
+     "author_year": "izhikevich 2004"
+    },
+    {
+     "model": "BIOMD0000000141",
+     "set": "r31",
+     "name": "Izhikevich2004_SpikingNeurons_Class1Excitable",
+     "paper": "pubmed/15484883",
+     "author_year": "izhikevich 2004"
+    },
+    {
+     "model": "BIOMD0000000142",
+     "set": "r31",
+     "name": "Izhikevich2004_SpikingNeurons_Class2Excitable",
+     "paper": "pubmed/15484883",
+     "author_year": "izhikevich 2004"
+    }
+   ]
+  },
+  {
+   "id": 16,
+   "models": [
+    {
+     "model": "BIOMD0000000139",
+     "set": "r31",
+     "name": "Hoffmann2002_KnockOut_IkBNFkB_Signaling",
+     "paper": "pubmed/12424381",
+     "author_year": "hoffmann 2002"
+    },
+    {
+     "model": "BIOMD0000000140",
+     "set": "r31",
+     "name": "Hoffmann2002_WT_IkBNFkB_Signaling",
+     "paper": "pubmed/12424381",
+     "author_year": "hoffmann 2002"
+    }
+   ]
+  },
+  {
+   "id": 17,
+   "models": [
+    {
+     "model": "BIOMD0000000149",
+     "set": "r31",
+     "name": "Kim2007 - Crosstalk between Wnt and ERK pathways",
+     "paper": "pubmed/17237813",
+     "author_year": "kim 2007"
+    },
+    {
+     "model": "BIOMD0000000179",
+     "set": "r31",
+     "name": "Kim2007_CellularMemory_AsymmetricModel",
+     "paper": "pubmed/17892872",
+     "author_year": "kim 2007"
+    },
+    {
+     "model": "BIOMD0000000180",
+     "set": "r31",
+     "name": "Kim2007_CellularMemory_SymmetricModel",
+     "paper": "pubmed/17892872",
+     "author_year": "kim 2007"
+    }
+   ]
+  },
+  {
+   "id": 18,
+   "models": [
+    {
+     "model": "BIOMD0000000151",
+     "set": "r31",
+     "name": "Singh2006_IL6_Signal_Transduction",
+     "paper": "pubmed/16752369",
+     "author_year": "singh 2006"
+    },
+    {
+     "model": "BIOMD0000000221",
+     "set": "r31",
+     "name": "Singh2006_TCA_Ecoli_acetate",
+     "paper": "pubmed/16887020",
+     "author_year": "singh 2006"
+    },
+    {
+     "model": "BIOMD0000000222",
+     "set": "r31",
+     "name": "Singh2006_TCA_Ecoli_glucose",
+     "paper": "pubmed/16887020",
+     "author_year": "singh 2006"
+    }
+   ]
+  },
+  {
+   "id": 19,
+   "models": [
+    {
+     "model": "BIOMD0000000152",
+     "set": "r31",
+     "name": "Fernandez2006_ModelA",
+     "paper": "pubmed/17194217",
+     "author_year": "fernandez 2006"
+    },
+    {
+     "model": "BIOMD0000000153",
+     "set": "r31",
+     "name": "Fernandez2006_ModelB",
+     "paper": "pubmed/17194217",
+     "author_year": "fernandez 2006"
+    }
+   ]
+  },
+  {
+   "id": 20,
+   "models": [
+    {
+     "model": "BIOMD0000000154",
+     "set": "r31",
+     "name": "Zatorsky2006_p53_Model3",
+     "paper": "pubmed/16773083",
+     "author_year": "zatorsky 2006"
+    },
+    {
+     "model": "BIOMD0000000155",
+     "set": "r31",
+     "name": "Zatorsky2006_p53_Model6",
+     "paper": "pubmed/16773083",
+     "author_year": "zatorsky 2006"
+    },
+    {
+     "model": "BIOMD0000000156",
+     "set": "r31",
+     "name": "Zatorsky2006_p53_Model5",
+     "paper": "pubmed/16773083",
+     "author_year": "zatorsky 2006"
+    },
+    {
+     "model": "BIOMD0000000157",
+     "set": "r31",
+     "name": "Zatorsky2006_p53_Model4",
+     "paper": "pubmed/16773083",
+     "author_year": "zatorsky 2006"
+    },
+    {
+     "model": "BIOMD0000000158",
+     "set": "r31",
+     "name": "Zatorsky2006_p53_Model2",
+     "paper": "pubmed/16773083",
+     "author_year": "zatorsky 2006"
+    },
+    {
+     "model": "BIOMD0000000159",
+     "set": "r31",
+     "name": "Zatorsky2006_p53_Model1",
+     "paper": "pubmed/16773083",
+     "author_year": "zatorsky 2006"
+    }
+   ]
+  },
+  {
+   "id": 21,
+   "models": [
+    {
+     "model": "BIOMD0000000169",
+     "set": "r31",
+     "name": "Aguda1999_CellCycle",
+     "paper": "pubmed/10619492",
+     "author_year": "aguda 1999"
+    },
+    {
+     "model": "BIOMD0000000704",
+     "set": "holdout",
+     "name": "Aguda1999 - G2 DNA damage checkpoint",
+     "paper": "pubmed/10500180",
+     "author_year": "aguda 1999"
+    }
+   ]
+  },
+  {
+   "id": 22,
+   "models": [
+    {
+     "model": "BIOMD0000000176",
+     "set": "r31",
+     "name": "Conant2007_WGD_glycolysis_2A3AB",
+     "paper": "pubmed/17667951",
+     "author_year": "conant 2007"
+    },
+    {
+     "model": "BIOMD0000000177",
+     "set": "r31",
+     "name": "Conant2007_glycolysis_2C",
+     "paper": "pubmed/17667951",
+     "author_year": "conant 2007"
+    }
+   ]
+  },
+  {
+   "id": 23,
+   "models": [
+    {
+     "model": "BIOMD0000000178",
+     "set": "r31",
+     "name": "Lebeda2008 - BoTN Paralysis (4 step model)",
+     "paper": "pubmed/18551355",
+     "author_year": "lebeda 2008"
+    },
+    {
+     "model": "BIOMD0000000267",
+     "set": "r31",
+     "name": "Lebeda2008 - BoNT paralysis (3 step model)",
+     "paper": "pubmed/18551355",
+     "author_year": "lebeda 2008"
+    }
+   ]
+  },
+  {
+   "id": 24,
+   "models": [
+    {
+     "model": "BIOMD0000000186",
+     "set": "r31",
+     "name": "Ibrahim2008 - Mitotic Spindle Assembly Checkpoint - Dissociation variant",
+     "paper": "pubmed/18253502",
+     "author_year": "ibrahim 2008"
+    },
+    {
+     "model": "BIOMD0000000187",
+     "set": "r31",
+     "name": "Ibrahim2008 - Mitotic Spindle Assembly Checkpoint - Convey variant",
+     "paper": "pubmed/18253502",
+     "author_year": "ibrahim 2008"
+    },
+    {
+     "model": "BIOMD0000000193",
+     "set": "r31",
+     "name": "Ibrahim2008_MCC_assembly_model_KDM",
+     "paper": "pubmed/18675311",
+     "author_year": "ibrahim 2008"
+    },
+    {
+     "model": "BIOMD0000000194",
+     "set": "r31",
+     "name": "Ibrahim2008_Cdc20_Sequestring_Template_Model",
+     "paper": "pubmed/18295960",
+     "author_year": "ibrahim 2008"
+    }
+   ]
+  },
+  {
+   "id": 25,
+   "models": [
+    {
+     "model": "BIOMD0000000188",
+     "set": "r31",
+     "name": "Proctor2008 - p53/Mdm2 circuit - p53 stabilisation by ATM",
+     "paper": "pubmed/18706112",
+     "author_year": "proctor 2008"
+    },
+    {
+     "model": "BIOMD0000000189",
+     "set": "r31",
+     "name": "Proctor2008 - p53/Mdm2 circuit - p53 stablisation by p14ARF",
+     "paper": "pubmed/18706112",
+     "author_year": "proctor 2008"
+    }
+   ]
+  },
+  {
+   "id": 26,
+   "models": [
+    {
+     "model": "BIOMD0000000203",
+     "set": "r31",
+     "name": "Chickarmane2006 - Stem cell switch reversible",
+     "paper": "pubmed/16978048",
+     "author_year": "chickarmane 2006"
+    },
+    {
+     "model": "BIOMD0000000204",
+     "set": "r31",
+     "name": "Chickarmane2006 - Stem cell switch irreversible",
+     "paper": "pubmed/16978048",
+     "author_year": "chickarmane 2006"
+    }
+   ]
+  },
+  {
+   "id": 27,
+   "models": [
+    {
+     "model": "BIOMD0000000206",
+     "set": "r31",
+     "name": "Wolf2000_Glycolytic_Oscillations",
+     "paper": "pubmed/10692304",
+     "author_year": "wolf 2000"
+    },
+    {
+     "model": "BIOMD0000000691",
+     "set": "holdout",
+     "name": "Wolf2000 - Cellular interaction on glycolytic oscillations in yeast",
+     "paper": "pubmed/10702114",
+     "author_year": "wolf 2000"
+    }
+   ]
+  },
+  {
+   "id": 28,
+   "models": [
+    {
+     "model": "BIOMD0000000209",
+     "set": "r31",
+     "name": "Chickarmane2008 - Stem cell lineage determination",
+     "paper": "pubmed/18941526",
+     "author_year": "chickarmane 2008"
+    },
+    {
+     "model": "BIOMD0000000210",
+     "set": "r31",
+     "name": "Chickarmane2008 - Stem cell lineage - NANOG GATA-6 switch",
+     "paper": "pubmed/18941526",
+     "author_year": "chickarmane 2008"
+    }
+   ]
+  },
+  {
+   "id": 29,
+   "models": [
+    {
+     "model": "BIOMD0000000214",
+     "set": "r31",
+     "name": "Akman2008_Circadian_Clock_Model2",
+     "paper": "pubmed/18277380",
+     "author_year": "akman 2008"
+    },
+    {
+     "model": "BIOMD0000000295",
+     "set": "r31",
+     "name": "Akman2008_Circadian_Clock_Model1",
+     "paper": "pubmed/18277380",
+     "author_year": "akman 2008"
+    }
+   ]
+  },
+  {
+   "id": 30,
+   "models": [
+    {
+     "model": "BIOMD0000000225",
+     "set": "r31",
+     "name": "Westermark2003_Pancreatic_GlycOsc_basic",
+     "paper": "pubmed/12829470",
+     "author_year": "westermark 2003"
+    },
+    {
+     "model": "BIOMD0000000236",
+     "set": "r31",
+     "name": "Westermark2003_Pancreatic_GlycOsc_extended",
+     "paper": "pubmed/12829470",
+     "author_year": "westermark 2003"
+    }
+   ]
+  },
+  {
+   "id": 31,
+   "models": [
+    {
+     "model": "BIOMD0000000226",
+     "set": "r31",
+     "name": "Radulescu2008_NFkB_hierarchy_M_14_25_28_Lipniacky",
+     "paper": "pubmed/18854041",
+     "author_year": "radulescu 2008"
+    },
+    {
+     "model": "BIOMD0000000227",
+     "set": "r31",
+     "name": "Radulescu2008_NFkB_hierarchy_M_39_65_90",
+     "paper": "pubmed/18854041",
+     "author_year": "radulescu 2008"
+    }
+   ]
+  },
+  {
+   "id": 32,
+   "models": [
+    {
+     "model": "BIOMD0000000250",
+     "set": "r31",
+     "name": "Nakakuki2010_CellFateDecision_Mechanistic",
+     "paper": "pubmed/20493519",
+     "author_year": "nakakuki 2010"
+    },
+    {
+     "model": "BIOMD0000000251",
+     "set": "r31",
+     "name": "Nakakuki2010_CellFateDecision_Core",
+     "paper": "pubmed/20493519",
+     "author_year": "nakakuki 2010"
+    }
+   ]
+  },
+  {
+   "id": 33,
+   "models": [
+    {
+     "model": "BIOMD0000000259",
+     "set": "r31",
+     "name": "Tiago2010_FeMetabolism_FeDeficient",
+     "paper": "pubmed/20704761",
+     "author_year": "tiago 2010"
+    },
+    {
+     "model": "BIOMD0000000260",
+     "set": "r31",
+     "name": "Tiago2010_FeMetabolism_FeAdequate",
+     "paper": "pubmed/20704761",
+     "author_year": "tiago 2010"
+    },
+    {
+     "model": "BIOMD0000000261",
+     "set": "r31",
+     "name": "Tiago2010_FeMetabolism_FeLoaded",
+     "paper": "pubmed/20704761",
+     "author_year": "tiago 2010"
+    },
+    {
+     "model": "BIOMD0000000734",
+     "set": "holdout",
+     "name": "Mouse Iron Distribution - Rich and Deficient iron diets (tracer)",
+     "paper": "pubmed/20704761",
+     "author_year": null
+    },
+    {
+     "model": "BIOMD0000000737",
+     "set": "holdout",
+     "name": "Mouse Iron Distribution - Deficient iron diet (No Tracer)",
+     "paper": "pubmed/20704761",
+     "author_year": null
+    },
+    {
+     "model": "BIOMD0000000738",
+     "set": "holdout",
+     "name": "Mouse Iron Distribution - Rich iron diet (No Tracer)",
+     "paper": "pubmed/20704761",
+     "author_year": null
+    }
+   ]
+  },
+  {
+   "id": 34,
+   "models": [
+    {
+     "model": "BIOMD0000000262",
+     "set": "r31",
+     "name": "Fujita2010_Akt_Signalling_EGF",
+     "paper": "pubmed/20664065",
+     "author_year": "fujita 2010"
+    },
+    {
+     "model": "BIOMD0000000263",
+     "set": "r31",
+     "name": "Fujita2010_Akt_Signalling_NGF",
+     "paper": "pubmed/20664065",
+     "author_year": "fujita 2010"
+    },
+    {
+     "model": "BIOMD0000000264",
+     "set": "r31",
+     "name": "Fujita2010_Akt_Signalling_EGFRinhib",
+     "paper": "pubmed/20664065",
+     "author_year": "fujita 2010"
+    }
+   ]
+  },
+  {
+   "id": 35,
+   "models": [
+    {
+     "model": "BIOMD0000000271",
+     "set": "r31",
+     "name": "Becker2010_EpoR_CoreModel",
+     "paper": "pubmed/20488988",
+     "author_year": "becker 2010"
+    },
+    {
+     "model": "BIOMD0000000272",
+     "set": "r31",
+     "name": "Becker2010_EpoR_AuxiliaryModel",
+     "paper": "pubmed/20488988",
+     "author_year": "becker 2010"
+    }
+   ]
+  },
+  {
+   "id": 36,
+   "models": [
+    {
+     "model": "BIOMD0000000276",
+     "set": "r31",
+     "name": "Shrestha2010_HypoCalcemia_PTHresponse",
+     "paper": "pubmed/20406649",
+     "author_year": "shrestha 2010"
+    },
+    {
+     "model": "BIOMD0000000277",
+     "set": "r31",
+     "name": "Shrestha2010_HyperCalcemia_PTHresponse",
+     "paper": "pubmed/20406649",
+     "author_year": "shrestha 2010"
+    }
+   ]
+  },
+  {
+   "id": 37,
+   "models": [
+    {
+     "model": "BIOMD0000000286",
+     "set": "r31",
+     "name": "Proctor2010 - a link between GSK3 and p53 in Alzheimer's Disease",
+     "paper": "pubmed/20181016",
+     "author_year": "proctor 2010"
+    },
+    {
+     "model": "BIOMD0000000293",
+     "set": "r31",
+     "name": "Proctor2010 - UCHL1 Protein Aggregation",
+     "paper": "pubmed/20949132",
+     "author_year": "proctor 2010"
+    }
+   ]
+  },
+  {
+   "id": 38,
+   "models": [
+    {
+     "model": "BIOMD0000000289",
+     "set": "r31",
+     "name": "Alexander2010_Tcell_Regulation_Sys1",
+     "paper": "pubmed/20195912",
+     "author_year": "alexander 2010"
+    },
+    {
+     "model": "BIOMD0000000290",
+     "set": "r31",
+     "name": "Alexander2010_Tcell_Regulation_Sys2",
+     "paper": "pubmed/20195912",
+     "author_year": "alexander 2010"
+    }
+   ]
+  },
+  {
+   "id": 39,
+   "models": [
+    {
+     "model": "BIOMD0000000297",
+     "set": "r31",
+     "name": "Ciliberto2003_Morphogenesis_Checkpoint",
+     "paper": "pubmed/14691135",
+     "author_year": "ciliberto 2003"
+    },
+    {
+     "model": "BIOMD0000000697",
+     "set": "holdout",
+     "name": "Ciliberto2003 - CyclinE / Cdk2 timer in the cell cycle of Xenopus laevis embryo",
+     "paper": "pubmed/12914904",
+     "author_year": "ciliberto 2003"
+    }
+   ]
+  },
+  {
+   "id": 40,
+   "models": [
+    {
+     "model": "BIOMD0000000306",
+     "set": "r31",
+     "name": "Tyson2003_Activator_Inhibitor",
+     "paper": "pubmed/12648679",
+     "author_year": "tyson 2003"
+    },
+    {
+     "model": "BIOMD0000000307",
+     "set": "r31",
+     "name": "Tyson2003_Substrate_Depletion_Osc",
+     "paper": "pubmed/12648679",
+     "author_year": "tyson 2003"
+    },
+    {
+     "model": "BIOMD0000000308",
+     "set": "r31",
+     "name": "Tyson2003_NegFB_Oscillator",
+     "paper": "pubmed/12648679",
+     "author_year": "tyson 2003"
+    },
+    {
+     "model": "BIOMD0000000309",
+     "set": "r31",
+     "name": "Tyson2003_NegFB_Homeostasis",
+     "paper": "pubmed/12648679",
+     "author_year": "tyson 2003"
+    },
+    {
+     "model": "BIOMD0000000310",
+     "set": "r31",
+     "name": "Tyson2003_Mutual_Inhibition",
+     "paper": "pubmed/12648679",
+     "author_year": "tyson 2003"
+    },
+    {
+     "model": "BIOMD0000000311",
+     "set": "r31",
+     "name": "Tyson2003_Mutual_Activation",
+     "paper": "pubmed/12648679",
+     "author_year": "tyson 2003"
+    },
+    {
+     "model": "BIOMD0000000312",
+     "set": "r31",
+     "name": "Tyson2003_Perfect_Adaption",
+     "paper": "pubmed/12648679",
+     "author_year": "tyson 2003"
+    }
+   ]
+  },
+  {
+   "id": 41,
+   "models": [
+    {
+     "model": "BIOMD0000000313",
+     "set": "r31",
+     "name": "Raia2010 - IL13 Signalling MedB1",
+     "paper": "pubmed/21127196",
+     "author_year": "raia 2010"
+    },
+    {
+     "model": "BIOMD0000000314",
+     "set": "r31",
+     "name": "Raia2011 - IL13 L1236",
+     "paper": "pubmed/21127196",
+     "author_year": "raia 2011"
+    }
+   ]
+  },
+  {
+   "id": 42,
+   "models": [
+    {
+     "model": "BIOMD0000000316",
+     "set": "r31",
+     "name": "Shen-Orr2002_FeedForward_AND_gate",
+     "paper": "pubmed/11967538",
+     "author_year": "shen-orr 2002"
+    },
+    {
+     "model": "BIOMD0000000317",
+     "set": "r31",
+     "name": "Shen-Orr2002_Single_Input_Module",
+     "paper": "pubmed/11967538",
+     "author_year": "shen-orr 2002"
+    }
+   ]
+  },
+  {
+   "id": 43,
+   "models": [
+    {
+     "model": "BIOMD0000000320",
+     "set": "r31",
+     "name": "Grange2001 - PK interaction of L-dopa and benserazide",
+     "paper": "pubmed/11587490",
+     "author_year": "grange 2001"
+    },
+    {
+     "model": "BIOMD0000000321",
+     "set": "r31",
+     "name": "Grange2001 - L Dopa PK model",
+     "paper": "pubmed/11587490",
+     "author_year": "grange 2001"
+    }
+   ]
+  },
+  {
+   "id": 44,
+   "models": [
+    {
+     "model": "BIOMD0000000322",
+     "set": "r31",
+     "name": "Kim2011_Oscillator_SimpleI",
+     "paper": "pubmed/21283141",
+     "author_year": "kim 2011"
+    },
+    {
+     "model": "BIOMD0000000323",
+     "set": "r31",
+     "name": "Kim2011_Oscillator_SimpleIII",
+     "paper": "pubmed/21283141",
+     "author_year": "kim 2011"
+    },
+    {
+     "model": "BIOMD0000001064",
+     "set": "holdout",
+     "name": "Kim2011 - the genome scale reconstruction of the Vibrio vulnificus metabolic network - VvuMBEL943",
+     "paper": "pubmed/21245845",
+     "author_year": "kim 2011"
+    }
+   ]
+  },
+  {
+   "id": 45,
+   "models": [
+    {
+     "model": "BIOMD0000000330",
+     "set": "r31",
+     "name": "Larsen2004_CalciumSpiking",
+     "paper": "pubmed/14871603",
+     "author_year": "larsen 2004"
+    },
+    {
+     "model": "BIOMD0000000331",
+     "set": "r31",
+     "name": "Larsen2004_CalciumSpiking_EnzymeBinding",
+     "paper": "pubmed/14871603",
+     "author_year": "larsen 2004"
+    }
+   ]
+  },
+  {
+   "id": 46,
+   "models": [
+    {
+     "model": "BIOMD0000000332",
+     "set": "r31",
+     "name": "Bungay2006_Plasma",
+     "paper": "pubmed/16838084",
+     "author_year": "bungay 2006"
+    },
+    {
+     "model": "BIOMD0000000333",
+     "set": "r31",
+     "name": "Bungay2006_FollicularFluid",
+     "paper": "pubmed/16838084",
+     "author_year": "bungay 2006"
+    }
+   ]
+  },
+  {
+   "id": 47,
+   "models": [
+    {
+     "model": "BIOMD0000000338",
+     "set": "r31",
+     "name": "Wajima2009_BloodCoagulation_aPTTtest",
+     "paper": "pubmed/19516255",
+     "author_year": "wajima 2009"
+    },
+    {
+     "model": "BIOMD0000000339",
+     "set": "r31",
+     "name": "Wajima2009_BloodCoagulation_PTtest",
+     "paper": "pubmed/19516255",
+     "author_year": "wajima 2009"
+    },
+    {
+     "model": "BIOMD0000000340",
+     "set": "r31",
+     "name": "Wajima2009_BloodCoagulation_warfarin_heparin",
+     "paper": "pubmed/19516255",
+     "author_year": "wajima 2009"
+    }
+   ]
+  },
+  {
+   "id": 48,
+   "models": [
+    {
+     "model": "BIOMD0000000347",
+     "set": "r31",
+     "name": "Bachmann2011_JAK2-STAT5_FeedbackControl",
+     "paper": "pubmed/21772264",
+     "author_year": "bachmann 2011"
+    },
+    {
+     "model": "BIOMD0000000861",
+     "set": "holdout",
+     "name": "Bachmann2011 - Division of labor by dual feedback regulators controls JAK2/STAT5 signaling over broad ligand range",
+     "paper": "pubmed/21772264",
+     "author_year": "bachmann 2011"
+    }
+   ]
+  },
+  {
+   "id": 49,
+   "models": [
+    {
+     "model": "BIOMD0000000348",
+     "set": "r31",
+     "name": "Fridlyand2010_GlucoseSensitivity_A",
+     "paper": "pubmed/20497556",
+     "author_year": "fridlyand 2010"
+    },
+    {
+     "model": "BIOMD0000000349",
+     "set": "r31",
+     "name": "Fridlyand2010_GlucoseSensitivity_B",
+     "paper": "pubmed/20497556",
+     "author_year": "fridlyand 2010"
+    }
+   ]
+  },
+  {
+   "id": 50,
+   "models": [
+    {
+     "model": "BIOMD0000000351",
+     "set": "r31",
+     "name": "Vernoux2011_AuxinSignaling_AuxinSingleStepInput",
+     "paper": "pubmed/21734647",
+     "author_year": "vernoux 2011"
+    },
+    {
+     "model": "BIOMD0000000352",
+     "set": "r31",
+     "name": "Vernoux2011_AuxinSignaling_AuxinFluctuating",
+     "paper": "pubmed/21734647",
+     "author_year": "vernoux 2011"
+    }
+   ]
+  },
+  {
+   "id": 51,
+   "models": [
+    {
+     "model": "BIOMD0000000354",
+     "set": "r31",
+     "name": "Abell2011_CalciumSignaling_WithoutAdaptation",
+     "paper": "pubmed/21844332",
+     "author_year": "abell 2011"
+    },
+    {
+     "model": "BIOMD0000000355",
+     "set": "r31",
+     "name": "Abell2011_CalciumSignaling_WithAdaptation",
+     "paper": "pubmed/21844332",
+     "author_year": "abell 2011"
+    }
+   ]
+  },
+  {
+   "id": 52,
+   "models": [
+    {
+     "model": "BIOMD0000000357",
+     "set": "r31",
+     "name": "Lee2010_ThrombinActivation_OneForm_reduced",
+     "paper": "pubmed/20435402",
+     "author_year": "lee 2010"
+    },
+    {
+     "model": "BIOMD0000000363",
+     "set": "r31",
+     "name": "Lee2010_ThrombinActivation_OneForm_minimal",
+     "paper": "pubmed/20435402",
+     "author_year": "lee 2010"
+    },
+    {
+     "model": "BIOMD0000000364",
+     "set": "r31",
+     "name": "Lee2010_ThrombinActivation_OneForm",
+     "paper": "pubmed/20435402",
+     "author_year": "lee 2010"
+    }
+   ]
+  },
+  {
+   "id": 53,
+   "models": [
+    {
+     "model": "BIOMD0000000359",
+     "set": "r31",
+     "name": "Panteleev2002_TFPImechanism_schmema3",
+     "paper": "pubmed/11985578",
+     "author_year": "panteleev 2002"
+    },
+    {
+     "model": "BIOMD0000000360",
+     "set": "r31",
+     "name": "Panteleev2002_TFPImechanism_schmema2",
+     "paper": "pubmed/11985578",
+     "author_year": "panteleev 2002"
+    },
+    {
+     "model": "BIOMD0000000361",
+     "set": "r31",
+     "name": "Panteleev2002_TFPImechanism_schmema1",
+     "paper": "pubmed/11985578",
+     "author_year": "panteleev 2002"
+    }
+   ]
+  },
+  {
+   "id": 54,
+   "models": [
+    {
+     "model": "BIOMD0000000367",
+     "set": "r31",
+     "name": "Muller2008_treshold_minimal",
+     "paper": "pubmed/17936855",
+     "author_year": "muller 2008"
+    },
+    {
+     "model": "BIOMD0000000664",
+     "set": "holdout",
+     "name": "Muller2008 - Simplified MAPK activation Dynamics (Model B)",
+     "paper": "pubmed/18171696",
+     "author_year": "muller 2008"
+    }
+   ]
+  },
+  {
+   "id": 55,
+   "models": [
+    {
+     "model": "BIOMD0000000368",
+     "set": "r31",
+     "name": "Beltrami1995_ThrombinGeneration_C",
+     "paper": "pubmed/7568009",
+     "author_year": "beltrami 1995"
+    },
+    {
+     "model": "BIOMD0000000369",
+     "set": "r31",
+     "name": "Beltrami1995_ThrombinGeneration_D",
+     "paper": "pubmed/7568009",
+     "author_year": "beltrami 1995"
+    }
+   ]
+  },
+  {
+   "id": 56,
+   "models": [
+    {
+     "model": "BIOMD0000000383",
+     "set": "r31",
+     "name": "Arnold2011_Farquhar1980_RuBisCO-CalvinCycle",
+     "paper": "pubmed/22001849",
+     "author_year": "arnold 2011"
+    },
+    {
+     "model": "BIOMD0000000384",
+     "set": "r31",
+     "name": "Arnold2011_Medlyn2002_RuBisCO-CalvinCycle",
+     "paper": "pubmed/22001849",
+     "author_year": "arnold 2011"
+    },
+    {
+     "model": "BIOMD0000000385",
+     "set": "r31",
+     "name": "Arnold2011_Schultz2003_RuBisCO-CalvinCycle",
+     "paper": "pubmed/22001849",
+     "author_year": "arnold 2011"
+    },
+    {
+     "model": "BIOMD0000000386",
+     "set": "r31",
+     "name": "Arnold2011_Sharkey2007_RuBisCO-CalvinCycle",
+     "paper": "pubmed/22001849",
+     "author_year": "arnold 2011"
+    },
+    {
+     "model": "BIOMD0000000387",
+     "set": "r31",
+     "name": "Arnold2011_Damour2007_RuBisCO-CalvinCycle",
+     "paper": "pubmed/22001849",
+     "author_year": "arnold 2011"
+    },
+    {
+     "model": "BIOMD0000000388",
+     "set": "r31",
+     "name": "Arnold2011_Zhu2009_CalvinCycle",
+     "paper": "pubmed/22001849",
+     "author_year": "arnold 2011"
+    },
+    {
+     "model": "BIOMD0000000389",
+     "set": "r31",
+     "name": "Arnold2011_Hahn1986_CalvinCycle_Starch_Sucrose",
+     "paper": "pubmed/22001849",
+     "author_year": "arnold 2011"
+    },
+    {
+     "model": "BIOMD0000000390",
+     "set": "r31",
+     "name": "Arnold2011_Giersch1990_CalvinCycle",
+     "paper": "pubmed/22001849",
+     "author_year": "arnold 2011"
+    },
+    {
+     "model": "BIOMD0000000391",
+     "set": "r31",
+     "name": "Arnold2011_Poolman2000_CalvinCycle_Starch",
+     "paper": "pubmed/22001849",
+     "author_year": "arnold 2011"
+    },
+    {
+     "model": "BIOMD0000000392",
+     "set": "r31",
+     "name": "Arnold2011_Laisk2006_CalvinCycle_Starch_Sucrose",
+     "paper": "pubmed/22001849",
+     "author_year": "arnold 2011"
+    },
+    {
+     "model": "BIOMD0000000393",
+     "set": "r31",
+     "name": "Arnold2011_Zhu2007_CalvinCycle_Starch_Sucrose_Photorespiration",
+     "paper": "pubmed/22001849",
+     "author_year": "arnold 2011"
+    }
+   ]
+  },
+  {
+   "id": 57,
+   "models": [
+    {
+     "model": "BIOMD0000000394",
+     "set": "r31",
+     "name": "Sivakumar2011 - EGF Receptor Signaling Pathway",
+     "paper": "pubmed/21978399",
+     "author_year": "sivakumar 2011"
+    },
+    {
+     "model": "BIOMD0000000395",
+     "set": "r31",
+     "name": "Sivakumar2011 - Hedgehog Signaling Pathway",
+     "paper": "pubmed/21978399",
+     "author_year": "sivakumar 2011"
+    },
+    {
+     "model": "BIOMD0000000396",
+     "set": "r31",
+     "name": "Sivakumar2011 - Notch Signaling Pathway",
+     "paper": "pubmed/21978399",
+     "author_year": "sivakumar 2011"
+    },
+    {
+     "model": "BIOMD0000000397",
+     "set": "r31",
+     "name": "Sivakumar2011_WntSignalingPathway",
+     "paper": "pubmed/21978399",
+     "author_year": "sivakumar 2011"
+    },
+    {
+     "model": "BIOMD0000000398",
+     "set": "r31",
+     "name": "Sivakumar2011_NeuralStemCellDifferentiation_Crosstalk",
+     "paper": "pubmed/21978399",
+     "author_year": "sivakumar 2011"
+    }
+   ]
+  },
+  {
+   "id": 58,
+   "models": [
+    {
+     "model": "BIOMD0000000401",
+     "set": "r31",
+     "name": "Ayati2010_BoneRemodelingDynamics_NormalCondition",
+     "paper": "pubmed/20406449",
+     "author_year": "ayati 2010"
+    },
+    {
+     "model": "BIOMD0000000402",
+     "set": "r31",
+     "name": "Ayati2010_BoneRemodelingDynamics_WithTumour",
+     "paper": "pubmed/20406449",
+     "author_year": "ayati 2010"
+    },
+    {
+     "model": "BIOMD0000000403",
+     "set": "r31",
+     "name": "Ayati2010_BoneRemodelingDynamics_WithTumour+DrugTreatment",
+     "paper": "pubmed/20406449",
+     "author_year": "ayati 2010"
+    }
+   ]
+  },
+  {
+   "id": 59,
+   "models": [
+    {
+     "model": "BIOMD0000000409",
+     "set": "r31",
+     "name": "Queralt2006_MitoticExit_Cdc55DownregulationBySeparase",
+     "paper": "pubmed/16713564",
+     "author_year": "queralt 2006"
+    },
+    {
+     "model": "BIOMD0000000953",
+     "set": "holdout",
+     "name": "Queralt2006 - Initiation of mitotic exit by downregulation of PP2A in budding yeast",
+     "paper": "pubmed:16713564",
+     "author_year": "queralt 2006"
+    }
+   ]
+  },
+  {
+   "id": 60,
+   "models": [
+    {
+     "model": "BIOMD0000000413",
+     "set": "r31",
+     "name": "Band2012_DII-Venus_FullModel",
+     "paper": "pubmed/22393022",
+     "author_year": "band 2012"
+    },
+    {
+     "model": "BIOMD0000000414",
+     "set": "r31",
+     "name": "Band2012_DII-Venus_ReducedModel",
+     "paper": "pubmed/22393022",
+     "author_year": "band 2012"
+    }
+   ]
+  },
+  {
+   "id": 61,
+   "models": [
+    {
+     "model": "BIOMD0000000417",
+     "set": "r31",
+     "name": "Ratushny2012_NF",
+     "paper": "pubmed/22531117",
+     "author_year": "ratushny 2012"
+    },
+    {
+     "model": "BIOMD0000000418",
+     "set": "r31",
+     "name": "Ratushny2012_SPF",
+     "paper": "pubmed/22531117",
+     "author_year": "ratushny 2012"
+    },
+    {
+     "model": "BIOMD0000000419",
+     "set": "r31",
+     "name": "Ratushny2012_SPF_I",
+     "paper": "pubmed/22531117",
+     "author_year": "ratushny 2012"
+    },
+    {
+     "model": "BIOMD0000000420",
+     "set": "r31",
+     "name": "Ratushny2012_ASSURE_I",
+     "paper": "pubmed/22531117",
+     "author_year": "ratushny 2012"
+    },
+    {
+     "model": "BIOMD0000000421",
+     "set": "r31",
+     "name": "Ratushny2012_ASSURE_II",
+     "paper": "pubmed/22531117",
+     "author_year": "ratushny 2012"
+    }
+   ]
+  },
+  {
+   "id": 62,
+   "models": [
+    {
+     "model": "BIOMD0000000430",
+     "set": "r31",
+     "name": "Sarma2012 - Interaction topologies of MAPK cascade (M4_K2_USEQ)",
+     "paper": "pubmed/22748295",
+     "author_year": "sarma 2012"
+    },
+    {
+     "model": "BIOMD0000000431",
+     "set": "r31",
+     "name": "Sarma2012 - Interaction topologies of MAPK cascade (M4_K2_PSEQ)",
+     "paper": "pubmed/22748295",
+     "author_year": "sarma 2012"
+    },
+    {
+     "model": "BIOMD0000000432",
+     "set": "r31",
+     "name": "Sarma2012 - Interaction topologies of MAPK cascade (M4_K2_QSS_USEQ)",
+     "paper": "pubmed/22748295",
+     "author_year": "sarma 2012"
+    },
+    {
+     "model": "BIOMD0000000433",
+     "set": "r31",
+     "name": "Sarma2012 - Interaction topologies of MAPK cascade (M4_K2_QSS_PSEQ)",
+     "paper": "pubmed/22748295",
+     "author_year": "sarma 2012"
+    },
+    {
+     "model": "BIOMD0000000440",
+     "set": "r31",
+     "name": "Sarma2012 - Oscillations in MAPK cascade (S1)",
+     "paper": "pubmed/22694947",
+     "author_year": "sarma 2012"
+    },
+    {
+     "model": "BIOMD0000000441",
+     "set": "r31",
+     "name": "Sarma2012 - Oscillations in MAPK cascade (S2)",
+     "paper": "pubmed/22694947",
+     "author_year": "sarma 2012"
+    },
+    {
+     "model": "BIOMD0000000442",
+     "set": "r31",
+     "name": "Sarma2012 - Oscillations in MAPK cascade (S2), inclusion of external signalling module",
+     "paper": "pubmed/22694947",
+     "author_year": "sarma 2012"
+    },
+    {
+     "model": "BIOMD0000000443",
+     "set": "r31",
+     "name": "Sarma2012 - Oscillations in MAPK cascade (S1n)",
+     "paper": "pubmed/22694947",
+     "author_year": "sarma 2012"
+    },
+    {
+     "model": "BIOMD0000000444",
+     "set": "r31",
+     "name": "Sarma2012 - Oscillations in MAPK cascade (S2n)",
+     "paper": "pubmed/22694947",
+     "author_year": "sarma 2012"
+    }
+   ]
+  },
+  {
+   "id": 63,
+   "models": [
+    {
+     "model": "BIOMD0000000448",
+     "set": "r31",
+     "name": "Br\u00e4nnmark2013 - Insulin signalling in human adipocytes (normal condition)",
+     "paper": "pubmed/23400783",
+     "author_year": null
+    },
+    {
+     "model": "BIOMD0000000449",
+     "set": "r31",
+     "name": "Br\u00e4nnmark2013 - Insulin signalling in human adipocytes (diabetic condition)",
+     "paper": "pubmed/23400783",
+     "author_year": null
+    }
+   ]
+  },
+  {
+   "id": 64,
+   "models": [
+    {
+     "model": "BIOMD0000000450",
+     "set": "r31",
+     "name": "Reyes-Palomares2012 -  a combined model hepatic polyamine and sulfur aminoacid metabolism - version2",
+     "paper": "pubmed/21814788",
+     "author_year": "reyes-palomares 2012"
+    },
+    {
+     "model": "BIOMD0000000674",
+     "set": "holdout",
+     "name": "Reyes-Palomares2012 - a combined model hepatic polyamine and sulfur aminoacid metabolism - version1",
+     "paper": "pubmed/21814788",
+     "author_year": "reyes-palomares 2012"
+    }
+   ]
+  },
+  {
+   "id": 65,
+   "models": [
+    {
+     "model": "BIOMD0000000451",
+     "set": "r31",
+     "name": "Carbo2013 - Cytokine driven CD4+ T Cell differentiation and phenotype plasticity",
+     "paper": "pubmed/23592971",
+     "author_year": "carbo 2013"
+    },
+    {
+     "model": "BIOMD0000000480",
+     "set": "r31",
+     "name": "Carbo2013 - Mucosal Immune Response during H.pylori Infection",
+     "paper": "doi/10.1371/journal.pone.0073365",
+     "author_year": "carbo 2013"
+    }
+   ]
+  },
+  {
+   "id": 66,
+   "models": [
+    {
+     "model": "BIOMD0000000452",
+     "set": "r31",
+     "name": "Bidkhori2012 - normal EGFR signalling",
+     "paper": "pubmed/23133538",
+     "author_year": "bidkhori 2012"
+    },
+    {
+     "model": "BIOMD0000000453",
+     "set": "r31",
+     "name": "Bidkhori2012 - EGFR signalling in NSCLC",
+     "paper": "pubmed/23133538",
+     "author_year": "bidkhori 2012"
+    }
+   ]
+  },
+  {
+   "id": 67,
+   "models": [
+    {
+     "model": "BIOMD0000000454",
+     "set": "r31",
+     "name": "Smallbone2013 - Metabolic Control Analysis - Example 1",
+     "paper": null,
+     "author_year": "smallbone 2013"
+    },
+    {
+     "model": "BIOMD0000000455",
+     "set": "r31",
+     "name": "Smallbone2013 - Metabolic Control Analysis - Example 2",
+     "paper": null,
+     "author_year": "smallbone 2013"
+    },
+    {
+     "model": "BIOMD0000000456",
+     "set": "r31",
+     "name": "Smallbone2013 - Metabolic Control Analysis - Example 3",
+     "paper": null,
+     "author_year": "smallbone 2013"
+    },
+    {
+     "model": "BIOMD0000000458",
+     "set": "r31",
+     "name": "Smallbone2013 - Serine biosynthesis",
+     "paper": "pubmed/23417802",
+     "author_year": "smallbone 2013"
+    },
+    {
+     "model": "BIOMD0000000469",
+     "set": "r31",
+     "name": "Smallbone2013 - E.coli metabolic model with linlog rate law",
+     "paper": "doi/10.1089/ind.2013.0003",
+     "author_year": "smallbone 2013"
+    },
+    {
+     "model": "BIOMD0000000470",
+     "set": "r31",
+     "name": "Smallbone2013 - E.coli metabolic model with modular rate law",
+     "paper": "doi/10.1089/ind.2013.0003",
+     "author_year": "smallbone 2013"
+    },
+    {
+     "model": "BIOMD0000000471",
+     "set": "r31",
+     "name": "Smallbone2013 - Yeast metabolic model with linlog rate law",
+     "paper": "doi/10.1089/ind.2013.0003",
+     "author_year": "smallbone 2013"
+    },
+    {
+     "model": "BIOMD0000000472",
+     "set": "r31",
+     "name": "Smallbone2013 - Yeast metabolic model with modular rate law",
+     "paper": "doi/10.1089/ind.2013.0003",
+     "author_year": "smallbone 2013"
+    },
+    {
+     "model": "BIOMD0000000473",
+     "set": "r31",
+     "name": "Smallbone2013 - Yeast metabolic model with modular rate law, merged with Pritchard 2002",
+     "paper": "doi/10.1089/ind.2013.0003",
+     "author_year": "smallbone 2013"
+    }
+   ]
+  },
+  {
+   "id": 68,
+   "models": [
+    {
+     "model": "BIOMD0000000459",
+     "set": "r31",
+     "name": "Liebal2012 - B.subtilis post-transcriptional instability model",
+     "paper": "pubmed/22511268",
+     "author_year": "liebal 2012"
+    },
+    {
+     "model": "BIOMD0000000460",
+     "set": "r31",
+     "name": "Liebal2012 - B.subtilis sigB proteolysis model",
+     "paper": "pubmed/22511268",
+     "author_year": "liebal 2012"
+    },
+    {
+     "model": "BIOMD0000000461",
+     "set": "r31",
+     "name": "Liebal2012 - B.subtilis transcription inhibition model",
+     "paper": "pubmed/22511268",
+     "author_year": "liebal 2012"
+    }
+   ]
+  },
+  {
+   "id": 69,
+   "models": [
+    {
+     "model": "BIOMD0000000464",
+     "set": "r31",
+     "name": "Koo2013 - Shear stress induced calcium influx and eNOS activation - Model 1",
+     "paper": "pubmed/23708369",
+     "author_year": "koo 2013"
+    },
+    {
+     "model": "BIOMD0000000465",
+     "set": "r31",
+     "name": "Koo2013 - Shear stress induced AKT and eNOS phosphorylation - Model 2",
+     "paper": "pubmed/23708369",
+     "author_year": "koo 2013"
+    },
+    {
+     "model": "BIOMD0000000466",
+     "set": "r31",
+     "name": "Koo2013 - Shear stress induced eNOS expression - Model 3",
+     "paper": "pubmed/23708369",
+     "author_year": "koo 2013"
+    },
+    {
+     "model": "BIOMD0000000467",
+     "set": "r31",
+     "name": "Koo2013 - Shear stress induced NO production - Model 4",
+     "paper": "pubmed/23708369",
+     "author_year": "koo 2013"
+    },
+    {
+     "model": "BIOMD0000000468",
+     "set": "r31",
+     "name": "Koo2013 - Integrated shear stress induced NO production model",
+     "paper": "pubmed/23708369",
+     "author_year": "koo 2013"
+    }
+   ]
+  },
+  {
+   "id": 70,
+   "models": [
+    {
+     "model": "BIOMD0000000484",
+     "set": "r31",
+     "name": "Cao2013 - Application of ABSIS method in birth-death process",
+     "paper": "pubmed/23862966",
+     "author_year": "cao 2013"
+    },
+    {
+     "model": "BIOMD0000000485",
+     "set": "r31",
+     "name": "Cao2013 - Application of ABSIS method in the bistable Schl\u00f6gl model",
+     "paper": "pubmed/23862966",
+     "author_year": "cao 2013"
+    },
+    {
+     "model": "BIOMD0000000486",
+     "set": "r31",
+     "name": "Cao2013 - Application of ABSIS method in the reversible isomerization model",
+     "paper": "pubmed/23862966",
+     "author_year": "cao 2013"
+    },
+    {
+     "model": "BIOMD0000000487",
+     "set": "r31",
+     "name": "Cao2013 - Application of ABSIS in the the enzymatic futile cycle",
+     "paper": "pubmed/23862966",
+     "author_year": "cao 2013"
+    }
+   ]
+  },
+  {
+   "id": 71,
+   "models": [
+    {
+     "model": "BIOMD0000000488",
+     "set": "r31",
+     "name": "Proctor2013 - Effect of A\u03b2 immunisation in Alzheimer's disease (deterministic version)",
+     "paper": "pubmed/24098635",
+     "author_year": "proctor 2013"
+    },
+    {
+     "model": "BIOMD0000000504",
+     "set": "r31",
+     "name": "Proctor2013 - Cartilage breakdown, interventions to reduce collagen release",
+     "paper": "pubmed/24285357",
+     "author_year": "proctor 2013"
+    },
+    {
+     "model": "BIOMD0000000634",
+     "set": "r31",
+     "name": "Proctor2013 - Effect of A\u03b2 immunisation in Alzheimer's disease (stochastic version)",
+     "paper": "pubmed/24098635",
+     "author_year": "proctor 2013"
+    }
+   ]
+  },
+  {
+   "id": 72,
+   "models": [
+    {
+     "model": "BIOMD0000000491",
+     "set": "r31",
+     "name": "Pathak2013 - MAPK activation in response to various abiotic stresses",
+     "paper": "pubmed/23847397",
+     "author_year": "pathak 2013"
+    },
+    {
+     "model": "BIOMD0000000492",
+     "set": "r31",
+     "name": "Pathak2013 - MAPK activation in response to various biotic stresses",
+     "paper": "pubmed/23847397",
+     "author_year": "pathak 2013"
+    }
+   ]
+  },
+  {
+   "id": 73,
+   "models": [
+    {
+     "model": "BIOMD0000000496",
+     "set": "r31",
+     "name": "Stanford2013 - Kinetic model of yeast metabolic network (standard)",
+     "paper": "pubmed/24324546",
+     "author_year": "stanford 2013"
+    },
+    {
+     "model": "BIOMD0000000497",
+     "set": "r31",
+     "name": "Stanford2013 - Kinetic model of yeast metabolic network (regulation)",
+     "paper": "pubmed/24324546",
+     "author_year": "stanford 2013"
+    }
+   ]
+  },
+  {
+   "id": 74,
+   "models": [
+    {
+     "model": "BIOMD0000000500",
+     "set": "r31",
+     "name": "Begitt2014 - STAT1 cooperative DNA binding - single GAS polymer model",
+     "paper": "pubmed/24413774",
+     "author_year": "begitt 2014"
+    },
+    {
+     "model": "BIOMD0000000501",
+     "set": "r31",
+     "name": "Begitt2014 - STAT1 cooperative DNA binding - double GAS polymer model",
+     "paper": "pubmed/24413774",
+     "author_year": "begitt 2014"
+    }
+   ]
+  },
+  {
+   "id": 75,
+   "models": [
+    {
+     "model": "BIOMD0000000502",
+     "set": "r31",
+     "name": "Messiha2013 - Pentose phosphate pathway model",
+     "paper": "doi/10.7287/peerj.preprints.146v2",
+     "author_year": "messiha 2013"
+    },
+    {
+     "model": "BIOMD0000000503",
+     "set": "r31",
+     "name": "Messiha2013 - combined glycolysis and pentose phosphate pathway model",
+     "paper": "doi/10.7287/peerj.preprints.146v2",
+     "author_year": "messiha 2013"
+    }
+   ]
+  },
+  {
+   "id": 76,
+   "models": [
+    {
+     "model": "BIOMD0000000505",
+     "set": "r31",
+     "name": "vanEunen2013 - Network dynamics of fatty acid \u03b2-oxidation (steady-state model)",
+     "paper": "pubmed/23966849",
+     "author_year": "vaneunen 2013"
+    },
+    {
+     "model": "BIOMD0000000506",
+     "set": "r31",
+     "name": "vanEunen2013 - Network dynamics of fatty acid \u03b2-oxidation (time-course model)",
+     "paper": "pubmed/23966849",
+     "author_year": "vaneunen 2013"
+    }
+   ]
+  },
+  {
+   "id": 77,
+   "models": [
+    {
+     "model": "BIOMD0000000508",
+     "set": "r31",
+     "name": "Barrack2014 - Calcium/cell cycle coupling - Cyclin D dependent ATP release",
+     "paper": "pubmed/24434742",
+     "author_year": "barrack 2014"
+    },
+    {
+     "model": "BIOMD0000000509",
+     "set": "r31",
+     "name": "Barrack2014 - Calcium/cell cycle coupling - Rs dependent ATP release",
+     "paper": "pubmed/24434742",
+     "author_year": "barrack 2014"
+    }
+   ]
+  },
+  {
+   "id": 78,
+   "models": [
+    {
+     "model": "BIOMD0000000510",
+     "set": "r31",
+     "name": "Kerkhoven2013 - Glycolysis and Pentose Phosphate Pathway in T.brucei - MODEL C (with glucosomal ribokinase)",
+     "paper": "pubmed/24339766",
+     "author_year": "kerkhoven 2013"
+    },
+    {
+     "model": "BIOMD0000000511",
+     "set": "r31",
+     "name": "Kerkhoven2013 - Glycolysis and Pentose Phosphate Pathway in T.brucei - MODEL D (with ATP:ADP antiporter)",
+     "paper": "pubmed/24339766",
+     "author_year": "kerkhoven 2013"
+    },
+    {
+     "model": "BIOMD0000000513",
+     "set": "r31",
+     "name": "Kerkhoven2013 - Glycolysis in T.brucei - MODEL A",
+     "paper": "pubmed/24339766",
+     "author_year": "kerkhoven 2013"
+    },
+    {
+     "model": "BIOMD0000000514",
+     "set": "r31",
+     "name": "Kerkhoven2013 - Glycolysis and Pentose Phosphate Pathway in T.brucei - MODEL B",
+     "paper": "pubmed/24339766",
+     "author_year": "kerkhoven 2013"
+    },
+    {
+     "model": "BIOMD0000000515",
+     "set": "r31",
+     "name": "Kerkhoven2013 - Glycolysis and Pentose Phosphate Pathway in T.brucei - MODEL C in fructose medium (with glucosomal ribokinase)",
+     "paper": "pubmed/24339766",
+     "author_year": "kerkhoven 2013"
+    },
+    {
+     "model": "BIOMD0000000516",
+     "set": "r31",
+     "name": "Kerkhoven2013 - Glycolysis and Pentose Phosphate Pathway in T.brucei - MODEL D in fructose medium (with ATP:ADP antiporter)",
+     "paper": "pubmed/24339766",
+     "author_year": "kerkhoven 2013"
+    }
+   ]
+  },
+  {
+   "id": 79,
+   "models": [
+    {
+     "model": "BIOMD0000000523",
+     "set": "r31",
+     "name": "Kallenberger2014 - CD95L induced apoptosis initiated by caspase-8, CD95 HeLa cells (cis/trans variant)",
+     "paper": "pubmed/24619646",
+     "author_year": "kallenberger 2014"
+    },
+    {
+     "model": "BIOMD0000000524",
+     "set": "r31",
+     "name": "Kallenberger2014 - CD95L induced apoptosis initiated by caspase-8, wild-type HeLa cells (cis/trans variant)",
+     "paper": "pubmed/24619646",
+     "author_year": "kallenberger 2014"
+    },
+    {
+     "model": "BIOMD0000000525",
+     "set": "r31",
+     "name": "Kallenberger2014 - CD95L induced apoptosis initiated by caspase-8, CD95 HeLa cells (cis/trans-cis/trans variant)",
+     "paper": "pubmed/24619646",
+     "author_year": "kallenberger 2014"
+    },
+    {
+     "model": "BIOMD0000000526",
+     "set": "r31",
+     "name": "Kallenberger2014 - CD95L induced apoptosis initiated by caspase-8, wild-type HeLa cells (cis/trans-cis/trans variant)",
+     "paper": "pubmed/24619646",
+     "author_year": "kallenberger 2014"
+    }
+   ]
+  },
+  {
+   "id": 80,
+   "models": [
+    {
+     "model": "BIOMD0000000528",
+     "set": "r31",
+     "name": "Fribourg2014 - Dynamics of viral antagonism and innate immune response (H1N1 influenza A virus - Cal/09)",
+     "paper": "pubmed/24594370",
+     "author_year": "fribourg 2014"
+    },
+    {
+     "model": "BIOMD0000000529",
+     "set": "r31",
+     "name": "Fribourg2014 - Dynamics of viral antagonism and innate immune response (H1N1 influenza A virus - NC/99)",
+     "paper": "pubmed/24594370",
+     "author_year": "fribourg 2014"
+    },
+    {
+     "model": "BIOMD0000000889",
+     "set": "holdout",
+     "name": "Fribourg2014 - Model of influenza A virus infection dynamics of viral antagonism and innate immune response.",
+     "paper": "pubmed/24594370",
+     "author_year": "fribourg 2014"
+    }
+   ]
+  },
+  {
+   "id": 81,
+   "models": [
+    {
+     "model": "BIOMD0000000534",
+     "set": "r31",
+     "name": "Dwivedi2014 - Healthy Volunteer IL6 Model",
+     "paper": "pubmed/24402116",
+     "author_year": "dwivedi 2014"
+    },
+    {
+     "model": "BIOMD0000000535",
+     "set": "r31",
+     "name": "Dwivedi2014 - Crohns IL6 Disease model - Anti-IL6 Antibody",
+     "paper": "pubmed/24402116",
+     "author_year": "dwivedi 2014"
+    },
+    {
+     "model": "BIOMD0000000536",
+     "set": "r31",
+     "name": "Dwivedi2014 - Crohns IL6 Disease model - sgp130 activity",
+     "paper": "pubmed/24402116",
+     "author_year": "dwivedi 2014"
+    },
+    {
+     "model": "BIOMD0000000537",
+     "set": "r31",
+     "name": "Dwivedi2014 - Crohns IL6 Disease model - Anti-IL6R Antibody",
+     "paper": "pubmed/24402116",
+     "author_year": "dwivedi 2014"
+    }
+   ]
+  },
+  {
+   "id": 82,
+   "models": [
+    {
+     "model": "BIOMD0000000540",
+     "set": "r31",
+     "name": "Yugi2014 - Insulin induced signalling (PFKL phosphorylation) - model 1",
+     "paper": "pubmed/25131207",
+     "author_year": "yugi 2014"
+    },
+    {
+     "model": "BIOMD0000000541",
+     "set": "r31",
+     "name": "Yugi2014 - Insulin induced signalling (PFKL phosphorylation) - model 2",
+     "paper": "pubmed/25131207",
+     "author_year": "yugi 2014"
+    }
+   ]
+  },
+  {
+   "id": 83,
+   "models": [
+    {
+     "model": "BIOMD0000000543",
+     "set": "r31",
+     "name": "Qi2013 - IL-6 and IFN crosstalk model (non-competitive)",
+     "paper": "pubmed/23384097",
+     "author_year": "qi 2013"
+    },
+    {
+     "model": "BIOMD0000000544",
+     "set": "r31",
+     "name": "Qi2013 - IL-6 and IFN crosstalk model",
+     "paper": "pubmed/23384097",
+     "author_year": "qi 2013"
+    }
+   ]
+  },
+  {
+   "id": 84,
+   "models": [
+    {
+     "model": "BIOMD0000000549",
+     "set": "r31",
+     "name": "Baker2013 - Cytokine Mediated Inflammation in Rheumatoid Arthritis - Age Dependent",
+     "paper": "pubmed/23002057",
+     "author_year": "baker 2013"
+    },
+    {
+     "model": "BIOMD0000000550",
+     "set": "r31",
+     "name": "Baker2013 - Cytokine Mediated Inflammation in Rheumatoid Arthritis",
+     "paper": "pubmed/23002057",
+     "author_year": "baker 2013"
+    }
+   ]
+  },
+  {
+   "id": 85,
+   "models": [
+    {
+     "model": "BIOMD0000000586",
+     "set": "r31",
+     "name": "Karapetyan2016 - Genetic oscillatory network - Activator Titration Circuit (ATC)",
+     "paper": "pubmed/26764732",
+     "author_year": "karapetyan 2016"
+    },
+    {
+     "model": "BIOMD0000000587",
+     "set": "r31",
+     "name": "Karapetyan2016 - Genetic oscillatory network - Repressor Titration Circuit (RTC)",
+     "paper": "pubmed/26764732",
+     "author_year": "karapetyan 2016"
+    }
+   ]
+  },
+  {
+   "id": 86,
+   "models": [
+    {
+     "model": "BIOMD0000000592",
+     "set": "r31",
+     "name": "Martinez-Sanchez2015 - T CD4+ lymphocyte transcriptional regulatory network",
+     "paper": "pubmed/26090929",
+     "author_year": "martinez-sanchez 2015"
+    },
+    {
+     "model": "BIOMD0000000593",
+     "set": "r31",
+     "name": "Martinez-Sanchez2015 - T CD4+ lymphocyte transcriptional-signaling regulatory network",
+     "paper": "pubmed/26090929",
+     "author_year": "martinez-sanchez 2015"
+    }
+   ]
+  },
+  {
+   "id": 87,
+   "models": [
+    {
+     "model": "BIOMD0000000594",
+     "set": "r31",
+     "name": "Capuani2015 - Binding of Cbl and Gbr2 to EGFR (Multisite Phosphorylation Model - MPM)",
+     "paper": "pubmed/26264748",
+     "author_year": "capuani 2015"
+    },
+    {
+     "model": "BIOMD0000000595",
+     "set": "r31",
+     "name": "Capuani2015 - Binding of Cbl and Grb2 to EGFR (Early Activation Model - EAM)",
+     "paper": "pubmed/26264748",
+     "author_year": "capuani 2015"
+    }
+   ]
+  },
+  {
+   "id": 88,
+   "models": [
+    {
+     "model": "BIOMD0000000597",
+     "set": "r31",
+     "name": "Flis2015 - Plant clock gene circuit (P2011.1.2 PLM_71 ver 1)",
+     "paper": "pubmed/26468131",
+     "author_year": "flis 2015"
+    },
+    {
+     "model": "BIOMD0000000598",
+     "set": "r31",
+     "name": "Flis2015 - Plant clock gene circuit (P2011.2.1 PLM_71 ver 2)",
+     "paper": "pubmed/26468131",
+     "author_year": "flis 2015"
+    }
+   ]
+  },
+  {
+   "id": 89,
+   "models": [
+    {
+     "model": "BIOMD0000000603",
+     "set": "r31",
+     "name": "PetelenzKuehn_osmoadaptation_WT",
+     "paper": "pubmed/23762021",
+     "author_year": null
+    },
+    {
+     "model": "BIOMD0000000604",
+     "set": "r31",
+     "name": "PetelenzKuehn_osmoadaptation_pfk2627D",
+     "paper": "pubmed/23762021",
+     "author_year": null
+    },
+    {
+     "model": "BIOMD0000000605",
+     "set": "r31",
+     "name": "PetelenzKuehn_osmoadaptation_HOG1att",
+     "paper": "pubmed/23762021",
+     "author_year": null
+    },
+    {
+     "model": "BIOMD0000000606",
+     "set": "r31",
+     "name": "PetelenzKuehn_osmoadaptation_hog1D",
+     "paper": "pubmed/23762021",
+     "author_year": null
+    },
+    {
+     "model": "BIOMD0000000607",
+     "set": "r31",
+     "name": "PetelenzKuehn_osmoadaptation_fps1D1",
+     "paper": "pubmed/23762021",
+     "author_year": null
+    },
+    {
+     "model": "BIOMD0000000610",
+     "set": "r31",
+     "name": "PetelenzKuehn_osmoadaptation_gpd1D",
+     "paper": "pubmed/23762021",
+     "author_year": null
+    }
+   ]
+  },
+  {
+   "id": 90,
+   "models": [
+    {
+     "model": "BIOMD0000000619",
+     "set": "r31",
+     "name": "Sluka2016  - Acetaminophen PBPK",
+     "paper": "pubmed/27636091",
+     "author_year": "sluka 2016"
+    },
+    {
+     "model": "BIOMD0000000624",
+     "set": "r31",
+     "name": "Sluka2016 - Acetaminophen metabolism",
+     "paper": "pubmed/27636091",
+     "author_year": "sluka 2016"
+    }
+   ]
+  },
+  {
+   "id": 91,
+   "models": [
+    {
+     "model": "BIOMD0000000620",
+     "set": "r31",
+     "name": "Palmer2014 - Effect of IL-1\u03b2-Blocking therapies in T2DM - Disease Condition",
+     "paper": "pubmed/24918743",
+     "author_year": "palmer 2014"
+    },
+    {
+     "model": "BIOMD0000000621",
+     "set": "r31",
+     "name": "Palmer2014 - Effect of IL-1\u03b2-Blocking therapies in T2DM - Healthy Condition",
+     "paper": "pubmed/24918743",
+     "author_year": "palmer 2014"
+    }
+   ]
+  },
+  {
+   "id": 92,
+   "models": [
+    {
+     "model": "BIOMD0000000635",
+     "set": "r31",
+     "name": "Nair2015 - Interaction between neuromodulators via GPCRs - Effect on cAMP/PKA signaling (D1 Neuron)",
+     "paper": "pubmed/26468202",
+     "author_year": "nair 2015"
+    },
+    {
+     "model": "BIOMD0000000636",
+     "set": "r31",
+     "name": "Nair2015 - Interaction between neuromodulators via GPCRs - Effect on cAMP/PKA signaling (D2 Neuron)",
+     "paper": "pubmed/26468202",
+     "author_year": "nair 2015"
+    }
+   ]
+  },
+  {
+   "id": 93,
+   "models": [
+    {
+     "model": "BIOMD0000000637",
+     "set": "r31",
+     "name": "Bush2016 - Simplified Carrousel model of GPCR",
+     "paper": "pubmed/28034910",
+     "author_year": "bush 2016"
+    },
+    {
+     "model": "BIOMD0000000638",
+     "set": "r31",
+     "name": "Bush2016 - Extended Carrousel model of GPCR-RGS",
+     "paper": "pubmed/28034910",
+     "author_year": "bush 2016"
+    }
+   ]
+  },
+  {
+   "id": 94,
+   "models": [
+    {
+     "model": "BIOMD0000000639",
+     "set": "r31",
+     "name": "Thiaville2016 - Wild type folate pathway model with proposed PanB reaction",
+     "paper": "pubmed/27065985",
+     "author_year": "thiaville 2016"
+    },
+    {
+     "model": "BIOMD0000000689",
+     "set": "holdout",
+     "name": "Thiaville2016 - Folate pathway model (PanB overexpression)",
+     "paper": "pubmed/27065985",
+     "author_year": "thiaville 2016"
+    },
+    {
+     "model": "BIOMD0000000690",
+     "set": "holdout",
+     "name": "Thiaville2016 - Folate pathway model (PanB overexpression and THF regulation)",
+     "paper": "pubmed/27065985",
+     "author_year": "thiaville 2016"
+    }
+   ]
+  },
+  {
+   "id": 95,
+   "models": [
+    {
+     "model": "BIOMD0000000643",
+     "set": "holdout",
+     "name": "Musante2017 - Switching behaviour of PP2A inhibition by ARPP-16 - mutual inhibitions",
+     "paper": "doi:10.7554/eLife.24998",
+     "author_year": "musante 2017"
+    },
+    {
+     "model": "BIOMD0000000644",
+     "set": "holdout",
+     "name": "Musante2017 - Switching behaviour of PP2A inhibition by ARPP-16 - mutual inhibitions and PKA inhibits MAST3",
+     "paper": "doi:10.7554/eLife.24998",
+     "author_year": "musante 2017"
+    },
+    {
+     "model": "BIOMD0000000645",
+     "set": "holdout",
+     "name": "Musante2017 - Switching behaviour of PP2A inhibition by ARPP-16 - mutual inhibitions and PKA inhibits MAST3 and dominant negative effect",
+     "paper": "doi:10.7554/eLife.24998",
+     "author_year": "musante 2017"
+    }
+   ]
+  },
+  {
+   "id": 96,
+   "models": [
+    {
+     "model": "BIOMD0000000648",
+     "set": "holdout",
+     "name": "Padala2017- ERK, PI3K/Akt and Wnt signalling network (normal)",
+     "paper": "pubmed/28367561",
+     "author_year": "padala 2017"
+    },
+    {
+     "model": "BIOMD0000000652",
+     "set": "holdout",
+     "name": "Padala2017- ERK, PI3K/Akt and Wnt signalling network (PI3K mutated)",
+     "paper": "pubmed/28367561",
+     "author_year": "padala 2017"
+    },
+    {
+     "model": "BIOMD0000000653",
+     "set": "holdout",
+     "name": "Padala2017- ERK, PI3K/Akt and Wnt signalling network (bRaf mutated)",
+     "paper": "pubmed/28367561",
+     "author_year": "padala 2017"
+    },
+    {
+     "model": "BIOMD0000000654",
+     "set": "holdout",
+     "name": "Padala2017- ERK, PI3K/Akt and Wnt signalling network (Ras mutated)",
+     "paper": "pubmed/28367561",
+     "author_year": "padala 2017"
+    },
+    {
+     "model": "BIOMD0000000655",
+     "set": "holdout",
+     "name": "Padala2017- ERK, PI3K/Akt and Wnt signalling network (PTEN mutation)",
+     "paper": "pubmed/28367561",
+     "author_year": "padala 2017"
+    },
+    {
+     "model": "BIOMD0000000656",
+     "set": "holdout",
+     "name": "Padala2017- ERK, PI3K/Akt and Wnt signalling network (EGFR overexpression)",
+     "paper": "pubmed/28367561",
+     "author_year": "padala 2017"
+    }
+   ]
+  },
+  {
+   "id": 97,
+   "models": [
+    {
+     "model": "BIOMD0000000650",
+     "set": "holdout",
+     "name": "Owen1998 - Tumour  treatment model",
+     "paper": "pubmed/9661282",
+     "author_year": "owen 1998"
+    },
+    {
+     "model": "BIOMD0000000670",
+     "set": "holdout",
+     "name": "Owen1998 - tumour growth model",
+     "paper": "pubmed:9661282",
+     "author_year": "owen 1998"
+    }
+   ]
+  },
+  {
+   "id": 98,
+   "models": [
+    {
+     "model": "BIOMD0000000662",
+     "set": "holdout",
+     "name": "Moore2004 - Chronic Myeloid Leukemic cells and T-lymphocyte interaction",
+     "paper": "pubmed/15038986",
+     "author_year": "moore 2004"
+    },
+    {
+     "model": "BIOMD0000000733",
+     "set": "holdout",
+     "name": "Moore_2004_Mathematical model for CML and T cell interaction",
+     "paper": "pubmed/15038986",
+     "author_year": "moore 2004"
+    }
+   ]
+  },
+  {
+   "id": 99,
+   "models": [
+    {
+     "model": "BIOMD0000000663",
+     "set": "holdout",
+     "name": "Wodarz2007 - HIV/CD4 T-cell interaction",
+     "paper": "pubmed/17379260",
+     "author_year": "wodarz 2007"
+    },
+    {
+     "model": "BIOMD0000000686",
+     "set": "holdout",
+     "name": "Wodarz2007 - Basic Model of Cytomegalovirus Infection",
+     "paper": "pubmed/17251133",
+     "author_year": "wodarz 2007"
+    },
+    {
+     "model": "BIOMD0000000687",
+     "set": "holdout",
+     "name": "Wodarz2007 - Cytomegalovirus infection model with cytotoxic T lymphocyte response",
+     "paper": "pubmed/17251133",
+     "author_year": "wodarz 2007"
+    },
+    {
+     "model": "BIOMD0000000688",
+     "set": "holdout",
+     "name": "Wodarz2007 - Cytomegalovirus infection model with cytotoxic T lymphocyte and natural killer cell response",
+     "paper": "pubmed/17251133",
+     "author_year": "wodarz 2007"
+    }
+   ]
+  },
+  {
+   "id": 100,
+   "models": [
+    {
+     "model": "BIOMD0000000668",
+     "set": "holdout",
+     "name": "Zhu2015 - Combined gemcitabine and birinapant in pancreatic cancer cells - basic PD model",
+     "paper": "pubmed/26252969",
+     "author_year": "zhu 2015"
+    },
+    {
+     "model": "BIOMD0000000669",
+     "set": "holdout",
+     "name": "Zhu2015 - Combined gemcitabine and birinapant in pancreatic cancer cells - mechanistic PD model",
+     "paper": "pubmed/26252969",
+     "author_year": "zhu 2015"
+    }
+   ]
+  },
+  {
+   "id": 101,
+   "models": [
+    {
+     "model": "BIOMD0000000679",
+     "set": "holdout",
+     "name": "Waugh2006 - Diabetic Wound Healing - Macrophage Dynamics",
+     "paper": "pubmed:16794927",
+     "author_year": "waugh 2006"
+    },
+    {
+     "model": "BIOMD0000000680",
+     "set": "holdout",
+     "name": "Waugh2006 - Diabetic Wound Healing - TGF-B Dynamics",
+     "paper": "pubmed/16794927",
+     "author_year": "waugh 2006"
+    },
+    {
+     "model": "BIOMD0000000681",
+     "set": "holdout",
+     "name": "Waugh2006 - Diabetic Wound Healing - Treated and Untreated Macrophage Dynamics",
+     "paper": "pubmed/16794927",
+     "author_year": "waugh 2006"
+    }
+   ]
+  },
+  {
+   "id": 102,
+   "models": [
+    {
+     "model": "BIOMD0000000684",
+     "set": "holdout",
+     "name": "Wodarz2003 Immunological Memory",
+     "paper": "pubmed/13678598",
+     "author_year": "wodarz 2003"
+    },
+    {
+     "model": "BIOMD0000000685",
+     "set": "holdout",
+     "name": "Wodarz2003 - Cytotoxic T lymphocyte cross-priming",
+     "paper": "pubmed/12706524",
+     "author_year": "wodarz 2003"
+    }
+   ]
+  },
+  {
+   "id": 103,
+   "models": [
+    {
+     "model": "BIOMD0000000699",
+     "set": "holdout",
+     "name": "Caydasi2012 - Regulation of Tem1 by the GAP complex in spindle position cell cycle checkpoint - Ubiquitous association model",
+     "paper": "pubmed/22580890",
+     "author_year": "caydasi 2012"
+    },
+    {
+     "model": "BIOMD0000000701",
+     "set": "holdout",
+     "name": "Caydasi2012 - Inhibition of Tem1 by the GAP complex in Spindle Position Checkpoint",
+     "paper": "doi/doi:10.1038/msb.2012.15",
+     "author_year": "caydasi 2012"
+    },
+    {
+     "model": "BIOMD0000000702",
+     "set": "holdout",
+     "name": "Caydasi2012 - Regulation of Tem1 by the GAP complex in Spindle Position Checkpoint - Ubiquitous inactive model",
+     "paper": "pubmed/22580890",
+     "author_year": "caydasi 2012"
+    }
+   ]
+  },
+  {
+   "id": 104,
+   "models": [
+    {
+     "model": "BIOMD0000000705",
+     "set": "holdout",
+     "name": "Smith2010 - Response of FOXO Transcription Factors to Post-Translational Modifications Made by Ageing-Related Signalling Pathways",
+     "paper": "pubmed/20567500",
+     "author_year": "smith 2010"
+    },
+    {
+     "model": "BIOMD0000000706",
+     "set": "holdout",
+     "name": "Smith2010 - Response of FOXO Transcription Factors to Post-Translational Modifications (with acetylation pathway)",
+     "paper": "pubmed/20567500",
+     "author_year": "smith 2010"
+    }
+   ]
+  },
+  {
+   "id": 105,
+   "models": [
+    {
+     "model": "BIOMD0000000708",
+     "set": "holdout",
+     "name": "Liu2017 - Dynamics of Avian Influenza with Logistic Growth",
+     "paper": "pubmed:27887851",
+     "author_year": "liu 2017"
+    },
+    {
+     "model": "BIOMD0000000709",
+     "set": "holdout",
+     "name": "Liu2017 - Dynamics of Avian Influenza with Allee Growth Effect",
+     "paper": "pubmed:27887851",
+     "author_year": "liu 2017"
+    },
+    {
+     "model": "BIOMD0000000930",
+     "set": "holdout",
+     "name": "Liu2017 - chemotherapy targeted model of tumor immune system",
+     "paper": "doi/10.1016/j.chaos.2017.03.002",
+     "author_year": "liu 2017"
+    }
+   ]
+  },
+  {
+   "id": 106,
+   "models": [
+    {
+     "model": "BIOMD0000000716",
+     "set": "holdout",
+     "name": "Lee2018 - Avian human bilinear incidence (BI) model",
+     "paper": "doi:10.1016/j.idm.2018.03.004",
+     "author_year": "lee 2018"
+    },
+    {
+     "model": "BIOMD0000000717",
+     "set": "holdout",
+     "name": "Lee2018 - Avian human half-saturated incidence (HSI) model",
+     "paper": "doi:10.1016/j.idm.2018.03.004",
+     "author_year": "lee 2018"
+    }
+   ]
+  },
+  {
+   "id": 107,
+   "models": [
+    {
+     "model": "BIOMD0000000735",
+     "set": "holdout",
+     "name": "Mouse Iron Distribution - Adequate iron diet (tracer)",
+     "paper": "pubmed:28521769",
+     "author_year": null
+    },
+    {
+     "model": "BIOMD0000000736",
+     "set": "holdout",
+     "name": "Mouse Iron Distribution - Adequate iron diet (No Tracer)",
+     "paper": "pubmed:28521769",
+     "author_year": null
+    }
+   ]
+  },
+  {
+   "id": 108,
+   "models": [
+    {
+     "model": "BIOMD0000000744",
+     "set": "holdout",
+     "name": "Hu2019 - Pancreatic cancer dynamics",
+     "paper": "doi:10.1007/s11538-019-00591-3",
+     "author_year": "hu 2019"
+    },
+    {
+     "model": "BIOMD0000000792",
+     "set": "holdout",
+     "name": "Hu2019 - Modeling Pancreatic Cancer Dynamics with Immunotherapy",
+     "paper": "pubmed/30843136",
+     "author_year": "hu 2019"
+    }
+   ]
+  },
+  {
+   "id": 109,
+   "models": [
+    {
+     "model": "BIOMD0000000751",
+     "set": "holdout",
+     "name": "Wilkie2013b - immune-induced cancer dormancy and immune evasion-basic",
+     "paper": "pubmed/24511375",
+     "author_year": "wilkie 2013"
+    },
+    {
+     "model": "BIOMD0000000752",
+     "set": "holdout",
+     "name": "Wilkie2013r - immune-induced cancer dormancy and immune evasion-resistance",
+     "paper": "pubmed/24511375",
+     "author_year": "wilkie 2013"
+    }
+   ]
+  },
+  {
+   "id": 110,
+   "models": [
+    {
+     "model": "BIOMD0000000753",
+     "set": "holdout",
+     "name": "Figueredo2013/1 - immunointeraction base model",
+     "paper": "pubmed/23734575",
+     "author_year": "figueredo 2013"
+    },
+    {
+     "model": "BIOMD0000000754",
+     "set": "holdout",
+     "name": "Figueredo2013/2 - immunointeraction model with IL2",
+     "paper": "pubmed/23734575",
+     "author_year": "figueredo 2013"
+    },
+    {
+     "model": "BIOMD0000000756",
+     "set": "holdout",
+     "name": "Figueredo2013/3 - immunointeraction full model",
+     "paper": "pubmed/23734575",
+     "author_year": "figueredo 2013"
+    }
+   ]
+  },
+  {
+   "id": 111,
+   "models": [
+    {
+     "model": "BIOMD0000000766",
+     "set": "holdout",
+     "name": "Macnamara2015/1 - virotherapy full model",
+     "paper": "pubmed/25882747",
+     "author_year": "macnamara 2015"
+    },
+    {
+     "model": "BIOMD0000000767",
+     "set": "holdout",
+     "name": "Macnamara2015/2 - virotherapy virus-free submodel",
+     "paper": "pubmed/25882747",
+     "author_year": "macnamara 2015"
+    }
+   ]
+  },
+  {
+   "id": 112,
+   "models": [
+    {
+     "model": "BIOMD0000000769",
+     "set": "holdout",
+     "name": "Eftimie2017/2 - interaction of Th and macrophage in melanoma",
+     "paper": "pubmed/28219660",
+     "author_year": "eftimie 2017"
+    },
+    {
+     "model": "BIOMD0000000770",
+     "set": "holdout",
+     "name": "Eftimie2017/1 - interaction of Th and macrophage",
+     "paper": "pubmed/28219660",
+     "author_year": "eftimie 2017"
+    }
+   ]
+  },
+  {
+   "id": 113,
+   "models": [
+    {
+     "model": "BIOMD0000000772",
+     "set": "holdout",
+     "name": "Wang2019 - A mathematical model of oncolytic virotherapy with time delay",
+     "paper": "pubmed/31137188",
+     "author_year": "wang 2019"
+    },
+    {
+     "model": "BIOMD0000000902",
+     "set": "holdout",
+     "name": "Wang2019 - A mathematical model of oncolytic virotherapy with time delay",
+     "paper": "pubmed/31137188",
+     "author_year": "wang 2019"
+    }
+   ]
+  },
+  {
+   "id": 114,
+   "models": [
+    {
+     "model": "BIOMD0000000773",
+     "set": "holdout",
+     "name": "Wodarz2018/2 - model with transit amplifying cells",
+     "paper": "pubmed/29605227",
+     "author_year": "wodarz 2018"
+    },
+    {
+     "model": "BIOMD0000000774",
+     "set": "holdout",
+     "name": "Wodarz2018/1 - simple model",
+     "paper": "pubmed/29605227",
+     "author_year": "wodarz 2018"
+    }
+   ]
+  },
+  {
+   "id": 115,
+   "models": [
+    {
+     "model": "BIOMD0000000780",
+     "set": "holdout",
+     "name": "Wang2016/1 - oncolytic efficacy of M1 virus-SNTM model",
+     "paper": "pubmed/26976483",
+     "author_year": "wang 2016"
+    },
+    {
+     "model": "BIOMD0000000781",
+     "set": "holdout",
+     "name": "Wang2016/2 - oncolytic efficacy of M1 virus-SNT model",
+     "paper": "pubmed/26976483",
+     "author_year": "wang 2016"
+    },
+    {
+     "model": "BIOMD0000000782",
+     "set": "holdout",
+     "name": "Wang2016/3 - oncolytic efficacy of M1 virus-SN model",
+     "paper": "pubmed/26976483",
+     "author_year": "wang 2016"
+    }
+   ]
+  },
+  {
+   "id": 116,
+   "models": [
+    {
+     "model": "BIOMD0000000793",
+     "set": "holdout",
+     "name": "Chen2011/1 - bone marrow invasion absolute model",
+     "paper": "pubmed:21967667",
+     "author_year": "chen 2011"
+    },
+    {
+     "model": "BIOMD0000000795",
+     "set": "holdout",
+     "name": "Chen2011/2 - bone marrow invasion relative model",
+     "paper": "pubmed/21967667",
+     "author_year": "chen 2011"
+    }
+   ]
+  },
+  {
+   "id": 117,
+   "models": [
+    {
+     "model": "BIOMD0000000816",
+     "set": "holdout",
+     "name": "Gevertz2018 - Cancer Treatment with Oncolytic Viruses and Dendritic Cell injections original model",
+     "paper": "pubmed:30510594",
+     "author_year": "gevertz 2018"
+    },
+    {
+     "model": "BIOMD0000000817",
+     "set": "holdout",
+     "name": "Gevertz2018 - cancer treatment with oncolytic viruses and dendritic cell injections minimal model",
+     "paper": "pubmed:30510594",
+     "author_year": "gevertz 2018"
+    }
+   ]
+  },
+  {
+   "id": 118,
+   "models": [
+    {
+     "model": "BIOMD0000000828",
+     "set": "holdout",
+     "name": "Jung2019 - Regulating glioblastoma signaling pathways and anti-invasion therapy - core control model",
+     "paper": "pubmed:31009513",
+     "author_year": "jung 2019"
+    },
+    {
+     "model": "BIOMD0000000829",
+     "set": "holdout",
+     "name": "Jung2019 - egulating glioblastoma signaling pathways and anti-invasion therapy cell cycle dynamics model",
+     "paper": "pubmed:31009513",
+     "author_year": "jung 2019"
+    }
+   ]
+  },
+  {
+   "id": 119,
+   "models": [
+    {
+     "model": "BIOMD0000000834",
+     "set": "holdout",
+     "name": "Verma2016 - Ca(2+) Signal Propagation Along Hepatocyte Cords",
+     "paper": "pubmed/27076052",
+     "author_year": "verma 2016"
+    },
+    {
+     "model": "BIOMD0000000872",
+     "set": "holdout",
+     "name": "Verma2016 - HIV and HPV co-infection, T-cell response",
+     "paper": "pubmed/28060843",
+     "author_year": "verma 2016"
+    }
+   ]
+  },
+  {
+   "id": 120,
+   "models": [
+    {
+     "model": "BIOMD0000000845",
+     "set": "holdout",
+     "name": "Gulbudak2019.1 - Heterogeneous viral strategies promote coexistence in virus-microbe systems (Lytic)",
+     "paper": "pubmed/30389532",
+     "author_year": "gulbudak 2019"
+    },
+    {
+     "model": "BIOMD0000000846",
+     "set": "holdout",
+     "name": "Gulbudak2019.2 - Heterogeneous viral strategies promote coexistence in virus-microbe systems (Chronic)",
+     "paper": "pubmed/30389532",
+     "author_year": "gulbudak 2019"
+    }
+   ]
+  },
+  {
+   "id": 121,
+   "models": [
+    {
+     "model": "BIOMD0000000857",
+     "set": "holdout",
+     "name": "Larbat2016.1 - Modeling the diversion of primary carbon flux into secondary metabolism under variable nitrate and light or dark conditions (Base Model)",
+     "paper": "pubmed/27164436",
+     "author_year": "larbat 2016"
+    },
+    {
+     "model": "BIOMD0000000858",
+     "set": "holdout",
+     "name": "Larbat2016.2 - Modeling the diversion of primary carbon flux into secondary metabolism under variable nitrate and light or dark conditions (Light Dark Cycles)",
+     "paper": "pubmed/27164436",
+     "author_year": "larbat 2016"
+    },
+    {
+     "model": "BIOMD0000000859",
+     "set": "holdout",
+     "name": "Larbat2016.3 - Modeling the diversion of primary carbon flux into secondary metabolism under variable nitrate and light or dark conditions (Light Dark Cycles with Minimum Starch Adaption)",
+     "paper": "pubmed/27164436",
+     "author_year": "larbat 2016"
+    }
+   ]
+  },
+  {
+   "id": 122,
+   "models": [
+    {
+     "model": "BIOMD0000000860",
+     "set": "holdout",
+     "name": "Proctor2017- Role of microRNAs in osteoarthritis (Positive Feedforward Incoherent By MicroRNA)_1",
+     "paper": "pubmed/29095952",
+     "author_year": "proctor 2017"
+    },
+    {
+     "model": "BIOMD0000000862",
+     "set": "holdout",
+     "name": "Proctor2017- Role of microRNAs in osteoarthritis (Positive Feedback By Micro RNA)",
+     "paper": "pubmed/29095952",
+     "author_year": "proctor 2017"
+    },
+    {
+     "model": "BIOMD0000000864",
+     "set": "holdout",
+     "name": "Proctor2017- Role of microRNAs in osteoarthritis (Negative Feedback By MicroRNA)",
+     "paper": "pubmed/29095952",
+     "author_year": "proctor 2017"
+    }
+   ]
+  },
+  {
+   "id": 123,
+   "models": [
+    {
+     "model": "BIOMD0000000866",
+     "set": "holdout",
+     "name": "Simon2019 - NIK-dependent p100 processing into p52, Michaelis-Menten, SBML 2v4",
+     "paper": "doi:10.1073/pnas.1816000116",
+     "author_year": "simon 2019"
+    },
+    {
+     "model": "BIOMD0000000868",
+     "set": "holdout",
+     "name": "Simon2019 - NIK-dependent p100 processing into p52, Mass Action, SBML 2v4",
+     "paper": "doi:10.1073/pnas.1816000116",
+     "author_year": "simon 2019"
+    },
+    {
+     "model": "BIOMD0000000869",
+     "set": "holdout",
+     "name": "Simon2019 - NIK-dependent p100 processing into p52 and IkBd degradation, Michaelis-Menten, SBML 2v4",
+     "paper": "doi:10.1073/pnas.1816000116",
+     "author_year": "simon 2019"
+    },
+    {
+     "model": "BIOMD0000000870",
+     "set": "holdout",
+     "name": "Simon2019 - NIK-dependent p100 processing into p52 and IkBd degradation, mass action, SBML 2v4",
+     "paper": "doi:10.1073/pnas.1816000116",
+     "author_year": "simon 2019"
+    },
+    {
+     "model": "BIOMD0000000871",
+     "set": "holdout",
+     "name": "NIK-dependent p100 processing into p52 with RelB binding and IkBd degradation, mass action, SBML 2v4",
+     "paper": "doi:10.1073/pnas.1816000116",
+     "author_year": null
+    }
+   ]
+  },
+  {
+   "id": 124,
+   "models": [
+    {
+     "model": "BIOMD0000000905",
+     "set": "holdout",
+     "name": "Dubey2007 - A mathematical model for the effect of toxicant on the immune system (with toxicant effect) Model2",
+     "paper": "doi/10.1142/S0218339007002301",
+     "author_year": "dubey 2007"
+    },
+    {
+     "model": "BIOMD0000000906",
+     "set": "holdout",
+     "name": "Dubey2007 - A mathematical model for the effect of toxicant on the immune system (without toxicant effect) Model1",
+     "paper": "doi/10.1142/S0218339007002301",
+     "author_year": "dubey 2007"
+    }
+   ]
+  },
+  {
+   "id": 125,
+   "models": [
+    {
+     "model": "BIOMD0000000932",
+     "set": "holdout",
+     "name": "Garde2020-Minimal model describing metabolic oscillations in Bacillus subtilis biofilms",
+     "paper": "pubmed:32257302",
+     "author_year": "garde 2020"
+    },
+    {
+     "model": "BIOMD0000001053",
+     "set": "holdout",
+     "name": "Garde2020 - metabolic oscillations in Bacillus subtilis biofilms",
+     "paper": "doi:10.1038/s41598-020-62526-6",
+     "author_year": "garde 2020"
+    }
+   ]
+  },
+  {
+   "id": 126,
+   "models": [
+    {
+     "model": "BIOMD0000000935",
+     "set": "holdout",
+     "name": "Ferrel2011 - Cdk1 and APC regulation in cell cycle in Xenopus laevis",
+     "paper": "pubmed:21414480",
+     "author_year": "ferrel 2011"
+    },
+    {
+     "model": "BIOMD0000000936",
+     "set": "holdout",
+     "name": "ferrel2011 - autonomous biochemical oscillator in cell cycle in Xenopus laevis v2",
+     "paper": "pubmed:21414480",
+     "author_year": "ferrel 2011"
+    },
+    {
+     "model": "BIOMD0000000937",
+     "set": "holdout",
+     "name": "Ferrel2011 - Autonomous biochemical oscillator in regulation of CDK1, Plk1, and APC in Xenopus Laevis cell cycle",
+     "paper": "pubmed:21414480",
+     "author_year": "ferrel 2011"
+    }
+   ]
+  },
+  {
+   "id": 127,
+   "models": [
+    {
+     "model": "BIOMD0000000971",
+     "set": "holdout",
+     "name": "Tang2020 - Estimation of transmission risk of COVID-19 and impact of public health interventions",
+     "paper": "pubmed:32046137",
+     "author_year": "tang 2020"
+    },
+    {
+     "model": "BIOMD0000000972",
+     "set": "holdout",
+     "name": "Tang2020 - Estimation of transmission risk of COVID-19 and impact of public health interventions - update",
+     "paper": "pubmed/32099934",
+     "author_year": "tang 2020"
+    }
+   ]
+  },
+  {
+   "id": 128,
+   "models": [
+    {
+     "model": "BIOMD0000000979",
+     "set": "holdout",
+     "name": "Malkov2020 - SEIRS model of COVID-19 transmission with reinfection",
+     "paper": "pubmed:32982082",
+     "author_year": "malkov 2020"
+    },
+    {
+     "model": "BIOMD0000000980",
+     "set": "holdout",
+     "name": "Malkov2020 - SEIRS model of COVID-19 transmission with time-varying R values and reinfection",
+     "paper": "pubmed/32982082",
+     "author_year": "malkov 2020"
+    }
+   ]
+  },
+  {
+   "id": 129,
+   "models": [
+    {
+     "model": "BIOMD0000000986",
+     "set": "holdout",
+     "name": "Aubry1995 - Multi-compartment model of fluid-phase endocytosis kinetics in Dictyostelium discoideum",
+     "paper": "doi/10.1007/BF00713556",
+     "author_year": "aubry 1995"
+    },
+    {
+     "model": "BIOMD0000000987",
+     "set": "holdout",
+     "name": "Aubry1995 - Nine-compartment model of fluid-phase endocytosis kinetics in Dictyostelium discoideum",
+     "paper": "doi/10.1007/BF00713556",
+     "author_year": "aubry 1995"
+    }
+   ]
+  },
+  {
+   "id": 130,
+   "models": [
+    {
+     "model": "BIOMD0000000989",
+     "set": "holdout",
+     "name": "Strasen2018 - TGFb SMAD Signalling - Dose dependent dynamics upon TGFb stimulation",
+     "paper": "pubmed/29371237",
+     "author_year": "strasen 2018"
+    },
+    {
+     "model": "BIOMD0000000990",
+     "set": "holdout",
+     "name": "Strasen2018 - TGFb SMAD Signalling - Degradation of 25pM ligand (TGFb)",
+     "paper": "pubmed/29371237",
+     "author_year": "strasen 2018"
+    },
+    {
+     "model": "BIOMD0000000994",
+     "set": "holdout",
+     "name": "Strasen2018 - TGFb SMAD Signalling - Restimulation with 5pM TGFb at 3hr",
+     "paper": "pubmed/29371237",
+     "author_year": "strasen 2018"
+    },
+    {
+     "model": "BIOMD0000000995",
+     "set": "holdout",
+     "name": "Strasen2018 - TGFb SMAD Signalling - Restimulation with 5pM TGFb at 8hr",
+     "paper": "pubmed/29371237",
+     "author_year": "strasen 2018"
+    },
+    {
+     "model": "BIOMD0000000996",
+     "set": "holdout",
+     "name": "Strasen2018 - TGFb SMAD Signalling - Restimulation with 100pM TGFb at 6hr",
+     "paper": "pubmed/29371237",
+     "author_year": "strasen 2018"
+    },
+    {
+     "model": "BIOMD0000000997",
+     "set": "holdout",
+     "name": "Strasen2018 - TGFb SMAD Signalling - DRB treatment",
+     "paper": "pubmed/29371237",
+     "author_year": "strasen 2018"
+    },
+    {
+     "model": "BIOMD0000000998",
+     "set": "holdout",
+     "name": "Strasen2018 - TGFb SMAD Signalling Class 1",
+     "paper": "pubmed/29371237",
+     "author_year": "strasen 2018"
+    },
+    {
+     "model": "BIOMD0000000999",
+     "set": "holdout",
+     "name": "Strasen2018 - TGFb SMAD Signalling Class 2",
+     "paper": "pubmed/29371237",
+     "author_year": "strasen 2018"
+    },
+    {
+     "model": "BIOMD0000001000",
+     "set": "holdout",
+     "name": "Strasen2018 - TGFb SMAD Signalling Class 3",
+     "paper": "pubmed/29371237",
+     "author_year": "strasen 2018"
+    },
+    {
+     "model": "BIOMD0000001001",
+     "set": "holdout",
+     "name": "Strasen2018 - TGFb SMAD Signalling Class 4",
+     "paper": "pubmed/29371237",
+     "author_year": "strasen 2018"
+    },
+    {
+     "model": "BIOMD0000001002",
+     "set": "holdout",
+     "name": "Strasen2018 - TGFb SMAD Signalling Class 5",
+     "paper": "pubmed/29371237",
+     "author_year": "strasen 2018"
+    },
+    {
+     "model": "BIOMD0000001003",
+     "set": "holdout",
+     "name": "Strasen2018 - TGFb SMAD Signalling Class 6",
+     "paper": "pubmed/29371237",
+     "author_year": "strasen 2018"
+    }
+   ]
+  },
+  {
+   "id": 131,
+   "models": [
+    {
+     "model": "BIOMD0000001007",
+     "set": "holdout",
+     "name": "Zhang2007 - Mechanism of DNA damage response (Model1)",
+     "paper": "pubmed/17245126",
+     "author_year": "zhang 2007"
+    },
+    {
+     "model": "BIOMD0000001009",
+     "set": "holdout",
+     "name": "Zhang2007 - Mechanism of DNA damage response (Model2)",
+     "paper": "pubmed/17245126",
+     "author_year": "zhang 2007"
+    },
+    {
+     "model": "BIOMD0000001010",
+     "set": "holdout",
+     "name": "Zhang2007 - Mechanism of DNA damage response (Model3)",
+     "paper": "pubmed/17245126",
+     "author_year": "zhang 2007"
+    }
+   ]
+  },
+  {
+   "id": 132,
+   "models": [
+    {
+     "model": "BIOMD0000001011",
+     "set": "holdout",
+     "name": "Leon-Triana2020 - CAR T-cell therapy in B-cell acute lymphoblastic leukaemia",
+     "paper": "doi:10.1016/j.cnsns.2020.105570",
+     "author_year": "leon-triana 2020"
+    },
+    {
+     "model": "BIOMD0000001012",
+     "set": "holdout",
+     "name": "Leon-Triana2020 - CAR T-cell therapy in B-cell acute lymphoblastic leukaemia with contribution from immature B cells",
+     "paper": "doi:10.1016/j.cnsns.2020.105570",
+     "author_year": "leon-triana 2020"
+    }
+   ]
+  },
+  {
+   "id": 133,
+   "models": [
+    {
+     "model": "BIOMD0000001013",
+     "set": "holdout",
+     "name": "Leon-Triana2021 - Competition between tumour cells and single-target CAR T-cells",
+     "paper": "pubmed:33572301",
+     "author_year": "leon-triana 2021"
+    },
+    {
+     "model": "BIOMD0000001014",
+     "set": "holdout",
+     "name": "Leon-Triana2021 - Competition between tumour cells and dual-target CAR T-cells",
+     "paper": "pubmed:33572301",
+     "author_year": "leon-triana 2021"
+    }
+   ]
+  },
+  {
+   "id": 134,
+   "models": [
+    {
+     "model": "BIOMD0000001016",
+     "set": "holdout",
+     "name": "Bakshi2020 - Truncated minimal model of alternative pathway of complement system",
+     "paper": "pubmed:32062771",
+     "author_year": "bakshi 2020"
+    },
+    {
+     "model": "BIOMD0000001017",
+     "set": "holdout",
+     "name": "Bakshi2020 - Minimal model of alternative pathway of complement system",
+     "paper": "pubmed:32062771",
+     "author_year": "bakshi 2020"
+    },
+    {
+     "model": "BIOMD0000001018",
+     "set": "holdout",
+     "name": "Bakshi2020 - Properdin model of alternative pathway of complement system",
+     "paper": "pubmed:32062771",
+     "author_year": "bakshi 2020"
+    }
+   ]
+  },
+  {
+   "id": 135,
+   "models": [
+    {
+     "model": "BIOMD0000001019",
+     "set": "holdout",
+     "name": "Barros2021 - CARTmath, Mathematical Model of CAR-T Immunotherapy in HDLM-2 cell line",
+     "paper": "pubmed/34208323",
+     "author_year": "barros 2021"
+    },
+    {
+     "model": "BIOMD0000001020",
+     "set": "holdout",
+     "name": "Barros2021 - CARTmath, Mathematical Model of CAR-T Immunotherapy in Raji Cell Line",
+     "paper": "pubmed/34208323",
+     "author_year": "barros 2021"
+    }
+   ]
+  },
+  {
+   "id": 136,
+   "models": [
+    {
+     "model": "BIOMD0000001023",
+     "set": "holdout",
+     "name": "Alharbi2020 - An ODE-based model of the dynamics of tumor cell progression and its effects on normal cell growth and immune system functionality",
+     "paper": "doi:10.3390/math8081285",
+     "author_year": "alharbi 2020"
+    },
+    {
+     "model": "BIOMD0000001052",
+     "set": "holdout",
+     "name": "Alharbi2020 - Tumor and immune system competition",
+     "paper": "doi:10.3390/math8081285",
+     "author_year": "alharbi 2020"
+    }
+   ]
+  },
+  {
+   "id": 137,
+   "models": [
+    {
+     "model": "BIOMD0000001024",
+     "set": "holdout",
+     "name": "Chaudhury2020 - Lotka-Volterra mathematical model of CAR-T cell and tumour kinetics",
+     "paper": "pubmed:33205434",
+     "author_year": "chaudhury 2020"
+    },
+    {
+     "model": "BIOMD0000001025",
+     "set": "holdout",
+     "name": "Chaudhury2020 - EC50 expansion and killing mathematical model of CAR-T cell and tumour kinetics",
+     "paper": "pubmed:33205434",
+     "author_year": "chaudhury 2020"
+    }
+   ]
+  },
+  {
+   "id": 138,
+   "models": [
+    {
+     "model": "BIOMD0000001026",
+     "set": "holdout",
+     "name": "Kurlovics2021 - Metformin partitioning between plasma and RBC with independent Kin and Kout coefficients",
+     "paper": "doi:10.1007/s40262-021-01058-2",
+     "author_year": "kurlovics 2021"
+    },
+    {
+     "model": "BIOMD0000001040",
+     "set": "holdout",
+     "name": "Kurlovics2021 - Metformin partitioning from plasma to RBC,  single coefficient",
+     "paper": "doi:10.1007/s40262-021-01058-2",
+     "author_year": "kurlovics 2021"
+    }
+   ]
+  },
+  {
+   "id": 139,
+   "models": [
+    {
+     "model": "BIOMD0000001027",
+     "set": "holdout",
+     "name": "Zake2021 - PBPK model of metformin in mice: single dose peroral",
+     "paper": "doi:10.1371/journal.pone.0249594",
+     "author_year": "zake 2021"
+    },
+    {
+     "model": "BIOMD0000001028",
+     "set": "holdout",
+     "name": "Zake2021 - PBPK model of metformin in humans, single PO dose",
+     "paper": "doi:10.1371/journal.pone.0249594",
+     "author_year": "zake 2021"
+    },
+    {
+     "model": "BIOMD0000001029",
+     "set": "holdout",
+     "name": "Zake2021 - PBPK model of metformin in humans, eight PO administrations with 12h interval",
+     "paper": "doi:10.1371/journal.pone.0249594",
+     "author_year": "zake 2021"
+    },
+    {
+     "model": "BIOMD0000001039",
+     "set": "holdout",
+     "name": "Zake2021 - PBPK model of metformin in mice: single dose intavenous",
+     "paper": "doi:10.1371/journal.pone.0249594",
+     "author_year": "zake 2021"
+    }
+   ]
+  },
+  {
+   "id": 140,
+   "models": [
+    {
+     "model": "BIOMD0000001031",
+     "set": "holdout",
+     "name": "Al-Tuwairqi2020 - Dynamics of cancer virotherapy - Phase I treatment",
+     "paper": "pubmed:32738266",
+     "author_year": "al-tuwairqi 2020"
+    },
+    {
+     "model": "BIOMD0000001032",
+     "set": "holdout",
+     "name": "Al-Tuwairqi2020 - Dynamics of cancer radiovirotherapy - Phase II treatment",
+     "paper": "pubmed:32738266",
+     "author_year": "al-tuwairqi 2020"
+    },
+    {
+     "model": "BIOMD0000001035",
+     "set": "holdout",
+     "name": "Al-Tuwairqi2020 - Dynamics of cancer virotherapy with immune response",
+     "paper": "doi:10.1186/s13662-020-02893-6",
+     "author_year": "al-tuwairqi 2020"
+    }
+   ]
+  },
+  {
+   "id": 141,
+   "models": [
+    {
+     "model": "BIOMD0000001037",
+     "set": "holdout",
+     "name": "Alharbi2019 - Tumor-normal model (TNM) of the development of tumor cells and their impact on normal cell dynamics",
+     "paper": "doi:10.1109/ACCESS.2019.2940060",
+     "author_year": "alharbi 2019"
+    },
+    {
+     "model": "BIOMD0000001038",
+     "set": "holdout",
+     "name": "Alharbi2019 - Tumor-normal-vitamins model (TNVM) of the effects of vitamins on delaying the growth of tumor cells",
+     "paper": "doi:10.1109/ACCESS.2019.2940060",
+     "author_year": "alharbi 2019"
+    }
+   ]
+  },
+  {
+   "id": 142,
+   "models": [
+    {
+     "model": "BIOMD0000001079",
+     "set": "holdout",
+     "name": "DeBoeck2021 - Modular approach to modeling the cell cycle, simple cell cycle model",
+     "paper": "doi:10.1371/journal.pcbi.1009008",
+     "author_year": "deboeck 2021"
+    },
+    {
+     "model": "BIOMD0000001080",
+     "set": "holdout",
+     "name": "DeBoeck2021 - Modular approach to modeling the cell cycle, 5 ODE model with 3 bistable switches",
+     "paper": "doi:10.1371/journal.pcbi.1009008",
+     "author_year": "deboeck 2021"
+    }
+   ]
+  }
+ ]
+}

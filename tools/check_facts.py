@@ -442,6 +442,26 @@ def values() -> tuple[dict[str, object], dict[str, str]]:
         "truth_tests.json families: more than one set of behaviours, in words",
     )
     put("fams_sits", sum(N["sits"].values()), "truth_tests.json families: one (loops, brakes, totals)")
+    EL = load("essential_loops.json")
+    el_pred = EL["fail_line_2"]["predicts"]["reduced, 1 to 16 loops"]
+    el_census, el_r31 = EL["fail_line_2"]["census"], EL["models"]["r31"]
+    put("el_f1", EL["fail_line_1"]["families_agreeing"], "essential_loops.json fail_line_1.families_agreeing")
+    put("el_f1_of", EL["fail_line_1"]["of"], "essential_loops.json fail_line_1.of")
+    put("el_f3", EL["fail_line_3"]["agree"], "essential_loops.json fail_line_3.agree")
+    put("el_f3_of", EL["fail_line_3"]["families_scored"], "essential_loops.json fail_line_3.families_scored")
+    put("el_fly_big", el_r31["BIOMD0000000298"]["raw"][0], "essential_loops.json models.r31 BIOMD0000000298 raw loops")
+    put("el_fly_small", el_r31["BIOMD0000000016"]["raw"][0], "essential_loops.json models.r31 BIOMD0000000016 raw loops")
+    assert el_r31["BIOMD0000000298"]["reduced"] == el_r31["BIOMD0000000016"]["reduced"] == [1, 1, 0]
+    put(
+        "el_rand_p",
+        f'{EL["controls"]["random_families"]["p_random_at_least_observed"]:.2f}',
+        "essential_loops.json controls.random_families.p_random_at_least_observed",
+    )
+    put("el_n", el_pred["n"], "essential_loops.json fail_line_2.predicts, reduced, 1 to 16 loops: n")
+    put("el_tick", el_census["ticking_reduced"], "essential_loops.json fail_line_2.census.ticking_reduced")
+    put("el_vals", el_census["ticking_distinct_values"], "essential_loops.json fail_line_2.census.ticking_distinct_values")
+    put("el_acc", pct(el_pred["accuracy"]["address"]), "essential_loops.json fail_line_2.predicts accuracy.address")
+    put("el_sign", pct(el_pred["accuracy"]["sign"]), "essential_loops.json fail_line_2.predicts accuracy.sign")
     put("settling", N["settling"], "truth_tests.json step, status ok")
     put("exact", N["exact"], "truth_tests.json step, exact_returns non-empty")
     put("robust", len(N["robust"]), "robust_return.json, a robust pair")
@@ -956,6 +976,17 @@ FACTS = [
     # the essential-loops plan (Supplement F): the two numbers it starts from; its thresholds are hand notes below
     F("supplement", "where the raw address agrees in {fams_sits}/{fams}"),
     F("supplement", "Among the {fp_ticks} ticking models"),
+    F("supplement", "Reduced addresses agree in {el_f1}/{el_f1_of} hand-picked families"),
+    F("supplement", "and in {el_f3}/{el_f3_of} families found by the rule"),
+    F("supplement", "{el_fly_big}-loop drawing does reduce to the square of its {el_fly_small}-loop drawing"),
+    F("supplement", "agree as often as real ones (p = {el_rand_p})"),
+    F("supplement", "held on {el_n} labelled models: {el_tick} reduced ticking models take {el_vals} addresses"),
+    F("supplement", "calls held-out answers at {el_acc}% against {el_sign}% for the sign rules"),
+    F("supplement", "the pool (release 31 and the {ho_listed} newer models)"),
+    F(
+        "supplement",
+        "reduced addresses agree in {el_f1}/{el_f1_of} hand-picked families and {el_f3}/{el_f3_of} found by rule",
+    ),
     F("supplement", "Five drawings of one fly clock land at four addresses"),
     F(
         "supplement",
