@@ -420,42 +420,153 @@ def funnel(stages: list) -> str:
 
 
 # ---------------------------------------------------------------- explore the census
+# The model explorer: browse first. Every model of the census in one matrix, what it does by how many loops it has;
+# a cell lists its models. The named examples and the search by name come after, as two more ways in.
+EX_ROWS = [  # (the census's behaviour word, a plain gloss of its rule in Supplement C)
+    ('ticks', 'keeps a steady rhythm'),
+    ('holds two states', 'rests in one of two states'),
+    ('settles', 'comes to rest'),
+    ('rings, then settles', 'swings, then rests'),
+    ('settles anywhere', 'rests where it is left'),
+    ('never settles', 'fits none of these'),
+    ('grows without limit', 'a level keeps climbing'),
+    ('driven from outside', 'pushed on a schedule'),
+    ('not run', 'could not be run'),
+]
+EX_COLS = [('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4 or more'), ('x', 'too many')]
+
+
+def ex_bucket(loops: str) -> str:
+    """The loop column of a model: its count up to three, '4' for more, 'x' where the search hit its step limit."""
+    w = loops.split()[0]
+    return 'x' if not w.isdigit() else str(min(int(w), 4))
+
+
 def explorer(rows: list, picks: list) -> str:
-    """rows: list of dicts (id, name, loops, pattern, element, does). Search by name; quick picks are chips."""
-    chips = ''.join(f'<button type="button" class="pick" data-q="{q}">{lab}</button>' for lab, q in picks)
+    """rows: list of dicts (id, name, loops, pattern, element, does). picks: (label, search term, plain gloss).
+
+    A matrix of every model (what it does by how many loops) is in the HTML, so it reads without JavaScript; each
+    count is a button that lists its models. The named examples and the search box are the second and third way in.
+    """
+    n = len(rows)
+    cell = {}
+    for r in rows:
+        k = (r['does'], ex_bucket(r['loops']))
+        cell[k] = cell.get(k, 0) + 1
+    assert sum(cell.values()) == n and all(d in dict(EX_ROWS) for d, _ in cell), 'every model sits in one cell of the matrix'
+    top = max(cell.values())
+
+    def btn(d, c, k, what):
+        if not k:
+            return '<td class="ex-0" aria-label="none">&#8211;</td>'
+        tot = ' ex-tot' if d == '' or c == '' else ''
+        a = '' if tot else f' style="--a: {0.04 + 0.26 * math.sqrt(k / top):.2f}"'
+        return (
+            f'<td><button type="button" class="ex-c{tot}" data-row="{d}" data-col="{c}" aria-pressed="false" '
+            f'aria-label="{k} models: {what}"{a}>{k}</button></td>'
+        )
+
+    head = (
+        '<thead><tr><td rowspan="2" class="ex-corner">when run, the model</td>'
+        f'<th scope="colgroup" colspan="{len(EX_COLS)}" class="ex-ch">has this many <a href="#close">loops</a></th>'
+        '<th scope="col" rowspan="2" class="ex-all">all</th></tr><tr>'
+        + ''.join(f'<th scope="col"><span class="cl">{lab}</span></th>' for _, lab in EX_COLS)
+        + '</tr></thead>'
+    )
+    body = ''
+    for i, (d, gloss) in enumerate(EX_ROWS):
+        tr = f'<th scope="row">{trace_svg(d)}<span class="ex-rn"><b>{d}</b><i>{gloss}</i></span></th>'
+        for c, lab in EX_COLS:
+            loops = 'too many loops to list' if c == 'x' else f'{lab} loops'
+            tr += btn(i, c, cell.get((d, c), 0), f'{d}, {loops}')
+        tr += btn(i, '', sum(v for (dd, _), v in cell.items() if dd == d), d)
+        body += f'<tr>{tr}</tr>'
+    foot = '<tr class="ex-foot"><th scope="row"><span class="ex-rn"><b>all</b></span></th>'
+    for c, lab in EX_COLS:
+        loops = 'too many loops to list' if c == 'x' else f'{lab} loops'
+        foot += btn('', c, sum(v for (_, cc), v in cell.items() if cc == c), loops)
+    foot += btn('', '', n, 'every model') + '</tr>'
+    matrix = (
+        f'<table class="ex-mx"><caption>All {n} <a href="#count">curated models</a>, by what each does and how many loops it has</caption>'
+        f'{head}<tbody>{body}{foot}</tbody></table>'
+    )
+    chips = ''.join(
+        f'<li><button type="button" class="pick" data-q="{q}" aria-pressed="false">{lab}</button><span>{gloss}</span></li>'
+        for lab, q, gloss in picks
+    )
     js = (
         '''<script>
 (function () {
   var R = '''
         + json.dumps(rows, separators=(',', ':'))
         + ''';
-  var q = document.getElementById('ex-q'), list = document.getElementById('ex-list'), count = document.getElementById('ex-count');
+  var ROWS = '''
+        + json.dumps([d for d, _ in EX_ROWS], separators=(',', ':'))
+        + ''';
+  var box = document.getElementById('ex'), q = document.getElementById('ex-q'), list = document.getElementById('ex-list'), count = document.getElementById('ex-count');
+  var sel = {d: '0', l: '1'}, all = false, PIN = '12';   // opens on the clocks with one loop, the repressilator first
+  var el = null;   // {num, lab}: one square of the table, opened from its card's count
   function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;'}[c]; }); }
-  function draw() {
-    var term = q.value.trim().toLowerCase();
-    var hit = R.filter(function (r) { return !term || r.name.toLowerCase().indexOf(term) >= 0 || r.id.indexOf(term) >= 0; });
-    var cap = term ? 12 : 6;
-    count.textContent = hit.length + '/' + R.length + ' models' + (hit.length > cap ? ', first ' + cap + ' shown' : '');
-    [].forEach.call(document.querySelectorAll('.pick'), function (b) { b.setAttribute('aria-pressed', String(b.dataset.q.toLowerCase() === term)); });
-    list.innerHTML = hit.length ? hit.slice(0, cap).map(function (r) {
-      // the sign pattern carries its colours (lavender amplifies, amber brakes); every other bit stays escaped text
-      var pat = esc(r.pattern).replace(/\\+/g, '<span class="sp">+</span>').replace(/\\u2212/g, '<span class="sn">\\u2212</span>');
-      var bits = r.element === null ? [esc(r.loops)] : [esc(r.loops), pat, 'element ' + esc(r.element)];
-      bits.push(esc(r.does));
-      return '<li><span class="ex-name">' + esc(r.name) + '</span><span class="ex-meta">' + bits.map(function (b) { return '<span>' + b + '</span>'; }).join('') + '</span></li>';
-    }).join('') : '<li class="ex-meta">no model named that; try a shorter word or a chip above</li>';
+  function bucket(r) { var k = parseInt(r.loops, 10); return isNaN(k) ? 'x' : String(Math.min(k, 4)); }
+  function signs(p) {   // the sign pattern in words, in the page's two colours
+    var a = (p.match(/\\+/g) || []).length, b = (p.match(/\\u2212/g) || []).length, out = [];
+    if (a) out.push('<span class="sp">' + a + ' self-feeding</span>');
+    if (b) out.push('<span class="sn">' + b + (b > 1 ? ' brakes' : ' brake') + '</span>');
+    return out.join(', ');
   }
-  q.addEventListener('input', draw);
-  document.getElementById('ex-picks').addEventListener('click', function (e) { var b = e.target.closest('.pick'); if (b) { q.value = b.dataset.q; draw(); } });
+  function draw() {
+    var term = q.value.trim().toLowerCase(), hit, what;
+    if (term) {
+      hit = R.filter(function (r) { return r.name.toLowerCase().indexOf(term) >= 0 || r.id.indexOf(term) >= 0; });
+      what = 'named \\u201c' + esc(q.value.trim()) + '\\u201d';
+    } else if (el) {
+      hit = R.filter(function (r) { return r.element === el.num; });
+      what = 'on element ' + el.num + ': ' + esc(el.lab) + ' <button type="button" class="ex-more ex-back">back to all ' + R.length + '</button>';
+    } else {
+      hit = R.filter(function (r) { return (sel.d === '' || r.does === ROWS[+sel.d]) && (sel.l === '' || bucket(r) === sel.l); });
+      hit.sort(function (x, y) { return (y.id === PIN) - (x.id === PIN); });
+      what = [sel.d === '' ? '' : ROWS[+sel.d], sel.l === '' ? '' : sel.l === 'x' ? 'too many loops to list' : sel.l === '4' ? '4 or more loops' : sel.l === '1' ? '1 loop' : sel.l + ' loops'].filter(Boolean).join(', ');
+    }
+    [].forEach.call(box.querySelectorAll('.ex-c'), function (b) { b.setAttribute('aria-pressed', String(!term && !el && b.dataset.row === sel.d && b.dataset.col === sel.l)); });
+    [].forEach.call(box.querySelectorAll('.pick'), function (b) { b.setAttribute('aria-pressed', String(b.dataset.q.toLowerCase() === term)); });
+    var cap = all ? hit.length : 6;
+    count.innerHTML = '<b>' + hit.length + '/' + R.length + ' models</b> ' + what;
+    list.innerHTML = hit.length ? hit.slice(0, cap).map(function (r) {
+      var bits = [esc(r.loops)], s = signs(r.pattern);
+      if (s) bits.push(s);
+      if (r.element !== null) bits.push('<a href="#fig-ptable">element ' + esc(r.element) + '</a>');
+      bits.push(esc(r.does));
+      return '<li><a class="ex-name" href="https://www.ebi.ac.uk/biomodels/BIOMD' + ('0000000000' + r.id).slice(-10) + '">' + esc(r.name) + '</a><span class="ex-meta">' + bits.map(function (b) { return '<span>' + b + '</span>'; }).join('') + '</span></li>';
+    }).join('') + (hit.length > cap ? '<li><button type="button" class="ex-more">show all ' + hit.length + '</button></li>' : '')
+      : '<li class="ex-meta">no model named that; try a shorter word</li>';
+  }
+  box.addEventListener('click', function (e) {
+    var b = e.target.closest('.ex-c'), p = e.target.closest('.pick');
+    if (b) { sel = {d: b.dataset.row, l: b.dataset.col}; el = null; q.value = ''; all = false; draw(); }
+    else if (p) { q.value = p.dataset.q; el = null; all = false; draw(); }
+    else if (e.target.closest('.ex-back')) { el = null; sel = {d: '', l: ''}; all = false; draw(); }
+    else if (e.target.closest('.ex-more')) { all = true; draw(); }
+  });
+  q.addEventListener('input', function () { all = false; draw(); });
+  // a count on a tile's card ("45 curated models") lists the models on that square, here
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('.ec-open');
+    if (!a) return;
+    el = {num: +a.dataset.el, lab: a.dataset.lab}; q.value = ''; all = true;
+    for (var d = box.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) d.open = true;
+    draw(); count.setAttribute('tabindex', '-1'); count.focus({preventScroll: true}); count.scrollIntoView({block: 'start'});
+    e.preventDefault();
+  });
   draw();
 })();
 </script>'''
     )
     return (
-        '<div class="interactive explorer"><label class="ex-lab" for="ex-q">search by name</label>'
-        '<input id="ex-q" type="search" autocomplete="off">'
-        f'<div class="ex-picks" id="ex-picks">{chips}</div><p class="ex-count" id="ex-count" aria-live="polite"></p>'
-        '<ol class="ex-list" id="ex-list"></ol></div>' + js
+        f'<div class="interactive explorer" id="ex">{matrix}'
+        '<p class="ex-count" id="ex-count" aria-live="polite"></p><ol class="ex-list" id="ex-list"></ol>'
+        f'<p class="ex-lab">or start from a circuit with a name</p><ul class="ex-picks" id="ex-picks">{chips}</ul>'
+        '<label class="ex-lab" for="ex-q">or find a model by name</label><input id="ex-q" type="search" autocomplete="off">'
+        '</div>' + js
     )
 
 
@@ -706,7 +817,10 @@ window.ElCard = (function () {
                 known: function () { return 'known from experiments'; }, candidate: function (e) { return e.note || 'candidates to check'; },
                 blank: function () { return 'not found yet'; }};
   function html(e) {
-    var h = '<div class="ec-top"><span class="ec-k">element ' + e.num + '</span><span class="ec-s ec-' + e.status + '">' + STATUS[e.status](e) + '</span></div>' +
+    // a count that the explorer can list is a link to that list (the models on this square); it works once the card is pinned
+    var st = STATUS[e.status](e), lab = e.symHtml.replace(/<[^>]+>/g, '') + ', ' + e.name;
+    if (e.count > 0 && (e.status === 'found' || e.num === 0) && document.getElementById('ex')) st = '<a class="ec-open" href="#ex" data-el="' + e.num + '" data-lab="' + esc(lab) + '">' + st + '</a>';
+    var h = '<div class="ec-top"><span class="ec-k">element ' + e.num + '</span><span class="ec-s ec-' + e.status + '">' + st + '</span></div>' +
       '<p class="ec-t"><span class="ec-sym">' + e.symHtml + '</span>' + esc(e.name) + '</p><div class="ec-glyph" role="img" aria-label="' + esc(e.sig) + '">' + glyph(e.n, e.k, e.j) +
       '<p class="ec-key"><span class="sp">\u2192 switches on</span><span class="sn">\u22a3 switches off</span>' + (e.j ? '<span>\u222b running total</span>' : '') + '</p></div>' +
       '<p class="ec-d">' + esc(e.does) + '</p><ul class="ec-tr">' + e.traces.map(function (w, i) {

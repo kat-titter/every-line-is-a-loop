@@ -436,16 +436,51 @@ table.key td:nth-child(2) { white-space: nowrap; }
 .f-panel > div.on { visibility: visible; }
 .f-panel p:not(.label) { font: 400 var(--t2)/1.5 var(--sans); margin: 0 0 var(--s3); }
 .explorer { max-width: var(--measure); margin: var(--s5) 0 0; }
-.ex-lab, .ex-count { display: block; font: 500 var(--t1)/1.4 var(--sans); color: var(--muted); margin: 0 0 var(--s2); }
-#ex-q { width: 100%; min-height: 44px; padding: var(--s3) var(--s4); font: 400 var(--t3) var(--sans); color: var(--ink); background: var(--paper); border: 1px solid var(--muted); border-radius: var(--s4); }
-.ex-picks { display: flex; flex-wrap: wrap; gap: var(--s2); margin: var(--s3) 0; }
-.pick { min-height: 44px; padding: 0 var(--s4); font: 500 var(--t2) var(--sans); color: var(--accent-text); background: var(--paper); border: 1px solid var(--accent); border-radius: 999px; cursor: pointer; transition: background-color .15s ease; }
-.pick:hover, .pick[aria-pressed="true"] { background: var(--accent-tint); }
-ol.ex-list { list-style: none; padding: 0; margin: 0; }
+/* the explorer browses first: every model in one matrix (what it does by how many loops); a count is a button that
+   lists its models. Shade is count on a neutral ramp (--a, set per cell); lime and rose keep their meanings. */
+table.ex-mx { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 3px; margin: 0 -3px var(--s4); font: 400 var(--t2)/1.3 var(--sans); }
+table.ex-mx caption { text-align: left; font: 600 var(--t3)/1.35 var(--sans); color: var(--ink); padding: 0 3px var(--s3); }
+table.ex-mx th, table.ex-mx td { border: 0; padding: 0; vertical-align: middle; text-align: center; letter-spacing: 0; }
+table.ex-mx thead th, table.ex-mx .ex-corner { font: 400 var(--t1)/1.25 var(--sans); color: var(--muted); padding: 0 0 var(--s1); vertical-align: bottom; }
+table.ex-mx .ex-corner { text-align: left; width: 34%; }
+table.ex-mx tbody th { text-align: left; font: 400 var(--t2)/1.25 var(--sans); color: var(--ink); white-space: nowrap; padding-right: var(--s3); }
+table.ex-mx tbody th svg, figure.fig table.ex-mx tbody th svg { display: inline-block; width: 32px; height: 16px; vertical-align: middle; margin-right: var(--s3); }
+.ex-rn { display: inline-block; vertical-align: middle; }
+.ex-rn b { display: block; font-weight: 600; }
+.ex-rn i { display: block; font: 400 var(--t1)/1.3 var(--sans); color: var(--muted); }
+.ex-c { display: block; width: 100%; min-width: 44px; height: 44px; padding: 0; border: 0; border-radius: var(--s3); font: 500 var(--t2)/1 var(--code); color: var(--ink); background: color-mix(in srgb, var(--ink) calc(var(--a, 0) * 100%), transparent); cursor: pointer; }
+.ex-c.ex-tot { background: transparent; color: var(--muted); }
+.ex-c:hover, .ex-c:focus-visible { outline: 2px solid var(--muted); outline-offset: 0; }
+.ex-c[aria-pressed="true"] { outline: 2px solid var(--ink); outline-offset: 0; color: var(--ink); }
+.ex-0 { font: 400 var(--t2)/1 var(--code); color: var(--muted); }
+.ex-foot th, .ex-foot td { padding-top: var(--s2); }
+.ex-lab, .ex-count { display: block; font: 500 var(--t1)/1.4 var(--sans); color: var(--muted); margin: var(--s5) 0 var(--s2); }
+.ex-count { font: 400 var(--t2)/1.4 var(--sans); margin-top: 0; }
+.ex-count b { color: var(--ink); font-weight: 600; margin-right: var(--s2); }
+#ex-q { width: 100%; max-width: 320px; min-height: 44px; padding: var(--s3) var(--s4); font: 400 var(--t2) var(--sans); color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: var(--s4); }
+ul.ex-picks { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2) var(--s5); margin: 0; padding: 0; }
+ul.ex-picks li { display: grid; grid-template-columns: 118px minmax(0, 1fr); gap: var(--s3); align-items: center; font: 400 var(--t2)/1.3 var(--sans); color: var(--muted); }
+.pick { min-height: 44px; padding: 0 var(--s3); font: 500 var(--t2) var(--sans); color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 999px; cursor: pointer; }
+.pick:hover { border-color: var(--ink); }
+.pick[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+ol.ex-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--rule); }
 ol.ex-list li { padding: var(--s3) 0; border-bottom: 1px solid var(--rule); }
-.ex-name { display: block; font-size: var(--t2); }
+.ex-name { display: block; font-size: var(--t2); color: var(--ink); }
 .ex-meta { display: block; margin-top: var(--s1); font: 400 var(--t1)/1.4 var(--sans); color: var(--muted); }
 .ex-meta span + span { margin-left: var(--s4); }
+.ex-meta .sp { color: var(--accent-text); } .ex-meta .sn { color: var(--accent2-text); }
+.ex-back { margin-left: var(--s3); }
+.ex-count { scroll-margin-top: var(--s5); }
+.ecard .ec-open { display: inline-flex; align-items: center; min-height: 44px; margin: -14px 0; color: inherit; text-decoration: underline; }
+.ex-more { min-height: 44px; padding: 0 var(--s4); font: 500 var(--t2) var(--sans); color: var(--ink); background: transparent; border: 1px solid var(--rule); border-radius: 999px; cursor: pointer; }
+@media (max-width: 640px) {
+  table.ex-mx { border-spacing: 2px; margin: 0 -2px var(--s4); }
+  table.ex-mx tbody th { white-space: normal; padding-right: var(--s1); }
+  table.ex-mx tbody th svg, figure.fig table.ex-mx tbody th svg, .ex-rn i, table.ex-mx .ex-all, table.ex-mx td:last-child { display: none; }
+  table.ex-mx .ex-corner { width: 25%; }
+  .ex-c { min-width: 0; }
+  ul.ex-picks { grid-template-columns: 1fr; }
+}
 
 /* hero: the spiral, one turn per row */
 figure.hero { margin: 0 0 var(--s5); }
@@ -1660,15 +1695,19 @@ def draw_interactive_figures(*, hero_els, found_top, found_rest, ex_rows, usable
     coast_html = IA.coast()[0]
     ptable_html = IA.periodic_table(hero_els, found_top, found_rest)
     hero_html = IA.hero(hero_els)
+    # a tile's count opens its models in the explorer, so the two must agree for every element the census found
+    for e in hero_els:
+        listed = sum(1 for r in ex_rows if r['element'] == e['num'])
+        assert e['status'] != 'found' or listed == e['count'], f"element {e['num']}: tile says {e['count']}, explorer lists {listed}"
     explorer_html = IA.explorer(
         ex_rows,
         [
-            ('repressilator', 'repressilator'),
-            ('toggle', 'toggle'),
-            ('day clocks', 'circ'),
-            ('calcium', 'calcium'),
-            ('p53', 'p53'),
-            ('cell cycle', 'cell cycle'),
+            ('repressilator', 'repressilator', 'a clock built from three genes'),
+            ('toggle', 'toggle', 'two genes that switch each other off'),
+            ('day clocks', 'circ', 'clocks that keep a day&#8217;s time'),
+            ('calcium', 'calcium', 'calcium levels that spike'),
+            ('p53', 'p53', 'a brake on cell growth'),
+            ('cell cycle', 'cell cycle', 'the cycle a cell runs to divide'),
         ],
     )
     science_html = IA.science_loop(

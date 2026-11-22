@@ -119,18 +119,18 @@ ALIASES = {}
 # The essay's own captions sit outside the gen: markers and are numbered by hand (10, 11 and 22 since the question chapter, 2026-11-10; the essay's own caption sits outside gen:next).
 # essay numbering since 2026-11-19: main read 1 to 16 in reading order, folded figures S1 to S17
 FIG = {
-    'Figure 5. The periodic table of loops.': 'Figure 6. The periodic table of loops.',
-    'Figure 6. The data.': 'Figure 7. The data.',
-    'Figure 7. The research loop.': 'Figure S8. The research loop.',
-    'Figure S1. Element tiles.': 'Figure S10. Element tiles.',
-    'Figure S4. From circuit to model.': 'Figure 6. One published model.',  # moved by hand to #fig-model; main() drops the supplement copy
-    'Figure S5. Out and back': 'Figure S11. Out and back',
-    'Figure S6. One model through': 'Figure S12. One model through',
-    'Figure S7. Answer key.': 'Figure S13. Answer key.',
-    'Figure S8. Loops per model.': 'Figure S14. Loops per model.',
-    'Figure S9. Behaviour by sign': 'Figure S15. Behaviour by sign',
-    'Figure S10. The coastline': 'Figure S16. The coastline',
-    'Figure S11. The data pipeline.': 'Figure S17. The data pipeline.',
+    'Figure 5. The periodic table of loops.': 'Figure 7. The periodic table of loops.',
+    'Figure 6. The data.': 'Figure 8. The data.',
+    'Figure 7. The research loop.': 'Figure S7. The research loop.',
+    'Figure S1. Element tiles.': 'Figure S9. Element tiles.',
+    'Figure S4. From circuit to model.': 'Figure 7. One published model.',  # moved by hand to #fig-model; main() drops the supplement copy
+    'Figure S5. Out and back': 'Figure S10. Out and back',
+    'Figure S6. One model through': 'Figure S11. One model through',
+    'Figure S7. Answer key.': 'Figure S12. Answer key.',
+    'Figure S8. Loops per model.': 'Figure S13. Loops per model.',
+    'Figure S9. Behaviour by sign': 'Figure S14. Behaviour by sign',
+    'Figure S10. The coastline': 'Figure S15. The coastline',
+    'Figure S11. The data pipeline.': 'Figure S16. The data pipeline.',
 }
 
 CSS_WANT = [
@@ -148,6 +148,8 @@ CSS_WANT = [
     '.explorer',
     '.ex-',
     'ol.ex-list',
+    'table.ex-mx',
+    'ul.ex-picks',
     '#ex-q',
     '.pick',
     '.sl-',
@@ -673,10 +675,11 @@ def drop_divs(html, opening):
 
 def count_words(html, folds='closed'):
     """The words a reader meets. folds='closed' skips <details>; 'open' counts inside them.
-    Text hidden until hover (Figure 7's pipeline cards) never counts: it is as shut as a fold.
-    Nor do the hero table's axis labels and key (<p class="pt-...">): they are figure labels, not prose."""
+    Text hidden until hover (Figure 8's pipeline cards) never counts: it is as shut as a fold.
+    Nor do the hero table's axis labels and key (<p class="pt-...">), nor the model explorer's control labels and the
+    one-line glosses beside its named examples (<p class="ex-...">, <ul class="ex-picks">): figure labels, not prose."""
     html = drop_divs(html, r'<div class="pf-card"')
-    html = re.sub(r'<p class="pt-[^"]*"[^>]*>.*?</p>', '', html, flags=re.S)
+    html = re.sub(r'<p class="(?:pt|ex)-[^"]*"[^>]*>.*?</p>|<ul class="ex-picks".*?</ul>', '', html, flags=re.S)
     pat = (r'<details.*?</details>|' + SKIP) if folds == 'closed' else SKIP
     html = re.sub(pat, '', html, flags=re.S)
     text = ' '.join(re.findall(r'<(?:p|li|figcaption|h2)(?:\s[^>]*)?>(.*?)</(?:p|li|figcaption|h2)>', html, flags=re.S))
@@ -764,9 +767,7 @@ def main() -> dict:
     data_sec = post[post.index('<section id="data">') : post.index('<section id="results">')]
     datafig = block(data_sec, '<figure class="fig">', '</figure>')
     assert 'ex-q' in datafig and 'funnel' in datafig
-    # the explorer opens on one worked search, the repressilator; the chips and the box lead to the rest
-    k = datafig.index('  draw();\n})();', datafig.index('var R = [{'))
-    datafig = datafig[:k] + "  q.value = 'repressilator'; draw();\n})();" + datafig[k + len('  draw();\n})();') :]
+    # the explorer opens on its own default cell (clocks with one loop, the repressilator first): interactive.explorer
     results_sec = post[post.index('<section id="results">') : post.index('<section id="gaps">')]
     cards = div_block(results_sec, '<div class="summary-cards">')
     next_sec = post[post.index('<section id="next">') : post.index('<section id="limits">')]
@@ -792,8 +793,8 @@ def main() -> dict:
         '.text table.key td:nth-child(2) { white-space: normal; }\n'
     )
 
-    # 2026-11-19: Figure 7 is a hand-written pipeline diagram (#pf) in front of gen:data, with a card per step and its
-    # script; the funnel and its script leave the block, and Figure S17 (the same steps as a list) leaves the supplement.
+    # 2026-11-19: Figure 8 is a hand-written pipeline diagram (#pf) in front of gen:data, with a card per step and its
+    # script; the funnel and its script leave the block, and Figure S16 (the same steps as a list) leaves the supplement.
     def strip_funnel(h):
         f = div_block(h, '<div class="interactive" id="funnel">')
         i = h.index(f)
@@ -801,7 +802,7 @@ def main() -> dict:
         return h[:i] + h[j:].lstrip('\n')
 
     def strip_s17(h):
-        i = h.index('Figure S17. The data pipeline.')
+        i = h.index('Figure S16. The data pipeline.')
         j = h.rfind('<figure class="fig">', 0, i)
         k = h.index('</figure>', i) + len('</figure>')
         return h[:j] + h[k:]
@@ -823,15 +824,15 @@ def main() -> dict:
         'data': strip_funnel(clean(inner(datafig))),
         # 'cards' (the scorecard) retired 2026-11-19: chapter 07's method table (#fig-method) replaces it
         'truth': truth_supp(lambda n: f'<span class="cite">[<a href="#r{n}">{n}</a>]</span>'),
-        # 'next' (Figure S8's ring) retired 2026-11-19: Figure 13 draws the method loop, and #fig-next is a hand-written
+        # 'next' (Figure S7's ring) retired 2026-11-19: Figure 13 draws the method loop, and #fig-next is a hand-written
         # table of the next lap, keyed to its stages. The old replacements are kept below, commented, for the record.
         # 'next': clean(inner(nextfig)).replace('; test nesting order as a fourth count.', '. Look for a yes-or-no property of each loop that would double every row; speed order, tested below, does not.')
         # .replace('for example antithetic controllers in element 3.', 'for example running totals made of two molecules that destroy each other, in element 3.')
         # .replace('Benchmark running-total detectors on models with known answers', 'Trace by hand the four exact returns the loop reading missed, test the ways of reading running totals on models with known answers'),
         'nesting': nesting_figure()[0],
         'morph': LM.fig_morph(),
-        # Figure 6 (one published model) lives in chapter 03 as #fig-model; the build's supplement copy goes
-        'supp': strip_figure(strip_s17(clean(supp)), 'Figure 6. One published model.'),
+        # Figure 7 (one published model) lives in chapter 03 as #fig-model; the build's supplement copy goes
+        'supp': strip_figure(strip_s17(clean(supp)), 'Figure 7. One published model.'),
         'refs-extra': '\n'.join(f'<li>{li}</li>' for k, li in extras),
     }
     for name, body in blocks.items():

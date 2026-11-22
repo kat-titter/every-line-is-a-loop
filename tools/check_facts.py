@@ -83,7 +83,7 @@ def load_jsonl(name: str) -> dict[str, dict]:
 @dataclass
 class Block:
     section: str
-    kind: str  # main, fold, caption, table, card, figure (Figure 7's pipeline drawing), supplement, refs
+    kind: str  # main, fold, caption, table, card, figure (Figure 8's pipeline drawing), supplement, refs
     text: str
     gen: str  # the gen: block that writes it, or ""
     label: bool  # a heading, kicker, control or readout rather than prose
@@ -119,7 +119,7 @@ class _PageText(HTMLParser):
         self.section = "top"
         self.folds = self.captions = self.tables = self.labels = 0
         self.rows = self.row = 0
-        self.pf = False  # inside Figure 7's pipeline drawing, whose step labels are page text
+        self.pf = False  # inside Figure 8's pipeline drawing, whose step labels are page text
         self.gen: list[str] = []
         self.buf: list[str] = []
         self.blocks: list[Block] = []
@@ -386,7 +386,7 @@ def values() -> tuple[dict[str, object], dict[str, str]]:
     truth = load("truth_tests.json")
     N = truth_numbers()
     put("auto", N["auto"], "truth_tests.json rules.autonomous")
-    # Figure 7's pipeline: what each step set aside, by subtraction
+    # Figure 8's pipeline: what each step set aside, by subtraction
     put("not_listed", v["usable"] - v["complete"], f"{tt} usable - integrators.models with complete enumeration")
     put("not_own", v["usable"] - v["run_alone"], f"{tt} usable - r31_dynamics.jsonl run on their own")
     put(
@@ -713,7 +713,7 @@ def values() -> tuple[dict[str, object], dict[str, str]]:
         "nesting.json count[1..3].chemistry_2n2",
     )
 
-    # the depletion clocks (Figure S9), and the essay's own model figures
+    # the depletion clocks (Figure S8), and the essay's own model figures
     put(
         "dep_clocks",
         len(build_post.DEPLETION_KIND),
@@ -789,7 +789,7 @@ FACTS = [
         "Five models of the same fly clock, drawn at different detail, land at four addresses, and all of them tick.",
     ),
     F("top", "Ro{ro_models} element number"),
-    # Figure 7, the pipeline's steps (svg#pf) and their cards
+    # Figure 8, the pipeline's steps (svg#pf) and their cards
     F("table", "{census} curated models"),
     F("table", "{usable} read as equations {excluded} unusable"),
     F("table", "{complete} every loop listed {not_listed} hit step limit"),
@@ -903,7 +903,7 @@ FACTS = [
     ),
     F(
         "atlas",
-        "Of the {fp_read}, {fp_flat} barely moved at all. The other {fp_filed}: {fp_ticks} tick, {fp_remembers} remember, {fp_returns_exactly} return exactly, {fp_returns_partly} return part way, {fp_rings} ring, {fp_follows} follow.",
+        "Of the {fp_read}, {fp_flat} barely moved at all.",
     ),
     F("atlas", "the ticks row alone holds {wire_ticks} different loop addresses"),
     F("supplement", "lands in {tyson_row}"),
@@ -1109,18 +1109,18 @@ TRACED_ELSEWHERE = [
         "build_post.fig_table from tables_traj.json rows.essay.cells; folded by fold_census.py (gen:ptable)",
     ),
     (
-        "table, Figure 7 explorer",
+        "table, Figure 8 explorer",
         "per-model rows of the search box",
         "build_post.build from r31_structure_traj.jsonl and r31_dynamics.jsonl (gen:data)",
     ),
-    ("hidden, Figure 9", "the blank band grids", "circuit_figures.fig_band from tables_traj.json (gen:band)"),
+    ("hidden, Figure 10", "the blank band grids", "circuit_figures.fig_band from tables_traj.json (gen:band)"),
     (
         "circuits, Figures 2 to 4",
         "readouts lactose in 2.32, LacY 4.65, PER:CRY 0.05, methyl 2.0; sliders 0.50, 9.0 h, 5.0",
         "circuit_figures.fig_switch / fig_clock / fig_adapter (model run or settings SW, CK, AD; PER:CRY 0.05 and methyl 2.0 are literals at circuit_figures.py fig_clock, fig_adapter)",
     ),
     (
-        "supplement, Figure S13",
+        "supplement, Figure S12",
         "answer key: five of seven",
         "build_post.fig_answer_key from r31_structure_traj.jsonl (TEXTBOOK)",
     ),
@@ -1199,7 +1199,7 @@ NUMBER = re.compile(r"\d")
 # Sentences with a number that is neither computed nor cited in the same paragraph, each read by hand.
 HAND = {
     "left to right1proved": "label: Figure 13's evidence key, its four steps numbered 1 to 4",
-    "from its first idea to 2026": "date: the timeline of Figure S5 ends in the year of writing",
+    "from its first idea to 2026": "date: the timeline of Figure S4 ends in the year of writing",
     "Mendeleev left blank squares": "history: Mendeleev 1869 and gallium 1875, cited [38] in the next sentence",
     "density about 6": "history: eka-aluminium density 6.0, gallium 4.7 then 5.9 (HANDOFF, LibreTexts and Wikipedia, secondary)",
     "Gallium's discoverer weighed it": "history: as above",
@@ -1215,7 +1215,7 @@ HAND = {
     "A p53 model totals all of its Mdm2": "trace_four.json BIOMD0000000159 (the total found by hand)",
     "up 20% and hold": "setting: fingerprints.json settings.step 0.2",
     "raised by 20%": "setting: truth_tests.json settings.step 0.2",
-    "follow it 12%": "slider readout (Figure S7)",
+    "follow it 12%": "slider readout (Figure S6)",
     "release 31 from 2017": "BioModels release 31, 26 June 2017 (get_biomodels.sh)",
     "73 scored squares of 75": "count of Figure 14's squares",
     "every source opened on 10 November 2026": "date of the reading (HANDOFF section 4, the question chapter)",
@@ -1279,7 +1279,7 @@ HAND = {
     "p is 0.05 or more, the lead over the sign rules is under 5 points": "fail line frozen 2026-11-16 in analysis/address_predicts.py (PROTOCOL; fails keys a_p_at_least_0.05, b_lead_over_sign_under_5_points)",
     "double to 2n²": "arithmetic: chemistry's rows 2, 8, 18, 32",
     "Every fail line was written before the held-out models": "process: fail lines frozen 2026-11-16 in proto/tests.html and the docstrings of holdout_score.py and address_predicts.py, before the hold-out census ran (proto/PROGRESS.md)",
-    "release 31only after 01 and 02": "stage label of the search plan (Figure S6)",
+    "release 31only after 01 and 02": "stage label of the search plan (Figure S5)",
     "fragment 103": "the epigraph: Heraclitus, fragment B103 (HANDOFF voice pass, translations)",
     "CC0": "licence of the open-data source (its own terms page, linked in the table)",
     "CC BY 4.0": "licence of the open-data source",

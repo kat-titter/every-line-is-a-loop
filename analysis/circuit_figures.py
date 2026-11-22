@@ -333,6 +333,7 @@ def check_all() -> None:
         'hypothetical switch: dose %.2f stays off, dose %.2f flips; the same dose at twice the strength flips the same'
         % check_hypo()
     )
+    print('spine: %d cells, the same in the table and under each figure' % check_spine())
 
 
 # ================================================================ drawing helpers
@@ -655,14 +656,7 @@ def fig_switch() -> tuple[str, str]:
         f'<input id="sw-L" type="range" min="0" max="150" value="{int(SW["L0"] * 100)}" aria-label="Lactose outside the cell" style="--p: {SW["L0"] / 1.5 * 100:.0f}%">'
         f'<output for="sw-L" id="sw-Lv">{SW["L0"]:.2f}</output></div>'
     )
-    chain = chain_html(
-        'self-feeding',
-        'two states,|if strong enough',
-        'copies food|that lasts',
-        brakes=0,
-        fn='remember',
-        trace='holds two states',
-    )
+    chain = chain_html('switch')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -777,7 +771,7 @@ def fig_clock() -> tuple[str, str]:
         f'<input id="ck-D" type="range" min="0" max="{int(CK["Dmax"] * 10)}" value="{int(CK["D"] * 10)}" aria-label="Extra delay before PER:CRY acts, in hours" style="--p: 75%">'
         f'<output for="ck-D" id="ck-Dv">{CK["D"]:.1f} h</output></div>'
     )
-    chain = chain_html('brake', 'ticks,|if strong and late', 'copies the day', brakes=1, fn='time', trace='ticks')
+    chain = chain_html('clock')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -914,15 +908,7 @@ def fig_adapter() -> tuple[str, str]:
         f'<output for="ad-L" id="ad-Lv">{AD["step"]:.1f}</output>'
         '<button type="button" class="chip tog" id="ad-leak" aria-pressed="false">let the total leak</button></div>'
     )
-    chain = chain_html(
-        'brake,|running total',
-        'returns exactly,|at any strength',
-        'copies the background',
-        brakes=1,
-        integ=True,
-        fn='steer',
-        trace='adapts exactly',
-    )
+    chain = chain_html('adapter')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -945,7 +931,7 @@ def circuit_hypo() -> str:
         PW,
         PH,
         'A hypothetical element: a pulse feeds a running total, and the running total feeds an amplifying '
-        'loop of A and B, the switch of Figure 2 with the total in place of lactose.',
+        'loop of A and B, the switch of Figure 3 with the total in place of lactose.',
         ' data-sim="hy"',
     )
 
@@ -955,7 +941,7 @@ def recipe_hypo() -> str:
     rows = (
         ('input', 'a pulse of height 0.2 for T hours'),
         ('running total', 'dose = 0.2 &#215; T, never forgotten'),
-        ('switch', 'the lac loop of Figure 2, fed the dose'),
+        ('switch', 'the lac loop of Figure 3, fed the dose'),
         ('flips when', f'dose passes {sw_thresholds()[1]:.2f}, the lac switch\'s own threshold'),
         ('never matters', 'how high the pulse was'),
     )
@@ -1028,15 +1014,7 @@ def fig_hypo() -> tuple[str, str]:
         f'<output for="hy-T" id="hy-Tv">{HY["T"]:.1f} h</output>'
         '<button type="button" class="chip tog" id="hy-x2" aria-pressed="false">twice the height, half the length</button></div>'
     )
-    chain = chain_html(
-        'self-feeding,|running total',
-        'flips once|enough adds up',
-        'copies a pulse&#8217;s dose',
-        brakes=0,
-        integ=True,
-        fn='remember',
-        trace='adds up, commits',
-    )
+    chain = chain_html('swint')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -1071,8 +1049,9 @@ def sw_thresholds(lo: float = 0.1, hi: float = 1.4, steps: int = 2600) -> tuple[
     return min(bist), max(bist)
 
 
-def fig_window() -> str:
-    """The window figure: where the switch commits and lets go as lactose rises and falls."""
+def fig_window() -> tuple[str, str]:
+    """The early-or-late plot of the disease figure: where the switch commits and lets go as the push rises and
+    falls. Returns (svg, key rows)."""
     L_off, L_on = sw_thresholds()
     assert 0.3 < L_off < 0.4 and 0.75 < L_on < 0.9, (L_off, L_on)
     Ls = [round(0.005 * i, 3) for i in range(0, 281)]  # 0 to 1.4
@@ -1139,11 +1118,11 @@ def fig_window() -> str:
         f'the push back must go below {L_off:.2f}.'
     )
     key = (
-        '<p class="keyrow"><span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H31" stroke="var(--accent-text)" stroke-width="2.2"/></svg>the switch, settled at each push</span>'
+        '<span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H31" stroke="var(--accent-text)" stroke-width="2.2"/></svg>the switch, settled at each push</span>'
         '<span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6H31" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 3"/></svg>the tipping point between them</span>'
-        '<span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M31 6H5" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-arrow-rose)"/></svg>a treatment pushing back</span></p>'
+        '<span><svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M31 6H5" stroke="var(--accent2-text)" stroke-width="2.2" marker-end="url(#fx-arrow-rose)"/></svg>a treatment pushing back</span>'
     )
-    return '<div class="pane one window">' + pane(s, W, H, aria) + '</div>' + key
+    return pane(s, W, H, aria, ' id="dz-plot"'), key
 
 
 # ================================================================ shared pieces
@@ -1171,51 +1150,122 @@ def shape_glyph(brakes: int, integ: bool = False) -> str:
     )
 
 
-FN_ICON = {
-    'remember': '<path d="M8 4V28" stroke="{c}" stroke-width="1.8" stroke-linecap="round"/><path d="M8 5L24 10L8 15Z" fill="{c}"/>',
-    'time': '<circle cx="16" cy="16" r="11" fill="none" stroke="{c}" stroke-width="1.8"/><path d="M16 16V8M16 16L22 16" stroke="{c}" stroke-width="1.8" stroke-linecap="round"/>',
-    'steer': '<circle cx="16" cy="16" r="11" fill="none" stroke="{c}" stroke-width="1.8"/><path d="M16 6L19.5 16L16 26L12.5 16Z" fill="none" stroke="{c}" stroke-width="1.4" stroke-linejoin="round"/><path d="M16 6L19.5 16H12.5Z" fill="{c}"/>',
+# ---------------------------------------------------------------- the spine: shape, behaviour, function
+# One fixed phrase per cell. The table in chapter 01 (gen:spine) and the row under each circuit (chain_html) are both
+# drawn from this dict by spine_row(), so they cannot drift; check_spine() asserts it on the generator and the page.
+# A "|" in a value marks the only place its line may break. Behaviour words are the atlas's row names (remembers,
+# ticks, returns exactly). `trace` keys IA.TRACE, the census's glyph for that behaviour.
+SPINE = {
+    'switch': {
+        'name': 'switch',
+        'brakes': 0,
+        'integ': False,
+        'trace': 'holds two states',
+        'shape': 'self-feeding loop',
+        'behaviour': 'remembers,|if strong enough',
+        'function': 'copies food|that lasts',
+    },
+    'clock': {
+        'name': 'clock',
+        'brakes': 1,
+        'integ': False,
+        'trace': 'ticks',
+        'shape': 'brake',
+        'behaviour': 'ticks,|if strong and late',
+        'function': 'copies the day',
+    },
+    'adapter': {
+        'name': 'adapter',
+        'brakes': 1,
+        'integ': True,
+        'trace': 'adapts exactly',
+        'shape': 'brake,|running total',
+        'behaviour': 'returns exactly,|at any strength',
+        'function': 'copies the|background',
+    },
+    'swint': {
+        'name': 'Sw&#8747;',
+        'brakes': 0,
+        'integ': True,
+        'trace': 'adds up, commits',
+        'shape': 'self-feeding loop,|running total',
+        'behaviour': 'flips on a total',
+        'function': 'copies a dose',
+        'predicted': True,
+    },
 }
+SPINE_COLS = ('shape', 'behaviour', 'function')
 
 
-def fn_icon(kind: str, size: float = 20, color: str = 'var(--ink)') -> str:
-    """A function's icon: a flag planted (remember), a clock face (keep time), a compass needle (steer)."""
-    return (
-        f'<svg class="gl gl-f" width="{size}" height="{size}" viewBox="0 0 32 32" aria-hidden="true">'
-        + FN_ICON[kind].replace('{c}', color)
-        + '</svg>'
-    )
-
-
-def chain_html(
-    shape: str,
-    behaviour: str,
-    function: str,
-    brakes: int = 0,
-    integ: bool = False,
-    fn: str = 'remember',
-    trace: str = 'holds two states',
-) -> str:
-    """The chain under each circuit: the loop's shape, the behaviour its strength lets through, the function it serves.
-
-    A "|" in a value marks the only place its line may break, so a phrase wraps at its clause and never inside it.
-    Shape and behaviour carry the table's own marks (the loop glyph, the trace). Function carries words only: its
-    pictograms (a flag, a clock, a compass) said nothing the words did not, and the flag said "remember" beside
-    "copies food" (Kat, 2026-11-22: "why is copies food a flag? ... icons should add to the communication").
-    """
+def spine_cells(key: str) -> dict[str, str]:
+    """The inner HTML of one circuit's three cells: its glyph (shape: the loop ring; behaviour: the trace; function:
+    words only, since a pictogram said nothing the words did not) and its fixed words."""
+    d = SPINE[key]
 
     def clauses(value: str) -> str:
         return '<span class="ch-t">' + ' '.join(f'<span class="nb">{c}</span>' for c in value.split('|')) + '</span>'
 
-    shape, behaviour, function = clauses(shape), clauses(behaviour), clauses(function)
+    dashed = bool(d.get('predicted'))
+    return {
+        'shape': shape_glyph(d['brakes'], d['integ']) + clauses(d['shape']),
+        'behaviour': glyph(d['trace'], dashed=dashed) + clauses(d['behaviour']),
+        'function': clauses(d['function']),
+    }
+
+
+def spine_row(key: str, link: bool = False) -> str:
+    """One <tr> of the spine: the circuit's name, then shape, behaviour, function. The same string in the table and
+    under the circuit's figure (there the name links back to the table)."""
+    d, cells = SPINE[key], spine_cells(key)
+    name = f'<a href="#fig-spine">{d["name"]}</a>' if link else d['name']
+    if d.get('predicted'):
+        name += '<span class="sp-p">predicted</span>'
+    tds = ''.join(f'<td><span class="sp-h">{c}</span><span class="sp-v">{cells[c]}</span></td>' for c in SPINE_COLS)
+    cls = ' class="sp-pred"' if d.get('predicted') else ''
+    return f'<tr{cls}><th scope="row">{name}</th>{tds}</tr>'
+
+
+SPINE_HEAD = '<thead><tr><th scope="col">circuit</th>' + ''.join(f'<th scope="col">{c}</th>' for c in SPINE_COLS) + '</tr></thead>'
+
+
+def spine_table() -> str:
+    """Chapter 01's table: every circuit's shape, behaviour and function, one row each."""
+    rows = ''.join(spine_row(k) for k in SPINE)
     return (
-        '<div class="chain" aria-label="Shape, behaviour, function">'
-        f'<span class="ch"><span class="ch-k">shape</span><span class="ch-v">{shape_glyph(brakes, integ)}{shape}</span></span>'
-        '<span class="ch-a" aria-hidden="true">&#8594;</span>'
-        f'<span class="ch"><span class="ch-k">behaviour</span><span class="ch-v">{glyph(trace)}{behaviour}</span></span>'
-        '<span class="ch-a" aria-hidden="true">&#8594;</span>'
-        f'<span class="ch"><span class="ch-k">function</span><span class="ch-v">{function}</span></span></div>'
+        '<div class="pane one"><table class="spine" aria-label="Shape, behaviour and function of each circuit">'
+        + SPINE_HEAD
+        + f'<tbody>{rows}</tbody></table></div>'
     )
+
+
+def chain_html(key: str) -> str:
+    """The row under a circuit's figure: that circuit's row of the spine table, under the same column heads."""
+    return (
+        '<table class="spine one" aria-label="Shape, behaviour, function">'
+        + SPINE_HEAD
+        + f'<tbody>{spine_row(key, link=True)}</tbody></table>'
+    )
+
+
+def check_spine(page: pathlib.Path | None = None) -> int:
+    """The table and the rows under the figures carry the same cells: in the generator, and on `page` when one is given."""
+    table, n = spine_table(), 0
+    for key in SPINE:
+        row = chain_html(key)
+        for col, cell in spine_cells(key).items():
+            td = f'<td><span class="sp-h">{col}</span><span class="sp-v">{cell}</span></td>'
+            assert td in table and td in row, (key, col)
+            n += 1
+        heads = re.findall(r'<th scope="col">(.*?)</th>', row)
+        assert heads == re.findall(r'<th scope="col">(.*?)</th>', table) == ['circuit', *SPINE_COLS], heads
+    if page is not None:
+        s = page.read_text(encoding='utf-8')
+        block = lambda name: re.search(r'<!-- gen:' + name + r' -->(.*?)<!-- /gen:' + name + r' -->', s, re.S).group(1)
+        on_page = block('spine')
+        for key, name in (('switch', 'switch-ctl'), ('clock', 'clock-ctl'), ('adapter', 'adapter-ctl'), ('swint', 'hypo-ctl')):
+            cells = re.findall(r'<td>.*?</td>', block(name), re.S)
+            assert len(cells) == 3 and all(c in on_page for c in cells), f'on the page, the {name} row is not a row of the spine table'
+    return n
 
 
 def defs_html() -> str:
@@ -1433,9 +1483,11 @@ def fig_atlas() -> str:
     )
 
 
-# ================================================================ three diseases, one algebra
-# One disease at a time. The icons are Figure 12's (#fig-brakes) for cancer and neurodegeneration, so the same
-# disease wears the same mark on both figures; autoimmunity gets an antibody drawn to match.
+# ================================================================ diseases as rows of the spine
+# One figure (Figure 12): the shared circuit and the early-or-late plot on top, then one row per disease under the
+# spine's own columns. Selecting a row relabels the circuit; aging has no loop, so its row draws a bare counter and
+# the plot gives way to a note. Every cell restates the page at the scope it already had; `ev` marks where the
+# evidence stands (shown, predicted, conjecture, blank = nothing stated yet).
 DZ_ICON = {
     'cells': (
         'one cell becomes two, then four',
@@ -1455,83 +1507,217 @@ DZ_ICON = {
         '<path d="M16 5.5v18"/><path d="M10.2 11.5c1.8.1 3 1.2 3 3"/><path d="M21.8 11.5c-1.8.1-3 1.2-3 3"/>'
         '<path d="M9.5 18.2c1.6.2 2.9-.6 3.6-1.8"/><path d="M22.5 18.2c-1.6.2-2.9-.6-3.6-1.8"/>',
     ),
+    'hourglass': (
+        'an hourglass',
+        '<path d="M9 4h14M9 28h14"/><path d="M10.5 4c0 6 5.5 8 5.5 12s-5.5 6-5.5 12"/>'
+        '<path d="M21.5 4c0 6-5.5 8-5.5 12s5.5 6 5.5 12"/>'
+        '<path d="M12.6 27.2c1-2.4 2.3-3.8 3.4-3.8s2.4 1.4 3.4 3.8z" fill="currentColor" stroke="none"/>',
+    ),
 }
 
-# name, the amplifying node held on, the brake lost, what piles up, icon
+
+def cite(*ns: int) -> str:
+    """A citation marker as the page writes it."""
+    return '<span class="cite">[' + ', '.join(f'<a href="#r{n}">{n}</a>' for n in ns) + ']</span>'
+
+
+DZ_EV = {'shown': 'p-f', 'predicted': 'p-e', 'conjecture': 'p-c', 'blank': 'p-0'}
+DZ_COLS = (('shape', 'which loop breaks'), ('behaviour', 'what drifts first'), ('function', 'what treatment restores'))
+
+# name; icon; the circuit's three names (loop held on, brake lost, what piles up); loop = False draws a bare counter;
+# then one list of (evidence, sentence) per column of the spine
 DZ = [
-    ('cancer', 'growth', 'p53', 'tumour mass', 'cells'),
-    ('autoimmunity', 'effector T cells', 'regulatory T cells', 'tissue damage', 'antibody'),
-    ('neurodegeneration', 'seeded aggregation', 'clearance', 'aggregates', 'brain'),
+    {
+        'name': 'cancer',
+        'icon': 'cells',
+        'a': 'growth',
+        'b': 'p53',
+        'p': 'tumour mass',
+        'loop': True,
+        'shape': [('shown', f'A growth switch stuck on, its brakes deleted {cite(17)}.')],
+        'behaviour': [('predicted', f'After DNA damage, a weakening p53 brake should pulse late {cite(64)}.')],
+        'function': [
+            ('shown', f'Late, the brake must go back: restoring p53 shrank established tumours in mice {cite(18, 19)}.'),
+            (
+                'shown',
+                f'Retinoic acid alone, in acute promyelocytic leukaemia: 23/24 remissions, eight relapses within months {cite(68)}.',
+            ),
+        ],
+    },
+    {
+        'name': 'autoimmunity',
+        'icon': 'antibody',
+        'a': 'effector T cells',
+        'b': 'regulatory T cells',
+        'p': 'tissue damage',
+        'loop': True,
+        'shape': [
+            (
+                'shown',
+                'Immune memory is a switch; regulatory T cells and checkpoints are its brakes. Mutations in one gene, '
+                f'FOXP3, cause IPEX, a fatal immune dysregulation {cite(20)}.',
+            )
+        ],
+        'behaviour': [('blank', 'No test written yet.')],
+        'function': [
+            (
+                'shown',
+                'Cancer&#8217;s loop with the push reversed: checkpoint blockade treats cancer by removing the brakes '
+                f'on T cells, and its immune-related adverse events are autoimmunity in the same patient {cite(21)}.',
+            )
+        ],
+    },
+    {
+        'name': 'neurodegeneration',
+        'icon': 'brain',
+        'a': 'seeded aggregation',
+        'b': 'clearance',
+        'p': 'aggregates',
+        'loop': True,
+        'shape': [
+            (
+                'shown',
+                f'A misfolded seed converts healthy protein into more seeds {cite(22)}; amyloid is cleared more slowly {cite(65)}.',
+            )
+        ],
+        'behaviour': [
+            ('shown', f'Amyloid shows on scans fifteen years before symptoms, in inherited Alzheimer&#8217;s {cite(63)}.'),
+            ('predicted', f'Its nightly rhythm should flatten years before plaques {cite(65, 66)}.'),
+        ],
+        'function': [
+            (
+                'shown',
+                f'Late, the push must go far: lecanemab, clearing amyloid after symptoms, only slowed decline {cite(67)}.',
+            )
+        ],
+    },
+    {
+        'name': 'aging',
+        'icon': 'hourglass',
+        'a': 'a counter',
+        'b': 'no brake',
+        'p': 'marks on DNA',
+        'loop': False,
+        'shape': [
+            (
+                'conjecture',
+                f'No loop to break: a counter that only goes up. A family&#8217;s resets, early in the embryo {cite(11, 13)}.',
+            )
+        ],
+        'behaviour': [
+            (
+                'shown',
+                'Nothing drifts toward a tipping point; the count itself is read. Partial reprogramming restored '
+                f'youthful methylation and vision in old mice {cite(12)}.',
+            )
+        ],
+        'function': [
+            (
+                'shown',
+                'No brake to put back, only a reset: short cycles eased the signs of aging and lengthened life in mice '
+                f'that age early {cite(69)}.',
+            )
+        ],
+    },
 ]
 
 
-def dz_aria(d):
-    name, a, b, pile, _ = d
+def dz_aria(d: dict) -> str:
+    if not d['loop']:
+        return f'{d["name"].capitalize()}: {d["a"]} with no loop and {d["b"]}; {d["p"]} piling up and never returning'
     return (
-        f'{name.capitalize()}: {a} held on, a self-feeding loop; its brake, {b}, lost; '
-        f'{pile} piling up and never returning'
+        f'{d["name"].capitalize()}: {d["a"]} held on, a self-feeding loop; its brake, {d["b"]}, lost; '
+        f'{d["p"]} piling up and never returning'
     )
 
 
-def dz_icon(key, size):
+def dz_icon(key: str) -> str:
     aria, body = DZ_ICON[key]
     return (
-        f'<svg width="{size}" height="{size}" viewBox="0 0 32 32" role="img" aria-label="{aria}" fill="none" '
-        f'stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" '
-        f'style="width: {size}px; height: {size}px; flex: 0 0 auto">{body}</svg>'
-    )  # figure.fig svg is width:100%
+        f'<svg class="dz-ic" viewBox="0 0 32 32" role="img" aria-label="{aria}" fill="none" '
+        f'stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{body}</svg>'
+    )
 
 
-def fig_disease() -> str:
-    """One disease at a time: a segmented switch picks cancer, autoimmunity or neurodegeneration, and the three
-    names in the drawing (the loop held on, the brake lost, what piles up) flip to that disease. The circuit itself
-    never changes, which is the claim. The figure auto-cycles about every 3 s until the reader touches it, and holds
-    still under prefers-reduced-motion; without JavaScript it reads as cancer."""
+def dz_circuit() -> str:
+    """The shared circuit, drawn once: a self-feeding loop held on, its brake lost, and what piles up. The three
+    names carry ids so a row can relabel them; g#dz-loop holds the marks a bare counter (aging) does not have."""
     w, h = 350, 300
     A, B = (175, 48, 200, 44), (175, 160, 200, 44)
     first = DZ[0]
-    flip = (
-        '<style>.dz-f { transform-box: fill-box; transform-origin: 50% 50%; }'
-        '.dz-f.dz-go { animation: dz-flip 320ms ease-in-out; }'
-        '@keyframes dz-flip { 0% { transform: scaleY(1); opacity: 1 } 44%, 56% { transform: scaleY(0.06); opacity: 0.3 }'
-        ' 100% { transform: scaleY(1); opacity: 1 } }'
-        '@media (prefers-reduced-motion: reduce) { .dz-f.dz-go { animation: none } }</style>'
-    )
-    s = flip
-    # the loop: down the left, held on; back up the right, lost
-    s += (
-        '<path d="M120 73V135" fill="none" stroke="var(--accent-text)" stroke-width="2.2" marker-end="url(#fx-arrow)"/>'
-    )
+    s = '<g id="dz-loop">'
+    s += '<path d="M120 73V135" fill="none" stroke="var(--accent-text)" stroke-width="2.2" marker-end="url(#fx-arrow)"/>'
     s += '<path d="M230 135V73" fill="none" stroke="var(--accent2)" stroke-width="2.2" stroke-dasharray="4 4" marker-end="url(#fx-bar)"/>'
     s += label(112, 108, '+ held on', anchor='end', size=12, fill='var(--accent-text)')
     s += label(238, 108, MINUS + ' lost', anchor='start', size=12, fill='var(--accent2-text)')
-    for (x, y, pw, ph), slot, name in ((A, 'a', first[1]), (B, 'b', first[2])):
+    s += '</g>'
+    for (x, y, pw, ph), slot in ((A, 'a'), (B, 'b')):
         s += (
-            f'<rect x="{x - pw / 2}" y="{y - ph / 2}" width="{pw}" height="{ph}" rx="{ph / 2 - 6}" fill="var(--paper)" '
-            f'stroke="var(--muted)" stroke-width="1.4" {LIFT}/>'
+            f'<rect id="dz-r{slot}" x="{x - pw / 2}" y="{y - ph / 2}" width="{pw}" height="{ph}" rx="{ph / 2 - 6}" fill="var(--paper)" '
+            f'stroke="var(--muted)" stroke-width="1.4"/>'
         )
-        s += label(x, y + 4.5, name, size=12.5, extra=f' id="dz-{slot}" class="dz-f" font-weight="600"')
+        s += label(x, y + 4.5, first[slot], size=12.5, extra=f' id="dz-{slot}" font-weight="600"')
     # what piles up: a ramp on its own axes, the quantity named on the y axis
     x0, x1, y0, y1 = 30, 320, 272, 216
     s += f'<line x1="{x0}" y1="{y0}" x2="{x1}" y2="{y0}" stroke="var(--muted)" stroke-width="1.4"/>'
     s += f'<line x1="{x0}" y1="{y0}" x2="{x0}" y2="{y1}" stroke="var(--muted)" stroke-width="1.4"/>'
     s += f'<path d="M{x0} {y0 - 2}H110C180 {y0 - 6} 250 {y0 - 34} {x1} {y1 + 4}" fill="none" stroke="var(--accent-text)" stroke-width="2.2"/>'
-    s += mono(x0, y1 - 8, first[3], anchor='start', fill='var(--ink)', extra=' id="dz-p" class="dz-f"')
+    s += mono(x0, y1 - 8, first['p'], anchor='start', fill='var(--ink)', extra=' id="dz-p"')
     s += mono(x1, y0 + 18, 'time', anchor='end')
-    chips = ''.join(
-        f'<button type="button" class="chip dz-chip" data-i="{i}" aria-pressed="{"true" if i == 0 else "false"}" '
-        f'style="display: inline-flex; align-items: center; gap: 6px; padding: 0 var(--s3)">'
-        f'{dz_icon(d[4], 20)}{d[0]}</button>'
-        for i, d in enumerate(DZ)
+    return pane(s, w, h, dz_aria(first), ' id="dz-svg"')
+
+
+def dz_table() -> str:
+    """One row per disease under the spine's columns; each sentence wears its evidence mark."""
+
+    def cell(d: dict, col: str, sub: str) -> str:
+        lines = ''.join(
+            f'<span class="q-l"><span class="pip {DZ_EV[ev]}" role="img" aria-label="{ev if ev != "blank" else "nothing stated yet"}"></span><span>{text}</span></span>'
+            for ev, text in d[col]
+        )
+        return f'<td><span class="q-h">{col}: {sub}</span>{lines}</td>'
+
+    head = '<th scope="col">disease</th>' + ''.join(
+        f'<th scope="col">{c}<span class="dz-sub">{sub}</span></th>' for c, sub in DZ_COLS
     )
-    return (
-        '<div id="dz"><div class="chips" style="margin: 0 0 var(--s4)">'
-        '<div class="cl-seg" role="group" aria-label="Which disease" style="flex-wrap: wrap; max-width: 420px">'
-        + chips
-        + '</div></div><div class="pane one tall">'
-        + pane(s, w, h, dz_aria(first))
-        + '</div></div>'
+    rows = ''
+    for i, d in enumerate(DZ):
+        btn = (
+            f'<button type="button" class="dz-row" data-i="{i}" aria-pressed="{"true" if i == 0 else "false"}">'
+            f'{dz_icon(d["icon"])}{d["name"]}</button>'
+        )
+        rows += (
+            ('<tr class="on">' if i == 0 else '<tr>')
+            + f'<th scope="row">{btn}</th>'
+            + ''.join(cell(d, c, sub) for c, sub in DZ_COLS)
+            + '</tr>'
+        )
+    return f'<table class="q-dz dzt"><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table>'
+
+
+def fig_disease() -> str:
+    """The disease figure. Without JavaScript it reads whole: the circuit wears cancer's names, the plot is drawn,
+    and the table holds every claim. With it, a row's button relabels the circuit and names the plot."""
+    plot, plot_key = fig_window()
+    first = DZ[0]
+    top = (
+        '<div class="deep">'
+        + pane_html('dz', 'one circuit', 'dz-r1', first['name'], dz_circuit())
+        + pane_html(
+            'dz',
+            'caught early or late',
+            'dz-r2',
+            first['name'],
+            plot + '<p class="dz-none" id="dz-none" hidden>A counter has no tipping point to catch early.</p>',
+        )
+        + f'<div class="pane pane-dzt">{dz_table()}</div>'
+        + '</div>'
     )
+    ev_key = ''.join(
+        f'<span><span class="pip {DZ_EV[k]}"></span>{word}</span>'
+        for k, word in (('shown', 'shown'), ('predicted', 'predicted'), ('conjecture', 'conjecture'), ('blank', 'blank'))
+    )
+    return f'<div id="dz">{top}<p class="keyrow">{ev_key}</p><p class="keyrow">{plot_key}</p></div>'
 
 
 # ================================================================ hero: three live traces
@@ -1574,7 +1760,7 @@ def script() -> str:
         'hy': HY,
         'swp': {k: SW[k] for k in ('beta', 'basal', 'n', 'tx', 'ty')},
         'sig': SIG,
-        'dz': [{'a': d[1], 'b': d[2], 'p': d[3], 'aria': dz_aria(d)} for d in DZ],
+        'dz': [{'name': d['name'], 'a': d['a'], 'b': d['b'], 'p': d['p'], 'loop': d['loop'], 'aria': dz_aria(d)} for d in DZ],
     }
     return (
         '<script>\n(function () {\n  var P = '
@@ -1827,33 +2013,23 @@ JS_HYPO = '''\
 
 
 JS_DISEASE = '''\
-  // ---- three diseases, one circuit: the switch picks one and the three names flip to it
+  // ---- diseases as rows: a row's button relabels the one circuit and names the plot; aging draws a bare counter
   (function () {
     var box = $('dz'); if (!box) return;
-    var N = P.dz, svg = box.querySelector('svg'), slots = [$('dz-a'), $('dz-b'), $('dz-p')];
-    var chips = [].slice.call(box.querySelectorAll('.dz-chip')), cur = 0, timer = null, touched = false;
-    function show(i, animate) {
-      cur = i;
-      chips.forEach(function (c, k) { c.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
-      svg.setAttribute('aria-label', N[i].aria);
-      function set() { slots[0].textContent = N[i].a; slots[1].textContent = N[i].b; slots[2].textContent = N[i].p; }
-      if (!animate || RM) { set(); return; }
-      slots.forEach(function (e) { e.classList.remove('dz-go'); });
-      void box.offsetWidth;                                  // restart the flip even on a repeat press
-      slots.forEach(function (e) { e.classList.add('dz-go'); });
-      setTimeout(set, 160);                                  // swap at the half-turn, where the letters are edge-on
+    var N = P.dz, svg = $('dz-svg'), rows = [].slice.call(box.querySelectorAll('.dzt tbody tr'));
+    var btns = rows.map(function (r) { return r.querySelector('.dz-row'); });
+    function show(i) {
+      var d = N[i];
+      rows.forEach(function (r, k) { r.classList.toggle('on', k === i); btns[k].setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      $('dz-a').textContent = d.a; $('dz-b').textContent = d.b; $('dz-p').textContent = d.p;
+      $('dz-r1').textContent = d.name; $('dz-r2').textContent = d.name;
+      svg.setAttribute('aria-label', d.aria);
+      box.classList.toggle('dz-count', !d.loop);
+      $('dz-plot').style.display = d.loop ? '' : 'none'; $('dz-none').hidden = d.loop;
     }
-    function stop() { touched = true; if (timer) { clearInterval(timer); timer = null; } }
-    chips.forEach(function (c, k) { c.addEventListener('click', function () { stop(); show(k, true); }); });
-    box.addEventListener('pointerdown', stop); box.addEventListener('focusin', stop);
-    // it cycles itself until the reader touches it, and only while it is on screen
-    function run(on) {
-      if (touched || RM) return;
-      if (on && !timer) timer = setInterval(function () { show((cur + 1) % N.length, true); }, 3000);
-      if (!on && timer) { clearInterval(timer); timer = null; }
-    }
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { es.forEach(function (e) { run(e.isIntersecting); }); }, { rootMargin: '0px' }).observe(box);
-    else run(true);
+    rows.forEach(function (r, k) {
+      r.addEventListener('click', function (e) { if (!e.target.closest('a')) show(k); });   // a citation link stays a link
+    });
   })();
 '''
 
@@ -1883,6 +2059,7 @@ JS_LOOP = '''\
 # ================================================================ injection
 BLOCKS = {
     'defs': defs_html,
+    'spine': spine_table,
     'bands': fig_bands,
     'band': fig_band,
     'atlas': fig_atlas,
@@ -1896,7 +2073,6 @@ BLOCKS = {
     'adapter': lambda: fig_adapter()[0],
     'adapter-ctl': lambda: fig_adapter()[1],
     'disease': fig_disease,
-    'window': fig_window,
     'script': script,
 }
 
@@ -1917,3 +2093,5 @@ if __name__ == '__main__':
     check_all()
     if '--check' not in sys.argv:
         inject()
+    check_spine(PAGE)  # the page as it now stands: table and rows agree
+    print('spine on the page: the row under each circuit is a row of the table')
