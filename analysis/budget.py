@@ -1,9 +1,9 @@
 """Work budgets: every per-model limit in the census counts work, never seconds, so a record does not depend on the
 machine's speed or load.
 
-Reads:  nothing (imported by dynamics.py, truth_tests.py, fingerprints.py, robust_return.py, loops.py, integrators.py,
-        elim.py)
-Writes: nothing
+Reads:  a --list file of model paths (run_list only); imported by dynamics.py, truth_tests.py, fingerprints.py,
+        robust_return.py, loops.py, integrators.py, elim.py
+Writes: one JSONL file per run_list call; nothing otherwise
 
 Solver work is counted in derivative evaluations: each time CVODE evaluates the model's right-hand side (in its
 Newton iterations, or column by column for its difference-quotient Jacobian) it computes one rate of change per state
@@ -21,13 +21,18 @@ on any machine.
 
 run() runs one per-model subprocess under a wall-clock safety net, SAFETY_NET_S, set far above any real run. It
 should never fire; if it does, it prints a loud line to stderr and the caller records the status SAFETY_NET.
+run_list() runs a script's --one entry on each model of a list that way, in parallel, and writes one JSON line per
+model (dynamics.py, integrators.py and elim.py use it).
 """
 
 from __future__ import annotations
 
 import ctypes
+import json
+import pathlib
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from typing import Any
 
 # 6 hours: far above any run the budgets allow. The slowest per-model run measured is BIOMD0000000235 in dynamics.py,
@@ -114,3 +119,32 @@ def run(cmd: list[str], model: str, **kwargs: Any) -> subprocess.CompletedProces
         print(f'!!! SAFETY NET FIRED: {model} ran past {SAFETY_NET_S} s; its record depends on load', file=sys.stderr)
         sys.stderr.flush()
         return None
+
+
+def run_list(
+    script: str | pathlib.Path,
+    list_file: str | pathlib.Path,
+    out_file: str | pathlib.Path,
+    jobs: int,
+    extra: tuple[str, ...] = (),
+) -> None:
+    """Run `script --one PATH *extra` on each path in list_file (one per line), each in its own process; write one
+    JSON line per model to out_file, in list order. A run whose last output line does not start with '{' is recorded
+    as an error with the tail of its stderr."""
+    paths = [line.strip() for line in pathlib.Path(list_file).read_text().splitlines() if line.strip()]
+
+    def one(f):
+        p = run([sys.executable, str(script), '--one', f, *extra], pathlib.Path(f).stem)
+        if p is None:
+            return {'model': pathlib.Path(f).stem, 'status': SAFETY_NET}
+        line = p.stdout.strip().splitlines()[-1] if p.stdout.strip() else ''
+        return (
+            json.loads(line)
+            if line.startswith('{')
+            else {'model': pathlib.Path(f).stem, 'status': 'error', 'error': (p.stderr or '')[-300:]}
+        )
+
+    with ThreadPoolExecutor(jobs) as ex, open(out_file, 'w') as fh:
+        for r in ex.map(one, paths):
+            fh.write(json.dumps(r) + '\n')
+            fh.flush()

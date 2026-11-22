@@ -15,7 +15,6 @@ Run: .venv/bin/python analysis/loop_morph.py   (prints the figure's length as a 
 from __future__ import annotations
 
 import json
-import math
 import pathlib
 import sys
 

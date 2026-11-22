@@ -1,5 +1,6 @@
 """Work budgets (analysis/budget.py) in a few seconds: a model that spends its budget gets the same status, at the same
-count of work, every time and on any machine; solver-failure handlers cannot swallow it; the safety net says so loudly.
+count of work, every time and on any machine; solver-failure handlers cannot swallow it; the safety net says so
+loudly; budget.run_list writes one row per model in list order, error rows included, with no data needed.
 
     .venv/bin/python -m unittest tests/test_budget.py -v
 
@@ -72,6 +73,34 @@ class SafetyNet(unittest.TestCase):
             budget.SAFETY_NET_S = keep
         self.assertIsNone(p)
         self.assertIn('SAFETY NET FIRED: a slow model', err.getvalue())
+
+
+class RunList(unittest.TestCase):
+    """budget.run_list without the data folder: a stub script stands in for dynamics.py, integrators.py or elim.py."""
+
+    STUB = (
+        'import json, pathlib, sys\n'
+        'f = sys.argv[2]\n'
+        'if "bad" in f:\n'
+        '    sys.exit("boom")\n'
+        'print("a log line first")\n'
+        'print(json.dumps({"model": pathlib.Path(f).stem, "argv": sys.argv[1:]}))\n'
+    )
+
+    def test_rows_in_list_order_with_flags_and_error_row(self) -> None:
+        import json
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as d:
+            d = pathlib.Path(d)
+            (d / 'stub.py').write_text(self.STUB)
+            (d / 'list.txt').write_text('a.xml\n\nbad.xml\n c.xml \n')
+            budget.run_list(d / 'stub.py', d / 'list.txt', d / 'out.jsonl', 2, ('--signs', 'random'))
+            rows = [json.loads(line) for line in (d / 'out.jsonl').read_text().splitlines()]
+        self.assertEqual(rows[0], {'model': 'a', 'argv': ['--one', 'a.xml', '--signs', 'random']})
+        self.assertEqual(rows[1], {'model': 'bad', 'status': 'error', 'error': 'boom\n'})
+        self.assertEqual(rows[2], {'model': 'c', 'argv': ['--one', 'c.xml', '--signs', 'random']})
+        self.assertEqual(len(rows), 3, 'blank lines in the list are skipped')
 
 
 if __name__ == '__main__':

@@ -40,7 +40,6 @@ import contextlib
 import json
 import pathlib
 import sys
-from concurrent.futures import ThreadPoolExecutor
 from typing import Any
 
 import numpy as np
@@ -341,27 +340,6 @@ def pair_integrators(
     return found
 
 
-def run_list(paths: list[str], out_file: str | pathlib.Path, jobs: int) -> None:
-    """Run measure on each path, each in its own process; write one JSON line per model."""
-    me = pathlib.Path(__file__).resolve()
-
-    def one(f):
-        p = budget.run([sys.executable, str(me), '--one', f], pathlib.Path(f).stem)
-        if p is None:
-            return {'model': pathlib.Path(f).stem, 'status': budget.SAFETY_NET}
-        line = p.stdout.strip().splitlines()[-1] if p.stdout.strip() else ''
-        return (
-            json.loads(line)
-            if line.startswith('{')
-            else {'model': pathlib.Path(f).stem, 'status': 'error', 'error': (p.stderr or '')[-300:]}
-        )
-
-    with ThreadPoolExecutor(jobs) as ex, open(out_file, 'w') as fh:
-        for r in ex.map(one, paths):
-            fh.write(json.dumps(r) + '\n')
-            fh.flush()
-
-
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--one')
@@ -375,6 +353,9 @@ if __name__ == '__main__':
         except Exception as e:
             print(json.dumps({'model': pathlib.Path(a.one).stem, 'status': 'error', 'error': repr(e)[:300]}))
     else:
-        run_list(
-            [line.strip() for line in pathlib.Path(a.list).read_text().splitlines() if line.strip()], a.out, a.jobs
+        budget.run_list(
+            pathlib.Path(__file__).resolve(),
+            a.list,
+            a.out,
+            a.jobs,
         )
