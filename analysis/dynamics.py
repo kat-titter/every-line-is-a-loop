@@ -290,7 +290,7 @@ if __name__ == '__main__':
     else:
         budget.run_list(
             pathlib.Path(__file__).resolve(),
-            [line.strip() for line in pathlib.Path(a.list).read_text().splitlines() if line.strip()],
+            a.list,
             a.out,
             a.jobs,
         )
