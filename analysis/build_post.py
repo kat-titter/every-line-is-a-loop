@@ -273,14 +273,14 @@ def cap(s: str) -> str:
 LIGHT = (
     '--paper: #ffffff; --ink: #1c2226; --muted: #68727a; --rule: #dfe4e6; '
     '--accent: #c6ef6b; --accent-text: #4a7a0c; --accent-soft: rgba(198, 239, 107, 0.30); --accent-tint: #f1fbd6; '
-    '--accent2: #d891aa; --accent2-text: #ad3a6b; --accent2-soft: rgba(216, 145, 170, 0.18); --orb2-lo: #ad3a6b; '
-    '--plate: #f5f7f8; --tint: #eaeeef; --lift: rgba(34, 52, 48, 0.16); --orb-hi: #ffffff; --orb-lo: #6f9c1a; color-scheme: light;'
+    '--accent2: #d891aa; --accent2-text: #ad3a6b; --accent2-soft: rgba(216, 145, 170, 0.18); '
+    '--plate: #f5f7f8; --tint: #eaeeef; color-scheme: light;'
 )
 DARK = (
     '--paper: #111416; --ink: #e9edee; --muted: #9aa4a8; --rule: #2a3134; '
     '--accent: #c6ef6b; --accent-text: #cdf27a; --accent-soft: rgba(198, 239, 107, 0.20); --accent-tint: #222b14; '
-    '--accent2: #e6a0bb; --accent2-text: #efb0c7; --accent2-soft: rgba(230, 160, 187, 0.2); --orb2-lo: #c0608b; '
-    '--plate: #171b1d; --tint: #1d2225; --lift: rgba(0, 0, 0, 0.6); --orb-hi: #f6ffe0; --orb-lo: #7fae25; color-scheme: dark;'
+    '--accent2: #e6a0bb; --accent2-text: #efb0c7; --accent2-soft: rgba(230, 160, 187, 0.2); '
+    '--plate: #171b1d; --tint: #1d2225; color-scheme: dark;'
 )
 STYLE = r'''
 :root {
@@ -291,7 +291,6 @@ STYLE = r'''
   --s1: 3px; --s2: 5px; --s3: 8px; --s4: 13px; --s5: 21px; --s6: 34px; --s7: 55px; --s8: 89px;
   --t1: 12px; --t2: 14px; --t3: 16.5px; --t4: 19px; --t5: 23px; --t6: 31px; --title: clamp(42px, 8vw, 70px);
   --measure: 640px; --page: 760px;
-  --raise: 0 1px 2px var(--lift), 0 6px 18px -10px var(--lift);
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { %DARK% } }
 :root[data-theme="dark"] { %DARK% }
@@ -361,7 +360,7 @@ math[display="block"] { display: block; display: block math; margin: var(--s4) 0
 .grid-key { font: 400 var(--t1)/1.4 var(--sans); color: var(--muted); margin: var(--s1) 0 0; }
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--s4); }
 /* each card is a subgrid of four rows (label, title, found, verdict), so the rows line up across neighbours */
-.card { background: var(--paper); border: 1px solid var(--accent-soft); border-radius: var(--s4); padding: var(--s4) var(--s5); box-shadow: var(--raise); display: grid; grid-template-rows: subgrid; grid-row: span 4; row-gap: 0; }
+.card { background: var(--paper); border: 1px solid var(--accent-soft); border-radius: var(--s4); padding: var(--s4) var(--s5); display: grid; grid-template-rows: subgrid; grid-row: span 4; row-gap: 0; }
 .card .k { font: 500 var(--t1)/1.4 var(--sans); letter-spacing: 0.04em; color: var(--muted); margin: 0 0 var(--s1); }
 .card h3 { font: 400 var(--t4)/1.3 var(--serif); margin: 0 0 var(--s4); }
 .card dl { display: grid; grid-template-columns: auto 1fr; gap: var(--s2) var(--s4); margin: 0; font: 400 var(--t2)/1.5 var(--sans); }
@@ -377,7 +376,6 @@ figure.fig { background: var(--plate); border: 1px solid var(--accent-soft); bor
 figure.fig svg { display: block; width: 100%; height: auto; }
 figure.fig figcaption { max-width: var(--measure); margin: var(--s5) 0 0; font: 400 var(--t2)/1.5 var(--sans); color: var(--muted); }
 figure.fig figcaption b { color: var(--ink); }
-figure.fig svg circle[fill="var(--paper)"][stroke], figure.fig svg rect[fill="var(--accent-soft)"] { filter: url(#fx-lift); }
 figure.fig svg rect[fill="var(--accent-soft)"] { fill: var(--accent-tint); }
 .interactive + .interactive { margin-top: var(--s5); }
 /* panels share the text column's left edge; two to a row at the page width, one on a phone */
@@ -389,7 +387,7 @@ figure.fig svg rect[fill="var(--accent-soft)"] { fill: var(--accent-tint); }
 .bio-key { padding: var(--s4) var(--s4) 0; font: 400 var(--t2)/1.5 var(--sans); color: var(--muted); }
 .bio-key > div { display: grid; grid-template-columns: 34px 1fr; align-items: center; gap: var(--s3); margin: 0 0 var(--s3); }
 .bio-key .bk-g { display: inline-flex; align-items: center; justify-content: center; }
-.bio-key .bk-int { font: italic 400 22px/1 var(--serif); color: var(--ink); }
+.bio-key .bk-int { font: italic 400 var(--t5)/1 var(--serif); color: var(--ink); }
 .sp { color: var(--accent-text); } .sn { color: var(--accent2-text); }
 .bio svg { display: block; width: 100%; height: auto; }
 .solo { max-width: 348.5px; margin: 0; }   /* one pair slot wide, so its 330 viewBox renders at the pair's scale */
@@ -410,10 +408,10 @@ table.key td:nth-child(2) { white-space: nowrap; }
 .ctl output { min-width: 3.5ch; text-align: right; }
 .ctl input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 44px; margin: 0; background: transparent; }
 .ctl input[type=range]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(var(--accent), var(--accent)) 0 0 / var(--p, 50%) 100% no-repeat var(--tint); }
-.ctl input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; margin-top: -8px; border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); box-shadow: var(--raise); }
+.ctl input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; margin-top: -8px; border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); }
 .ctl input[type=range]::-moz-range-track { height: 4px; border-radius: 2px; background: var(--tint); }
 .ctl input[type=range]::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--accent); }
-.ctl input[type=range]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); box-shadow: var(--raise); }
+.ctl input[type=range]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); }
 .arr, .sl-node { cursor: pointer; }
 .sl-node circle { transition: stroke-width .15s ease, stroke .15s ease; }
 .arr circle { transition: stroke .15s ease; }   /* the badge ring is the arrow's only focus mark, so its width changes at once */
@@ -425,7 +423,7 @@ table.key td:nth-child(2) { white-space: nowrap; }
 
 /* Figure 6: the census funnel and the model explorer. Pressable things rest flat and tint on hover and when pressed. */
 #funnel { max-width: var(--measure); margin: 0; }
-.f-row { display: grid; grid-template-columns: 64px 1fr; grid-template-areas: "n bar" ". t"; gap: var(--s1) var(--s4); width: 100%; min-height: 48px; padding: var(--s3) var(--s4); margin: 0 0 var(--s2); text-align: left; font: inherit; color: var(--ink); background: transparent; border: 0; border-radius: var(--s4); box-shadow: none; cursor: pointer; transition: background-color .15s ease; }
+.f-row { display: grid; grid-template-columns: 64px 1fr; grid-template-areas: "n bar" ". t"; gap: var(--s1) var(--s4); width: 100%; min-height: 48px; padding: var(--s3) var(--s4); margin: 0 0 var(--s2); text-align: left; font: inherit; color: var(--ink); background: transparent; border: 0; border-radius: var(--s4); cursor: pointer; transition: background-color .15s ease; }
 .f-row:hover, .f-row:focus-visible { background: var(--accent-soft); }
 .f-row[aria-pressed="true"] { background: var(--accent-tint); }
 .f-n { grid-area: n; align-self: center; font: 600 var(--t3)/1 var(--sans); font-variant-numeric: tabular-nums; }
@@ -433,15 +431,15 @@ table.key td:nth-child(2) { white-space: nowrap; }
 .f-bar span { display: block; height: 100%; border-radius: var(--s3); background: var(--accent); }
 .f-t { grid-area: t; font-size: var(--t2); }
 /* the panels are stacked in one grid cell and one is shown, so the figure keeps its height */
-.f-panel { max-width: var(--measure); margin: var(--s4) 0 0; padding: var(--s4) var(--s5); background: var(--paper); border-radius: var(--s4); box-shadow: var(--raise); display: grid; }
+.f-panel { max-width: var(--measure); margin: var(--s4) 0 0; padding: var(--s4) var(--s5); background: var(--paper); border-radius: var(--s4); display: grid; }
 .f-panel > div { grid-area: 1 / 1; visibility: hidden; }
 .f-panel > div.on { visibility: visible; }
 .f-panel p:not(.label) { font: 400 var(--t2)/1.5 var(--sans); margin: 0 0 var(--s3); }
 .explorer { max-width: var(--measure); margin: var(--s5) 0 0; }
 .ex-lab, .ex-count { display: block; font: 500 var(--t1)/1.4 var(--sans); color: var(--muted); margin: 0 0 var(--s2); }
-#ex-q { width: 100%; min-height: 44px; padding: var(--s3) var(--s4); font: 400 var(--t3) var(--sans); color: var(--ink); background: var(--paper); border: 1px solid var(--muted); border-radius: var(--s4); box-shadow: none; }
+#ex-q { width: 100%; min-height: 44px; padding: var(--s3) var(--s4); font: 400 var(--t3) var(--sans); color: var(--ink); background: var(--paper); border: 1px solid var(--muted); border-radius: var(--s4); }
 .ex-picks { display: flex; flex-wrap: wrap; gap: var(--s2); margin: var(--s3) 0; }
-.pick { min-height: 44px; padding: 0 var(--s4); font: 500 var(--t2) var(--sans); color: var(--accent-text); background: var(--paper); border: 1px solid var(--accent); border-radius: 999px; box-shadow: none; cursor: pointer; transition: background-color .15s ease; }
+.pick { min-height: 44px; padding: 0 var(--s4); font: 500 var(--t2) var(--sans); color: var(--accent-text); background: var(--paper); border: 1px solid var(--accent); border-radius: 999px; cursor: pointer; transition: background-color .15s ease; }
 .pick:hover, .pick[aria-pressed="true"] { background: var(--accent-tint); }
 ol.ex-list { list-style: none; padding: 0; margin: 0; }
 ol.ex-list li { padding: var(--s3) 0; border-bottom: 1px solid var(--rule); }
@@ -451,7 +449,7 @@ ol.ex-list li { padding: var(--s3) 0; border-bottom: 1px solid var(--rule); }
 
 /* hero: the spiral, one turn per row */
 figure.hero { margin: 0 0 var(--s5); }
-.hero-stage { position: relative; background: radial-gradient(ellipse 46% 52% at 50% 56%, var(--accent-soft), transparent 72%); }
+.hero-stage { position: relative; }
 #hero-svg { display: block; width: 100%; height: auto; touch-action: pan-y; cursor: grab; }
 #hero-svg.over { cursor: pointer; }
 #hero-svg:active { cursor: grabbing; }
@@ -462,8 +460,8 @@ figure.hero { margin: 0 0 var(--s5); }
 .hero-key svg { flex: 0 0 auto; }
 
 /* element cards, shared by the hero and the periodic table */
-.ecard { position: absolute; z-index: 3; width: 272px; padding: var(--s4); background: var(--paper); border: 1px solid var(--accent-soft); border-radius: var(--s4);
-         box-shadow: 0 1px 2px var(--lift), 0 8px 21px -8px var(--lift); pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(3px);
+.ecard { position: absolute; z-index: 3; width: 272px; padding: var(--s4); background: var(--paper); border: 1px solid var(--muted); border-radius: var(--s4);
+         pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(3px);
          transition: opacity 0.14s ease, transform 0.14s ease, visibility 0.14s; }
 .ecard.on { opacity: 1; visibility: visible; transform: none; }
 .ecard.on.pinned { pointer-events: auto; }   /* a hover card is click-through; a pinned card is a reading surface */
@@ -516,21 +514,21 @@ figure.hero { margin: 0 0 var(--s5); }
 .pt-h { font: 400 var(--t1)/1.4 var(--sans); color: var(--muted); margin: 0 0 var(--s2); }
 .pt-h b { color: var(--ink); margin-right: var(--s2); }
 .pt-grid { display: grid; gap: var(--s2); }
-/* a tile's border says how it is known (muted: this census; ink: experiments; dashed: a looser reading or nothing yet); the tint says found */
+/* a tile's ground says how it is known (lime fill, no border: found in this census; ink outline: experiments; dashed outline: a looser reading or nothing yet) */
 .pt-el { position: relative; width: var(--tile); height: 84px; padding: 0; margin: 0; font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--muted); border-radius: var(--s3); cursor: pointer; }
-.pt-el.pt-found { background: var(--accent-tint); box-shadow: 0 1px 2px var(--lift), 0 4px 13px -8px var(--lift); }
+.pt-el.pt-found { background: var(--found, var(--hl)); border-color: transparent; }   /* --found: the lime a tile is filled with, light enough that its + and − signs keep 4.5:1 */
 .pt-el.pt-known { border: 2px solid var(--ink); }
 .pt-el.pt-candidate { border: 1px dashed var(--muted); }
 .pt-el.pt-blank { border: 1px dashed var(--muted); background: transparent; }
 .pt-el:hover, .pt-el:focus-visible, .pt-el[aria-pressed="true"] { outline: 2px solid var(--ink); outline-offset: 1px; }
-.pt-n { position: absolute; left: var(--s2); top: var(--s1); font: 500 11px/1.2 var(--sans); color: var(--muted); }
+.pt-n { position: absolute; left: var(--s2); top: var(--s1); font: 500 var(--t1)/1.2 var(--sans); color: var(--muted); }
 .pt-found .pt-n { color: var(--ink); }
-.pt-sig { position: absolute; right: var(--s2); top: var(--s1); font: 600 11px/1.2 var(--sans); color: var(--ink); }
+.pt-sig { position: absolute; right: var(--s2); top: var(--s1); font: 600 var(--t1)/1.2 var(--sans); color: var(--ink); }
 .pt-sym { position: absolute; left: 0; right: 0; top: 19px; font: 600 var(--t4)/1 var(--sans); text-align: center; color: var(--ink); letter-spacing: -0.01em; }
 .sy-i { font-family: var(--serif); font-style: italic; font-weight: 400; margin-left: 1px; }
-.sy-i sup { font: 600 11px/0 var(--sans); font-style: normal; }
+.sy-i sup { font: 600 var(--t1)/0 var(--sans); font-style: normal; }
 .pt-tr { position: absolute; left: 50%; top: 45px; transform: translateX(-50%); line-height: 0; }
-.pt-c { position: absolute; left: 0; right: 0; bottom: 4px; font: 600 11px/1 var(--sans); text-align: center; color: var(--ink); }
+.pt-c { position: absolute; left: 0; right: 0; bottom: 4px; font: 600 var(--t1)/1 var(--sans); text-align: center; color: var(--ink); }
 .pt-blank .pt-c, .pt-candidate .pt-c, .pt-blank .pt-sym { color: var(--muted); }
 .pt-keybox { align-self: flex-start; }
 .pt-anat { position: relative; width: 340px; max-width: 100%; height: 128px; }
@@ -541,7 +539,7 @@ figure.hero { margin: 0 0 var(--s5); }
 .pt-gap { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--s2) var(--s6); font: 400 var(--t2)/1.5 var(--sans); margin: var(--s5) 0 0; }
 .pt-legend { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--s3) var(--s5); font: 400 var(--t1)/1.5 var(--sans); color: var(--muted); margin: var(--s4) 0 0; }
 .pt-key { display: inline-block; width: 18px; height: 14px; margin-right: var(--s3); vertical-align: -2px; border: 1px solid var(--muted); border-radius: 3px; background: var(--paper); }
-.pt-key.pt-found { background: var(--accent-tint); }
+.pt-key.pt-found { background: var(--found, var(--hl)); border-color: transparent; }
 .pt-key.pt-known { border: 2px solid var(--ink); }
 .pt-key.pt-candidate { border: 1px dashed var(--muted); }
 .pt-key.pt-blank { border: 1px dashed var(--muted); background: transparent; }
@@ -1324,7 +1322,7 @@ def read_random_signs(*, TR, **_):
         RR = {str(k): v for k, v in TR['defs'][MAIN]['rows'].items()}
         if not thr['multistable without refined positive circuit'] and not thr['oscillating without negative circuit']:
             rob = (
-                f' It gives {RR["2"]["essay"]["occupied"]} of 9 elements at two loops and {RR["3"]["essay"]["occupied"]} of 16 at three, '
+                f' It gives {RR["2"]["essay"]["occupied"]}/9 elements at two loops and {RR["3"]["essay"]["occupied"]}/16 at three, '
                 f'and the two proven rules still hold.'
             )
         else:
@@ -1332,7 +1330,7 @@ def read_random_signs(*, TR, **_):
                 thr['oscillating without negative circuit']
             )
             rob = (
-                f' It gives {RR["2"]["essay"]["occupied"]} of 9 and {RR["3"]["essay"]["occupied"]} of 16, but loses arrows: '
+                f' It gives {RR["2"]["essay"]["occupied"]}/9 and {RR["3"]["essay"]["occupied"]}/16, but loses arrows: '
                 f'{bad} models then seem to break a proven rule, so those numbers are not used.'
             )
     return dict(rob=rob)
@@ -1737,7 +1735,7 @@ def score_claims(*, r1, r2, fine, pred, autonomous, near2, fly_places, **_):
                 card(
                     'claim 3',
                     'Every element can exist',
-                    f'Every mix of amplifying and braking loops. At two loops a strict detector fills {r2["essay"]["occupied"]} of {pred[2]} elements, a loose one {near2}.',
+                    f'Every mix of amplifying and braking loops. At two loops a strict detector fills {r2["essay"]["occupied"]}/{pred[2]} elements, a loose one {near2}.',
                     '?',
                     'untested',
                     'No detector reads running totals reliably yet.',
@@ -1787,7 +1785,7 @@ def write_verdict(*, fine, coarse, pred, over, **_):
     if under:
         test_verdict += (
             f' At {listing(LOOPS[nu] for nu in under)} there are fewer kinds than elements '
-            f'({", ".join(f"{fine[nu]} of {pred[nu]}" for nu in under)}), which by the same terms marks one of the three counts as dead weight, '
+            f'({", ".join(f"{fine[nu]}/{pred[nu]}" for nu in under)}), which by the same terms marks one of the three counts as dead weight, '
             f'most likely the running totals, whose band is nearly empty.'
         )
     if fine[1] > pred[1] and not over:
@@ -1819,8 +1817,6 @@ def section_head(*, usable, code_link, data_link, hero_html, pred, **_):
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-<filter id="fx-lift" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="1.6" stdDeviation="2.2" style="flood-color: var(--lift)"/></filter>
-<radialGradient id="fx-orb" cx="36%" cy="30%" r="72%"><stop offset="0" style="stop-color: var(--orb-hi)"/><stop offset="0.5" style="stop-color: var(--accent)"/><stop offset="1" style="stop-color: var(--orb-lo)"/></radialGradient>
 <marker id="fx-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--accent-text)"/></marker>
 <marker id="fx-arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker>
 <marker id="fx-arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker>
@@ -2083,7 +2079,7 @@ def section_supp_ab(*, small, key_table, toys, struct, dyn, starts, key_agree, r
 <figcaption><b>Figure S6. One model through the census.</b> Code lines are trimmed from loops.py and dynamics.py; simulation uses libRoadRunner {cite('roadrunner')}.</figcaption>
 </figure>
 <div class="text">
-<p><b>Validation.</b> Toy models with known answers are counted on every build, and Tyson, Chen and Novák’s seven textbook circuits {cite('tyson')} serve as an answer key. On the same release, Baudier, Fages and Soliman found no braking loop in {pct(r24['no negative circuit'], r24['models'])} of models; this census finds none in {pct(rep['no negative circuit'], rep['models'])}. An audit of the first full run found a backtracking bug that cost 42 of 106 rate-rule models some loops, and after the fix the small-model count fell from 179 to {small}. Two independent runs from the raw download produce identical files.</p>
+<p><b>Validation.</b> Toy models with known answers are counted on every build, and Tyson, Chen and Novák’s seven textbook circuits {cite('tyson')} serve as an answer key. On the same release, Baudier, Fages and Soliman found no braking loop in {pct(r24['no negative circuit'], r24['models'])} of models; this census finds none in {pct(rep['no negative circuit'], rep['models'])}. An audit of the first full run found a backtracking bug that cost 42/106 rate-rule models some loops, and after the fix the small-model count fell from 179 to {small}. Two independent runs from the raw download produce identical files.</p>
 </div>
 <figure class="fig">
 {key_table}
@@ -2114,10 +2110,10 @@ def section_supp_c(
 ):
     """Supplement C: loop counts, behaviour and detail."""
     return f'''<details class="supp" id="supp-c">
-<summary>C. More results: loop counts, behaviour, detail</summary>
+<summary><span>C. More results: <span class="cl">loop counts, behaviour, detail</span></span></summary>
 <figure class="fig bars">
 {fig_distribution(D['distribution'])}
-<figcaption><b>Figure S8. Loops per model.</b> {le3} of {usable} have three loops or fewer; for {unfinished} the search stopped at its step limit.</figcaption>
+<figcaption><b>Figure S8. Loops per model.</b> {le3}/{usable} have three loops or fewer; for {unfinished} the search stopped at its step limit.</figcaption>
 </figure>
 <figure class="fig">
 <div class="scroll wide fig-wide">
@@ -2152,12 +2148,12 @@ def section_methods_models(*, pipeline_html, census, usable, excl_txt, rob, nud,
 <figcaption><b>Figure S11. The data pipeline.</b> One script per step; the last line of each step is what comes out.</figcaption>
 </figure>
 <div class="text">
-<h3>Models into equations</h3>
+<h3>Every model is read as its rate equations</h3>
 <p>BioModels release 31 (26 June 2017) holds {census} curated models, the set Baudier, Fages and Soliman used {cite('baudier')}. Each is read with libSBML {cite('libsbml')}, with function definitions expanded, and compiled by libRoadRunner {cite('roadrunner')}. The variables x are the species that change and are not fixed by an assignment rule, plus any quantity with a rate rule. With v(x) the reaction rates and N the stoichiometry matrix, whose entry N<sub>kj</sub> is how many of molecule k reaction j makes (positive) or uses up (negative), each model is</p>
 {PM.ODE}
 <p>plus the right-hand sides of its rate rules. {usable} models could be read this way. Of the other {census - usable}, {excl_txt}, among them Tyson&#8217;s mutual-inhibition switch, whose loop is hidden inside a formula.</p>
 
-<h3>Arrows</h3>
+<h3>An arrow&#8217;s sign is read from the rate laws, at five states</h3>
 <p>An arrow runs from molecule i to molecule k through reaction j when reaction j changes k and its rate depends on i. Its sign multiplies two signs: whether the rate rises or falls with i, and whether the reaction makes or uses up k.</p>
 {PM.SIGN}
 <p>The derivative is a central difference, with step h equal to a tenth of a percent of x<sub>i</sub>:</p>
@@ -2166,7 +2162,7 @@ def section_methods_models(*, pipeline_html, census, usable, excl_txt, rob, nud,
 <p>Self-loops need care, because every molecule that decays has a trivial braking loop on itself. Decay, consumption and reverse flux are not counted. A braking self-loop is kept only when a reaction that makes the molecule slows as it rises, and its rate law stays non-negative when the molecule is pushed a thousand times higher (end-product inhibition, autorepression); a symbolic test with sympy looks for a positive root of the rate law&#8217;s numerator. An amplifying self-loop is dropped when it only comes from a substrate written as a total minus the molecule itself.</p>
 <p>As a check, signs were also read at random states, each variable drawn log-uniformly between the lowest and highest levels it reaches on its own run to t = 1000.{rob}</p>
 
-<h3>Loops</h3>
+<h3>A loop&#8217;s sign is the product of its arrows&#8217; signs</h3>
 <p>A loop is an elementary circuit of the arrow graph, with each arc labelled by its reaction. Its sign is the product of its arcs&#8217; signs, so it brakes when it holds an odd number of brakes:</p>
 {PM.LOOP}
 <p>Baudier, Fages and Soliman proved that three kinds of loop can be dropped without losing any amplifying loop that could hold two states {cite('baudier')}. The proofs run through the Jacobian; in plain terms, with the intuition for each:</p>
@@ -2188,7 +2184,7 @@ def section_methods_models(*, pipeline_html, census, usable, excl_txt, rob, nud,
 
 def section_methods_totals(*, unchecked, ctl_rows, autonomous, unsettled, th, starts, **_):
     """Supplement D, part 2: running totals and behaviour."""
-    return f'''<h3>Running totals</h3>
+    return f'''<h3>Strictly, a molecule keeps a running total when its level cannot change its own rate</h3>
 <p>Strict reading. Molecule i keeps a running total if its own name appears in none of the rate laws that change it, so its rate cannot depend on its level:</p>
 {PM.STRICT}
 <p>Loose reading. Molecule i nearly keeps one if its own level moves its net rate by less than a tenth of the flow into it, at the last state reached (first-order decay scores exactly 1 at steady state):</p>
@@ -2201,7 +2197,7 @@ def section_methods_totals(*, unchecked, ctl_rows, autonomous, unsettled, th, st
 <div class="scroll"><table><tr><th>Model</th><th>Loops</th><th>Strict</th><th>Loose</th></tr>{ctl_rows}</table></div>
 <p>The paired reading finds none in these six, finds the controller&#8217;s total in the toy, and finds nothing in the enzyme or the ring.</p>
 
-<h3>Behaviour</h3>
+<h3>Behaviour is read by running each model from its own start and eleven others</h3>
 <p>Each model runs at its published rates from its own start and {WORD[starts - 1]} others. The others keep every conserved total of the start: they are corners of the set of states x &#8805; 0 reachable as x<sub>0</sub> + N&#958; and capped at ten times the largest starting level, found by linear programs with random objectives, then mixed with Dirichlet(0.3) weights. The solver is CVODE {cite('sundials')} with relative tolerance 10<sup>&#8722;8</sup> and absolute tolerance 10<sup>&#8722;12</sup>. Each run tries horizons of 10<sup>2</sup>, 10<sup>3</sup>, 10<sup>4</sup> and 10<sup>5</sup> time units, 2,001 samples each, and stops at the first that decides:</p>
 <div class="scroll"><table>
 <tr><th>Label</th><th>Rule</th></tr>
@@ -2220,7 +2216,7 @@ def section_methods_totals(*, unchecked, ctl_rows, autonomous, unsettled, th, st
 
 def section_methods_rules(*, runtime, budgets, net_h, sp, split_full, r24, rep, m270, t4, t3, **_):
     """Supplement D, part 3: proven rules, counting, replication, reproducing."""
-    return f'''<h3>The proven rules</h3>
+    return f'''<h3>Two proved rules let the census check itself</h3>
 <p>Two of the table&#8217;s rules are theorems, so the census uses them to check itself.</p>
 <p><b>Two states need an amplifying loop.</b> Soul&#233; proved it {cite('soule')}: if a system of smooth rate equations has two separate steady states, then at some state in between, the arrows the census draws (the signed Jacobian) contain an amplifying loop. The idea, roughly: between two stable states lies an unstable one, a hilltop, and a hilltop needs a disturbance that feeds back on itself and grows, which is an amplifying loop. Baudier, Fages and Soliman sharpened the statement for reaction networks: the loop can be taken to be one that survives their filters {cite('baudier')}. The census checks this with their elimination algorithm, which decides whether such a loop exists without listing loops.</p>
 <p><b>A sustained rhythm needs a braking loop.</b> Snoussi and Gouz&#233; proved that a stable oscillation needs a braking loop through at least two molecules, in systems whose arrows keep their sign {cite('snoussi', 'gouze')}. The idea: to swing, a system must overshoot and turn back, and turning back means some chain of arrows eventually pushes the other way, which multiplies to a brake. The census checks it exactly: a strongly connected piece of the graph has no braking loop just when its molecules split into two camps so that every arrow&#8217;s sign is the product of its ends&#8217; camps,</p>
@@ -2228,22 +2224,22 @@ def section_methods_rules(*, runtime, budgets, net_h, sp, split_full, r24, rep, 
 <p>which a single pass of two-colouring decides. Braking self-loops are left out of this check, as the theorem requires.</p>
 <p>What the theorems do not say: they are necessary conditions, not sufficient ones. An amplifying loop does not guarantee two states, and a braking loop does not guarantee a rhythm. They also speak of the signs at some state of the system, which is why the census reads signs where each model actually runs, and again at random states as a check. The rhythm rule is proved only for arrows that keep their sign, so where the census reads an arrow with both signs its check goes past the proof.</p>
 
-<h3>Counting elements</h3>
+<h3>A row with &#957; loops holds (&#957; + 1)<sup>2</sup> elements</h3>
 <p>A model with c = &#957; loops goes in element (&#957;, k, j), and row &#957; has (&#957; + 1)<sup>2</sup> elements. Grouping them like orbitals gives each one an address, with layers of 2l + 1:</p>
 {PM.QN}
 {PM.KINDS}
 <p> Two other counts treat each loop as carrying its own type. If every loop is one of four types (amplifying or braking, with or without a running total), a row is a multiset of &#957; types: 4, 10 and 20 elements, of which the models fill {t4[2]['occupied']} at two loops and {t4[3]['occupied']} at three. If only braking loops can keep a running total, three types give 3, 6 and 10 elements, of which they fill {t3[2]['occupied']} and {t3[3]['occupied']}. Counting amplifying loops after the filters and braking loops as drawn, the split the proofs support, moves {sp['moved']} models to another cell{'; every sign pattern stays filled' if split_full else ''}{', and no clock is left without a brake' if not sp['clocks without a brake'] else ''}. Kinds of behaviour are the distinct sets of labels among the models of a row that run on their own.</p>
 
-<h3>Replication</h3>
+<h3>Replicating Baudier, Fages and Soliman: their case study matches, the self-feeding loop counts do not</h3>
 <p>Baudier, Fages and Soliman ran the same three filters on the same release:</p>
-<div class="scroll"><table><tr><th></th><th>Baudier, Fages and Soliman, Table 1: {r24['models']} models</th><th>This census: {rep['models']} models with reactions</th></tr>
+<div class="scroll"><table><tr><th></th><th>Baudier, Fages and Soliman, <span class="cl">Table 1: {r24['models']} models</span></th><th>This census: <span class="cl">{rep['models']} models with reactions</span></th></tr>
 <tr><td>No braking loop</td><td>{pct(r24['no negative circuit'], r24['models'])}</td><td>{pct(rep['no negative circuit'], rep['models'])}</td></tr>
 <tr><td>No amplifying loop</td><td>{pct(r24['no positive circuit'], r24['models'])}</td><td>{pct(rep['no positive circuit'], rep['models'])}</td></tr>
 <tr><td>No amplifying loop after the filters</td><td>{pct(r24['no refined positive circuit'], r24['models'])}</td><td>{pct(rep['no refined positive circuit'], rep['models'])}</td></tr>
 </table></div>
-<p>Amplifying loops differ in a direction sign reading can&#8217;t explain, because reading every setting at once, as they did, can only add arrows. The gap more likely comes from how each pipeline turns a model file into reactions; theirs rebuilds some models from their equations. Their headline, 160 of 506, adds a rewiring test not run here. Their case study, the ERK cascade of model 270, comes out as they found it: {m270['c']} loops survive the filters, all braking, so it cannot hold two states.</p>
+<p>Amplifying loops differ in a direction sign reading can&#8217;t explain, because reading every setting at once, as they did, can only add arrows. The gap more likely comes from how each pipeline turns a model file into reactions; theirs rebuilds some models from their equations. Their headline, 160/506, adds a rewiring test not run here. Their case study, the ERK cascade of model 270, comes out as they found it: {m270['c']} loops survive the filters, all braking, so it cannot hold two states.</p>
 
-<h3>Reproducing it</h3>
+<h3>Two full runs from the raw download gave the same files, timings aside</h3>
 <div class="scroll"><table>
 <tr><th>Setting</th><th>Value</th></tr>
 <tr><td>Data</td><td>BioModels release 31, 193 MB, SHA-256 b6fba03e&#8230;0532, checked on download</td></tr>

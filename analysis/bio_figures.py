@@ -19,23 +19,15 @@ import interactive as IA
 
 SVG = ''  # the stylesheet gives every svg the page's sans
 W, H = 300, 280
-LIFT = 'filter="url(#fx-lift)"'
+LIFT = ''  # flat: no drop shadow (2026-11-22)
+FLAT = {'a': 'var(--accent)', 'b': 'var(--accent2)', 'g': 'var(--rule)'}  # flat fills where sphere gradients were
 
 
 def defs(p: str) -> str:
-    """SVG defs (gradients and a bilayer pattern) whose ids start with the panel prefix p."""
-
-    def grad(i, hi, mid, lo):
-        return (
-            f'<radialGradient id="{p}{i}" cx="36%" cy="30%" r="72%"><stop offset="0" style="stop-color: {hi}"/>'
-            f'<stop offset="0.55" style="stop-color: {mid}"/><stop offset="1" style="stop-color: {lo}"/></radialGradient>'
-        )
+    """SVG defs (a bilayer pattern) whose ids start with the panel prefix p."""
 
     return (
         '<defs>'
-        + grad('ga', 'var(--orb-hi)', 'var(--accent)', 'var(--orb-lo)')
-        + grad('gb', 'var(--orb-hi)', 'var(--accent2)', 'var(--orb2-lo)')
-        + grad('gg', 'var(--paper)', 'var(--rule)', 'var(--muted)')
         + f'<pattern id="{p}bl" width="6" height="14" patternUnits="userSpaceOnUse">'
         '<circle cx="3" cy="2.6" r="2.2" fill="var(--muted)"/><circle cx="3" cy="11.4" r="2.2" fill="var(--muted)"/>'
         '<path d="M1.9 4.8V9.2M4.1 4.8V9.2" stroke="var(--muted)" stroke-width="0.7"/></pattern>'
@@ -70,7 +62,7 @@ def label(
 
 def lobe(x: float, y: float, rx: float, ry: float, p: str, kind: str = 'a') -> str:
     """One protein lobe, an ellipse with the panel's gradient."""
-    return f'<ellipse cx="{x}" cy="{y}" rx="{rx}" ry="{ry}" fill="url(#{p}g{kind})" {LIFT}/>'
+    return f'<ellipse cx="{x}" cy="{y}" rx="{rx}" ry="{ry}" fill="{FLAT[kind]}" {LIFT}/>'
 
 
 def helix(x0: float, x1: float, y: float, amp: float = 7, period: float = 32) -> str:
@@ -182,7 +174,7 @@ def panel_lac() -> str:
     s += bilayer(70, 51, 160, p)
     # LacY, a helix bundle through the membrane, pumping lactose in
     s += ''.join(
-        f'<rect x="{x}" y="44" width="4.2" height="28" rx="2" fill="url(#{p}ga)"/>' for x in (140, 146, 152, 158, 164)
+        f'<rect x="{x}" y="44" width="4.2" height="28" rx="2" fill="var(--accent)"/>' for x in (140, 146, 152, 158, 164)
     )
     s += label(130, 80, 'LacY', anchor='end')
     s += sugar(24, 24) + sugar(44, 18) + sugar(62, 27)
@@ -192,7 +184,7 @@ def panel_lac() -> str:
     s += sugar(150, 108)
     # LacI, a tetramer; lactose disables it, it blocks the genes at the operator
     s += ''.join(
-        f'<circle cx="{x}" cy="{y}" r="9" fill="url(#{p}gb)" {LIFT}/>'
+        f'<circle cx="{x}" cy="{y}" r="9" fill="var(--accent2)" {LIFT}/>'
         for x, y in ((96, 150), (112, 150), (96, 166), (112, 166))
     )
     s += label(104, 192, 'LacI')
@@ -221,7 +213,7 @@ def panel_chemotaxis() -> str:
     s += bilayer(20, 60, 260, p)
     # the receptor, a dimer through the membrane with a ligand-binding bulb outside
     s += ''.join(
-        f'<rect x="{x}" y="44" width="9" height="122" rx="4" fill="url(#{p}gg)" stroke="var(--muted)" stroke-width="0.8"/>'
+        f'<rect x="{x}" y="44" width="9" height="122" rx="4" fill="var(--rule)" stroke="var(--muted)" stroke-width="0.8"/>'
         for x in (138, 151)
     )
     s += lobe(142, 38, 7, 6, p, 'g') + lobe(156, 38, 7, 6, p, 'g')

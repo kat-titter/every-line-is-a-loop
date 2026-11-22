@@ -29,7 +29,7 @@ if '--page' in sys.argv:
     i = sys.argv.index('--page')
     PAGE = pathlib.Path(sys.argv[i + 1]).resolve()
     del sys.argv[i : i + 2]
-VOID = ('meta', 'input', 'br', 'img', 'line', 'circle', 'ellipse', 'path', 'rect', 'polygon')
+VOID = ('meta', 'link', 'input', 'br', 'img', 'line', 'circle', 'ellipse', 'path', 'rect', 'polygon')
 
 
 def static_checks() -> None:

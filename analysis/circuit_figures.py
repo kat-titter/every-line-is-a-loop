@@ -35,7 +35,7 @@ PAGE = ROOT / 'every-line-is-a-loop.html'
 MINUS = '&#8722;'
 PW, PH = 350, 300  # cell and circuit panes
 SW_, SH = 720, 220  # signal pane, redrawn by the script at the true pixel width
-LIFT = 'filter="url(#fx-lift)"'
+LIFT = ''  # flat: no drop shadow (2026-11-22)
 SERIF = ' style="font-family: var(--serif)" font-style="italic"'
 
 
@@ -448,7 +448,7 @@ def cell_switch() -> str:
     s += BF.bilayer(90, 63, 170, p)
     # LacY, a helix bundle through the membrane
     s += ''.join(
-        f'<rect x="{x}" y="56" width="4.4" height="28" rx="2" fill="url(#{p}ga)"/>'
+        f'<rect x="{x}" y="56" width="4.4" height="28" rx="2" fill="var(--accent)"/>'
         for x in (164, 170.5, 177, 183.5, 190)
     )
     s += label(154, 92, 'LacY', anchor='end', size=12, extra=' font-weight="600"')
@@ -470,7 +470,7 @@ def cell_switch() -> str:
     s += label(190, 182, 'inside', fill='var(--muted)', size=12)
     # LacI, a tetramer; lactose disables it; it blocks the genes at the operator
     s += ''.join(
-        f'<circle cx="{x}" cy="{y}" r="9.5" fill="url(#{p}gb)" {LIFT}/>'
+        f'<circle cx="{x}" cy="{y}" r="9.5" fill="var(--accent2)" {LIFT}/>'
         for x, y in ((92, 164), (110, 164), (92, 182), (110, 182))
     )
     s += label(101, 208, 'LacI', size=12, extra=' font-weight="600"')
@@ -657,8 +657,8 @@ def fig_switch() -> tuple[str, str]:
     )
     chain = chain_html(
         'self-feeding',
-        'two states, if strong enough',
-        'copies food that lasts',
+        'two states,|if strong enough',
+        'copies food|that lasts',
         brakes=0,
         fn='remember',
         trace='holds two states',
@@ -777,7 +777,7 @@ def fig_clock() -> tuple[str, str]:
         f'<input id="ck-D" type="range" min="0" max="{int(CK["Dmax"] * 10)}" value="{int(CK["D"] * 10)}" aria-label="Extra delay before PER:CRY acts, in hours" style="--p: 75%">'
         f'<output for="ck-D" id="ck-Dv">{CK["D"]:.1f} h</output></div>'
     )
-    chain = chain_html('brake', 'ticks, if strong and late', 'copies the day', brakes=1, fn='time', trace='ticks')
+    chain = chain_html('brake', 'ticks,|if strong and late', 'copies the day', brakes=1, fn='time', trace='ticks')
     return f'<div class="deep">{panes}</div>', f'{ctl}{chain}'
 
 
@@ -789,7 +789,7 @@ def cell_adapter() -> str:
     s += BF.bilayer(20, 66, 310, p)
     # the receptor, a dimer through the membrane with its ligand bulb outside
     s += ''.join(
-        f'<rect x="{x}" y="48" width="9" height="128" rx="4" fill="url(#{p}gg)" stroke="var(--muted)" stroke-width="0.8"/>'
+        f'<rect x="{x}" y="48" width="9" height="128" rx="4" fill="var(--rule)" stroke="var(--muted)" stroke-width="0.8"/>'
         for x in (160, 173)
     )
     s += BF.lobe(164, 42, 7, 6, p, 'g') + BF.lobe(178, 42, 7, 6, p, 'g')
@@ -915,8 +915,8 @@ def fig_adapter() -> tuple[str, str]:
         '<button type="button" class="chip tog" id="ad-leak" aria-pressed="false">let the total leak</button></div>'
     )
     chain = chain_html(
-        'brake, running total',
-        'returns exactly, at any strength',
+        'brake,|running total',
+        'returns exactly,|at any strength',
         'copies the background',
         brakes=1,
         integ=True,
@@ -1029,8 +1029,8 @@ def fig_hypo() -> tuple[str, str]:
         '<button type="button" class="chip tog" id="hy-x2" aria-pressed="false">twice the height, half the length</button></div>'
     )
     chain = chain_html(
-        'self-feeding, running total',
-        'flips once enough adds up',
+        'self-feeding,|running total',
+        'flips once|enough adds up',
         'copies a pulse&#8217;s dose',
         brakes=0,
         integ=True,
@@ -1196,23 +1196,32 @@ def chain_html(
     fn: str = 'remember',
     trace: str = 'holds two states',
 ) -> str:
-    """The chain under each circuit: the loop's shape, the behaviour its strength lets through, the function it serves."""
+    """The chain under each circuit: the loop's shape, the behaviour its strength lets through, the function it serves.
+
+    A "|" in a value marks the only place its line may break, so a phrase wraps at its clause and never inside it.
+    Shape and behaviour carry the table's own marks (the loop glyph, the trace). Function carries words only: its
+    pictograms (a flag, a clock, a compass) said nothing the words did not, and the flag said "remember" beside
+    "copies food" (Kat, 2026-11-22: "why is copies food a flag? ... icons should add to the communication").
+    """
+
+    def clauses(value: str) -> str:
+        return '<span class="ch-t">' + ' '.join(f'<span class="nb">{c}</span>' for c in value.split('|')) + '</span>'
+
+    shape, behaviour, function = clauses(shape), clauses(behaviour), clauses(function)
     return (
         '<div class="chain" aria-label="Shape, behaviour, function">'
         f'<span class="ch"><span class="ch-k">shape</span><span class="ch-v">{shape_glyph(brakes, integ)}{shape}</span></span>'
         '<span class="ch-a" aria-hidden="true">&#8594;</span>'
         f'<span class="ch"><span class="ch-k">behaviour</span><span class="ch-v">{glyph(trace)}{behaviour}</span></span>'
         '<span class="ch-a" aria-hidden="true">&#8594;</span>'
-        f'<span class="ch"><span class="ch-k">function</span><span class="ch-v">{fn_icon(fn)}{function}</span></span></div>'
+        f'<span class="ch"><span class="ch-k">function</span><span class="ch-v">{function}</span></span></div>'
     )
 
 
 def defs_html() -> str:
-    """Hidden svg defs shared by the figures: arrowheads, bars and the lift shadow."""
+    """Hidden svg defs shared by the figures: arrowheads and bars."""
     return (
         '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>'
-        '<filter id="fx-lift" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="1.6" stdDeviation="2.2" style="flood-color: var(--lift)"/></filter>'
-        '<radialGradient id="fx-orb" cx="36%" cy="30%" r="72%"><stop offset="0" style="stop-color: var(--orb-hi)"/><stop offset="0.5" style="stop-color: var(--accent)"/><stop offset="1" style="stop-color: var(--orb-lo)"/></radialGradient>'
         '<marker id="fx-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--accent-text)"/></marker>'
         '<marker id="fx-arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker>'
         '<marker id="fx-arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker>'
@@ -1319,12 +1328,12 @@ def fig_chem() -> str:
     atoms = [
         ('sodium', 'Na', (2, 8, 1), ('1 outer electron', 'gives it away, fizzes in water', 'salt, nerve signals')),
         ('neon', 'Ne', (2, 8), ('outer shell full', 'reacts with nothing', 'glowing signs')),
-        ('carbon', 'C', (2, 4), ('4 of 8 outer places', 'makes four bonds', 'the backbone of life')),
+        ('carbon', 'C', (2, 4), ('4/8 outer places', 'makes four bonds', 'the backbone of life')),
     ]
     panes = []
     for name, sym, shells, (a, b, c) in atoms:
         inner = atom_svg(name, sym, shells, w, h, (('shape', a), ('behaviour', b), ('function', c)))
-        panes.append(f'<div>{pane(inner, w, h, f"{name.capitalize()}: {a}; {b}; used for {c}")}</div>')
+        panes.append(f'<div>{pane(inner, w, h, f"{name.capitalize()}: {a}; {b}; used for {c}".replace("/", " of "))}</div>')
     gap = '<div class="trio-a" aria-hidden="true"></div>'
     return '<div class="trio-f">' + gap.join(panes) + '</div>'
 
@@ -1351,20 +1360,20 @@ def fig_band() -> str:
                     X, Y = x + k * c, y0 + j * c
                     n = cells.get((k, j), 0)
                     if n:
-                        s += f'<rect x="{X + 1}" y="{Y + 1}" width="{c - 2}" height="{c - 2}" rx="3" style="fill: var(--accent-tint)" stroke="var(--accent-text)" stroke-width="1.2"/>'
+                        s += f'<rect x="{X + 1}" y="{Y + 1}" width="{c - 2}" height="{c - 2}" rx="3" style="fill: var(--found, var(--hl))"/>'
                         s += f'<text x="{X + c / 2}" y="{Y + c / 2 + 4}" text-anchor="middle" font-size="11" fill="var(--ink)" style="font-family: var(--code)">{n}</text>'
                     else:
                         s += f'<rect x="{X + 1}" y="{Y + 1}" width="{c - 2}" height="{c - 2}" rx="3" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 2"/>'
             s += mono(
                 x + (nu + 1) * c / 2,
                 150,
-                f'{row["occupied"]} of {row["predicted"]}',
+                f'{row["occupied"]}/{row["predicted"]}',
                 anchor='middle',
                 fill='var(--ink)',
             )
             x += (nu + 1) * c + gap
         aria = f'{title}: rows one to three filled ' + ', '.join(
-            f'{D["rows"][str(nu)][key]["occupied"]} of {D["rows"][str(nu)][key]["predicted"]}' for nu in (1, 2, 3)
+            f'{D["rows"][str(nu)][key]["occupied"]} of {D["rows"][str(nu)][key]["predicted"]}' for nu in (1, 2, 3)  # keep-of: a screen reader says "2 of 4"
         )
         panes.append(f'<div>{pane(s, w, h, aria)}</div>')
     return '<div class="duo-f">' + ''.join(panes) + '</div>'
@@ -1411,7 +1420,7 @@ def fig_atlas() -> str:
                 for m in mem
                 if S.get(m['model'], {}).get(key) or (sign == '+' and S.get(m['model'], {}).get('refined_positive'))
             )
-            rule = f'{met} of {len(mem)} {word}'
+            rule = f'{met}/{len(mem)} {word}'
         else:
             rule = ''
         body += (
@@ -1425,7 +1434,7 @@ def fig_atlas() -> str:
 
 
 # ================================================================ three diseases, one algebra
-# One disease at a time. The icons are Figure 13's (#fig-brakes) for cancer and neurodegeneration, so the same
+# One disease at a time. The icons are Figure 12's (#fig-brakes) for cancer and neurodegeneration, so the same
 # disease wears the same mark on both figures; autoimmunity gets an antibody drawn to match.
 DZ_ICON = {
     'cells': (

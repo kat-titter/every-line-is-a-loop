@@ -435,7 +435,7 @@ def explorer(rows: list, picks: list) -> str:
     var term = q.value.trim().toLowerCase();
     var hit = R.filter(function (r) { return !term || r.name.toLowerCase().indexOf(term) >= 0 || r.id.indexOf(term) >= 0; });
     var cap = term ? 12 : 6;
-    count.textContent = hit.length + ' of ' + R.length + ' models' + (hit.length > cap ? ', first ' + cap + ' shown' : '');
+    count.textContent = hit.length + '/' + R.length + ' models' + (hit.length > cap ? ', first ' + cap + ' shown' : '');
     [].forEach.call(document.querySelectorAll('.pick'), function (b) { b.setAttribute('aria-pressed', String(b.dataset.q.toLowerCase() === term)); });
     list.innerHTML = hit.length ? hit.slice(0, cap).map(function (r) {
       // the sign pattern carries its colours (lavender amplifies, amber brakes); every other bit stays escaped text
@@ -592,7 +592,7 @@ def hero_frame(elements: list[dict], W: float, phi: float) -> tuple:
         k = 0.9 + 0.2 * f
         if el['status'] == 'found':
             rr = (2.4 + 1.15 * math.sqrt(min(el['count'], 100))) * S / 200 * k
-            body = f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rr:.1f}" fill="url(#fx-orb)" filter="url(#fx-lift)" opacity="{0.62 + 0.38 * f:.2f}"/>'
+            body = f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rr:.1f}" fill="var(--accent)" opacity="{0.62 + 0.38 * f:.2f}"/>'
         else:
             rr = max(2.6, 3.2 * S / 200) * k
             body = f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rr:.1f}" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2" opacity="{0.5 + 0.5 * f:.2f}"/>'
@@ -845,8 +845,8 @@ def periodic_table(elements: list[dict], found_top: list, found_rest: list) -> s
         f'<span>{tile("blank")}blank: nothing found yet</span></div>'
     )
     gaps = (
-        f'<p class="pt-gap"><span><b>{found_top[0]} of {found_top[1]}</b> found with no running total (top rows)</span>'
-        f'<span><b>{found_rest[0]} of {found_rest[1]}</b> found with one or more (rows below)</span></p>'
+        f'<p class="pt-gap"><span><b>{found_top[0]}/{found_top[1]}</b> found with no running total (top rows)</span>'
+        f'<span><b>{found_rest[0]}/{found_rest[1]}</b> found with one or more (rows below)</span></p>'
     )
     return (
         f'<div class="interactive ptable" id="ptable"><div class="pt-blocks">{html_}</div>{zero}{gaps}{key}'
@@ -895,7 +895,7 @@ def hero(elements: list[dict]) -> str:
       var c = proj(p), f = p[0] ? (c[3] / rmax + 1) / 2 : 1, k = 0.9 + 0.2 * f, el = D.el[j], n = el.status === 'found' ? el.count : 0, rr, body;
       if (n) {
         rr = (2.4 + 1.15 * Math.sqrt(Math.min(n, 100))) * S / 200 * k;
-        body = '<circle cx="' + c[0].toFixed(1) + '" cy="' + c[1].toFixed(1) + '" r="' + rr.toFixed(1) + '" fill="url(#fx-orb)" filter="url(#fx-lift)" opacity="' + (0.62 + 0.38 * f).toFixed(2) + '"/>';
+        body = '<circle cx="' + c[0].toFixed(1) + '" cy="' + c[1].toFixed(1) + '" r="' + rr.toFixed(1) + '" fill="var(--accent)" opacity="' + (0.62 + 0.38 * f).toFixed(2) + '"/>';
       } else {
         rr = Math.max(2.6, 3.2 * S / 200) * k;
         body = '<circle cx="' + c[0].toFixed(1) + '" cy="' + c[1].toFixed(1) + '" r="' + rr.toFixed(1) + '" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2" opacity="' + (0.5 + 0.5 * f).toFixed(2) + '"/>';
@@ -972,7 +972,7 @@ def hero(elements: list[dict]) -> str:
 })();
 </script>"""
     )
-    orb = '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="7" fill="url(#fx-orb)"/></svg>'
+    orb = '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="7" fill="var(--accent)"/></svg>'
     ring = '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="3.6" fill="var(--paper)" stroke="var(--muted)" stroke-width="1.2"/></svg>'
     return (
         f'<figure class="hero" id="hero"><div class="hero-stage">{svg}<div class="hero-card ecard" id="hero-card" role="status" aria-live="polite" tabindex="-1"></div></div>'

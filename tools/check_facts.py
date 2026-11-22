@@ -83,7 +83,7 @@ def load_jsonl(name: str) -> dict[str, dict]:
 @dataclass
 class Block:
     section: str
-    kind: str  # main, fold, caption, table, card, figure (Figure 8's pipeline drawing), supplement, refs
+    kind: str  # main, fold, caption, table, card, figure (Figure 7's pipeline drawing), supplement, refs
     text: str
     gen: str  # the gen: block that writes it, or ""
     label: bool  # a heading, kicker, control or readout rather than prose
@@ -119,7 +119,7 @@ class _PageText(HTMLParser):
         self.section = "top"
         self.folds = self.captions = self.tables = self.labels = 0
         self.rows = self.row = 0
-        self.pf = False  # inside Figure 8's pipeline drawing, whose step labels are page text
+        self.pf = False  # inside Figure 7's pipeline drawing, whose step labels are page text
         self.gen: list[str] = []
         self.buf: list[str] = []
         self.blocks: list[Block] = []
@@ -173,7 +173,7 @@ class _PageText(HTMLParser):
         self.tables += tag == "table"
         self.labels += tag in self.LABEL
         a = dict(attrs)
-        if a.get("data-d"):  # a hover card (Figure 15): its text and its sources
+        if a.get("data-d"):  # a hover card (Figure 14): its text and its sources
             self.blocks.append(
                 Block(
                     self.section,
@@ -300,7 +300,7 @@ def values() -> tuple[dict[str, object], dict[str, str]]:
     put(
         "ro_models",
         cells[2].get("(1, 0)", 0),
-        f"{tt} defs.ref24_rank.rows[2].essay.cells['(1, 0)'] (Ro, Figure 6's sample)",
+        f"{tt} defs.ref24_rank.rows[2].essay.cells['(1, 0)'] (Ro, the hero legend's sample)",
     )
     loose = {n: rows[n]["essay_near"]["occupied"] for n in (1, 2, 3)}
     put("loose_full_12", loose[1] == 4 and loose[2] == 9, f"{tt} rows[1,2].essay_near.occupied == 4, 9")
@@ -386,7 +386,7 @@ def values() -> tuple[dict[str, object], dict[str, str]]:
     truth = load("truth_tests.json")
     N = truth_numbers()
     put("auto", N["auto"], "truth_tests.json rules.autonomous")
-    # Figure 8's pipeline: what each step set aside, by subtraction
+    # Figure 7's pipeline: what each step set aside, by subtraction
     put("not_listed", v["usable"] - v["complete"], f"{tt} usable - integrators.models with complete enumeration")
     put("not_own", v["usable"] - v["run_alone"], f"{tt} usable - r31_dynamics.jsonl run on their own")
     put(
@@ -693,7 +693,7 @@ def values() -> tuple[dict[str, object], dict[str, str]]:
     tt_ = nest["census"]["transit_time"]["table"]
     put(
         "transit",
-        f"{tt_['amplifying']['keeps time']} of {sum(tt_['amplifying'].values())} against {tt_['braking']['keeps time']} of {sum(tt_['braking'].values())}",
+        f"{tt_['amplifying']['keeps time']}/{sum(tt_['amplifying'].values())} against {tt_['braking']['keeps time']}/{sum(tt_['braking'].values())}",
         "nesting.json census.transit_time.table",
     )
     put(
@@ -763,9 +763,9 @@ def F(section: str, text: str) -> Fact:
 FACTS = [
     # masthead lead
     F("top", "Count those loops in {models_670} published cell models"),
-    F("top", "The table those counts make, above, has {rt_blank} blank squares."),
-    F("top", "{nort} of {nort_total} found with no running total (top rows)"),
-    F("top", "{rt} of {rt_total} found with one or more"),
+    F("top", "Those counts make the table above, with {rt_blank} blank squares."),
+    F("top", "{nort}/{nort_total} found with no running total (top rows)"),
+    F("top", "{rt}/{rt_total} found with one or more"),
     F("top", "{read_min} min read"),
     # 01
     F("close", "No exception in {auto} published models (chapter 03)"),
@@ -788,8 +788,8 @@ FACTS = [
         "table",
         "Five models of the same fly clock, drawn at different detail, land at four addresses, and all of them tick.",
     ),
-    F("table", "Ro{ro_models} element number"),
-    # Figure 8, the pipeline's steps (svg#pf) and their cards
+    F("top", "Ro{ro_models} element number"),
+    # Figure 7, the pipeline's steps (svg#pf) and their cards
     F("table", "{census} curated models"),
     F("table", "{usable} read as equations {excluded} unusable"),
     F("table", "{complete} every loop listed {not_listed} hit step limit"),
@@ -799,10 +799,10 @@ FACTS = [
     F("table", "{ho_listed} curated since 2017"),
     F("table", "{ho_read} read as equations {ho_unusable} unusable"),
     F("table", "{ho_run_alone} run on their own {ho_not_own} not on their own"),
-    F("table", "the table {small} · {ho_small}"),
-    F("table", "sign rules {auto} · {ho_n}"),
-    F("table", "atlas {fp_filed} · {ho_filed}"),
-    F("table", "address {ap_n} · {hap_n}"),
+    F("table", "the table {small} {ho_small}"),
+    F("table", "sign rules {auto} {ho_n}"),
+    F("table", "atlas {fp_filed} {ho_filed}"),
+    F("table", "address {ap_n} {hap_n}"),
     F(
         "table",
         "{census} curated models. Downloaded BioModels release 31, the curated models of June 2017 ({release_mb} MB)",
@@ -814,18 +814,18 @@ FACTS = [
     F("table", "{run_alone} run on their own. Simulated each readable model from twelve starting states."),
     F("table", "{forced} driven by an outside schedule were set aside, and {spent} ran out of work budget."),
     F("table", "{auto} behaviour labelled. Labelled what each run did"),
-    F("table", "The other {unlabelled} never settled within 100,000 time units, or the solver failed."),
+    F("table", "Another {unlabelled} never settled within 100,000 time units, or the solver failed."),
     F("table", "{ho_listed} curated since 2017. Listed and fetched"),
     F("table", "{ho_read} read as equations. Read with release 31’s pipeline"),
     F("table", "{ho_run_alone} run on their own. Ran each from twelve starting states"),
-    F("table", "Test: the table, {small} · {ho_small}."),
-    F("table", "Test: sign rules, {auto} · {ho_n}."),
-    F("table", "Test: atlas, {fp_filed} · {ho_filed}."),
+    F("table", "Test: the table, {small} in release 31 and {ho_small} held out."),
+    F("table", "Test: sign rules, {auto} in release 31 and {ho_n} held out."),
+    F("table", "Test: atlas, {fp_filed} in release 31 and {ho_filed} held out."),
     F(
         "table",
-        "Of {fp_read} readable answers in release 31, {fp_flat} barely moved; held out, {ho_flat} of {ho_atlas_read}.",
+        "Of {fp_read} readable answers in release 31, {fp_flat} barely moved; held out, {ho_flat}/{ho_atlas_read}.",
     ),
-    F("table", "Test: address, {ap_n} · {hap_n}."),
+    F("table", "Test: address, {ap_n} in release 31 and {hap_n} held out."),
     F(
         "table",
         "{excluded} could not be used: {delays} use built-in delays, {onoff} use on-off rules, {unset} have values the solver cannot set and {no_arrows} gave no arrows at the states read.",
@@ -870,11 +870,11 @@ FACTS = [
     F("hidden", "Why would seventeen hide?"),
     F(
         "hidden",
-        "The three-loop row is the open question, since {loose_blank3} of its 16 stay blank even read loosely.",
+        "Row three is the open question, since {loose_blank3} of its 16 stay blank even read loosely.",
     ),
-    F("hidden", "The first new batch, {ho_listed} models curated since 2017, filled none of them"),
+    F("hidden", "Even the first new batch, {ho_listed} models curated since 2017, filled none of them"),
     # 04, auditing the loose reading (PR #1)
-    F("supplement", "Strictly, rows one to three hold {dial_strict} of {squares} elements."),
+    F("supplement", "Strictly, rows one to three hold {dial_strict}/{squares} elements."),
     F(
         "supplement",
         "Count every leak that reads as zero and the count reaches {dial_zero}, and still {dial_hundredth} with the dial at a hundredth; at a tenth, the cut used above, it is {dial_tenth}, and at one, {dial_one}.",
@@ -891,8 +891,8 @@ FACTS = [
     F("supplement", "all {readings_below} readings below one thin out smoothly toward zero"),
     F("supplement", "Off to one side sits a pile of {readings_zero} that read as zero"),
     # 05
-    F("atlas", "ticks {fp_ticks} {wire_ticks} {ticks_brake} of {fp_ticks} have a brake"),
-    F("atlas", "remembers {fp_remembers} {wire_remembers} {rem_selffeed} of {fp_remembers} have a self-feeding loop"),
+    F("atlas", "ticks {fp_ticks} {wire_ticks} {ticks_brake}/{fp_ticks} have a brake"),
+    F("atlas", "remembers {fp_remembers} {wire_remembers} {rem_selffeed}/{fp_remembers} have a self-feeding loop"),
     F("atlas", "returns exactly {fp_returns_exactly} {wire_returns_exactly}"),
     F("atlas", "returns partly {fp_returns_partly} {wire_returns_partly}"),
     F("atlas", "rings {fp_rings} {wire_rings}"),
@@ -916,7 +916,7 @@ FACTS = [
         "All {ho_filed} newer models found a row, but {ho_follows} of them, {ho_over_half}, landed in follows, the catch-all, where release 31 had {r31_follows}",
     ),
     # 05, other numbers a table could use (PR #1)
-    F("supplement", "chapter 03 found that what a circuit does survives redrawing in {fams_does} of {fams} families"),
+    F("supplement", "chapter 03 found that what a circuit does survives redrawing in {fams_does}/{fams} families"),
     F("supplement", "{fams_moved_word} family in {fams_word} did change what it does when redrawn"),
     F("supplement", "Deficiency could be computed today for the {rep_n} census models that have reactions."),
     # 07
@@ -927,7 +927,7 @@ FACTS = [
         "resultheldNo exception in {mem} switches and {clk} clocks; {ho_cands} held-out candidates fell to a hand check",
     ),
     F("question", "test{single} single rings; {ho_rings} held out."),
-    F("question", "resultheld{single} of {single}; {ho_rings} of {ho_rings}."),
+    F("question", "resultheld{single}/{single}; {ho_rings}/{ho_rings}."),
     F("question", "surpriseA {miss_year} fly clock ticks below its floor"),
     F("question", "test{ap_n} models; {hap_n} held out."),
     F(
@@ -937,7 +937,7 @@ FACTS = [
     F("question", "test{small} small models; {ho_small} held out."),
     F("question", "Over half the new models land in follows ({r31_follows} in release 31)"),
     F("question", "test{fp_filed} models; {ho_filed} held out."),
-    F("question", "resultfailed{ho_follows} of {ho_filed} follow: {ho_follows_pct}%."),
+    F("question", "resultfailed{ho_follows}/{ho_filed} follow: {ho_follows_pct}%."),
     F("question", "fail lineRows other than {electrons}."),
     F("question", "testThe count; {toy_draws} toy circuits; {mixed_models} models."),
     F("supplement", "lockThe {ho_listed} held-out models never reach the model."),
@@ -952,7 +952,10 @@ FACTS = [
         "{squares} squares and an element zero.A census of {usable} curated models from BioModels, one 2017 release",
     ),
     F("supplement", "In {auto} models every switch has a self-feeding loop and every clock a brake."),
-    F("supplement", "{rt_blank} of {squares} squares blank"),
+    F("supplement", "{rt_blank}/{squares} squares blank"),
+    # the essential-loops plan (Supplement F): the two numbers it starts from; its thresholds are hand notes below
+    F("supplement", "where the raw address agrees in {fams_sits}/{fams}"),
+    F("supplement", "Among the {fp_ticks} ticking models"),
     F("supplement", "Five drawings of one fly clock land at four addresses"),
     F(
         "supplement",
@@ -966,11 +969,11 @@ FACTS = [
     ),
     F("question", "{rt_blank} of the {rt_total} running-total squares are blank"),
     F("question", "{ho_listed} newer models filled none"),
-    F("question", "keep their square in {fams_sits} of {fams} families"),
+    F("question", "keep their square in {fams_sits}/{fams} families"),
     F("question", "No blank squares: {fp_filed} models fill six rows"),
     F("question", "which took half of {ho_filed} newer models"),
-    F("question", "Redrawn models keep what they do in {fams_does} of {fams} families"),
-    F("question", "Redrawn models keep what they do in {fams_does} of {fams} families."),
+    F("question", "Redrawn models keep what they do in {fams_does}/{fams} families"),
+    F("question", "Redrawn models keep what they do in {fams_does}/{fams} families."),
     # 08 and the ledger
     F("line", "ordering the loops would make rows of {ordered}, not {electrons}"),
     F(
@@ -998,17 +1001,17 @@ FACTS = [
     ),
     F(
         "supplement",
-        "The census agrees in all {single} rings single as drawn, {rings_hit} of {rings} counting rings the filters leave; no miss among {ho_rings} single rings in newer models",
+        "The census agrees in all {single} rings single as drawn, {rings_hit}/{rings} counting rings the filters leave; no miss among {ho_rings} single rings in newer models",
     ),
     F(
         "supplement",
-        "Redrawn models keep what they do in {fams_does} of {fams} families and their place in {fams_sits} of {fams}",
+        "Redrawn models keep what they do in {fams_does}/{fams} families and their place in {fams_sits}/{fams}",
     ),
     F(
         "supplement",
         "{ap_address}% against {ap_sign}% in {ap_n} models, {hap_address}% against {hap_sign}% in {hap_n} newer ones; {ho_listed} newer models",
     ),
-    F("supplement", "The atlas: {fp_read} of {fp_models} models read"),
+    F("supplement", "The atlas: {fp_read}/{fp_models} models read"),
     F("supplement", "up to {wire_max} wirings per answer"),
     F("supplement", "of {ho_filed} newer models filed, {ho_follows} land in the catch-all"),
     F(
@@ -1019,7 +1022,7 @@ FACTS = [
     F("supplement", "(all {toy_clocks} clocks)"),
     F(
         "supplement",
-        "a strong check for clocks ({cl_expected} expected by chance among the models with no brake, none seen) and a weak one for switches ({sw_expected} expected); run backwards, {sw_beh} of {sw_with} self-feeding models switch and {cl_beh} of {cl_with} with a brake tick",
+        "a strong check for clocks ({cl_expected} expected by chance among the models with no brake, none seen) and a weak one for switches ({sw_expected} expected); run backwards, {sw_beh}/{sw_with} self-feeding models switch and {cl_beh}/{cl_with} with a brake tick",
     ),
     F(
         "supplement",
@@ -1035,7 +1038,7 @@ FACTS = [
     ),
     F(
         "supplement",
-        "{le3} of {usable} have three loops or fewer; for {unfinished} the search stopped at its step limit.",
+        "{le3}/{usable} have three loops or fewer; for {unfinished} the search stopped at its step limit.",
     ),
     F("supplement", "The only models inside them are the {dep_clocks} dashed clocks"),
     F(
@@ -1047,7 +1050,7 @@ FACTS = [
         "supplement",
         "{usable} models could be read this way. Of the other {excluded}, {delays} use built-in delays, {onoff} use on-off rules, {unset} have values the solver cannot set and {no_arrows} gave no arrows at the states read",
     ),
-    F("supplement", "It gives {random2} of 9 elements at two loops and {random3} of 16 at three"),
+    F("supplement", "It gives {random2}/9 elements at two loops and {random3}/16 at three"),
     F("supplement", "{loops_counted}"),
     F("supplement", "It differs from c in {nu_differs} of the {small} small models."),
     F("supplement", "it differs from k in {kpf_differs} of the {small}."),
@@ -1078,7 +1081,7 @@ FACTS = [
         "supplement",
         "Gardner’s toggle has gain {toggle_tip} at its tipping point and {toggle_rest} at its two stable states.",
     ),
-    F("supplement", "{exact} of {settling} models show one."),
+    F("supplement", "{exact}/{settling} models show one."),
     F("supplement", "{robust} models are robust, {band} of them in rows one to three: {band_list}."),
 ]
 
@@ -1106,11 +1109,11 @@ TRACED_ELSEWHERE = [
         "build_post.fig_table from tables_traj.json rows.essay.cells; folded by fold_census.py (gen:ptable)",
     ),
     (
-        "table, Figure 8 explorer",
+        "table, Figure 7 explorer",
         "per-model rows of the search box",
         "build_post.build from r31_structure_traj.jsonl and r31_dynamics.jsonl (gen:data)",
     ),
-    ("hidden, Figure 10", "the blank band grids", "circuit_figures.fig_band from tables_traj.json (gen:band)"),
+    ("hidden, Figure 9", "the blank band grids", "circuit_figures.fig_band from tables_traj.json (gen:band)"),
     (
         "circuits, Figures 2 to 4",
         "readouts lactose in 2.32, LacY 4.65, PER:CRY 0.05, methyl 2.0; sliders 0.50, 9.0 h, 5.0",
@@ -1164,10 +1167,10 @@ TRACED_ELSEWHERE = [
     ),
     (
         "supplement B",
-        "42 of 106 rate-rule models, 179 to 175",
+        "42/106 rate-rule models, 179 to 175",
         "history: the audit of the first full run (git log), not recomputed",
     ),
-    ("line, ledger", "73 scored squares of 75", "counts of Figure 15's own squares"),
+    ("line, ledger", "73 scored squares of 75", "counts of Figure 14's own squares"),
 ]
 
 
@@ -1195,7 +1198,7 @@ NUMBER = re.compile(r"\d")
 
 # Sentences with a number that is neither computed nor cited in the same paragraph, each read by hand.
 HAND = {
-    "left to right1proved": "label: Figure 14's evidence key, its four steps numbered 1 to 4",
+    "left to right1proved": "label: Figure 13's evidence key, its four steps numbered 1 to 4",
     "from its first idea to 2026": "date: the timeline of Figure S5 ends in the year of writing",
     "Mendeleev left blank squares": "history: Mendeleev 1869 and gallium 1875, cited [38] in the next sentence",
     "density about 6": "history: eka-aluminium density 6.0, gallium 4.7 then 5.9 (HANDOFF, LibreTexts and Wikipedia, secondary)",
@@ -1214,7 +1217,7 @@ HAND = {
     "raised by 20%": "setting: truth_tests.json settings.step 0.2",
     "follow it 12%": "slider readout (Figure S7)",
     "release 31 from 2017": "BioModels release 31, 26 June 2017 (get_biomodels.sh)",
-    "73 scored squares of 75": "count of Figure 15's squares",
+    "73 scored squares of 75": "count of Figure 14's squares",
     "every source opened on 10 November 2026": "date of the reading (HANDOFF section 4, the question chapter)",
     "Every row was opened on 10 November 2026": "date of the reading",
     "secant condition": "theorem statement, cited in Supplement E [70, 71]",
@@ -1228,8 +1231,10 @@ HAND = {
     "st > 0": "code line (loops.py)",
     "spread_starts": "code line (dynamics.py)",
     "a0_tr + a_tr": "rate law of BIOMD0000000012",
-    "42 of 106 rate-rule models": "history: the first full run's audit, not recomputed (git log of analysis/loops.py)",
-    "(6 of 16)": "tables_traj.json rows[3].distinct_autonomous_behaviours = 6",
+    "On at 0.86 going up": "circuit_figures.py --check asserts the lac switch flips on at L = 0.86 and off at 0.33 (check_switch)",
+    "must agree in at least 2/3": "fail line: a threshold fixed in the essential-loops plan before any run, not a result",
+    "42/106 rate-rule models": "history: the first full run's audit, not recomputed (git log of analysis/loops.py)",
+    "(6/16)": "tables_traj.json rows[3].distinct_autonomous_behaviours = 6",
     "One loop shows more than its 4": "tables_traj.json rows[1]: 6 kinds, 4 coarse",
     "Goldbeter’s 1995 model has one loop": "build_post.build fly_txt from r31_structure_traj.jsonl (asserted)",
     "could be read this way": "fact: usable 613 (see Supplement D row)",
@@ -1256,7 +1261,7 @@ HAND = {
     "row ν has (ν + 1)2": "definition",
     "layers of 2l + 1": "definition",
     "Table 1: 506 models": "cited [24], asserted in build_post.build (r24 models == 506)",
-    "160 of 506": "cited [24]",
+    "160/506": "cited [24]",
     "193 MB, SHA-256": "get_biomodels.sh SHA; size from data/r31.tar.bz2 (see the 193 MB fact)",
     "Python 3.9.6": "requirements.txt and the run's interpreter",
     "per model; elimination capped": "settings: loops.py and elim.py budgets",
@@ -1279,7 +1284,7 @@ HAND = {
     "CC0": "licence of the open-data source (its own terms page, linked in the table)",
     "CC BY 4.0": "licence of the open-data source",
     "GSE92742": "GEO accession of the open-data source",
-    "crystals230 space groups": "row label of Figure 15; cited [93] in its cards",
+    "crystals230 space groups": "row label of Figure 14; cited [93] in its cards",
 }
 
 

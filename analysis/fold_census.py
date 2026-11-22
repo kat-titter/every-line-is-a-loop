@@ -120,10 +120,10 @@ ALIASES = {}
 # essay numbering since 2026-11-19: main read 1 to 16 in reading order, folded figures S1 to S17
 FIG = {
     'Figure 5. The periodic table of loops.': 'Figure 6. The periodic table of loops.',
-    'Figure 6. The data.': 'Figure 8. The data.',
+    'Figure 6. The data.': 'Figure 7. The data.',
     'Figure 7. The research loop.': 'Figure S8. The research loop.',
     'Figure S1. Element tiles.': 'Figure S10. Element tiles.',
-    'Figure S4. From circuit to model.': 'Figure 7. One published model.',  # moved by hand to #fig-model; main() drops the supplement copy
+    'Figure S4. From circuit to model.': 'Figure 6. One published model.',  # moved by hand to #fig-model; main() drops the supplement copy
     'Figure S5. Out and back': 'Figure S11. Out and back',
     'Figure S6. One model through': 'Figure S12. One model through',
     'Figure S7. Answer key.': 'Figure S13. Answer key.',
@@ -437,15 +437,15 @@ def scorecard(post: str) -> str:
     a_, b_ = len(N['s_above']), len(N['s_below'])
     all_ok = len(N['above']) + len(N['below'])
     ev2 = svg(
-        row(12, 'ticks', c, a_, f'{a_} of {c} above') + row(36, 'settles', k, b_, f'{b_} of {k} below'),
+        row(12, 'ticks', c, a_, f'{a_}/{c} above') + row(36, 'settles', k, b_, f'{b_}/{k} below'),
         46,
         f'Of {c} clocks that are single rings before and after the filters, {a_} have gain above the floor; of {k} such rings that settle, {b_} are below it, '
-        f'{len(N["two_step"])} of them two-step rings that cannot tick at any gain. Counting every ring the filters leave, {all_ok} of {len(N["rings"])}.',
+        f'{len(N["two_step"])} of them two-step rings that cannot tick at any gain. Counting every ring the filters leave, {all_ok}/{len(N["rings"])}.',
     )
     f = len(N['fams'])
     d, p_ = sum(N['does'].values()), sum(N['sits'].values())
     ev3 = svg(
-        row(12, 'does', f, d, f'{d} of {f} agree') + row(36, 'count', f, p_, f'{p_} of {f} agree'),
+        row(12, 'does', f, d, f'{d}/{f} agree') + row(36, 'count', f, p_, f'{p_}/{f} agree'),
         46,
         f'Across {f} families of models drawing one system, what the models do agrees in {d} and their place on the table in {p_}',
     )
@@ -532,11 +532,11 @@ def truth_supp(cite: object) -> str:
         f'<p>A braking ring of <i>n</i> steps can leave its steady state only if <i>G</i> &gt; sec(&#960;/<i>n</i>)<sup><i>n</i></sup> {cite(70)}; a self-feeding ring&#8217;s steady state is a tipping point exactly when <i>G</i> &gt; 1 {cite(71)}. The test reads <i>G</i> at each model&#8217;s own steady state, found by running it and, for a switch&#8217;s tipping point, by bisection between its two stable states. Loops through one molecule are left out, since their self-effect and their decay share one Jacobian entry. The one-ring models with a measurable gain, the gain each needs, and what each does at published rates:</p>',
         f'<table class="key" style="overflow-wrap: anywhere"><tr><th>Model</th><th>Gain</th><th>Needs</th><th>Does</th></tr>{tr}</table>',
         f'<p>{multi}. On the {len(N["single"])} that are single rings before and after, the floor calls all {len(N["s_above"]) + len(N["s_below"])}; {WORDS[len(N["two_step"])]} of them are two-step rings, whose floor is infinite, so they cannot tick at any gain. Gardner&#8217;s toggle has gain {N["tip"]:.2f} at its tipping point and {N["rest"][0]:.3f} and {N["rest"][1]:.2f} at its two stable states. McClean&#8217;s 2007 crosstalk model also holds two states, with five loops before filtering, outside the one-ring result.</p>',
-        '<h3>Redrawn models</h3>',
+        '<h3>Redrawn in more detail, a system keeps what it does more often than its element</h3>',
         '<p>Five families draw one system at different detail. &#8220;Does&#8221; compares what the models do at published rates; &#8220;place&#8221; compares their element (loops, brakes, running totals). Smallbone&#8217;s four colon-crypt versions are left out, because each adds mechanisms rather than detail.</p>',
         f'<table class="key"><tr><th>Family</th><th>Models</th><th>Does</th><th>Place</th></tr>{fam}</table>',
-        '<h3>Step and return</h3>',
-        f'<p>Each global parameter of every settling model (local parameters promoted to global) was raised by 20%. An exact return is a level that moves by more than 5% and comes back to within 0.5% while other levels stay moved by more than 5%. {N["exact"]} of {N["settling"]} models show one. Each hit was rerun under 5 random redraws of all other parameters, each scaled by 10<sup>U(&#8722;0.15, 0.15)</sup>; it counts as robust when it returns in every redraw that settles, at least 3. {len(N["robust"])} models are robust, {len(N["band"])} of them in rows one to three: {band}. The census&#8217;s loop reading marks no running total in any of them. A wiring with no loop around the push can also return exactly {cite(50)}, so each needs its wiring traced by hand.</p>',
+        '<h3>A 20% step finds the circuits that return exactly</h3>',
+        f'<p>Each global parameter of every settling model (local parameters promoted to global) was raised by 20%. An exact return is a level that moves by more than 5% and comes back to within 0.5% while other levels stay moved by more than 5%. {N["exact"]}/{N["settling"]} models show one. Each hit was rerun under 5 random redraws of all other parameters, each scaled by 10<sup>U(&#8722;0.15, 0.15)</sup>; it counts as robust when it returns in every redraw that settles, at least 3. {len(N["robust"])} models are robust, {len(N["band"])} of them in rows one to three: {band}. The census&#8217;s loop reading marks no running total in any of them. A wiring with no loop around the push can also return exactly {cite(50)}, so each needs its wiring traced by hand.</p>',
         '</div>',
         '</details>',
     ]
@@ -600,9 +600,9 @@ def nesting_figure() -> tuple[str, dict]:
         f'Of {draws} random draws, {tick_a} tick with the self-feeding loop fast; swap the speeds and {tick_b} do.',
     )
     ev3 = svg(
-        dots(12, 'self-feeding', ta + na, ta, f'{ta} of {ta + na}', 130, 9.5, 3.6)
-        + dots(32, 'brake', tb + nb, tb, f'{tb} of {tb + nb}', 130, 9.5, 3.6)
-        + mono(0, 56, f'timed by their arrows: {xa} of {xa + xna} vs {xb} of {xb + xnb}'),
+        dots(12, 'self-feeding', ta + na, ta, f'{ta}/{ta + na}', 130, 9.5, 3.6)
+        + dots(32, 'brake', tb + nb, tb, f'{tb}/{tb + nb}', 130, 9.5, 3.6)
+        + mono(0, 56, f'timed by their arrows: {xa}/{xa + xna} vs {xb}/{xb + xnb}'),
         62,
         f'Real two-loop circuits, timed by the molecules each loop keeps to itself: {ta} of {ta + na} tick where the self-feeding loop is faster, {tb} of {tb + nb} where the brake is. '
         f'Timed by their arrows: {xa} of {xa + xna} against {xb} of {xb + xnb}, no lean.',
@@ -673,7 +673,7 @@ def drop_divs(html, opening):
 
 def count_words(html, folds='closed'):
     """The words a reader meets. folds='closed' skips <details>; 'open' counts inside them.
-    Text hidden until hover (Figure 8's pipeline cards) never counts: it is as shut as a fold.
+    Text hidden until hover (Figure 7's pipeline cards) never counts: it is as shut as a fold.
     Nor do the hero table's axis labels and key (<p class="pt-...">): they are figure labels, not prose."""
     html = drop_divs(html, r'<div class="pf-card"')
     html = re.sub(r'<p class="pt-[^"]*"[^>]*>.*?</p>', '', html, flags=re.S)
@@ -792,7 +792,7 @@ def main() -> dict:
         '.text table.key td:nth-child(2) { white-space: normal; }\n'
     )
 
-    # 2026-11-19: Figure 8 is a hand-written pipeline diagram (#pf) in front of gen:data, with a card per step and its
+    # 2026-11-19: Figure 7 is a hand-written pipeline diagram (#pf) in front of gen:data, with a card per step and its
     # script; the funnel and its script leave the block, and Figure S17 (the same steps as a list) leaves the supplement.
     def strip_funnel(h):
         f = div_block(h, '<div class="interactive" id="funnel">')
@@ -823,15 +823,15 @@ def main() -> dict:
         'data': strip_funnel(clean(inner(datafig))),
         # 'cards' (the scorecard) retired 2026-11-19: chapter 07's method table (#fig-method) replaces it
         'truth': truth_supp(lambda n: f'<span class="cite">[<a href="#r{n}">{n}</a>]</span>'),
-        # 'next' (Figure S8's ring) retired 2026-11-19: Figure 14 draws the method loop, and #fig-next is a hand-written
+        # 'next' (Figure S8's ring) retired 2026-11-19: Figure 13 draws the method loop, and #fig-next is a hand-written
         # table of the next lap, keyed to its stages. The old replacements are kept below, commented, for the record.
         # 'next': clean(inner(nextfig)).replace('; test nesting order as a fourth count.', '. Look for a yes-or-no property of each loop that would double every row; speed order, tested below, does not.')
         # .replace('for example antithetic controllers in element 3.', 'for example running totals made of two molecules that destroy each other, in element 3.')
         # .replace('Benchmark running-total detectors on models with known answers', 'Trace by hand the four exact returns the loop reading missed, test the ways of reading running totals on models with known answers'),
         'nesting': nesting_figure()[0],
         'morph': LM.fig_morph(),
-        # Figure 7 (one published model) lives in chapter 03 as #fig-model; the build's supplement copy goes
-        'supp': strip_figure(strip_s17(clean(supp)), 'Figure 7. One published model.'),
+        # Figure 6 (one published model) lives in chapter 03 as #fig-model; the build's supplement copy goes
+        'supp': strip_figure(strip_s17(clean(supp)), 'Figure 6. One published model.'),
         'refs-extra': '\n'.join(f'<li>{li}</li>' for k, li in extras),
     }
     for name, body in blocks.items():
