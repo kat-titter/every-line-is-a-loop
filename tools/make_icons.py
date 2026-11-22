@@ -1,6 +1,6 @@
 """Render the essay's two share images from SVG: the touch icon and the share card.
 
-The tab icon itself is an inline SVG data URI in each page's head (the title mark, a line ending in a loop). Phones
+The tab icon itself is assets/icon.svg, linked from every page (the title mark, a line ending in a loop). Phones
 and link previews need PNGs, so these two files are the repo's one exception to its no-binaries habit.
 
 Writes: assets/icon-180.png (180 x 180, apple-touch-icon), assets/card.png (1200 x 630, og:image).
@@ -17,13 +17,9 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 LIME, INK, MUTED = '#a5d63a', '#1c2226', '#68727a'
 SANS = '"Helvetica Neue", Helvetica, Arial, sans-serif'
-# the tab icon's own drawing (the same path as the data URI in the pages' heads)
-ICON = (
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="{s}" height="{s}">'
-    '<rect width="32" height="32" rx="7" fill="#fff"/>'
-    f'<path d="M4 24.5H20.5A7.75 7.75 0 0 0 20.5 9A7.75 7.75 0 0 0 20.5 24.5" fill="none" stroke="{LIME}" '
-    'stroke-width="4.5" stroke-linecap="round"/></svg>'
-)
+# the tab icon's own drawing: assets/icon.svg, its one home, which every page links (the two .html heads and
+# _includes/head-custom.html for the Markdown pages); sized here for the --sizes check
+ICON = (ROOT / 'assets' / 'icon.svg').read_text().replace('<svg ', '<svg width="{s}" height="{s}" ', 1)
 # a touch icon has no rounded corner of its own (the phone crops it) and wants its mark inside a safe margin
 TOUCH = (
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="180" height="180">'
