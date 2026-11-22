@@ -74,5 +74,33 @@ class SafetyNet(unittest.TestCase):
         self.assertIn('SAFETY NET FIRED: a slow model', err.getvalue())
 
 
+class RunList(unittest.TestCase):
+    """budget.run_list without the data folder: a stub script stands in for dynamics.py, integrators.py or elim.py."""
+
+    STUB = (
+        'import json, pathlib, sys\n'
+        'f = sys.argv[2]\n'
+        'if "bad" in f:\n'
+        '    sys.exit("boom")\n'
+        'print("a log line first")\n'
+        'print(json.dumps({"model": pathlib.Path(f).stem, "argv": sys.argv[1:]}))\n'
+    )
+
+    def test_rows_in_list_order_with_flags_and_error_row(self) -> None:
+        import json
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as d:
+            d = pathlib.Path(d)
+            (d / 'stub.py').write_text(self.STUB)
+            (d / 'list.txt').write_text('a.xml\n\nbad.xml\n c.xml \n')
+            budget.run_list(d / 'stub.py', d / 'list.txt', d / 'out.jsonl', 2, ('--signs', 'random'))
+            rows = [json.loads(line) for line in (d / 'out.jsonl').read_text().splitlines()]
+        self.assertEqual(rows[0], {'model': 'a', 'argv': ['--one', 'a.xml', '--signs', 'random']})
+        self.assertEqual(rows[1], {'model': 'bad', 'status': 'error', 'error': 'boom\n'})
+        self.assertEqual(rows[2], {'model': 'c', 'argv': ['--one', 'c.xml', '--signs', 'random']})
+        self.assertEqual(len(rows), 3, 'blank lines in the list are skipped')
+
+
 if __name__ == '__main__':
     unittest.main()
